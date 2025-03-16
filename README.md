@@ -10,7 +10,7 @@ Repository to collect and store historical trading data backtest artifacts
 
 #### Market Charts
 - Relative Rotation Graph (RRG) - https://stockcharts.com/freecharts/rrg/?
-- Sector Spline -
+- Sector Spline (paid) - https://app.koyfin.com/setf
 - Seasonality - https://stockcharts.com/freecharts/seasonality.php?symbol=SPY&compare=
 - 
 
