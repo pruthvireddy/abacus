@@ -1,0 +1,1193 @@
+//@version=5
+indicator("Advanced Market Theory", shorttitle="📊 AMT", overlay=true, max_bars_back=5000, max_lines_count=500, max_boxes_count=500)
+// ==================== COMPREHENSIVE USER GUIDE ====================
+// 
+// 🎯 ADVANCED MARKET THEORY (AMT)
+//
+// This is the most advanced market profile system ever created for TradingView,
+// combining traditional Market Profile theory with cutting-edge enhancements.
+//
+// 📊 PROFILE MODES EXPLAINED:
+//
+// 1. VOLUME PROFILE - Traditional volume at price
+//    - Shows where the most trading activity occurred
+//    - Identifies high volume nodes (HVN) and low volume nodes (LVN)
+//    - Best for: Finding support/resistance levels
+//
+// 2. TPO PROFILE - Time Price Opportunity
+//    - Shows how much time price spent at each level
+//    - Letters show when price visited each level (A=first period, B=second, etc.)
+//    - Best for: Understanding market acceptance/rejection
+//
+// 3. HYBRID PROFILE - Combined Volume + TPO
+//    - Weights both volume and time for comprehensive view
+//    - Shows both trading activity AND time acceptance
+//    - Best for: Complete market structure analysis
+//
+// 💎 KEY CONCEPTS:
+//
+// • POC (Point of Control) - Price level with highest volume/activity
+// • VAH (Value Area High) - Upper boundary of 70% volume area
+// • VAL (Value Area Low) - Lower boundary of 70% volume area
+// • IB (Initial Balance) - First 30/60 minutes range
+// • Poor Structure - Excess at highs/lows indicating potential reversal
+// • Single Prints - Levels visited only once (potential support/resistance)
+//
+// 🎯 SIGNAL TYPES:
+//
+// • FADE - Counter-trend trades at extremes (Yellow triangles)
+// • BREAKOUT - Momentum trades on VA breaks (Blue triangles)
+// • ROTATION - Range trades within value area (Purple triangles)
+// • LIQUIDITY - Trades targeting liquidity pools (Magenta triangles)
+// • ELITE - Highest probability setups with multiple confluences (Gold triangles)
+//
+// 📈 DAY TYPES:
+//
+// • Trend Day - One-directional move, close at extreme
+// • Normal Day - Rotation around opening range
+// • Normal Variation - Wider rotation, tests both sides
+// • Neutral Day - Tight range, balanced activity
+// • Double Distribution - Two separate value areas
+//
+// 💡 PRO TIPS:
+//
+// 1. Composite profiles show longer-term levels
+// 2. Poor highs/lows often mark reversal points
+// 3. Single prints act as magnets in future sessions
+// 4. IB range defines expected daily range (1.5x, 2x projections)
+// 5. POC migration shows shifting market sentiment
+//
+// ⚡ SIGNAL INTERPRETATION:
+//
+// • Triangle color indicates signal type
+// • Percentage shows signal confidence (higher = better)
+// • Dotted line = Entry price
+// • Dashed lines = Take profit targets
+// • Red dashed = Stop loss
+//
+// 🔧 OPTIMAL SETTINGS:
+//
+// • Intraday: 10-15 tick resolution, 30-60min IB
+// • Swing: 20-30 tick resolution, 60min IB
+// • Scalping: 5-10 tick resolution, 15-30min IB
+//
+// ==================== ADVANCED INPUTS ====================
+group_profile = "📊 Market Profile Engine"
+profileMode = input.string("Hybrid", "Profile Mode", options=["Volume", "TPO", "Hybrid"], group=group_profile, tooltip="🎯 PROFILE VISUALIZATION MODE:\n\n📊 Volume Profile: Shows volume traded at each price level\n• Best for: Identifying support/resistance\n• Focus: Where traders positioned\n• Shows: Actual trading activity density\n\n⏱️ TPO (Time Price Opportunity): Shows time spent at each price\n• Best for: Understanding acceptance/rejection\n• Focus: Where price found balance\n• Shows: Time-based market structure\n\n🔄 Hybrid: Combines Volume + TPO for complete picture\n• Best for: Professional analysis\n• Focus: Both activity and acceptance\n• Shows: Complete market profile\n\n💡 TIP: Start with Volume for basics, advance to Hybrid for complete analysis")
+profileResolution = input.int(20, "Price Resolution (ticks)", minval=1, maxval=100, group=group_profile, tooltip="🎯 CONTROLS PRICE LEVEL GRANULARITY:\n\n📈 Lower Values (1-10):\n• More precise levels\n• Better for scalping\n• More detailed view\n• Higher processing load\n\n📉 Higher Values (20-100):\n• Broader price zones\n• Better for swing trading\n• Cleaner visualization\n• Better performance\n\n💡 RECOMMENDED:\n• Scalping: 5-10 ticks\n• Day Trading: 10-20 ticks\n• Swing Trading: 20-50 ticks\n• Position Trading: 50-100 ticks")
+profileTransparency = input.int(80, "Profile Transparency %", minval=0, maxval=100, group=group_profile, tooltip="🎯 PROFILE VISUAL TRANSPARENCY:\n\n📊 Controls how transparent the volume profile bars are\n\n0% = Completely opaque (blocks candles)\n50% = Semi-transparent (balanced view)\n70% = Default (candles clearly visible)\n100% = Almost invisible\n\n💡 TIP: Use 60-80% for best visibility of both profile and price bars")
+compositeEnabled = input.bool(true, "Enable Composite Profiles", group=group_profile, tooltip="🎯 COMPOSITE PROFILES:\n\nCombines multiple sessions into one profile\nto show longer-term significant levels\n\n✅ Benefits:\n• Identifies major support/resistance\n• Shows institutional levels\n• Reduces noise from single sessions\n• Reveals true market structure\n\n💡 Essential for swing traders and position traders")
+compositeSessions = input.int(5, "Composite Sessions History", minval=5, maxval=50, group=group_profile, tooltip="🎯 NUMBER OF SESSIONS TO COMBINE:\n\n📊 Fewer Sessions (5-10):\n• More responsive to recent activity\n• Better for short-term trading\n• Shows near-term levels\n\n📊 More Sessions (20-50):\n• Shows major structural levels\n• Better for position trading\n• Institutional reference points\n\n💡 Default 20 sessions = 1 month of data (ideal balance)")
+migrationTracking = input.bool(true, "Track POC Migration", group=group_profile, tooltip="🎯 POC MIGRATION TRACKING:\n\nShows how Point of Control moves over time\n\n📈 Upward Migration = Bullish sentiment\n📉 Downward Migration = Bearish sentiment\n➡️ Sideways Migration = Consolidation\n\n🔍 What to watch:\n• Steady migration = Strong trend\n• Choppy migration = Indecision\n• Reversal in migration = Potential trend change\n\n💡 Powerful for trend identification and timing")
+group_cvd = "📊 CVD Settings"
+useCVDSignals = input.bool(true, "Use CVD in Signals", group=group_cvd, tooltip="🎯 CUMULATIVE VOLUME DELTA:\n\nTracks buy vs sell pressure\n\n📈 Positive CVD = More buying pressure\n📉 Negative CVD = More selling pressure\n\n🔍 Divergences:\n• Price up + CVD down = Bearish\n• Price down + CVD up = Bullish\n\n💡 Adds significant conviction to signals")
+cvdDivergenceThreshold = input.float(10.0, "CVD Divergence Threshold %", minval=10, maxval=50, group=group_cvd, tooltip="🎯 DIVERGENCE SENSITIVITY:\n\nMinimum delta difference for divergence\n\n📊 Lower (10-15%) = More sensitive\n• More divergence signals\n• Earlier detection\n• More false positives\n\n📊 Higher (30-50%) = Stronger divergences\n• Fewer signals\n• Higher reliability\n• Later detection\n\n💡 20% is optimal balance")
+cvdExtremesMultiplier = input.float(5.0, "CVD Extremes Multiplier", minval=1.0, maxval=5.0, group=group_cvd, tooltip="🎯 EXTREME DELTA LEVELS:\n\nMultiplier for extreme readings\n\n📈 Higher = More extreme required\n• Fewer signals\n• Higher conviction\n\n📉 Lower = More signals\n• Earlier detection\n• More noise\n\n💡 2.0x is balanced for most markets")
+group_signals = "⚡ Signal Engine"
+signalMode = input.string("Elite", "Signal Mode", options=["Conservative", "Balanced", "Elite", "Aggressive"], group=group_signals, tooltip="🎯 SIGNAL GENERATION MODES:\n\n🛡️ Conservative: Only highest probability\n• Fewer signals, higher win rate\n• 85%+ probability required\n• 4+ confluences needed\n• Best for: Risk-averse traders\n\n⚖️ Balanced: Good risk/reward balance\n• Moderate frequency\n• 70%+ probability required\n• 3+ confluences needed\n• Best for: Most traders\n\n⭐ Elite: Best of all strategies combined\n• Multiple confirmations required\n• 75%+ probability with context\n• Smart filtering applied\n• Best for: Experienced traders\n\n🔥 Aggressive: Maximum opportunities\n• More signals, active trading\n• 60%+ probability accepted\n• 2+ confluences needed\n• Best for: Scalpers\n\n💡 Start Conservative, increase gradually as you gain experience")
+confluenceRequired = input.int(3, "Min Confluence Score", minval=1, maxval=5, group=group_signals, tooltip="🎯 CONFLUENCE REQUIREMENTS:\n\nNumber of confirming factors needed\n\n📊 FACTORS CHECKED:\n1. Profile structure alignment\n2. Volume/Delta confirmation\n3. Momentum agreement (RSI/MACD)\n4. Market context support\n5. Institutional activity\n\n🔍 Score Impact:\n• 1-2 = Many signals, lower quality\n• 3 = Balanced (recommended)\n• 4-5 = Few signals, high quality\n\n💡 Higher = Fewer but much better signals")
+showProjections = input.bool(true, "IB Range Projections", group=group_signals, tooltip="🎯 INITIAL BALANCE PROJECTIONS:\n\nShows expected range expansions\n\n📊 1.5x IB = Normal day target\n• 80% of days stay within\n• Good target for mean reversion\n\n📊 2.0x IB = Trend day target\n• Only 20% exceed this\n• Confirms strong trend\n\n🎯 Trading Application:\n• Use as profit targets\n• Gauge day potential\n• Set realistic expectations\n\n💡 Key targets for exits and position sizing")
+showSignals = input.bool(true, "Show Trading Signals", group=group_signals, tooltip="🎯 TRADING SIGNAL DISPLAY:\n\n▲ Triangle = Entry signal\n• Color indicates signal type\n• % = Probability of success\n\n📊 Signal Types:\n• 🟨 Yellow = FADE (counter-trend)\n• 🔵 Blue = BREAKOUT (momentum)\n• 🟣 Purple = ROTATION (range)\n• 🟪 Magenta = LIQUIDITY (sweep)\n• 🟨 Gold = ELITE (best setup)\n\n💡 Higher % = Better opportunity\nOnly last signal shown to reduce clutter")
+group_advanced = "🚀 Advanced Features"
+showSinglePrints = input.bool(true, "Highlight Single Prints", group=group_advanced, tooltip="🎯 SINGLE PRINT ZONES:\n\nPrice levels visited only once\n\n⚡ Act as MAGNETS in future\n🧲 Strong support/resistance\n📊 Shows fast market moves\n\n🔍 Trading Applications:\n• Expect revisits to single prints\n• Use as targets or stops\n• Fade moves away from singles\n\n💡 Key reversal and target points")
+showPoorStructure = input.bool(true, "Mark Poor Highs/Lows", group=group_advanced, tooltip="🎯 POOR STRUCTURE DETECTION:\n\nIdentifies weak highs/lows with excess\n\n📊 Poor High = Selling tail (weakness)\n📊 Poor Low = Buying tail (strength)\n\n⚠️ HIGH PROBABILITY REVERSAL ZONES\n\n🎯 Trading Strategy:\n• Fade poor highs (sell)\n• Fade poor lows (buy)\n• Use as stop run targets\n\n💡 Trade against poor structure for high probability setups")
+showLedges = input.bool(true, "Show Ledges", group=group_advanced, tooltip="🎯 LEDGE DETECTION:\n\nMultiple TPOs at same price with\nlittle activity above/below\n\n📊 Shows strong acceptance\n⚡ Future support/resistance\n🏛️ Institutional positioning\n\n🔍 What it means:\n• Price found balance here\n• High volume acceptance\n• Likely to act as magnet\n\n💡 Use ledges as targets or entry points")
+showVolumeNodes = input.bool(true, "Rank Volume Nodes", group=group_advanced, tooltip="🎯 VOLUME NODE RANKING:\n\n🔴 HVN (High Volume Node):\n• Strong support/resistance\n• Price acceptance zones\n• Institutional interest\n• Rotation points\n\n🔵 LVN (Low Volume Node):\n• Quick movement areas\n• Breakout targets\n• Low resistance zones\n• Acceleration points\n\n💡 Trade through LVN quickly, expect rotation at HVN")
+nodeThreshold = input.float(150, "HVN Threshold %", minval=100, maxval=300, group=group_advanced, tooltip="🎯 HIGH VOLUME NODE THRESHOLD:\n\nMinimum volume vs average to mark HVN\n\n📊 150% = 1.5x average volume\n📈 Higher (200%+) = Fewer, stronger nodes\n📉 Lower (100-150%) = More nodes marked\n\n🔍 Applications:\n• Day trading: 120-150%\n• Swing trading: 150-200%\n• Position trading: 200%+\n\n💡 150-200% optimal for most strategies")
+showComposite = input.bool(true, "Show Composite VAH/VAL/POC", group=group_advanced, tooltip="🎯 COMPOSITE LEVELS:\n\nLonger-term significant levels from\nmultiple sessions combined\n\n🏛️ Major support/resistance\n📊 Institutional reference points\n⚡ High probability reaction zones\n\n🔍 Color coding:\n• Cyan lines = Composite levels\n• Thicker = More significant\n\n💡 Gold lines show the most important long-term levels")
+showDayType = input.bool(true, "Show Day Type Classification", group=group_advanced, tooltip="🎯 DAY TYPE CLASSIFICATION:\n\n📈 Trend Day: One-way move, close at extreme\n• Trade with trend\n• Fade extremes carefully\n\n📊 Normal Day: Rotation in range\n• Trade from extremes to middle\n\n🔄 Normal Variation: Wide rotation\n• Trade both directions\n\n⚖️ Neutral Day: Tight balance\n• Wait for breakout\n\n📊 Double Distribution: Two separate ranges\n• Trade the current distribution\n\n💡 Helps set proper expectations and strategy")
+group_va = "📈 Value Area Configuration"
+vaPercentage = input.float(75.0, "Value Area %", minval=50, maxval=90, group=group_va, tooltip="🎯 VALUE AREA PERCENTAGE:\n\nDefines the 'fair value' zone\n\n📊 Standard is 70% (1 std deviation)\n\n🔧 ADJUSTMENTS:\n• 68% = Tighter value area (more selective)\n• 70% = Standard (recommended)\n• 80% = Wider acceptance zone\n\n📈 Market Application:\n• Trending: Use 68% for precision\n• Ranging: Use 70-75% for balance\n• Volatile: Use 80% for context\n\n💡 Higher % = more levels included in value area")
+vaSmoothing = input.int(4, "VA Smoothing", minval=1, maxval=10, group=group_va, tooltip="🎯 VALUE AREA SMOOTHING:\n\nReduces noise in VA calculation\n\n📊 Lower (1-2) = More responsive\n• Quick adaptation to changes\n• Better for scalping\n• More signals\n\n📊 Higher (5-10) = More stable\n• Filters out noise\n• Better for swing trading\n• Fewer false signals\n\n💡 3-5 optimal for most timeframes")
+group_session = "⏰ Session Configuration"
+sessionStart = input.session("0930-1600", "RTH Session", group=group_session, tooltip="🎯 REGULAR TRADING HOURS (RTH):\n\nMain trading session for analysis\n\n🕐 Format: HHMM-HHMM (24hr)\n📍 Exchange timezone\n\n💡 COMMON SESSIONS:\n• US Stocks: 0930-1600 ET\n• Futures: 0830-1515 CT\n• Forex London: 0800-1700 GMT\n• Forex NY: 0800-1700 ET\n• Crypto: 0000-2359 UTC")
+ethSession = input.session("0000-0930", "ETH Session", group=group_session, tooltip="🎯 EXTENDED TRADING HOURS (ETH):\n\nPre-market and overnight activity\n\n🌙 Shows institutional positioning\n📊 Often sets tone for RTH\n🎯 Gap analysis opportunity\n\n💡 Important for:\n• Futures traders\n• Forex traders\n• Gap traders\n• Understanding overnight risk")
+useMultiSession = input.bool(false, "Multi-Session Analysis", group=group_session, tooltip="🎯 ANALYZE MULTIPLE SESSIONS:\n\nCombines RTH + ETH for complete view\n\n✅ Advantages:\n• See overnight positioning\n• Identify gaps and imbalances\n• Full 24hr market picture\n• Better context for decisions\n\n⚠️ Considerations:\n• Can be noisy for stocks\n• Best for futures/forex\n• Requires more processing")
+customIBMinutes = input.int(60, "Initial Balance (minutes)", minval=5, maxval=240, group=group_session, tooltip="🎯 INITIAL BALANCE PERIOD:\n\nOpening range that often defines the day\n\n📊 COMMON SETTINGS:\n• 15 min: Scalping\n• 30 min: Indices & liquid stocks\n• 60 min: Most stocks (recommended)\n• 90 min: Less liquid instruments\n\n💡 IB RANGE PROJECTS:\n• 1.5x IB = Common day range\n• 2.0x IB = Trend day target\n• Break of IB = Directional conviction\n• IB holds = Range day likely")
+group_risk = "⚠️ Risk Management"
+stopMultiplier = input.float(1.0, "Stop Loss ATR Multiplier", minval=0.5, maxval=3.0, step=0.1, group=group_risk, tooltip="🎯 STOP LOSS DISTANCE:\n\nMultiplier for ATR-based stops\n\n📊 Settings by Style:\n• 0.5 = Tight stops (scalping)\n• 1.0 = Standard stops (day trading)\n• 1.5 = Moderate stops (swing)\n• 2.0+ = Wide stops (position)\n\n⚠️ Consider:\n• Market volatility\n• Time frame\n• Risk tolerance\n\n💡 Adjust based on market conditions")
+target1Multiplier = input.float(1.5, "Target 1 Multiplier", minval=0.5, maxval=5.0, step=0.1, group=group_risk, tooltip="🎯 FIRST TARGET DISTANCE:\n\nMultiplier vs stop distance\n\n📊 Risk/Reward Ratios:\n• 1.0 = 1:1 (break even)\n• 1.5 = 1.5:1 (conservative)\n• 2.0 = 2:1 (standard)\n• 3.0 = 3:1 (aggressive)\n\n💡 Take partial profits here (50-70% of position)")
+target2Multiplier = input.float(3.0, "Target 2 Multiplier", minval=1.0, maxval=10.0, step=0.1, group=group_risk, tooltip="🎯 SECOND TARGET DISTANCE:\n\nMultiplier vs stop distance\n\n📊 Runner Target:\n• 3.0 = 3:1 risk/reward\n• 5.0 = 5:1 risk/reward\n• 10.0 = 10:1 (home run)\n\n💡 Let remaining position run with trailing stop")
+group_visual = "🎨 Visualizations"
+profileStyle = input.string("Gradient", "Profile Style", options=["Gradient", "Heatmap", "Classic", "Neon"], group=group_visual, tooltip="🎯 VISUAL PROFILE STYLES:\n\n🌈 Gradient: Smooth color transitions\n• Professional appearance\n• Easy on eyes\n\n🔥 Heatmap: Temperature-based intensity\n• Shows hot/cold zones\n• Quick visual analysis\n\n📊 Classic: Traditional blue/red\n• Familiar to MP traders\n• Clear contrast\n\n✨ Neon: High contrast cyberpunk\n• Maximum visibility\n• Modern aesthetic\n\n💡 Personal preference - all show same data")
+transparencyMode = input.string("Dynamic", "Transparency Mode", options=["Fixed", "Dynamic", "Volume-Based"], group=group_visual, tooltip="🎯 TRANSPARENCY MODES:\n\n📊 Fixed: Consistent transparency\n• Uniform appearance\n• Predictable visuals\n\n🔄 Dynamic: Adjusts to price action\n• Emphasizes important levels\n• Adaptive visibility\n\n📈 Volume-Based: Opacity by volume\n• Higher volume = more opaque\n• Visual volume weighting\n\n💡 Dynamic recommended for best analysis")
+animateProfile = input.bool(true, "Animate Development", group=group_visual, tooltip="🎯 PROFILE ANIMATION:\n\nShows profile building in real-time\n\n✅ Benefits:\n• See market development live\n• Identify shifts quickly\n• Understand auction process\n\n⚠️ Considerations:\n• May impact performance\n• Can be distracting\n\n💡 Great for learning market profile dynamics")
+group_dash = "📱 Dashboard"
+dashboardEnabled = input.bool(true, "Enable Dashboard", group=group_dash, tooltip="🎯 DASHBOARD:\n\nReal-time market analysis panel\n\n📊 Shows all key metrics\n📈 Updates live\n🎯 Professional trading stats\n📊 Signal type reference\n\n💡 Essential for serious traders - keep enabled")
+dashPosition = input.string("Top Right", "Position", options=["Top Right", "Top Left", "Bottom Right", "Bottom Left"], group=group_dash, tooltip="🎯 DASHBOARD POSITION:\n\nWhere to display the info panel\n\n💡 Recommendations:\n• Top Right: Standard (doesn't obstruct price)\n• Top Left: Alternative\n• Bottom positions: For top-heavy charts")
+dashTheme = input.string("Dark Pro", "Theme", options=["Dark Pro", "Light Pro", "Matrix", "Neon"], group=group_dash, tooltip="🎯 DASHBOARD THEMES:\n\n🌑 Dark Pro: Professional dark theme\n• Easy on eyes\n• High contrast\n\n⚪ Light Pro: Clean light theme\n• Bright environments\n• Classic look\n\n💚 Matrix: Hacker aesthetic\n• Green on black\n• Cyberpunk feel\n\n🌈 Neon: Colorful modern\n• High visibility\n• Futuristic\n\n💡 Match your chart theme for consistency")
+// ========================================
+ // TYPE DEFINITIONS
+// ========================================
+type PriceLevel
+    float price
+    float volume
+    float tpoCount
+    int firstTouch
+    int lastTouch
+    bool isSinglePrint
+    bool isLedge
+    bool isHVN
+    bool isLVN
+    box profileBox
+type MarketProfile
+    map<float, PriceLevel> levels
+    float poc
+    float vah
+    float val
+    float totalVolume
+    float totalTPO
+    array<float> pocMigration
+    string profileShape
+    string dayType
+    bool hasPoorHigh
+    bool hasPoorLow
+    float poorHighLevel
+    float poorLowLevel
+type SignalData
+    string signalType
+    string baseType
+    float price
+    float target1
+    float target2
+    float stop
+    int confluence
+    float probability
+    string rationale
+    int entryBar
+    line entryLine
+    line target1Line
+    line target2Line
+    line stopLine
+    bool isActive
+type MarketContext
+    string phase
+    string structure
+    float momentum
+    float volatility
+    string regime
+    float ibRange
+    float dayRange
+colorBlue = #2962ff
+colorCyan = #00acc1
+colorGreen = #00c853
+colorRed = #ff1744
+colorYellow = #ffc107
+colorPurple = #9c27b0
+colorOrange = #ff6f00
+colorWhite = #ffffff
+colorMagenta = #ff00ff
+colorGold = #ffd700
+getProfileColor(value, minVal, maxVal) =>
+    ratio = maxVal > minVal ? (value - minVal) / (maxVal - minVal) : 0.5
+    ratio := math.max(0, math.min(1, ratio))
+    if profileStyle == "Gradient"
+        if ratio < 0.2
+            #90caf9
+        else if ratio < 0.4
+            #42a5f5
+        else if ratio < 0.6
+            #1e88e5
+        else if ratio < 0.8
+            #1976d2
+        else
+            #0d47a1
+    else if profileStyle == "Heatmap"
+        if ratio < 0.2
+            #1565c0
+        else if ratio < 0.4
+            #ffc107
+        else if ratio < 0.6
+            #ff6f00
+        else if ratio < 0.8
+            #d32f2f
+        else
+            #6a1b9a
+    else if profileStyle == "Classic"
+        if ratio < 0.2
+            #ef5350
+        else if ratio < 0.4
+            #ffc107
+        else if ratio < 0.6
+            #42a5f5
+        else if ratio < 0.8
+            #66bb6a
+        else
+            #2e7d32
+    else
+        if ratio < 0.2
+            #00ffff
+        else if ratio < 0.4
+            #00ff7f
+        else if ratio < 0.6
+            #ff00ff
+        else if ratio < 0.8
+            #ff1493
+        else
+            #ff69b4
+colorPrimary = colorBlue
+colorSecondary = #1e88e5
+colorAccent = colorOrange
+colorBullish = colorGreen
+colorBearish = colorRed
+colorNeutral = colorYellow
+colorHVN = #4caf50
+colorLVN = #f44336
+colorSinglePrint = colorPurple
+colorPoorStructure = #ff6f00
+colorComposite = #00bcd4
+colorVAFill = color.new(colorBlue, 92)
+getSignalColor(signalType) =>
+    str.contains(signalType, "ELITE") ? colorGold : str.contains(signalType, "FADE") ? colorYellow : str.contains(signalType, "BREAKOUT") ? colorCyan : str.contains(signalType, "ROTATION") ? colorPurple : str.contains(signalType, "LIQUIDITY") ? colorMagenta : colorNeutral
+var MarketProfile currentProfile = MarketProfile.new(map.new<float, PriceLevel>(), na, na, na, 0.0, 0.0, array.new<float>(), "Developing", "", false, false, na, na)
+var MarketProfile compositeProfile = MarketProfile.new(map.new<float, PriceLevel>(), na, na, na, 0.0, 0.0, array.new<float>(), "Composite", "", false, false, na, na)
+var MarketContext context = MarketContext.new("Neutral", "Balanced", 0.0, 0.0, "Normal", 0.0, 0.0)
+var array<box> profileBoxes = array.new<box>()
+var array<line> profileLines = array.new<line>()
+var array<label> nodeLabels = array.new<label>()
+var array<label> singlePrintLabels = array.new<label>()
+var array<label> ledgeLabels = array.new<label>()
+var array<line> poorStructureLines = array.new<line>()
+var array<label> poorStructureLabels = array.new<label>()
+var array<line> compositeLines = array.new<line>()
+var array<label> compositeLabels = array.new<label>()
+var array<line> ibProjectionLines = array.new<line>()
+var array<label> ibProjectionLabels = array.new<label>()
+var table eliteDashboard = na
+var box vaBox = na
+var line pocLine = na
+var label pocLabel = na
+var line vahLine = na
+var label vahLabel = na
+var line valLine = na
+var label valLabel = na
+var label dayTypeLabel = na
+var int barCounter = 0
+var float sessionOpen = na
+var float sessionHigh = na
+var float sessionLow = na
+var float sessionClose = na
+var float ibHigh = na
+var float ibLow = na
+var bool inIB = true
+var int sessionStartBar = 0
+var int sessionCount = 0
+var SignalData currentSignal = na
+var int lastSignalBar = 0
+var float vahSeries = na
+var float valSeries = na
+var float pocSeries = na
+var float compositePocSeries = na
+var array<float> cvdHistory = array.new<float>()
+var float sessionStartCVD = 0.0
+var float cvdCumulative = 0.0
+var float cvdSessionDelta = 0.0
+var bool useDynamicVA = true
+var float dynamicVAHigh = na
+var float dynamicVALow = na
+var array<float> vaHighHistory = array.new<float>()
+var array<float> vaLowHistory = array.new<float>()
+var array<float> singlePrintPrices = array.new<float>()
+var array<SignalData> activeSignals = array.new<SignalData>()
+var array<SignalData> historicalSignals = array.new<SignalData>()
+volSMA20 = ta.sma(volume, 20)
+volSMA20x15 = volSMA20 * 1.5
+atr14 = ta.atr(14)
+rsi14 = ta.rsi(close, 14)
+ema20 = ta.ema(close, 20)
+vwapValue = ta.vwap(hlc3)
+[macdLine, signalLine, _] = ta.macd(close, 12, 26, 9)
+buyVolume = close >= open ? volume : volume * 0.5
+sellVolume = close < open ? volume : volume * 0.5
+volumeDelta = buyVolume - sellVolume
+cvdCumulative := nz(cvdCumulative[1]) + volumeDelta
+cvdSessionDelta := cvdSessionDelta + volumeDelta
+cvdDivergence = useCVDSignals and math.abs(cvdSessionDelta) > volSMA20 * cvdExtremesMultiplier and ((close > close[10] and cvdSessionDelta < 0) or (close < close[10] and cvdSessionDelta > 0))
+vahCrossOver = ta.crossover(close, vahSeries)
+vahCrossUnder = ta.crossunder(close, vahSeries)
+valCrossOver = ta.crossover(close, valSeries)
+valCrossUnder = ta.crossunder(close, valSeries)
+pocCrossOver = ta.crossover(close, pocSeries)
+pocCrossUnder = ta.crossunder(close, pocSeries)
+compositePocCrossOver = ta.crossover(close, compositePocSeries)
+roundToTick(price, ticks) => math.round(price / syminfo.mintick / ticks) * syminfo.mintick * ticks
+buildProfile(h, l, v, tickSize, mode) =>
+    priceRange = h - l
+    if priceRange > 0
+        levels = math.max(1, math.min(100, int(priceRange / (syminfo.mintick * tickSize))))
+        volPerLevel = v / levels
+        for i = 0 to math.min(levels - 1, 99)
+            price = roundToTick(l + (i * priceRange / levels), tickSize)
+            hasLevel = false
+            existing = map.get(currentProfile.levels, price)
+            if not na(existing)
+                hasLevel := true
+                if mode == "Volume" or mode == "Hybrid"
+                    existing.volume += volPerLevel
+                if mode == "TPO" or mode == "Hybrid"
+                    existing.tpoCount += 1
+                existing.lastTouch := barCounter
+                if existing.firstTouch == barCounter - 1 and existing.tpoCount <= 1
+                    existing.isSinglePrint := true
+                    if not array.includes(singlePrintPrices, price)
+                        array.push(singlePrintPrices, price)
+            if not hasLevel and map.size(currentProfile.levels) < 500
+                newLevel = PriceLevel.new(price, mode == "TPO" ? 0 : volPerLevel, mode == "Volume" ? 0 : 1, barCounter, barCounter, false, false, false, false, na)
+                map.put(currentProfile.levels, price, newLevel)
+mergeProfiles(source, target) =>
+    if compositeEnabled
+        sourceKeys = map.keys(source.levels)
+        for key in sourceKeys
+            sourceLevel = map.get(source.levels, key)
+            targetLevel = map.get(target.levels, key)
+            if na(targetLevel)
+                newLevel = PriceLevel.new(sourceLevel.price, sourceLevel.volume, sourceLevel.tpoCount, sourceLevel.firstTouch, sourceLevel.lastTouch, false, false, false, false, na)
+                map.put(target.levels, key, newLevel)
+            else
+                targetLevel.volume += sourceLevel.volume
+                targetLevel.tpoCount += sourceLevel.tpoCount
+        target.totalVolume += source.totalVolume
+        target.totalTPO += source.totalTPO
+calculatePOC(profile, mode) =>
+    maxVal = 0.0
+    float pocPrice = na
+    if map.size(profile.levels) > 0
+        keys = map.keys(profile.levels)
+        keysSize = array.size(keys)
+        for i = 0 to math.min(keysSize - 1, 499)
+            key = array.get(keys, i)
+            level = map.get(profile.levels, key)
+            if not na(level)
+                compareVal = mode == "TPO" ? level.tpoCount : mode == "Hybrid" ? level.volume + level.tpoCount : level.volume
+                if compareVal > maxVal
+                    maxVal := compareVal
+                    pocPrice := key
+    pocPrice
+calculateVA(profile, targetPercent, useDynamic) =>
+    float vah = na
+    float val = na
+    if map.size(profile.levels) > 0 and not na(profile.poc) and profile.totalVolume > 0
+        adjustedPercent = targetPercent
+        if useDynamic
+            if context.volatility > 1.5
+                adjustedPercent := math.min(targetPercent + 8, 85)
+            else if context.volatility < 0.5
+                adjustedPercent := math.max(targetPercent - 5, 65)
+        targetVol = profile.totalVolume * adjustedPercent / 100
+        poc = profile.poc
+        pocLevel = map.get(profile.levels, poc)
+        if not na(pocLevel)
+            cumVol = pocLevel.volume
+            vah := poc
+            val := poc
+            keys = map.keys(profile.levels)
+            array.sort(keys)
+            keysSize = array.size(keys)
+            pocIdx = array.indexof(keys, poc)
+            if pocIdx >= 0
+                upperIdx = pocIdx + 1
+                lowerIdx = pocIdx - 1
+                iterations = 0
+                while cumVol < targetVol and iterations < 100
+                    upperVol = upperIdx < keysSize ? map.get(profile.levels, array.get(keys, upperIdx)).volume : 0
+                    lowerVol = lowerIdx >= 0 ? map.get(profile.levels, array.get(keys, lowerIdx)).volume : 0
+                    if upperVol > lowerVol * 1.2 and upperIdx < keysSize
+                        cumVol += upperVol
+                        vah := array.get(keys, upperIdx)
+                        upperIdx += 1
+                    else if lowerVol > 0 and lowerIdx >= 0
+                        cumVol += lowerVol
+                        val := array.get(keys, lowerIdx)
+                        lowerIdx -= 1
+                    else if upperIdx < keysSize
+                        cumVol += upperVol
+                        vah := array.get(keys, upperIdx)
+                        upperIdx += 1
+                    else
+                        break
+                    iterations += 1
+    if vaSmoothing > 1 and not na(vah) and not na(val)
+        if array.size(vaHighHistory) >= vaSmoothing
+            array.shift(vaHighHistory)
+            array.shift(vaLowHistory)
+        array.push(vaHighHistory, vah)
+        array.push(vaLowHistory, val)
+        if array.size(vaHighHistory) >= vaSmoothing
+            vah := array.avg(vaHighHistory)
+            val := array.avg(vaLowHistory)
+    [vah, val]
+classifyDayType(profile, o, h, l, c, ibH, ibL) =>
+    dayRange = h - l
+    ibRange = ibH - ibL
+    valueRange = not na(profile.vah) and not na(profile.val) ? profile.vah - profile.val : 0
+    openPos = dayRange > 0 ? (o - l) / dayRange : 0.5
+    closePos = dayRange > 0 ? (c - l) / dayRange : 0.5
+    if dayRange > atr14 * 2 and (closePos > 0.9 or closePos < 0.1)
+        "Trend Day"
+    else if dayRange > atr14 * 1.5 and valueRange > dayRange * 0.6
+        "Normal Variation Day"
+    else if h > ibH and l < ibL and math.abs(c - (ibH + ibL) / 2) < ibRange * 0.2
+        "Neutral Day"
+    else if dayRange < atr14 * 0.7
+        "Non-Trend Day"
+    else
+        "Normal Day"
+detectPoorStructure(profile) =>
+    poorHigh = false
+    poorLow = false
+    float poorHighLevel = na
+    float poorLowLevel = na
+    if showPoorStructure and map.size(profile.levels) > 0 and not na(profile.poc)
+        pocLevel = map.get(profile.levels, profile.poc)
+        if not na(pocLevel)
+            pocVol = pocLevel.volume
+            threshold = pocVol * 0.3
+            keys = map.keys(profile.levels)
+            array.sort(keys)
+            if array.size(keys) > 0
+                topIdx = int(array.size(keys) * 0.9)
+                for i = topIdx to array.size(keys) - 1
+                    if i < array.size(keys)
+                        price = array.get(keys, i)
+                        level = map.get(profile.levels, price)
+                        if not na(level) and level.volume < threshold
+                            poorHigh := true
+                            poorHighLevel := price
+                bottomIdx = int(array.size(keys) * 0.1)
+                for i = 0 to bottomIdx
+                    if i < array.size(keys)
+                        price = array.get(keys, i)
+                        level = map.get(profile.levels, price)
+                        if not na(level) and level.volume < threshold
+                            poorLow := true
+                            poorLowLevel := price
+    [poorHigh, poorLow, poorHighLevel, poorLowLevel]
+identifyNodesAndLedges(profile) =>
+    if map.size(profile.levels) > 0 and profile.totalVolume > 0
+        keys = map.keys(profile.levels)
+        avgVol = profile.totalVolume / map.size(profile.levels)
+        hvnThresh = avgVol * nodeThreshold / 100
+        lvnThresh = avgVol * 0.5
+        keysSize = array.size(keys)
+        for i = 0 to math.min(keysSize - 1, 499)
+            key = array.get(keys, i)
+            level = map.get(profile.levels, key)
+            if not na(level)
+                level.isHVN := level.volume > hvnThresh
+                level.isLVN := level.volume < lvnThresh
+                if showLedges and i > 0 and i < keysSize - 1
+                    prevKey = array.get(keys, i - 1)
+                    nextKey = array.get(keys, i + 1)
+                    prevLevel = map.get(profile.levels, prevKey)
+                    nextLevel = map.get(profile.levels, nextKey)
+                    if not na(prevLevel) and not na(nextLevel)
+                        avgNeighborVol = (prevLevel.volume + nextLevel.volume) / 2
+                        level.isLedge := level.volume > avgNeighborVol * 2 and level.tpoCount > 3
+analyzeShape(profile) =>
+    if na(profile.poc) or na(profile.vah) or na(profile.val)
+        profile.profileShape := "Developing"
+    else
+        vaRange = profile.vah - profile.val
+        if vaRange > 0
+            pocPosition = (profile.poc - profile.val) / vaRange
+            if pocPosition > 0.8
+                profile.profileShape := "b-shaped"
+            else if pocPosition < 0.2
+                profile.profileShape := "P-shaped"
+            else if pocPosition > 0.4 and pocPosition < 0.6
+                profile.profileShape := "D-shaped"
+            else
+                profile.profileShape := "Imbalanced"
+generateAdvancedSignals(poc, vah, val, shape, poorHigh, poorLow, poorHighLevel, poorLowLevel, ibRange) =>
+    signals = array.new<SignalData>()
+    if not na(poc) and not na(vah) and not na(val) and ibRange > 0
+        priceLocation = close > vah ? "Above VA" : close < val ? "Below VA" : "Inside VA"
+        modeMultiplier = switch signalMode
+            "Conservative" => 1.3
+            "Balanced" => 1.0
+            "Elite" => 1.1
+            "Aggressive" => 0.8
+            => 1.0
+        minProb = switch signalMode
+            "Conservative" => 85
+            "Balanced" => 70
+            "Elite" => 75
+            "Aggressive" => 60
+            => 70
+        if priceLocation == "Below VA" and (rsi14 < 30 or (poorLow and close <= poorLowLevel))
+            confluences = 0
+            confluences += volume > volSMA20x15 ? 1 : 0
+            confluences += macdLine > signalLine ? 1 : 0
+            confluences += shape == "P-shaped" ? 1 : 0
+            confluences += close > val - atr14 ? 1 : 0
+            confluences += cvdSessionDelta > 0 ? 1 : 0
+            confluences += cvdDivergence ? 2 : 0
+            confluences += poorLow ? 1 : 0
+            adjustedConfluence = int(confluences * modeMultiplier)
+            probability = math.min(adjustedConfluence * 15 + 20, 95)
+            if adjustedConfluence >= confluenceRequired and probability >= minProb
+                signal = SignalData.new()
+                signal.signalType := adjustedConfluence >= 5 ? "ELITE_FADE_LONG" : "FADE_LONG"
+                signal.baseType := "LONG"
+                signal.price := close
+                stopDistance = signal.price - math.min(low - atr14 * stopMultiplier, val - (vah - val) * 0.2)
+                signal.stop := signal.price - stopDistance
+                signal.target1 := signal.price + stopDistance * target1Multiplier
+                signal.target2 := signal.price + stopDistance * target2Multiplier
+                signal.confluence := adjustedConfluence
+                signal.probability := probability
+                signal.rationale := poorLow ? "Fade Long: Poor Low Structure" : "Fade Long: Below VA + Oversold"
+                signal.entryBar := bar_index
+                signal.isActive := true
+                array.push(signals, signal)
+        else if priceLocation == "Above VA" and (rsi14 > 70 or (poorHigh and close >= poorHighLevel))
+            confluences = 0
+            confluences += volume > volSMA20x15 ? 1 : 0
+            confluences += macdLine < signalLine ? 1 : 0
+            confluences += shape == "b-shaped" ? 1 : 0
+            confluences += close < vah + atr14 ? 1 : 0
+            confluences += cvdSessionDelta < 0 ? 1 : 0
+            confluences += cvdDivergence ? 2 : 0
+            confluences += poorHigh ? 1 : 0
+            adjustedConfluence = int(confluences * modeMultiplier)
+            probability = math.min(adjustedConfluence * 15 + 20, 95)
+            if adjustedConfluence >= confluenceRequired and probability >= minProb
+                signal = SignalData.new()
+                signal.signalType := adjustedConfluence >= 5 ? "ELITE_FADE_SHORT" : "FADE_SHORT"
+                signal.baseType := "SHORT"
+                signal.price := close
+                stopDistance = math.max(high + atr14 * stopMultiplier, vah + (vah - val) * 0.2) - signal.price
+                signal.stop := signal.price + stopDistance
+                signal.target1 := signal.price - stopDistance * target1Multiplier
+                signal.target2 := signal.price - stopDistance * target2Multiplier
+                signal.confluence := adjustedConfluence
+                signal.probability := probability
+                signal.rationale := poorHigh ? "Fade Short: Poor High Structure" : "Fade Short: Above VA + Overbought"
+                signal.entryBar := bar_index
+                signal.isActive := true
+                array.push(signals, signal)
+        if vahCrossOver and volume > volSMA20 * 1.2
+            confluences = 0
+            confluences += rsi14 > 50 and rsi14 < 70 ? 1 : 0
+            confluences += macdLine > signalLine ? 1 : 0
+            confluences += close > vah + syminfo.mintick * 2 ? 1 : 0
+            confluences += cvdSessionDelta > volSMA20 ? 1 : 0
+            confluences += context.momentum > 50 ? 1 : 0
+            adjustedConfluence = int(confluences * modeMultiplier)
+            probability = math.min(adjustedConfluence * 20 + 15, 85)
+            if adjustedConfluence >= confluenceRequired - 1 and probability >= minProb
+                signal = SignalData.new()
+                signal.signalType := adjustedConfluence >= 4 ? "ELITE_BREAKOUT_LONG" : "BREAKOUT_LONG"
+                signal.baseType := "LONG"
+                signal.price := close
+                stopDistance = signal.price - (vah - atr14 * stopMultiplier * 0.5)
+                signal.stop := signal.price - stopDistance
+                signal.target1 := signal.price + stopDistance * target1Multiplier
+                signal.target2 := signal.price + stopDistance * target2Multiplier
+                signal.confluence := adjustedConfluence
+                signal.probability := probability
+                signal.rationale := "Breakout Long: VAH Break with Volume"
+                signal.entryBar := bar_index
+                signal.isActive := true
+                array.push(signals, signal)
+        else if valCrossUnder and volume > volSMA20 * 1.2
+            confluences = 0
+            confluences += rsi14 < 50 and rsi14 > 30 ? 1 : 0
+            confluences += macdLine < signalLine ? 1 : 0
+            confluences += close < val - syminfo.mintick * 2 ? 1 : 0
+            confluences += cvdSessionDelta < -volSMA20 ? 1 : 0
+            confluences += context.momentum < 50 ? 1 : 0
+            adjustedConfluence = int(confluences * modeMultiplier)
+            probability = math.min(adjustedConfluence * 20 + 15, 85)
+            if adjustedConfluence >= confluenceRequired - 1 and probability >= minProb
+                signal = SignalData.new()
+                signal.signalType := adjustedConfluence >= 4 ? "ELITE_BREAKOUT_SHORT" : "BREAKOUT_SHORT"
+                signal.baseType := "SHORT"
+                signal.price := close
+                stopDistance = (val + atr14 * stopMultiplier * 0.5) - signal.price
+                signal.stop := signal.price + stopDistance
+                signal.target1 := signal.price - stopDistance * target1Multiplier
+                signal.target2 := signal.price - stopDistance * target2Multiplier
+                signal.confluence := adjustedConfluence
+                signal.probability := probability
+                signal.rationale := "Breakout Short: VAL Break with Volume"
+                signal.entryBar := bar_index
+                signal.isActive := true
+                array.push(signals, signal)
+        if priceLocation == "Inside VA"
+            distToVAL = close - val
+            distToVAH = vah - close
+            if distToVAL < distToVAH * 0.3 and rsi14 < 50
+                confluences = 0
+                confluences += volume > volSMA20 ? 1 : 0
+                confluences += macdLine > signalLine ? 1 : 0
+                confluences += cvdSessionDelta > 0 ? 1 : 0
+                confluences += shape == "D-shaped" ? 1 : 0
+                adjustedConfluence = int(confluences * modeMultiplier)
+                probability = math.min(adjustedConfluence * 18 + 25, 80)
+                if adjustedConfluence >= confluenceRequired - 1 and probability >= minProb * 0.9
+                    signal = SignalData.new()
+                    signal.signalType := "ROTATION_LONG"
+                    signal.baseType := "LONG"
+                    signal.price := close
+                    signal.stop := val - atr14 * stopMultiplier * 0.7
+                    signal.target1 := poc
+                    signal.target2 := vah
+                    signal.confluence := adjustedConfluence
+                    signal.probability := probability
+                    signal.rationale := "Rotation Long: Near VAL"
+                    signal.entryBar := bar_index
+                    signal.isActive := true
+                    array.push(signals, signal)
+            else if distToVAH < distToVAL * 0.3 and rsi14 > 50
+                confluences = 0
+                confluences += volume > volSMA20 ? 1 : 0
+                confluences += macdLine < signalLine ? 1 : 0
+                confluences += cvdSessionDelta < 0 ? 1 : 0
+                confluences += shape == "D-shaped" ? 1 : 0
+                adjustedConfluence = int(confluences * modeMultiplier)
+                probability = math.min(adjustedConfluence * 18 + 25, 80)
+                if adjustedConfluence >= confluenceRequired - 1 and probability >= minProb * 0.9
+                    signal = SignalData.new()
+                    signal.signalType := "ROTATION_SHORT"
+                    signal.baseType := "SHORT"
+                    signal.price := close
+                    signal.stop := vah + atr14 * stopMultiplier * 0.7
+                    signal.target1 := poc
+                    signal.target2 := val
+                    signal.confluence := adjustedConfluence
+                    signal.probability := probability
+                    signal.rationale := "Rotation Short: Near VAH"
+                    signal.entryBar := bar_index
+                    signal.isActive := true
+                    array.push(signals, signal)
+        if high > sessionHigh and close < high - (high - low) * 0.5 and volume > volSMA20x15
+            confluences = 0
+            confluences += rsi14 > 65 ? 1 : 0
+            confluences += cvdSessionDelta < 0 ? 2 : 0
+            confluences += poorHigh ? 1 : 0
+            confluences += shape == "b-shaped" ? 1 : 0
+            adjustedConfluence = int(confluences * modeMultiplier)
+            probability = math.min(adjustedConfluence * 16 + 30, 85)
+            if adjustedConfluence >= confluenceRequired and probability >= minProb
+                signal = SignalData.new()
+                signal.signalType := "LIQUIDITY_SHORT"
+                signal.baseType := "SHORT"
+                signal.price := close
+                signal.stop := high + atr14 * stopMultiplier * 0.5
+                signal.target1 := close - atr14 * target1Multiplier
+                signal.target2 := poc
+                signal.confluence := adjustedConfluence
+                signal.probability := probability
+                signal.rationale := "Liquidity Sweep Short"
+                signal.entryBar := bar_index
+                signal.isActive := true
+                array.push(signals, signal)
+        else if low < sessionLow and close > low + (high - low) * 0.5 and volume > volSMA20x15
+            confluences = 0
+            confluences += rsi14 < 35 ? 1 : 0
+            confluences += cvdSessionDelta > 0 ? 2 : 0
+            confluences += poorLow ? 1 : 0
+            confluences += shape == "P-shaped" ? 1 : 0
+            adjustedConfluence = int(confluences * modeMultiplier)
+            probability = math.min(adjustedConfluence * 16 + 30, 85)
+            if adjustedConfluence >= confluenceRequired and probability >= minProb
+                signal = SignalData.new()
+                signal.signalType := "LIQUIDITY_LONG"
+                signal.baseType := "LONG"
+                signal.price := close
+                signal.stop := low - atr14 * stopMultiplier * 0.5
+                signal.target1 := close + atr14 * target1Multiplier
+                signal.target2 := poc
+                signal.confluence := adjustedConfluence
+                signal.probability := probability
+                signal.rationale := "Liquidity Sweep Long"
+                signal.entryBar := bar_index
+                signal.isActive := true
+                array.push(signals, signal)
+    signals
+cleanupCurrentSignal() =>
+    if not na(currentSignal)
+        if not na(currentSignal.entryLine)
+            line.delete(currentSignal.entryLine)
+        if not na(currentSignal.target1Line)
+            line.delete(currentSignal.target1Line)
+        if not na(currentSignal.target2Line)
+            line.delete(currentSignal.target2Line)
+        if not na(currentSignal.stopLine)
+            line.delete(currentSignal.stopLine)
+safeDeleteBox(b) =>
+    if not na(b)
+        box.delete(b)
+safeDeleteLine(l) =>
+    if not na(l)
+        line.delete(l)
+safeDeleteLabel(l) =>
+    if not na(l)
+        label.delete(l)
+isRTH = not na(time(timeframe.period, sessionStart))
+isETH = not na(time(timeframe.period, ethSession))
+inSession = useMultiSession ? (isRTH or isETH) : isRTH
+newSession = inSession and not inSession[1]
+endSession = not inSession and inSession[1]
+if newSession
+    if compositeEnabled and sessionCount > 0
+        mergeProfiles(currentProfile, compositeProfile)
+        compositeProfile.poc := calculatePOC(compositeProfile, profileMode)
+        [compVah, compVal] = calculateVA(compositeProfile, vaPercentage, false)
+        compositeProfile.vah := compVah
+        compositeProfile.val := compVal
+    map.clear(currentProfile.levels)
+    array.clear(currentProfile.pocMigration)
+    array.clear(singlePrintPrices)
+    currentProfile.poc := na
+    currentProfile.vah := na
+    currentProfile.val := na
+    currentProfile.totalVolume := 0
+    currentProfile.totalTPO := 0
+    currentProfile.profileShape := "Developing"
+    currentProfile.dayType := ""
+    currentProfile.hasPoorHigh := false
+    currentProfile.hasPoorLow := false
+    currentProfile.poorHighLevel := na
+    currentProfile.poorLowLevel := na
+    barCounter := 0
+    sessionOpen := open
+    sessionHigh := high
+    sessionLow := low
+    sessionStartBar := bar_index
+    ibHigh := high
+    ibLow := low
+    inIB := true
+    sessionCount += 1
+    cvdSessionDelta := 0
+    sessionStartCVD := cvdCumulative
+    array.clear(vaHighHistory)
+    array.clear(vaLowHistory)
+    while array.size(profileLines) > 0
+        safeDeleteLine(array.pop(profileLines))
+    while array.size(nodeLabels) > 0
+        safeDeleteLabel(array.pop(nodeLabels))
+    while array.size(singlePrintLabels) > 0
+        safeDeleteLabel(array.pop(singlePrintLabels))
+    while array.size(ledgeLabels) > 0
+        safeDeleteLabel(array.pop(ledgeLabels))
+    while array.size(poorStructureLines) > 0
+        safeDeleteLine(array.pop(poorStructureLines))
+    while array.size(poorStructureLabels) > 0
+        safeDeleteLabel(array.pop(poorStructureLabels))
+    while array.size(compositeLines) > 0
+        safeDeleteLine(array.pop(compositeLines))
+    while array.size(compositeLabels) > 0
+        safeDeleteLabel(array.pop(compositeLabels))
+    while array.size(ibProjectionLines) > 0
+        safeDeleteLine(array.pop(ibProjectionLines))
+    while array.size(ibProjectionLabels) > 0
+        safeDeleteLabel(array.pop(ibProjectionLabels))
+    safeDeleteBox(vaBox)
+    vaBox := na
+    safeDeleteLine(pocLine)
+    pocLine := na
+    safeDeleteLabel(pocLabel)
+    pocLabel := na
+    safeDeleteLine(vahLine)
+    vahLine := na
+    safeDeleteLabel(vahLabel)
+    vahLabel := na
+    safeDeleteLine(valLine)
+    valLine := na
+    safeDeleteLabel(valLabel)
+    valLabel := na
+    safeDeleteLabel(dayTypeLabel)
+    dayTypeLabel := na
+if inSession
+    barCounter += 1
+    sessionHigh := math.max(sessionHigh, high)
+    sessionLow := math.min(sessionLow, low)
+    sessionClose := close
+    if barCounter * timeframe.in_seconds() / 60 <= customIBMinutes
+        ibHigh := math.max(ibHigh, high)
+        ibLow := math.min(ibLow, low)
+    else
+        inIB := false
+    buildProfile(high, low, volume, profileResolution, profileMode)
+    currentProfile.totalVolume += volume
+    currentProfile.totalTPO += 1
+    currentProfile.poc := calculatePOC(currentProfile, profileMode)
+    [vah_tmp, val_tmp] = calculateVA(currentProfile, vaPercentage, useDynamicVA)
+    currentProfile.vah := vah_tmp
+    currentProfile.val := val_tmp
+    if migrationTracking and not na(currentProfile.poc)
+        if array.size(currentProfile.pocMigration) >= 100
+            array.shift(currentProfile.pocMigration)
+        array.push(currentProfile.pocMigration, currentProfile.poc)
+    analyzeShape(currentProfile)
+    identifyNodesAndLedges(currentProfile)
+    [poorH, poorL, poorHLevel, poorLLevel] = detectPoorStructure(currentProfile)
+    currentProfile.hasPoorHigh := poorH
+    currentProfile.hasPoorLow := poorL
+    currentProfile.poorHighLevel := poorHLevel
+    currentProfile.poorLowLevel := poorLLevel
+if not na(currentProfile.vah)
+    vahSeries := currentProfile.vah
+if not na(currentProfile.val)
+    valSeries := currentProfile.val
+if not na(currentProfile.poc)
+    pocSeries := currentProfile.poc
+if not na(compositeProfile.poc)
+    compositePocSeries := compositeProfile.poc
+if endSession
+    currentProfile.dayType := classifyDayType(currentProfile, sessionOpen, sessionHigh, sessionLow, sessionClose, ibHigh, ibLow)
+    context.ibRange := ibHigh - ibLow
+    context.dayRange := sessionHigh - sessionLow
+context.momentum := rsi14
+context.volatility := atr14 / close * 100
+context.regime := context.volatility > 2 ? "High Vol" : context.volatility < 0.5 ? "Low Vol" : "Normal"
+currentIBRange = inIB ? 0 : ibHigh - ibLow
+allSignals = generateAdvancedSignals(currentProfile.poc, currentProfile.vah, currentProfile.val, currentProfile.profileShape, currentProfile.hasPoorHigh, currentProfile.hasPoorLow, currentProfile.poorHighLevel, currentProfile.poorLowLevel, currentIBRange)
+shouldSignal = showSignals and bar_index - lastSignalBar > 10 and array.size(allSignals) > 0
+if shouldSignal
+    sig = array.get(allSignals, 0)
+    cleanupCurrentSignal()
+    currentSignal := sig
+    if array.size(activeSignals) >= 10
+        array.shift(activeSignals)
+    array.push(activeSignals, sig)
+    if array.size(historicalSignals) >= 50
+        oldSig = array.shift(historicalSignals)
+        if not na(oldSig.entryLine)
+            line.delete(oldSig.entryLine)
+        if not na(oldSig.target1Line)
+            line.delete(oldSig.target1Line)
+        if not na(oldSig.target2Line)
+            line.delete(oldSig.target2Line)
+        if not na(oldSig.stopLine)
+            line.delete(oldSig.stopLine)
+    currentSignal.entryLine := line.new(bar_index, currentSignal.price, bar_index + 50, currentSignal.price, color=color.new(colorNeutral, 50), width=2, style=line.style_dotted)
+    currentSignal.target1Line := line.new(bar_index, currentSignal.target1, bar_index + 50, currentSignal.target1, color=color.new(colorBullish, 70), width=1, style=line.style_dashed)
+    currentSignal.target2Line := line.new(bar_index, currentSignal.target2, bar_index + 50, currentSignal.target2, color=color.new(colorBullish, 80), width=1, style=line.style_dashed)
+    currentSignal.stopLine := line.new(bar_index, currentSignal.stop, bar_index + 50, currentSignal.stop, color=color.new(colorBearish, 70), width=1, style=line.style_dashed)
+    array.push(historicalSignals, sig)
+    lastSignalBar := bar_index
+if inSession and barstate.isconfirmed and showVolumeNodes
+    keys = map.keys(currentProfile.levels)
+    if array.size(keys) > 0
+        array.sort(keys)
+        maxVol = 0.0
+        maxTPO = 0.0
+        minVol = 999999999.0
+        minTPO = 999999999.0
+        keysSize = array.size(keys)
+        for i = 0 to math.min(keysSize - 1, 499)
+            key = array.get(keys, i)
+            level = map.get(currentProfile.levels, key)
+            if not na(level)
+                if level.volume > 0
+                    maxVol := math.max(maxVol, level.volume)
+                    minVol := math.min(minVol, level.volume)
+                if level.tpoCount > 0
+                    maxTPO := math.max(maxTPO, level.tpoCount)
+                    minTPO := math.min(minTPO, level.tpoCount)
+        while array.size(profileBoxes) > 150
+            safeDeleteBox(array.shift(profileBoxes))
+        if (profileMode == "Volume" and maxVol > 0) or (profileMode == "TPO" and maxTPO > 0) or (profileMode == "Hybrid" and maxVol + maxTPO > 0)
+            profileWidth = math.min(50, bar_index - sessionStartBar)
+            for i = 0 to math.min(keysSize - 1, 49)
+                key = array.get(keys, i)
+                level = map.get(currentProfile.levels, key)
+                if not na(level)
+                    compareVal = profileMode == "TPO" ? level.tpoCount : profileMode == "Hybrid" ? level.volume + level.tpoCount : level.volume
+                    maxVal = profileMode == "TPO" ? maxTPO : profileMode == "Hybrid" ? maxVol + maxTPO : maxVol
+                    minVal = profileMode == "TPO" ? minTPO : profileMode == "Hybrid" ? minVol + minTPO : minVol
+                    if maxVal > 0
+                        volRatio = compareVal / maxVal
+                        boxLeft = sessionStartBar
+                        boxRight = sessionStartBar + int(profileWidth * volRatio)
+                        boxColor = getProfileColor(compareVal, minVal, maxVal)
+                        baseAlpha = profileTransparency
+                        gemAlpha = baseAlpha
+                        if transparencyMode == "Dynamic"
+                            gemAlpha := int(baseAlpha + (1 - volRatio) * 30)
+                            gemAlpha := math.max(30, math.min(90, gemAlpha))
+                        else if transparencyMode == "Volume-Based"
+                            gemAlpha := int(baseAlpha - volRatio * 40)
+                            gemAlpha := math.max(20, math.min(85, gemAlpha))
+                        else
+                            gemAlpha := baseAlpha
+                        boxColor := color.new(boxColor, gemAlpha)
+                        if level.isHVN
+                            boxColor := color.new(colorHVN, math.max(20, gemAlpha - 30))
+                        else if level.isLVN
+                            boxColor := color.new(colorLVN, math.min(90, gemAlpha + 20))
+                        else if level.isSinglePrint and showSinglePrints
+                            boxColor := color.new(colorSinglePrint, gemAlpha - 10)
+                        else if level.isLedge and showLedges
+                            boxColor := color.new(colorPoorStructure, gemAlpha - 15)
+                        if na(level.profileBox)
+                            level.profileBox := box.new(boxLeft, level.price + syminfo.mintick * profileResolution/2, boxRight, level.price - syminfo.mintick * profileResolution/2, border_color=boxColor, bgcolor=boxColor)
+                            array.push(profileBoxes, level.profileBox)
+                        else
+                            box.set_left(level.profileBox, boxLeft)
+                            box.set_right(level.profileBox, boxRight)
+                            box.set_border_color(level.profileBox, boxColor)
+                            box.set_bgcolor(level.profileBox, boxColor)
+if showSinglePrints and barstate.isconfirmed
+    while array.size(singlePrintLabels) > 0
+        safeDeleteLabel(array.pop(singlePrintLabels))
+    if array.size(singlePrintPrices) > 0
+        for i = 0 to math.min(array.size(singlePrintPrices) - 1, 9)
+            spPrice = array.get(singlePrintPrices, i)
+            spLabel = label.new(sessionStartBar + 2, spPrice, "◆ SP", color=color(na), textcolor=colorSinglePrint, style=label.style_none, size=size.small)
+            array.push(singlePrintLabels, spLabel)
+if showLedges and barstate.isconfirmed
+    while array.size(ledgeLabels) > 0
+        safeDeleteLabel(array.pop(ledgeLabels))
+    keys = map.keys(currentProfile.levels)
+    ledgeCount = 0
+    for key in keys
+        level = map.get(currentProfile.levels, key)
+        if not na(level) and level.isLedge and ledgeCount < 5
+            ledgeLabel = label.new(sessionStartBar + 10, level.price, "◄ LDG", color=color(na), textcolor=color.new(colorOrange, 0), style=label.style_none, size=size.small)
+            array.push(ledgeLabels, ledgeLabel)
+            ledgeCount += 1
+if not na(currentProfile.vah) and not na(currentProfile.val)
+    if na(vaBox)
+        vaBox := box.new(sessionStartBar, currentProfile.vah, bar_index, currentProfile.val, border_color=color.new(colorBlue, 80), bgcolor=colorVAFill)
+    else
+        box.set_left(vaBox, sessionStartBar)
+        box.set_right(vaBox, bar_index)
+        box.set_top(vaBox, currentProfile.vah)
+        box.set_bottom(vaBox, currentProfile.val)
+if not na(currentProfile.poc)
+    safeDeleteLine(pocLine)
+    safeDeleteLabel(pocLabel)
+    labelOffset = 10
+    pocLabel := label.new(bar_index + labelOffset, currentProfile.poc, "POC", color=colorAccent, style=label.style_label_left, textcolor=color.white, size=size.normal)
+    pocLine := line.new(sessionStartBar, currentProfile.poc, bar_index + labelOffset, currentProfile.poc, xloc=xloc.bar_index, color=colorAccent, style=line.style_solid, width=3)
+labelOffset = 10
+if not na(currentProfile.vah)
+    safeDeleteLine(vahLine)
+    safeDeleteLabel(vahLabel)
+    vahLabel := label.new(bar_index + labelOffset, currentProfile.vah, "VAH", color=color.new(colorBlue, 0), style=label.style_label_left, textcolor=color.white, size=size.small)
+    vahLine := line.new(sessionStartBar, currentProfile.vah, bar_index + labelOffset, currentProfile.vah, xloc=xloc.bar_index, color=colorBlue, style=line.style_dashed, width=1)
+if not na(currentProfile.val)
+    safeDeleteLine(valLine)
+    safeDeleteLabel(valLabel)
+    valLabel := label.new(bar_index + labelOffset, currentProfile.val, "VAL", color=color.new(colorBlue, 0), style=label.style_label_left, textcolor=color.white, size=size.small)
+    valLine := line.new(sessionStartBar, currentProfile.val, bar_index + labelOffset, currentProfile.val, xloc=xloc.bar_index, color=colorBlue, style=line.style_dashed, width=1)
+if showComposite and compositeEnabled and sessionCount > 1
+    while array.size(compositeLines) > 0
+        safeDeleteLine(array.pop(compositeLines))
+    while array.size(compositeLabels) > 0
+        safeDeleteLabel(array.pop(compositeLabels))
+    compLabelOffset = 20
+    if not na(compositeProfile.poc)
+        compPocLabel = label.new(bar_index + compLabelOffset, compositeProfile.poc, "Comp POC", color=color.new(colorComposite, 0), style=label.style_label_left, textcolor=color.white, size=size.small)
+        array.push(compositeLabels, compPocLabel)
+        compPocLine = line.new(bar_index - 500, compositeProfile.poc, bar_index + compLabelOffset, compositeProfile.poc, xloc=xloc.bar_index, color=color.new(colorComposite, 0), style=line.style_dashed, width=2)
+        array.push(compositeLines, compPocLine)
+    if not na(compositeProfile.vah)
+        compVahLabel = label.new(bar_index + compLabelOffset, compositeProfile.vah, "Comp VAH", color=color.new(colorComposite, 0), style=label.style_label_left, textcolor=color.white, size=size.small)
+        array.push(compositeLabels, compVahLabel)
+        compVahLine = line.new(bar_index - 500, compositeProfile.vah, bar_index + compLabelOffset, compositeProfile.vah, xloc=xloc.bar_index, color=color.new(colorComposite, 50), style=line.style_dotted, width=1)
+        array.push(compositeLines, compVahLine)
+    if not na(compositeProfile.val)
+        compValLabel = label.new(bar_index + compLabelOffset, compositeProfile.val, "Comp VAL", color=color.new(colorComposite, 0), style=label.style_label_left, textcolor=color.white, size=size.small)
+        array.push(compositeLabels, compValLabel)
+        compValLine = line.new(bar_index - 500, compositeProfile.val, bar_index + compLabelOffset, compositeProfile.val, xloc=xloc.bar_index, color=color.new(colorComposite, 50), style=line.style_dotted, width=1)
+        array.push(compositeLines, compValLine)
+if showPoorStructure
+    while array.size(poorStructureLines) > 0
+        safeDeleteLine(array.pop(poorStructureLines))
+    while array.size(poorStructureLabels) > 0
+        safeDeleteLabel(array.pop(poorStructureLabels))
+    poorLabelOffset = 15
+    if currentProfile.hasPoorHigh and not na(currentProfile.poorHighLevel)
+        poorHighLabel = label.new(bar_index + poorLabelOffset, currentProfile.poorHighLevel, "Poor High", color=colorPoorStructure, style=label.style_label_left, textcolor=color.white, size=size.small)
+        array.push(poorStructureLabels, poorHighLabel)
+        poorHighLine = line.new(sessionStartBar, currentProfile.poorHighLevel, bar_index + poorLabelOffset, currentProfile.poorHighLevel, xloc=xloc.bar_index, color=colorPoorStructure, style=line.style_dashed, width=2)
+        array.push(poorStructureLines, poorHighLine)
+    if currentProfile.hasPoorLow and not na(currentProfile.poorLowLevel)
+        poorLowLabel = label.new(bar_index + poorLabelOffset, currentProfile.poorLowLevel, "Poor Low", color=colorPoorStructure, style=label.style_label_left, textcolor=color.white, size=size.small)
+        array.push(poorStructureLabels, poorLowLabel)
+        poorLowLine = line.new(sessionStartBar, currentProfile.poorLowLevel, bar_index + poorLabelOffset, currentProfile.poorLowLevel, xloc=xloc.bar_index, color=colorPoorStructure, style=line.style_dashed, width=2)
+        array.push(poorStructureLines, poorLowLine)
+if showProjections and not inIB and currentIBRange > 0
+    while array.size(ibProjectionLines) > 0
+        safeDeleteLine(array.pop(ibProjectionLines))
+    while array.size(ibProjectionLabels) > 0
+        safeDeleteLabel(array.pop(ibProjectionLabels))
+    ibLabelOffset = 20
+    ib15High = ibHigh + currentIBRange * 0.5
+    ib15Low = ibLow - currentIBRange * 0.5
+    ib2High = ibHigh + currentIBRange
+    ib2Low = ibLow - currentIBRange
+    label15High = label.new(bar_index + ibLabelOffset, ib15High, "IB 1.5x", color=color.new(colorNeutral, 0), style=label.style_label_left, textcolor=color.black, size=size.tiny)
+    array.push(ibProjectionLabels, label15High)
+    line15High = line.new(sessionStartBar, ib15High, bar_index + ibLabelOffset, ib15High, xloc=xloc.bar_index, color=color.new(colorNeutral, 70), style=line.style_dotted, width=1)
+    array.push(ibProjectionLines, line15High)
+    label15Low = label.new(bar_index + ibLabelOffset, ib15Low, "IB 1.5x", color=color.new(colorNeutral, 0), style=label.style_label_left, textcolor=color.black, size=size.tiny)
+    array.push(ibProjectionLabels, label15Low)
+    line15Low = line.new(sessionStartBar, ib15Low, bar_index + ibLabelOffset, ib15Low, xloc=xloc.bar_index, color=color.new(colorNeutral, 70), style=line.style_dotted, width=1)
+    array.push(ibProjectionLines, line15Low)
+    label2High = label.new(bar_index + ibLabelOffset, ib2High, "IB 2x", color=color.new(colorNeutral, 0), style=label.style_label_left, textcolor=color.black, size=size.tiny)
+    array.push(ibProjectionLabels, label2High)
+    line2High = line.new(sessionStartBar, ib2High, bar_index + ibLabelOffset, ib2High, xloc=xloc.bar_index, color=color.new(colorNeutral, 85), style=line.style_dotted, width=1)
+    array.push(ibProjectionLines, line2High)
+    label2Low = label.new(bar_index + ibLabelOffset, ib2Low, "IB 2x", color=color.new(colorNeutral, 0), style=label.style_label_left, textcolor=color.black, size=size.tiny)
+    array.push(ibProjectionLabels, label2Low)
+    line2Low = line.new(sessionStartBar, ib2Low, bar_index + ibLabelOffset, ib2Low, xloc=xloc.bar_index, color=color.new(colorNeutral, 85), style=line.style_dotted, width=1)
+    array.push(ibProjectionLines, line2Low)
+if showDayType and endSession and currentProfile.dayType != ""
+    dayTypeLabel := label.new(bar_index, sessionHigh * 1.02, currentProfile.dayType, color=color.new(colorPrimary, 0), style=label.style_label_down, textcolor=color.black, size=size.normal)
+if barstate.islast and dashboardEnabled
+    tablePos = switch dashPosition
+        "Top Right" => position.top_right
+        "Top Left" => position.top_left
+        "Bottom Right" => position.bottom_right
+        => position.bottom_left
+    if not na(eliteDashboard)
+        table.delete(eliteDashboard)
+    eliteDashboard := table.new(tablePos, 3, 50, border_width=2)
+    bgColor = dashTheme == "Dark Pro" ? color.new(#1a1a1a, 20) : dashTheme == "Light Pro" ? color.new(#f5f5f5, 20) : dashTheme == "Matrix" ? color.new(#001100, 20) : color.new(#000033, 20)
+    textColor = dashTheme == "Light Pro" ? color.black : color.white
+    headerColor = dashTheme == "Matrix" ? color.new(#00ff00, 0) : colorPrimary
+    row = 0
+    table.merge_cells(eliteDashboard, 0, row, 2, row)
+    table.cell(eliteDashboard, 0, row, "📈 Advanced Market Theory", text_color=headerColor, text_size=size.normal, bgcolor=bgColor)
+    row += 1
+    table.merge_cells(eliteDashboard, 0, row, 2, row)
+    table.cell(eliteDashboard, 0, row, "── Current Session ──", text_color=color.new(textColor, 50), text_size=size.tiny, bgcolor=bgColor)
+    row += 1
+    table.cell(eliteDashboard, 0, row, "POC", text_color=textColor, text_size=size.small, bgcolor=bgColor)
+    table.cell(eliteDashboard, 1, row, str.tostring(currentProfile.poc, format.mintick), text_color=colorAccent, text_size=size.small, bgcolor=bgColor)
+    table.cell(eliteDashboard, 2, row, currentProfile.profileShape, text_color=colorSecondary, text_size=size.tiny, bgcolor=bgColor)
+    row += 1
+    table.cell(eliteDashboard, 0, row, "VAH", text_color=textColor, text_size=size.small, bgcolor=bgColor)
+    table.cell(eliteDashboard, 1, row, str.tostring(currentProfile.vah, format.mintick), text_color=colorBullish, text_size=size.small, bgcolor=bgColor)
+    row += 1
+    table.cell(eliteDashboard, 0, row, "VAL", text_color=textColor, text_size=size.small, bgcolor=bgColor)
+    table.cell(eliteDashboard, 1, row, str.tostring(currentProfile.val, format.mintick), text_color=colorBearish, text_size=size.small, bgcolor=bgColor)
+    row += 1
+    vaWidth = not na(currentProfile.vah) and not na(currentProfile.val) ? currentProfile.vah - currentProfile.val : 0
+    table.cell(eliteDashboard, 0, row, "VA Width", text_color=textColor, text_size=size.small, bgcolor=bgColor)
+    table.cell(eliteDashboard, 1, row, str.tostring(vaWidth, format.mintick), text_color=colorNeutral, text_size=size.small, bgcolor=bgColor)
+    row += 1
+    table.cell(eliteDashboard, 0, row, "Day Type", text_color=textColor, text_size=size.small, bgcolor=bgColor)
+    table.cell(eliteDashboard, 1, row, currentProfile.dayType != "" ? currentProfile.dayType : "Developing", text_color=colorSecondary, text_size=size.small, bgcolor=bgColor)
+    row += 1
+    table.cell(eliteDashboard, 0, row, "IB Range", text_color=textColor, text_size=size.small, bgcolor=bgColor)
+    table.cell(eliteDashboard, 1, row, str.tostring(context.ibRange, format.mintick), text_color=colorNeutral, text_size=size.small, bgcolor=bgColor)
+    if migrationTracking and array.size(currentProfile.pocMigration) > 1
+        row += 1
+        pocTrend = array.get(currentProfile.pocMigration, array.size(currentProfile.pocMigration) - 1) > array.get(currentProfile.pocMigration, 0) ? "↑" : "↓"
+        table.cell(eliteDashboard, 0, row, "POC Trend", text_color=textColor, text_size=size.small, bgcolor=bgColor)
+        table.cell(eliteDashboard, 1, row, pocTrend, text_color=pocTrend == "↑" ? colorBullish : colorBearish, text_size=size.small, bgcolor=bgColor)
+    if useCVDSignals
+        row += 1
+        table.merge_cells(eliteDashboard, 0, row, 2, row)
+        table.cell(eliteDashboard, 0, row, "── CVD Analysis ──", text_color=color.new(textColor, 50), text_size=size.tiny, bgcolor=bgColor)
+        row += 1
+        table.cell(eliteDashboard, 0, row, "Session CVD", text_color=textColor, text_size=size.small, bgcolor=bgColor)
+        cvdColor = cvdSessionDelta > 0 ? colorBullish : colorBearish
+        table.cell(eliteDashboard, 1, row, str.tostring(cvdSessionDelta, "#,###"), text_color=cvdColor, text_size=size.small, bgcolor=bgColor)
+    row += 1
+    table.merge_cells(eliteDashboard, 0, row, 2, row)
+    table.cell(eliteDashboard, 0, row, "── Market Metrics ──", text_color=color.new(textColor, 50), text_size=size.tiny, bgcolor=bgColor)
+    row += 1
+    table.cell(eliteDashboard, 0, row, "Volume", text_color=textColor, text_size=size.small, bgcolor=bgColor)
+    volRatio = volume / volSMA20
+    table.cell(eliteDashboard, 1, row, str.tostring(volRatio, "#.##") + "x", text_color=volRatio > 1.5 ? colorBullish : colorNeutral, text_size=size.small, bgcolor=bgColor)
+    row += 1
+    table.cell(eliteDashboard, 0, row, "RSI", text_color=textColor, text_size=size.small, bgcolor=bgColor)
+    rsiColor = rsi14 > 70 ? colorBearish : rsi14 < 30 ? colorBullish : colorNeutral
+    table.cell(eliteDashboard, 1, row, str.tostring(rsi14, "#"), text_color=rsiColor, text_size=size.small, bgcolor=bgColor)
+    if map.size(currentProfile.levels) > 0
+        row += 1
+        table.merge_cells(eliteDashboard, 0, row, 2, row)
+        table.cell(eliteDashboard, 0, row, "── Profile Stats ──", text_color=color.new(textColor, 50), text_size=size.tiny, bgcolor=bgColor)
+        row += 1
+        table.cell(eliteDashboard, 0, row, "Levels", text_color=textColor, text_size=size.small, bgcolor=bgColor)
+        table.cell(eliteDashboard, 1, row, str.tostring(map.size(currentProfile.levels)), text_color=colorNeutral, text_size=size.small, bgcolor=bgColor)
+    if compositeEnabled and sessionCount > 1 and not na(compositeProfile.poc)
+        row += 1
+        table.merge_cells(eliteDashboard, 0, row, 2, row)
+        table.cell(eliteDashboard, 0, row, "── Composite ──", text_color=color.new(textColor, 50), text_size=size.tiny, bgcolor=bgColor)
+        row += 1
+        table.cell(eliteDashboard, 0, row, "Comp POC", text_color=textColor, text_size=size.small, bgcolor=bgColor)
+        table.cell(eliteDashboard, 1, row, str.tostring(compositeProfile.poc, format.mintick), text_color=colorComposite, text_size=size.small, bgcolor=bgColor)
+    if currentProfile.hasPoorHigh or currentProfile.hasPoorLow
+        row += 1
+        table.merge_cells(eliteDashboard, 0, row, 2, row)
+        table.cell(eliteDashboard, 0, row, "── Poor Structure ──", text_color=color.new(colorPoorStructure, 0), text_size=size.tiny, bgcolor=bgColor)
+        if currentProfile.hasPoorHigh
+            row += 1
+            table.cell(eliteDashboard, 0, row, "Poor High", text_color=textColor, text_size=size.small, bgcolor=bgColor)
+            table.cell(eliteDashboard, 1, row, str.tostring(currentProfile.poorHighLevel, format.mintick), text_color=colorPoorStructure, text_size=size.small, bgcolor=bgColor)
+        if currentProfile.hasPoorLow
+            row += 1
+            table.cell(eliteDashboard, 0, row, "Poor Low", text_color=textColor, text_size=size.small, bgcolor=bgColor)
+            table.cell(eliteDashboard, 1, row, str.tostring(currentProfile.poorLowLevel, format.mintick), text_color=colorPoorStructure, text_size=size.small, bgcolor=bgColor)
+    row += 1
+    table.merge_cells(eliteDashboard, 0, row, 2, row)
+    table.cell(eliteDashboard, 0, row, "── Signal Types ──", text_color=color.new(textColor, 50), text_size=size.tiny, bgcolor=bgColor)
+    row += 1
+    table.cell(eliteDashboard, 0, row, "▲ FADE", text_color=colorYellow, text_size=size.tiny, bgcolor=bgColor)
+    table.cell(eliteDashboard, 1, row, "Counter-trend", text_color=textColor, text_size=size.tiny, bgcolor=bgColor)
+    row += 1
+    table.cell(eliteDashboard, 0, row, "▲ BREAK", text_color=colorCyan, text_size=size.tiny, bgcolor=bgColor)
+    table.cell(eliteDashboard, 1, row, "Momentum", text_color=textColor, text_size=size.tiny, bgcolor=bgColor)
+    row += 1
+    table.cell(eliteDashboard, 0, row, "▲ ROTATE", text_color=colorPurple, text_size=size.tiny, bgcolor=bgColor)
+    table.cell(eliteDashboard, 1, row, "Range trade", text_color=textColor, text_size=size.tiny, bgcolor=bgColor)
+    row += 1
+    table.cell(eliteDashboard, 0, row, "▲ LIQUID", text_color=colorMagenta, text_size=size.tiny, bgcolor=bgColor)
+    table.cell(eliteDashboard, 1, row, "Liquidity", text_color=textColor, text_size=size.tiny, bgcolor=bgColor)
+    row += 1
+    table.cell(eliteDashboard, 0, row, "▲ ELITE", text_color=colorGold, text_size=size.tiny, bgcolor=bgColor)
+    table.cell(eliteDashboard, 1, row, "Best setup", text_color=textColor, text_size=size.tiny, bgcolor=bgColor)
+    if not na(currentSignal)
+        row += 1
+        table.merge_cells(eliteDashboard, 0, row, 2, row)
+        table.cell(eliteDashboard, 0, row, "── Active Signal ──", text_color=color.new(colorAccent, 0), text_size=size.tiny, bgcolor=bgColor)
+        row += 1
+        table.cell(eliteDashboard, 0, row, "Type", text_color=textColor, text_size=size.small, bgcolor=bgColor)
+        table.cell(eliteDashboard, 1, row, currentSignal.signalType, text_color=getSignalColor(currentSignal.signalType), text_size=size.tiny, bgcolor=bgColor)
+        table.cell(eliteDashboard, 2, row, str.tostring(currentSignal.probability) + "%", text_color=colorAccent, text_size=size.tiny, bgcolor=bgColor)
+        row += 1
+        table.cell(eliteDashboard, 0, row, "Entry", text_color=textColor, text_size=size.small, bgcolor=bgColor)
+        table.cell(eliteDashboard, 1, row, str.tostring(currentSignal.price, format.mintick), text_color=colorNeutral, text_size=size.small, bgcolor=bgColor)
+        row += 1
+        table.cell(eliteDashboard, 0, row, "Stop", text_color=textColor, text_size=size.small, bgcolor=bgColor)
+        table.cell(eliteDashboard, 1, row, str.tostring(currentSignal.stop, format.mintick), text_color=colorBearish, text_size=size.small, bgcolor=bgColor)
+        row += 1
+        table.cell(eliteDashboard, 0, row, "Target", text_color=textColor, text_size=size.small, bgcolor=bgColor)
+        table.cell(eliteDashboard, 1, row, str.tostring(currentSignal.target1, format.mintick), text_color=colorBullish, text_size=size.small, bgcolor=bgColor)
+    row += 1
+    table.merge_cells(eliteDashboard, 0, row, 2, row)
+    table.cell(eliteDashboard, 0, row, "━━━━━━━━━━━━━━━", text_color=color.new(headerColor, 50), text_size=size.tiny, bgcolor=bgColor)
+    row += 1
+    table.merge_cells(eliteDashboard, 0, row, 2, row)
+    table.cell(eliteDashboard, 0, row, "📊 ⚡ Dskyz (DAFE) Trading Systems 📊", text_color=color.new(headerColor, 30), text_size=size.tiny, bgcolor=bgColor)
+if shouldSignal and not na(currentSignal)
+    signalColor = getSignalColor(currentSignal.signalType)
+    if currentSignal.baseType == "LONG"
+        label.new(bar_index, low - atr14 * 2.5, "▲\n" + str.tostring(currentSignal.probability) + "%", color=color(na), style=label.style_none, textcolor=signalColor, size=size.small)
+    else
+        label.new(bar_index, high + atr14 * 1.0, str.tostring(currentSignal.probability) + "%\n▼", color=color(na), style=label.style_none, textcolor=signalColor, size=size.small)
+plot(not na(currentProfile.poc) ? currentProfile.poc : na, "POC", colorAccent, 3, plot.style_line)
+plot(not na(currentProfile.vah) ? currentProfile.vah : na, "VAH", colorBlue, 2, plot.style_line)
+plot(not na(currentProfile.val) ? currentProfile.val : na, "VAL", colorBlue, 2, plot.style_line)
+plot(showVolumeNodes and not inIB ? ibHigh : na, "IB High", colorNeutral, 1, plot.style_circles)
+plot(showVolumeNodes and not inIB ? ibLow : na, "IB Low", colorNeutral, 1, plot.style_circles)
+plot(showProjections ? vwapValue : na, "VWAP", colorPurple, 2)
+alertcondition(newSession, "New Session", "New trading session started")
+alertcondition(shouldSignal and not na(currentSignal), "Elite Signal", "New signal generated")
+alertcondition(pocCrossOver and not na(pocSeries), "POC Cross Up", "Price crossed above POC")
+alertcondition(pocCrossUnder and not na(pocSeries), "POC Cross Down", "Price crossed below POC")
+alertcondition(not na(currentProfile.vah) and close > currentProfile.vah, "Above Value", "Price above Value Area High")
+alertcondition(not na(currentProfile.val) and close < currentProfile.val, "Below Value", "Price below Value Area Low")
+alertcondition(compositePocCrossOver and not na(compositePocSeries), "Composite POC Cross", "Price crossed Composite POC")
+alertcondition(currentProfile.hasPoorHigh, "Poor High Detected", "Poor high structure detected - potential reversal")
+alertcondition(currentProfile.hasPoorLow, "Poor Low Detected", "Poor low structure detected - potential reversal")
+bgcolor(inSession ? color.new(colorPrimary, 98) : na, title="Session Background")

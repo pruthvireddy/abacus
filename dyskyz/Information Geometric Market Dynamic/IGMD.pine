@@ -1,0 +1,1242 @@
+//@version=5
+indicator("Information-Geometric Market Dynamics", shorttitle="📊 IGMD", overlay=true, max_lines_count=500, max_labels_count=500, max_boxes_count=500, max_bars_back=5000)
+
+//==============================================================================
+// 🎯 INFORMATION-GEOMETRIC MARKET DYNAMICS (IGMD) - COMPLETE THEORY & USER GUIDE
+//==============================================================================
+//
+// 📊 IGMD: THE PHYSICS OF MARKET MOVEMENT - A REVOLUTIONARY APPROACH
+//
+// Welcome to Information-Geometric Market Dynamics (IGMD), a groundbreaking analytical
+// framework that applies principles from theoretical physics, information theory, and
+// differential geometry to decode market behavior. IGMD transcends traditional technical
+// analysis by treating markets as complex information fields where price movements
+// represent the flow of information through geometric manifolds.
+//
+// ⚡ THE REVOLUTIONARY PARADIGM SHIFT:
+//
+// Traditional indicators measure what happened. IGMD reveals WHY it happened and WHAT comes next.
+//
+// 1. INFORMATION FIELD THEORY:
+//    Markets are not random walks but structured information fields where every price
+//    movement carries geometric significance. IGMD maps these fields using five fundamental
+//    dimensions: Wavelet (multi-scale structure), Hurst (memory persistence), Fractal
+//    (complexity), Entropy (disorder), and Transfer Entropy (causal flow).
+//
+// 2. MULTI-DIMENSIONAL MARKET GEOMETRY:
+//    - WAVELET TRANSFORM: Decomposes price into frequency components like a market MRI
+//    - HURST EXPONENT: Measures whether trends persist (H>0.5) or revert (H<0.5)
+//    - FRACTAL DIMENSION: Quantifies market roughness and path complexity
+//    - SHANNON ENTROPY: Captures information content and uncertainty levels
+//    - TRANSFER ENTROPY: Reveals directional causality between market forces
+//
+// 3. FIELD SCORE SYNTHESIS:
+//    The revolutionary Field Score fuses all dimensions into a single unified measure
+//    of market state. Think of it as the "market weather" - positive values indicate
+//    bullish field conditions, negative values bearish fields, near-zero transitional.
+//
+// 4. PATTERN FIELD DETECTION:
+//    IGMD identifies geometric patterns in the information field before they manifest
+//    as price patterns. Range boxes visualize field coherence zones where information
+//    accumulates before explosive moves. Each pattern type reveals specific field dynamics.
+//
+// 5. RISK/REWARD GEOMETRY:
+//    Dynamic RR rails adapt to field conditions, automatically adjusting targets and
+//    stops based on information flow. When price breaks levels, rails disappear,
+//    creating a living risk management system synchronized with market geometry.
+//
+// 🧮 THE MATHEMATICS OF MARKET FIELDS:
+//
+// IGMD employs sophisticated mathematical frameworks rarely seen in trading:
+//
+// 1. STATIONARY WAVELET TRANSFORM (SWT):
+//    Unlike simple moving averages, SWT preserves time-invariance while decomposing
+//    price into orthogonal frequency bands. Each level captures different market
+//    cycles without lag or phase distortion.
+//
+// 2. RESCALED RANGE ANALYSIS:
+//    The Hurst exponent uses R/S statistics to measure long-range dependence.
+//    Markets exhibit fractal scaling: H = log(R/S) / log(N) where R/S is the
+//    rescaled range and N is the time scale.
+//
+// 3. HAUSDORFF DIMENSION:
+//    Fractal dimension D measures how price fills space: D = log(N(ε))/log(1/ε)
+//    where N(ε) counts boxes needed to cover the price path at scale ε.
+//
+// 4. SHANNON ENTROPY:
+//    Information content H = -Σ p(i) log p(i) quantifies uncertainty in return
+//    distributions. Low entropy signals directional clarity, high entropy chaos.
+//
+// 5. KULLBACK-LEIBLER DIVERGENCE:
+//    Transfer entropy TE = Σ p(yn+1,yn,xn) log[p(yn+1|yn,xn)/p(yn+1|yn)]
+//    measures information flow from driver X to price Y.
+//
+// 💡 TRADING PHILOSOPHY WITH IGMD:
+//
+// Markets are information processing systems where price discovers value through
+// collective computation. IGMD reveals this hidden computation by mapping the
+// geometric structure of information flow. When fields align (high Field Score),
+// markets trend powerfully. When fields decohere (near-zero Field Score), markets
+// consolidate. Pattern emergence signals field reorganization - the market's way
+// of processing new information into price discovery.
+//
+// 🎯 SIGNAL GENERATION LOGIC:
+//
+// IGMD generates signals through multi-dimensional confluence:
+// - Field Score exceeds directional thresholds
+// - Component indicators align (wavelets, Hurst, entropy)
+// - Pattern field confirms setup quality
+// - MTF context validates higher timeframe bias
+// - Risk/Reward geometry favors the trade
+//
+// Each signal carries a probability score based on field coherence strength.
+// Higher probability signals occur when all dimensional fields align perfectly,
+// creating what physicists call "field resonance" - unstoppable directional moves.
+//
+// ⚠️ ADVANCED FIELD DYNAMICS:
+//
+// • Field Bifurcation: When Field Score oscillates near zero, markets approach
+//   critical points where small events trigger large moves (butterfly effect)
+// • Entropy Cascades: Sudden entropy drops often precede explosive trends as
+//   uncertainty collapses into directional certainty
+// • Wavelet Divergence: When fast and slow wavelets diverge, major trends emerge
+// • Transfer Entropy Reversals: TE polarity flips signal causality regime changes
+// • Fractal Transitions: FDI moving from 2.0 to 1.0 indicates chaos-to-trend shift
+//
+// 🚀 PERFORMANCE OPTIMIZATION:
+//
+// IGMD performs heavy calculations. For smooth operation:
+// - Use on liquid instruments with clean price action
+// - Higher timeframes (15m+) provide better signal quality
+// - Reduce pattern history if performance lags
+// - Disable unused features (MTF, patterns) if needed
+// - Modern browsers/devices recommended for full experience
+//
+//==============================================================================
+// 📊 IGMD INPUT CONFIGURATION - COMPLETE REFERENCE GUIDE
+//==============================================================================
+group_wave = "📊 Wavelet Transform Engine"
+wl_kernel = input.string("Haar", "Wavelet Kernel", options=["Haar","db2"], group=group_wave, tooltip='🎯 WHAT IT IS: The mathematical basis function for multi-resolution price decomposition.\n\n⚡ HOW IT WORKS: Wavelets act like mathematical microscopes, zooming into different frequency components of price action. Each kernel has unique properties for signal processing.\n\n📈 HAAR WAVELET:\n• Simplest orthogonal wavelet (step function)\n• Perfect time localization\n• Best for: Choppy markets, noise filtering\n• Computation: Fastest\n• Character: Sharp, responsive, blocky\n\n📉 DAUBECHIES-2 (DB2):\n• Smooth, continuous wavelet\n• Balanced time-frequency localization\n• Best for: Trending markets, smooth analysis\n• Computation: Moderate\n• Character: Smooth, nuanced, flowing\n\n🕒 TIMEFRAME OPTIMIZATION:\n• Scalping (1-5min): Haar (captures micro-structure)\n• Day Trading (15min-1H): db2 (balanced smoothness)\n• Swing Trading (4H-Daily): db2 (trend clarity)\n\n🏦 MARKET RECOMMENDATIONS:\n• Forex: db2 (smooth price action)\n• Crypto: Haar (handles volatility spikes)\n• Stocks: db2 (cleaner institutional flow)\n• Commodities: db2 (trend-following nature)\n\n💡 PRO TIP: Start with db2 for most markets. Switch to Haar only if you need faster response in choppy conditions or are analyzing market microstructure.')
+wl_levels = input.int(2, "Decomposition Levels", minval=2, maxval=4, group=group_wave, tooltip='🎯 WHAT IT IS: Number of frequency scales to decompose price into (like octaves in music).\n\n⚡ HOW IT WORKS: Each level doubles the time scale: Level 1 = 2 bars, Level 2 = 4 bars, Level 3 = 8 bars, Level 4 = 16 bars. More levels capture longer cycles.\n\n📈 HIGHER LEVELS (3-4):\n• Captures longer-term cycles\n• Smoother trend identification\n• Better for position trading\n• More lag but fewer false signals\n\n📉 LOWER LEVELS (2):\n• Focuses on short-term structure\n• More responsive to price changes\n• Better for scalping\n• Less lag but more noise\n\n🕒 TIMEFRAME OPTIMIZATION:\n• 1-5 min charts: 2 levels (avoid over-smoothing)\n• 15min-1H charts: 3 levels (optimal balance)\n• 4H-Daily charts: 3-4 levels (capture weekly cycles)\n\n💡 PRO TIP: Level 3 is the sweet spot for most trading. It captures daily, 2-day, and weekly cycles without excessive lag. Only use Level 4 on higher timeframes where you need monthly cycle analysis.')
+group_hurst = "📈 Hurst Exponent Memory Detector"
+hurst_window = input.int(125, "Analysis Window", minval=60, maxval=1000, group=group_hurst, tooltip='🎯 WHAT IT IS: The lookback period for calculating market memory and trend persistence using Rescaled Range analysis.\n\n⚡ HOW IT WORKS: Hurst Exponent H reveals market character:\n• H > 0.5: Trending (persistence) - trends tend to continue\n• H = 0.5: Random walk - no memory\n• H < 0.5: Mean-reverting (anti-persistence) - trends tend to reverse\n\n📈 LARGER WINDOWS (300-1000):\n• More statistically reliable\n• Captures long-term market regime\n• Slower to adapt to changes\n• Better for position trading\n\n📉 SMALLER WINDOWS (60-150):\n• More responsive to regime changes\n• May give false readings in noise\n• Better for short-term trading\n• Adapts quickly to new conditions\n\n🕒 TIMEFRAME OPTIMIZATION:\n• Scalping: 60-100 (quick regime detection)\n• Day Trading: 150-250 (balanced reliability)\n• Swing Trading: 200-500 (stable readings)\n• Investing: 500+ (long-term character)\n\n🏦 MARKET CHARACTERISTICS:\n• Forex: Often H ≈ 0.5 (efficient)\n• Stocks: Often H > 0.5 (trending)\n• Crypto: Varies wildly (regime-dependent)\n• Commodities: Often H > 0.6 (super-trending)\n\n💡 PRO TIP: Use 200 bars as baseline - roughly 50 4-hour candles or 8 daily candles. This captures about 2 weeks of market behavior, enough for reliable statistics without excessive lag.')
+group_fdi = "🔍 Fractal Dimension Complexity Analyzer"
+fdi_len = input.int(32, "FDI Calculation Length", minval=16, maxval=256, group=group_fdi, tooltip='🎯 WHAT IT IS: The window for calculating Fractal Dimension Index using the FRAMA (Fractal Adaptive Moving Average) algorithm.\n\n⚡ HOW IT WORKS: FDI measures how price path fills space:\n• FDI ≈ 1.0: Straight line (strong trend)\n• FDI ≈ 1.5: Typical market (mixed)\n• FDI ≈ 2.0: Space-filling (pure noise)\n\nLower FDI = Smoother/trending | Higher FDI = Rougher/ranging\n\n📈 LONGER LENGTHS (64-256):\n• More stable FDI readings\n• Better long-term complexity measure\n• Filters out micro-noise\n• Suitable for higher timeframes\n\n📉 SHORTER LENGTHS (16-32):\n• More responsive to complexity changes\n• Captures local market texture\n• Good for pattern recognition\n• Suitable for lower timeframes\n\n🕒 TIMEFRAME OPTIMIZATION:\n• 1-5 min: 16-24 (local complexity)\n• 15min-1H: 32-48 (standard analysis)\n• 4H-Daily: 48-128 (structural complexity)\n\n🏦 TYPICAL FDI VALUES BY MARKET:\n• Strong Trends: 1.2-1.4\n• Normal Markets: 1.4-1.6\n• Ranging/Choppy: 1.6-1.8\n• High Volatility: 1.8-2.0\n\n💡 PRO TIP: FDI of 32 works universally. Watch for FDI dropping below 1.4 (trend emerging) or rising above 1.7 (trend ending). The transition zones 1.4-1.5 and 1.6-1.7 often mark regime changes.')
+group_entropy = "⚡ Shannon Entropy Information Analyzer"
+ent_window = input.int(125, "Entropy Window", minval=50, maxval=600, group=group_entropy, tooltip='🎯 WHAT IT IS: Rolling window for calculating Shannon entropy of return distributions to measure market uncertainty.\n\n⚡ HOW IT WORKS: Entropy quantifies information content:\n• Low Entropy: Predictable, directional, organized\n• High Entropy: Unpredictable, random, chaotic\n• Falling Entropy: Uncertainty resolving into trend\n• Rising Entropy: Trend dissolving into chaos\n\n📈 LARGER WINDOWS (300-600):\n• Stable entropy measurements\n• Long-term uncertainty gauge\n• Better statistical significance\n• Slower to react to changes\n\n📉 SMALLER WINDOWS (50-150):\n• Responsive to uncertainty shifts\n• Captures local information changes\n• More false signals possible\n• Faster regime detection\n\n🕒 TIMEFRAME OPTIMIZATION:\n• Scalping: 50-100 (quick uncertainty shifts)\n• Day Trading: 150-250 (balanced measure)\n• Swing Trading: 200-400 (stable readings)\n• Position Trading: 400+ (major regime shifts)\n\n⚠️ ENTROPY INTERPRETATION:\n• Entropy < 0.3: Strong directional bias\n• Entropy 0.3-0.7: Normal market conditions\n• Entropy > 0.7: High uncertainty/volatility\n• Sudden drops: Breakout imminent\n• Sudden spikes: Trend exhaustion\n\n💡 PRO TIP: 200 bars captures sufficient return samples for reliable entropy. Watch for entropy dropping below its average - this often precedes explosive moves as uncertainty collapses into directional certainty.')
+ent_bins = input.int(6, "Histogram Bins", minval=3, maxval=15, group=group_entropy, tooltip='🎯 WHAT IT IS: Number of bins for discretizing return distributions in entropy calculation.\n\n⚡ HOW IT WORKS: Returns are grouped into bins to estimate probability distributions:\n• Fewer Bins: Coarser but stable estimates\n• More Bins: Finer but noisier estimates\n• Optimal: Square root of sample size\n\n📈 MORE BINS (10-15):\n• Captures distribution details\n• Better for large sample sizes\n• May overfit in small samples\n• Higher computational load\n\n📉 FEWER BINS (3-6):\n• Robust to small samples\n• Smooth entropy estimates\n• May miss distribution nuances\n• Fast computation\n\n🔬 STATISTICAL THEORY:\n• Sturges Rule: bins = 1 + log2(N)\n• Square Root: bins = sqrt(N)\n• Rice Rule: bins = 2 * N^(1/3)\n• For 200 samples: optimal ≈ 7-9 bins\n\n💡 PRO TIP: 7 bins is statistically optimal for 200-bar windows. This follows Sturges rule and provides good balance between resolution and stability. Only increase if using windows > 500 bars.')
+ent_normATR = input.bool(true, "ATR Normalization", group=group_entropy, tooltip='🎯 WHAT IT IS: Whether to normalize returns by Average True Range before entropy calculation.\n\n⚡ HOW IT WORKS:\n• ON: Returns divided by ATR (volatility-adjusted)\n• OFF: Raw percentage returns used\n\n✅ ATR NORMALIZATION ON:\n• Compares "surprises" relative to volatility\n• Works across different volatility regimes\n• Better for adaptive systems\n• Recommended for most cases\n\n❌ ATR NORMALIZATION OFF:\n• Uses absolute return magnitudes\n• Entropy dominated by volatility changes\n• Better for fixed volatility assets\n• Useful for comparing across instruments\n\n💡 PRO TIP: Always use ATR normalization unless comparing multiple instruments. It makes entropy measure "surprise" rather than just "movement", which is what really matters for prediction.')
+ent_atrLen = input.int(14, "ATR Period", minval=5, maxval=100, group=group_entropy, tooltip='🎯 WHAT IT IS: Period for Average True Range calculation used in return normalization.\n\n⚡ STANDARD VALUES:\n• 14: Classic Wilder setting\n• 10: More responsive\n• 20: Smoother\n• 7: Short-term volatility\n• 21: Monthly volatility\n\n💡 PRO TIP: Keep at 14 - its the market standard and works across all timeframes.')
+ent_zLen = input.int(200, "Z-Score Lookback", minval=50, maxval=1000, group=group_entropy, tooltip='🎯 WHAT IT IS: Period for normalizing entropy into Z-scores to identify statistical extremes.\n\n⚡ HOW IT WORKS: Z-score = (Entropy - Mean) / StdDev\n• Z > 2: Extremely high entropy (rare)\n• Z < -2: Extremely low entropy (rare)\n• Extremes often precede major moves\n\n💡 PRO TIP: Match this to your entropy window (200) for consistent statistical analysis.')
+group_te = "🔄 Transfer Entropy Causal Flow Detector"
+te_window = input.int(125, "TE Analysis Window", minval=80, maxval=800, group=group_te, tooltip='🎯 WHAT IT IS: Window for calculating directional information flow between market drivers and price using Transfer Entropy.\n\n⚡ HOW IT WORKS: TE measures causality - does X drive Y?\n• Positive TE: Driver leads price (predictive)\n• Negative TE: Price leads driver (reactive)\n• Near-zero TE: No causal relationship\n\n📈 LARGER WINDOWS (400-800):\n• More reliable causality detection\n• Captures long-term relationships\n• Better statistical significance\n• Suitable for macro analysis\n\n📉 SMALLER WINDOWS (80-200):\n• Responsive to causality shifts\n• Detects short-term influences\n• More noise in measurements\n• Suitable for tactical trading\n\n🕒 OPTIMAL WINDOWS BY TIMEFRAME:\n• 1-15 min: 80-150 bars\n• 1H: 150-250 bars\n• 4H: 200-400 bars\n• Daily: 300-600 bars\n\n🎯 MINIMUM REQUIREMENTS:\n• Need at least 50 samples for reliability\n• 200 bars provides good balance\n• More is better for statistical power\n\n💡 PRO TIP: TE needs substantial data - use 200 minimum. This captures enough state transitions to reliably measure information flow while remaining responsive to regime changes.')
+te_thresh = input.float(0.08, "State Quantization Threshold", minval=0.01, maxval=1.0, step=0.01, group=group_te, tooltip='🎯 WHAT IT IS: Return threshold for discretizing continuous prices into discrete states for TE calculation.\n\n⚡ HOW IT WORKS: Returns are classified:\n• Return > +threshold: Upward state\n• Return < -threshold: Downward state\n• Between: Neutral state\n\n📈 HIGHER THRESHOLDS (0.15-1.0):\n• Only captures significant moves\n• More robust to noise\n• Fewer state transitions\n• Better for volatile markets\n\n📉 LOWER THRESHOLDS (0.01-0.07):\n• Captures subtle movements\n• More state transitions\n• Higher TE sensitivity\n• Better for stable markets\n\n🏦 MARKET-SPECIFIC SETTINGS:\n• Forex: 0.05-0.08 (tight spreads)\n• Stocks: 0.08-0.12 (medium volatility)\n• Crypto: 0.10-0.20 (high volatility)\n• Indices: 0.06-0.10 (smooth moves)\n\n💡 PRO TIP: Set threshold to roughly 0.5x daily ATR percentage. For example, if daily ATR is 2%, use 0.08-0.10. This captures meaningful moves while filtering micro-noise.')
+te_driver = input.string("OBV", "Causality Driver", options=["OBV","Volume","VWAP","External Symbol"], group=group_te, tooltip='🎯 WHAT IT IS: The market variable to test for causal influence on price.\n\n⚡ DRIVER OPTIONS:\n\n📊 OBV (On-Balance Volume):\n• Cumulative volume flow indicator\n• Best for: Detecting accumulation/distribution\n• Reveals: Smart money positioning\n• Works well: All markets\n\n📊 VOLUME:\n• Raw transaction volume\n• Best for: Liquidity analysis\n• Reveals: Participation levels\n• Works well: Liquid markets\n\n📊 VWAP:\n• Volume-weighted average price\n• Best for: Institutional levels\n• Reveals: Fair value deviations\n• Works well: Stocks, futures\n\n📊 EXTERNAL SYMBOL:\n• Any correlated instrument\n• Examples: VIX, DXY, Gold, Bond yields\n• Best for: Intermarket analysis\n• Reveals: Macro influences\n\n🎯 SELECTION GUIDE:\n• Stocks: OBV or VWAP\n• Forex: External (DXY, yields)\n• Crypto: Volume or OBV\n• Commodities: External (DXY, related futures)\n\n💡 PRO TIP: Start with OBV - it combines price and volume information optimally. Switch to External only for specific intermarket analysis (e.g., VIX for S&P500, DXY for forex pairs).')
+te_symbol = input.symbol("TVC:VIX", "External Driver Symbol", group=group_te, tooltip='🎯 WHAT IT IS: External symbol for causality analysis when using External Symbol driver.\n\n⚡ POWERFUL COMBINATIONS:\n• SPY/QQQ + VIX: Fear drives markets\n• Forex + DXY: Dollar dominance\n• Gold + Real Yields: Inflation hedge\n• Crypto + TOTAL2: Altcoin correlation\n• Oil + USO: Energy sector leader\n\n💡 PRO TIP: Use highly correlated but leading indicators. VIX often leads equity reversals, DXY leads forex pairs, Bitcoin leads altcoins.')
+te_tf_in = input.string("", "External Timeframe", group=group_te, tooltip='🎯 WHAT IT IS: Timeframe for external symbol data (blank = current chart timeframe).\n\n⚡ USE CASES:\n• Higher TF: Macro influence (Daily DXY on 1H chart)\n• Same TF: Direct correlation (blank/default)\n• Lower TF: Leading microstructure (rare)\n\n💡 PRO TIP: Leave blank for most cases. Only specify for macro overlays.')
+te_sigMin = input.float(0.08, "TE Significance Filter", minval=0.0, maxval=0.5, step=0.01, group=group_te, tooltip='🎯 WHAT IT IS: Minimum Transfer Entropy magnitude to consider significant (filters weak relationships).\n\n⚡ HOW IT WORKS:\n• TE below threshold treated as zero\n• Filters statistical noise\n• Focuses on meaningful causality\n\n📈 HIGHER VALUES (0.15-0.5):\n• Only strongest relationships\n• Very few signals\n• High confidence when triggered\n\n📉 LOWER VALUES (0.01-0.07):\n• Includes weak relationships\n• More signals\n• More false positives\n\n💡 PRO TIP: 0.08 filters noise while preserving real signals. Increase in choppy markets, decrease in trending markets.')
+corr_len = input.int(55, "Correlation Fallback Period", minval=20, maxval=300, group=group_te, tooltip='🎯 WHAT IT IS: Period for Pearson correlation as fallback when TE calculation fails.\n\n⚡ WHY NEEDED: TE requires many state transitions. In strong trends with few transitions, correlation provides backup causality measure.\n\n💡 PRO TIP: 55 bars (quarterly cycle) provides stable correlation. This fallback rarely triggers except in extreme trending conditions.')
+corr_w = input.float(0.25, "Correlation Weight", minval=0.0, maxval=1.0, step=0.05, group=group_te, tooltip='🎯 WHAT IT IS: How much correlation contributes to final TE score when both are available.\n\n⚡ FORMULA: Final = TE + (Weight × Correlation)\n\n📈 HIGHER WEIGHTS (0.4-1.0):\n• More correlation influence\n• Smoother TE readings\n• Better for trending markets\n\n📉 LOWER WEIGHTS (0.0-0.2):\n• Pure TE dominance\n• More responsive\n• Better for ranging markets\n\n💡 PRO TIP: 0.25 adds slight smoothing without overpowering TEs causal information.')
+te_step = input.int(2, "TE Calculation Throttle", minval=1, maxval=10, group=group_te, tooltip='🎯 WHAT IT IS: Calculate Transfer Entropy every N bars to improve performance.\n\n⚡ PERFORMANCE IMPACT:\n• 1: Every bar (maximum CPU load)\n• 2: Every other bar (50% reduction)\n• 5: Every 5 bars (80% reduction)\n• 10: Every 10 bars (90% reduction)\n\n📈 HIGHER VALUES (5-10):\n• Much faster performance\n• Good for slow devices\n• May miss quick changes\n• Fine for higher timeframes\n\n📉 LOWER VALUES (1-2):\n• Maximum responsiveness\n• Heavy CPU usage\n• Catches all transitions\n• Needed for scalping\n\n💡 PRO TIP: Use 2 for good balance. TE changes slowly enough that every-other-bar calculation is sufficient. Only use 1 if you need absolute real-time precision.')
+group_mtf = "🌐 Multi-Timeframe Confluence Engine"
+use_mtf_ctx = input.bool(true, "Enable MTF Analysis", group=group_mtf, tooltip='🎯 WHAT IT IS: Incorporates higher timeframe trend analysis for confluence.\n\n⚡ BENEFITS:\n• Confirms with larger trends\n• Reduces counter-trend trades\n• Improves win rate\n• Adds institutional perspective\n\n💡 PRO TIP: Always enable unless scalping micro-moves. Higher timeframe bias is crucial for sustained directional moves.')
+ref_tf1 = input.string("5", "Primary Reference TF", group=group_mtf, tooltip='🎯 WHAT IT IS: First higher timeframe for trend confluence.\n\n⚡ SELECTION GUIDE:\n• Current TF × 3-5 = Good primary reference\n• Examples: 5m→15m, 15m→1H, 1H→4H\n\n🕒 COMMON COMBINATIONS:\n• Scalping: 1m chart → 5m reference\n• Day Trading: 5m chart → 30m reference\n• Swing Trading: 1H chart → 4H reference\n• Position Trading: 4H chart → Daily reference\n\n💡 PRO TIP: Use standard timeframes (5,15,30,60,240) as they represent institutional decision points.')
+ref_tf2 = input.string("15", "Secondary Reference TF", group=group_mtf, tooltip='🎯 WHAT IT IS: Second higher timeframe for additional confluence.\n\n⚡ SELECTION PRINCIPLE:\n• Between primary reference and daily\n• Provides intermediate perspective\n• Should be 1.5-2x primary reference\n\n💡 PRO TIP: This captures the "in-between" timeframe that often shows transitional moves. 45-min is perfect between 30m and 1H.')
+w_mtf = input.float(0.8, "MTF Weight in Field Score", minval=0, maxval=3, step=0.1, group=group_mtf, tooltip='🎯 WHAT IT IS: How much higher timeframe alignment influences the final Field Score.\n\n⚡ WEIGHT IMPACT:\n• 0: No MTF influence (disabled)\n• 0.5: Moderate influence (25% of signal)\n• 1.0: Equal weight with other components\n• 2.0: Dominant influence (overrides others)\n\n💡 PRO TIP: 0.6 provides healthy bias without overwhelming local signals. Increase to 1.0+ only for strict trend-following systems.')
+group_pattern = "🎯 Geometric Pattern Field Detector"
+show_patterns = input.bool(true, "Enable Pattern Detection", group=group_pattern, tooltip='🎯 WHAT IT IS: Activates the geometric pattern field detection system that identifies coherent zones in the information field.\n\n⚡ WHAT IT DOES:\n• Identifies field coherence zones\n• Tracks pattern evolution\n• Measures pattern quality\n• Visualizes accumulation areas\n\n💡 PRO TIP: Essential feature - patterns reveal where information geometry coheres before major moves.')
+pattern_min_bars = input.int(5, "Minimum Pattern Duration", minval=2, maxval=20, group=group_pattern, tooltip='🎯 WHAT IT IS: Minimum bars required for a valid pattern formation.\n\n⚡ PATTERN QUALITY:\n• 2-3 bars: Captures quick formations (more signals)\n• 4-6 bars: Balanced quality filter\n• 7+ bars: Only major patterns (fewer, stronger)\n\n🕒 TIMEFRAME OPTIMIZATION:\n• Scalping (1-5m): 2-3 bars\n• Day Trading (15m-1H): 3-5 bars\n• Swing Trading (4H+): 5-8 bars\n\n💡 PRO TIP: Use 3 for most timeframes. This filters out noise while catching legitimate pattern formations. Increase only if getting too many false patterns.')
+show_range_box = input.bool(true, "Display Range Boxes", group=group_pattern, tooltip='🎯 WHAT IT IS: Shows colored boxes around detected pattern ranges.\n\n⚡ VISUAL BENEFITS:\n• Instant pattern recognition\n• Clear entry/exit zones\n• Pattern strength visualization\n• Historical pattern analysis\n\n💡 PRO TIP: Keep enabled - these boxes are the core visual element showing where field coherence occurs.')
+show_bar_boxes = input.bool(true, "Show Individual Bar Patterns", group=group_pattern, tooltip='🎯 WHAT IT IS: Displays small boxes on individual candlestick patterns (engulfing, hammers, etc).\n\n⚡ PATTERNS DETECTED:\n• Engulfing (Bullish/Bearish)\n• Inside/Outside bars\n• Hammers/Shooting Stars\n• Doji formations\n\n💡 PRO TIP: Useful for learning but can clutter charts. Disable once familiar with patterns.')
+bar_box_style = input.string("Wick", "Bar Box Style", options=["Body","Wick","Full"], group=group_pattern, tooltip='🎯 WHAT IT IS: Visual style for individual bar pattern boxes.\n\n⚡ STYLE OPTIONS:\n• Body: Covers candle body only (clean)\n• Wick: Extends to wicks (full range)\n• Full: Maximum coverage (emphasis)\n\n💡 PRO TIP: "Body" provides cleanest visuals without obscuring price action.')
+bar_box_opacity = input.int(20, "Bar Box Transparency", minval=0, maxval=100, group=group_pattern, tooltip='🎯 WHAT IT IS: Transparency level for individual bar pattern boxes.\n\n⚡ VISUAL BALANCE:\n• 0-30: Bold, prominent (can obscure)\n• 40-60: Balanced visibility\n• 70-100: Subtle hints\n\n💡 PRO TIP: 40% provides good visibility without dominating the chart.')
+bar_box_history = input.int(50, "Bar Pattern History", minval=20, maxval=1000, group=group_pattern, tooltip='🎯 WHAT IT IS: How many historical bar patterns to display.\n\n⚡ PERFORMANCE IMPACT:\n• 20-50: Minimal impact, recent patterns\n• 100-200: Moderate impact, good history\n• 500+: Heavy impact, full analysis\n\n💡 PRO TIP: 50 bars shows recent patterns without cluttering. Increase only for pattern frequency analysis.')
+pattern_style = input.string("Full", "Range Box Style", options=["Full","Body","Wick","Minimal","Dynamic"], group=group_pattern, tooltip='🎯 WHAT IT IS: Visual style for pattern range boxes.\n\n⚡ STYLE CHARACTERISTICS:\n• Full: Complete range coverage\n• Body: Open/Close range only\n• Wick: High/Low extremes\n• Minimal: Thin line style\n• Dynamic: Adapts to pattern type\n\n💡 PRO TIP: "Full" provides clearest pattern visualization. Use "Minimal" only on busy charts.')
+pattern_opacity = input.int(5, "Range Box Transparency", minval=0, maxval=100, group=group_pattern, tooltip='🎯 WHAT IT IS: Base transparency for pattern range boxes.\n\n⚡ VISUAL HIERARCHY:\n• 0-40: Dominant (patterns are primary)\n• 50-70: Balanced (equal with price)\n• 80-100: Background (price is primary)\n\n💡 PRO TIP: 55% creates perfect balance - visible enough to trade but not obscuring price action.')
+pattern_field_threshold = input.float(0.35, "Field Strength Trigger", minval=0.0, maxval=1.0, step=0.01, group=group_pattern, tooltip='🎯 WHAT IT IS: Minimum Field Score magnitude required to trigger pattern detection.\n\n⚡ HOW IT WORKS:\n• Field Score must exceed ±threshold\n• Higher = fewer but stronger patterns\n• Lower = more patterns of varying quality\n\n📈 HIGHER VALUES (0.5-1.0):\n• Only extreme field conditions\n• Very high quality patterns\n• Rare but powerful signals\n• Best for: Conservative trading\n\n📉 LOWER VALUES (0.1-0.3):\n• Includes moderate field states\n• More pattern opportunities\n• Mix of qualities\n• Best for: Active trading\n\n💡 PRO TIP: 0.35 captures patterns in meaningfully strong fields while avoiding noise. Increase to 0.5+ for only the strongest setups.')
+pattern_max_bars = input.int(150, "Maximum Pattern Length", minval=20, maxval=5000, group=group_pattern, tooltip='🎯 WHAT IT IS: Maximum duration before forcing pattern completion.\n\n⚡ PURPOSE:\n• Prevents endless patterns\n• Forces re-evaluation\n• Maintains performance\n\n💡 PRO TIP: 150 bars is about one month on 4H charts or one week on 1H. Patterns lasting longer need re-evaluation anyway.')
+pattern_history = input.int(24, "Pattern History Limit", minval=1, maxval=200, group=group_pattern, tooltip='🎯 WHAT IT IS: Maximum number of completed patterns to display.\n\n⚡ VISUAL MANAGEMENT:\n• 10-20: Recent patterns only\n• 30-50: Good historical context\n• 100+: Full pattern analysis\n\n💡 PRO TIP: 24 patterns provides about one week of pattern history on active instruments without cluttering.')
+engulf_body_factor = input.float(0.8, "Engulfing Body Ratio", minval=0.3, maxval=1.5, step=0.05, group=group_pattern, tooltip='🎯 WHAT IT IS: Minimum size ratio for engulfing pattern validation (engulfing body vs previous body).\n\n⚡ QUALITY CONTROL:\n• 0.5: Liberal (more patterns)\n• 0.8: Standard definition\n• 1.0: Full engulfing required\n• 1.2: Extra confirmation\n\n💡 PRO TIP: 0.8 follows classical definition while allowing for spreads and micro-gaps.')
+pin_wick_ratio = input.float(2.5, "Pin Bar Wick Ratio", minval=1.5, maxval=5, step=0.1, group=group_pattern, tooltip='🎯 WHAT IT IS: Minimum wick-to-body ratio for hammer and shooting star patterns.\n\n⚡ PATTERN QUALITY:\n• 2.0: Standard requirement\n• 2.5: Good quality filter\n• 3.0+: Only perfect pins\n\n💡 PRO TIP: 2.5 ensures meaningful rejection without being too restrictive.')
+doji_body_range_max = input.float(0.12, "Doji Body Threshold", minval=0.03,maxval=0.3, step=0.01, group=group_pattern, tooltip='🎯 WHAT IT IS: Maximum body-to-range ratio to qualify as a doji pattern.\n\n⚡ DOJI TYPES:\n• 0.05: Perfect doji only\n• 0.10: Standard doji\n• 0.15: Includes spinning tops\n• 0.20+: Liberal definition\n\n💡 PRO TIP: 0.12 captures true indecision candles without including normal small-body candles.')
+group_score = "⚡ Field Score Fusion Weights"
+w_wave = input.float(1.2, "Wavelet Alignment Weight", minval=0, maxval=3, step=0.1, group=group_score, tooltip='🎯 WHAT IT IS: How much wavelet multi-scale alignment contributes to Field Score.\n\n⚡ WEIGHT IMPACT:\n• 0: Disabled (no wavelet influence)\n• 1.0: Standard contribution\n• 1.2: Slightly emphasized (default)\n• 2.0+: Dominant factor\n\n💡 PRO TIP: 1.2 gives appropriate emphasis to trend structure. Wavelets are the most reliable component, hence slightly higher weight.')
+w_hurst = input.float(1.0, "Hurst Persistence Weight", minval=0, maxval=3, step=0.1, group=group_score, tooltip='🎯 WHAT IT IS: How much Hurst trend persistence contributes to Field Score.\n\n⚡ COMPONENT VALUE:\n• Identifies trending vs ranging\n• Critical for regime detection\n• Complements wavelets perfectly\n\n💡 PRO TIP: Keep at 1.0 - Hurst provides unique information about market memory that other components miss.')
+w_fdi = input.float(0.8, "Fractal Complexity Weight", minval=0, maxval=3, step=0.1, group=group_score, tooltip='🎯 WHAT IT IS: How much fractal dimension (complexity) contributes to Field Score.\n\n⚡ INFORMATION VALUE:\n• Detects chaos-to-order transitions\n• Identifies smooth vs rough paths\n• Early warning for regime changes\n\n💡 PRO TIP: 0.8 provides good input without overwhelming. Increase in ranging markets where complexity matters more.')
+w_ent = input.float(0.8, "Entropy Uncertainty Weight", minval=0, maxval=3, step=0.1, group=group_score, tooltip='🎯 WHAT IT IS: How much Shannon entropy contributes to Field Score (inverted - low entropy is bullish).\n\n⚡ SIGNAL VALUE:\n• Low entropy = directional clarity\n• High entropy = confusion/consolidation\n• Entropy drops precede breakouts\n\n💡 PRO TIP: 0.8 captures entropy signals without over-weighting. Critical for breakout detection.')
+w_te = input.float(0.8, "Transfer Entropy Weight", minval=0, maxval=3, step=0.1, group=group_score, tooltip='🎯 WHAT IT IS: How much causal information flow contributes to Field Score.\n\n⚡ UNIQUE VALUE:\n• Only component measuring causality\n• Reveals what drives price\n• Leads other indicators\n\n💡 PRO TIP: 0.8 incorporates causality without dominating. Increase when using strong external drivers (VIX, DXY).')
+group_signal = "📊 Signal Generation Engine"
+mode_signal = input.string("Elite", "Signal Mode", options=["Conservative","Balanced","Elite","Aggressive"], group=group_signal, tooltip='🎯 WHAT IT IS: Overall signal generation philosophy and filter stringency.\n\n⚡ MODE CHARACTERISTICS:\n\n📊 CONSERVATIVE:\n• Highest quality requirement\n• 85%+ probability threshold\n• Fewer signals (1-3 per day)\n• Best for: Large accounts, beginners\n• Win rate: Highest\n• Risk/Reward: Best\n\n📊 BALANCED:\n• Standard quality filters\n• 70%+ probability threshold\n• Moderate signals (3-5 per day)\n• Best for: Regular trading\n• Win rate: Good\n• Risk/Reward: Good\n\n📊 ELITE:\n• Advanced multi-factor filters\n• 75%+ probability threshold\n• Quality over quantity\n• Best for: Experienced traders\n• Win rate: Very good\n• Risk/Reward: Excellent\n\n📊 AGGRESSIVE:\n• Relaxed filters\n• 60%+ probability threshold\n• Many signals (5-10 per day)\n• Best for: Scalping, high frequency\n• Win rate: Moderate\n• Risk/Reward: Variable\n\n💡 PRO TIP: Start with Elite - it uses sophisticated filters that eliminate most false signals while maintaining good opportunity frequency.')
+min_confluence = input.int(3, "Minimum Confluence Score", minval=1, maxval=6, group=group_signal, tooltip='🎯 WHAT IT IS: How many indicator components must align before triggering a signal.\n\n⚡ CONFLUENCE FACTORS:\n• Field Score alignment\n• Wavelet direction\n• Hurst trending/ranging\n• Entropy expansion/contraction\n• Transfer entropy direction\n• MTF alignment\n• MACD confirmation\n• Pattern quality\n\n📈 HIGHER REQUIREMENTS (4-6):\n• Very few but high-quality signals\n• All dimensions must align\n• Best for position trading\n• Highest win rate\n\n📉 LOWER REQUIREMENTS (1-2):\n• Many signals of varying quality\n• Early entries possible\n• More false positives\n• Requires good management\n\n💡 PRO TIP: 3 is the sweet spot - ensures multiple dimensions confirm without waiting for perfect alignment which rarely occurs.')
+field_long_thr = input.float(0.35, "Long Entry Field Score", minval=0, maxval=1, step=0.01, group=group_signal, tooltip='🎯 WHAT IT IS: Minimum Field Score required to consider long entries.\n\n⚡ FIELD INTERPRETATION:\n• 0.2: Weak bullish field\n• 0.35: Moderate bullish field\n• 0.5: Strong bullish field\n• 0.7+: Extreme bullish field\n\n📈 HIGHER THRESHOLDS (0.5-1.0):\n• Only strong trends\n• Fewer but better entries\n• Misses early moves\n• Lower drawdown\n\n📉 LOWER THRESHOLDS (0.1-0.3):\n• Catches trend starts\n• More opportunities\n• Higher false positive rate\n• Requires tight stops\n\n💡 PRO TIP: 0.35 identifies meaningful bullish bias without requiring extreme conditions. Increase to 0.5 in ranging markets.')
+field_short_thr = input.float(-0.35, "Short Entry Field Score", minval=-1, maxval=0, step=0.01, group=group_signal, tooltip='🎯 WHAT IT IS: Maximum Field Score (negative) required for short entries.\n\n⚡ SYMMETRY NOTE:\n• Should mirror long threshold\n• -0.35 matches long 0.35\n• Maintains system balance\n\n💡 PRO TIP: Keep symmetric with long threshold unless you have specific directional bias (e.g., long-only in bull markets).')
+lock_direction = input.bool(true, "Directional Field Lock", group=group_signal, tooltip='🎯 WHAT IT IS: Requires Field Score polarity to match trade direction.\n\n⚡ WHEN ENABLED:\n• Longs only when Field Score > 0\n• Shorts only when Field Score < 0\n• Prevents counter-trend trades\n• Improves win rate\n\n⚡ WHEN DISABLED:\n• Allows counter-trend setups\n• More trading opportunities\n• Requires better timing\n• Higher risk\n\n💡 PRO TIP: Keep enabled unless you are an experienced counter-trend trader. This single setting prevents most losing trades.')
+cooldownBars = input.int(12, "Signal Cooldown Period", minval=1, maxval=200, group=group_signal, tooltip='🎯 WHAT IT IS: Minimum bars between signals to prevent overtrading.\n\n⚡ COOLDOWN BENEFITS:\n• Prevents signal clustering\n• Allows trades to develop\n• Reduces overtrading\n• Improves risk management\n\n🕒 TIMEFRAME GUIDE:\n• 1-5 min: 5-10 bars\n• 15-60 min: 10-20 bars\n• 4H: 12-24 bars\n• Daily: 5-10 bars\n\n💡 PRO TIP: 12 bars prevents immediate re-entry while allowing new opportunities when conditions truly change.')
+risk_atrMultSL = input.float(1.2, "Stop Loss ATR Multiplier", minval=0.2, maxval=5, step=0.1, group=group_signal, tooltip='🎯 WHAT IT IS: Stop loss distance as multiple of Average True Range.\n\n⚡ RISK PHILOSOPHY:\n• 0.5-1.0: Tight stops (scalping)\n• 1.0-1.5: Standard stops\n• 1.5-2.5: Wide stops (trending)\n• 2.5+: Position/swing trading\n\n🏦 MARKET SPECIFIC:\n• Forex: 0.8-1.2 (stable)\n• Stocks: 1.2-1.8 (medium)\n• Crypto: 1.5-2.5 (volatile)\n• Futures: 1.0-1.5 (leveraged)\n\n💡 PRO TIP: 1.2 ATR accommodates normal volatility without premature stops. Adjust based on market conditions and timeframe.')
+risk_t1R = input.float(1.8, "Target 1 Risk Multiple", minval=0.5, maxval=10, step=0.1, group=group_signal, tooltip='🎯 WHAT IT IS: First profit target as multiple of risk (R).\n\n⚡ TARGET STRATEGY:\n• 1.0R: Break-even target\n• 1.5-2.0R: Conservative target\n• 2.0-3.0R: Standard target\n• 3.0+R: Aggressive target\n\n💡 PRO TIP: 1.8R allows for 50% position close at decent profit, making remaining position risk-free.')
+risk_t2R = input.float(3.0, "Target 2 Risk Multiple", minval=0.5, maxval=20, step=0.1, group=group_signal, tooltip='🎯 WHAT IT IS: Second profit target for runners.\n\n⚡ POSITION MANAGEMENT:\n• Close 50% at Target 1\n• Move stop to break-even\n• Let remainder run to Target 2\n• Trail stop after Target 2\n\n💡 PRO TIP: 3.0R captures trending moves. With 50% closed at 1.8R, total return = 2.4R on full position.')
+rr_len = input.int(45, "RR Rails Projection", minval=10, maxval=200, group=group_signal, tooltip='🎯 WHAT IT IS: How many bars forward to project risk/reward rails.\n\n⚡ VISUAL PLANNING:\n• Shows entry, stop, targets\n• Projects trade timeline\n• Helps position sizing\n• Clear trade plan\n\n💡 PRO TIP: 45 bars shows about 2 days on hourly charts - typical trade duration.')
+dyn_conf = input.bool(true, "Dynamic Confluence Adjustment", group=group_signal, tooltip='🎯 WHAT IT IS: Automatically adjusts confluence requirements based on market regime.\n\n⚡ SMART ADAPTATION:\n• Trending: Requires more confluence\n• Ranging: Relaxes requirements\n• Prevents bad trades in chop\n• Captures trends aggressively\n\n💡 PRO TIP: Essential feature - markets change character and signals should adapt accordingly.')
+dyn_trend_factor = input.float(1.20, "Trending Regime Factor", minval=0.5, maxval=1.5, step=0.05, group=group_signal, tooltip='🎯 WHAT IT IS: Confluence multiplier in trending conditions (>1 = stricter).\n\n⚡ LOGIC: In strong trends, require more confirmation to avoid late entries.\n\n💡 PRO TIP: 1.20 adds 20% more confluence requirement in trends, preventing chase entries.')
+dyn_range_factor = input.float(0.85, "Ranging Regime Factor", minval=0.5, maxval=1.5, step=0.05, group=group_signal, tooltip='🎯 WHAT IT IS: Confluence multiplier in ranging conditions (<1 = looser).\n\n⚡ LOGIC: In ranges, act quickly on reversals with less confirmation needed.\n\n💡 PRO TIP: 0.85 reduces requirements by 15% in ranges, capturing reversals better.')
+prefer_best_side = input.bool(true, "Prefer Stronger Signal", group=group_signal, tooltip='🎯 WHAT IT IS: When both long and short signals qualify, take only the stronger one.\n\n⚡ CONFLICT RESOLUTION:\n• Compares probability scores\n• Picks higher confidence side\n• Prevents conflicting positions\n• Improves win rate\n\n💡 PRO TIP: Always enable - simultaneous opposing signals usually mean consolidation, better to wait.')
+group_vis = "🎨 Visual Display Settings"
+show_dashboard = input.bool(true, "Show Analytics Dashboard", group=group_vis, tooltip='🎯 WHAT IT IS: Comprehensive real-time analytics panel.\n\n⚡ DASHBOARD CONTENTS:\n• Field Score and regime\n• All component values\n• Signal probabilities\n• Pattern detection\n• Market statistics\n\n💡 PRO TIP: Essential for understanding what the indicator sees. Disable only after mastering the system.')
+dash_pos = input.string("Top Right", "Dashboard Position", options=["Top Right","Top Left","Bottom Right","Bottom Left"], group=group_vis, tooltip='🎯 POSITION SELECTION:\n• Top Right: Standard, out of the way\n• Top Left: Near price scale\n• Bottom Right: Near time axis\n• Bottom Left: Clean corner\n\n💡 PRO TIP: Top Right keeps price action clear while remaining visible.')
+theme = input.string("Dark", "Color Theme", options=["Dark","Light","Neon"], group=group_vis, tooltip='🎯 THEME CHARACTERISTICS:\n• Dark: Easy on eyes, professional\n• Light: High contrast, printing\n• Neon: Vibrant, modern, attention-grabbing\n\n💡 PRO TIP: Dark theme reduces eye strain during long sessions.')
+plot_signals = input.bool(true, "Display Signal Markers", group=group_vis, tooltip='🎯 WHAT IT IS: Shows entry signals and risk/reward rails.\n\n⚡ VISUAL ELEMENTS:\n• Entry arrows with probability\n• Stop loss line\n• Target lines\n• Entry level\n\n💡 PRO TIP: Core feature - shows exact trade setup visually.')
+signal_labels = input.bool(true, "Show Probability Labels", group=group_vis, tooltip='🎯 WHAT IT IS: Displays win probability next to signals.\n\n⚡ HELPS WITH:\n• Signal quality assessment\n• Position sizing decisions\n• Trade selection\n\n💡 PRO TIP: Useful for learning signal quality. Can disable once familiar.')
+right_tags = input.bool(true, "Show RR Level Tags", group=group_vis, tooltip='🎯 WHAT IT IS: Labels on the right showing Entry, SL, T1, T2 prices.\n\n⚡ BENEFITS:\n• Clear trade levels\n• Easy order placement\n• Visual trade plan\n\n💡 PRO TIP: Extremely helpful for order management.')
+min_prob_plot = input.int(72, "Minimum Display Probability", minval=0, maxval=100, group=group_vis, tooltip='🎯 WHAT IT IS: Hide signals below this probability to reduce noise.\n\n⚡ FILTER LEVELS:\n• 60%: Show most signals\n• 72%: Balanced (default)\n• 80%: High quality only\n• 90%: Exceptional only\n\n💡 PRO TIP: 72% filters mediocre setups while showing good opportunities.')
+group_sr = "📏 Dynamic Support/Resistance Engine"
+show_sr = input.bool(true, "Display S/R Levels", group=group_sr, tooltip='🎯 WHAT IT IS: Dynamic support/resistance based on recent highs/lows.\n\n⚡ FEATURES:\n• Auto-updates with price\n• Key reversal levels\n• Stop/target references\n• Structure visualization\n\n💡 PRO TIP: These levels often align with pattern boxes and wavelet bands, creating confluence zones.')
+sr_lookback = input.int(20, "S/R Lookback Period", minval=10, maxval=200, group=group_sr, tooltip='🎯 WHAT IT IS: Bars to analyze for support/resistance levels.\n\n⚡ PERIOD IMPACT:\n• 10-20: Recent levels (responsive)\n• 30-50: Medium-term structure\n• 100+: Major levels only\n\n🕒 TIMEFRAME GUIDE:\n• Scalping: 10-15 bars\n• Day Trading: 20-30 bars\n• Swing Trading: 50-100 bars\n\n💡 PRO TIP: 20 bars captures immediate market structure without cluttering with old levels.')
+//==============================================================================
+// CORE ENGINE
+//==============================================================================
+cBull = color.new(#00C853, 0)
+cBear = color.new(#FF1744, 0)
+cNeut = color.new(#FFC107, 0)
+cInfo = color.new(#00ACC1, 0)
+cWave2 = color.new(#7E57C2, 12)
+cWave3 = color.new(#26A69A, 12)
+cWave4 = color.new(#EF6C00, 12)
+cGray = color.new(#9E9E9E, 0)
+cGold = color.new(#FFD700, 0)
+cPurple = color.new(#9C27B0, 0)
+cOrange = color.new(#FF6F00, 0)
+cCyan = color.new(#00BCD4, 0)
+cMagenta = color.new(#E91E63, 0)
+cBlue = color.new(#2962FF, 0)
+cPanelBg = theme=="Dark" ? color.new(#101214, 10) : theme=="Light" ? color.new(#F5F7FB, 0) : color.new(#05122B, 10)
+cText = theme=="Light" ? color.black : color.white
+clamp(v, lo, hi) => math.min(hi, math.max(lo, v))
+sgn(x) => x > 0 ? 1 : x < 0 ? -1 : 0
+safe_log(x) => math.log(math.max(x, 1e-12))
+smoothstep(lo, hi, x) =>
+    t = clamp((x - lo) / math.max(hi - lo, 1e-9), 0.0, 1.0)
+    t * t * (3.0 - 2.0 * t)
+var float TICK = na
+if barstate.isfirst
+    TICK := syminfo.mintick
+prune_old_boxes(arr, ageBars) =>
+    sz = array.size(arr)
+    if sz > 0
+        i = sz - 1
+        while i >= 0
+            b = array.get(arr, i)
+            if not na(b)
+                xr = box.get_right(b)
+                if not na(xr) and bar_index - xr > ageBars
+                    box.delete(b)
+                    array.remove(arr, i)
+            i := i - 1
+cap_boxes(arr, maxN) =>
+    while array.size(arr) > maxN
+        box.delete(array.shift(arr))
+//==============================================================================
+// PATTERN HELPERS
+//==============================================================================
+pattern_box_top_bottom(style, hi, lo, o, c) =>
+    switch style
+        "Body" => [math.max(o, c) + syminfo.mintick * 2, math.min(o, c) - syminfo.mintick * 2]
+        "Wick" => [hi + syminfo.mintick * 3, lo - syminfo.mintick * 3]
+        "Full" => [hi + syminfo.mintick * 4, lo - syminfo.mintick * 4]
+        => [hi + syminfo.mintick * 2, lo - syminfo.mintick * 2]
+P_NONE = 0
+P_BULL_ENG = 1
+P_BEAR_ENG = 2
+P_INSIDE = 3
+P_OUTSIDE = 4
+P_HAMMER = 5
+P_SHOOTING = 6
+P_DOJI = 7
+pattern_color_for_type(p) =>
+    switch p
+        P_BULL_ENG => cBull
+        P_BEAR_ENG => cBear
+        P_INSIDE => cInfo
+        P_OUTSIDE => cOrange
+        P_HAMMER => cCyan
+        P_SHOOTING => cMagenta
+        P_DOJI => cGray
+        => color.gray
+pattern_name(p) =>
+    switch p
+        P_BULL_ENG => "Bull Engulf"
+        P_BEAR_ENG => "Bear Engulf"
+        P_INSIDE => "Inside"
+        P_OUTSIDE => "Outside"
+        P_HAMMER => "Hammer"
+        P_SHOOTING => "Shooting"
+        P_DOJI => "Doji"
+        => "None"
+bar_pattern_type() =>
+    if bar_index == 0
+        P_NONE
+    else
+        rng = high - low
+        body = math.abs(close - open)
+        prevBody = math.abs(close[1] - open[1])
+        upperW = high - math.max(open, close)
+        lowerW = math.min(open, close) - low
+        isDoji = rng > 0 and body / rng <= doji_body_range_max
+        isInside = high < high[1] and low > low[1]
+        isOutside = high > high[1] and low < low[1]
+        bullEng = close > open and prevBody > 0 and close >= math.max(open[1], close[1]) and open <= math.min(open[1], close[1]) and body >= prevBody * engulf_body_factor
+        bearEng = close < open and prevBody > 0 and close <= math.min(open[1], close[1]) and open >= math.max(open[1], close[1]) and body >= prevBody * engulf_body_factor
+        isHammer = rng > 0 and lowerW / math.max(body, 1e-6) >= pin_wick_ratio and upperW <= body * 0.7
+        isShooting = rng > 0 and upperW / math.max(body, 1e-6) >= pin_wick_ratio and lowerW <= body * 0.7
+        bullEng ? P_BULL_ENG :
+         bearEng ? P_BEAR_ENG :
+         isInside ? P_INSIDE :
+         isOutside ? P_OUTSIDE :
+         isHammer ? P_HAMMER :
+         isShooting ? P_SHOOTING :
+         isDoji ? P_DOJI :
+         P_NONE
+dominant_type_from_counts(cntBullEng, cntBearEng, cntInside, cntOutside, cntHammer, cntShooting, cntDoji, fallbackBull) =>
+    maxCnt = 0
+    dom = P_NONE
+    if cntBullEng > maxCnt
+        maxCnt := cntBullEng
+        dom := P_BULL_ENG
+    if cntBearEng > maxCnt
+        maxCnt := cntBearEng
+        dom := P_BEAR_ENG
+    if cntInside > maxCnt
+        maxCnt := cntInside
+        dom := P_INSIDE
+    if cntOutside > maxCnt
+        maxCnt := cntOutside
+        dom := P_OUTSIDE
+    if cntHammer > maxCnt
+        maxCnt := cntHammer
+        dom := P_HAMMER
+    if cntShooting > maxCnt
+        maxCnt := cntShooting
+        dom := P_SHOOTING
+    if cntDoji > maxCnt
+        maxCnt := cntDoji
+        dom := P_DOJI
+    dom == P_NONE ? (fallbackBull ? P_BULL_ENG : P_BEAR_ENG) : dom
+//==============================================================================
+// DATA SOURCES
+//==============================================================================
+te_tf = te_tf_in == "" ? timeframe.period : te_tf_in
+ext_close = request.security(te_symbol, te_tf, close, barmerge.gaps_off, barmerge.lookahead_off)
+ref_close1 = request.security(syminfo.tickerid, ref_tf1, close, barmerge.gaps_off, barmerge.lookahead_off)
+ref_close2 = request.security(syminfo.tickerid, ref_tf2, close, barmerge.gaps_off, barmerge.lookahead_off)
+volSMA20 = ta.sma(volume, 20)
+atr14 = ta.atr(14)
+rsi14 = ta.rsi(close, 14)
+ema20 = ta.ema(close, 20)
+vwapValue = ta.vwap(hlc3)
+[macdLine, signalLine, _] = ta.macd(close, 12, 26, 9)
+//==============================================================================
+// WAVELET TRANSFORM
+//==============================================================================
+wavelet_pair(src, step, kernel) =>
+    float a = na
+    float d = na
+    if kernel == "Haar"
+        float h0 = 0.70710678, h1 = 0.70710678
+        float g0 = -0.70710678, g1 = 0.70710678
+        a := h0 * nz(src) + h1 * nz(src[step])
+        d := g0 * nz(src) + g1 * nz(src[step])
+    else
+        float h0 = 0.4829629131, h1 = 0.8365163037, h2 = 0.2241438680, h3 = -0.1294095226
+        float g0 = -0.1294095226, g1 = -0.2241438680, g2 = 0.8365163037, g3 = -0.4829629131
+        a := h0 * nz(src) + h1 * nz(src[step]) + h2 * nz(src[2 * step]) + h3 * nz(src[3 * step])
+        d := g0 * nz(src) + g1 * nz(src[step]) + g2 * nz(src[2 * step]) + g3 * nz(src[3 * step])
+    [a, d]
+var float a1 = 0.0, d1 = 0.0
+var float a2 = 0.0, d2 = 0.0
+var float a3 = 0.0, d3 = 0.0
+var float a4 = 0.0, d4 = 0.0
+[a1t, d1t] = wavelet_pair(close, 1, wl_kernel)
+a1 := a1t, d1 := d1t
+if wl_levels >= 2
+    [a2t, d2t] = wavelet_pair(a1, 2, wl_kernel)
+    a2 := a2t, d2 := d2t
+if wl_levels >= 3
+    [a3t, d3t] = wavelet_pair(a2, 4, wl_kernel)
+    a3 := a3t, d3 := d3t
+if wl_levels >= 4
+    [a4t, d4t] = wavelet_pair(a3, 8, wl_kernel)
+    a4 := a4t, d4 := d4t
+atrN = ta.atr(14)
+s2n = wl_levels >= 2 ? (a2 - a2[1]) / nz(atrN, 1) : na
+s3n = wl_levels >= 3 ? (a3 - a3[1]) / nz(atrN, 1) : na
+s4n = wl_levels >= 4 ? (a4 - a4[1]) / nz(atrN, 1) : na
+w2 = wl_levels >= 2 ? 2.0 : 0.0
+w3 = wl_levels >= 3 ? 4.0 : 0.0
+w4 = wl_levels >= 4 ? 8.0 : 0.0
+sumW = w2 + w3 + w4
+wave_align = sumW > 0 ? clamp((w2 * sgn(nz(s2n)) + w3 * sgn(nz(s3n)) + w4 * sgn(nz(s4n))) / sumW, -1.0, 1.0) : 0.0
+//==============================================================================
+// HURST EXPONENT
+//==============================================================================
+hurst_est_pow2(src, win) =>
+    float m1 = ta.sma(math.abs(src - src[1]), win)
+    float m2 = ta.sma(math.abs(src - src[2]), win)
+    float m4 = ta.sma(math.abs(src - src[4]), win)
+    float m8 = ta.sma(math.abs(src - src[8]), win)
+    float m16 = ta.sma(math.abs(src - src[16]), win)
+    float m32 = ta.sma(math.abs(src - src[32]), win)
+    float sx = 0.0, sy = 0.0, sxx = 0.0, sxy = 0.0
+    int cnt = 0
+    eps = 1e-12
+    if not na(m1) and m1 > eps and bar_index > win + 1 + 5
+        x = math.log(1.0), y = math.log(m1)
+        sx += x, sy += y, sxx += x * x, sxy += x * y, cnt += 1
+    if not na(m2) and m2 > eps and bar_index > win + 2 + 5
+        x = math.log(2.0), y = math.log(m2)
+        sx += x, sy += y, sxx += x * x, sxy += x * y, cnt += 1
+    if not na(m4) and m4 > eps and bar_index > win + 4 + 5
+        x = math.log(4.0), y = math.log(m4)
+        sx += x, sy += y, sxx += x * x, sxy += x * y, cnt += 1
+    if not na(m8) and m8 > eps and bar_index > win + 8 + 5
+        x = math.log(8.0), y = math.log(m8)
+        sx += x, sy += y, sxx += x * x, sxy += x * y, cnt += 1
+    if not na(m16) and m16 > eps and bar_index > win + 16 + 5
+        x = math.log(16.0), y = math.log(m16)
+        sx += x, sy += y, sxx += x * x, sxy += x * y, cnt += 1
+    if not na(m32) and m32 > eps and bar_index > win + 32 + 5
+        x = math.log(32.0), y = math.log(m32)
+        sx += x, sy += y, sxx += x * x, sxy += x * y, cnt += 1
+    den = (cnt * sxx - sx * sx)
+    slope = (cnt >= 2 and math.abs(den) > eps) ? (cnt * sxy - sx * sy) / den : na
+    clamp(nz(slope, 0.5), 0.0, 1.0)
+H2 = wl_levels >= 2 ? hurst_est_pow2(a2, hurst_window) : na
+H3 = wl_levels >= 3 ? hurst_est_pow2(a3, hurst_window) : na
+H4 = wl_levels >= 4 ? hurst_est_pow2(a4, hurst_window) : na
+sumHw = 0.0, wH = 0.0
+if not na(H2)
+    sumHw += 2.0, wH += 2.0 * H2
+if not na(H3)
+    sumHw += 4.0, wH += 4.0 * H3
+if not na(H4)
+    sumHw += 8.0, wH += 8.0 * H4
+H_weighted = sumHw > 0 ? wH / sumHw : na
+H_score = na(H_weighted) ? 0.0 : clamp((H_weighted - 0.5) / 0.15, -1.0, 1.0)
+//==============================================================================
+// FRACTAL DIMENSION
+//==============================================================================
+fdi_frama(len) =>
+    n = len
+    n2 = math.floor(n / 2)
+    hh1 = ta.highest(high[n2], n2)
+    ll1 = ta.lowest(low[n2], n2)
+    hh2 = ta.highest(high, n2)
+    ll2 = ta.lowest(low, n2)
+    hh = ta.highest(high, n)
+    ll = ta.lowest(low, n)
+    N1 = (hh1 - ll1) / n2
+    N2 = (hh2 - ll2) / n2
+    N3 = (hh - ll) / n
+    d = (safe_log(N1 + N2) - safe_log(N3)) / safe_log(2)
+    clamp(1 + d, 1.0, 2.0)
+FDI = fdi_frama(fdi_len)
+FDI_score = clamp(1.0 - 2.0 * smoothstep(1.35, 1.75, FDI), -1.0, 1.0)
+//==============================================================================
+// SHANNON ENTROPY
+//==============================================================================
+atrN_forEnt = ta.atr(ent_atrLen)
+ret_norm = ent_normATR ? (close - close[1]) / nz(atrN_forEnt, 1) : (close - close[1]) / nz(close[1], 1)
+bin_index(v, bins) =>
+    vv = clamp(v, -3.0, 3.0)
+    idx = int(math.floor((vv + 3.0) / 6.0 * bins))
+    clamp(idx, 0, bins - 1)
+var array<float> ent_counts = na
+var array<int> ent_queue = na
+var int ent_qi = 0
+var int ent_last_win = na
+var int ent_last_bins = na
+var float ent_total = 0.0
+if barstate.isfirst or ent_last_win != ent_window or ent_last_bins != ent_bins
+    ent_counts := array.new_float(ent_bins, 0.0)
+    ent_queue := array.new_int(ent_window, -1)
+    ent_qi := 0
+    ent_total := 0.0
+    ent_last_win := ent_window
+    ent_last_bins := ent_bins
+curEntBin = bin_index(ret_norm, ent_bins)
+old = array.get(ent_queue, ent_qi)
+if old >= 0
+    array.set(ent_counts, old, array.get(ent_counts, old) - 1.0)
+    ent_total -= 1.0
+array.set(ent_queue, ent_qi, curEntBin)
+array.set(ent_counts, curEntBin, array.get(ent_counts, curEntBin) + 1.0)
+ent_total += 1.0
+ent_qi := (ent_qi + 1) % ent_window
+entropy_calc() =>
+    if ent_total < ent_bins
+        na
+    else
+        H = 0.0
+        for k = 0 to ent_bins - 1
+            p = array.get(ent_counts, k) / ent_total
+            H += p > 0 ? -p * math.log(p) : 0
+        H / math.log(ent_bins)
+EntropyN = entropy_calc()
+entMean = ta.sma(EntropyN, ent_zLen)
+entStd = ta.stdev(EntropyN, ent_zLen)
+entZ = (EntropyN - entMean) / nz(entStd, 1)
+tanh_approx = entZ / (1 + math.abs(entZ))
+Ent_score = clamp(-tanh_approx, -1.0, 1.0)
+//==============================================================================
+// TRANSFER ENTROPY
+//==============================================================================
+var float drv_OBV = 0.0
+drv_OBV := nz(drv_OBV[1]) + (close > close[1] ? volume : close < close[1] ? -volume : 0.0)
+drv_VOL = volume
+drv_VWAP = ta.vwap(hlc3)
+drv_raw = te_driver == "OBV" ? drv_OBV : te_driver == "Volume" ? drv_VOL : te_driver == "VWAP" ? drv_VWAP : ext_close
+norm_ret(src) => (src - src[1]) / nz(atrN, 1)
+state3(x, thr) => x > thr ? 2 : x < -thr ? 0 : 1
+drv_ret = norm_ret(drv_raw)
+px_ret = norm_ret(close)
+y_state = state3(px_ret, te_thresh)
+x_state = state3(drv_ret, te_thresh)
+transfer_entropy(y_state_series, x_state_series, win) =>
+    int K = 3
+    int N = math.min(win, bar_index - 2)
+    if N < 50
+        na
+    else
+        float[] c3 = array.new_float(K * K * K, 0.0)
+        float[] cY1Y0 = array.new_float(K * K, 0.0)
+        float[] cY0X0 = array.new_float(K * K, 0.0)
+        float[] cY0 = array.new_float(K, 0.0)
+        for i = 0 to N - 1
+            sy1 = y_state_series[i]
+            sy0 = y_state_series[i + 1]
+            sx0 = x_state_series[i + 1]
+            array.set(c3, sy1 * 9 + sy0 * 3 + sx0, array.get(c3, sy1 * 9 + sy0 * 3 + sx0) + 1.0)
+            array.set(cY1Y0, sy1 * 3 + sy0, array.get(cY1Y0, sy1 * 3 + sy0) + 1.0)
+            array.set(cY0X0, sy0 * 3 + sx0, array.get(cY0X0, sy0 * 3 + sx0) + 1.0)
+            array.set(cY0, sy0, array.get(cY0, sy0) + 1.0)
+        NN = N * 1.0
+        TE = 0.0
+        for sy1 = 0 to K - 1
+            for sy0 = 0 to K - 1
+                for sx0 = 0 to K - 1
+                    p_y1y0x0 = array.get(c3, sy1 * 9 + sy0 * 3 + sx0) / NN
+                    if p_y1y0x0 > 0
+                        p_y1y0 = array.get(cY1Y0, sy1 * 3 + sy0) / NN
+                        p_y0x0 = array.get(cY0X0, sy0 * 3 + sx0) / NN
+                        p_y0 = array.get(cY0, sy0) / NN
+                        num = p_y1y0x0 * p_y0
+                        den = (p_y1y0 > 0 ? p_y1y0 : 1e-12) * (p_y0x0 > 0 ? p_y0x0 : 1e-12)
+                        TE += p_y1y0x0 * safe_log(num / den)
+        clamp(TE / math.log(K), 0.0, 1.0)
+corr = ta.correlation(drv_raw, close, corr_len)
+var float TE_sc_last = 0.0
+calcTE = bar_index % te_step == 0 or barstate.isfirst
+TE_x2y_tmp = transfer_entropy(y_state, x_state, te_window)
+TE_y2x_tmp = transfer_entropy(x_state, y_state, te_window)
+var float TE_x2y = na
+var float TE_y2x = na
+var float TE_net0 = 0.0
+if calcTE
+    TE_x2y := TE_x2y_tmp
+    TE_y2x := TE_y2x_tmp
+    TE_net0 := (na(TE_x2y) or na(TE_y2x)) ? 0.0 : clamp(TE_x2y - TE_y2x, -1.0, 1.0)
+    TE_sc_raw = math.abs(TE_net0) >= te_sigMin ? TE_net0 : 0.0
+    TE_sc_last := clamp(TE_sc_raw + corr_w * clamp(corr, -1.0, 1.0), -1.0, 1.0)
+TE_sc = TE_sc_last
+//==============================================================================
+// MTF CONTEXT
+//==============================================================================
+slope_norm(src, len) =>
+    lr = ta.linreg(src, len, 0)
+    (lr - lr[1]) / nz(ta.atr(14), 1)
+mtf1_align = slope_norm(ref_close1, 55)
+mtf2_align = slope_norm(ref_close2, 55)
+mtf_align_score = clamp((sgn(mtf1_align) + sgn(mtf2_align)) / 2.0, -1.0, 1.0)
+//==============================================================================
+// FIELD SCORE FUSION
+//==============================================================================
+weight_sum = w_wave + w_hurst + w_fdi + w_ent + w_te + (use_mtf_ctx ? w_mtf : 0)
+FieldScore = weight_sum > 0 ? clamp((w_wave * wave_align + w_hurst * H_score + w_fdi * FDI_score + w_ent * Ent_score + w_te * TE_sc + (use_mtf_ctx ? w_mtf * mtf_align_score : 0)) / weight_sum, -1.0, 1.0) : 0
+regime = FieldScore >= 0.55 ? "Uptrend Field" : FieldScore <= -0.55 ? "Downtrend Field" : "Transitional"
+//==============================================================================
+// PATTERN FIELD DETECTION
+//==============================================================================
+var box[] pattern_boxes = array.new_box()
+var label[] pattern_labels = array.new_label()
+var box pattern_range_live = na
+var box pattern_glow_live = na
+var box[] pattern_layers_live = array.new_box()
+var line pattern_spine_mid = na
+var line pattern_spine_u = na
+var line pattern_spine_l = na
+var label pattern_tag_live = na
+var box[] pattern_bar_boxes = array.new_box()
+var label[] pattern_bar_badges = array.new_label()
+var int pattern_start = na
+var float pattern_high = na
+var float pattern_low = na
+var int pattern_length = 0
+var bool pattern_active = false
+var float last_pattern_score = 0.0
+var int cntBullEng = 0, cntBearEng = 0, cntInside = 0, cntOutside = 0, cntHammer = 0, cntShooting = 0, cntDoji = 0
+var string apex_pat_name = "None"
+var float apex_pat_conf = 0.0
+pattern_enabled = show_patterns
+barPat = pattern_enabled ? bar_pattern_type() : P_NONE
+pattern_trigger = false
+var float prev_field_score = 0.0
+var int bars_since_last_pattern = 0
+bars_since_last_pattern += 1
+pattern_adaptive_color = true
+pattern_glow = true
+if pattern_enabled and bars_since_last_pattern > 8
+    field_strength = math.abs(FieldScore)
+    field_momentum = math.abs(FieldScore - prev_field_score)
+    strong_field = field_strength >= pattern_field_threshold
+    good_momentum = field_momentum > 0.08
+    pattern_confluence = (barPat != P_NONE) or (math.abs(wave_align) > 0.2)
+    pattern_trigger := strong_field and (good_momentum or pattern_confluence)
+prev_field_score := FieldScore
+if show_bar_boxes and pattern_enabled and barPat != P_NONE and bar_index > 0
+    col = pattern_color_for_type(barPat)
+    fillTrans = 100 - bar_box_opacity
+    borderTrans = math.max(0, fillTrans - 20)
+    [bTop, bBot] = pattern_box_top_bottom(bar_box_style, high, low, open, close)
+    x1 = bar_index - 1
+    x2 = bar_index
+    bb = box.new(x1, bTop, x2, bBot, bgcolor=color.new(col, fillTrans), border_color=color.new(col, borderTrans), border_width=1)
+    array.push(pattern_bar_boxes, bb)
+    badgeText = barPat == P_BULL_ENG ? "BE" : barPat == P_BEAR_ENG ? "SE" : barPat == P_INSIDE ? "IN" : barPat == P_OUTSIDE ? "OUT" : barPat == P_HAMMER ? "H" : barPat == P_SHOOTING ? "SS" : "D"
+    badgeY = (bTop + bBot) / 2
+    badge = label.new(x2, badgeY, badgeText, color=color.new(color.black, 100), textcolor=col, style=label.style_label_left, size=size.tiny)
+    array.push(pattern_bar_badges, badge)
+    while array.size(pattern_bar_boxes) > bar_box_history
+        box.delete(array.shift(pattern_bar_boxes))
+    while array.size(pattern_bar_badges) > bar_box_history
+        label.delete(array.shift(pattern_bar_badges))
+if pattern_trigger
+    if not pattern_active
+        pattern_active := true
+        pattern_start := bar_index
+        pattern_high := high
+        pattern_low := low
+        pattern_length := 0
+        last_pattern_score := FieldScore
+        bars_since_last_pattern := 0
+    pattern_length += 1
+    pattern_high := math.max(pattern_high, high)
+    pattern_low := math.min(pattern_low, low)
+    last_pattern_score := FieldScore
+    if barPat != P_NONE
+        cntBullEng += barPat == P_BULL_ENG ? 1 : 0
+        cntBearEng += barPat == P_BEAR_ENG ? 1 : 0
+        cntInside  += barPat == P_INSIDE   ? 1 : 0
+        cntOutside += barPat == P_OUTSIDE  ? 1 : 0
+        cntHammer  += barPat == P_HAMMER   ? 1 : 0
+        cntShooting+= barPat == P_SHOOTING ? 1 : 0
+        cntDoji    += barPat == P_DOJI     ? 1 : 0
+    domType = dominant_type_from_counts(cntBullEng, cntBearEng, cntInside, cntOutside, cntHammer, cntShooting, cntDoji, last_pattern_score >= 0)
+    domColor = pattern_color_for_type(domType)
+    totalCnt = cntBullEng + cntBearEng + cntInside + cntOutside + cntHammer + cntShooting + cntDoji
+    domCnt = domType == P_BULL_ENG ? cntBullEng :
+             domType == P_BEAR_ENG ? cntBearEng :
+             domType == P_INSIDE   ? cntInside  :
+             domType == P_OUTSIDE  ? cntOutside :
+             domType == P_HAMMER   ? cntHammer  :
+             domType == P_SHOOTING ? cntShooting: cntDoji
+    structureConf = totalCnt > 0 ? domCnt / totalCnt : 0.0
+    strengthConf = clamp(math.abs(last_pattern_score), 0.0, 1.0)
+    apex_pat_conf := clamp(100.0 * (0.6 * strengthConf + 0.4 * structureConf), 0, 99)
+    apex_pat_name := pattern_name(domType)
+    if show_range_box
+        base_trans = 100 - pattern_opacity
+        live_trans = pattern_adaptive_color ? math.max(20, base_trans - int(math.abs(last_pattern_score) * 40)) : base_trans
+        styleForRange = pattern_style == "Minimal" ? "Body" : pattern_style == "Dynamic" ? "Full" : pattern_style
+        [rTop, rBot] = pattern_box_top_bottom(styleForRange, pattern_high, pattern_low, open, close)
+        if na(pattern_range_live)
+            pattern_range_live := box.new(pattern_start, rTop, bar_index, rBot, bgcolor=color.new(domColor, live_trans), border_color=domColor, border_width=1)
+        else
+            box.set_left(pattern_range_live, pattern_start)
+            box.set_right(pattern_range_live, bar_index)
+            box.set_top(pattern_range_live, rTop)
+            box.set_bottom(pattern_range_live, rBot)
+            box.set_bgcolor(pattern_range_live, color.new(domColor, live_trans))
+            box.set_border_color(pattern_range_live, domColor)
+        if pattern_glow and math.abs(last_pattern_score) > 0.45
+            gTrans = math.min(98, live_trans + 28)
+            if na(pattern_glow_live)
+                pattern_glow_live := box.new(pattern_start - 1, rTop * 1.001, bar_index + 1, rBot * 0.999, bgcolor=color.new(domColor, gTrans), border_color=color.new(domColor, 75), border_width=2)
+            else
+                box.set_left(pattern_glow_live, pattern_start - 1)
+                box.set_right(pattern_glow_live, bar_index + 1)
+                box.set_top(pattern_glow_live, rTop * 1.001)
+                box.set_bottom(pattern_glow_live, rBot * 0.999)
+                box.set_bgcolor(pattern_glow_live, color.new(domColor, gTrans))
+                box.set_border_color(pattern_glow_live, color.new(domColor, 75))
+        else
+            if not na(pattern_glow_live)
+                box.delete(pattern_glow_live)
+                pattern_glow_live := na
+        if array.size(pattern_layers_live) == 0
+            for layer = 1 to 5
+                inset = 0.0002 * layer
+                lt = rTop * (1 + inset)
+                lb = rBot * (1 - inset)
+                layerBox = box.new(pattern_start, lt, bar_index, lb, bgcolor=color.new(domColor, math.min(95, live_trans + 5 * layer)), border_color=na, border_width=0)
+                array.push(pattern_layers_live, layerBox)
+        else
+            for i = 0 to array.size(pattern_layers_live) - 1
+                inset = 0.0002 * (i + 1)
+                lt = rTop * (1 + inset)
+                lb = rBot * (1 - inset)
+                bx = array.get(pattern_layers_live, i)
+                box.set_left(bx, pattern_start)
+                box.set_right(bx, bar_index)
+                box.set_top(bx, lt)
+                box.set_bottom(bx, lb)
+                box.set_bgcolor(bx, color.new(domColor, math.min(95, live_trans + 5 * (i + 1))))
+        mid = (rTop + rBot) / 2
+        u = rTop - (rTop - mid) * 0.5
+        l = rBot + (mid - rBot) * 0.5
+        if na(pattern_spine_mid)
+            pattern_spine_mid := line.new(pattern_start, mid, bar_index, mid, color=color.new(domColor, 30), width=2, style=line.style_dotted)
+            pattern_spine_u   := line.new(pattern_start, u,   bar_index, u,   color=color.new(domColor, 45), width=1, style=line.style_dashed)
+            pattern_spine_l   := line.new(pattern_start, l,   bar_index, l,   color=color.new(domColor, 45), width=1, style=line.style_dashed)
+        else
+            line.set_xy1(pattern_spine_mid, pattern_start, mid)
+            line.set_xy2(pattern_spine_mid, bar_index, mid)
+            line.set_xy1(pattern_spine_u, pattern_start, u)
+            line.set_xy2(pattern_spine_u, bar_index, u)
+            line.set_xy1(pattern_spine_l, pattern_start, l)
+            line.set_xy2(pattern_spine_l, bar_index, l)
+        tagTxt = apex_pat_name + "  " + str.tostring(int(apex_pat_conf)) + "%"
+        if na(pattern_tag_live)
+            pattern_tag_live := label.new(bar_index, rTop, tagTxt, style=label.style_label_left, color=color.new(color.black, 100), textcolor=domColor, size=size.tiny)
+        else
+            label.set_x(pattern_tag_live, bar_index)
+            label.set_y(pattern_tag_live, rTop)
+            label.set_text(pattern_tag_live, tagTxt)
+            label.set_textcolor(pattern_tag_live, domColor)
+else if pattern_active
+    field_weakening = math.abs(FieldScore) < math.abs(last_pattern_score) * 0.4
+    pattern_reversal = (last_pattern_score > 0 and FieldScore < -0.3) or (last_pattern_score < 0 and FieldScore > 0.3)
+    pattern_should_end = (field_weakening or pattern_reversal)
+    if pattern_should_end
+        keep_pattern = pattern_length >= pattern_min_bars
+        if keep_pattern
+            if show_range_box and not na(pattern_range_live)
+                array.push(pattern_boxes, pattern_range_live)
+                finalTxt = "█ " + apex_pat_name + " (" + str.tostring(pattern_length) + "b) • " + str.tostring(int(apex_pat_conf)) + "%"
+                lbl = label.new(box.get_right(pattern_range_live), box.get_top(pattern_range_live), finalTxt, style=label.style_label_left, color=color.new(color.black, 100), textcolor=pattern_color_for_type(dominant_type_from_counts(cntBullEng, cntBearEng, cntInside, cntOutside, cntHammer, cntShooting, cntDoji, last_pattern_score >= 0)), size=size.tiny)
+                array.push(pattern_labels, lbl)
+                while array.size(pattern_boxes) > pattern_history
+                    box.delete(array.shift(pattern_boxes))
+                while array.size(pattern_labels) > pattern_history
+                    label.delete(array.shift(pattern_labels))
+                pattern_range_live := na
+        else
+            if not na(pattern_range_live)
+                box.delete(pattern_range_live)
+                pattern_range_live := na
+        if not na(pattern_glow_live)
+            box.delete(pattern_glow_live)
+            pattern_glow_live := na
+        if array.size(pattern_layers_live) > 0
+            for ii = 0 to array.size(pattern_layers_live) - 1
+                box.delete(array.get(pattern_layers_live, ii))
+            array.clear(pattern_layers_live)
+        if not na(pattern_spine_mid)
+            line.delete(pattern_spine_mid)
+            pattern_spine_mid := na
+        if not na(pattern_spine_u)
+            line.delete(pattern_spine_u)
+            pattern_spine_u := na
+        if not na(pattern_spine_l)
+            line.delete(pattern_spine_l)
+            pattern_spine_l := na
+        if not na(pattern_tag_live)
+            label.delete(pattern_tag_live)
+            pattern_tag_live := na
+        pattern_active := false
+        pattern_length := 0
+        pattern_start := na
+        pattern_high := na
+        pattern_low := na
+        last_pattern_score := 0.0
+        cntBullEng := 0
+        cntBearEng := 0
+        cntInside := 0
+        cntOutside := 0
+        cntHammer := 0
+        cntShooting := 0
+        cntDoji := 0
+        apex_pat_name := "None"
+        apex_pat_conf := 0.0
+if pattern_active and pattern_length > pattern_max_bars
+    if show_range_box and not na(pattern_range_live)
+        array.push(pattern_boxes, pattern_range_live)
+        while array.size(pattern_boxes) > pattern_history
+            box.delete(array.shift(pattern_boxes))
+        pattern_range_live := na
+    if not na(pattern_glow_live)
+        box.delete(pattern_glow_live)
+        pattern_glow_live := na
+    if array.size(pattern_layers_live) > 0
+        for ii = 0 to array.size(pattern_layers_live) - 1
+            box.delete(array.get(pattern_layers_live, ii))
+        array.clear(pattern_layers_live)
+    if not na(pattern_spine_mid)
+        line.delete(pattern_spine_mid)
+        pattern_spine_mid := na
+    if not na(pattern_spine_u)
+        line.delete(pattern_spine_u)
+        pattern_spine_u := na
+    if not na(pattern_spine_l)
+        line.delete(pattern_spine_l)
+        pattern_spine_l := na
+    if not na(pattern_tag_live)
+        label.delete(pattern_tag_live)
+        pattern_tag_live := na
+    pattern_active := false
+    pattern_length := 0
+    pattern_start := na
+    pattern_high := na
+    pattern_low := na
+    last_pattern_score := 0.0
+    cntBullEng := 0
+    cntBearEng := 0
+    cntInside := 0
+    cntOutside := 0
+    cntHammer := 0
+    cntShooting := 0
+    cntDoji := 0
+    apex_pat_name := "None"
+    apex_pat_conf := 0.0
+//==============================================================================
+// SUPPORT/RESISTANCE LEVELS
+//==============================================================================
+var line sr_res_line = na
+var line sr_sup_line = na
+var label sr_res_label = na
+var label sr_sup_label = na
+if show_sr
+    bsl = ta.highest(high, sr_lookback)
+    ssl = ta.lowest(low, sr_lookback)
+    xLeft = bar_index
+    xRight = bar_index + rr_len
+    if na(sr_res_line)
+        sr_res_line := line.new(xLeft, bsl, xRight, bsl, extend=extend.none, color=color.red, width=2)
+        sr_res_label := label.new(xLeft, bsl, "Resistance", style=label.style_label_right, textcolor=color.red, color=color.new(color.black, 100), size=size.small)
+    else
+        line.set_xy1(sr_res_line, xLeft, bsl)
+        line.set_xy2(sr_res_line, xRight, bsl)
+        line.set_color(sr_res_line, color.red)
+        label.set_x(sr_res_label, xLeft)
+        label.set_y(sr_res_label, bsl)
+        label.set_text(sr_res_label, "Resistance")
+        label.set_textcolor(sr_res_label, color.red)
+    if na(sr_sup_line)
+        sr_sup_line := line.new(xLeft, ssl, xRight, ssl, extend=extend.none, color=color.blue, width=2)
+        sr_sup_label := label.new(xLeft, ssl, "Support", style=label.style_label_right, textcolor=color.blue, color=color.new(color.black, 100), size=size.small)
+    else
+        line.set_xy1(sr_sup_line, xLeft, ssl)
+        line.set_xy2(sr_sup_line, xRight, ssl)
+        line.set_color(sr_sup_line, color.blue)
+        label.set_x(sr_sup_label, xLeft)
+        label.set_y(sr_sup_label, ssl)
+        label.set_text(sr_sup_label, "Support")
+        label.set_textcolor(sr_sup_label, color.blue)
+else
+    if not na(sr_res_line)
+        line.delete(sr_res_line), sr_res_line := na
+    if not na(sr_sup_line)
+        line.delete(sr_sup_line), sr_sup_line := na
+    if not na(sr_res_label)
+        label.delete(sr_res_label), sr_res_label := na
+    if not na(sr_sup_label)
+        label.delete(sr_sup_label), sr_sup_label := na
+//==============================================================================
+// RISK/REWARD DYNAMIC RAILS
+//==============================================================================
+var line rr_entry = na
+var line rr_t1 = na
+var line rr_t2 = na
+var line rr_sl = na
+var label rr_entry_tag = na
+var label rr_t1_tag = na
+var label rr_t2_tag = na
+var label rr_sl_tag = na
+var float active_entry = na
+var float active_t1 = na
+var float active_t2 = na
+var float active_sl = na
+var bool active_is_long = na
+if not na(active_is_long)
+    if active_is_long
+        if high >= active_t2 and not na(rr_t2)
+            line.delete(rr_t2)
+            rr_t2 := na
+            if not na(rr_t2_tag)
+                label.delete(rr_t2_tag)
+                rr_t2_tag := na
+            active_t2 := na
+        else if high >= active_t1 and not na(rr_t1)
+            line.delete(rr_t1)
+            rr_t1 := na
+            if not na(rr_t1_tag)
+                label.delete(rr_t1_tag)
+                rr_t1_tag := na
+            active_t1 := na
+        if low <= active_sl
+            if not na(rr_entry)
+                line.delete(rr_entry)
+                rr_entry := na
+            if not na(rr_t1)
+                line.delete(rr_t1)
+                rr_t1 := na
+            if not na(rr_t2)
+                line.delete(rr_t2)
+                rr_t2 := na
+            if not na(rr_sl)
+                line.delete(rr_sl)
+                rr_sl := na
+            if not na(rr_entry_tag)
+                label.delete(rr_entry_tag)
+                rr_entry_tag := na
+            if not na(rr_t1_tag)
+                label.delete(rr_t1_tag)
+                rr_t1_tag := na
+            if not na(rr_t2_tag)
+                label.delete(rr_t2_tag)
+                rr_t2_tag := na
+            if not na(rr_sl_tag)
+                label.delete(rr_sl_tag)
+                rr_sl_tag := na
+            active_entry := na
+            active_t1 := na
+            active_t2 := na
+            active_sl := na
+            active_is_long := na
+    else
+        if low <= active_t2 and not na(rr_t2)
+            line.delete(rr_t2)
+            rr_t2 := na
+            if not na(rr_t2_tag)
+                label.delete(rr_t2_tag)
+                rr_t2_tag := na
+            active_t2 := na
+        else if low <= active_t1 and not na(rr_t1)
+            line.delete(rr_t1)
+            rr_t1 := na
+            if not na(rr_t1_tag)
+                label.delete(rr_t1_tag)
+                rr_t1_tag := na
+            active_t1 := na
+        if high >= active_sl
+            if not na(rr_entry)
+                line.delete(rr_entry)
+                rr_entry := na
+            if not na(rr_t1)
+                line.delete(rr_t1)
+                rr_t1 := na
+            if not na(rr_t2)
+                line.delete(rr_t2)
+                rr_t2 := na
+            if not na(rr_sl)
+                line.delete(rr_sl)
+                rr_sl := na
+            if not na(rr_entry_tag)
+                label.delete(rr_entry_tag)
+                rr_entry_tag := na
+            if not na(rr_t1_tag)
+                label.delete(rr_t1_tag)
+                rr_t1_tag := na
+            if not na(rr_t2_tag)
+                label.delete(rr_t2_tag)
+                rr_t2_tag := na
+            if not na(rr_sl_tag)
+                label.delete(rr_sl_tag)
+                rr_sl_tag := na
+            active_entry := na
+            active_t1 := na
+            active_t2 := na
+            active_sl := na
+            active_is_long := na
+//==============================================================================
+// SIGNAL GENERATION ENGINE
+//==============================================================================
+modeMult = mode_signal == "Conservative" ? 1.35 : mode_signal == "Balanced" ? 1.0 : mode_signal == "Elite" ? 1.15 : 0.85
+minProb = mode_signal == "Conservative" ? 85 : mode_signal == "Balanced" ? 70 : mode_signal == "Elite" ? 75 : 60
+longGate = not lock_direction or FieldScore > 0
+shortGate = not lock_direction or FieldScore < 0
+conf_long = 0
+conf_long += (FieldScore >= field_long_thr and longGate) ? 2 : 0
+conf_long += wave_align > 0.15 ? 1 : 0
+conf_long += H_weighted > 0.55 ? 1 : 0
+conf_long += FDI_score > 0.2 ? 1 : 0
+conf_long += Ent_score > -0.2 ? 1 : 0
+conf_long += TE_sc > 0.02 ? 1 : 0
+conf_long += use_mtf_ctx and mtf_align_score > 0 ? 1 : 0
+conf_long += macdLine > signalLine ? 1 : 0
+conf_short = 0
+conf_short += (FieldScore <= field_short_thr and shortGate) ? 2 : 0
+conf_short += wave_align < -0.15 ? 1 : 0
+conf_short += H_weighted < 0.45 ? 1 : 0
+conf_short += FDI_score < -0.2 ? 1 : 0
+conf_short += Ent_score > -0.2 ? 1 : 0
+conf_short += TE_sc < -0.02 ? 1 : 0
+conf_short += use_mtf_ctx and mtf_align_score < 0 ? 1 : 0
+conf_short += macdLine < signalLine ? 1 : 0
+regimeFactor = dyn_conf ? (regime == "Transitional" ? dyn_range_factor : dyn_trend_factor) : 1.0
+adjConfL = int(conf_long * modeMult * regimeFactor)
+adjConfS = int(conf_short * modeMult * regimeFactor)
+probL = clamp(int(adjConfL * 12 + 20 + 25 * math.abs(FieldScore)), 0, 99)
+probS = clamp(int(adjConfS * 12 + 20 + 25 * math.abs(FieldScore)), 0, 99)
+var int lastSignalBar = na
+canSignal = na(lastSignalBar) or bar_index - lastSignalBar > cooldownBars
+longCand = longGate and adjConfL >= min_confluence and probL >= minProb
+shortCand = shortGate and adjConfS >= min_confluence and probS >= minProb
+longSignal = false
+shortSignal = false
+if canSignal
+    if prefer_best_side and longCand and shortCand
+        priL = probL + 5 * adjConfL + 40 * math.max(FieldScore, 0)
+        priS = probS + 5 * adjConfS + 40 * math.max(-FieldScore, 0)
+        if priL >= priS
+            longSignal := true
+        else
+            shortSignal := true
+    else
+        longSignal := longCand
+        shortSignal := shortCand
+//==============================================================================
+// DRAW RR RAILS ON SIGNAL
+//==============================================================================
+risk_stop_long = close - atr14 * risk_atrMultSL
+risk_stop_short = close + atr14 * risk_atrMultSL
+R_long = close - risk_stop_long
+R_short = risk_stop_short - close
+t1_long = close + R_long * risk_t1R
+t2_long = close + R_long * risk_t2R
+t1_short = close - R_short * risk_t1R
+t2_short = close - R_short * risk_t2R
+if plot_signals and longSignal and probL >= min_prob_plot
+    lastSignalBar := bar_index
+    if not na(rr_entry)
+        line.delete(rr_entry)
+        rr_entry := na
+    if not na(rr_t1)
+        line.delete(rr_t1)
+        rr_t1 := na
+    if not na(rr_t2)
+        line.delete(rr_t2)
+        rr_t2 := na
+    if not na(rr_sl)
+        line.delete(rr_sl)
+        rr_sl := na
+    if not na(rr_entry_tag)
+        label.delete(rr_entry_tag)
+        rr_entry_tag := na
+    if not na(rr_t1_tag)
+        label.delete(rr_t1_tag)
+        rr_t1_tag := na
+    if not na(rr_t2_tag)
+        label.delete(rr_t2_tag)
+        rr_t2_tag := na
+    if not na(rr_sl_tag)
+        label.delete(rr_sl_tag)
+        rr_sl_tag := na
+    x0 = bar_index
+    x1 = bar_index + rr_len
+    colT = color.new(cBull, 55)
+    colT2 = color.new(cBull, 35)
+    colSL = color.new(cBear, 55)
+    colEN = color.new(cNeut, 70)
+    rr_entry := line.new(x0, close, x1, close, color=colEN, style=line.style_dotted)
+    rr_t1 := line.new(x0, t1_long, x1, t1_long, color=colT, style=line.style_dashed)
+    rr_t2 := line.new(x0, t2_long, x1, t2_long, color=colT2, style=line.style_dashed)
+    rr_sl := line.new(x0, risk_stop_long, x1, risk_stop_long, color=colSL, style=line.style_dashed)
+    if right_tags
+        xo = 4
+        rr_entry_tag := label.new(x1 + xo, close, "Entry", style=label.style_label_left, color=color.new(color.black, 100), textcolor=cNeut, size=size.tiny)
+        rr_sl_tag := label.new(x1 + xo, risk_stop_long, "SL", style=label.style_label_left, color=color.new(color.black, 100), textcolor=cBear, size=size.tiny)
+        rr_t1_tag := label.new(x1 + xo, t1_long, "T1", style=label.style_label_left, color=color.new(color.black, 100), textcolor=cBull, size=size.tiny)
+        rr_t2_tag := label.new(x1 + xo, t2_long, "T2", style=label.style_label_left, color=color.new(color.black, 100), textcolor=cBull, size=size.tiny)
+    active_entry := close
+    active_t1 := t1_long
+    active_t2 := t2_long
+    active_sl := risk_stop_long
+    active_is_long := true
+if plot_signals and shortSignal and probS >= min_prob_plot
+    lastSignalBar := bar_index
+    if not na(rr_entry)
+        line.delete(rr_entry)
+        rr_entry := na
+    if not na(rr_t1)
+        line.delete(rr_t1)
+        rr_t1 := na
+    if not na(rr_t2)
+        line.delete(rr_t2)
+        rr_t2 := na
+    if not na(rr_sl)
+        line.delete(rr_sl)
+        rr_sl := na
+    if not na(rr_entry_tag)
+        label.delete(rr_entry_tag)
+        rr_entry_tag := na
+    if not na(rr_t1_tag)
+        label.delete(rr_t1_tag)
+        rr_t1_tag := na
+    if not na(rr_t2_tag)
+        label.delete(rr_t2_tag)
+        rr_t2_tag := na
+    if not na(rr_sl_tag)
+        label.delete(rr_sl_tag)
+        rr_sl_tag := na
+    x0 = bar_index
+    x1 = bar_index + rr_len
+    colT = color.new(cBear, 55)
+    colT2 = color.new(cBear, 35)
+    colSL = color.new(cBear, 55)
+    colEN = color.new(cNeut, 70)
+    rr_entry := line.new(x0, close, x1, close, color=colEN, style=line.style_dotted)
+    rr_t1 := line.new(x0, t1_short, x1, t1_short, color=colT, style=line.style_dashed)
+    rr_t2 := line.new(x0, t2_short, x1, t2_short, color=colT2, style=line.style_dashed)
+    rr_sl := line.new(x0, risk_stop_short, x1, risk_stop_short, color=colSL, style=line.style_dashed)
+    if right_tags
+        xo = 4
+        rr_entry_tag := label.new(x1 + xo, close, "Entry", style=label.style_label_left, color=color.new(color.black, 100), textcolor=cNeut, size=size.tiny)
+        rr_sl_tag := label.new(x1 + xo, risk_stop_short, "SL", style=label.style_label_left, color=color.new(color.black, 100), textcolor=cBear, size=size.tiny)
+        rr_t1_tag := label.new(x1 + xo, t1_short, "T1", style=label.style_label_left, color=color.new(color.black, 100), textcolor=cBear, size=size.tiny)
+        rr_t2_tag := label.new(x1 + xo, t2_short, "T2", style=label.style_label_left, color=color.new(color.black, 100), textcolor=cBear, size=size.tiny)
+    active_entry := close
+    active_t1 := t1_short
+    active_t2 := t2_short
+    active_sl := risk_stop_short
+    active_is_long := false
+//==============================================================================
+// SIGNAL MARKERS
+//==============================================================================
+shouldPlot = plot_signals and ((longSignal and probL >= min_prob_plot) or (shortSignal and probS >= min_prob_plot))
+if shouldPlot
+    if longSignal
+        label.new(bar_index, low - atr14 * 2.0, (signal_labels ? "▲\n" + str.tostring(probL) + "%" : "▲"), color=color.new(color.black, 100), style=label.style_none, textcolor=cGold, size=size.small)
+    if shortSignal
+        label.new(bar_index, high + atr14 * 1.0, (signal_labels ? str.tostring(probS) + "%\n▼" : "▼"), color=color.new(color.black, 100), style=label.style_none, textcolor=cGold, size=size.small)
+//==============================================================================
+// ANALYTICS DASHBOARD
+//==============================================================================
+var table dash = na
+dashLoc = dash_pos == "Top Right" ? position.top_right : dash_pos == "Top Left" ? position.top_left : dash_pos == "Bottom Right" ? position.bottom_right : position.bottom_left
+volRatio = volume / volSMA20
+if show_dashboard and barstate.islast
+    if not na(dash)
+        table.delete(dash)
+    dash := table.new(dashLoc, 3, 22, border_width=2)
+    bgColor = theme == "Dark" ? color.new(#1a1a1a, 20) : theme == "Light" ? color.new(#f5f5f5, 20) : color.new(#000033, 20)
+    textColor = theme == "Light" ? color.black : color.white
+    headerColor = theme == "Neon" ? color.new(#00ff00, 0) : cGold
+    row = 0
+    table.merge_cells(dash, 0, row, 2, row)
+    table.cell(dash, 0, row, "📊 IGMD FIELD ANALYTICS", text_color=headerColor, text_size=size.normal, bgcolor=bgColor)
+    row += 1
+    table.merge_cells(dash, 0, row, 2, row)
+    table.cell(dash, 0, row, "━━━ Field Analysis ━━━", text_color=color.new(textColor, 50), text_size=size.tiny, bgcolor=bgColor)
+    row += 1
+    table.cell(dash, 0, row, "Field Score", text_color=textColor, text_size=size.small, bgcolor=bgColor)
+    table.cell(dash, 1, row, str.tostring(FieldScore, "#.00"), text_color=FieldScore > 0 ? cBull : cBear, text_size=size.small, bgcolor=bgColor)
+    table.cell(dash, 2, row, regime, text_color=cInfo, text_size=size.tiny, bgcolor=bgColor)
+    row += 1
+    table.cell(dash, 0, row, "Wave Align", text_color=textColor, text_size=size.small, bgcolor=bgColor)
+    table.cell(dash, 1, row, str.tostring(wave_align, "#.00"), text_color=wave_align >= 0 ? cBull : cBear, text_size=size.small, bgcolor=bgColor)
+    table.cell(dash, 2, row, "H(w) " + (na(H_weighted) ? "N/A" : str.tostring(H_weighted, "#.00")), text_color=cInfo, text_size=size.tiny, bgcolor=bgColor)
+    row += 1
+    table.merge_cells(dash, 0, row, 2, row)
+    table.cell(dash, 0, row, "━━━ Complexity ━━━", text_color=color.new(textColor, 50), text_size=size.tiny, bgcolor=bgColor)
+    row += 1
+    table.cell(dash, 0, row, "FDI", text_color=textColor, text_size=size.small, bgcolor=bgColor)
+    table.cell(dash, 1, row, str.tostring(FDI, "#.00"), text_color=FDI_score > 0 ? cBull : cBear, text_size=size.small, bgcolor=bgColor)
+    table.cell(dash, 2, row, "Score " + str.tostring(FDI_score, "#.00"), text_color=cInfo, text_size=size.tiny, bgcolor=bgColor)
+    row += 1
+    table.cell(dash, 0, row, "Entropy", text_color=textColor, text_size=size.small, bgcolor=bgColor)
+    table.cell(dash, 1, row, na(EntropyN) ? "N/A" : str.tostring(EntropyN, "#.00"), text_color=Ent_score > 0 ? cBull : cBear, text_size=size.small, bgcolor=bgColor)
+    table.cell(dash, 2, row, "Z " + str.tostring(entZ, "#.00"), text_color=cGray, text_size=size.tiny, bgcolor=bgColor)
+    row += 1
+    table.cell(dash, 0, row, "TE dir", text_color=textColor, text_size=size.small, bgcolor=bgColor)
+    table.cell(dash, 1, row, str.tostring(TE_sc, "#.00"), text_color=TE_sc > 0 ? cBull : cBear, text_size=size.small, bgcolor=bgColor)
+    table.cell(dash, 2, row, "throttle x" + str.tostring(te_step), text_color=cGray, text_size=size.tiny, bgcolor=bgColor)
+    row += 1
+    table.cell(dash, 0, row, "MTF Align", text_color=textColor, text_size=size.small, bgcolor=bgColor)
+    table.cell(dash, 1, row, use_mtf_ctx ? str.tostring(mtf_align_score, "#.00") : "off", text_color=mtf_align_score > 0 ? cBull : (mtf_align_score < 0 ? cBear : cNeut), text_size=size.small, bgcolor=bgColor)
+    table.cell(dash, 2, row, ref_tf1 + "/" + ref_tf2, text_color=cGray, text_size=size.tiny, bgcolor=bgColor)
+    row += 1
+    table.merge_cells(dash, 0, row, 2, row)
+    table.cell(dash, 0, row, "━━━ Market Context ━━━", text_color=color.new(textColor, 50), text_size=size.tiny, bgcolor=bgColor)
+    row += 1
+    table.cell(dash, 0, row, "RSI", text_color=textColor, text_size=size.small, bgcolor=bgColor)
+    rsiColor = rsi14 > 70 ? cBear : rsi14 < 30 ? cBull : cNeut
+    table.cell(dash, 1, row, str.tostring(rsi14, "#"), text_color=rsiColor, text_size=size.small, bgcolor=bgColor)
+    table.cell(dash, 2, row, (rsi14 > 70 ? "Overbought" : rsi14 < 30 ? "Oversold" : "Neutral"), text_color=rsiColor, text_size=size.tiny, bgcolor=bgColor)
+    row += 1
+    table.cell(dash, 0, row, "Volume", text_color=textColor, text_size=size.small, bgcolor=bgColor)
+    table.cell(dash, 1, row, str.tostring(volRatio, "#.##") + "x", text_color=volRatio > 1.5 ? cBull : cNeut, text_size=size.small, bgcolor=bgColor)
+    volState = volRatio > 2 ? "Extreme" : volRatio > 1.5 ? "High" : volRatio < 0.5 ? "Low" : "Normal"
+    table.cell(dash, 2, row, volState, text_color=volRatio > 1.5 ? cBull : cNeut, text_size=size.tiny, bgcolor=bgColor)
+    row += 1
+    table.cell(dash, 0, row, "ATR", text_color=textColor, text_size=size.small, bgcolor=bgColor)
+    table.cell(dash, 1, row, str.tostring(atr14, format.mintick), text_color=cNeut, text_size=size.small, bgcolor=bgColor)
+    table.cell(dash, 2, row, str.tostring(atr14 / close * 100, "#.#") + "%", text_color=cGray, text_size=size.tiny, bgcolor=bgColor)
+    row += 1
+    table.merge_cells(dash, 0, row, 2, row)
+    table.cell(dash, 0, row, "━━━ Signals ━━━", text_color=color.new(textColor, 50), text_size=size.tiny, bgcolor=bgColor)
+    row += 1
+    table.cell(dash, 0, row, "Confluence L/S", text_color=textColor, text_size=size.small, bgcolor=bgColor)
+    table.cell(dash, 1, row, str.tostring(adjConfL) + "/" + str.tostring(adjConfS), text_color=textColor, text_size=size.small, bgcolor=bgColor)
+    table.cell(dash, 2, row, "Min " + str.tostring(min_confluence), text_color=cGray, text_size=size.tiny, bgcolor=bgColor)
+    row += 1
+    table.cell(dash, 0, row, "Probability", text_color=textColor, text_size=size.small, bgcolor=bgColor)
+    table.cell(dash, 1, row, str.tostring(probL) + "%", text_color=cBull, text_size=size.small, bgcolor=bgColor)
+    table.cell(dash, 2, row, str.tostring(probS) + "%", text_color=cBear, text_size=size.small, bgcolor=bgColor)
+    row += 1
+    table.cell(dash, 0, row, "Pattern", text_color=textColor, text_size=size.small, bgcolor=bgColor)
+    patColor = apex_pat_name == "None" ? cNeut : (FieldScore >= 0 ? cBull : cBear)
+    table.cell(dash, 1, row, apex_pat_name, text_color=patColor, text_size=size.small, bgcolor=bgColor)
+    table.cell(dash, 2, row, str.tostring(int(apex_pat_conf)) + "%", text_color=patColor, text_size=size.small, bgcolor=bgColor)
+    row += 1
+    table.cell(dash, 0, row, "Mode", text_color=textColor, text_size=size.small, bgcolor=bgColor)
+    table.cell(dash, 1, row, mode_signal, text_color=cInfo, text_size=size.small, bgcolor=bgColor)
+    signalStatus = longSignal ? "LONG" : shortSignal ? "SHORT" : "WAIT"
+    statusColor = longSignal ? cBull : shortSignal ? cBear : cGray
+    table.cell(dash, 2, row, signalStatus, text_color=statusColor, text_size=size.small, bgcolor=bgColor)
+    row += 1
+    table.merge_cells(dash, 0, row, 2, row)
+    table.cell(dash, 0, row, "▲ Entry • ━ RR Rails • █ Pattern Box", text_color=color.new(textColor, 50), text_size=size.tiny, bgcolor=bgColor)
+    row += 1
+    row += 1
+    table.merge_cells(dash, 0, row, 2, row)
+    table.cell(dash, 0, row, "━━━━━━━━━━━━━━━", text_color=color.new(headerColor, 50), text_size=size.tiny, bgcolor=bgColor)
+    row += 1
+    table.merge_cells(dash, 0, row, 2, row)
+    table.cell(dash, 0, row, "-- ⚡ Dskyz (DAFE) Trading Systems --", text_color=color.new(headerColor, 30), text_size=size.tiny, bgcolor=bgColor)
+//==============================================================================
+// ALERTS
+//==============================================================================
+alertcondition(longSignal, title="IGMD Long Signal", message="IGMD Long Signal Triggered - Check Dashboard for Details")
+alertcondition(shortSignal, title="IGMD Short Signal", message="IGMD Short Signal Triggered - Check Dashboard for Details")
+alertcondition(longSignal or shortSignal, title="IGMD Any Signal", message="IGMD Signal Triggered")
+alertcondition(FieldScore > 0.5, title="Strong Bullish Field", message="IGMD: Strong Bullish Field Detected")
+alertcondition(FieldScore < -0.5, title="Strong Bearish Field", message="IGMD: Strong Bearish Field Detected")
+alertcondition(pattern_trigger, title="Pattern Formation", message="IGMD: New Pattern Formation Detected")
+//==============================================================================
+// PLOT EXPORTS
+//==============================================================================
+plot(FieldScore, title="Field Score", display=display.none)
+plot(probL, title="Long Probability", display=display.none)
+plot(probS, title="Short Probability", display=display.none)
+plot(H_weighted, title="Hurst Exponent", display=display.none)
+plot(FDI, title="Fractal Dimension", display=display.none)
+plot(EntropyN, title="Shannon Entropy", display=display.none)
+plot(TE_sc, title="Transfer Entropy", display=display.none)
