@@ -1,0 +1,30 @@
+request_id: session_anchored_vwap__1.0.0
+request_version: 1
+release_id: session_anchored_vwap__1.0.0
+feature_set: session_anchored_vwap
+feature_set_version: 1.0.0
+source_dataset: volume_lead_back_adjusted_v1
+source_manifest: catalog/datasets/volume_lead_back_adjusted_v1.json
+calendar: catalog/calendars/cme_fixed_clock_session_v1.json
+indicator_specification: catalog/indicators/session_anchored_vwap__1.0.0.json
+products: [ES, NQ, GC]
+output_intervals_minutes: [2, 5]
+requested_range: pinned_source_manifest_full_range
+timezone: America/New_York
+timestamp_storage: UTC
+eligibility:
+  scope: product_session_date
+  require_every_expected_published_minute: true
+  synthesize_missing_minutes: false
+  shared_population_across_intervals: true
+  retrospective_research_sample_selection: true
+aggregation:
+  basis: source_1m_direct
+  interval_semantics: "[start, end)"
+  alignment: fixed_new_york_clock
+  ohlcv: {open: first, high: max, low: min, close: last, volume: sum}
+publication:
+  format: parquet
+  compression: zstd
+  partitioning: [product, session_year]
+  overwrite_completed_version: false

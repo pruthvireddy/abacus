@@ -1,0 +1,221 @@
+# Filled from the Abacus Bhishma feature-dataset request template.
+# Request data preparation only. DR/IDR research will run in tv-indicators.
+
+request:
+  id: "tv_indicators__dridr_ohlcv_5m__v1"
+  requesting_repository:
+    name: "tv-indicators"
+    absolute_path: "/Users/ppanati/Documents/projects/tv-indicators"
+    contact_or_owner: null
+  purpose: |
+    Supply versioned, auditable five-minute ES, GC and NQ OHLCV so this
+    repository can rebuild DR/IDR historical statistics over the longer
+    available history. Aggregate source minutes in Abacus Bhishma; compute
+    session geometry, confirmations, outcomes, excursions, gap statistics,
+    cohorts, uncertainty and Pine payloads in tv-indicators.
+    The requesting repository will read the delivered files in place.
+  requested_on: "2026-09-20"
+
+base_data:
+  dataset: "volume_lead_back_adjusted_v1"
+  variant: "back_adjusted"
+  products: ["ES", "GC", "NQ"]
+  date_range:
+    start: "2010-06-06"
+    end: "2026-09-19"
+    end_is_exclusive: true
+  source_timeframe: "1m"
+  requested_timeframe: "5m"
+
+aggregation:
+  timezone: "America/New_York"
+  session_scope: "full_globex"
+  session_open: "18:00"
+  session_close: "17:00"
+  maintenance_window: "17:00-18:00"
+  anchor: "session_open"
+  timestamp_label: "bar_open"
+  interval_semantics: "[start, end)"
+  ohlcv_rules:
+    open: "first"
+    high: "maximum"
+    low: "minimum"
+    close: "last"
+    volume: "sum"
+  missing_minutes: "do_not_fill"
+  partial_bars: "keep_and_flag"
+  include_source_bar_count: true
+  partial_bar_column: "is_partial_bar"
+  roll_handling:
+    preserve_phase2_adjustments: true
+    contains_roll_column: "contains_roll"
+    contains_roll_rule: "any constituent 1m bar has is_roll=true"
+    record_first_raw_symbol: true
+    record_last_raw_symbol: true
+
+features: []
+
+meta_columns:
+  requested: ["min_tick", "is_mixed_contract_bar", "is_mixed_adjustment_bar"]
+  specifications: |
+    ts_event: timezone-aware UTC timestamp[ns], the five-minute bar OPEN.
+    Source 1m timestamps must first be normalized to actual bar opens.
+    Each bucket is [ts_event, ts_event + 5 minutes); never relabel close
+    timestamps as opens without the documented one-minute conversion.
+    Interpret date_range boundaries as midnight America/New_York instants.
+
+    session_date: source exchange trading-session date, Arrow date32.
+    Keep its definition separate from the DR/IDR research date, which this
+    consumer derives with a 19:30 America/New_York rollover. Do not compute
+    or substitute a DR/IDR research-date field in this delivery.
+    Partition year is the calendar year of session_date.
+
+    source_bar_count: number of unique actual source minutes in the bucket.
+    is_partial_bar: false only for the exact five source opens at offsets
+    0, 1, 2, 3, 4 minutes, with valid finalized source OHLCV. Otherwise true.
+    Keep nonempty partial buckets; do not create rows for empty buckets.
+    Invalid or duplicate source rows must be reported and resolved explicitly,
+    never silently counted as a complete bucket. Do not forward-fill missing
+    or no-trade minutes. Report how the source represents no-trade minutes.
+
+    first_raw_symbol / last_raw_symbol: first/last source contract in time order.
+    is_mixed_contract_bar: more than one distinct source raw_symbol or
+    instrument_id occurs within the bucket.
+    is_mixed_adjustment_bar: more than one source adjustment regime/value
+    occurs within the bucket. Document the underlying regime identity.
+    Keep both mixed flags independent of contains_roll; a switch flag and a
+    mixed bucket are different facts. Retain and flag roll buckets without
+    splitting, smoothing or manufacturing replacement prices.
+
+    min_tick: positive source-instrument minimum tick in price units.
+    Existing consumer defaults are ES=0.25, NQ=0.25, GC=0.1; report any
+    historical exceptions. Preserve adjusted price precision without rounding
+    to these ticks. Validate price alignment under the documented adjustment
+    convention, which may shift the raw tick lattice.
+
+    Inherited scalar lineage (raw_symbol, instrument_id, roll_id,
+    price_adjustment) may represent a bucket only if constant across its
+    constituents; otherwise null. Do not silently choose the last value.
+    Preserve their source meanings/types and describe nulls in the manifest.
+    Return a referenced roll/adjustment table for detailed reconstruction.
+
+research_labels:
+  requested: []
+  allow_forward_looking_columns: false
+  leakage_acknowledgement: |
+    No DR/IDR outcomes, features, forecasts or historical statistics requested.
+    No TradingView hex_* fields should be fabricated. Back-adjusted prices
+    have a separate provenance question: record adjustment snapshot/as-of,
+    roll decision/effective times and whether construction uses later data.
+    Do not represent a final adjusted snapshot as point-in-time certified.
+
+output:
+  feature_set_name: "dridr_ohlcv_5m"
+  feature_set_version: "1.0.0"
+  format: "parquet"
+  compression: "zstd"
+  include_base_ohlcv_columns: true
+  include_lineage_columns:
+    - "ts_event"
+    - "session_date"
+    - "product"
+    - "continuous_symbol"
+    - "raw_symbol"
+    - "instrument_id"
+    - "roll_id"
+    - "contains_roll"
+    - "price_adjustment"
+    - "first_raw_symbol"
+    - "last_raw_symbol"
+    - "source_bar_count"
+    - "is_partial_bar"
+  partition_by: ["product", "year"]
+  sort_by: ["product", "ts_event"]
+  expected_consumer:
+    language: "python"
+    library: "pyarrow"
+  overwrite_existing_version: false
+
+validation:
+  require_unique_product_timestamp: true
+  require_strict_timestamp_order: true
+  require_no_synthetic_market_bars: true
+  require_no_lookahead_in_features: true
+  require_phase2_lineage_verification: true
+  require_deterministic_rebuild: true
+  expected_columns:
+    - "ts_event"
+    - "session_date"
+    - "product"
+    - "open"
+    - "high"
+    - "low"
+    - "close"
+    - "volume"
+    - "continuous_symbol"
+    - "raw_symbol"
+    - "instrument_id"
+    - "roll_id"
+    - "contains_roll"
+    - "price_adjustment"
+    - "first_raw_symbol"
+    - "last_raw_symbol"
+    - "source_bar_count"
+    - "is_partial_bar"
+    - "min_tick"
+    - "is_mixed_contract_bar"
+    - "is_mixed_adjustment_bar"
+  indicator_spot_checks: []
+  additional_acceptance_criteria: |
+    Deliver all available observations within the requested range per product.
+    If coverage begins later or ends earlier, report the actual bounds and
+    uncovered periods. Do not truncate all products to their common overlap.
+
+    Preserve full-session coverage, including overnight trading and session
+    boundary candles. Do not filter to RTH or only DR/IDR formation windows.
+    The nominal 18:00-17:00 schedule above must not discard legitimate older
+    source bars: use verified historical product calendars for schedule
+    changes, holidays and early closes. If unavailable, preserve observed
+    source bars and explicitly report calendar uncertainty. Never fill closures.
+
+    Use fixed five-minute buckets aligned to New York :00/:05/.../:55 opens,
+    never rolling five-row windows. UTC timestamps must disambiguate DST;
+    preserve local NY clock alignment without using a fixed UTC offset.
+    No unfinished final bar. OHLC must be finite with low <= open/close <= high;
+    volume must be finite and nonnegative. Preserve price/volume precision.
+
+    Reconcile every delivered OHLCV bucket to its source minutes and preserve
+    source volume sums. Report duplicates, invalid rows, missing minute
+    intervals, partial buckets, mixed-contract/adjustment buckets and roll
+    flags by product/year. Distinguish verified market closures from data gaps
+    and unknown/no-trade absences; uncertainty must not become completeness.
+
+    Return spot-check evidence for DST-transition weeks, rolls, maintenance,
+    holidays/early closes, and 19:30/20:30, 03:00/04:00, 09:30/10:30 NY
+    boundaries. A 09:30 bucket uses 09:30 through 09:34 source opens, and
+    a 10:25 bucket ends at 10:30; the 10:30 bucket is a separate observation.
+    This preserves twelve bars per complete DR/IDR formation.
+
+    Manifest must include request/config hash, source dataset/version and
+    checksums, source timestamp convention, schemas/units, historical calendar
+    version or uncertainty, roll-selection rule, adjustment method/sign/anchor
+    and as-of, roll/adjustment table paths/checksums, code revision, generation
+    cutoff, partition hashes, counts and reproducibility evidence.
+    This is a new Abacus data identity; do not label it as a TradingView
+    continuous-contract feed or reuse this consumer's existing master hashes.
+
+delivery:
+  keep_inside_abacus_bhishma: true
+  copy_into_requesting_repository: false
+  return:
+    - "dataset_id"
+    - "absolute_data_path"
+    - "portable_path_glob"
+    - "manifest_path"
+    - "quality_report_path"
+    - "schema"
+    - "row_counts"
+    - "coverage"
+    - "checksums"
+    - "loader_example"
+    - "known_limitations"

@@ -1,0 +1,5 @@
+#!/bin/sh
+set -eu
+
+PROJECT_ROOT=$(CDPATH= cd -- "$(dirname -- "$0")/.." && pwd)
+exec "$PROJECT_ROOT/.venv/bin/python" -m abacus_bhishma.session_anchored_vwap --root "$PROJECT_ROOT" build "$@"

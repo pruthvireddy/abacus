@@ -1,0 +1,1610 @@
+{
+  "absolute_dataset_path": "/Users/ppanati/Documents/projects/abacus-bhishma/data/features/bars/2m/feature_set=session_anchored_vwap/version=1.0.0",
+  "availability": {
+    "available_at": "equals bar_close_ts; modeling convention, not feed-latency claim",
+    "bar_close_ts": "exclusive bar end",
+    "ts_event": "bar open"
+  },
+  "build_timestamp_utc": "2026-09-22T23:01:19.285808+00:00",
+  "calculation": {
+    "aggregation": "independently direct from 1m",
+    "alignment": "fixed America/New_York clock",
+    "anchors": {
+      "asia": "20:00 D-1",
+      "globex": "18:00 D-1",
+      "london": "03:00 D",
+      "ny": "09:30 D"
+    },
+    "basis": "output-bar HLC3",
+    "interval_semantics": "[start,end)",
+    "source_timeframe": "1m",
+    "variance": "stable online volume-weighted population variance"
+  },
+  "calendar": {
+    "definition": {
+      "bytes": 3211,
+      "path": "catalog/calendars/cme_fixed_clock_session_v1.json",
+      "sha256": "d5e9d7895f02c5c66a2231e3f79e6bfbc21cd7ce7aa2f42974cfa50492186bcf"
+    },
+    "historical_regime_policy": "exclude unsupported or target-bar-incompatible product-days",
+    "identity": "cme_fixed_clock_session_v1@1.0.0",
+    "normal_session": "[18:00 D-1,17:00 D)",
+    "timezone": "America/New_York"
+  },
+  "dataset_id": "session_anchored_vwap_2m_v1",
+  "dataset_version": "1.0.0",
+  "eligibility": {
+    "audit": {
+      "bytes": 260462,
+      "path": "data/features/audits/feature_set=session_anchored_vwap/version=1.0.0/product_day_eligibility.parquet",
+      "sha256": "9d51b47ee63b2e0aea58effa939bee3180d4672854d13aa553b4e314c459063d"
+    },
+    "missing_minute_policy": "exclude whole product-day; never synthesize or fill",
+    "no_trade_intervals": "Databento omits intervals with no trades; absence is labeled missing expected published minute and is not asserted to be corruption",
+    "shared_between_2m_and_5m": true,
+    "summary": {
+      "by_product": {
+        "ES": {
+          "candidate_days": 4250,
+          "excluded_days_unique": 3213,
+          "included_days": 1037,
+          "overlapping_reason_counts": {
+            "exchange_holiday_or_shortened_session": 185,
+            "missing_expected_published_minute": 2465,
+            "no_source_rows": 56,
+            "source_condition_degraded": 39,
+            "source_rows_outside_expected_schedule": 1302,
+            "unsupported_historical_schedule_regime": 2885
+          }
+        },
+        "GC": {
+          "candidate_days": 4250,
+          "excluded_days_unique": 3425,
+          "included_days": 825,
+          "overlapping_reason_counts": {
+            "exchange_holiday_or_shortened_session": 176,
+            "missing_expected_published_minute": 3398,
+            "no_source_rows": 60,
+            "source_condition_degraded": 39,
+            "source_rows_outside_expected_schedule": 29,
+            "unsupported_historical_schedule_regime": 1380
+          }
+        },
+        "NQ": {
+          "candidate_days": 4250,
+          "excluded_days_unique": 3073,
+          "included_days": 1177,
+          "overlapping_reason_counts": {
+            "exchange_holiday_or_shortened_session": 185,
+            "missing_expected_published_minute": 2424,
+            "no_source_rows": 56,
+            "source_condition_degraded": 39,
+            "source_rows_outside_expected_schedule": 1265,
+            "unsupported_historical_schedule_regime": 2885
+          }
+        }
+      },
+      "by_product_year_overlapping_reason_counts": {
+        "ES:2010": {
+          "exchange_holiday_or_shortened_session": 5,
+          "missing_expected_published_minute": 146,
+          "no_source_rows": 1,
+          "source_rows_outside_expected_schedule": 117,
+          "unsupported_historical_schedule_regime": 150
+        },
+        "ES:2011": {
+          "exchange_holiday_or_shortened_session": 9,
+          "missing_expected_published_minute": 219,
+          "no_source_rows": 2,
+          "source_rows_outside_expected_schedule": 207,
+          "unsupported_historical_schedule_regime": 260
+        },
+        "ES:2012": {
+          "exchange_holiday_or_shortened_session": 12,
+          "missing_expected_published_minute": 253,
+          "no_source_rows": 3,
+          "source_rows_outside_expected_schedule": 215,
+          "unsupported_historical_schedule_regime": 261
+        },
+        "ES:2013": {
+          "exchange_holiday_or_shortened_session": 12,
+          "missing_expected_published_minute": 252,
+          "no_source_rows": 9,
+          "source_rows_outside_expected_schedule": 249,
+          "unsupported_historical_schedule_regime": 261
+        },
+        "ES:2014": {
+          "exchange_holiday_or_shortened_session": 12,
+          "missing_expected_published_minute": 251,
+          "no_source_rows": 11,
+          "source_condition_degraded": 9,
+          "source_rows_outside_expected_schedule": 243,
+          "unsupported_historical_schedule_regime": 261
+        },
+        "ES:2015": {
+          "exchange_holiday_or_shortened_session": 11,
+          "missing_expected_published_minute": 226,
+          "no_source_rows": 2,
+          "source_rows_outside_expected_schedule": 183,
+          "unsupported_historical_schedule_regime": 261
+        },
+        "ES:2016": {
+          "exchange_holiday_or_shortened_session": 10,
+          "missing_expected_published_minute": 190,
+          "no_source_rows": 3,
+          "source_rows_outside_expected_schedule": 5,
+          "unsupported_historical_schedule_regime": 261
+        },
+        "ES:2017": {
+          "exchange_holiday_or_shortened_session": 11,
+          "missing_expected_published_minute": 249,
+          "no_source_rows": 3,
+          "source_condition_degraded": 2,
+          "source_rows_outside_expected_schedule": 6,
+          "unsupported_historical_schedule_regime": 260
+        },
+        "ES:2018": {
+          "exchange_holiday_or_shortened_session": 13,
+          "missing_expected_published_minute": 162,
+          "no_source_rows": 3,
+          "source_condition_degraded": 1,
+          "source_rows_outside_expected_schedule": 68,
+          "unsupported_historical_schedule_regime": 261
+        },
+        "ES:2019": {
+          "exchange_holiday_or_shortened_session": 12,
+          "missing_expected_published_minute": 140,
+          "no_source_rows": 3,
+          "source_condition_degraded": 7,
+          "source_rows_outside_expected_schedule": 3,
+          "unsupported_historical_schedule_regime": 261
+        },
+        "ES:2020": {
+          "exchange_holiday_or_shortened_session": 11,
+          "missing_expected_published_minute": 37,
+          "no_source_rows": 3,
+          "source_condition_degraded": 7,
+          "source_rows_outside_expected_schedule": 5,
+          "unsupported_historical_schedule_regime": 262
+        },
+        "ES:2021": {
+          "exchange_holiday_or_shortened_session": 10,
+          "missing_expected_published_minute": 53,
+          "no_source_rows": 2,
+          "source_condition_degraded": 1,
+          "unsupported_historical_schedule_regime": 126
+        },
+        "ES:2022": {
+          "exchange_holiday_or_shortened_session": 10,
+          "missing_expected_published_minute": 20,
+          "no_source_rows": 2,
+          "source_condition_degraded": 1
+        },
+        "ES:2023": {
+          "exchange_holiday_or_shortened_session": 12,
+          "missing_expected_published_minute": 105,
+          "no_source_rows": 2,
+          "source_rows_outside_expected_schedule": 1
+        },
+        "ES:2024": {
+          "exchange_holiday_or_shortened_session": 13,
+          "missing_expected_published_minute": 102,
+          "no_source_rows": 3,
+          "source_condition_degraded": 2
+        },
+        "ES:2025": {
+          "exchange_holiday_or_shortened_session": 14,
+          "missing_expected_published_minute": 43,
+          "no_source_rows": 3,
+          "source_condition_degraded": 5
+        },
+        "ES:2026": {
+          "exchange_holiday_or_shortened_session": 8,
+          "missing_expected_published_minute": 17,
+          "no_source_rows": 1,
+          "source_condition_degraded": 4
+        },
+        "GC:2010": {
+          "exchange_holiday_or_shortened_session": 5,
+          "missing_expected_published_minute": 150,
+          "no_source_rows": 1,
+          "source_rows_outside_expected_schedule": 2,
+          "unsupported_historical_schedule_regime": 150
+        },
+        "GC:2011": {
+          "exchange_holiday_or_shortened_session": 9,
+          "missing_expected_published_minute": 250,
+          "no_source_rows": 2,
+          "source_rows_outside_expected_schedule": 1,
+          "unsupported_historical_schedule_regime": 260
+        },
+        "GC:2012": {
+          "exchange_holiday_or_shortened_session": 11,
+          "missing_expected_published_minute": 261,
+          "no_source_rows": 5,
+          "unsupported_historical_schedule_regime": 261
+        },
+        "GC:2013": {
+          "exchange_holiday_or_shortened_session": 11,
+          "missing_expected_published_minute": 260,
+          "no_source_rows": 9,
+          "unsupported_historical_schedule_regime": 261
+        },
+        "GC:2014": {
+          "exchange_holiday_or_shortened_session": 11,
+          "missing_expected_published_minute": 261,
+          "no_source_rows": 9,
+          "source_condition_degraded": 9,
+          "unsupported_historical_schedule_regime": 261
+        },
+        "GC:2015": {
+          "exchange_holiday_or_shortened_session": 11,
+          "missing_expected_published_minute": 261,
+          "no_source_rows": 3,
+          "source_rows_outside_expected_schedule": 1,
+          "unsupported_historical_schedule_regime": 187
+        },
+        "GC:2016": {
+          "exchange_holiday_or_shortened_session": 10,
+          "missing_expected_published_minute": 251,
+          "no_source_rows": 3,
+          "source_rows_outside_expected_schedule": 1
+        },
+        "GC:2017": {
+          "exchange_holiday_or_shortened_session": 10,
+          "missing_expected_published_minute": 204,
+          "no_source_rows": 3,
+          "source_condition_degraded": 2,
+          "source_rows_outside_expected_schedule": 1
+        },
+        "GC:2018": {
+          "exchange_holiday_or_shortened_session": 12,
+          "missing_expected_published_minute": 199,
+          "no_source_rows": 3,
+          "source_condition_degraded": 1,
+          "source_rows_outside_expected_schedule": 23
+        },
+        "GC:2019": {
+          "exchange_holiday_or_shortened_session": 11,
+          "missing_expected_published_minute": 176,
+          "no_source_rows": 3,
+          "source_condition_degraded": 7
+        },
+        "GC:2020": {
+          "exchange_holiday_or_shortened_session": 11,
+          "missing_expected_published_minute": 115,
+          "no_source_rows": 3,
+          "source_condition_degraded": 7
+        },
+        "GC:2021": {
+          "exchange_holiday_or_shortened_session": 10,
+          "missing_expected_published_minute": 188,
+          "no_source_rows": 3,
+          "source_condition_degraded": 1
+        },
+        "GC:2022": {
+          "exchange_holiday_or_shortened_session": 10,
+          "missing_expected_published_minute": 205,
+          "no_source_rows": 2,
+          "source_condition_degraded": 1
+        },
+        "GC:2023": {
+          "exchange_holiday_or_shortened_session": 11,
+          "missing_expected_published_minute": 225,
+          "no_source_rows": 3
+        },
+        "GC:2024": {
+          "exchange_holiday_or_shortened_session": 12,
+          "missing_expected_published_minute": 199,
+          "no_source_rows": 3,
+          "source_condition_degraded": 2
+        },
+        "GC:2025": {
+          "exchange_holiday_or_shortened_session": 13,
+          "missing_expected_published_minute": 93,
+          "no_source_rows": 3,
+          "source_condition_degraded": 5
+        },
+        "GC:2026": {
+          "exchange_holiday_or_shortened_session": 8,
+          "missing_expected_published_minute": 100,
+          "no_source_rows": 2,
+          "source_condition_degraded": 4
+        },
+        "NQ:2010": {
+          "exchange_holiday_or_shortened_session": 5,
+          "missing_expected_published_minute": 150,
+          "no_source_rows": 1,
+          "source_rows_outside_expected_schedule": 115,
+          "unsupported_historical_schedule_regime": 150
+        },
+        "NQ:2011": {
+          "exchange_holiday_or_shortened_session": 9,
+          "missing_expected_published_minute": 260,
+          "no_source_rows": 2,
+          "source_rows_outside_expected_schedule": 202,
+          "unsupported_historical_schedule_regime": 260
+        },
+        "NQ:2012": {
+          "exchange_holiday_or_shortened_session": 12,
+          "missing_expected_published_minute": 261,
+          "no_source_rows": 3,
+          "source_rows_outside_expected_schedule": 204,
+          "unsupported_historical_schedule_regime": 261
+        },
+        "NQ:2013": {
+          "exchange_holiday_or_shortened_session": 12,
+          "missing_expected_published_minute": 261,
+          "no_source_rows": 9,
+          "source_rows_outside_expected_schedule": 249,
+          "unsupported_historical_schedule_regime": 261
+        },
+        "NQ:2014": {
+          "exchange_holiday_or_shortened_session": 12,
+          "missing_expected_published_minute": 260,
+          "no_source_rows": 11,
+          "source_condition_degraded": 9,
+          "source_rows_outside_expected_schedule": 243,
+          "unsupported_historical_schedule_regime": 261
+        },
+        "NQ:2015": {
+          "exchange_holiday_or_shortened_session": 11,
+          "missing_expected_published_minute": 260,
+          "no_source_rows": 2,
+          "source_rows_outside_expected_schedule": 180,
+          "unsupported_historical_schedule_regime": 261
+        },
+        "NQ:2016": {
+          "exchange_holiday_or_shortened_session": 10,
+          "missing_expected_published_minute": 256,
+          "no_source_rows": 3,
+          "source_rows_outside_expected_schedule": 1,
+          "unsupported_historical_schedule_regime": 261
+        },
+        "NQ:2017": {
+          "exchange_holiday_or_shortened_session": 11,
+          "missing_expected_published_minute": 255,
+          "no_source_rows": 3,
+          "source_condition_degraded": 2,
+          "source_rows_outside_expected_schedule": 2,
+          "unsupported_historical_schedule_regime": 260
+        },
+        "NQ:2018": {
+          "exchange_holiday_or_shortened_session": 13,
+          "missing_expected_published_minute": 144,
+          "no_source_rows": 3,
+          "source_condition_degraded": 1,
+          "source_rows_outside_expected_schedule": 63,
+          "unsupported_historical_schedule_regime": 261
+        },
+        "NQ:2019": {
+          "exchange_holiday_or_shortened_session": 12,
+          "missing_expected_published_minute": 82,
+          "no_source_rows": 3,
+          "source_condition_degraded": 7,
+          "source_rows_outside_expected_schedule": 2,
+          "unsupported_historical_schedule_regime": 261
+        },
+        "NQ:2020": {
+          "exchange_holiday_or_shortened_session": 11,
+          "missing_expected_published_minute": 36,
+          "no_source_rows": 3,
+          "source_condition_degraded": 7,
+          "source_rows_outside_expected_schedule": 4,
+          "unsupported_historical_schedule_regime": 262
+        },
+        "NQ:2021": {
+          "exchange_holiday_or_shortened_session": 10,
+          "missing_expected_published_minute": 37,
+          "no_source_rows": 2,
+          "source_condition_degraded": 1,
+          "unsupported_historical_schedule_regime": 126
+        },
+        "NQ:2022": {
+          "exchange_holiday_or_shortened_session": 10,
+          "missing_expected_published_minute": 23,
+          "no_source_rows": 2,
+          "source_condition_degraded": 1
+        },
+        "NQ:2023": {
+          "exchange_holiday_or_shortened_session": 12,
+          "missing_expected_published_minute": 43,
+          "no_source_rows": 2
+        },
+        "NQ:2024": {
+          "exchange_holiday_or_shortened_session": 13,
+          "missing_expected_published_minute": 48,
+          "no_source_rows": 3,
+          "source_condition_degraded": 2
+        },
+        "NQ:2025": {
+          "exchange_holiday_or_shortened_session": 14,
+          "missing_expected_published_minute": 34,
+          "no_source_rows": 3,
+          "source_condition_degraded": 5
+        },
+        "NQ:2026": {
+          "exchange_holiday_or_shortened_session": 8,
+          "missing_expected_published_minute": 14,
+          "no_source_rows": 1,
+          "source_condition_degraded": 4
+        }
+      },
+      "overlapping_reason_counts_all_products": {
+        "exchange_holiday_or_shortened_session": 546,
+        "missing_expected_published_minute": 8287,
+        "no_source_rows": 172,
+        "source_condition_degraded": 117,
+        "source_rows_outside_expected_schedule": 2596,
+        "unsupported_historical_schedule_regime": 7150
+      }
+    },
+    "timing": "retrospective whole-day research sample selection known after session end; not a predictive feature or live eligibility signal"
+  },
+  "feature_set": "session_anchored_vwap",
+  "indicator": {
+    "bytes": 2364,
+    "path": "catalog/indicators/session_anchored_vwap__1.0.0.json",
+    "sha256": "455306ef51a94b8ccf99dfa4c61ecec34165d123afb2a518aea7a4661588fc2c"
+  },
+  "limitations": [
+    "Historical calendar support begins 2015-09-21 for GC and 2021-06-28 for ES/NQ under this fixed-clock specification; earlier product-days remain in the audit but are excluded.",
+    "Conservative completeness excludes no-trade minutes as well as any true delivery gaps; missing expected minutes are not by themselves evidence of vendor corruption.",
+    "Eligibility is retrospective sample selection and must not be used as a causal live-trading feature.",
+    "Adjusted absolute price history incorporates later rolls and is not point-in-time certified or appropriate for execution/P&L.",
+    "VWAP is an output-bar HLC3 approximation, not exact trade-price VWAP.",
+    "Formula behavior was compared to the Pine HLC3 definition; live TradingView vendor/bar parity was not measured."
+  ],
+  "lineage_hashes": {
+    "calendar_definition_sha256": "d5e9d7895f02c5c66a2231e3f79e6bfbc21cd7ce7aa2f42974cfa50492186bcf",
+    "indicator_definition_sha256": "455306ef51a94b8ccf99dfa4c61ecec34165d123afb2a518aea7a4661588fc2c",
+    "pyproject_sha256": "207d811728d9768f090e120273cea588c9f7c5187ed77af19934ca49f7451ed6",
+    "request_configuration_sha256": "c05e427ce3147a9fbefe9bf43765c72bd48936e13f2bf8dc8506d02969976be2",
+    "schema_contract_sha256": "943bfd74686d82ed80ae1dc4d89f20f4014df825663fc51a93f980efba2a0641",
+    "source_code_sha256": "54354174ca98a02bc67de15ea77ec928e3643c3b238684d62796b47a7a4c372f",
+    "source_manifest_sha256": "5500ac1e472c48b0f31b11c6586354dc700e4ba2ef526ebef5fa05582b228ce8"
+  },
+  "output_files": [
+    {
+      "bytes": 22895314,
+      "path": "data/features/bars/2m/feature_set=session_anchored_vwap/version=1.0.0/product=ES/year=2021/part-000.parquet",
+      "sha256": "8f126d741a584c8a7fb5e9470e578343d0cc121ebd749ee49949ead8294e8cdf"
+    },
+    {
+      "bytes": 52971302,
+      "path": "data/features/bars/2m/feature_set=session_anchored_vwap/version=1.0.0/product=ES/year=2022/part-000.parquet",
+      "sha256": "2b046419141be6e65e64dea1150794af4fb5080f5b8fae34d4164c51a03611ac"
+    },
+    {
+      "bytes": 35478185,
+      "path": "data/features/bars/2m/feature_set=session_anchored_vwap/version=1.0.0/product=ES/year=2023/part-000.parquet",
+      "sha256": "50dd2d5e2c7fa6127c00de3ea86aec9dbf7b162835949c83eb00b0fbafe6d39c"
+    },
+    {
+      "bytes": 36348001,
+      "path": "data/features/bars/2m/feature_set=session_anchored_vwap/version=1.0.0/product=ES/year=2024/part-000.parquet",
+      "sha256": "cb3654f1902df8e4e3283164212edc292f1b4e707dc6b92ab1217bb1fc94a3a2"
+    },
+    {
+      "bytes": 48795101,
+      "path": "data/features/bars/2m/feature_set=session_anchored_vwap/version=1.0.0/product=ES/year=2025/part-000.parquet",
+      "sha256": "b70a2b962da0eea0d2a1dfc5af76c75021744900c0fba75f53bfe4ec8e350dc9"
+    },
+    {
+      "bytes": 38213633,
+      "path": "data/features/bars/2m/feature_set=session_anchored_vwap/version=1.0.0/product=ES/year=2026/part-000.parquet",
+      "sha256": "da0478a54538a34cffc1f23082291854b825a25416a1826587690ce1e6b83f4a"
+    },
+    {
+      "bytes": 2195735,
+      "path": "data/features/bars/2m/feature_set=session_anchored_vwap/version=1.0.0/product=GC/year=2016/part-000.parquet",
+      "sha256": "4cb692c56ed080e78feeae3d0d1bb183a192c3c6e81dabb55996d884d0ca7659"
+    },
+    {
+      "bytes": 12346108,
+      "path": "data/features/bars/2m/feature_set=session_anchored_vwap/version=1.0.0/product=GC/year=2017/part-000.parquet",
+      "sha256": "29a5634d8ca1dc3a46ecce6e681860d0f5ccf7bb5f1a4200796d18b3f64bbdd6"
+    },
+    {
+      "bytes": 12532360,
+      "path": "data/features/bars/2m/feature_set=session_anchored_vwap/version=1.0.0/product=GC/year=2018/part-000.parquet",
+      "sha256": "de716628953f41ab4b7dbc6adcd4d0f4ee357b0d74f04fdd431c35b43f01350c"
+    },
+    {
+      "bytes": 18760444,
+      "path": "data/features/bars/2m/feature_set=session_anchored_vwap/version=1.0.0/product=GC/year=2019/part-000.parquet",
+      "sha256": "7132803127b78e67de012ba4c992b9cf68ab8fbe18a140c3e7f3a13bb99163c5"
+    },
+    {
+      "bytes": 32755018,
+      "path": "data/features/bars/2m/feature_set=session_anchored_vwap/version=1.0.0/product=GC/year=2020/part-000.parquet",
+      "sha256": "581dc68bc08d900c5cd244681a1bcd29ec8c3b51f1b1e8a7734e6208fdeba3ff"
+    },
+    {
+      "bytes": 16496998,
+      "path": "data/features/bars/2m/feature_set=session_anchored_vwap/version=1.0.0/product=GC/year=2021/part-000.parquet",
+      "sha256": "f537f16eae9974decdf08e2b8c188a9295585d95b90ba19eb077eefe345c8894"
+    },
+    {
+      "bytes": 12535103,
+      "path": "data/features/bars/2m/feature_set=session_anchored_vwap/version=1.0.0/product=GC/year=2022/part-000.parquet",
+      "sha256": "31e2dd2345f06a7eca5013fa7ef28917740242318a8b2222e1843f94cc204c6a"
+    },
+    {
+      "bytes": 7622792,
+      "path": "data/features/bars/2m/feature_set=session_anchored_vwap/version=1.0.0/product=GC/year=2023/part-000.parquet",
+      "sha256": "8c1f32c274b5fc10abc7d8e05340f00b8046533aa6717c8768569aa4bd6c145e"
+    },
+    {
+      "bytes": 14167529,
+      "path": "data/features/bars/2m/feature_set=session_anchored_vwap/version=1.0.0/product=GC/year=2024/part-000.parquet",
+      "sha256": "f6c0d277514ab97bca2e0810c7f47dee3fcd904efd5539f8284c852a35e6004d"
+    },
+    {
+      "bytes": 37716773,
+      "path": "data/features/bars/2m/feature_set=session_anchored_vwap/version=1.0.0/product=GC/year=2025/part-000.parquet",
+      "sha256": "41092a7ade51c8c03a6d508256dad8add9ceb0d0b812d01065b73aef48990d4f"
+    },
+    {
+      "bytes": 19868442,
+      "path": "data/features/bars/2m/feature_set=session_anchored_vwap/version=1.0.0/product=GC/year=2026/part-000.parquet",
+      "sha256": "f930a5d5424b61da423d56d0f1402bd265105d5d878c192b7d0d9b7583586373"
+    },
+    {
+      "bytes": 26270332,
+      "path": "data/features/bars/2m/feature_set=session_anchored_vwap/version=1.0.0/product=NQ/year=2021/part-000.parquet",
+      "sha256": "a0bcf40fa6cad2aa452121e7d6cbc14001ecbbd517f7bef2bb2fd00ed661848b"
+    },
+    {
+      "bytes": 53246508,
+      "path": "data/features/bars/2m/feature_set=session_anchored_vwap/version=1.0.0/product=NQ/year=2022/part-000.parquet",
+      "sha256": "37751c934f1d3d3fd4653f9308e8ae09c08150972a60a3ec28aa21b90a87f185"
+    },
+    {
+      "bytes": 49321609,
+      "path": "data/features/bars/2m/feature_set=session_anchored_vwap/version=1.0.0/product=NQ/year=2023/part-000.parquet",
+      "sha256": "8ca510f062414b103aa1ec6147ffe4181b2048aee66321dc9626ec78688279dd"
+    },
+    {
+      "bytes": 48496001,
+      "path": "data/features/bars/2m/feature_set=session_anchored_vwap/version=1.0.0/product=NQ/year=2024/part-000.parquet",
+      "sha256": "3e2103bbe14191190be09157dbe7db12a78121631fa41aea79f5b1a37a1ba39d"
+    },
+    {
+      "bytes": 50762274,
+      "path": "data/features/bars/2m/feature_set=session_anchored_vwap/version=1.0.0/product=NQ/year=2025/part-000.parquet",
+      "sha256": "4b87e4bea5e4bb84b8a58b8c85ec29e4ad927764f855e031d4365319904f4f5c"
+    },
+    {
+      "bytes": 40000777,
+      "path": "data/features/bars/2m/feature_set=session_anchored_vwap/version=1.0.0/product=NQ/year=2026/part-000.parquet",
+      "sha256": "ba803817068ef8150b4d4e30006d88140744d663b7b78129d1fd965ac25679d3"
+    }
+  ],
+  "partitioning": [
+    "product",
+    "year(session_date)"
+  ],
+  "portable_partition_glob": "data/features/bars/2m/feature_set=session_anchored_vwap/version=1.0.0/product=*/year=*/part-*.parquet",
+  "product_year_stats": [
+    {
+      "coverage_end": "2021-12-29T22:00:00+00:00",
+      "coverage_start": "2021-06-27T22:00:00+00:00",
+      "output_volume": 139859784,
+      "product": "ES",
+      "rows": 69690,
+      "sessions": 101,
+      "source_volume": 139859784,
+      "year": 2021
+    },
+    {
+      "coverage_end": "2022-12-29T22:00:00+00:00",
+      "coverage_start": "2022-01-03T23:00:00+00:00",
+      "output_volume": 426290288,
+      "product": "ES",
+      "rows": 164910,
+      "sessions": 239,
+      "source_volume": 426290288,
+      "year": 2022
+    },
+    {
+      "coverage_end": "2023-12-22T22:00:00+00:00",
+      "coverage_start": "2023-01-02T23:00:00+00:00",
+      "output_volume": 257682915,
+      "product": "ES",
+      "rows": 106950,
+      "sessions": 155,
+      "source_volume": 257682915,
+      "year": 2023
+    },
+    {
+      "coverage_end": "2024-12-31T22:00:00+00:00",
+      "coverage_start": "2024-01-01T23:00:00+00:00",
+      "output_volume": 234277943,
+      "product": "ES",
+      "rows": 109710,
+      "sessions": 159,
+      "source_volume": 234277943,
+      "year": 2024
+    },
+    {
+      "coverage_end": "2025-12-31T22:00:00+00:00",
+      "coverage_start": "2025-01-01T23:00:00+00:00",
+      "output_volume": 314115814,
+      "product": "ES",
+      "rows": 149040,
+      "sessions": 216,
+      "source_volume": 314115814,
+      "year": 2025
+    },
+    {
+      "coverage_end": "2026-09-18T21:00:00+00:00",
+      "coverage_start": "2026-01-01T23:00:00+00:00",
+      "output_volume": 240550802,
+      "product": "ES",
+      "rows": 115230,
+      "sessions": 167,
+      "source_volume": 240550802,
+      "year": 2026
+    },
+    {
+      "coverage_end": "2021-12-31T22:00:00+00:00",
+      "coverage_start": "2021-06-27T22:00:00+00:00",
+      "output_volume": 60432900,
+      "product": "NQ",
+      "rows": 79350,
+      "sessions": 115,
+      "source_volume": 60432900,
+      "year": 2021
+    },
+    {
+      "coverage_end": "2022-12-28T22:00:00+00:00",
+      "coverage_start": "2022-01-04T23:00:00+00:00",
+      "output_volume": 155484021,
+      "product": "NQ",
+      "rows": 162840,
+      "sessions": 236,
+      "source_volume": 155484021,
+      "year": 2022
+    },
+    {
+      "coverage_end": "2023-12-29T22:00:00+00:00",
+      "coverage_start": "2023-01-02T23:00:00+00:00",
+      "output_volume": 137025131,
+      "product": "NQ",
+      "rows": 149730,
+      "sessions": 217,
+      "source_volume": 137025131,
+      "year": 2023
+    },
+    {
+      "coverage_end": "2024-12-31T22:00:00+00:00",
+      "coverage_start": "2024-01-01T23:00:00+00:00",
+      "output_volume": 127775699,
+      "product": "NQ",
+      "rows": 146970,
+      "sessions": 213,
+      "source_volume": 127775699,
+      "year": 2024
+    },
+    {
+      "coverage_end": "2025-12-31T22:00:00+00:00",
+      "coverage_start": "2025-01-01T23:00:00+00:00",
+      "output_volume": 126687779,
+      "product": "NQ",
+      "rows": 154560,
+      "sessions": 224,
+      "source_volume": 126687779,
+      "year": 2025
+    },
+    {
+      "coverage_end": "2026-09-18T21:00:00+00:00",
+      "coverage_start": "2026-01-01T23:00:00+00:00",
+      "output_volume": 96268580,
+      "product": "NQ",
+      "rows": 118680,
+      "sessions": 172,
+      "source_volume": 96268580,
+      "year": 2026
+    },
+    {
+      "coverage_end": "2016-12-15T22:00:00+00:00",
+      "coverage_start": "2016-02-10T23:00:00+00:00",
+      "output_volume": 2911969,
+      "product": "GC",
+      "rows": 6900,
+      "sessions": 10,
+      "source_volume": 2911969,
+      "year": 2016
+    },
+    {
+      "coverage_end": "2017-12-13T22:00:00+00:00",
+      "coverage_start": "2017-01-11T23:00:00+00:00",
+      "output_volume": 14377805,
+      "product": "GC",
+      "rows": 37950,
+      "sessions": 55,
+      "source_volume": 14377805,
+      "year": 2017
+    },
+    {
+      "coverage_end": "2018-12-20T22:00:00+00:00",
+      "coverage_start": "2018-01-02T23:00:00+00:00",
+      "output_volume": 16348164,
+      "product": "GC",
+      "rows": 38640,
+      "sessions": 56,
+      "source_volume": 16348164,
+      "year": 2018
+    },
+    {
+      "coverage_end": "2019-12-26T22:00:00+00:00",
+      "coverage_start": "2019-01-01T23:00:00+00:00",
+      "output_volume": 29512564,
+      "product": "GC",
+      "rows": 57270,
+      "sessions": 83,
+      "source_volume": 29512564,
+      "year": 2019
+    },
+    {
+      "coverage_end": "2020-12-30T22:00:00+00:00",
+      "coverage_start": "2020-01-02T23:00:00+00:00",
+      "output_volume": 38170455,
+      "product": "GC",
+      "rows": 100050,
+      "sessions": 145,
+      "source_volume": 38170455,
+      "year": 2020
+    },
+    {
+      "coverage_end": "2021-12-03T22:00:00+00:00",
+      "coverage_start": "2021-01-03T23:00:00+00:00",
+      "output_volume": 14492047,
+      "product": "GC",
+      "rows": 50370,
+      "sessions": 73,
+      "source_volume": 14492047,
+      "year": 2021
+    },
+    {
+      "coverage_end": "2022-12-20T22:00:00+00:00",
+      "coverage_start": "2022-01-17T23:00:00+00:00",
+      "output_volume": 10574231,
+      "product": "GC",
+      "rows": 37950,
+      "sessions": 55,
+      "source_volume": 10574231,
+      "year": 2022
+    },
+    {
+      "coverage_end": "2023-12-21T22:00:00+00:00",
+      "coverage_start": "2023-01-02T23:00:00+00:00",
+      "output_volume": 6730000,
+      "product": "GC",
+      "rows": 24150,
+      "sessions": 35,
+      "source_volume": 6730000,
+      "year": 2023
+    },
+    {
+      "coverage_end": "2024-12-23T22:00:00+00:00",
+      "coverage_start": "2024-01-01T23:00:00+00:00",
+      "output_volume": 12309797,
+      "product": "GC",
+      "rows": 42780,
+      "sessions": 62,
+      "source_volume": 12309797,
+      "year": 2024
+    },
+    {
+      "coverage_end": "2025-12-31T22:00:00+00:00",
+      "coverage_start": "2025-01-01T23:00:00+00:00",
+      "output_volume": 35039028,
+      "product": "GC",
+      "rows": 113850,
+      "sessions": 165,
+      "source_volume": 35039028,
+      "year": 2025
+    },
+    {
+      "coverage_end": "2026-09-18T21:00:00+00:00",
+      "coverage_start": "2026-01-01T23:00:00+00:00",
+      "output_volume": 14798436,
+      "product": "GC",
+      "rows": 59340,
+      "sessions": 86,
+      "source_volume": 14798436,
+      "year": 2026
+    }
+  ],
+  "products": {
+    "ES": {
+      "coverage_end": "2026-09-18T21:00:00+00:00",
+      "coverage_start": "2021-06-27T22:00:00+00:00",
+      "eligible_session_dates": 1037,
+      "output_volume": 1612777546,
+      "rows": 715530,
+      "source_volume": 1612777546,
+      "year_rows": {
+        "2021": 69690,
+        "2022": 164910,
+        "2023": 106950,
+        "2024": 109710,
+        "2025": 149040,
+        "2026": 115230
+      }
+    },
+    "GC": {
+      "coverage_end": "2026-09-18T21:00:00+00:00",
+      "coverage_start": "2016-02-10T23:00:00+00:00",
+      "eligible_session_dates": 825,
+      "output_volume": 195264496,
+      "rows": 569250,
+      "source_volume": 195264496,
+      "year_rows": {
+        "2016": 6900,
+        "2017": 37950,
+        "2018": 38640,
+        "2019": 57270,
+        "2020": 100050,
+        "2021": 50370,
+        "2022": 37950,
+        "2023": 24150,
+        "2024": 42780,
+        "2025": 113850,
+        "2026": 59340
+      }
+    },
+    "NQ": {
+      "coverage_end": "2026-09-18T21:00:00+00:00",
+      "coverage_start": "2021-06-27T22:00:00+00:00",
+      "eligible_session_dates": 1177,
+      "output_volume": 703674110,
+      "rows": 812130,
+      "source_volume": 703674110,
+      "year_rows": {
+        "2021": 79350,
+        "2022": 162840,
+        "2023": 149730,
+        "2024": 146970,
+        "2025": 154560,
+        "2026": 118680
+      }
+    }
+  },
+  "quality_report": {
+    "bytes": 5071,
+    "path": "reports/quality/session_anchored_vwap__1.0.0.md",
+    "sha256": "7b5315915ed50e785f5860e4bcd521761f8ffa7e55f16eb46248707aaef895f3"
+  },
+  "release_id": "session_anchored_vwap__1.0.0",
+  "schema": [
+    {
+      "arrow_type": "timestamp[ns, tz=UTC]",
+      "name": "ts_event",
+      "nullable": false,
+      "unit_or_semantics": null
+    },
+    {
+      "arrow_type": "timestamp[ns, tz=UTC]",
+      "name": "bar_close_ts",
+      "nullable": false,
+      "unit_or_semantics": null
+    },
+    {
+      "arrow_type": "timestamp[ns, tz=UTC]",
+      "name": "available_at",
+      "nullable": false,
+      "unit_or_semantics": null
+    },
+    {
+      "arrow_type": "date32[day]",
+      "name": "session_date",
+      "nullable": false,
+      "unit_or_semantics": null
+    },
+    {
+      "arrow_type": "string",
+      "name": "product",
+      "nullable": false,
+      "unit_or_semantics": null
+    },
+    {
+      "arrow_type": "string",
+      "name": "timeframe",
+      "nullable": false,
+      "unit_or_semantics": null
+    },
+    {
+      "arrow_type": "string",
+      "name": "continuous_symbol",
+      "nullable": false,
+      "unit_or_semantics": null
+    },
+    {
+      "arrow_type": "uint32",
+      "name": "instrument_id",
+      "nullable": false,
+      "unit_or_semantics": null
+    },
+    {
+      "arrow_type": "string",
+      "name": "raw_symbol",
+      "nullable": false,
+      "unit_or_semantics": null
+    },
+    {
+      "arrow_type": "int64",
+      "name": "open",
+      "nullable": false,
+      "unit_or_semantics": "signed int64 fixed-point, scale 1e-9 price units"
+    },
+    {
+      "arrow_type": "int64",
+      "name": "high",
+      "nullable": false,
+      "unit_or_semantics": "signed int64 fixed-point, scale 1e-9 price units"
+    },
+    {
+      "arrow_type": "int64",
+      "name": "low",
+      "nullable": false,
+      "unit_or_semantics": "signed int64 fixed-point, scale 1e-9 price units"
+    },
+    {
+      "arrow_type": "int64",
+      "name": "close",
+      "nullable": false,
+      "unit_or_semantics": "signed int64 fixed-point, scale 1e-9 price units"
+    },
+    {
+      "arrow_type": "uint64",
+      "name": "volume",
+      "nullable": false,
+      "unit_or_semantics": "contracts"
+    },
+    {
+      "arrow_type": "date32[day]",
+      "name": "mapping_start",
+      "nullable": false,
+      "unit_or_semantics": null
+    },
+    {
+      "arrow_type": "date32[day]",
+      "name": "mapping_end",
+      "nullable": false,
+      "unit_or_semantics": null
+    },
+    {
+      "arrow_type": "int16",
+      "name": "roll_id",
+      "nullable": false,
+      "unit_or_semantics": null
+    },
+    {
+      "arrow_type": "bool",
+      "name": "is_roll",
+      "nullable": false,
+      "unit_or_semantics": null
+    },
+    {
+      "arrow_type": "bool",
+      "name": "contains_roll",
+      "nullable": false,
+      "unit_or_semantics": null
+    },
+    {
+      "arrow_type": "string",
+      "name": "source_batch",
+      "nullable": false,
+      "unit_or_semantics": null
+    },
+    {
+      "arrow_type": "int64",
+      "name": "price_adjustment",
+      "nullable": false,
+      "unit_or_semantics": "signed int64 fixed-point, scale 1e-9 price units"
+    },
+    {
+      "arrow_type": "int64",
+      "name": "min_tick",
+      "nullable": false,
+      "unit_or_semantics": "signed int64 fixed-point, scale 1e-9 price units"
+    },
+    {
+      "arrow_type": "uint16",
+      "name": "source_bar_count",
+      "nullable": false,
+      "unit_or_semantics": null
+    },
+    {
+      "arrow_type": "string",
+      "name": "calendar_regime",
+      "nullable": false,
+      "unit_or_semantics": null
+    },
+    {
+      "arrow_type": "bool",
+      "name": "is_asia_session",
+      "nullable": false,
+      "unit_or_semantics": null
+    },
+    {
+      "arrow_type": "bool",
+      "name": "is_london_session",
+      "nullable": false,
+      "unit_or_semantics": null
+    },
+    {
+      "arrow_type": "bool",
+      "name": "is_ny_session",
+      "nullable": false,
+      "unit_or_semantics": null
+    },
+    {
+      "arrow_type": "timestamp[ns, tz=UTC]",
+      "name": "globex_anchor_ts",
+      "nullable": true,
+      "unit_or_semantics": null
+    },
+    {
+      "arrow_type": "double",
+      "name": "globex_vwap",
+      "nullable": true,
+      "unit_or_semantics": "float64 price points"
+    },
+    {
+      "arrow_type": "double",
+      "name": "globex_sigma",
+      "nullable": true,
+      "unit_or_semantics": "float64 price points"
+    },
+    {
+      "arrow_type": "double",
+      "name": "globex_upper_1sigma",
+      "nullable": true,
+      "unit_or_semantics": "float64 price points"
+    },
+    {
+      "arrow_type": "double",
+      "name": "globex_lower_1sigma",
+      "nullable": true,
+      "unit_or_semantics": "float64 price points"
+    },
+    {
+      "arrow_type": "double",
+      "name": "globex_upper_2sigma",
+      "nullable": true,
+      "unit_or_semantics": "float64 price points"
+    },
+    {
+      "arrow_type": "double",
+      "name": "globex_lower_2sigma",
+      "nullable": true,
+      "unit_or_semantics": "float64 price points"
+    },
+    {
+      "arrow_type": "double",
+      "name": "globex_upper_3sigma",
+      "nullable": true,
+      "unit_or_semantics": "float64 price points"
+    },
+    {
+      "arrow_type": "double",
+      "name": "globex_lower_3sigma",
+      "nullable": true,
+      "unit_or_semantics": "float64 price points"
+    },
+    {
+      "arrow_type": "double",
+      "name": "globex_distance_points",
+      "nullable": true,
+      "unit_or_semantics": "float64 price points"
+    },
+    {
+      "arrow_type": "double",
+      "name": "globex_distance_ticks",
+      "nullable": true,
+      "unit_or_semantics": "float64 minimum ticks"
+    },
+    {
+      "arrow_type": "double",
+      "name": "globex_distance_sigma",
+      "nullable": true,
+      "unit_or_semantics": "float64 price points"
+    },
+    {
+      "arrow_type": "uint64",
+      "name": "globex_cumulative_volume",
+      "nullable": true,
+      "unit_or_semantics": "contracts"
+    },
+    {
+      "arrow_type": "uint32",
+      "name": "globex_contributing_bar_count",
+      "nullable": true,
+      "unit_or_semantics": null
+    },
+    {
+      "arrow_type": "int32",
+      "name": "globex_minutes_since_anchor",
+      "nullable": true,
+      "unit_or_semantics": "minutes measured at exclusive bar close"
+    },
+    {
+      "arrow_type": "bool",
+      "name": "globex_anchor_active",
+      "nullable": false,
+      "unit_or_semantics": null
+    },
+    {
+      "arrow_type": "bool",
+      "name": "globex_cross_above_vwap",
+      "nullable": true,
+      "unit_or_semantics": "float64 price points"
+    },
+    {
+      "arrow_type": "bool",
+      "name": "globex_cross_below_vwap",
+      "nullable": true,
+      "unit_or_semantics": "float64 price points"
+    },
+    {
+      "arrow_type": "bool",
+      "name": "globex_exit_above_upper_2sigma",
+      "nullable": true,
+      "unit_or_semantics": "float64 price points"
+    },
+    {
+      "arrow_type": "bool",
+      "name": "globex_exit_below_lower_2sigma",
+      "nullable": true,
+      "unit_or_semantics": "float64 price points"
+    },
+    {
+      "arrow_type": "bool",
+      "name": "globex_reenter_from_above_2sigma",
+      "nullable": true,
+      "unit_or_semantics": null
+    },
+    {
+      "arrow_type": "bool",
+      "name": "globex_reenter_from_below_2sigma",
+      "nullable": true,
+      "unit_or_semantics": null
+    },
+    {
+      "arrow_type": "timestamp[ns, tz=UTC]",
+      "name": "asia_anchor_ts",
+      "nullable": true,
+      "unit_or_semantics": null
+    },
+    {
+      "arrow_type": "double",
+      "name": "asia_vwap",
+      "nullable": true,
+      "unit_or_semantics": "float64 price points"
+    },
+    {
+      "arrow_type": "double",
+      "name": "asia_sigma",
+      "nullable": true,
+      "unit_or_semantics": "float64 price points"
+    },
+    {
+      "arrow_type": "double",
+      "name": "asia_upper_1sigma",
+      "nullable": true,
+      "unit_or_semantics": "float64 price points"
+    },
+    {
+      "arrow_type": "double",
+      "name": "asia_lower_1sigma",
+      "nullable": true,
+      "unit_or_semantics": "float64 price points"
+    },
+    {
+      "arrow_type": "double",
+      "name": "asia_upper_2sigma",
+      "nullable": true,
+      "unit_or_semantics": "float64 price points"
+    },
+    {
+      "arrow_type": "double",
+      "name": "asia_lower_2sigma",
+      "nullable": true,
+      "unit_or_semantics": "float64 price points"
+    },
+    {
+      "arrow_type": "double",
+      "name": "asia_upper_3sigma",
+      "nullable": true,
+      "unit_or_semantics": "float64 price points"
+    },
+    {
+      "arrow_type": "double",
+      "name": "asia_lower_3sigma",
+      "nullable": true,
+      "unit_or_semantics": "float64 price points"
+    },
+    {
+      "arrow_type": "double",
+      "name": "asia_distance_points",
+      "nullable": true,
+      "unit_or_semantics": "float64 price points"
+    },
+    {
+      "arrow_type": "double",
+      "name": "asia_distance_ticks",
+      "nullable": true,
+      "unit_or_semantics": "float64 minimum ticks"
+    },
+    {
+      "arrow_type": "double",
+      "name": "asia_distance_sigma",
+      "nullable": true,
+      "unit_or_semantics": "float64 price points"
+    },
+    {
+      "arrow_type": "uint64",
+      "name": "asia_cumulative_volume",
+      "nullable": true,
+      "unit_or_semantics": "contracts"
+    },
+    {
+      "arrow_type": "uint32",
+      "name": "asia_contributing_bar_count",
+      "nullable": true,
+      "unit_or_semantics": null
+    },
+    {
+      "arrow_type": "int32",
+      "name": "asia_minutes_since_anchor",
+      "nullable": true,
+      "unit_or_semantics": "minutes measured at exclusive bar close"
+    },
+    {
+      "arrow_type": "bool",
+      "name": "asia_anchor_active",
+      "nullable": false,
+      "unit_or_semantics": null
+    },
+    {
+      "arrow_type": "bool",
+      "name": "asia_cross_above_vwap",
+      "nullable": true,
+      "unit_or_semantics": "float64 price points"
+    },
+    {
+      "arrow_type": "bool",
+      "name": "asia_cross_below_vwap",
+      "nullable": true,
+      "unit_or_semantics": "float64 price points"
+    },
+    {
+      "arrow_type": "bool",
+      "name": "asia_exit_above_upper_2sigma",
+      "nullable": true,
+      "unit_or_semantics": "float64 price points"
+    },
+    {
+      "arrow_type": "bool",
+      "name": "asia_exit_below_lower_2sigma",
+      "nullable": true,
+      "unit_or_semantics": "float64 price points"
+    },
+    {
+      "arrow_type": "bool",
+      "name": "asia_reenter_from_above_2sigma",
+      "nullable": true,
+      "unit_or_semantics": null
+    },
+    {
+      "arrow_type": "bool",
+      "name": "asia_reenter_from_below_2sigma",
+      "nullable": true,
+      "unit_or_semantics": null
+    },
+    {
+      "arrow_type": "timestamp[ns, tz=UTC]",
+      "name": "london_anchor_ts",
+      "nullable": true,
+      "unit_or_semantics": null
+    },
+    {
+      "arrow_type": "double",
+      "name": "london_vwap",
+      "nullable": true,
+      "unit_or_semantics": "float64 price points"
+    },
+    {
+      "arrow_type": "double",
+      "name": "london_sigma",
+      "nullable": true,
+      "unit_or_semantics": "float64 price points"
+    },
+    {
+      "arrow_type": "double",
+      "name": "london_upper_1sigma",
+      "nullable": true,
+      "unit_or_semantics": "float64 price points"
+    },
+    {
+      "arrow_type": "double",
+      "name": "london_lower_1sigma",
+      "nullable": true,
+      "unit_or_semantics": "float64 price points"
+    },
+    {
+      "arrow_type": "double",
+      "name": "london_upper_2sigma",
+      "nullable": true,
+      "unit_or_semantics": "float64 price points"
+    },
+    {
+      "arrow_type": "double",
+      "name": "london_lower_2sigma",
+      "nullable": true,
+      "unit_or_semantics": "float64 price points"
+    },
+    {
+      "arrow_type": "double",
+      "name": "london_upper_3sigma",
+      "nullable": true,
+      "unit_or_semantics": "float64 price points"
+    },
+    {
+      "arrow_type": "double",
+      "name": "london_lower_3sigma",
+      "nullable": true,
+      "unit_or_semantics": "float64 price points"
+    },
+    {
+      "arrow_type": "double",
+      "name": "london_distance_points",
+      "nullable": true,
+      "unit_or_semantics": "float64 price points"
+    },
+    {
+      "arrow_type": "double",
+      "name": "london_distance_ticks",
+      "nullable": true,
+      "unit_or_semantics": "float64 minimum ticks"
+    },
+    {
+      "arrow_type": "double",
+      "name": "london_distance_sigma",
+      "nullable": true,
+      "unit_or_semantics": "float64 price points"
+    },
+    {
+      "arrow_type": "uint64",
+      "name": "london_cumulative_volume",
+      "nullable": true,
+      "unit_or_semantics": "contracts"
+    },
+    {
+      "arrow_type": "uint32",
+      "name": "london_contributing_bar_count",
+      "nullable": true,
+      "unit_or_semantics": null
+    },
+    {
+      "arrow_type": "int32",
+      "name": "london_minutes_since_anchor",
+      "nullable": true,
+      "unit_or_semantics": "minutes measured at exclusive bar close"
+    },
+    {
+      "arrow_type": "bool",
+      "name": "london_anchor_active",
+      "nullable": false,
+      "unit_or_semantics": null
+    },
+    {
+      "arrow_type": "bool",
+      "name": "london_cross_above_vwap",
+      "nullable": true,
+      "unit_or_semantics": "float64 price points"
+    },
+    {
+      "arrow_type": "bool",
+      "name": "london_cross_below_vwap",
+      "nullable": true,
+      "unit_or_semantics": "float64 price points"
+    },
+    {
+      "arrow_type": "bool",
+      "name": "london_exit_above_upper_2sigma",
+      "nullable": true,
+      "unit_or_semantics": "float64 price points"
+    },
+    {
+      "arrow_type": "bool",
+      "name": "london_exit_below_lower_2sigma",
+      "nullable": true,
+      "unit_or_semantics": "float64 price points"
+    },
+    {
+      "arrow_type": "bool",
+      "name": "london_reenter_from_above_2sigma",
+      "nullable": true,
+      "unit_or_semantics": null
+    },
+    {
+      "arrow_type": "bool",
+      "name": "london_reenter_from_below_2sigma",
+      "nullable": true,
+      "unit_or_semantics": null
+    },
+    {
+      "arrow_type": "timestamp[ns, tz=UTC]",
+      "name": "ny_anchor_ts",
+      "nullable": true,
+      "unit_or_semantics": null
+    },
+    {
+      "arrow_type": "double",
+      "name": "ny_vwap",
+      "nullable": true,
+      "unit_or_semantics": "float64 price points"
+    },
+    {
+      "arrow_type": "double",
+      "name": "ny_sigma",
+      "nullable": true,
+      "unit_or_semantics": "float64 price points"
+    },
+    {
+      "arrow_type": "double",
+      "name": "ny_upper_1sigma",
+      "nullable": true,
+      "unit_or_semantics": "float64 price points"
+    },
+    {
+      "arrow_type": "double",
+      "name": "ny_lower_1sigma",
+      "nullable": true,
+      "unit_or_semantics": "float64 price points"
+    },
+    {
+      "arrow_type": "double",
+      "name": "ny_upper_2sigma",
+      "nullable": true,
+      "unit_or_semantics": "float64 price points"
+    },
+    {
+      "arrow_type": "double",
+      "name": "ny_lower_2sigma",
+      "nullable": true,
+      "unit_or_semantics": "float64 price points"
+    },
+    {
+      "arrow_type": "double",
+      "name": "ny_upper_3sigma",
+      "nullable": true,
+      "unit_or_semantics": "float64 price points"
+    },
+    {
+      "arrow_type": "double",
+      "name": "ny_lower_3sigma",
+      "nullable": true,
+      "unit_or_semantics": "float64 price points"
+    },
+    {
+      "arrow_type": "double",
+      "name": "ny_distance_points",
+      "nullable": true,
+      "unit_or_semantics": "float64 price points"
+    },
+    {
+      "arrow_type": "double",
+      "name": "ny_distance_ticks",
+      "nullable": true,
+      "unit_or_semantics": "float64 minimum ticks"
+    },
+    {
+      "arrow_type": "double",
+      "name": "ny_distance_sigma",
+      "nullable": true,
+      "unit_or_semantics": "float64 price points"
+    },
+    {
+      "arrow_type": "uint64",
+      "name": "ny_cumulative_volume",
+      "nullable": true,
+      "unit_or_semantics": "contracts"
+    },
+    {
+      "arrow_type": "uint32",
+      "name": "ny_contributing_bar_count",
+      "nullable": true,
+      "unit_or_semantics": null
+    },
+    {
+      "arrow_type": "int32",
+      "name": "ny_minutes_since_anchor",
+      "nullable": true,
+      "unit_or_semantics": "minutes measured at exclusive bar close"
+    },
+    {
+      "arrow_type": "bool",
+      "name": "ny_anchor_active",
+      "nullable": false,
+      "unit_or_semantics": null
+    },
+    {
+      "arrow_type": "bool",
+      "name": "ny_cross_above_vwap",
+      "nullable": true,
+      "unit_or_semantics": "float64 price points"
+    },
+    {
+      "arrow_type": "bool",
+      "name": "ny_cross_below_vwap",
+      "nullable": true,
+      "unit_or_semantics": "float64 price points"
+    },
+    {
+      "arrow_type": "bool",
+      "name": "ny_exit_above_upper_2sigma",
+      "nullable": true,
+      "unit_or_semantics": "float64 price points"
+    },
+    {
+      "arrow_type": "bool",
+      "name": "ny_exit_below_lower_2sigma",
+      "nullable": true,
+      "unit_or_semantics": "float64 price points"
+    },
+    {
+      "arrow_type": "bool",
+      "name": "ny_reenter_from_above_2sigma",
+      "nullable": true,
+      "unit_or_semantics": null
+    },
+    {
+      "arrow_type": "bool",
+      "name": "ny_reenter_from_below_2sigma",
+      "nullable": true,
+      "unit_or_semantics": null
+    }
+  ],
+  "schema_contract": {
+    "bytes": 17604,
+    "path": "catalog/schemas/session_anchored_vwap__1.0.0.json",
+    "sha256": "943bfd74686d82ed80ae1dc4d89f20f4014df825663fc51a93f980efba2a0641"
+  },
+  "software": {
+    "builder": "src/abacus_bhishma/session_anchored_vwap.py",
+    "builder_sha256": "54354174ca98a02bc67de15ea77ec928e3643c3b238684d62796b47a7a4c372f",
+    "git_commit": null,
+    "numpy": "2.4.6",
+    "pyarrow": "25.0.1",
+    "python": "3.11.16",
+    "repository_state": "not_a_git_repository"
+  },
+  "source": {
+    "back_adjustment_method": "prior_session_close_additive_v1",
+    "batch": "GLBX-20260920-577W4VCSK7",
+    "contract_truth_join": "Join product + session_date (and raw_symbol/instrument_id) to volume_lead_unadjusted_v1; use unadjusted prices for fills and P&L.",
+    "dataset": "volume_lead_back_adjusted_v1",
+    "later_roll_information_used": true,
+    "manifest": {
+      "bytes": 40852,
+      "path": "catalog/datasets/volume_lead_back_adjusted_v1.json",
+      "sha256": "5500ac1e472c48b0f31b11c6586354dc700e4ba2ef526ebef5fa05582b228ce8"
+    },
+    "point_in_time_certified_absolute_prices": false,
+    "price_representation": "signed int64 fixed-point scale 1e-9"
+  },
+  "timeframe": "2m",
+  "validation": {
+    "excluded_product_days_absent": true,
+    "finite_float_values": true,
+    "no_partial_output_bars": true,
+    "passed": true,
+    "volume_conservation": true
+  }
+}

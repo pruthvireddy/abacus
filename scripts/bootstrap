@@ -1,0 +1,8 @@
+#!/bin/sh
+set -eu
+ABACUS_SCRIPT_ROOT=$(CDPATH= cd -- "$(dirname -- "$0")/.." && pwd)
+cd "$ABACUS_SCRIPT_ROOT"
+if [ ! -x .tools/uv/bin/uv ] && ! command -v uv >/dev/null 2>&1; then
+  "${ABACUS_BOOTSTRAP_PYTHON:-python3}" -m pip install --disable-pip-version-check --no-warn-script-location --target "$ABACUS_SCRIPT_ROOT/.tools/uv" 'uv==0.12.18'
+fi
+exec "$ABACUS_SCRIPT_ROOT/scripts/uv" sync --locked --all-packages "$@"

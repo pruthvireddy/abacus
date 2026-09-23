@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "abacus-bhishma"
+version = "0.1.0"
+description = "Historical futures data ingestion and enrichment utilities"
+requires-python = ">=3.11"
+dependencies = [
+    "databento==0.64.0",
+    "numpy==2.4.6",
+    "pyarrow==25.0.1",
+]
+
+[project.scripts]
+abacus-databento = "abacus_bhishma.databento_cli:main"
+abacus-continuous-phase1 = "abacus_bhishma.continuous_phase1:main"
+abacus-continuous-phase2 = "abacus_bhishma.continuous_phase2:main"
+abacus-derived-ohlcv-5m = "abacus_bhishma.derived_ohlcv_5m:main"
+abacus-session-anchored-vwap = "abacus_bhishma.session_anchored_vwap:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+abacus_bhishma = ["py.typed"]

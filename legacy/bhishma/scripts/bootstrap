@@ -1,0 +1,15 @@
+#!/bin/zsh
+set -euo pipefail
+
+project_root="${0:A:h:h}"
+python_binary="${PYTHON_BINARY:-python3.11}"
+
+if ! command -v "$python_binary" >/dev/null 2>&1; then
+  print -u2 "Python 3.10 or newer is required. Set PYTHON_BINARY to its executable."
+  exit 1
+fi
+
+"$python_binary" -m venv "$project_root/.venv"
+"$project_root/.venv/bin/python" -m pip install --disable-pip-version-check -e "$project_root"
+
+print "Project environment is ready at $project_root/.venv"

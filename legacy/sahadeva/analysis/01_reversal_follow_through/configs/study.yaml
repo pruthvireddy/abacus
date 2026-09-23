@@ -1,0 +1,60 @@
+{
+  "study_id": "01_reversal_follow_through",
+  "frozen_at": "2026-09-06T00:00:00-04:00",
+  "chart_identity_status": "Provisional filename-labeled Range XV; not verified as the user's earlier Range XC label",
+  "schema": ["timestamp", "open", "high", "low", "close"],
+  "delimiter": ";",
+  "timestamp_format": "%Y-%d-%m %H:%M:%S",
+  "timestamp_timezone": null,
+  "timestamp_meaning": "unresolved (bar open versus bar close)",
+  "bar_completion": "unresolved; conservatively omit the final row of each export",
+  "segment_rule": "parsed export calendar date (provisional, not a verified exchange session)",
+  "split_dates": {
+    "development": ["2026-06-14", "2026-08-02"],
+    "embargo_1": ["2026-08-03", "2026-08-03"],
+    "validation": ["2026-08-04", "2026-08-18"],
+    "embargo_2": ["2026-08-19", "2026-08-19"],
+    "test": ["2026-08-20", "2026-09-04"]
+  },
+  "thresholds": [1, 2, 3, 4, 5, 10],
+  "fixed_horizons": [1, 3, 5, 10, 20],
+  "primary_threshold": 3,
+  "prior_run_minimums": [1, 2, 3],
+  "restricted_run_cap": 10,
+  "bootstrap": {
+    "replicates": 2000,
+    "seed": 20260906,
+    "session_block_lengths": [1, 3]
+  },
+  "support_flags": {
+    "minimum_eligible_reversals": 200,
+    "minimum_export_dates": 10
+  },
+  "timing_status": "Raw timestamp-difference proxy only; timezone and timestamp semantics are unverified",
+  "shared_signal_time_cutoff_sensitivity": "unsupported until timezone, timestamp semantics, and session close are verified",
+  "official_sources": {
+    "atas_chart_types": "https://help.atas.net/en/support/solutions/articles/72000602350",
+    "atas_range_xv": "https://atas.net/blog/specific-of-the-range-xv-chart/",
+    "cme_es": "https://www.cmegroup.com/trading/equity-index/eminifaq.html",
+    "cme_nq": "https://www.cmegroup.com/trading/equity-index/files/emini-nasdaq-100-futures-options.pdf",
+    "cme_gc": "https://www.cmegroup.com/trading/metals/files/fact-card-gold-futures-options.pdf"
+  },
+  "contracts": {
+    "ES": {"tick_size": 0.25, "dollars_per_tick": 12.5, "dollars_per_price_unit": 50.0},
+    "NQ": {"tick_size": 0.25, "dollars_per_tick": 5.0, "dollars_per_price_unit": 20.0},
+    "GC": {"tick_size": 0.10, "dollars_per_tick": 10.0, "dollars_per_price_unit": 100.0}
+  },
+  "datasets": [
+    {"asset": "ES", "contract": "ESU6", "range": 4, "path": "data/ESU6_rangexv4_0614_0904.csv", "requested": true, "available": true},
+    {"asset": "ES", "contract": "ESU6", "range": 5, "path": "data/ESU6_rangexv5_0614_0904.csv", "requested": true, "available": true},
+    {"asset": "ES", "contract": "ESU6", "range": 6, "path": "data/ESU6_rangexv6_0614_0904.csv", "requested": true, "available": true},
+    {"asset": "GC", "contract": "GCZ6", "range": 10, "path": "data/GCZ6_rangexv10_0614_0904.csv", "requested": true, "available": true},
+    {"asset": "GC", "contract": "GCZ6", "range": 20, "path": null, "requested": true, "available": false},
+    {"asset": "NQ", "contract": "NQU6", "range": 10, "path": "data/NQU6_rangexv10_0614_0904.csv", "requested": true, "available": true},
+    {"asset": "NQ", "contract": "NQU6", "range": 20, "path": "data/NQU6_rangexv20_0614_0904.csv", "requested": true, "available": true}
+  ],
+  "inventory_only": [
+    {"asset": "GC", "contract": "GCZ6", "range": 6, "path": "data/GCZ6_rangexv6_0614_0904.csv", "reason": "Not substituted for requested GC20 without user confirmation"}
+  ]
+}
+

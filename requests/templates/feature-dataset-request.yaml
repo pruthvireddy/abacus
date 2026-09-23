@@ -1,0 +1,229 @@
+# Abacus Bhishma feature-dataset request template
+#
+# Copy this file into the requesting repository, fill it out, and return the
+# completed request to Abacus Bhishma. Use null or [] when a section is
+# intentionally unused. Do not reuse a request ID for a different specification.
+
+request:
+  id: "<requesting-repo>__<short-purpose>__v1"
+  requesting_repository:
+    name: "<repository-name>"
+    absolute_path: "<absolute-path-if-on-the-same-computer>"
+    contact_or_owner: null
+  purpose: |
+    <Describe the research question and how the resulting data will be used.>
+  requested_on: "<YYYY-MM-DD>"
+
+base_data:
+  # Recommended for indicators, charts, features, and signals.
+  dataset: "volume_lead_back_adjusted_v1"
+
+  # Use volume_lead_unadjusted_v1 only for execution, explicit roll-trade,
+  # fill, or P&L research.
+  variant: "back_adjusted"
+
+  products:
+    - "NQ"
+    # - "ES"
+    # - "GC"
+
+  date_range:
+    start: "2010-06-06"
+    end: "2026-09-19"
+    end_is_exclusive: true
+
+  source_timeframe: "1m"
+  requested_timeframe: "5m"
+
+aggregation:
+  timezone: "America/New_York"
+  session_scope: "full_globex"
+  session_open: "18:00"
+  session_close: "17:00"
+  maintenance_window: "17:00-18:00"
+  anchor: "session_open"
+  timestamp_label: "bar_open"
+  interval_semantics: "[start, end)"
+
+  ohlcv_rules:
+    open: "first"
+    high: "maximum"
+    low: "minimum"
+    close: "last"
+    volume: "sum"
+
+  missing_minutes: "do_not_fill"
+  partial_bars: "keep_and_flag"
+  include_source_bar_count: true
+  partial_bar_column: "is_partial_bar"
+
+  roll_handling:
+    preserve_phase2_adjustments: true
+    contains_roll_column: "contains_roll"
+    contains_roll_rule: "any constituent 1m bar has is_roll=true"
+    record_first_raw_symbol: true
+    record_last_raw_symbol: true
+
+features:
+  # Repeat this block for every requested indicator. Define the formula,
+  # initialization, smoothing, reset behavior, warmup, and null rules exactly.
+  - name: "<stable-feature-name>"
+    description: "<what-the-feature-measures>"
+    input_columns:
+      - "close"
+    output_columns:
+      - "<exact-output-column-name>"
+    parameters:
+      length: 20
+    formula: |
+      <Exact formula, pseudocode, or precise versioned reference.>
+    calculation_scope:
+      # Choose: continuous_history, session, contract, or calendar_day.
+      state_scope: "continuous_history"
+      reset_at_session_open: false
+      reset_on_contract_roll: false
+    warmup:
+      required_bars: 20
+      output_during_warmup: "null"
+    null_handling:
+      input_nulls: "propagate"
+      insufficient_history: "null"
+    causality:
+      causal: true
+      uses_future_data: false
+      centered_window: false
+    output_type: "float64"
+
+  # Example feature specification:
+  #
+  # - name: "atr_14_wilder"
+  #   description: "14-bar average true range using Wilder smoothing"
+  #   input_columns: ["high", "low", "close"]
+  #   output_columns: ["atr_14"]
+  #   parameters:
+  #     length: 14
+  #     smoothing: "wilder"
+  #   formula: |
+  #     TR[t] = max(
+  #       high[t] - low[t],
+  #       abs(high[t] - close[t-1]),
+  #       abs(low[t] - close[t-1])
+  #     )
+  #     Seed ATR with the arithmetic mean of the first 14 valid TR values.
+  #     Thereafter ATR[t] = (ATR[t-1] * 13 + TR[t]) / 14.
+  #   calculation_scope:
+  #     state_scope: "continuous_history"
+  #     reset_at_session_open: false
+  #     reset_on_contract_roll: false
+  #   warmup:
+  #     required_bars: 14
+  #     output_during_warmup: "null"
+  #   null_handling:
+  #     input_nulls: "propagate"
+  #     insufficient_history: "null"
+  #   causality:
+  #     causal: true
+  #     uses_future_data: false
+  #     centered_window: false
+  #   output_type: "float64"
+
+meta_columns:
+  # Examples: session_open_price, minutes_from_session_open, day_of_week,
+  # overnight_return, rolling_volume_percentile, distance_from_session_vwap.
+  requested: []
+  specifications: |
+    <Define formulas, lookbacks, resets, output names, and null behavior.>
+
+research_labels:
+  # Prefer computing strategy outcomes in the requesting repository. If a
+  # reusable forward-looking label is necessary, name it with a label_ prefix
+  # and keep it explicitly separate from causal features.
+  requested: []
+  allow_forward_looking_columns: false
+  leakage_acknowledgement: |
+    Forward-looking labels use a label_ prefix, remain separate from causal
+    feature columns, and must never be supplied to a live signal model.
+
+output:
+  feature_set_name: "<short-lowercase-name>"
+  feature_set_version: "1.0.0"
+  format: "parquet"
+  compression: "zstd"
+  include_base_ohlcv_columns: true
+
+  include_lineage_columns:
+    - "ts_event"
+    - "session_date"
+    - "product"
+    - "continuous_symbol"
+    - "raw_symbol"
+    - "instrument_id"
+    - "roll_id"
+    - "contains_roll"
+    - "price_adjustment"
+
+  partition_by:
+    - "product"
+    - "year"
+  sort_by:
+    - "product"
+    - "ts_event"
+
+  expected_consumer:
+    language: "python"
+    library: "pyarrow"
+
+  overwrite_existing_version: false
+
+validation:
+  require_unique_product_timestamp: true
+  require_strict_timestamp_order: true
+  require_no_synthetic_market_bars: true
+  require_no_lookahead_in_features: true
+  require_phase2_lineage_verification: true
+  require_deterministic_rebuild: true
+
+  expected_columns:
+    - "ts_event"
+    - "session_date"
+    - "product"
+    - "open"
+    - "high"
+    - "low"
+    - "close"
+    - "volume"
+    # Add every requested feature and meta column.
+
+  indicator_spot_checks:
+    # Optional hand-calculated or externally verified expectations:
+    #
+    # - product: "NQ"
+    #   ts_event: "2024-01-02T15:30:00Z"
+    #   column: "ema_20"
+    #   expected: 16842.123
+    #   tolerance: 0.001
+    []
+
+  additional_acceptance_criteria: |
+    <Add research-specific validation requirements that do not contain
+    strategy entry or exit logic.>
+
+delivery:
+  keep_inside_abacus_bhishma: true
+
+  # Abacus returns paths and checksums. It will not write into the requesting
+  # repository unless that is separately and explicitly authorized.
+  copy_into_requesting_repository: false
+
+  return:
+    - "dataset_id"
+    - "absolute_data_path"
+    - "portable_path_glob"
+    - "manifest_path"
+    - "quality_report_path"
+    - "schema"
+    - "row_counts"
+    - "coverage"
+    - "checksums"
+    - "loader_example"
+    - "known_limitations"

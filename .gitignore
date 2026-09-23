@@ -1,0 +1,26 @@
+# Machine-specific state and dependencies
+.DS_Store
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+.tools/
+.uv-cache/
+.env
+.env.*
+*.key
+config/paths.local.toml
+# Bulk inputs and caches remain outside Git history.
+/data/*
+!/data/README.md
+/work/*
+!/work/README.md
+# Local compatibility links for archived commands.
+/legacy/sahadeva/data/*.csv
+/legacy/sahadeva/work
+/legacy/bhishma/data
+/legacy/bhishma/.venv
+# Large future research evidence is retained via artifact manifests.
+/runs/**/events/
+/runs/**/*.parquet
+/runs/**/logs/

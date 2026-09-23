@@ -1,0 +1,13 @@
+#!/bin/sh
+set -eu
+ABACUS_CHECK_ROOT=$(CDPATH= cd -- "$(dirname -- "$0")/.." && pwd)
+cd "$ABACUS_CHECK_ROOT"
+./scripts/uv run --locked python -m unittest discover -s packages/bhishma/tests
+./scripts/uv run --locked python -m unittest discover -s packages/sahadeva/tests
+PYTHONPATH="$ABACUS_CHECK_ROOT/legacy/sahadeva/analysis/01_reversal_follow_through/src" \
+  ./scripts/uv run --locked python -m unittest discover \
+  -s legacy/sahadeva/analysis/01_reversal_follow_through/tests
+PYTHONPATH="$ABACUS_CHECK_ROOT/legacy/sahadeva/analysis/02_followthrough_candle_adverse/src" \
+  ./scripts/uv run --locked python -m unittest discover \
+  -s legacy/sahadeva/analysis/02_followthrough_candle_adverse/tests
+./scripts/uv run --locked abacus-research doctor --workspace-root "$ABACUS_CHECK_ROOT" --read-sample

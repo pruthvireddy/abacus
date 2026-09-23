@@ -1,0 +1,11 @@
+#!/bin/sh
+set -eu
+ABACUS_SCRIPT_ROOT=$(CDPATH= cd -- "$(dirname -- "$0")/.." && pwd)
+if [ -x "$ABACUS_SCRIPT_ROOT/.tools/uv/bin/uv" ]; then
+  exec "$ABACUS_SCRIPT_ROOT/.tools/uv/bin/uv" "$@"
+fi
+if command -v uv >/dev/null 2>&1; then
+  exec uv "$@"
+fi
+printf '%s\n' 'uv is unavailable. Run ./scripts/bootstrap from the repository root.' >&2
+exit 1

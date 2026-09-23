@@ -1,0 +1,74 @@
+{
+  "study_id": "03_multi_rxv_alignment",
+  "created_at": "2026-09-08T00:00:00-04:00",
+  "chart_type": "ATAS Range XV",
+  "timestamp_policy": {
+    "small_signal_time": "completion proxy of the small reversal bar",
+    "strict_small_signal_status": "next_bar_start_proxy",
+    "larger_asof_rule": "latest larger bar with completion proxy strictly earlier than the small signal time",
+    "same_second_policy": "excluded from primary strict-timing results; included only in all-proxy sensitivity results",
+    "session_boundary": "18:00 in the export timestamp's unresolved timezone"
+  },
+  "splits": {
+    "development": ["2024-08-14", "2025-11-10"],
+    "validation": ["2025-11-11", "2026-04-10"],
+    "test": ["2026-04-13", "2026-09-08"]
+  },
+  "primary_pairs": ["ES_5_6", "GC_6_10", "NQ_10_20"],
+  "secondary_pairs": ["GC_10_20"],
+  "pairs": [
+    {
+      "pair_id": "ES_5_6",
+      "asset": "ES",
+      "tick_size": 0.25,
+      "small_setting": 5,
+      "large_setting": 6,
+      "small_path": "data/ESU6_rangexv_5t_20240814_20260908.csv",
+      "large_path": "data/ESU6_rangexv_6t_20240814_20260908.csv"
+    },
+    {
+      "pair_id": "GC_6_10",
+      "asset": "GC",
+      "tick_size": 0.10,
+      "small_setting": 6,
+      "large_setting": 10,
+      "small_path": "data/GCZ6_rangexv_6t_20240814_20260908.csv",
+      "large_path": "data/GCZ6_rangexv_10t_20240814_20260908.csv"
+    },
+    {
+      "pair_id": "GC_10_20",
+      "asset": "GC",
+      "tick_size": 0.10,
+      "small_setting": 10,
+      "large_setting": 20,
+      "small_path": "data/GCZ6_rangexv_10t_20240814_20260908.csv",
+      "large_path": "data/GCZ6_rangexv_20t_20240814_20260908.csv"
+    },
+    {
+      "pair_id": "NQ_10_20",
+      "asset": "NQ",
+      "tick_size": 0.25,
+      "small_setting": 10,
+      "large_setting": 20,
+      "small_path": "data/NQU6_rangexv_10t_20240814_20260908.csv",
+      "large_path": "data/NQU6_rangexv_20t_20240814_20260908.csv"
+    }
+  ],
+  "definitions": {
+    "small_reversal": "a non-doji small bar whose direction is opposite the immediately preceding non-doji bar in the same session",
+    "pullback": "the small reversal follows one or two consecutive opposite-direction small bars",
+    "aligned": "small reversal direction equals the latest strictly-prior completed larger-bar direction",
+    "rolling_trend": "sign of larger close minus larger close 10 completed larger bars earlier in the same session",
+    "recent_co_reversal": "aligned signal occurring within 15 minutes after the first completed larger bar in its current directional run",
+    "large_confirmation": "first later larger-chart reversal in the small signal direction",
+    "extended_large_run": "at least five consecutive completed larger bars in the current direction",
+    "repeated_countertrend_attempt": "second or later small countertrend reversal during the same still-unreversed larger run"
+  },
+  "continuation_horizons_bars": [1, 3, 5],
+  "large_confirmation_windows_minutes": [5, 15, 30, 60],
+  "bootstrap": {
+    "replicates": 2000,
+    "cluster": "session_date_proxy",
+    "seed": 20260908
+  }
+}

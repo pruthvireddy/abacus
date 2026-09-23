@@ -1,0 +1,67 @@
+{
+  "study_id": "03_multi_rxv_alignment",
+  "run_id": "20260908T_multi_rxv_v1",
+  "config": "analysis/03_multi_rxv_alignment/config.json",
+  "input_manifest": "data/range_xv_exports_manifest.json",
+  "tables": [
+    "tables/pullback_continuation.csv",
+    "tables/aligned_vs_countertrend.csv",
+    "tables/countertrend_large_confirmation.csv",
+    "tables/exhaustion_comparisons.csv",
+    "tables/pair_audit.csv"
+  ],
+  "audits": [
+    {
+      "pair_id": "ES_5_6",
+      "asset": "ES",
+      "small_setting": 5,
+      "large_setting": 6,
+      "small_rows": 375442,
+      "large_rows": 274479,
+      "small_reversal_signals_with_completion_proxy": 118511,
+      "strict_timing_signals": 113750,
+      "same_second_signal_sensitivity_rows": 4761,
+      "strict_signals_with_larger_state": 113712,
+      "larger_state_exact_match_violations": 0
+    },
+    {
+      "pair_id": "GC_6_10",
+      "asset": "GC",
+      "small_setting": 6,
+      "large_setting": 10,
+      "small_rows": 1254233,
+      "large_rows": 571237,
+      "small_reversal_signals_with_completion_proxy": 388621,
+      "strict_timing_signals": 354909,
+      "same_second_signal_sensitivity_rows": 33712,
+      "strict_signals_with_larger_state": 354788,
+      "larger_state_exact_match_violations": 0
+    },
+    {
+      "pair_id": "GC_10_20",
+      "asset": "GC",
+      "small_setting": 10,
+      "large_setting": 20,
+      "small_rows": 571237,
+      "large_rows": 174336,
+      "small_reversal_signals_with_completion_proxy": 176508,
+      "strict_timing_signals": 166437,
+      "same_second_signal_sensitivity_rows": 10071,
+      "strict_signals_with_larger_state": 166195,
+      "larger_state_exact_match_violations": 0
+    },
+    {
+      "pair_id": "NQ_10_20",
+      "asset": "NQ",
+      "small_setting": 10,
+      "large_setting": 20,
+      "small_rows": 2314301,
+      "large_rows": 684982,
+      "small_reversal_signals_with_completion_proxy": 713397,
+      "strict_timing_signals": 656615,
+      "same_second_signal_sensitivity_rows": 56782,
+      "strict_signals_with_larger_state": 656555,
+      "larger_state_exact_match_violations": 0
+    }
+  ]
+}

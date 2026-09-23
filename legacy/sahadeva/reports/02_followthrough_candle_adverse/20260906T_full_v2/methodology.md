@@ -1,0 +1,35 @@
+# Methodology
+
+## Question and numbering
+
+The reversal candle is sequence position 1. Its immediately following candle is follow-through position 1 and sequence position 2—the “second green/red candle” in this study. The primary cohort contains every reversal for which that next candle exists in the same valid segment and closes with the same `sign(close-open)` direction as the reversal.
+
+The example of three red candles followed by a green reversal is covered by the prespecified `prior_opposite_run >= 3` sensitivity. The primary result retains every reversal with at least one preceding opposite non-doji candle.
+
+## Primary adverse movement
+
+For the same-direction follow-through candle:
+
+```text
+green/long: follow_open - follow_low
+red/short: follow_high - follow_open
+```
+
+This is the candle's adverse wick/range from its own open. It is nonnegative and uses only that candle's OHLC. The sensitivity reference uses the reversal close instead:
+
+```text
+green/long: max(0, reversal_close - follow_low)
+red/short: max(0, follow_high - reversal_close)
+```
+
+Directional open gap, favorable movement from the follow-through open, and directional close progress are reported for context. These values describe bar geometry, not executable entries or profits.
+
+## Events, boundaries, and units
+
+A reversal is an adjacent non-doji candle whose close-minus-open direction opposes the preceding non-doji candle. Dojis and provisional export-date boundaries break adjacency. The final row of each export is omitted because completion is unverified. A missing next candle is excluded, not treated as a failure. All arithmetic uses integer CME ticks, then translates to native price and gross dollars per standard contract.
+
+The full-period result includes all 72 export dates. Development/validation/test labels from Analysis 01 are reused only as chronological stability slices; no setting is selected or optimized in this analysis. Mean confidence intervals use 2,000 export-date block bootstrap replicates with seed 20260906.
+
+## Limitations
+
+The files remain provisionally identified by their filenames as Range XV. Timezone, timestamp meaning, exact ATAS settings, bar completion metadata, data-feed provenance, and contract-adjustment history remain unresolved. GC6 is analyzed explicitly because this study covers all seven available exports; it is not called GC20 and does not resolve the missing-GC20 limitation in Analysis 01.

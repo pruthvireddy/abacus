@@ -1,0 +1,707 @@
+{
+  "fields": [
+    {
+      "arrow_type": "timestamp[ns, tz=UTC]",
+      "name": "ts_event",
+      "nullable": false,
+      "unit_or_semantics": null
+    },
+    {
+      "arrow_type": "timestamp[ns, tz=UTC]",
+      "name": "bar_close_ts",
+      "nullable": false,
+      "unit_or_semantics": null
+    },
+    {
+      "arrow_type": "timestamp[ns, tz=UTC]",
+      "name": "available_at",
+      "nullable": false,
+      "unit_or_semantics": null
+    },
+    {
+      "arrow_type": "date32[day]",
+      "name": "session_date",
+      "nullable": false,
+      "unit_or_semantics": null
+    },
+    {
+      "arrow_type": "string",
+      "name": "product",
+      "nullable": false,
+      "unit_or_semantics": null
+    },
+    {
+      "arrow_type": "string",
+      "name": "timeframe",
+      "nullable": false,
+      "unit_or_semantics": null
+    },
+    {
+      "arrow_type": "string",
+      "name": "continuous_symbol",
+      "nullable": false,
+      "unit_or_semantics": null
+    },
+    {
+      "arrow_type": "uint32",
+      "name": "instrument_id",
+      "nullable": false,
+      "unit_or_semantics": null
+    },
+    {
+      "arrow_type": "string",
+      "name": "raw_symbol",
+      "nullable": false,
+      "unit_or_semantics": null
+    },
+    {
+      "arrow_type": "int64",
+      "name": "open",
+      "nullable": false,
+      "unit_or_semantics": "signed int64 fixed-point, scale 1e-9 price units"
+    },
+    {
+      "arrow_type": "int64",
+      "name": "high",
+      "nullable": false,
+      "unit_or_semantics": "signed int64 fixed-point, scale 1e-9 price units"
+    },
+    {
+      "arrow_type": "int64",
+      "name": "low",
+      "nullable": false,
+      "unit_or_semantics": "signed int64 fixed-point, scale 1e-9 price units"
+    },
+    {
+      "arrow_type": "int64",
+      "name": "close",
+      "nullable": false,
+      "unit_or_semantics": "signed int64 fixed-point, scale 1e-9 price units"
+    },
+    {
+      "arrow_type": "uint64",
+      "name": "volume",
+      "nullable": false,
+      "unit_or_semantics": "contracts"
+    },
+    {
+      "arrow_type": "date32[day]",
+      "name": "mapping_start",
+      "nullable": false,
+      "unit_or_semantics": null
+    },
+    {
+      "arrow_type": "date32[day]",
+      "name": "mapping_end",
+      "nullable": false,
+      "unit_or_semantics": null
+    },
+    {
+      "arrow_type": "int16",
+      "name": "roll_id",
+      "nullable": false,
+      "unit_or_semantics": null
+    },
+    {
+      "arrow_type": "bool",
+      "name": "is_roll",
+      "nullable": false,
+      "unit_or_semantics": null
+    },
+    {
+      "arrow_type": "bool",
+      "name": "contains_roll",
+      "nullable": false,
+      "unit_or_semantics": null
+    },
+    {
+      "arrow_type": "string",
+      "name": "source_batch",
+      "nullable": false,
+      "unit_or_semantics": null
+    },
+    {
+      "arrow_type": "int64",
+      "name": "price_adjustment",
+      "nullable": false,
+      "unit_or_semantics": "signed int64 fixed-point, scale 1e-9 price units"
+    },
+    {
+      "arrow_type": "int64",
+      "name": "min_tick",
+      "nullable": false,
+      "unit_or_semantics": "signed int64 fixed-point, scale 1e-9 price units"
+    },
+    {
+      "arrow_type": "uint16",
+      "name": "source_bar_count",
+      "nullable": false,
+      "unit_or_semantics": null
+    },
+    {
+      "arrow_type": "string",
+      "name": "calendar_regime",
+      "nullable": false,
+      "unit_or_semantics": null
+    },
+    {
+      "arrow_type": "bool",
+      "name": "is_asia_session",
+      "nullable": false,
+      "unit_or_semantics": null
+    },
+    {
+      "arrow_type": "bool",
+      "name": "is_london_session",
+      "nullable": false,
+      "unit_or_semantics": null
+    },
+    {
+      "arrow_type": "bool",
+      "name": "is_ny_session",
+      "nullable": false,
+      "unit_or_semantics": null
+    },
+    {
+      "arrow_type": "timestamp[ns, tz=UTC]",
+      "name": "globex_anchor_ts",
+      "nullable": true,
+      "unit_or_semantics": null
+    },
+    {
+      "arrow_type": "double",
+      "name": "globex_vwap",
+      "nullable": true,
+      "unit_or_semantics": "float64 price points"
+    },
+    {
+      "arrow_type": "double",
+      "name": "globex_sigma",
+      "nullable": true,
+      "unit_or_semantics": "float64 price points"
+    },
+    {
+      "arrow_type": "double",
+      "name": "globex_upper_1sigma",
+      "nullable": true,
+      "unit_or_semantics": "float64 price points"
+    },
+    {
+      "arrow_type": "double",
+      "name": "globex_lower_1sigma",
+      "nullable": true,
+      "unit_or_semantics": "float64 price points"
+    },
+    {
+      "arrow_type": "double",
+      "name": "globex_upper_2sigma",
+      "nullable": true,
+      "unit_or_semantics": "float64 price points"
+    },
+    {
+      "arrow_type": "double",
+      "name": "globex_lower_2sigma",
+      "nullable": true,
+      "unit_or_semantics": "float64 price points"
+    },
+    {
+      "arrow_type": "double",
+      "name": "globex_upper_3sigma",
+      "nullable": true,
+      "unit_or_semantics": "float64 price points"
+    },
+    {
+      "arrow_type": "double",
+      "name": "globex_lower_3sigma",
+      "nullable": true,
+      "unit_or_semantics": "float64 price points"
+    },
+    {
+      "arrow_type": "double",
+      "name": "globex_distance_points",
+      "nullable": true,
+      "unit_or_semantics": "float64 price points"
+    },
+    {
+      "arrow_type": "double",
+      "name": "globex_distance_ticks",
+      "nullable": true,
+      "unit_or_semantics": "float64 minimum ticks"
+    },
+    {
+      "arrow_type": "double",
+      "name": "globex_distance_sigma",
+      "nullable": true,
+      "unit_or_semantics": "float64 price points"
+    },
+    {
+      "arrow_type": "uint64",
+      "name": "globex_cumulative_volume",
+      "nullable": true,
+      "unit_or_semantics": "contracts"
+    },
+    {
+      "arrow_type": "uint32",
+      "name": "globex_contributing_bar_count",
+      "nullable": true,
+      "unit_or_semantics": null
+    },
+    {
+      "arrow_type": "int32",
+      "name": "globex_minutes_since_anchor",
+      "nullable": true,
+      "unit_or_semantics": "minutes measured at exclusive bar close"
+    },
+    {
+      "arrow_type": "bool",
+      "name": "globex_anchor_active",
+      "nullable": false,
+      "unit_or_semantics": null
+    },
+    {
+      "arrow_type": "bool",
+      "name": "globex_cross_above_vwap",
+      "nullable": true,
+      "unit_or_semantics": "float64 price points"
+    },
+    {
+      "arrow_type": "bool",
+      "name": "globex_cross_below_vwap",
+      "nullable": true,
+      "unit_or_semantics": "float64 price points"
+    },
+    {
+      "arrow_type": "bool",
+      "name": "globex_exit_above_upper_2sigma",
+      "nullable": true,
+      "unit_or_semantics": "float64 price points"
+    },
+    {
+      "arrow_type": "bool",
+      "name": "globex_exit_below_lower_2sigma",
+      "nullable": true,
+      "unit_or_semantics": "float64 price points"
+    },
+    {
+      "arrow_type": "bool",
+      "name": "globex_reenter_from_above_2sigma",
+      "nullable": true,
+      "unit_or_semantics": null
+    },
+    {
+      "arrow_type": "bool",
+      "name": "globex_reenter_from_below_2sigma",
+      "nullable": true,
+      "unit_or_semantics": null
+    },
+    {
+      "arrow_type": "timestamp[ns, tz=UTC]",
+      "name": "asia_anchor_ts",
+      "nullable": true,
+      "unit_or_semantics": null
+    },
+    {
+      "arrow_type": "double",
+      "name": "asia_vwap",
+      "nullable": true,
+      "unit_or_semantics": "float64 price points"
+    },
+    {
+      "arrow_type": "double",
+      "name": "asia_sigma",
+      "nullable": true,
+      "unit_or_semantics": "float64 price points"
+    },
+    {
+      "arrow_type": "double",
+      "name": "asia_upper_1sigma",
+      "nullable": true,
+      "unit_or_semantics": "float64 price points"
+    },
+    {
+      "arrow_type": "double",
+      "name": "asia_lower_1sigma",
+      "nullable": true,
+      "unit_or_semantics": "float64 price points"
+    },
+    {
+      "arrow_type": "double",
+      "name": "asia_upper_2sigma",
+      "nullable": true,
+      "unit_or_semantics": "float64 price points"
+    },
+    {
+      "arrow_type": "double",
+      "name": "asia_lower_2sigma",
+      "nullable": true,
+      "unit_or_semantics": "float64 price points"
+    },
+    {
+      "arrow_type": "double",
+      "name": "asia_upper_3sigma",
+      "nullable": true,
+      "unit_or_semantics": "float64 price points"
+    },
+    {
+      "arrow_type": "double",
+      "name": "asia_lower_3sigma",
+      "nullable": true,
+      "unit_or_semantics": "float64 price points"
+    },
+    {
+      "arrow_type": "double",
+      "name": "asia_distance_points",
+      "nullable": true,
+      "unit_or_semantics": "float64 price points"
+    },
+    {
+      "arrow_type": "double",
+      "name": "asia_distance_ticks",
+      "nullable": true,
+      "unit_or_semantics": "float64 minimum ticks"
+    },
+    {
+      "arrow_type": "double",
+      "name": "asia_distance_sigma",
+      "nullable": true,
+      "unit_or_semantics": "float64 price points"
+    },
+    {
+      "arrow_type": "uint64",
+      "name": "asia_cumulative_volume",
+      "nullable": true,
+      "unit_or_semantics": "contracts"
+    },
+    {
+      "arrow_type": "uint32",
+      "name": "asia_contributing_bar_count",
+      "nullable": true,
+      "unit_or_semantics": null
+    },
+    {
+      "arrow_type": "int32",
+      "name": "asia_minutes_since_anchor",
+      "nullable": true,
+      "unit_or_semantics": "minutes measured at exclusive bar close"
+    },
+    {
+      "arrow_type": "bool",
+      "name": "asia_anchor_active",
+      "nullable": false,
+      "unit_or_semantics": null
+    },
+    {
+      "arrow_type": "bool",
+      "name": "asia_cross_above_vwap",
+      "nullable": true,
+      "unit_or_semantics": "float64 price points"
+    },
+    {
+      "arrow_type": "bool",
+      "name": "asia_cross_below_vwap",
+      "nullable": true,
+      "unit_or_semantics": "float64 price points"
+    },
+    {
+      "arrow_type": "bool",
+      "name": "asia_exit_above_upper_2sigma",
+      "nullable": true,
+      "unit_or_semantics": "float64 price points"
+    },
+    {
+      "arrow_type": "bool",
+      "name": "asia_exit_below_lower_2sigma",
+      "nullable": true,
+      "unit_or_semantics": "float64 price points"
+    },
+    {
+      "arrow_type": "bool",
+      "name": "asia_reenter_from_above_2sigma",
+      "nullable": true,
+      "unit_or_semantics": null
+    },
+    {
+      "arrow_type": "bool",
+      "name": "asia_reenter_from_below_2sigma",
+      "nullable": true,
+      "unit_or_semantics": null
+    },
+    {
+      "arrow_type": "timestamp[ns, tz=UTC]",
+      "name": "london_anchor_ts",
+      "nullable": true,
+      "unit_or_semantics": null
+    },
+    {
+      "arrow_type": "double",
+      "name": "london_vwap",
+      "nullable": true,
+      "unit_or_semantics": "float64 price points"
+    },
+    {
+      "arrow_type": "double",
+      "name": "london_sigma",
+      "nullable": true,
+      "unit_or_semantics": "float64 price points"
+    },
+    {
+      "arrow_type": "double",
+      "name": "london_upper_1sigma",
+      "nullable": true,
+      "unit_or_semantics": "float64 price points"
+    },
+    {
+      "arrow_type": "double",
+      "name": "london_lower_1sigma",
+      "nullable": true,
+      "unit_or_semantics": "float64 price points"
+    },
+    {
+      "arrow_type": "double",
+      "name": "london_upper_2sigma",
+      "nullable": true,
+      "unit_or_semantics": "float64 price points"
+    },
+    {
+      "arrow_type": "double",
+      "name": "london_lower_2sigma",
+      "nullable": true,
+      "unit_or_semantics": "float64 price points"
+    },
+    {
+      "arrow_type": "double",
+      "name": "london_upper_3sigma",
+      "nullable": true,
+      "unit_or_semantics": "float64 price points"
+    },
+    {
+      "arrow_type": "double",
+      "name": "london_lower_3sigma",
+      "nullable": true,
+      "unit_or_semantics": "float64 price points"
+    },
+    {
+      "arrow_type": "double",
+      "name": "london_distance_points",
+      "nullable": true,
+      "unit_or_semantics": "float64 price points"
+    },
+    {
+      "arrow_type": "double",
+      "name": "london_distance_ticks",
+      "nullable": true,
+      "unit_or_semantics": "float64 minimum ticks"
+    },
+    {
+      "arrow_type": "double",
+      "name": "london_distance_sigma",
+      "nullable": true,
+      "unit_or_semantics": "float64 price points"
+    },
+    {
+      "arrow_type": "uint64",
+      "name": "london_cumulative_volume",
+      "nullable": true,
+      "unit_or_semantics": "contracts"
+    },
+    {
+      "arrow_type": "uint32",
+      "name": "london_contributing_bar_count",
+      "nullable": true,
+      "unit_or_semantics": null
+    },
+    {
+      "arrow_type": "int32",
+      "name": "london_minutes_since_anchor",
+      "nullable": true,
+      "unit_or_semantics": "minutes measured at exclusive bar close"
+    },
+    {
+      "arrow_type": "bool",
+      "name": "london_anchor_active",
+      "nullable": false,
+      "unit_or_semantics": null
+    },
+    {
+      "arrow_type": "bool",
+      "name": "london_cross_above_vwap",
+      "nullable": true,
+      "unit_or_semantics": "float64 price points"
+    },
+    {
+      "arrow_type": "bool",
+      "name": "london_cross_below_vwap",
+      "nullable": true,
+      "unit_or_semantics": "float64 price points"
+    },
+    {
+      "arrow_type": "bool",
+      "name": "london_exit_above_upper_2sigma",
+      "nullable": true,
+      "unit_or_semantics": "float64 price points"
+    },
+    {
+      "arrow_type": "bool",
+      "name": "london_exit_below_lower_2sigma",
+      "nullable": true,
+      "unit_or_semantics": "float64 price points"
+    },
+    {
+      "arrow_type": "bool",
+      "name": "london_reenter_from_above_2sigma",
+      "nullable": true,
+      "unit_or_semantics": null
+    },
+    {
+      "arrow_type": "bool",
+      "name": "london_reenter_from_below_2sigma",
+      "nullable": true,
+      "unit_or_semantics": null
+    },
+    {
+      "arrow_type": "timestamp[ns, tz=UTC]",
+      "name": "ny_anchor_ts",
+      "nullable": true,
+      "unit_or_semantics": null
+    },
+    {
+      "arrow_type": "double",
+      "name": "ny_vwap",
+      "nullable": true,
+      "unit_or_semantics": "float64 price points"
+    },
+    {
+      "arrow_type": "double",
+      "name": "ny_sigma",
+      "nullable": true,
+      "unit_or_semantics": "float64 price points"
+    },
+    {
+      "arrow_type": "double",
+      "name": "ny_upper_1sigma",
+      "nullable": true,
+      "unit_or_semantics": "float64 price points"
+    },
+    {
+      "arrow_type": "double",
+      "name": "ny_lower_1sigma",
+      "nullable": true,
+      "unit_or_semantics": "float64 price points"
+    },
+    {
+      "arrow_type": "double",
+      "name": "ny_upper_2sigma",
+      "nullable": true,
+      "unit_or_semantics": "float64 price points"
+    },
+    {
+      "arrow_type": "double",
+      "name": "ny_lower_2sigma",
+      "nullable": true,
+      "unit_or_semantics": "float64 price points"
+    },
+    {
+      "arrow_type": "double",
+      "name": "ny_upper_3sigma",
+      "nullable": true,
+      "unit_or_semantics": "float64 price points"
+    },
+    {
+      "arrow_type": "double",
+      "name": "ny_lower_3sigma",
+      "nullable": true,
+      "unit_or_semantics": "float64 price points"
+    },
+    {
+      "arrow_type": "double",
+      "name": "ny_distance_points",
+      "nullable": true,
+      "unit_or_semantics": "float64 price points"
+    },
+    {
+      "arrow_type": "double",
+      "name": "ny_distance_ticks",
+      "nullable": true,
+      "unit_or_semantics": "float64 minimum ticks"
+    },
+    {
+      "arrow_type": "double",
+      "name": "ny_distance_sigma",
+      "nullable": true,
+      "unit_or_semantics": "float64 price points"
+    },
+    {
+      "arrow_type": "uint64",
+      "name": "ny_cumulative_volume",
+      "nullable": true,
+      "unit_or_semantics": "contracts"
+    },
+    {
+      "arrow_type": "uint32",
+      "name": "ny_contributing_bar_count",
+      "nullable": true,
+      "unit_or_semantics": null
+    },
+    {
+      "arrow_type": "int32",
+      "name": "ny_minutes_since_anchor",
+      "nullable": true,
+      "unit_or_semantics": "minutes measured at exclusive bar close"
+    },
+    {
+      "arrow_type": "bool",
+      "name": "ny_anchor_active",
+      "nullable": false,
+      "unit_or_semantics": null
+    },
+    {
+      "arrow_type": "bool",
+      "name": "ny_cross_above_vwap",
+      "nullable": true,
+      "unit_or_semantics": "float64 price points"
+    },
+    {
+      "arrow_type": "bool",
+      "name": "ny_cross_below_vwap",
+      "nullable": true,
+      "unit_or_semantics": "float64 price points"
+    },
+    {
+      "arrow_type": "bool",
+      "name": "ny_exit_above_upper_2sigma",
+      "nullable": true,
+      "unit_or_semantics": "float64 price points"
+    },
+    {
+      "arrow_type": "bool",
+      "name": "ny_exit_below_lower_2sigma",
+      "nullable": true,
+      "unit_or_semantics": "float64 price points"
+    },
+    {
+      "arrow_type": "bool",
+      "name": "ny_reenter_from_above_2sigma",
+      "nullable": true,
+      "unit_or_semantics": null
+    },
+    {
+      "arrow_type": "bool",
+      "name": "ny_reenter_from_below_2sigma",
+      "nullable": true,
+      "unit_or_semantics": null
+    }
+  ],
+  "key": [
+    "product",
+    "timeframe",
+    "ts_event"
+  ],
+  "null_semantics": "See catalog/indicators/session_anchored_vwap__1.0.0.json",
+  "schema_id": "session_anchored_vwap__1.0.0",
+  "timestamp_semantics": {
+    "available_at": "logical earliest completed-bar availability; equals bar_close_ts",
+    "bar_close_ts": "exclusive bar end",
+    "ts_event": "inclusive bar open"
+  },
+  "version": "1.0.0"
+}

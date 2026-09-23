@@ -1,0 +1,49 @@
+{
+  "feature_set": "session_anchored_vwap",
+  "version": "1.0.0",
+  "calculation_basis": "output-bar HLC3",
+  "price_source": "(high + low + close) / 3 after independent 1m-to-output-interval aggregation",
+  "weight": "completed output-bar volume",
+  "variance": "volume-weighted population variance computed with weighted Welford updates",
+  "timezone": "America/New_York",
+  "timestamp_storage": "UTC",
+  "session": "[18:00 on D-1, 17:00 on D)",
+  "anchors": {
+    "globex": "18:00 on D-1",
+    "asia": "20:00 on D-1",
+    "london": "03:00 on D",
+    "ny": "09:30 on D"
+  },
+  "membership_windows": {
+    "asia": "[20:00, 03:00)",
+    "london": "[03:00, 09:00)",
+    "ny": "[09:30, 16:00)"
+  },
+  "anchor_lifetime": "Each anchor starts with the bar opening exactly at its anchor and accumulates independently through the same session close.",
+  "bands": [1, 2, 3],
+  "events": {
+    "cross_above_vwap": "current close > current VWAP and previous close <= previous VWAP",
+    "cross_below_vwap": "current close < current VWAP and previous close >= previous VWAP",
+    "exit_above_upper_2sigma": "current close > current upper 2-sigma and previous close <= previous upper 2-sigma",
+    "exit_below_lower_2sigma": "current close < current lower 2-sigma and previous close >= previous lower 2-sigma",
+    "reenter_from_above_2sigma": "current close <= current upper 2-sigma and previous close > previous upper 2-sigma",
+    "reenter_from_below_2sigma": "current close >= current lower 2-sigma and previous close < previous lower 2-sigma"
+  },
+  "event_validity": "Two consecutive valid bars from the same anchor and session are required. Band events additionally require positive sigma on both bars. Undefined events are null.",
+  "null_rules": {
+    "before_anchor": "anchor values and events null; anchor_active false",
+    "no_positive_cumulative_volume": "VWAP, sigma, bands, and distances null",
+    "first_positive_volume": "VWAP equals HLC3 and sigma equals zero",
+    "zero_sigma": "distance_sigma null"
+  },
+  "availability": "ts_event is bar open; bar_close_ts is exclusive bar end; available_at equals bar_close_ts",
+  "non_goals": [
+    "strategy entries or exits",
+    "forward returns, MFE/MAE, targets, stops, or profitability",
+    "weekly VWAP",
+    "footprint delta",
+    "TICKQ",
+    "intrabar touch inference",
+    "exact trade-price VWAP"
+  ]
+}

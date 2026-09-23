@@ -1,0 +1,23 @@
+[project]
+name = "abacus"
+version = "0.1.0"
+description = "Abacus data and research workspace"
+requires-python = ">=3.11"
+dependencies = ["abacus-bhishma", "abacus-sahadeva"]
+
+[dependency-groups]
+dev = ["pytest>=8.3,<9", "pandas>=2.2,<3"]
+
+[tool.uv]
+package = false
+
+[tool.uv.workspace]
+members = ["packages/bhishma", "packages/sahadeva"]
+
+[tool.uv.sources]
+abacus-bhishma = { workspace = true }
+abacus-sahadeva = { workspace = true }
+
+[tool.pytest.ini_options]
+testpaths = ["packages/bhishma/tests", "packages/sahadeva/tests"]
+addopts = "-ra"

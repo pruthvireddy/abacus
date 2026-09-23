@@ -1,0 +1,404 @@
+{
+  "bootstrap": {
+    "replicates": 2000,
+    "seed": 20260906
+  },
+  "completed_utc": "2026-09-07T03:47:21.716847+00:00",
+  "conditioned_same_direction_events": 205611,
+  "configuration_sha256": "4dcd88a3547c0cf3ec49bdff1ec5b82e852a06282f18d69b920b0114f75a0b3f",
+  "definition": "For a reversal whose immediately following candle closes in the reversal direction, how far does that follow-through candle move adversely from its own open?",
+  "dependencies": {
+    "numpy": "2.3.5",
+    "pandas": "2.2.3"
+  },
+  "hold_time_definitions": {
+    "elapsed_time": "raw timestamp-difference proxy only",
+    "eventual": "first two-bar same-direction pair within 20 bars after confirmation",
+    "strict": "two immediately subsequent bars both close in the confirmation direction"
+  },
+  "implementation_files": {
+    "analysis/02_followthrough_candle_adverse/README.md": "3bf971e1ec1852367a5df182e522b12567f611cde8ef78c8a781d5a6c5a11484",
+    "analysis/02_followthrough_candle_adverse/configs/study.yaml": "a8167152e77cf9c8025c080d0e2989f3bb0fbf998ab84b15894f6709a653b924",
+    "analysis/02_followthrough_candle_adverse/pyproject.toml": "6cae41c68f06cd2acf04e069bee22d547155d1f4fdde68f93d8a94f99ff43e4d",
+    "analysis/02_followthrough_candle_adverse/src/followthrough_adverse/__init__.py": "80d0fb51dc5f4097913c9f6f3558864c35913853c3576a9063f78daa5caf88c8",
+    "analysis/02_followthrough_candle_adverse/src/followthrough_adverse/cli.py": "1430bf327f7de211df3311c813fbdc44984c2cd6e1684a03d6c285d625029e36",
+    "analysis/02_followthrough_candle_adverse/src/followthrough_adverse/core.py": "f85eaf8e8e748d092d6ed42e2f2e1aebe398be73ba3ce8dcf38906b21eb871f8",
+    "analysis/02_followthrough_candle_adverse/src/followthrough_adverse/hold_time.py": "66936e44f6498e7d9bc3d2c0a7a9d45ee82e35aa7f8de428a9125f0dbf917b82",
+    "analysis/02_followthrough_candle_adverse/src/followthrough_adverse/leg_duration.py": "8943ddd6f176631259bc3b339e9e793149ea92368b9c98ae19e7583e0f5d1198",
+    "analysis/02_followthrough_candle_adverse/src/followthrough_adverse/pipeline.py": "7fbc23174ebd7c5b3c01a3226f4274ee3758e8371eddbe52b3592a5ece5a52b5",
+    "analysis/02_followthrough_candle_adverse/src/followthrough_adverse/reporting.py": "eeed07e1bbe24a4ec7d7c2fd849649980d969c198e3b305e69097b19605b191f",
+    "analysis/02_followthrough_candle_adverse/src/followthrough_adverse/stats.py": "cef15c6d810fee6f93f543ed747bfaeed7859fb12abfa067153e2e38258d6818",
+    "analysis/02_followthrough_candle_adverse/src/followthrough_adverse/time_of_day.py": "5ce6911098a03c64f214383c6c899b9c8e95aaf3f0216afd51113796a08a6f59",
+    "analysis/02_followthrough_candle_adverse/tests/test_core.py": "8476b631b0d651d4968a7bf369e2795953650e1d75ab78b770d11d17502b81f5",
+    "analysis/02_followthrough_candle_adverse/tests/test_hold_time.py": "0784eab19ec765442390ef5b9c09fdc0d564e9c6a85020e572fc91aacc114c63",
+    "analysis/02_followthrough_candle_adverse/tests/test_leg_duration.py": "998a3dc7e7fb8ee11b63a0daf286725e566ff7349f8e2c7de9db51a0e44192d7",
+    "analysis/02_followthrough_candle_adverse/tests/test_stats.py": "2b1dfa7e5e15846642e4f674c6eb1db0a177ffb6c3aa8906f03e8d3e0fffb008",
+    "analysis/02_followthrough_candle_adverse/tests/test_time_of_day.py": "60f62cd58dafdce51da794df6bea28686a85f597f9f509a4110a49f140021e63"
+  },
+  "input_files": [
+    {
+      "rows": 52591,
+      "size_bytes": 2734732,
+      "source_path": "data/ESU6_rangexv4_0614_0904.csv",
+      "source_sha256": "486fd50994c9a3e5b77abf8fb10955bc14262db7ecdc8503940a3ff6169478b4"
+    },
+    {
+      "rows": 36188,
+      "size_bytes": 1881776,
+      "source_path": "data/ESU6_rangexv5_0614_0904.csv",
+      "source_sha256": "e288e3384e16945eadb7481e20871b96b22c6e6d1e45b75966c8244835e73a4e"
+    },
+    {
+      "rows": 26248,
+      "size_bytes": 1364896,
+      "source_path": "data/ESU6_rangexv6_0614_0904.csv",
+      "source_sha256": "fa4d1de67f9d46878775c768891d85be40b49733ba91110d73fca194967aa5bf"
+    },
+    {
+      "rows": 152418,
+      "size_bytes": 7316064,
+      "source_path": "data/GCZ6_rangexv6_0614_0904.csv",
+      "source_sha256": "ec16437c44425f9724b96fe0c0ea7d2ef8115a146726d4623cd55bcb3ea78ed9"
+    },
+    {
+      "rows": 67164,
+      "size_bytes": 3223872,
+      "source_path": "data/GCZ6_rangexv10_0614_0904.csv",
+      "source_sha256": "b8a417a11a4b4d175cc7ad7e4f06d0a80dcb90c290abea138cb1ea3c09253316"
+    },
+    {
+      "rows": 417815,
+      "size_bytes": 23397640,
+      "source_path": "data/NQU6_rangexv10_0614_0904.csv",
+      "source_sha256": "a01f0e1da108bf32360163c0e6963c854afbd547a4c4849843e0afd3dd2ae040"
+    },
+    {
+      "rows": 125793,
+      "size_bytes": 7044408,
+      "source_path": "data/NQU6_rangexv20_0614_0904.csv",
+      "source_sha256": "25dad28466f928b210769fe816629d72503f68dd0b7b39034da7dd17877f80c2"
+    }
+  ],
+  "input_hashes_rechecked_after_run": {
+    "data/ESU6_rangexv4_0614_0904.csv": true,
+    "data/ESU6_rangexv5_0614_0904.csv": true,
+    "data/ESU6_rangexv6_0614_0904.csv": true,
+    "data/GCZ6_rangexv10_0614_0904.csv": true,
+    "data/GCZ6_rangexv6_0614_0904.csv": true,
+    "data/NQU6_rangexv10_0614_0904.csv": true,
+    "data/NQU6_rangexv20_0614_0904.csv": true
+  },
+  "leg_duration_definition": {
+    "cohort": "completed reversal legs with at least three candles including the reversal",
+    "elapsed_time": "raw timestamp-difference proxy only",
+    "end": "last consecutive same-direction candle raw timestamp before the next opposite candle or doji",
+    "sessions": [
+      {
+        "end": "03:00",
+        "name": "Asia",
+        "start": "18:00"
+      },
+      {
+        "end": "12:00",
+        "name": "New York AM",
+        "start": "09:30"
+      },
+      {
+        "end": "16:00",
+        "name": "New York PM",
+        "start": "12:00"
+      }
+    ],
+    "start": "reversal candle raw timestamp"
+  },
+  "limitations": [
+    "Filename-labeled Range XV is provisional rather than verified Range XC",
+    "Export timezone and timestamp meaning unresolved",
+    "Conditional cohort uses the follow-through candle close and is not known at its open",
+    "GC6 is analyzed explicitly and is not a substitute for missing GC20"
+  ],
+  "output_files": {
+    "reports/02_followthrough_candle_adverse/20260906T_full_v7/data_quality.md": "92e4c77919b79d868d35635c645df08727a027e64a10a0c46305ec2ce62e88ec",
+    "reports/02_followthrough_candle_adverse/20260906T_full_v7/figures/adverse_distribution.svg": "ed810d3b6f4695b988398fdcfbe320d43a025996ea9cadf926d9341e26dfe777",
+    "reports/02_followthrough_candle_adverse/20260906T_full_v7/figures/chronological_stability.svg": "f6141080e9113f4eb23d6369a9208c4691a2a81a6de34289c9aa3b520a21958c",
+    "reports/02_followthrough_candle_adverse/20260906T_full_v7/figures/hold_time_30min.svg": "6247a2fbed4ddabf76fe77deb5103efe68c6f0d1616472d1ddb23af57956f9a8",
+    "reports/02_followthrough_candle_adverse/20260906T_full_v7/figures/leg_duration_30min.svg": "b2ddbbbd80b272a09b41cd709aa3a40056cfedea7366a93e171c83c42eb7ae02",
+    "reports/02_followthrough_candle_adverse/20260906T_full_v7/figures/long_short.svg": "716a26fb8b843048e37c231d7684c0395fd0682dd29ccaab74b0909d3e6fba96",
+    "reports/02_followthrough_candle_adverse/20260906T_full_v7/figures/mean_adverse.svg": "74e993aca1cea2d59b1b36e9a5426d1154f2e9ebbed7a38c079b1afd0650180c",
+    "reports/02_followthrough_candle_adverse/20260906T_full_v7/figures/prior_run_sensitivity.svg": "cba36ce3713d4f84074d5cd3c4c4db5eb211d52d194c7ac1626a75684d7b3240",
+    "reports/02_followthrough_candle_adverse/20260906T_full_v7/figures/time_of_day_followthrough_rate.svg": "56ad95d4c8b7e229e2f5d57ac7f7a9c37454b57cd64f7a524e38d115693192d2",
+    "reports/02_followthrough_candle_adverse/20260906T_full_v7/leg_duration_report.html": "b8b07e38a8557d29ed30edb1e6b57271529c31205792016c08d100cf50b4cfa9",
+    "reports/02_followthrough_candle_adverse/20260906T_full_v7/leg_duration_report.md": "9ed8d15478968548a3019ebe1a5f36ae55d0c1b27de1497664752c7e5b030ff0",
+    "reports/02_followthrough_candle_adverse/20260906T_full_v7/methodology.md": "a5d1be3eee4c528c7739c72cee40482994a61033655231f92293c1d92e8e621d",
+    "reports/02_followthrough_candle_adverse/20260906T_full_v7/report.html": "27d229489ace22e6ab6f6f98a72f626955fc44b3ea8c43c51d129b5fd2eae49e",
+    "reports/02_followthrough_candle_adverse/20260906T_full_v7/report.md": "9670b8dceb9fc86c36da9cd39fa380c076de5d4db837c2e504b185ca30bfc24a",
+    "reports/02_followthrough_candle_adverse/20260906T_full_v7/tables/all_summary.csv": "4c3e97a57e1ec9ea3c04c492bfdc2c8b5b60ac7187950c9a2f002825a91ed34d",
+    "reports/02_followthrough_candle_adverse/20260906T_full_v7/tables/chronological_stability.csv": "4ba7e5aa9c1ba4355e522aa7aa1a3ce037f2409296b8cf51de09b8f0ea0c2e2e",
+    "reports/02_followthrough_candle_adverse/20260906T_full_v7/tables/data_audit.csv": "5a1bba7fa7c8df4c3f38d611d889e413a99300feb64db25a98a0a96306b5b085",
+    "reports/02_followthrough_candle_adverse/20260906T_full_v7/tables/headline.csv": "e906d78f84e592f20e3117fa066b52017a254e49fe5ffc411c32a0f67de91543",
+    "reports/02_followthrough_candle_adverse/20260906T_full_v7/tables/hold_time_balanced_windows_30min.csv": "996564ca088179e09d946b5f56aaf1dd5e836ce7a09ee3d19ffd13f7ef0fa1f6",
+    "reports/02_followthrough_candle_adverse/20260906T_full_v7/tables/hold_time_by_confirmation_30min.csv": "40bc522f760063f004a984787eff5a9cd981a2de56b87657a30e7cc90d55d263",
+    "reports/02_followthrough_candle_adverse/20260906T_full_v7/tables/hold_time_manual_reconciliation.csv": "19a96562346a51b1d7e520efe848bb2584c73ba7f6bcb47f335412c532453b8e",
+    "reports/02_followthrough_candle_adverse/20260906T_full_v7/tables/hold_time_rankings_30min.csv": "c36257ea4dca82aaa480dcd2e286c92bd00cf4452880661e3c10d74ae0a6ba41",
+    "reports/02_followthrough_candle_adverse/20260906T_full_v7/tables/hold_time_summary.csv": "a78695a19dadcabdd99be70ad92b2140d72bfc74bd3980d6fb8d6d9b3514c674",
+    "reports/02_followthrough_candle_adverse/20260906T_full_v7/tables/leg_duration_by_reversal_30min.csv": "0733b379468e3d7a9785413ef355b3622d0d9160e733ea0b6727cf0b675fb184",
+    "reports/02_followthrough_candle_adverse/20260906T_full_v7/tables/leg_duration_by_session.csv": "b98a1e7e3cc95832cc63a71842e5b9dfd07fbf9952ba99cf7d6ff3224f4053e8",
+    "reports/02_followthrough_candle_adverse/20260906T_full_v7/tables/leg_duration_manual_reconciliation.csv": "c7550a44fc17860a4d070ce232a82e6b526d22d587da6634001374bff9f0439c",
+    "reports/02_followthrough_candle_adverse/20260906T_full_v7/tables/leg_duration_rankings_30min.csv": "b09964a5be79abc5ae7b5f10fd37f4cdcb816f9192eb05f4747784e380fc2c10",
+    "reports/02_followthrough_candle_adverse/20260906T_full_v7/tables/leg_duration_summary.csv": "c4081e6afbcb1d5e68544b8e8dd3f3accdd9e0126481622ddb5e68ec855e0eca",
+    "reports/02_followthrough_candle_adverse/20260906T_full_v7/tables/long_short.csv": "c58673019b6e550a686ec33c0d84b02bf6171463dcb48d2d07f84f7db805484e",
+    "reports/02_followthrough_candle_adverse/20260906T_full_v7/tables/manual_reconciliation.csv": "c796d83477a668fb8cafb2725e73ce756375c7b1f684788c25d471c1e53bfbeb",
+    "reports/02_followthrough_candle_adverse/20260906T_full_v7/tables/prior_run_sensitivity.csv": "f885f240b0892464d450bf15c64b54834eb9867a45188221f2b453b6ad0e2e2f",
+    "reports/02_followthrough_candle_adverse/20260906T_full_v7/tables/time_of_day_balanced_windows_30min.csv": "e459e57574585ac05f161e525b475d521ca30f58cde57af77ce2bf9191c6a899",
+    "reports/02_followthrough_candle_adverse/20260906T_full_v7/tables/time_of_day_confirmation_30min.csv": "4adfa2783f04c43289563e3e02ca1522df9dd32d311ab888e00fd1f7a6780786",
+    "reports/02_followthrough_candle_adverse/20260906T_full_v7/tables/time_of_day_rankings_30min.csv": "4fe8826ccbc30108f59bfde370b471d058f5e707a013316b6cb1717907d85fec",
+    "reports/02_followthrough_candle_adverse/20260906T_full_v7/tables/time_of_day_signal_30min.csv": "3386a012943b249619aa6bd414b1175b83559b20346508b551571e3c70d885ed",
+    "work/02_followthrough_candle_adverse/20260906T_full_v7/diagnostics/frozen_config.yaml": "a8167152e77cf9c8025c080d0e2989f3bb0fbf998ab84b15894f6709a653b924",
+    "work/02_followthrough_candle_adverse/20260906T_full_v7/diagnostics/validation_checks.json": "d31bab582da3ccff1216aa13967815a3f9faf20ecaafe2e33a1d769dbe633ec2",
+    "work/02_followthrough_candle_adverse/20260906T_full_v7/events/ES_range4_events.csv": "d866b57b0591e6c5317094457106bfaefa984d3e9d73db58d783d33fb66500f1",
+    "work/02_followthrough_candle_adverse/20260906T_full_v7/events/ES_range5_events.csv": "e04cc4c59dd9adbd39c9d9cdf5348be98c6524bc4899757733887cecda70677e",
+    "work/02_followthrough_candle_adverse/20260906T_full_v7/events/ES_range6_events.csv": "9d3723304a5f7be8f2c86a51e39850a2951e936d17b81efa3f2be7afad27ca59",
+    "work/02_followthrough_candle_adverse/20260906T_full_v7/events/GC_range10_events.csv": "e752c6fcc33632680ee4d8996b3907570e13b18aa615d81c89d843cd9978dd2a",
+    "work/02_followthrough_candle_adverse/20260906T_full_v7/events/GC_range6_events.csv": "cd2ec68948d0b603b6e1d30a4a525b96a7f42f6db0a9f41aefb79b074d0618eb",
+    "work/02_followthrough_candle_adverse/20260906T_full_v7/events/NQ_range10_events.csv": "f117e9fa57bfa78ab6d4a374398d9e8c0cda0da1c016534e9190da56e35a8c16",
+    "work/02_followthrough_candle_adverse/20260906T_full_v7/events/NQ_range20_events.csv": "9f063e0f901cb6f1415083c236ef52912d21687f071998f353fb32c387e93f5e",
+    "work/02_followthrough_candle_adverse/20260906T_full_v7/hold_events/ES_range4_hold_events.csv": "903c5770e6ed1afd54eb3d545f2a70c90ec05d5f010f41aee252c9b11951167d",
+    "work/02_followthrough_candle_adverse/20260906T_full_v7/hold_events/ES_range5_hold_events.csv": "541bbf5837d935b3836ba270f1bbba4aa295fc3ec38e6b3580294454dcb0d407",
+    "work/02_followthrough_candle_adverse/20260906T_full_v7/hold_events/ES_range6_hold_events.csv": "a998d8fe9f168bff649fff55b821d9b7dca0e5c94c2f90c86e1fc70cf652a6b6",
+    "work/02_followthrough_candle_adverse/20260906T_full_v7/hold_events/GC_range10_hold_events.csv": "e765395a130de517cfc97e889a348491f527f52d5684ff4ceb63952a743cdfa3",
+    "work/02_followthrough_candle_adverse/20260906T_full_v7/hold_events/GC_range6_hold_events.csv": "336a0690e743c1bc7ec698face60f5f848d3ca36e6ee7f5109ece1dc637b6d84",
+    "work/02_followthrough_candle_adverse/20260906T_full_v7/hold_events/NQ_range10_hold_events.csv": "9a7702e065f920db30dafb735a369c64903f378bd231c60e0722172788f873c8",
+    "work/02_followthrough_candle_adverse/20260906T_full_v7/hold_events/NQ_range20_hold_events.csv": "ad04973630e789a070da280778f23b1e0efd15da6a16edfc8196e0d74e3ca8c8",
+    "work/02_followthrough_candle_adverse/20260906T_full_v7/leg_events/ES_range4_leg_events.csv": "a152c1d9ec8ef73ef9a0fd45ad797e99c3edd9492b847ea0a72d40e2a6a68eaf",
+    "work/02_followthrough_candle_adverse/20260906T_full_v7/leg_events/ES_range5_leg_events.csv": "5be3bd80af15235f009012988e068b4b4ac3181f9eead26b1a7f78582f648823",
+    "work/02_followthrough_candle_adverse/20260906T_full_v7/leg_events/ES_range6_leg_events.csv": "c745450005cf949b8c85ec360fd09e51ae6b59e33342fcca3981b9f54d4ba304",
+    "work/02_followthrough_candle_adverse/20260906T_full_v7/leg_events/GC_range10_leg_events.csv": "38533fe1b6892f2dee6a2ec682b5b30c3482d29973546af8b278a381a41eac69",
+    "work/02_followthrough_candle_adverse/20260906T_full_v7/leg_events/GC_range6_leg_events.csv": "022b64d6ea702a42bea9866eedd097e8805431b9dcb8dd2650bc979561b4f138",
+    "work/02_followthrough_candle_adverse/20260906T_full_v7/leg_events/NQ_range10_leg_events.csv": "d6b9e72ac77ad47e2bb4175f75db09d4746d7a3d927474ca9f0ef1b3050fb62f",
+    "work/02_followthrough_candle_adverse/20260906T_full_v7/leg_events/NQ_range20_leg_events.csv": "32893dc6f67dc318bd67a71805590b603b41af030a3ff4d47d9d1b0ab5ba1c35"
+  },
+  "platform": "macOS-26.5.1-arm64-arm-64bit",
+  "primary_reference": "follow-through candle open",
+  "python": "3.12.14 (main, Aug 25 2026, 13:50:33) [Clang 22.1.3 ]",
+  "reproducible_command": "PYTHONPATH=analysis/02_followthrough_candle_adverse/src python -m followthrough_adverse.cli run --config analysis/02_followthrough_candle_adverse/configs/study.yaml --run-id 20260906T_full_v7_rerun",
+  "run_id": "20260906T_full_v7",
+  "runtime_seconds": 38.144273,
+  "second_candle_interpretation": "The immediately following candle is the second same-direction candle including the reversal and follow-through position 1 after the reversal",
+  "started_utc": "2026-09-07T03:46:43.572574+00:00",
+  "study_id": "02_followthrough_candle_adverse",
+  "table_rows": {
+    "all_summary": 252,
+    "chronological_stability": 21,
+    "data_audit": 7,
+    "headline": 7,
+    "hold_time_balanced_windows_30min": 19,
+    "hold_time_by_confirmation_30min": 336,
+    "hold_time_manual_reconciliation": 84,
+    "hold_time_rankings_30min": 84,
+    "hold_time_summary": 7,
+    "leg_duration_by_reversal_30min": 336,
+    "leg_duration_by_session": 21,
+    "leg_duration_manual_reconciliation": 84,
+    "leg_duration_rankings_30min": 63,
+    "leg_duration_summary": 7,
+    "long_short": 14,
+    "manual_reconciliation": 84,
+    "prior_run_sensitivity": 21,
+    "time_of_day_balanced_windows_30min": 21,
+    "time_of_day_confirmation_30min": 336,
+    "time_of_day_rankings_30min": 126,
+    "time_of_day_signal_30min": 336
+  },
+  "total_reversal_events": 271688,
+  "validation_checks": {
+    "all_checks_pass": true,
+    "charts": [
+      {
+        "all_match": true,
+        "asset": "ES",
+        "matches": 12,
+        "range_setting": 4,
+        "sampled": 12
+      },
+      {
+        "all_match": true,
+        "asset": "ES",
+        "matches": 12,
+        "range_setting": 5,
+        "sampled": 12
+      },
+      {
+        "all_match": true,
+        "asset": "ES",
+        "matches": 12,
+        "range_setting": 6,
+        "sampled": 12
+      },
+      {
+        "all_match": true,
+        "asset": "GC",
+        "matches": 12,
+        "range_setting": 6,
+        "sampled": 12
+      },
+      {
+        "all_match": true,
+        "asset": "GC",
+        "matches": 12,
+        "range_setting": 10,
+        "sampled": 12
+      },
+      {
+        "all_match": true,
+        "asset": "NQ",
+        "matches": 12,
+        "range_setting": 10,
+        "sampled": 12
+      },
+      {
+        "all_match": true,
+        "asset": "NQ",
+        "matches": 12,
+        "range_setting": 20,
+        "sampled": 12
+      }
+    ],
+    "conditioned_rows_have_same_direction": true,
+    "hold_events_reconcile_to_conditioned_events": true,
+    "hold_eventual_success_requires_eligibility": true,
+    "hold_proxy_times_nonnegative": true,
+    "hold_reconciliation_all_checks_pass": true,
+    "hold_reconciliation_charts": [
+      {
+        "all_match": true,
+        "asset": "ES",
+        "matches": 12,
+        "range_setting": 4,
+        "sampled": 12
+      },
+      {
+        "all_match": true,
+        "asset": "ES",
+        "matches": 12,
+        "range_setting": 5,
+        "sampled": 12
+      },
+      {
+        "all_match": true,
+        "asset": "ES",
+        "matches": 12,
+        "range_setting": 6,
+        "sampled": 12
+      },
+      {
+        "all_match": true,
+        "asset": "GC",
+        "matches": 12,
+        "range_setting": 6,
+        "sampled": 12
+      },
+      {
+        "all_match": true,
+        "asset": "GC",
+        "matches": 12,
+        "range_setting": 10,
+        "sampled": 12
+      },
+      {
+        "all_match": true,
+        "asset": "NQ",
+        "matches": 12,
+        "range_setting": 10,
+        "sampled": 12
+      },
+      {
+        "all_match": true,
+        "asset": "NQ",
+        "matches": 12,
+        "range_setting": 20,
+        "sampled": 12
+      }
+    ],
+    "hold_reconciliation_matching_events": 84,
+    "hold_reconciliation_sampled_events": 84,
+    "hold_strict_success_requires_eligibility": true,
+    "hold_strict_success_target_is_two_bars": true,
+    "hold_time_expected_rows": 336,
+    "hold_time_rows": 336,
+    "leg_completed_and_censored_partition": true,
+    "leg_duration_nonnegative": true,
+    "leg_events_reconcile_to_reversals": true,
+    "leg_rankings_meet_support": true,
+    "leg_reconciliation_all_checks_pass": true,
+    "leg_reconciliation_charts": [
+      {
+        "all_match": true,
+        "asset": "ES",
+        "matches": 12,
+        "range_setting": 4,
+        "sampled": 12
+      },
+      {
+        "all_match": true,
+        "asset": "ES",
+        "matches": 12,
+        "range_setting": 5,
+        "sampled": 12
+      },
+      {
+        "all_match": true,
+        "asset": "ES",
+        "matches": 12,
+        "range_setting": 6,
+        "sampled": 12
+      },
+      {
+        "all_match": true,
+        "asset": "GC",
+        "matches": 12,
+        "range_setting": 6,
+        "sampled": 12
+      },
+      {
+        "all_match": true,
+        "asset": "GC",
+        "matches": 12,
+        "range_setting": 10,
+        "sampled": 12
+      },
+      {
+        "all_match": true,
+        "asset": "NQ",
+        "matches": 12,
+        "range_setting": 10,
+        "sampled": 12
+      },
+      {
+        "all_match": true,
+        "asset": "NQ",
+        "matches": 12,
+        "range_setting": 20,
+        "sampled": 12
+      }
+    ],
+    "leg_reconciliation_matching_events": 84,
+    "leg_reconciliation_sampled_events": 84,
+    "leg_session_expected_rows": 21,
+    "leg_session_qualifying_within_total": true,
+    "leg_session_rows": 21,
+    "leg_three_plus_minimum_candles": true,
+    "leg_three_plus_requires_completion": true,
+    "leg_time_expected_rows": 336,
+    "leg_time_rows": 336,
+    "matching_events": 84,
+    "nonnegative_primary_adverse": true,
+    "sampled_events": 84,
+    "time_of_day_confirmation_events_reconcile": true,
+    "time_of_day_confirmation_rows": 336,
+    "time_of_day_expected_rows": 336,
+    "time_of_day_rankings_meet_support": true,
+    "time_of_day_signal_events_reconcile": true,
+    "time_of_day_signal_reversals_reconcile": true,
+    "time_of_day_signal_rows": 336
+  }
+}

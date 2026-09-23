@@ -1,0 +1,293 @@
+{
+  "aggregate_invariants": {
+    "all_checks_pass": true,
+    "common_cohort_events": 223141,
+    "events": 224669,
+    "failures": []
+  },
+  "analysis_event_rows_excluding_embargo": 218602,
+  "bootstrap": {
+    "replicates": 2000,
+    "seed": 20260906,
+    "session_block_lengths": [
+      1,
+      3
+    ]
+  },
+  "candidate_selection": [
+    {
+      "asset": "ES",
+      "development_candidate": 4,
+      "reason": "The development leader did not satisfy every prespecified validation and held-out significance condition",
+      "recommendation": "No clear winner",
+      "test_clear_winner": false,
+      "validation_supported": false
+    },
+    {
+      "asset": "GC",
+      "development_candidate": 10,
+      "reason": "Requested comparison unavailable: GC20 dataset missing",
+      "recommendation": "No range comparison possible",
+      "test_clear_winner": false,
+      "validation_supported": false
+    },
+    {
+      "asset": "NQ",
+      "development_candidate": 10,
+      "reason": "The development leader did not satisfy every prespecified validation and held-out significance condition",
+      "recommendation": "No clear winner",
+      "test_clear_winner": false,
+      "validation_supported": false
+    }
+  ],
+  "completed_utc": "2026-09-06T18:58:50.469002+00:00",
+  "configuration_path": "analysis/01_reversal_follow_through/configs/study.yaml",
+  "configuration_sha256": "b88051a9e1603f05fd4ceb84ae91612b9423956caceb18eb29ffd5c801182e61",
+  "definitions": {
+    "direction": "sign(close-open) in integer exchange ticks",
+    "final_row_exclusion": "unresolved; conservatively omit the final row of each export",
+    "primary_metric": "P(L>=3), conditional on a complete three-future-bar window",
+    "reversal": "adjacent non-doji bar opposite the preceding non-doji bar within a valid segment",
+    "segment_rule": "parsed export calendar date (provisional, not a verified exchange session)"
+  },
+  "dependencies": {
+    "numpy": "2.3.5",
+    "pandas": "2.2.3"
+  },
+  "event_rows": 224669,
+  "git_revision": null,
+  "git_status": "project directory is not a Git repository",
+  "implementation_files": {
+    "analysis/01_reversal_follow_through/README.md": "5f7f962fa8835ba4f7835add383216bf6946796094ae473a233f18121f37ff97",
+    "analysis/01_reversal_follow_through/configs/study.yaml": "adc76367dd00798071fb346fa1acc6fc7a61cb0bfd298ad7b83e619e0c9acce3",
+    "analysis/01_reversal_follow_through/pyproject.toml": "686ea75e876082dd5888971032bd84079a1c04063ad9dd2d66e0e7885796ab6c",
+    "analysis/01_reversal_follow_through/src/reversal_study/__init__.py": "ec3d73f2da41b4a415a3ac9b948411054fcf4cd23e3f4a84cf463ce2b13acb19",
+    "analysis/01_reversal_follow_through/src/reversal_study/cli.py": "037cc5f83165fd99eb3ba72d4f8716b0f2539eb075281b59c15e4d516a612675",
+    "analysis/01_reversal_follow_through/src/reversal_study/comparisons.py": "0c6c7ebc5ae3c9def4370617962606cc30e0312da74a29c619a2c968e5c1ab0a",
+    "analysis/01_reversal_follow_through/src/reversal_study/events.py": "203bc98f103909a5dc1a9724933873c7118248c5f6af0e45cac375eb4893b32d",
+    "analysis/01_reversal_follow_through/src/reversal_study/excursions.py": "d1fea28f3a614ccc14467cd1003e44fbb06a170945f80a38aca85be8c26cbeb3",
+    "analysis/01_reversal_follow_through/src/reversal_study/ingest.py": "24c87e2b5fe26df0e7ddde7027ee21d6241e3e2a04479e9b7b84f802f0f404a7",
+    "analysis/01_reversal_follow_through/src/reversal_study/pipeline.py": "562bf486aba8475a619b6095e838a36b4d50ca82dce4fcb92ff27ae275da104f",
+    "analysis/01_reversal_follow_through/src/reversal_study/reporting.py": "39b40b6fb03adcb1df5fe33046d1a7e1da9f4631c9de0cc53a3d54aa311f557c",
+    "analysis/01_reversal_follow_through/src/reversal_study/statistics.py": "8806667bedd38e8cc73fa778f44602ceb8ef20f089f7d14f7e02a1c292326baf",
+    "analysis/01_reversal_follow_through/src/reversal_study/timing.py": "cedd0771dbe782dc8910f4f8cacbe85637a700c71a89ce8ac9fa8d8c7cf4fcb8",
+    "analysis/01_reversal_follow_through/src/reversal_study/validate.py": "b9ffa2b0f99d23c798b74e9054f430dce011adb08c4166a822a428334214ce39",
+    "analysis/01_reversal_follow_through/tests/test_events.py": "a2a068d16eafc22dfe4244d40f863af64633562e810045310158240adf290541",
+    "analysis/01_reversal_follow_through/tests/test_excursions.py": "4c4c6863eb9a77323430bfc491dbdebb756957dcdd6e5ae5a9fe37eb8ce9dbde",
+    "analysis/01_reversal_follow_through/tests/test_ingest_statistics.py": "06b5991a13baf49dd14d7b331d6979aaced2420d66411a05fc349ab8272b81dc"
+  },
+  "input_files": [
+    {
+      "rows": 52591.0,
+      "size_bytes": 2734732.0,
+      "source_path": "data/ESU6_rangexv4_0614_0904.csv",
+      "source_sha256": "486fd50994c9a3e5b77abf8fb10955bc14262db7ecdc8503940a3ff6169478b4",
+      "status": "analyzed"
+    },
+    {
+      "rows": 36188.0,
+      "size_bytes": 1881776.0,
+      "source_path": "data/ESU6_rangexv5_0614_0904.csv",
+      "source_sha256": "e288e3384e16945eadb7481e20871b96b22c6e6d1e45b75966c8244835e73a4e",
+      "status": "analyzed"
+    },
+    {
+      "rows": 26248.0,
+      "size_bytes": 1364896.0,
+      "source_path": "data/ESU6_rangexv6_0614_0904.csv",
+      "source_sha256": "fa4d1de67f9d46878775c768891d85be40b49733ba91110d73fca194967aa5bf",
+      "status": "analyzed"
+    },
+    {
+      "rows": 67164.0,
+      "size_bytes": 3223872.0,
+      "source_path": "data/GCZ6_rangexv10_0614_0904.csv",
+      "source_sha256": "b8a417a11a4b4d175cc7ad7e4f06d0a80dcb90c290abea138cb1ea3c09253316",
+      "status": "analyzed"
+    },
+    {
+      "rows": 417815.0,
+      "size_bytes": 23397640.0,
+      "source_path": "data/NQU6_rangexv10_0614_0904.csv",
+      "source_sha256": "a01f0e1da108bf32360163c0e6963c854afbd547a4c4849843e0afd3dd2ae040",
+      "status": "analyzed"
+    },
+    {
+      "rows": 125793.0,
+      "size_bytes": 7044408.0,
+      "source_path": "data/NQU6_rangexv20_0614_0904.csv",
+      "source_sha256": "25dad28466f928b210769fe816629d72503f68dd0b7b39034da7dd17877f80c2",
+      "status": "analyzed"
+    },
+    {
+      "rows": 152418.0,
+      "size_bytes": 7316064.0,
+      "source_path": "data/GCZ6_rangexv6_0614_0904.csv",
+      "source_sha256": "ec16437c44425f9724b96fe0c0ea7d2ef8115a146726d4623cd55bcb3ea78ed9",
+      "status": "inventory_only"
+    }
+  ],
+  "input_hashes_rechecked_after_run": {
+    "data/ESU6_rangexv4_0614_0904.csv": true,
+    "data/ESU6_rangexv5_0614_0904.csv": true,
+    "data/ESU6_rangexv6_0614_0904.csv": true,
+    "data/GCZ6_rangexv10_0614_0904.csv": true,
+    "data/GCZ6_rangexv6_0614_0904.csv": true,
+    "data/NQU6_rangexv10_0614_0904.csv": true,
+    "data/NQU6_rangexv20_0614_0904.csv": true
+  },
+  "inventory_only": [
+    "data/GCZ6_rangexv6_0614_0904.csv"
+  ],
+  "missing_inputs": [
+    "GC range 20 export"
+  ],
+  "output_files": {
+    "reports/01_reversal_follow_through/20260906T_full_v3/data_quality.md": "60abc607dd14538a988b4fc52a818ab784496dab2501f7546180f24a1d62f558",
+    "reports/01_reversal_follow_through/20260906T_full_v3/figures/annotated_examples.svg": "54101841c158c7201f842b8b1c841669d8480a5fc8a2401b0c7ea1a92ba4b951",
+    "reports/01_reversal_follow_through/20260906T_full_v3/figures/chronological_stability.svg": "c662a2405e55addd4f7e4d4ccdd11cc378e5204bc7c4e5e0401eef74035b4bcf",
+    "reports/01_reversal_follow_through/20260906T_full_v3/figures/continuation_curves.svg": "9304b12ac0b8fbbac1793351109912161a48a7a06e50ff6cde4045163f733fff",
+    "reports/01_reversal_follow_through/20260906T_full_v3/figures/coverage_gap.svg": "21e85f372f773bb16db4f7b47adac98710cf6a1eef31f14588aaa29d9d3b5095",
+    "reports/01_reversal_follow_through/20260906T_full_v3/figures/excursion_profiles.svg": "6cd61446357bedc4a46cd1bcb165c3efa92af7f93c53464947aa4999c99dd483",
+    "reports/01_reversal_follow_through/20260906T_full_v3/figures/probability_adverse_tradeoff.svg": "a524ccfeee7470cfb80376ec36eaf174871a673f6b14e53c398d699b3224d5b5",
+    "reports/01_reversal_follow_through/20260906T_full_v3/figures/probability_opportunities.svg": "ce3ee407b438d553f6b7c53146a43bd515c0e69b530d46b225bef47796bd8770",
+    "reports/01_reversal_follow_through/20260906T_full_v3/figures/run_length_distributions.svg": "2af09856b3032e78f3490f577f8c1c549c6827b23f7b53cec1463c211124cf44",
+    "reports/01_reversal_follow_through/20260906T_full_v3/figures/time_to_three_proxy.svg": "2e4c5116feb398f4632228ddc73d06f6643e272cce985471d3e2a99df00a67ca",
+    "reports/01_reversal_follow_through/20260906T_full_v3/methodology.md": "49cebcf199fbe5371200b17523b29e610a2e9714f8a6f5eb38e7e5582f29a351",
+    "reports/01_reversal_follow_through/20260906T_full_v3/report.html": "bc28e14bbc8bd7132c727f5867c66086cc4678e5c00271c210b2903e6f4c2d1c",
+    "reports/01_reversal_follow_through/20260906T_full_v3/report.md": "81171d6990d8c44e9dc71cc3d946e641bbf81dabadb2725b238718c0bc1adea9",
+    "reports/01_reversal_follow_through/20260906T_full_v3/selection_ledger.json": "9114e4c400a11bbcd1c29681631f3a7bde97305e5fe578b4a3de2b1a8d2ce00f",
+    "reports/01_reversal_follow_through/20260906T_full_v3/tables/annotated_examples.csv": "b801c1a679a6e89ecb87704016e6a93675a6de10fb521b27408b0a8261a4ac5b",
+    "reports/01_reversal_follow_through/20260906T_full_v3/tables/boundary_sensitivity.csv": "ba9f28e7a1ed8282efe97288c487b4573d316731f6e866da5fedf5238fc36a0a",
+    "reports/01_reversal_follow_through/20260906T_full_v3/tables/candidate_selection.csv": "ea54e4bbf5d255e79ca54552a53b92dbeae717c5911746181dddf7ecea971eb8",
+    "reports/01_reversal_follow_through/20260906T_full_v3/tables/continuation_curve.csv": "3ab98bf698fc79bfb71bea6b1a74bc8b0e555359f7c077de1ef602523754f110",
+    "reports/01_reversal_follow_through/20260906T_full_v3/tables/continuation_thresholds.csv": "df62e84bffe1f8df811966bc26326e317f93563df041a4841092a1197c825695",
+    "reports/01_reversal_follow_through/20260906T_full_v3/tables/coverage.csv": "4617a74b85231f2c9fd1990e59f7d8da2ea1afe10650e128b08de59401cad429",
+    "reports/01_reversal_follow_through/20260906T_full_v3/tables/cross_asset_summary.csv": "73c8d6163dda3c1269303eb2cffca9bbbd5c52bb835a8687f3b07739c3024ed5",
+    "reports/01_reversal_follow_through/20260906T_full_v3/tables/data_audit.csv": "2a99bb41e8a895a42578eeb9b5a6f03b3c23b89a73f4c2148392e870c4894f6f",
+    "reports/01_reversal_follow_through/20260906T_full_v3/tables/excursions_fixed.csv": "b73d5807f193d8bc357d2f0f906cc568fad785c299fe9cc1904fca0ae9355ea4",
+    "reports/01_reversal_follow_through/20260906T_full_v3/tables/excursions_run_only.csv": "409312f2185c77372ced81769a37e8d2cfcefa8ddebe236ee9fecaf63d789747",
+    "reports/01_reversal_follow_through/20260906T_full_v3/tables/excursions_through_break.csv": "e6c6c58a603a8b6988ba58a0fc264f5a46547abd012606fb0719e61450e6171e",
+    "reports/01_reversal_follow_through/20260906T_full_v3/tables/extreme_bar_indices.csv": "0829653e7e0ee9ea8ff1318d645512e6b28ba0a5bc5dae15990c59e25c8d951e",
+    "reports/01_reversal_follow_through/20260906T_full_v3/tables/geometry.csv": "4fab1ad684d6b7637aff97c4886d6f44ed5870b15f6b472a328d8479c067be75",
+    "reports/01_reversal_follow_through/20260906T_full_v3/tables/headline.csv": "54e6de6751dfdcae7fbc1d2d4653f573e2d1a4af94ef8d9b05b2b493395c608f",
+    "reports/01_reversal_follow_through/20260906T_full_v3/tables/manual_reconciliation.csv": "fcb735f25334f9a9ab356282eeed7915bc388f5f2b944aae51adac6e22925cdc",
+    "reports/01_reversal_follow_through/20260906T_full_v3/tables/movement_at_milestones.csv": "fe7785448b232aa8c1b64507c149e1462267467e875b0799ce21cdd197449e24",
+    "reports/01_reversal_follow_through/20260906T_full_v3/tables/opportunities.csv": "941ad978656f4afa7ddcf4482fbbaa700e3f8c5ec09f09a20d7ae921d3973a71",
+    "reports/01_reversal_follow_through/20260906T_full_v3/tables/paired_comparisons.csv": "de078ef366e05740a1c13ef2b82576e45d370e4fb3a9da62ff7e9fbb0f4dae54",
+    "reports/01_reversal_follow_through/20260906T_full_v3/tables/run_length_bins.csv": "39d4abd3e4218d8219141cd122d487832e1a50ff41bdadcd7b541e9639ae3d09",
+    "reports/01_reversal_follow_through/20260906T_full_v3/tables/run_length_summary.csv": "e84230297c533b2e4f07075dd7d996861e2aac9dc54e409d9c5d27e71b369362",
+    "reports/01_reversal_follow_through/20260906T_full_v3/tables/same_chart_baseline.csv": "1d1b9dfb40a9fa33f8d1c2122375f95f23765381a27071b12729d47505c61548",
+    "reports/01_reversal_follow_through/20260906T_full_v3/tables/stability.csv": "b203f42c797cdeabeb4777d53e82d5a746825dbc87fc82ec1484912a8adf8267",
+    "reports/01_reversal_follow_through/20260906T_full_v3/tables/timing_milestones_proxy.csv": "cc4fe51312bca7e73af3d3b142a95dbdf9d5c995616d1d14020aca347e502146",
+    "reports/01_reversal_follow_through/20260906T_full_v3/tables/timing_quality.csv": "3df4e9172a36adf87f638284db2e650e6a4e9e151ebf4106146479a68b5fb3ae",
+    "work/01_reversal_follow_through/20260906T_full_v3/diagnostics/aggregate_invariants.json": "25cf7db05416f301d639849f43628c3e5d151904c753cbab3146f9a0bd460f78",
+    "work/01_reversal_follow_through/20260906T_full_v3/diagnostics/data_audit.csv": "2a99bb41e8a895a42578eeb9b5a6f03b3c23b89a73f4c2148392e870c4894f6f",
+    "work/01_reversal_follow_through/20260906T_full_v3/diagnostics/frozen_config.yaml": "adc76367dd00798071fb346fa1acc6fc7a61cb0bfd298ad7b83e619e0c9acce3",
+    "work/01_reversal_follow_through/20260906T_full_v3/diagnostics/real_event_crosscheck.json": "2db2d753e431ecedd334cb09ce20acb552b8ecfd85157b70747213afb186175e",
+    "work/01_reversal_follow_through/20260906T_full_v3/events/ES_range4_events.csv": "c0c9c3236ac9dce6862174820895ab1ee596923c3c693b1854540e0a38687c44",
+    "work/01_reversal_follow_through/20260906T_full_v3/events/ES_range5_events.csv": "e866c53d6f120f4a65764ba209a60a6c14632d82dae7f161b5601dfcbadf0d47",
+    "work/01_reversal_follow_through/20260906T_full_v3/events/ES_range6_events.csv": "8467bbd2b41535b5d181e86995ff8f869ced63fade00743a75112f7bb844d399",
+    "work/01_reversal_follow_through/20260906T_full_v3/events/GC_range10_events.csv": "23e65bf7e32ea361eea6ea20dbead85347d58b2e056e0017f877dc0825548c26",
+    "work/01_reversal_follow_through/20260906T_full_v3/events/NQ_range10_events.csv": "e5f97adb3eab4e83cb2144ee597a5acec518176cccc11e59b880daa4eb9e3e89",
+    "work/01_reversal_follow_through/20260906T_full_v3/events/NQ_range20_events.csv": "3334b1dce5f1d0adddafb3015e2990696f2fe14af3892cc81f0379dd1228d877",
+    "work/01_reversal_follow_through/20260906T_full_v3/normalized/ES_range4_bars.csv": "365b815c87e0e4015da482e5f9df044f7a93375057ad9919feca459de33e491b",
+    "work/01_reversal_follow_through/20260906T_full_v3/normalized/ES_range5_bars.csv": "babf4f30167c40cf431296c7a542d6f0f70a8c40960c73943a5c2f554be66fb4",
+    "work/01_reversal_follow_through/20260906T_full_v3/normalized/ES_range6_bars.csv": "7b429563b44f8dbdc0e00666c43d10d4cdf07421e187015b326e3eb4dbb48f88",
+    "work/01_reversal_follow_through/20260906T_full_v3/normalized/GC_range10_bars.csv": "c7fa98f0f03fc2b6e19f2b9a5ec78f134363c98ac2146df267d7a85f251bcd64",
+    "work/01_reversal_follow_through/20260906T_full_v3/normalized/NQ_range10_bars.csv": "6831fa963e4110382bfe5b66732db1f3df3481d7e656af8421735873073bb208",
+    "work/01_reversal_follow_through/20260906T_full_v3/normalized/NQ_range20_bars.csv": "9bbb2cb9a2e935dff964a88dac89fff99b8f8843753793256733005c191b3f6f"
+  },
+  "platform": "macOS-26.5.1-arm64-arm-64bit",
+  "python": "3.12.14 (main, Aug 25 2026, 13:50:33) [Clang 22.1.3 ]",
+  "real_event_crosscheck": {
+    "all_checks_pass": true,
+    "charts": [
+      {
+        "all_checks_pass": true,
+        "event_scan_matches": 12,
+        "failures": [],
+        "sampled_events": 12,
+        "threshold_logic_matches": 12
+      },
+      {
+        "all_checks_pass": true,
+        "event_scan_matches": 12,
+        "failures": [],
+        "sampled_events": 12,
+        "threshold_logic_matches": 12
+      },
+      {
+        "all_checks_pass": true,
+        "event_scan_matches": 12,
+        "failures": [],
+        "sampled_events": 12,
+        "threshold_logic_matches": 12
+      },
+      {
+        "all_checks_pass": true,
+        "event_scan_matches": 12,
+        "failures": [],
+        "sampled_events": 12,
+        "threshold_logic_matches": 12
+      },
+      {
+        "all_checks_pass": true,
+        "event_scan_matches": 12,
+        "failures": [],
+        "sampled_events": 12,
+        "threshold_logic_matches": 12
+      },
+      {
+        "all_checks_pass": true,
+        "event_scan_matches": 12,
+        "failures": [],
+        "sampled_events": 12,
+        "threshold_logic_matches": 12
+      }
+    ],
+    "event_scan_matches": 72,
+    "sampled_events": 72,
+    "threshold_logic_matches": 72
+  },
+  "reproducible_command": "PYTHONPATH=analysis/01_reversal_follow_through/src python -m reversal_study.cli run --config analysis/01_reversal_follow_through/configs/study.yaml --run-id 20260906T_full_v3_rerun",
+  "run_id": "20260906T_full_v3",
+  "runtime_seconds": 93.68771,
+  "started_utc": "2026-09-06T18:57:16.781292+00:00",
+  "study_id": "01_reversal_follow_through",
+  "table_rows": {
+    "annotated_examples": 12,
+    "boundary_sensitivity": 12,
+    "candidate_selection": 3,
+    "continuation_curve": 180,
+    "continuation_thresholds": 432,
+    "coverage": 432,
+    "cross_asset_summary": 3,
+    "data_audit": 8,
+    "excursions_fixed": 360,
+    "excursions_run_only": 72,
+    "excursions_through_break": 72,
+    "extreme_bar_indices": 720,
+    "geometry": 24,
+    "headline": 73,
+    "manual_reconciliation": 72,
+    "movement_at_milestones": 108,
+    "opportunities": 72,
+    "paired_comparisons": 16,
+    "run_length_bins": 576,
+    "run_length_summary": 72,
+    "same_chart_baseline": 72,
+    "stability": 192,
+    "timing_milestones": 576,
+    "timing_quality": 6
+  },
+  "unresolved_metadata": [
+    "Range XV versus prior user label Range XC",
+    "ATAS version and exact chart settings",
+    "range parameter units",
+    "timezone",
+    "timestamp open-versus-close meaning",
+    "bar completion flags",
+    "data feed and contract adjustment history"
+  ]
+}

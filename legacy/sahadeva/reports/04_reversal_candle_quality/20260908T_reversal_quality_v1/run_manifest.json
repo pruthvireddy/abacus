@@ -1,0 +1,73 @@
+{
+  "study_id": "04_reversal_candle_quality",
+  "run_id": "20260908T_reversal_quality_v1",
+  "config": "analysis/04_reversal_candle_quality/config.json",
+  "input_manifest": "data/range_xv_exports_manifest.json",
+  "tables": [
+    "tables/feature_prevalence.csv",
+    "tables/continuation_feature_contrasts.csv",
+    "tables/large_confirmation_feature_contrasts.csv",
+    "tables/geometry_distributions.csv",
+    "tables/prior_run_stratified_contrasts.csv",
+    "tables/one_bar_snapback_contrasts.csv",
+    "tables/pair_audit.csv"
+  ],
+  "audits": [
+    {
+      "pair_id": "ES_5_6",
+      "asset": "ES",
+      "small_setting": 5,
+      "large_setting": 6,
+      "small_rows": 375442,
+      "large_rows": 274479,
+      "reversal_signals_with_completion_proxy": 118511,
+      "strict_timing_signals": 113750,
+      "same_second_sensitivity_signals": 4761,
+      "strict_signals_with_larger_state": 113712,
+      "larger_state_exact_match_violations": 0,
+      "future_confirmation_order_violations": 0
+    },
+    {
+      "pair_id": "GC_6_10",
+      "asset": "GC",
+      "small_setting": 6,
+      "large_setting": 10,
+      "small_rows": 1254233,
+      "large_rows": 571237,
+      "reversal_signals_with_completion_proxy": 388621,
+      "strict_timing_signals": 354909,
+      "same_second_sensitivity_signals": 33712,
+      "strict_signals_with_larger_state": 354788,
+      "larger_state_exact_match_violations": 0,
+      "future_confirmation_order_violations": 0
+    },
+    {
+      "pair_id": "GC_10_20",
+      "asset": "GC",
+      "small_setting": 10,
+      "large_setting": 20,
+      "small_rows": 571237,
+      "large_rows": 174336,
+      "reversal_signals_with_completion_proxy": 176508,
+      "strict_timing_signals": 166437,
+      "same_second_sensitivity_signals": 10071,
+      "strict_signals_with_larger_state": 166195,
+      "larger_state_exact_match_violations": 0,
+      "future_confirmation_order_violations": 0
+    },
+    {
+      "pair_id": "NQ_10_20",
+      "asset": "NQ",
+      "small_setting": 10,
+      "large_setting": 20,
+      "small_rows": 2314301,
+      "large_rows": 684982,
+      "reversal_signals_with_completion_proxy": 713397,
+      "strict_timing_signals": 656615,
+      "same_second_sensitivity_signals": 56782,
+      "strict_signals_with_larger_state": 656555,
+      "larger_state_exact_match_violations": 0,
+      "future_confirmation_order_violations": 0
+    }
+  ]
+}

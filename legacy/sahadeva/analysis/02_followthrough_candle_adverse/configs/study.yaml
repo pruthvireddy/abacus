@@ -1,0 +1,62 @@
+{
+  "study_id": "02_followthrough_candle_adverse",
+  "frozen_at": "2026-09-06T00:00:00-04:00",
+  "question": "For a reversal whose immediately following candle closes in the reversal direction, how far does that follow-through candle move adversely from its own open?",
+  "second_candle_interpretation": "The immediately following candle is the second same-direction candle including the reversal and follow-through position 1 after the reversal",
+  "primary_reference": "follow-through candle open",
+  "sensitivity_reference": "reversal candle close",
+  "chart_identity_status": "Provisional filename-labeled Range XV; not verified as the user's earlier Range XC label",
+  "delimiter": ";",
+  "timestamp_format": "%Y-%d-%m %H:%M:%S",
+  "segment_rule": "parsed export calendar date (provisional, not a verified exchange session)",
+  "bar_completion": "unresolved; conservatively omit the final row of each export",
+  "timing_status": "Timezone and timestamp meaning unresolved; no elapsed-time claim is used in this study",
+  "prior_run_minimums": [1, 2, 3],
+  "bootstrap": {"replicates": 2000, "seed": 20260906},
+  "time_of_day": {
+    "window_minutes": 30,
+    "minimum_conditioned_events": 200,
+    "minimum_active_export_dates": 10,
+    "top_windows_per_criterion": 3
+  },
+  "hold_time": {
+    "strict_additional_bars": 2,
+    "eventual_search_horizon_bars": 20,
+    "minimum_eligible_events_per_window": 200,
+    "minimum_successes_per_window": 100,
+    "minimum_active_export_dates": 10,
+    "top_windows_per_criterion": 3
+  },
+  "leg_duration": {
+    "minimum_candles_including_reversal": 3,
+    "minimum_qualifying_legs_per_window": 100,
+    "minimum_active_export_dates": 10,
+    "top_windows_per_criterion": 3,
+    "sessions": [
+      {"name": "Asia", "start": "18:00", "end": "03:00"},
+      {"name": "New York AM", "start": "09:30", "end": "12:00"},
+      {"name": "New York PM", "start": "12:00", "end": "16:00"}
+    ]
+  },
+  "split_dates": {
+    "development": ["2026-06-14", "2026-08-02"],
+    "embargo_1": ["2026-08-03", "2026-08-03"],
+    "validation": ["2026-08-04", "2026-08-18"],
+    "embargo_2": ["2026-08-19", "2026-08-19"],
+    "test": ["2026-08-20", "2026-09-04"]
+  },
+  "contracts": {
+    "ES": {"tick_size": 0.25, "dollars_per_tick": 12.5},
+    "GC": {"tick_size": 0.10, "dollars_per_tick": 10.0},
+    "NQ": {"tick_size": 0.25, "dollars_per_tick": 5.0}
+  },
+  "datasets": [
+    {"asset": "ES", "contract": "ESU6", "range": 4, "path": "data/ESU6_rangexv4_0614_0904.csv"},
+    {"asset": "ES", "contract": "ESU6", "range": 5, "path": "data/ESU6_rangexv5_0614_0904.csv"},
+    {"asset": "ES", "contract": "ESU6", "range": 6, "path": "data/ESU6_rangexv6_0614_0904.csv"},
+    {"asset": "GC", "contract": "GCZ6", "range": 6, "path": "data/GCZ6_rangexv6_0614_0904.csv"},
+    {"asset": "GC", "contract": "GCZ6", "range": 10, "path": "data/GCZ6_rangexv10_0614_0904.csv"},
+    {"asset": "NQ", "contract": "NQU6", "range": 10, "path": "data/NQU6_rangexv10_0614_0904.csv"},
+    {"asset": "NQ", "contract": "NQU6", "range": 20, "path": "data/NQU6_rangexv20_0614_0904.csv"}
+  ]
+}
