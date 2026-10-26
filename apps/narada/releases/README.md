@@ -166,7 +166,28 @@ from anonymous production verification. Consult the current
 
 ## Accepted production release
 
-Current release `20261017T195854Z_37ab5c1a` is live at
+Current release `20261026T045038Z_308eb567` is live at
+[abacus-narada.vercel.app](https://abacus-narada.vercel.app), deployment
+`dpl_BwYJxUjWuzLUPVbQZQEpkdJeKPah` (READY, production), from source commit
+`7205ba71bd30d45395f82e87887222f1c34150a5`. This performance-only release
+preserves the accepted 22 studies and 94 publications, including all 229 CSVs
+and 147 raster figures. The separate local 24-study/97-report selection remains
+outside this deployment. See the [outcome](20261026T045038Z_308eb567/outcome.json).
+
+Generated report JSON is compacted from 114,007,369 to 54,944,824 bytes; all
+canonical bundles and parsed research values remain unchanged. Table filters
+load their report only after reader activation, with saved default rows visible
+before loading and through failures. All four app gates passed, including 185
+tests. Preview, staged production and anonymous production each matched all
+1,546 static files, CSV headers and five real 404s. Desktop/mobile preview,
+keyboard activation, an exact CSV download and production interaction passed.
+The tested staged production artifact was promoted without rebuilding.
+Integrity checks found no changes in 7,196 recorded historical/canonical files;
+these checks do not rerun research. Source and payload snapshots remain local.
+
+## Previous accepted collection
+
+Release `20261017T195854Z_37ab5c1a` established the collection at
 [abacus-narada.vercel.app](https://abacus-narada.vercel.app), deployment
 `dpl_EjvPZhUZRqCsvM2qV9cE55QX8Hik` (READY, production). The
 [Forex News study](https://abacus-narada.vercel.app/studies/forex-news-ema/)
