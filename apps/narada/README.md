@@ -36,8 +36,24 @@ to 192 KiB, and the report table/download/asset limits remain separate.
 Reports that explicitly declare saved-row filters have a 2 MiB source and
 4 MiB canonical bundle allowance, with at most 1,500 saved rows per filtered
 table. Initial/default rendering and each selected page stay bounded at 100
-rows; a single shared fetch of the immutable publication JSON provides other
-saved rows. The HTML/React page limits and ordinary-report budgets stay unchanged.
+rows. Other saved rows are downloaded only when a reader presses **Load table
+filters**; mounting the page makes no publication-JSON request. Tables share one
+request per report, with retry after failure. Default rows and CSV downloads
+remain available without JavaScript. The HTML/React page limits and ordinary-report
+budgets stay unchanged.
+
+`postbuild` runs `optimize:static-json` before verifying the export. It compacts
+the selected `out/publications/<id>/report.json` delivery files without changing
+any saved value, key order, public ID, figure or CSV. Canonical files under
+`public/publications/`, sealed runs and presentation revisions remain byte-identical.
+The export verifier compares every compact file to its canonical input; new
+release records retain both file hashes and byte counts under `staticJsonDelivery`.
+Repeating the compactor is safe:
+
+```sh
+npm run optimize:static-json
+npm run optimize:static-json -- --verify
+```
 
 After building, keep `npm run preview` running in one terminal and use another:
 
@@ -91,6 +107,7 @@ do not create a release or append an event to an existing release.
 | Illustrative candle panels | [PatternPanel](src/components/pattern-panel.tsx), [report contract](contracts/report-1.1.schema.json), [publication validator](scripts/lib/publication.mjs) | [Pattern boundaries](tests/patterns.test.mjs), [section rendering](tests/report-sections.test.mjs) | Authored schematic OHLC and explicit focus captions, no live prices or statistical calculations |
 | Saved-row selectors and pagination | [FilteredReportTable](src/components/filtered-report-table.tsx), [table filters](src/lib/table-filters.ts), [saved JSON loader](src/lib/saved-tables.ts) | [Filters](tests/table-filters.test.mjs), [loader](tests/saved-tables.test.mjs), [filtered boundaries](tests/filtered-publication.test.mjs) | Exact saved cells only, 100-row pages, one bounded immutable JSON fetch |
 | Static output and local preview | [verify-export.mjs](scripts/verify-export.mjs), [page budgets](scripts/lib/static-page-budget.mjs), [preview.mjs](scripts/preview.mjs), [preview-smoke.mjs](scripts/lib/preview-smoke.mjs) | [Page budgets](tests/static-page-budget.test.mjs), [local smoke](tests/preview-smoke.test.mjs); build postcheck | App-owned `out/` and explicit loopback server |
+| Compact JSON delivery | [static-json-delivery.mjs](scripts/lib/static-json-delivery.mjs), [CLI](scripts/optimize-static-json.mjs) | [Delivery tests](tests/static-json-delivery.test.mjs); build postcheck | Lossless output-only transform; canonical publication identities and research bytes preserved |
 | Release-gate lookup | [release-gates.mjs](scripts/lib/release-gates.mjs), [release CLI](scripts/release.mjs) | [Gate tests](tests/release-gates.test.mjs), [release identities](tests/release-identity.test.mjs), [release tests](tests/release.test.mjs) | Append-only events and exact artifact identity; no deployment in tests |
 | Private source audit | [audit-release-sources.mjs](scripts/audit-release-sources.mjs) | [Audit tests](tests/audit-release-sources.test.mjs) | Explicit retained locators/pins; read-only integrity, not research revalidation |
 

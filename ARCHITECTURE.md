@@ -127,6 +127,12 @@ regenerate instead of hand-editing index output. Templates are authoring sources
 computed findings. Narada's staged publication bundles are immutable versioned copies;
 its `out/` and build caches are generated. Details are in [Narada's contract](docs/narada.md).
 
+Narada may compact its generated static report JSON as a verified lossless
+delivery transform. Canonical public bundles retain their original bytes and
+content hashes; new release receipts separately pin canonical and delivered
+file identities. This changes transport formatting without rewriting evidence
+or creating new analytical findings.
+
 `legacy/`, imported run contents, fulfilled request snapshots, and migration records
 preserve historical context. Add provenance separately; do not modernize their paths or
 rewrite old results. Historical commands may contain fixed output paths and must not be

@@ -203,7 +203,8 @@ test('filtered tables render a bounded authored default without sending all rows
   const html = renderToStaticMarkup(React.createElement(ReportSections, { sections: [section], reportId: 'saved-only' }));
   assert.equal((html.match(/<tbody>.*?<\/tbody>/gs)[0].match(/<tr>/g) ?? []).length, 15);
   assert.match(html, /Showing 15 saved rows/);
-  assert.match(html, /Loading all selections/);
+  assert.match(html, /Load table filters/);
+  assert(!html.includes('Loading all selections'), 'Initial rendering does not start a data download.');
   assert.match(html, /<noscript>/);
   assert.match(html, /id="filter-large-year" disabled=""/);
   assert(!html.includes('>1079<'), 'Default markup excludes unrelated saved rows.');

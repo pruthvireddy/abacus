@@ -57,8 +57,10 @@ before changing the publication boundary.
   strategy-specific routes, schemas, or analytical calculations in the app.
   Optional table `rowFilters` select saved rows by declared column values.
   Defaults are explicit saved values; filters never calculate or pool results.
-  Render at most 100 initial/default rows, then fetch the selected immutable
-  publication JSON once for its controls and paginate matching rows by 100.
+  Render at most 100 initial/default rows. Fetch the selected immutable
+  publication JSON only after the reader requests table filters, share one
+  request per report, and paginate matching rows by 100. Keep defaults visible
+  through idle/loading/failure and retain retry and no-JavaScript access.
   Filtered tables/reports/CSVs have separate conditional bounds documented in
   the publication contract; preserve ordinary report and static-page limits.
   Optional 1.1 candle `patterns` are explicitly authored schematic geometry.
@@ -77,6 +79,10 @@ before changing the publication boundary.
   keep Node globals scoped and exclude generated/retained snapshots. Preserve
   publication canonical key sorting separately from release JSON insertion order
   and its trailing newline. Mechanical cleanup must preserve serialized identities.
+  Compact report JSON only in generated static output through the delivery
+  transform; preserve canonical public bundles and record canonical/delivery
+  byte identities separately in new releases. Verify exact semantic equality
+  and compact output, including unchanged selected assets.
 - After a build, run `npm run preview`, then in another terminal
   `npm run smoke:preview -- --origin http://127.0.0.1:4173`. The bounded HTTP check
   needs that explicit loopback server and checks app-owned exported bytes/headers

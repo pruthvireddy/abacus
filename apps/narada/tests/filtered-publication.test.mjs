@@ -1,8 +1,11 @@
 import assert from 'node:assert/strict';
+import { readFileSync } from 'node:fs';
 import { mkdir, mkdtemp, readFile, writeFile, rm } from 'node:fs/promises';
+import { createRequire } from 'node:module';
 import { tmpdir } from 'node:os';
 import { resolve } from 'node:path';
 import test from 'node:test';
+import ts from 'typescript';
 import { publishReport, validateReport, verifyPublications, sha256, REPORT_MAX_BYTES, FILTERED_REPORT_MAX_BYTES, FILTERED_BUNDLE_MAX_BYTES, FILTERED_DOWNLOAD_MAX_BYTES, FILTERED_TOTAL_DOWNLOAD_MAX_BYTES } from '../scripts/lib/publication.mjs';
 import { validateCsv } from '../scripts/lib/evidence.mjs';
 
@@ -84,4 +87,156 @@ test('compact filtered sources still refuse canonical bundle expansion above 4 M
   const text = JSON.stringify(f.report); assert(Buffer.byteLength(text) < FILTERED_REPORT_MAX_BYTES);
   await writeFile(f.reportPath, text);
   await assert.rejects(publishReport({ ...f, dryRun: true }), /Publication bundle exceeds byte budget/);
+});
+
+// Execute the actual component and its handlers with a small hook lifecycle
+// fixture. DOM/layout and hydration remain covered by browser verification.
+const require = createRequire(import.meta.url);
+function controlHarness(initialProps, loadSavedTables) {
+  let slots = [], cursor = 0, effects = [], currentKey, epoch = 0, staleUpdates = 0;
+  const hooks = {
+    useState(initial) {
+      const slot = slots[cursor++] ??= { value: typeof initial === 'function' ? initial() : initial };
+      const mountedEpoch = epoch;
+      return [slot.value, next => {
+        if (mountedEpoch !== epoch) staleUpdates++;
+        slot.value = typeof next === 'function' ? next(slot.value) : next;
+      }];
+    },
+    useRef(initial) { return slots[cursor++] ??= { current: initial }; },
+    useEffect(effect, dependencies) {
+      const slot = slots[cursor++] ??= {};
+      if (!slot.dependencies || dependencies.some((value, index) => value !== slot.dependencies[index])) {
+        effects.push(() => { slot.cleanup?.(); slot.dependencies = dependencies; slot.cleanup = effect(); });
+      }
+    },
+  };
+  function compile(relativePath) {
+    const source = readFileSync(new URL(relativePath, import.meta.url), 'utf8');
+    const { outputText } = ts.transpileModule(source, { compilerOptions: {
+      module: ts.ModuleKind.CommonJS, jsx: ts.JsxEmit.ReactJSX, target: ts.ScriptTarget.ES2022,
+    } });
+    const compiled = { exports: {} };
+    const resolveImport = id => id === 'react' ? hooks
+      : id === '@/lib/saved-tables' ? { loadSavedTables }
+        : id === '@/lib/format' ? compile('../src/lib/format.ts')
+          : id === '@/lib/table-filters' ? compile('../src/lib/table-filters.ts')
+            : id === './report-table' ? { ReportTable: 'report-table' } : require(id);
+    new Function('require', 'module', 'exports', outputText)(resolveImport, compiled, compiled.exports);
+    return compiled.exports;
+  }
+  const { FilteredReportTable } = compile('../src/components/filtered-report-table.tsx');
+  const unmount = () => { for (const slot of slots) slot.cleanup?.(); slots = []; epoch++; };
+  let props = initialProps;
+  return {
+    render(nextProps = props) {
+      props = nextProps;
+      const instance = FilteredReportTable(props);
+      if (instance.key !== currentKey) { unmount(); currentKey = instance.key; }
+      cursor = 0; effects = [];
+      const table = instance.type(instance.props);
+      for (const effect of effects) effect();
+      return table;
+    },
+    unmount,
+    get staleUpdates() { return staleUpdates; },
+  };
+}
+function controls(table, type) {
+  const found = [];
+  function visit(node) {
+    if (Array.isArray(node)) { node.forEach(visit); return; }
+    if (!node || typeof node !== 'object') return;
+    if (node.type === type) found.push(node);
+    visit(node.props?.children);
+  }
+  visit(table.props.controls);
+  return found;
+}
+const controlButton = (table, label) => controls(table, 'button').find(button => button.props.children === label);
+const deferred = () => {
+  let resolve, reject;
+  const promise = new Promise((yes, no) => { resolve = yes; reject = no; });
+  return { promise, resolve, reject };
+};
+function controlFixture() {
+  const section = filteredReport().sections[0];
+  section.rows = [{ year: 'All years', value: 0 }, { year: 'All years', value: null },
+    ...Array.from({ length: 105 }, (_, value) => ({ year: 2020, value })),
+    { year: '2020', value: 99 }, { year: null, value: null }, { year: false, value: 0 }];
+  return { section, props: { initialSection: { ...section, rows: section.rows.slice(0, 2) }, reportId: 'saved-reader', totalSavedRows: section.rows.length } };
+}
+
+test('saved table controls wait for a reader action and preserve default rows throughout loading', async () => {
+  const { section, props } = controlFixture();
+  const request = deferred(); const calls = [];
+  const harness = controlHarness(props, id => { calls.push(id); return request.promise; });
+  let table = harness.render();
+  assert.deepEqual(calls, [], 'Mount effects must not request publication JSON.');
+  assert.deepEqual(table.props.rows, props.initialSection.rows);
+  assert(controls(table, 'select').every(select => select.props.disabled));
+  assert.equal(controls(table, 'noscript').length, 1);
+  const load = controlButton(table, 'Load table filters').props.onClick;
+  const pending = load(); await load();
+  assert.deepEqual(calls, ['saved-reader'], 'Repeated clicks while pending share the active request.');
+  table = harness.render();
+  assert(controlButton(table, 'Loading table filters…').props.disabled);
+  assert.deepEqual(table.props.rows, props.initialSection.rows);
+  request.resolve([section]); await pending;
+  table = harness.render();
+  assert(!controlButton(table, 'Load table filters'));
+  assert(controls(table, 'select').every(select => !select.props.disabled));
+  assert.deepEqual(table.props.rows, props.initialSection.rows, 'Loading never changes the authored default selection.');
+  harness.unmount();
+});
+
+test('reader loading failures retain exact defaults, expose a download fallback, and allow retry', async () => {
+  const { section, props } = controlFixture(); let attempts = 0;
+  const harness = controlHarness(props, async () => { if (++attempts === 1) throw new Error('Unavailable'); return [section]; });
+  await controlButton(harness.render(), 'Load table filters').props.onClick();
+  let table = harness.render();
+  assert.deepEqual(table.props.rows, props.initialSection.rows);
+  assert.equal(controls(table, 'p').find(node => node.props.role === 'alert')?.props.className, 'table-load-error');
+  assert.equal(controls(table, 'a')[0].props.href, '/publications/saved-reader/report.json');
+  await controlButton(table, 'Try again').props.onClick();
+  table = harness.render();
+  assert.equal(attempts, 2);
+  assert.equal(controls(table, 'a').length, 0);
+  assert(controls(table, 'select').every(select => !select.props.disabled));
+  harness.unmount();
+});
+
+test('loaded selectors preserve typed saved values, nulls, row order and bounded pagination', async () => {
+  const { section, props } = controlFixture();
+  const harness = controlHarness(props, async () => [section]);
+  await controlButton(harness.render(), 'Load table filters').props.onClick();
+  let table = harness.render();
+  const selectYear = value => { controls(table, 'select')[0].props.onChange({ target: { value } }); table = harness.render(); };
+  selectYear('2020');
+  assert.deepEqual(table.props.rows, section.rows.slice(2, 102));
+  controlButton(table, 'Next rows').props.onClick(); table = harness.render();
+  assert.deepEqual(table.props.rows, section.rows.slice(102, 107));
+  selectYear('"2020"'); assert.deepEqual(table.props.rows, [{ year: '2020', value: 99 }]);
+  selectYear('null'); assert.deepEqual(table.props.rows, [{ year: null, value: null }]);
+  selectYear('false'); assert.deepEqual(table.props.rows, [{ year: false, value: 0 }]);
+  controlButton(table, 'Reset selections').props.onClick(); table = harness.render();
+  assert.deepEqual(table.props.rows, section.rows.slice(0, 100));
+  assert.equal(controls(table, 'select')[0].props.value, '');
+  harness.unmount();
+});
+
+test('late loads cannot update a different report or an unmounted table', async () => {
+  const { section, props } = controlFixture();
+  const request = deferred();
+  const harness = controlHarness(props, () => request.promise);
+  const pending = controlButton(harness.render(), 'Load table filters').props.onClick();
+  let table = harness.render({ ...props, reportId: 'another-report' });
+  assert(controlButton(table, 'Load table filters'));
+  request.resolve([section]); await pending;
+  table = harness.render();
+  assert(controlButton(table, 'Load table filters'));
+  assert(controls(table, 'select')[0].props.disabled);
+  assert.equal(harness.staleUpdates, 0);
+  const second = controlButton(table, 'Load table filters').props.onClick(); harness.unmount(); await second;
+  assert.equal(harness.staleUpdates, 0);
 });

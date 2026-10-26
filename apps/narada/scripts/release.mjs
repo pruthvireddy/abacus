@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import { readFile, mkdir } from 'node:fs/promises';
-import { resolve } from 'node:path';
+import { relative, resolve } from 'node:path';
 import {
   hash, jsonBytes, releaseId, safeId, saveNew, inventory, inventoryHash,
   verifyInventory, copyInventory, validateStaticFiles, buildOutputConfig,
@@ -10,6 +10,7 @@ import { requireGate } from './lib/release-gates.mjs';
 import { verifyPublications } from './lib/publication.mjs';
 import { readStudyCatalog } from './lib/studies.mjs';
 import { auditSources } from './audit-release-sources.mjs';
+import { verifyStaticPublicationJson } from './lib/static-json-delivery.mjs';
 
 const app = resolve(import.meta.dirname, '..');
 const workspace = resolve(app, '../..');
@@ -60,6 +61,10 @@ async function prepare() {
     const sources = await readJson(resolve(app, 'content/release-sources.json'));
     const audit = await auditSources(workspace, sources, publications.bundles, catalog);
     await saveNew(resolve(record, 'source-audit.json'), audit);
+    const staticJsonDelivery = await verifyStaticPublicationJson({
+      canonicalRoot: resolve(app, 'public/publications'),
+      exportRoot: resolve(app, 'out/publications'),
+    });
     const files = await inventory(resolve(app, 'out'));
     validateStaticFiles(files, catalog, publications.bundles);
     await copyInventory(resolve(app, 'out'), resolve(artifact, '.vercel/output/static'), files);
@@ -89,8 +94,11 @@ async function prepare() {
     sourceFiles.sort((a, b) => a.path.localeCompare(b.path, 'en'));
     await copyInventory(app, resolve(generated, 'source'), sourceFiles);
     const gitRevision = (await run('git', ['rev-parse', 'HEAD'], { cwd: workspace })).stdout.trim();
+    const appDirectory = relative(workspace, app).split('\\').join('/');
+    const isolatedApp = appDirectory !== 'apps/narada';
     const dirty = (await run('git', [
-      'status', '--porcelain', '--untracked-files=normal', '--', 'apps/narada',
+      'status', '--porcelain', '--untracked-files=normal',
+      ...(isolatedApp ? ['--ignored=matching'] : []), '--', appDirectory,
     ], { cwd: workspace })).stdout.trim();
     const npm = (await run('npm', ['--version'])).stdout.trim();
     const vercel = (await run(cli, ['--version'])).stdout.trim();
@@ -112,6 +120,8 @@ async function prepare() {
       status: 'prepared',
       source: {
         gitRevision,
+        appDirectory,
+        isolatedApp,
         appDirty: !!dirty,
         dirtyStatus: dirty,
         snapshot: `.release-artifacts/${rid}/source`,
@@ -126,6 +136,7 @@ async function prepare() {
         studies: catalog.studies.length,
       },
       indexSha256: hash(await readFile(resolve(app, 'public/publications/index.json'))),
+      staticJsonDelivery,
       publications: publications.bundles.map(bundle => ({
         id: bundle.report.id,
         sourceRunId: bundle.report.source.runId,

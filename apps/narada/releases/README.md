@@ -55,6 +55,23 @@ outcomes without rewriting the preparation record. The inventory hash is SHA-256
 of the ordered JSON inventory with a trailing newline; individual hashes identify
 exact file bytes.
 
+New optimized releases also retain `staticJsonDelivery`: a versioned mapping
+from each canonical publication file's SHA-256/byte count to the exact compact
+JSON delivered in the static payload. The build verifier checks every saved
+value against its canonical input. Canonical public files, report-content hashes,
+figures, CSVs and historical release records stay unchanged; the deployment
+inventory pins the generated delivery bytes.
+
+For a performance-only release, preserve the accepted production catalog and
+publication selection. If the working app has additional draft publications,
+prepare a fresh ignored sibling app under `apps/narada-optimization-staging/`
+using the accepted selection and reviewed current renderer/scripts. Do not edit
+the previous release snapshot. Preparation records the actual `appDirectory`,
+isolated status, source inventory and ignored staging Git status. Retain the new
+record and its complete `.release-artifacts/<id>/` source/payload under the main
+app before using the normal bind/preview/stage/promote gates. The source snapshot
+and a separate selection receipt identify which accepted catalog was used.
+
 Ignored `.release-artifacts/<id>/deploy/` contains only `vercel.json` and
 `.vercel/output/{config.json,static/}`; binding adds nonsecret `.vercel/project.json`.
 Only this directory is passed to Vercel. The serving config enumerates real page

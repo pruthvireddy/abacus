@@ -156,12 +156,32 @@ Tables may declare one to three `rowFilters`, each with a declared column `key`,
 reader-facing `label` and optional scalar `defaultValue` found in its saved rows.
 Filter keys are unique. Selection preserves exact saved cells and order,
 including distinct string/number/boolean values, nulls and zero rates. Initial
-rendering applies only the explicit defaults. The browser then loads all saved
-rows from that immutable publication JSON for choices and 100-row pagination;
-it never calculates rates, recomputes denominators or combines populations.
+rendering applies only the explicit defaults. A reader explicitly presses
+**Load table filters** to download other saved rows for choices and 100-row
+pagination; mounting a table does not initiate that download. Multiple tables
+share one static publication-JSON request per report. The browser never calculates
+rates, recomputes denominators or combines populations.
 Until loading succeeds, controls are disabled and authored defaults remain
 visible. Failure offers retry and the saved JSON link. Without JavaScript,
 the default rows and declared evidence downloads remain available.
+
+### Compact static delivery
+
+After the static export, `scripts/optimize-static-json.mjs` minifies only the
+selected `out/publications/<id>/report.json` files. The authored/public canonical
+bundles keep their existing bytes, IDs and canonical report-content hashes.
+Every exported object must equal its canonical input, and the export verifier
+requires the exact compact serialization; all report text, table cells, nulls,
+units, row order, references, provenance and asset declarations are preserved.
+CSV and figure bytes and the publication index remain unchanged.
+
+The transform is confined to generated output, rejects linked or overlapping
+source/output paths, and is repeatable. New release metadata records
+`abacus.static-json-delivery/v1` with each canonical file hash/size and delivered
+file hash/size. Existing source-content hashes identify the canonical report;
+the release inventory identifies the actual compact bytes served by the host.
+This formatting transform does not create a new research result or rewrite an
+old publication or release record.
 
 ## Selected summary downloads
 

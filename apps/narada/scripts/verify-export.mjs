@@ -4,10 +4,15 @@ import { join, resolve } from 'node:path';
 import { readPublicationIndex, verifyPublications } from './lib/publication.mjs';
 import { readStudyCatalog, studyHref, publicationGroups, studyPublicationReferences, findPublicationStudy, familyPublicationSelection } from './lib/studies.mjs';
 import { assertPagePayloadSize } from './lib/static-page-budget.mjs';
+import { verifyStaticPublicationJson } from './lib/static-json-delivery.mjs';
 
 const root = resolve(import.meta.dirname, '../out');
 const publicRoot = join(root, 'publications');
 const { bundles } = await verifyPublications(publicRoot);
+const delivery = await verifyStaticPublicationJson({
+  canonicalRoot: resolve(import.meta.dirname, '../public/publications'),
+  exportRoot: publicRoot,
+});
 const index = await readPublicationIndex(publicRoot);
 const catalog = await readStudyCatalog(index.reports);
 await stat(join(root, 'index.html'));
@@ -81,3 +86,4 @@ async function visit(directory) {
 }
 await visit(root);
 console.log(`Verified library, ${catalog.studies.length} study routes, ${index.reports.length} publication routes and ${checked} bounded page payloads in out/.`);
+console.log(`Verified compact delivery for ${delivery.reports} reports: ${delivery.sourceBytes} canonical bytes -> ${delivery.deliveryBytes} delivered bytes; all saved content preserved.`);
