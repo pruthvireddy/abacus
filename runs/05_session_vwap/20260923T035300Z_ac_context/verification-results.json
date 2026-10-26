@@ -1,0 +1,25 @@
+{
+  "status": "passed",
+  "study_tests": {
+    "command": ".venv/bin/python -m unittest discover -s studies/05_session_vwap/tests -v",
+    "result": "14 tests passed",
+    "checks": ["prior-only ATR", "New York local-clock boundaries and DST", "exact opening-balance coverage", "pre-touch peak excludes touch bar", "original event numerical rules"]
+  },
+  "independent_context_audit": {
+    "command": ".venv/bin/python studies/05_session_vwap/conditional_audit.py --run-id 20260923T035300Z_ac_context",
+    "result": "passed; parent event counts and outcomes reconciled across 23 product-year partition pairs",
+    "details": "context-audit.json"
+  },
+  "publication_source": {
+    "command": "cd apps/narada && npm run report:publish -- --report ../../work/05_session_vwap/20260923T035300Z_ac_context/publication.json --dry-run",
+    "result": "ready; dryRun true; no public bundle written"
+  },
+  "documentation": {
+    "command": "python3 scripts/check-agent-docs.py",
+    "result": "20 active navigation guides checked; 0 errors"
+  },
+  "artifact_structure": {
+    "result": "report HTML local links resolve except the seal-time manifest; both SVG figures parse as XML; 23 context and 23 re-entry Parquet partitions present"
+  },
+  "notes": "The initial report-link check flagged manifest.json because it is intentionally created during sealing. Rechecking all pre-seal links with that expected exception passed. No event extraction or outcome rule changed after results were inspected."
+}

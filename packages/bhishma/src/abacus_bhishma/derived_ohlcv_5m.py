@@ -27,7 +27,9 @@ import pyarrow as pa
 import pyarrow.dataset as ds
 import pyarrow.parquet as pq
 
-from .continuous_phase1 import _git_version, _sha256
+from . import provenance as _provenance
+from .provenance import git_version as _git_version, sha256_file as _sha256
+from .publication_safety import check_absent, check_path, write_new_bytes
 
 DATASET_ID = "tv_indicators__dridr_ohlcv_5m__v1"
 FEATURE_SET = "dridr_ohlcv_5m"
@@ -287,10 +289,7 @@ def _timestamp_array(values: np.ndarray) -> pa.Array:
 
 
 def _atomic_bytes(path: Path, content: bytes) -> None:
-    path.parent.mkdir(parents=True, exist_ok=True)
-    temporary = path.with_name(path.name + ".part")
-    temporary.write_bytes(content)
-    os.replace(temporary, path)
+    write_new_bytes(path, content, Path(path.absolute().anchor), error=DeliveryError)
 
 
 def _atomic_text(path: Path, content: str) -> None:
@@ -1001,8 +1000,18 @@ def _audit_descriptor(path: Path, root: Path) -> dict[str, Any]:
     }
 
 
+def _check_publication_absent(paths: DeliveryPaths, *, include_stage: bool = True) -> None:
+    metadata = (paths.request_snapshot, paths.manifest, paths.quality_report)
+    outputs = [paths.output_root, *metadata, *(p.with_name(p.name + ".part") for p in metadata)]
+    if include_stage:
+        outputs.append(paths.temporary_output_root)
+    for output in outputs:
+        check_absent(output, paths.root, error=DeliveryError)
+
+
 def build(root: Path | str, request_path: Path | str) -> dict[str, Any]:
     paths = DeliveryPaths.from_root(root)
+    _check_publication_absent(paths)
     request_path = Path(request_path).resolve()
     request, request_raw = _load_yaml_with_ruby(request_path)
     _validate_request(request)
@@ -1010,18 +1019,12 @@ def build(root: Path | str, request_path: Path | str) -> dict[str, Any]:
     config_sha256 = _canonical_hash(request)
     start_ns, end_ns, requested_start, requested_end = _date_bounds(request)
 
-    protected = [
-        paths.output_root,
-        paths.temporary_output_root,
-        paths.request_snapshot,
-        paths.manifest,
-        paths.quality_report,
-    ]
-    existing = [str(path) for path in protected if path.exists()]
-    if existing:
-        raise DeliveryError(
-            "refusing to overwrite an existing or partial dataset version: " + ", ".join(existing)
-        )
+    declared_sources = _provenance.publication_sources(Path(__file__), ("provenance.py", "publication_safety.py", "paths.py"))
+    retained = _provenance.retain_sources(
+        paths.temporary_output_root / "provenance",
+        declared_sources,
+        artifact_id=DATASET_ID, root=paths.root, error=DeliveryError,
+    )
 
     source_manifest, source_manifest_hash, master, partitions, source_audit = _verify_inputs(paths, request)
     tick_by_roll, ticks_by_product = _tick_lookup(master)
@@ -1051,6 +1054,10 @@ def build(root: Path | str, request_path: Path | str) -> dict[str, Any]:
     if not validation["passed"]:
         raise DeliveryError("delivery validation failed: " + "; ".join(validation["failures"]))
 
+    _provenance.verify_retained_sources(
+        paths.temporary_output_root / "provenance", declared_sources, retained, error=DeliveryError)
+    _check_publication_absent(paths, include_stage=False)
+    check_path(paths.temporary_output_root, paths.root, error=DeliveryError)
     paths.output_root.parent.mkdir(parents=True, exist_ok=True)
     os.replace(paths.temporary_output_root, paths.output_root)
     _atomic_bytes(paths.request_snapshot, request_raw)
@@ -1144,9 +1151,13 @@ def build(root: Path | str, request_path: Path | str) -> dict[str, Any]:
         "products": products,
         "product_year_quality": stats,
         "output_files": output_files,
+        "retained_provenance": dict(retained, path=str((paths.output_root / "provenance").relative_to(paths.root))),
         "code_version": {
             "builder": "src/abacus_bhishma/derived_ohlcv_5m.py",
             "builder_sha256": _sha256(Path(__file__)),
+            "helper_source_sha256": {
+                "abacus_bhishma.provenance": _sha256(Path(_provenance.__file__)),
+            },
             "python": sys.version.split()[0],
             "numpy": np.__version__,
             "pyarrow": pa.__version__,

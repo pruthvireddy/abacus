@@ -1,0 +1,16 @@
+study_id: 10_range_xv_session_overlay
+protocol_version: 1.0.0
+status: exploratory_cross_study_overlay
+source_runs:
+  "07": 20260924T004900Z_rxv07
+  "08": 20260924T132916Z_ctbars_v1
+  "09": 20260924T141810Z_c2confirm_v1
+segments:
+  asia: "18:00-03:00"
+  london: "03:00-09:30"
+  new_york: "09:30-16:00"
+  transition: "16:00-18:00"
+family_sizes: {study07: 27, study08: 42, study09_ordinary: 42, study09_other_segments: 42}
+minimum_support: {events: 300, session_dates: 100, events_per_date: 2, period_dates: 30}
+interval: session_cluster_sandwich_normal
+cost_ticks_round_trip_study07: 2

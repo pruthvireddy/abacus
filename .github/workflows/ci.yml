@@ -1,0 +1,68 @@
+name: Repository checks
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  workspace:
+    name: Documentation, tooling and metadata
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v7
+        with:
+          python-version-file: .python-version
+      # These registered profiles need only the standard library and saved
+      # repository files. The default local gate also requires restored data
+      # and the locked Python environment, so it remains a separate check.
+      - name: Check maintained documentation
+        run: ./scripts/check-workspace --profile documentation
+      - name: Test workspace utilities with synthetic fixtures
+        run: ./scripts/check-workspace --profile tooling
+      - name: Validate navigation declarations
+        run: ./scripts/check-workspace --profile metadata
+      # Index freshness depends on optional retained local targets. Verify it
+      # in the full workspace after navigation inputs change, not in this clone.
+
+  narada:
+    name: Narada static publication app
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    defaults:
+      run:
+        working-directory: apps/narada
+    env:
+      NEXT_TELEMETRY_DISABLED: "1"
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v7
+        with:
+          node-version: "24"
+          cache: npm
+          cache-dependency-path: apps/narada/package-lock.json
+      - name: Install locked app dependencies
+        run: npm ci
+      - name: Verify explicitly selected publication bundles
+        run: npm run verify
+      - name: Test publication and rendering behavior
+        run: npm test
+      - name: Lint maintained app code
+        run: npm run lint
+      - name: Build and verify the static export
+        run: npm run build
+      # No data restore, research execution, private source audit or deployment.

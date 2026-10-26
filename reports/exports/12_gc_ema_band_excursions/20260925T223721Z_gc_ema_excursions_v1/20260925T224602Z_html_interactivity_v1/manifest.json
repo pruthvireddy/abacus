@@ -1,0 +1,59 @@
+{
+  "study_id": "12_gc_ema_band_excursions",
+  "source_run_id": "20260925T223721Z_gc_ema_excursions_v1",
+  "revision_id": "20260925T224602Z_html_interactivity_v1",
+  "created_at_utc": "2026-09-25T22:47:36.938986+00:00",
+  "change": "Fix the percentage formatter runtime error and pre-render the default values, yearly table, and bars; numerical results unchanged.",
+  "source_artifacts": [
+    {
+      "path": "runs/12_gc_ema_band_excursions/20260925T223721Z_gc_ema_excursions_v1/metrics.json",
+      "sha256": "73e07a890898ae38825c0f38ea10ba92894cc520c8299a5492ddf19ba1829b9e"
+    },
+    {
+      "path": "runs/12_gc_ema_band_excursions/20260925T223721Z_gc_ema_excursions_v1/tables/yearly.csv",
+      "sha256": "20993a93b12a82944ecbad0cfaf78bd3bda9b181be9edfc12e743dc1cc3715b9"
+    },
+    {
+      "path": "runs/12_gc_ema_band_excursions/20260925T223721Z_gc_ema_excursions_v1/report.html",
+      "sha256": "a8d94bd74631f1cc254e9c5716ec82122239a0f28335f4b293c48ea9592c4f9b"
+    },
+    {
+      "path": "runs/12_gc_ema_band_excursions/20260925T223721Z_gc_ema_excursions_v1/config.json",
+      "sha256": "b66a43bc5340842f20d2af6a27c9f722e8a1e077bf6064b76c8300ecef9b180d"
+    }
+  ],
+  "renderer": {
+    "path": "studies/12_gc_ema_band_excursions/render.py",
+    "sha256": "c206e0948b192f6fd974bf1bb6799f8e8eb417fec0b8806e9cfbda9ca44b46b7",
+    "git_revision": "cd11be3f8f7d27c9429b2ff03872f3b6485a6e27",
+    "format_version": "offline-html-1.1"
+  },
+  "verification_code": {
+    "path": "studies/12_gc_ema_band_excursions/tests/verify_report_interactivity.mjs",
+    "sha256": "7e5ecf1cf0b68209cd513cb44a490dff7ecd6c65cb105c9c068d5a8a77fbdfdc"
+  },
+  "render_command": ".venv/bin/python studies/12_gc_ema_band_excursions/render.py --stage runs/12_gc_ema_band_excursions/20260925T223721Z_gc_ema_excursions_v1 --output reports/exports/12_gc_ema_band_excursions/20260925T223721Z_gc_ema_excursions_v1/20260925T224602Z_html_interactivity_v1",
+  "checks": [
+    "17 pre-rendered default yearly rows",
+    "all 35 selector combinations execute and render 17 rows",
+    "595 embedded numerical records equal sealed source report",
+    "browser visual check blocked by URL policy"
+  ],
+  "outputs": [
+    {
+      "path": "reports/exports/12_gc_ema_band_excursions/20260925T223721Z_gc_ema_excursions_v1/20260925T224602Z_html_interactivity_v1/README.md",
+      "sha256": "6fd9634c04a7aeafc25fc09b01b25f7a56b927a834b678602463ecb8134b218c",
+      "bytes": 889
+    },
+    {
+      "path": "reports/exports/12_gc_ema_band_excursions/20260925T223721Z_gc_ema_excursions_v1/20260925T224602Z_html_interactivity_v1/report.html",
+      "sha256": "d04a24caff2b3dd0778a31d8ae8ca786c44a3773c0749b054f749ef1a2b2c7d8",
+      "bytes": 408697
+    },
+    {
+      "path": "reports/exports/12_gc_ema_band_excursions/20260925T223721Z_gc_ema_excursions_v1/20260925T224602Z_html_interactivity_v1/verification.md",
+      "sha256": "64a8632e801e70f18e2d7a0b960a42cff0f3e542111392725b48fcaa1922b541",
+      "bytes": 561
+    }
+  ]
+}

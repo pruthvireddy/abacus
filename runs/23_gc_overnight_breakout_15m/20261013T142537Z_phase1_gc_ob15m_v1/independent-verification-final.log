@@ -1,0 +1,70 @@
+{
+  "status": "passed",
+  "checked_at": "2026-10-13T15:19:07.747549+00:00",
+  "independent_engine_imports": false,
+  "comparison_cells": 547272,
+  "mismatches": [],
+  "tolerance": {
+    "absolute": 1e-07,
+    "relative": 1e-10,
+    "identities_and_counts": "exact"
+  },
+  "scenarios": [
+    {
+      "scenario": "primary-one-tick",
+      "ledger_trades": 880,
+      "oracle_trades": 880,
+      "path_oracle": "all_quality_qualified_days"
+    },
+    {
+      "scenario": "gross-zero-cost",
+      "ledger_trades": 880,
+      "oracle_trades": 880,
+      "path_oracle": "all_quality_qualified_days"
+    },
+    {
+      "scenario": "net-zero-ticks",
+      "ledger_trades": 880,
+      "oracle_trades": 880,
+      "path_oracle": "all_quality_qualified_days"
+    },
+    {
+      "scenario": "net-two-ticks",
+      "ledger_trades": 880,
+      "oracle_trades": 880,
+      "path_oracle": "all_quality_qualified_days"
+    },
+    {
+      "scenario": "high-first-one-tick",
+      "ledger_trades": 880,
+      "oracle_trades": 880,
+      "path_oracle": "all_quality_qualified_days"
+    },
+    {
+      "scenario": "low-first-one-tick",
+      "ledger_trades": 880,
+      "oracle_trades": 880,
+      "path_oracle": "all_quality_qualified_days"
+    },
+    {
+      "scenario": "native-observed-one-minute",
+      "ledger_trades": 2202,
+      "oracle_trades": 0,
+      "path_oracle": "saved_accounting_and_events_only"
+    },
+    {
+      "scenario": "source-fifteen-minute-ohlc",
+      "ledger_trades": 2202,
+      "oracle_trades": 0,
+      "path_oracle": "saved_accounting_and_events_only"
+    },
+    {
+      "scenario": "source-account",
+      "ledger_trades": 0,
+      "oracle_trades": 0,
+      "path_oracle": "saved_accounting_and_events_only"
+    }
+  ],
+  "scope": "separate per-day minute-path reconstruction for every validated scenario; all scenario ledger accounting/events/day counts and all primary cohort/timing metrics/intervals/closed P&L path",
+  "limits": "No native TradingView or tick-level validation; native observed/15m models have accounting/event reconciliation, not an independent full replay; holiday certification and raw reconstruction remain unverified."
+}

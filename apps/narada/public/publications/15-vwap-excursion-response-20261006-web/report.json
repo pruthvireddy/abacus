@@ -1,0 +1,380 @@
+{
+  "provenance": {
+    "assets": [],
+    "sourceSha256": "7ad5d7ed7e4e208bd48f2697f7f72090472aeb251261476b3c34a27336adba97"
+  },
+  "report": {
+    "id": "15-vwap-excursion-response-20261006-web",
+    "publishedAt": "2026-10-06T23:09:36Z",
+    "schemaVersion": "1.0",
+    "sections": [
+      {
+        "body": "For ES, NQ and GC, what follows the first fresh two-sigma departure from each causal session VWAP, and what follows its first traded contact? The selected concise saved findings contain ten two-minute candles, a twenty-minute horizon, mirrored sides and four overlapping anchors. Longer-horizon evidence remains in the saved full tables.",
+        "id": "question",
+        "kind": "text",
+        "title": "Question and scope"
+      },
+      {
+        "body": "Return probability depends strongly on the anchor population. Continuation-minus-fade endpoint differences are mixed, with several uncertain intervals. First-touch bounce endpoint rates can sit near one half while payoff distributions differ. No optimization or trading edge is inferred from selected rates.",
+        "id": "findings",
+        "kind": "text",
+        "title": "Supported findings"
+      },
+      {
+        "columns": [
+          {
+            "key": "session",
+            "label": "Anchor"
+          },
+          {
+            "key": "product",
+            "label": "product"
+          },
+          {
+            "format": "number",
+            "key": "departure_n",
+            "label": "Eligible departures",
+            "precision": 0
+          },
+          {
+            "format": "percent",
+            "key": "return_probability",
+            "label": "Evolving return",
+            "precision": 1
+          },
+          {
+            "format": "percent",
+            "key": "return_ci_low",
+            "label": "95% return low",
+            "precision": 1
+          },
+          {
+            "format": "percent",
+            "key": "return_ci_high",
+            "label": "95% return high",
+            "precision": 1
+          },
+          {
+            "format": "number",
+            "key": "continuation_delta",
+            "label": "Continuation minus fade",
+            "precision": 2,
+            "unit": "points"
+          },
+          {
+            "format": "number",
+            "key": "continuation_ci_low",
+            "label": "95% difference low",
+            "precision": 2,
+            "unit": "points"
+          },
+          {
+            "format": "number",
+            "key": "continuation_ci_high",
+            "label": "95% difference high",
+            "precision": 2,
+            "unit": "points"
+          }
+        ],
+        "id": "departure",
+        "kind": "table",
+        "rows": [
+          {
+            "continuation_ci_high": 0.17329113445170527,
+            "continuation_ci_low": -0.0917080787258583,
+            "continuation_delta": 0.03905249679897567,
+            "departure_n": 3124,
+            "product": "ES",
+            "return_ci_high": 0.4597715749937035,
+            "return_ci_low": 0.4247371024014084,
+            "return_probability": 0.44238156209987195,
+            "session": "asia"
+          },
+          {
+            "continuation_ci_high": 1.150615704502766,
+            "continuation_ci_low": -0.09070302319428439,
+            "continuation_delta": 0.513560606060606,
+            "departure_n": 3300,
+            "product": "NQ",
+            "return_ci_high": 0.3992262108501932,
+            "return_ci_low": 0.3661123521351129,
+            "return_probability": 0.38303030303030305,
+            "session": "asia"
+          },
+          {
+            "continuation_ci_high": 0.5834419275123555,
+            "continuation_ci_low": 0.1108801976440978,
+            "continuation_delta": 0.3379008746355686,
+            "departure_n": 2401,
+            "product": "GC",
+            "return_ci_high": 0.4495307979992073,
+            "return_ci_low": 0.41063416923979307,
+            "return_probability": 0.42982090795501876,
+            "session": "asia"
+          },
+          {
+            "continuation_ci_high": 0.32333355955804,
+            "continuation_ci_low": -0.10048182830321353,
+            "continuation_delta": 0.10621014272699666,
+            "departure_n": 3293,
+            "product": "ES",
+            "return_ci_high": 0.4844893391688386,
+            "return_ci_low": 0.4517186362312509,
+            "return_probability": 0.4682660188278166,
+            "session": "london"
+          },
+          {
+            "continuation_ci_high": 1.3134025854778435,
+            "continuation_ci_low": -0.3265229737105026,
+            "continuation_delta": 0.4484491671453188,
+            "departure_n": 3482,
+            "product": "NQ",
+            "return_ci_high": 0.4372262322050933,
+            "return_ci_low": 0.4065718910319766,
+            "return_probability": 0.4224583572659391,
+            "session": "london"
+          },
+          {
+            "continuation_ci_high": 0.21072690544423395,
+            "continuation_ci_low": -0.16207541082401455,
+            "continuation_delta": 0.026840855106888366,
+            "departure_n": 2526,
+            "product": "GC",
+            "return_ci_high": 0.46573997201045836,
+            "return_ci_low": 0.429741259566565,
+            "return_probability": 0.447347585114806,
+            "session": "london"
+          },
+          {
+            "continuation_ci_high": 0.7756484181319686,
+            "continuation_ci_low": -0.11298812749137332,
+            "continuation_delta": 0.339066757493188,
+            "departure_n": 2936,
+            "product": "ES",
+            "return_ci_high": 0.4570449881257979,
+            "return_ci_low": 0.4248262892363342,
+            "return_probability": 0.44107629427792916,
+            "session": "ny"
+          },
+          {
+            "continuation_ci_high": 2.5274190457350003,
+            "continuation_ci_low": -1.4403408264892874,
+            "continuation_delta": 0.5606086079354405,
+            "departure_n": 2974,
+            "product": "NQ",
+            "return_ci_high": 0.4294375658483903,
+            "return_ci_low": 0.39887247314064755,
+            "return_probability": 0.41425689307330194,
+            "session": "ny"
+          },
+          {
+            "continuation_ci_high": 0.5098086442217504,
+            "continuation_ci_low": 0.026682315701103933,
+            "continuation_delta": 0.254078101828967,
+            "departure_n": 2023,
+            "product": "GC",
+            "return_ci_high": 0.47600290758047764,
+            "return_ci_low": 0.4347820481198287,
+            "return_probability": 0.45625308947108256,
+            "session": "ny"
+          },
+          {
+            "continuation_ci_high": 0.19776621137828673,
+            "continuation_ci_low": -0.20392877314190888,
+            "continuation_delta": -0.0025243578387953943,
+            "departure_n": 5645,
+            "product": "ES",
+            "return_ci_high": 0.3090546296015797,
+            "return_ci_low": 0.28387090985917124,
+            "return_probability": 0.295837023914969,
+            "session": "globex"
+          },
+          {
+            "continuation_ci_high": 1.527250836753771,
+            "continuation_ci_low": -0.13201760288805847,
+            "continuation_delta": 0.6853547854785479,
+            "departure_n": 6060,
+            "product": "NQ",
+            "return_ci_high": 0.2538323814099142,
+            "return_ci_low": 0.23041254359725566,
+            "return_probability": 0.24191419141914192,
+            "session": "globex"
+          },
+          {
+            "continuation_ci_high": 0.327472446565385,
+            "continuation_ci_low": 0.04085671944911219,
+            "continuation_delta": 0.1837068283680464,
+            "departure_n": 3793,
+            "product": "GC",
+            "return_ci_high": 0.3259713392749778,
+            "return_ci_low": 0.2928281101460548,
+            "return_probability": 0.30978117585025045,
+            "session": "globex"
+          }
+        ],
+        "title": "Two-sigma departures: eligible twenty-minute outcomes"
+      },
+      {
+        "columns": [
+          {
+            "key": "session",
+            "label": "Anchor"
+          },
+          {
+            "key": "product",
+            "label": "product"
+          },
+          {
+            "format": "number",
+            "key": "touch_n",
+            "label": "Eligible touch responses",
+            "precision": 0
+          },
+          {
+            "format": "percent",
+            "key": "bounce_endpoint_probability",
+            "label": "Bounce endpoint rate",
+            "precision": 1
+          },
+          {
+            "format": "percent",
+            "key": "bounce_endpoint_ci_low",
+            "label": "95% low",
+            "precision": 1
+          },
+          {
+            "format": "percent",
+            "key": "bounce_endpoint_ci_high",
+            "label": "95% high",
+            "precision": 1
+          }
+        ],
+        "id": "touch",
+        "kind": "table",
+        "rows": [
+          {
+            "bounce_endpoint_ci_high": 0.5254855558728346,
+            "bounce_endpoint_ci_low": 0.48850211549821504,
+            "bounce_endpoint_probability": 0.5071456160679799,
+            "product": "ES",
+            "session": "asia",
+            "touch_n": 2589
+          },
+          {
+            "bounce_endpoint_ci_high": 0.5393436525116148,
+            "bounce_endpoint_ci_low": 0.5025103873983342,
+            "bounce_endpoint_probability": 0.5210526315789473,
+            "product": "NQ",
+            "session": "asia",
+            "touch_n": 2660
+          },
+          {
+            "bounce_endpoint_ci_high": 0.5391594303282049,
+            "bounce_endpoint_ci_low": 0.49624094079037334,
+            "bounce_endpoint_probability": 0.517017017017017,
+            "product": "GC",
+            "session": "asia",
+            "touch_n": 1998
+          },
+          {
+            "bounce_endpoint_ci_high": 0.507404065567745,
+            "bounce_endpoint_ci_low": 0.4739703389761336,
+            "bounce_endpoint_probability": 0.4902516838000709,
+            "product": "ES",
+            "session": "london",
+            "touch_n": 2821
+          },
+          {
+            "bounce_endpoint_ci_high": 0.5122134825327905,
+            "bounce_endpoint_ci_low": 0.4786584832477086,
+            "bounce_endpoint_probability": 0.4955048409405256,
+            "product": "NQ",
+            "session": "london",
+            "touch_n": 2892
+          },
+          {
+            "bounce_endpoint_ci_high": 0.5155746436556291,
+            "bounce_endpoint_ci_low": 0.47080828659663904,
+            "bounce_endpoint_probability": 0.4934210526315789,
+            "product": "GC",
+            "session": "london",
+            "touch_n": 2128
+          },
+          {
+            "bounce_endpoint_ci_high": 0.5165625969484164,
+            "bounce_endpoint_ci_low": 0.4744609093760682,
+            "bounce_endpoint_probability": 0.49600672551492225,
+            "product": "ES",
+            "session": "ny",
+            "touch_n": 2379
+          },
+          {
+            "bounce_endpoint_ci_high": 0.5241873938899998,
+            "bounce_endpoint_ci_low": 0.4830212083212985,
+            "bounce_endpoint_probability": 0.5036124096897577,
+            "product": "NQ",
+            "session": "ny",
+            "touch_n": 2353
+          },
+          {
+            "bounce_endpoint_ci_high": 0.522234876903441,
+            "bounce_endpoint_ci_low": 0.46913896320807197,
+            "bounce_endpoint_probability": 0.4959950708564387,
+            "product": "GC",
+            "session": "ny",
+            "touch_n": 1623
+          },
+          {
+            "bounce_endpoint_ci_high": 0.49248959586086155,
+            "bounce_endpoint_ci_low": 0.46509372998759296,
+            "bounce_endpoint_probability": 0.4788566953797964,
+            "product": "ES",
+            "session": "globex",
+            "touch_n": 5108
+          },
+          {
+            "bounce_endpoint_ci_high": 0.506355644235435,
+            "bounce_endpoint_ci_low": 0.4801889725168454,
+            "bounce_endpoint_probability": 0.4928123848138592,
+            "product": "NQ",
+            "session": "globex",
+            "touch_n": 5426
+          },
+          {
+            "bounce_endpoint_ci_high": 0.517253068060771,
+            "bounce_endpoint_ci_low": 0.48207513965545873,
+            "bounce_endpoint_probability": 0.5,
+            "product": "GC",
+            "session": "globex",
+            "touch_n": 3314
+          }
+        ],
+        "title": "First-touch response: separate eligible population"
+      },
+      {
+        "body": "Completed two-minute HLC3 is weighted by bar volume; population sigma is volume weighted. A first fresh strict close beyond two sigma is selected within a causal parent excursion. Entry is the next two-minute open. Primary touch is source one-minute range overlap with the tick-rounded ±one-tick evolving VWAP zone known at minute open; gap or reference overtake alone is not touch. Touch response begins after its containing two-minute candle closes. Upper departure continuation and upper-arrival bounce are long; lower counterparts are short. Continuation delta compares signed continuation with fade endpoint movement in native points. Bounce endpoint probability tests the signed terminal response, not a first-barrier winner or a trading win rate. Unavailable horizons are excluded from eligible outcome denominators. Saved marginal 95% intervals use shared ISO-week cluster draws.",
+        "id": "methods",
+        "kind": "text",
+        "title": "Definitions and methods"
+      },
+      {
+        "body": "Previously viewed, retrospectively complete history is exploratory: ES/NQ eligible dates begin in 2021 and GC in 2016, ending September 18, 2026. Anchors and thresholds are dependent. Bootstrap zero/all-success cells have unresolved boundary uncertainty, not certainty. Sparse support and exclusions remain in the saved coverage table. No order-flow delta, fills, costs, intraminute barrier order or realized profitability was tested. The optional Pine companion has not been independently compiled in its native environment.",
+        "id": "limitations",
+        "kind": "text",
+        "title": "Limitations and uncertainty"
+      },
+      {
+        "body": "Study 15_vwap_excursion_response; source run 20260929T234000Z_a15f. Registered reference: Explicit registered reference; retain its executed scope and saved qualifications.\n\nPresentation revision 20261006T230936Z_web15, web-study-report-1.0. Saved numerical tables are the authority; only selected rows and columns are presented. No new statistics or research execution. The publication record identifies this JSON and its selected assets.",
+        "id": "sources-provenance",
+        "kind": "text",
+        "title": "Source and presentation provenance"
+      }
+    ],
+    "source": {
+      "producer": "sahadeva",
+      "runId": "20260929T234000Z_a15f"
+    },
+    "summary": "Fresh two-sigma departures show different return and response behavior by anchor and product. Complete-path denominators and shared-week uncertainty limit these to exploratory price evidence.",
+    "title": "VWAP excursion: return and first-touch response"
+  }
+}

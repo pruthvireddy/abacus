@@ -1,0 +1,483 @@
+{
+  "schema_version": 1,
+  "status": "passed",
+  "reviewer_version": 3,
+  "reviewer_version_reason": "New sole-3m protocol 1.1.0 requires full source OHLCV/VWAP reconciliation and invariance to the previous run for coverage/ranges/ATR context. Reviewer frozen before execution; no producer imports.",
+  "scope": "All source-derived 3m OHLCV/timestamps/VWAP and strict directions, independent saved-bar event/panel/table reconstruction including exact bootstrap, ATR alignment/ranks/bins, nine bounded hand-recursive EMA source samples, and prior-run coverage/range/ATR invariants. No trade-profitability validation.",
+  "execution": {
+    "argv": [
+      "/Users/ppanati/Documents/projects/abacus/.venv/bin/python",
+      "studies/28_globex_ema_crossings/verify_saved_v3.py",
+      "--stage",
+      "/Users/ppanati/Documents/projects/abacus/work/28_globex_ema_crossings/20261023T210215Z_ema6_3m_v1"
+    ],
+    "cwd": "/Users/ppanati/Documents/projects/abacus",
+    "started_utc": "2026-10-23T21:03:51.582668+00:00",
+    "completed_utc": "2026-10-23T21:04:23.419839+00:00",
+    "duration_seconds": 31.837171,
+    "stdout_log": "saved-evidence-review.log",
+    "return_code_record": "The invoking process records the actual exit code separately."
+  },
+  "verifier_sha256": "9a765aac2e637f49ea00448cbf909d13316f78fc26b2ee6bfb184057c827698c",
+  "bars_checked": 1397940,
+  "retained_reviewer_source": "provenance/source/studies/28_globex_ema_crossings/verify_saved_v3.py",
+  "crossings_checked": 32006,
+  "panel_rows_checked": 21826,
+  "tables_checked": {
+    "summary": 210,
+    "yearly": 1374,
+    "monthly": 10409,
+    "month_of_year": 2512,
+    "distribution": 3938
+  },
+  "cohort_unique_dates": {
+    "all_available": 1650,
+    "common_calendar": 1243,
+    "matched_dates": 357
+  },
+  "coverage_and_audit_checks": {
+    "release_audit_rows": 12750,
+    "coverage_cells": 256,
+    "samples": {
+      "ES/3m": {
+        "eligible_sessions": 1037,
+        "common_calendar_sessions": 1037,
+        "calendar_months": 64,
+        "no_sample_months": 0
+      },
+      "GC/3m": {
+        "eligible_sessions": 825,
+        "common_calendar_sessions": 418,
+        "calendar_months": 128,
+        "no_sample_months": 15
+      },
+      "NQ/3m": {
+        "eligible_sessions": 1177,
+        "common_calendar_sessions": 1177,
+        "calendar_months": 64,
+        "no_sample_months": 0
+      }
+    }
+  },
+  "daily_context_checks": {
+    "ES": {
+      "sessions": 1037,
+      "minimum_valid_rank_history": 252,
+      "daily_rows": 7344,
+      "initial_or_missing_atr_rows": 13
+    },
+    "GC": {
+      "sessions": 825,
+      "minimum_valid_rank_history": 252,
+      "daily_rows": 13011,
+      "initial_or_missing_atr_rows": 13
+    },
+    "NQ": {
+      "sessions": 1177,
+      "minimum_valid_rank_history": 252,
+      "daily_rows": 6887,
+      "initial_or_missing_atr_rows": 13
+    }
+  },
+  "ema_source_samples": [
+    {
+      "product": "ES",
+      "timeframe": "3m",
+      "session_date": "2021-06-28",
+      "bars_checked": 460,
+      "preceding_observed_bars": 2275,
+      "max_ema_absolute_difference": 1.8189894035458565e-12
+    },
+    {
+      "product": "ES",
+      "timeframe": "3m",
+      "session_date": "2024-03-05",
+      "bars_checked": 460,
+      "preceding_observed_bars": 2300,
+      "max_ema_absolute_difference": 1.8189894035458565e-12
+    },
+    {
+      "product": "ES",
+      "timeframe": "3m",
+      "session_date": "2026-09-18",
+      "bars_checked": 460,
+      "preceding_observed_bars": 2300,
+      "max_ema_absolute_difference": 2.7284841053187847e-12
+    },
+    {
+      "product": "GC",
+      "timeframe": "3m",
+      "session_date": "2016-02-11",
+      "bars_checked": 460,
+      "preceding_observed_bars": 2299,
+      "max_ema_absolute_difference": 9.094947017729282e-13
+    },
+    {
+      "product": "GC",
+      "timeframe": "3m",
+      "session_date": "2021-08-16",
+      "bars_checked": 460,
+      "preceding_observed_bars": 2300,
+      "max_ema_absolute_difference": 9.094947017729282e-13
+    },
+    {
+      "product": "GC",
+      "timeframe": "3m",
+      "session_date": "2026-09-18",
+      "bars_checked": 460,
+      "preceding_observed_bars": 2300,
+      "max_ema_absolute_difference": 1.8189894035458565e-12
+    },
+    {
+      "product": "NQ",
+      "timeframe": "3m",
+      "session_date": "2021-06-28",
+      "bars_checked": 460,
+      "preceding_observed_bars": 2275,
+      "max_ema_absolute_difference": 3.637978807091713e-12
+    },
+    {
+      "product": "NQ",
+      "timeframe": "3m",
+      "session_date": "2024-02-02",
+      "bars_checked": 460,
+      "preceding_observed_bars": 2300,
+      "max_ema_absolute_difference": 7.275957614183426e-12
+    },
+    {
+      "product": "NQ",
+      "timeframe": "3m",
+      "session_date": "2026-09-18",
+      "bars_checked": 460,
+      "preceding_observed_bars": 2300,
+      "max_ema_absolute_difference": 1.0913936421275139e-11
+    }
+  ],
+  "three_minute_source_checks": {
+    "ES": {
+      "sessions_checked": 1037,
+      "source_minutes_checked": 1431060,
+      "bars_checked": 477020,
+      "source_partition_count": 17,
+      "max_cumulative_vwap_absolute_difference": 1.2732925824820995e-11,
+      "max_recursive_vwap_absolute_difference": 0.0,
+      "near_zero_delta_bars": 0,
+      "cumulative_vs_recursive_direction_differences": 0,
+      "strict_source_recursive_directions_match": true,
+      "source_partitions": [
+        {
+          "path": "data/curated/continuous/1m/product=ES/roll=volume_lead_v1/variant=back_adjusted/adjustment=prior_session_close_additive_v1/year=2010/part-000.parquet",
+          "sha256": "a882dba7ea5f5de2c5719c264f74cf8cc9fb04c021500afc4f7ac8a54c99434a"
+        },
+        {
+          "path": "data/curated/continuous/1m/product=ES/roll=volume_lead_v1/variant=back_adjusted/adjustment=prior_session_close_additive_v1/year=2011/part-000.parquet",
+          "sha256": "bbcf8afec3e8d007228016c750b9d4be67f2ef6a04cc41c1e3ba6c2ac22d00b1"
+        },
+        {
+          "path": "data/curated/continuous/1m/product=ES/roll=volume_lead_v1/variant=back_adjusted/adjustment=prior_session_close_additive_v1/year=2012/part-000.parquet",
+          "sha256": "64dbd75385f91c6415aa1353046906ab7c7b10d9b75b1d1700c23c33c15dc347"
+        },
+        {
+          "path": "data/curated/continuous/1m/product=ES/roll=volume_lead_v1/variant=back_adjusted/adjustment=prior_session_close_additive_v1/year=2013/part-000.parquet",
+          "sha256": "1ef79570f3c536cf80700a22ff3d28d3a2232976085a1499cbf83928a85690bb"
+        },
+        {
+          "path": "data/curated/continuous/1m/product=ES/roll=volume_lead_v1/variant=back_adjusted/adjustment=prior_session_close_additive_v1/year=2014/part-000.parquet",
+          "sha256": "270d9ec45df0def038f901bc1588d39dfae1163a733f56371b924c5c5afbcb46"
+        },
+        {
+          "path": "data/curated/continuous/1m/product=ES/roll=volume_lead_v1/variant=back_adjusted/adjustment=prior_session_close_additive_v1/year=2015/part-000.parquet",
+          "sha256": "2c356deab329f44a0e716f8acd893b2d288d1903ab1a6abf5e69d3d8fd4d9bcb"
+        },
+        {
+          "path": "data/curated/continuous/1m/product=ES/roll=volume_lead_v1/variant=back_adjusted/adjustment=prior_session_close_additive_v1/year=2016/part-000.parquet",
+          "sha256": "ceef3f9374425cf6f6c75461d704bc7bec724414ed101a16d9eb785ab835bd55"
+        },
+        {
+          "path": "data/curated/continuous/1m/product=ES/roll=volume_lead_v1/variant=back_adjusted/adjustment=prior_session_close_additive_v1/year=2017/part-000.parquet",
+          "sha256": "fbfc3c15c4868f3fa5fbaad0ec74938c6ee20f72d1f5fbdd16cc3e4a57f0294b"
+        },
+        {
+          "path": "data/curated/continuous/1m/product=ES/roll=volume_lead_v1/variant=back_adjusted/adjustment=prior_session_close_additive_v1/year=2018/part-000.parquet",
+          "sha256": "3517bf70792ca6155507d3cb3e2554d3c864ad168918d554ac8b20dc1ee012dd"
+        },
+        {
+          "path": "data/curated/continuous/1m/product=ES/roll=volume_lead_v1/variant=back_adjusted/adjustment=prior_session_close_additive_v1/year=2019/part-000.parquet",
+          "sha256": "5f90ec34f15a9fd63e4a5b38a6837f32f8518bf53d881904701353e088c1d888"
+        },
+        {
+          "path": "data/curated/continuous/1m/product=ES/roll=volume_lead_v1/variant=back_adjusted/adjustment=prior_session_close_additive_v1/year=2020/part-000.parquet",
+          "sha256": "6a99083dfd0e1b0fa6f4eec675479cad6f42ccc4fb7c47269257508b95c7e996"
+        },
+        {
+          "path": "data/curated/continuous/1m/product=ES/roll=volume_lead_v1/variant=back_adjusted/adjustment=prior_session_close_additive_v1/year=2021/part-000.parquet",
+          "sha256": "be0dbd764f6426be8ff6f097332b230660c3b5b458845f33389d38071369d0b2"
+        },
+        {
+          "path": "data/curated/continuous/1m/product=ES/roll=volume_lead_v1/variant=back_adjusted/adjustment=prior_session_close_additive_v1/year=2022/part-000.parquet",
+          "sha256": "5a99a2e615289083c5d479b2b1dccd609ffef3599714148f3ef32b8773db1230"
+        },
+        {
+          "path": "data/curated/continuous/1m/product=ES/roll=volume_lead_v1/variant=back_adjusted/adjustment=prior_session_close_additive_v1/year=2023/part-000.parquet",
+          "sha256": "2b7ac9e5b43df67aaf857e52734a68bc386ea3d29ef28ac083fe0607ea41e87d"
+        },
+        {
+          "path": "data/curated/continuous/1m/product=ES/roll=volume_lead_v1/variant=back_adjusted/adjustment=prior_session_close_additive_v1/year=2024/part-000.parquet",
+          "sha256": "1c9541a96189090ed4963e1e627fb41fb42c726dd8974515c42ab07c8bc9f67a"
+        },
+        {
+          "path": "data/curated/continuous/1m/product=ES/roll=volume_lead_v1/variant=back_adjusted/adjustment=prior_session_close_additive_v1/year=2025/part-000.parquet",
+          "sha256": "7366966564a4bccd98b9d4d6967ed4ba829d32676f852adf7931fc2f60f49db4"
+        },
+        {
+          "path": "data/curated/continuous/1m/product=ES/roll=volume_lead_v1/variant=back_adjusted/adjustment=prior_session_close_additive_v1/year=2026/part-000.parquet",
+          "sha256": "cf5bd924a7ee494ef8d52871220ed65196deea9a76758db17d3d5f3cd0ac1da5"
+        }
+      ]
+    },
+    "GC": {
+      "sessions_checked": 825,
+      "source_minutes_checked": 1138500,
+      "bars_checked": 379500,
+      "source_partition_count": 17,
+      "max_cumulative_vwap_absolute_difference": 1.6370904631912708e-11,
+      "max_recursive_vwap_absolute_difference": 0.0,
+      "near_zero_delta_bars": 0,
+      "cumulative_vs_recursive_direction_differences": 0,
+      "strict_source_recursive_directions_match": true,
+      "source_partitions": [
+        {
+          "path": "data/curated/continuous/1m/product=GC/roll=volume_lead_v1/variant=back_adjusted/adjustment=prior_session_close_additive_v1/year=2010/part-000.parquet",
+          "sha256": "45b0b8a7ccde8d3dded484264d7057b60d0d7518b7ebefecd640ca5793d20db8"
+        },
+        {
+          "path": "data/curated/continuous/1m/product=GC/roll=volume_lead_v1/variant=back_adjusted/adjustment=prior_session_close_additive_v1/year=2011/part-000.parquet",
+          "sha256": "10b6aac01cd65de5f15ce87ccd8b066f4f3f19163a77b207be4ccf01fcf576ea"
+        },
+        {
+          "path": "data/curated/continuous/1m/product=GC/roll=volume_lead_v1/variant=back_adjusted/adjustment=prior_session_close_additive_v1/year=2012/part-000.parquet",
+          "sha256": "f36a7961c74900352205679a852a40c5139c034a1bbbf2fea0d8acb584eeb1f8"
+        },
+        {
+          "path": "data/curated/continuous/1m/product=GC/roll=volume_lead_v1/variant=back_adjusted/adjustment=prior_session_close_additive_v1/year=2013/part-000.parquet",
+          "sha256": "82117d0ab3c1fa0ecf2a9319560bace0e8bcd0bee798d3449d677db4a6b0ecb1"
+        },
+        {
+          "path": "data/curated/continuous/1m/product=GC/roll=volume_lead_v1/variant=back_adjusted/adjustment=prior_session_close_additive_v1/year=2014/part-000.parquet",
+          "sha256": "2d9ac7541ada316a10abf78b2751fdf52ecd330b88e47aaf19c0027193422c0a"
+        },
+        {
+          "path": "data/curated/continuous/1m/product=GC/roll=volume_lead_v1/variant=back_adjusted/adjustment=prior_session_close_additive_v1/year=2015/part-000.parquet",
+          "sha256": "dcdf17b1d8a2a6e64aa4a72aaae0eed453b9b24169f9eba4c56e12b3f8e6e788"
+        },
+        {
+          "path": "data/curated/continuous/1m/product=GC/roll=volume_lead_v1/variant=back_adjusted/adjustment=prior_session_close_additive_v1/year=2016/part-000.parquet",
+          "sha256": "76a534ce9acce2a1448bc3504f52e0e1e783db23ae6a9dd76cf95d6e6c0307fe"
+        },
+        {
+          "path": "data/curated/continuous/1m/product=GC/roll=volume_lead_v1/variant=back_adjusted/adjustment=prior_session_close_additive_v1/year=2017/part-000.parquet",
+          "sha256": "a804abec0ec33c1b2a90c937d9b4c24b0e98bbceb897b9710b3edb66e1547702"
+        },
+        {
+          "path": "data/curated/continuous/1m/product=GC/roll=volume_lead_v1/variant=back_adjusted/adjustment=prior_session_close_additive_v1/year=2018/part-000.parquet",
+          "sha256": "db2396aa36e3f7d459a182e07404051720189448c2566764965da7507aeaabe0"
+        },
+        {
+          "path": "data/curated/continuous/1m/product=GC/roll=volume_lead_v1/variant=back_adjusted/adjustment=prior_session_close_additive_v1/year=2019/part-000.parquet",
+          "sha256": "8577e5073697e84860444da4bac6c3a093e3822f8faa51e2d1d59f36ac2ab898"
+        },
+        {
+          "path": "data/curated/continuous/1m/product=GC/roll=volume_lead_v1/variant=back_adjusted/adjustment=prior_session_close_additive_v1/year=2020/part-000.parquet",
+          "sha256": "0746c882aca4e5f82118844829c9f62ef04a052e095ac57b0c0ee4d9e14375ff"
+        },
+        {
+          "path": "data/curated/continuous/1m/product=GC/roll=volume_lead_v1/variant=back_adjusted/adjustment=prior_session_close_additive_v1/year=2021/part-000.parquet",
+          "sha256": "0c7a7a6f13dc1ad7c2d8c9721e1335676b22da293828aa3d1e3a71dd713c11e7"
+        },
+        {
+          "path": "data/curated/continuous/1m/product=GC/roll=volume_lead_v1/variant=back_adjusted/adjustment=prior_session_close_additive_v1/year=2022/part-000.parquet",
+          "sha256": "24a436e15ee28e69e2806f34e78bccb5c498ee1cf277976e4e25e2a443f79a2a"
+        },
+        {
+          "path": "data/curated/continuous/1m/product=GC/roll=volume_lead_v1/variant=back_adjusted/adjustment=prior_session_close_additive_v1/year=2023/part-000.parquet",
+          "sha256": "3be173fd8b1c30b379bdd8255f1352bef900163a966f282590274acc095e8702"
+        },
+        {
+          "path": "data/curated/continuous/1m/product=GC/roll=volume_lead_v1/variant=back_adjusted/adjustment=prior_session_close_additive_v1/year=2024/part-000.parquet",
+          "sha256": "698e3b11553c8c097732855f6d93b3928d6dcb4e3cd79274162ee7243fe19bec"
+        },
+        {
+          "path": "data/curated/continuous/1m/product=GC/roll=volume_lead_v1/variant=back_adjusted/adjustment=prior_session_close_additive_v1/year=2025/part-000.parquet",
+          "sha256": "3f0ea9f7345855867935f3ffeba93f2c38fbeecb73653e87f1215de7459f7f15"
+        },
+        {
+          "path": "data/curated/continuous/1m/product=GC/roll=volume_lead_v1/variant=back_adjusted/adjustment=prior_session_close_additive_v1/year=2026/part-000.parquet",
+          "sha256": "91ba4175ee84038700bb401cd8c7f9b6b42526db951abff21bab506d8a4b9ec4"
+        }
+      ]
+    },
+    "NQ": {
+      "sessions_checked": 1177,
+      "source_minutes_checked": 1624260,
+      "bars_checked": 541420,
+      "source_partition_count": 17,
+      "max_cumulative_vwap_absolute_difference": 5.820766091346741e-11,
+      "max_recursive_vwap_absolute_difference": 0.0,
+      "near_zero_delta_bars": 0,
+      "cumulative_vs_recursive_direction_differences": 0,
+      "strict_source_recursive_directions_match": true,
+      "source_partitions": [
+        {
+          "path": "data/curated/continuous/1m/product=NQ/roll=volume_lead_v1/variant=back_adjusted/adjustment=prior_session_close_additive_v1/year=2010/part-000.parquet",
+          "sha256": "1656504cc203272a334251c52c6d061365998fc008f1e14fe4da3a7fc2440202"
+        },
+        {
+          "path": "data/curated/continuous/1m/product=NQ/roll=volume_lead_v1/variant=back_adjusted/adjustment=prior_session_close_additive_v1/year=2011/part-000.parquet",
+          "sha256": "e531db7e7d7c52324de829abe4f63959bb23ba5033ba0aef332fea9e8f52708a"
+        },
+        {
+          "path": "data/curated/continuous/1m/product=NQ/roll=volume_lead_v1/variant=back_adjusted/adjustment=prior_session_close_additive_v1/year=2012/part-000.parquet",
+          "sha256": "2c0e6ef59e77dfcfe56ac1f22910fd324310f981fe9b14c7a963abdc36dd3db9"
+        },
+        {
+          "path": "data/curated/continuous/1m/product=NQ/roll=volume_lead_v1/variant=back_adjusted/adjustment=prior_session_close_additive_v1/year=2013/part-000.parquet",
+          "sha256": "f109cdd6cd9d08862f717561ce94154bbc05d17fe286a268880884c89e85171e"
+        },
+        {
+          "path": "data/curated/continuous/1m/product=NQ/roll=volume_lead_v1/variant=back_adjusted/adjustment=prior_session_close_additive_v1/year=2014/part-000.parquet",
+          "sha256": "31da00e5acd8ab68c8866d066bf2e56e5f222abb97c743fa91a70cd1637e5417"
+        },
+        {
+          "path": "data/curated/continuous/1m/product=NQ/roll=volume_lead_v1/variant=back_adjusted/adjustment=prior_session_close_additive_v1/year=2015/part-000.parquet",
+          "sha256": "daa388f08f618c2c342abee6f7b806ff5b3e90adbdd9ad41cd2f76a73b4cb074"
+        },
+        {
+          "path": "data/curated/continuous/1m/product=NQ/roll=volume_lead_v1/variant=back_adjusted/adjustment=prior_session_close_additive_v1/year=2016/part-000.parquet",
+          "sha256": "962bac444a8ae190f5a0f20ef11a00f6494a4148f1a2d1be3eb18f046da242b5"
+        },
+        {
+          "path": "data/curated/continuous/1m/product=NQ/roll=volume_lead_v1/variant=back_adjusted/adjustment=prior_session_close_additive_v1/year=2017/part-000.parquet",
+          "sha256": "b30821ab6a7e3b33093664f05b020dc6d59984f0846aa328cffa18a92613028c"
+        },
+        {
+          "path": "data/curated/continuous/1m/product=NQ/roll=volume_lead_v1/variant=back_adjusted/adjustment=prior_session_close_additive_v1/year=2018/part-000.parquet",
+          "sha256": "b4abf46e42fa0d8ec4a6befdecac385ab83d6fb78944b827f1e914cb375f08d3"
+        },
+        {
+          "path": "data/curated/continuous/1m/product=NQ/roll=volume_lead_v1/variant=back_adjusted/adjustment=prior_session_close_additive_v1/year=2019/part-000.parquet",
+          "sha256": "2401850aa7acc69099c89cf4e7b2cdc9987a8743bc2458098330e168c82a3b8e"
+        },
+        {
+          "path": "data/curated/continuous/1m/product=NQ/roll=volume_lead_v1/variant=back_adjusted/adjustment=prior_session_close_additive_v1/year=2020/part-000.parquet",
+          "sha256": "5ae28b8e7b11ab900cb00dea9cf696a6bb7e03efb6580570d05a9dd3f04fb704"
+        },
+        {
+          "path": "data/curated/continuous/1m/product=NQ/roll=volume_lead_v1/variant=back_adjusted/adjustment=prior_session_close_additive_v1/year=2021/part-000.parquet",
+          "sha256": "d71d546960c3e1c6a81ebaecf690c1b94cceee1ba6da0360689434a1d0ca26d6"
+        },
+        {
+          "path": "data/curated/continuous/1m/product=NQ/roll=volume_lead_v1/variant=back_adjusted/adjustment=prior_session_close_additive_v1/year=2022/part-000.parquet",
+          "sha256": "e3811c2909f963679970eec306a63fb4453f69d29ddb07200193f1fdb45844cb"
+        },
+        {
+          "path": "data/curated/continuous/1m/product=NQ/roll=volume_lead_v1/variant=back_adjusted/adjustment=prior_session_close_additive_v1/year=2023/part-000.parquet",
+          "sha256": "a251773a941c74e8525080591f4f52d0ff89dae4c087a508b209c86801c51e72"
+        },
+        {
+          "path": "data/curated/continuous/1m/product=NQ/roll=volume_lead_v1/variant=back_adjusted/adjustment=prior_session_close_additive_v1/year=2024/part-000.parquet",
+          "sha256": "84521befa7113de13aa6a64a1c2cf21b85456bdb04e8770cbe0446a05ff91027"
+        },
+        {
+          "path": "data/curated/continuous/1m/product=NQ/roll=volume_lead_v1/variant=back_adjusted/adjustment=prior_session_close_additive_v1/year=2025/part-000.parquet",
+          "sha256": "9b20279dd402cd820e0a3a4939f6db882b05068db0071f0ccb9637fb3d78bab1"
+        },
+        {
+          "path": "data/curated/continuous/1m/product=NQ/roll=volume_lead_v1/variant=back_adjusted/adjustment=prior_session_close_additive_v1/year=2026/part-000.parquet",
+          "sha256": "987b53376ebaef37065d61d8a0048f8c09d6f1276c1332db0f92c4e266f65044"
+        }
+      ]
+    }
+  },
+  "previous_run_invariants": {
+    "prior_run": "20261023T202400Z_ema6_v1",
+    "prior_daily_panel_sha256": "86f0a3c40d0917ceb2fdc512b14126d66a8246c407e7ad10bd858fa162a8d726",
+    "rows_checked": 6742,
+    "numeric_fields": [
+      "session_range",
+      "atr14",
+      "atr14_pct",
+      "atr_percentile",
+      "range_atr"
+    ],
+    "label_fields": [
+      "atr_regime",
+      "realized_regime",
+      "atr_source_day",
+      "atr_available_at"
+    ],
+    "coverage_ranges_atr_context_and_labels_unchanged": true
+  },
+  "true_zero_panel_rows": 2532,
+  "artifacts": [
+    {
+      "path": "bar_evidence.parquet",
+      "sha256": "27049c2a1ea45ac2c7157eee1f3267eb253ff1537bec553827b166de98a015e8",
+      "bytes": 80138820
+    },
+    {
+      "path": "crossings.csv",
+      "sha256": "361476c8208560861a268693c0f7ae573d91599206c1f05ab3bcbdd3410618f5",
+      "bytes": 5029336
+    },
+    {
+      "path": "daily_panel.csv",
+      "sha256": "8b78d3bb5580f682026ba4314fdafd6a575ee2dbaa0270530e205970f1037a0d",
+      "bytes": 4252339
+    },
+    {
+      "path": "input_audit.csv",
+      "sha256": "7564867a115de0181e7d1d874989e8087291233686bc1d58dae4189e808de481",
+      "bytes": 4490897
+    },
+    {
+      "path": "saved-evidence-review.log",
+      "sha256": "67f76cfc67c16929a28a592d25069d806f11e5568729a99258ff47e91a090161",
+      "bytes": 628
+    },
+    {
+      "path": "provenance/source/studies/28_globex_ema_crossings/verify_saved_v3.py",
+      "sha256": "9a765aac2e637f49ea00448cbf909d13316f78fc26b2ee6bfb184057c827698c",
+      "bytes": 39769
+    },
+    {
+      "path": "tables/coverage.csv",
+      "sha256": "25730fa293d859795d7825d3c3d4328504e6d8437515a444247e11fd0be15937",
+      "bytes": 12987
+    },
+    {
+      "path": "tables/distribution.csv",
+      "sha256": "a27d6a0dfb67f9b8a5eabfe9298ad6f93dd2f235fcc49753c7eabc5e5bddec50",
+      "bytes": 295404
+    },
+    {
+      "path": "tables/month_of_year.csv",
+      "sha256": "d0c332c3ca02239cbeb9d4c64f939aa4ab4da9ce837e7dedb5597d0361cf2a13",
+      "bytes": 364965
+    },
+    {
+      "path": "tables/monthly.csv",
+      "sha256": "5e36d4040bf72377e46bbe151bbcd76edc4754df7635e14af7bca88f509f91aa",
+      "bytes": 1397836
+    },
+    {
+      "path": "tables/summary.csv",
+      "sha256": "dfc11f27f8149695d88b5dab0d3c104ebbbff2bd0fef5e70001437cf041f63af",
+      "bytes": 40836
+    },
+    {
+      "path": "tables/yearly.csv",
+      "sha256": "c82a00bbf4b2f1de900ccfec8def50d4180b8b7765dc5326ec5ccee010f3d61d",
+      "bytes": 205372
+    }
+  ]
+}

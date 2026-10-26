@@ -1,0 +1,299 @@
+{
+  "schema_version": 1,
+  "study_id": "21_ema_cloud_trend_follow_opportunity",
+  "run_id": "20261010T221954Z_s1_8c6e_r3",
+  "reviewer": "Agent C independent actual report review",
+  "reviewed_at_utc": "2026-10-10T22:49:57.235920+00:00",
+  "status": "passed",
+  "checks": [
+    {
+      "check": "tables_to_publication_downloads_claims_figures",
+      "status": "passed",
+      "public_cells": 1332,
+      "download_cells": 5622,
+      "claims": 6,
+      "figures": 6,
+      "publication_sha256": "b6beda093b3e24a53a299e6644f613877b7971631fb436c5de971b1152e1960d",
+      "bindings_sha256": "9ee780f64ded943a3277607924654354743e1d12071d999b0250c589f06f6c24",
+      "qualification": "Figure sources and exact raster bytes verified; independent visual QA remains separate."
+    },
+    {
+      "check": "offline_html_transfer",
+      "status": "passed",
+      "tables": 7,
+      "table_cells": 1332,
+      "local_figures": 6,
+      "local_evidence_links": 9,
+      "focusable_scroll_containers": 7
+    },
+    {
+      "check": "primary_descriptive_claims",
+      "status": "passed",
+      "cells": 6,
+      "all_four_week_raw_primary_intervals_include_zero": true,
+      "mean_mae_exceeds_mean_mfe_all_six": true,
+      "primary_atr_normalization_missing": 0
+    },
+    {
+      "check": "complete_calendar_and_null_displays",
+      "status": "passed",
+      "weeks_per_cell": 157,
+      "months_per_cell": 36,
+      "zero_completed_periods": 390
+    },
+    {
+      "check": "example_scope",
+      "status": "passed",
+      "selections": 30,
+      "path_rows": 780,
+      "only_ny_2018_2020": true
+    },
+    {
+      "check": "visual_and_source_budget_review",
+      "status": "passed",
+      "figures": [
+        {
+          "path": "figures/horizons.png",
+          "width": 1210,
+          "height": 880,
+          "bytes": 115339
+        },
+        {
+          "path": "figures/distributions.png",
+          "width": 1210,
+          "height": 880,
+          "bytes": 88603
+        },
+        {
+          "path": "figures/annual_stability.png",
+          "width": 1210,
+          "height": 880,
+          "bytes": 51512
+        },
+        {
+          "path": "figures/calendar_stability.png",
+          "width": 1210,
+          "height": 880,
+          "bytes": 129342
+        },
+        {
+          "path": "figures/examples_3m.png",
+          "width": 1760,
+          "height": 990,
+          "bytes": 255834
+        },
+        {
+          "path": "figures/examples_5m.png",
+          "width": 1760,
+          "height": 990,
+          "bytes": 279799
+        }
+      ],
+      "method": "Manual inspection of all six saved PNGs via view_image plus exact source bindings; no figure regenerated.",
+      "findings": "Readable labels and axes; MAE/MFE share product scale; all years retained; undefined monthly means remain gaps; each illustration contains fixed example classes.",
+      "browser_visual_qa": "Unavailable: iab browser not available and sandbox denied loopback server bind. HTML structure, all cells and local assets checked independently."
+    },
+    {
+      "check": "owned_source_identity",
+      "status": "passed",
+      "frozen_files": 4
+    }
+  ],
+  "findings": [
+    {
+      "id": "R3-C01",
+      "severity": "disclosed_verification_correction",
+      "status": "resolved",
+      "description": "Frozen pipeline populates T00 feature_ready_slots from mapped decision readiness, but frozen independent checker expected null for 3m. Original scientific verify stopped on ES/3/2018 actual 45541 versus expected null. Root corrected static coverage captions and retained a coverage-only independent verification adapter; canonical frozen sources and numerical artifacts remain unchanged.",
+      "affected": [
+        "tables/S1-T00_coverage.csv:feature_ready_slots",
+        "src/reconcile.py:573",
+        "publication.json:coverage.description",
+        "report.md:Input coverage and quality"
+      ],
+      "classification": "Checker/presentation semantics mismatch; no observed event/outcome formula or primary numerical claim defect.",
+      "resolution": "Final report/pub/HTML caption alignment is reviewed here. The separately pinned adapter checks mapped readiness, shares and sessions while rerunning all unchanged verification functions; its completion receipt determines the overall status."
+    }
+  ],
+  "scope_review": "2018\u20132020 only; no later-period result, fast branch, threshold search, selected hour, profitability, public staging or deployment. Calendar/feed timing qualifications are prominent; early sparse GC strata retained.",
+  "interpretation_limit": "All-six interval and MAE/MFE statements refer to pooled raw H15 primary cells. They do not imply every direction/session/sensitivity or equal-active contrast is null.",
+  "artifact_identities": [
+    {
+      "path": "/Users/ppanati/Documents/projects/abacus/work/21_ema_cloud_trend_follow_opportunity/20261010T221954Z_s1_8c6e_r3/advice.md",
+      "bytes": 4296,
+      "sha256": "a73ab4bd1ca14546da148c01288c28a09cf74ff5e2ab7f21329ef188916e790a"
+    },
+    {
+      "path": "/Users/ppanati/Documents/projects/abacus/work/21_ema_cloud_trend_follow_opportunity/20261010T221954Z_s1_8c6e_r3/config.json",
+      "bytes": 2512,
+      "sha256": "d79872553daf496bf16b3e1d9c8e2ba792ad73fd5b0b6684bb0851d3596c7251"
+    },
+    {
+      "path": "/Users/ppanati/Documents/projects/abacus/work/21_ema_cloud_trend_follow_opportunity/20261010T221954Z_s1_8c6e_r3/downloads/horizons.csv",
+      "bytes": 8789,
+      "sha256": "ef2b4c88bf038a76d7147125c0bc6beb172ef5203ca625efa73d1ac20f107ef3"
+    },
+    {
+      "path": "/Users/ppanati/Documents/projects/abacus/work/21_ema_cloud_trend_follow_opportunity/20261010T221954Z_s1_8c6e_r3/downloads/months.csv",
+      "bytes": 32185,
+      "sha256": "2737be6b4be8150d7391d4a4e8ef27196123518a8dea0668c2f60de718a487e5"
+    },
+    {
+      "path": "/Users/ppanati/Documents/projects/abacus/work/21_ema_cloud_trend_follow_opportunity/20261010T221954Z_s1_8c6e_r3/downloads/primary.csv",
+      "bytes": 1607,
+      "sha256": "621fd7880e3133a13be9a219ff920aa501a0ac43ef4edd48045106d1018b61c5"
+    },
+    {
+      "path": "/Users/ppanati/Documents/projects/abacus/work/21_ema_cloud_trend_follow_opportunity/20261010T221954Z_s1_8c6e_r3/downloads/quantiles.csv",
+      "bytes": 25405,
+      "sha256": "dbbfb72c35eb389405c6de14405dd0268813b4b66f53640cb356ca62445df6ee"
+    },
+    {
+      "path": "/Users/ppanati/Documents/projects/abacus/work/21_ema_cloud_trend_follow_opportunity/20261010T221954Z_s1_8c6e_r3/events.manifest.json",
+      "bytes": 58237,
+      "sha256": "49e1b469fea926dc0c93000e2b3d515ee8715988338c4cd371e5bdfcd0414f07"
+    },
+    {
+      "path": "/Users/ppanati/Documents/projects/abacus/work/21_ema_cloud_trend_follow_opportunity/20261010T221954Z_s1_8c6e_r3/evidence.manifest.json",
+      "bytes": 58058,
+      "sha256": "44be98e7ecc718a64e0f121111187185971590d887b4b70bc1c3e2105d9a5ca8"
+    },
+    {
+      "path": "/Users/ppanati/Documents/projects/abacus/work/21_ema_cloud_trend_follow_opportunity/20261010T221954Z_s1_8c6e_r3/figure-environment.json",
+      "bytes": 2807,
+      "sha256": "adf54584601e7c196acb9a0396aa934da4fc1b25866fbe8ba36d676c06840e5d"
+    },
+    {
+      "path": "/Users/ppanati/Documents/projects/abacus/work/21_ema_cloud_trend_follow_opportunity/20261010T221954Z_s1_8c6e_r3/figures/annual_stability.png",
+      "bytes": 51512,
+      "sha256": "3632fcd11ac28d1305678e5c3da97e1fbc848f5c14972572dead1468e01db382"
+    },
+    {
+      "path": "/Users/ppanati/Documents/projects/abacus/work/21_ema_cloud_trend_follow_opportunity/20261010T221954Z_s1_8c6e_r3/figures/calendar_stability.png",
+      "bytes": 129342,
+      "sha256": "5b8b5c38f43fe05d9b6cb68d1d61198f658c5e2b49ef0695f23596d71902d2c8"
+    },
+    {
+      "path": "/Users/ppanati/Documents/projects/abacus/work/21_ema_cloud_trend_follow_opportunity/20261010T221954Z_s1_8c6e_r3/figures/distributions.png",
+      "bytes": 88603,
+      "sha256": "d69b149bdd71dfb13df51f956ea8b9d14c4b1ce5d994bff9532a59321f3f7d10"
+    },
+    {
+      "path": "/Users/ppanati/Documents/projects/abacus/work/21_ema_cloud_trend_follow_opportunity/20261010T221954Z_s1_8c6e_r3/figures/examples_3m.png",
+      "bytes": 255834,
+      "sha256": "e8aebca79b43154ea692480c5cac1ff9d64a9215b5ffa7d1237db66e6ad14b5e"
+    },
+    {
+      "path": "/Users/ppanati/Documents/projects/abacus/work/21_ema_cloud_trend_follow_opportunity/20261010T221954Z_s1_8c6e_r3/figures/examples_5m.png",
+      "bytes": 279799,
+      "sha256": "b08897aba0e66882944bff1b669489afbebfcc94ba7eed7aab3526fc976075ea"
+    },
+    {
+      "path": "/Users/ppanati/Documents/projects/abacus/work/21_ema_cloud_trend_follow_opportunity/20261010T221954Z_s1_8c6e_r3/figures/horizons.png",
+      "bytes": 115339,
+      "sha256": "b289bc32529a06d19918eda51870cd8f9ee678111ce37666ebc49dabc294bc64"
+    },
+    {
+      "path": "/Users/ppanati/Documents/projects/abacus/work/21_ema_cloud_trend_follow_opportunity/20261010T221954Z_s1_8c6e_r3/inputs.lock.json",
+      "bytes": 18024,
+      "sha256": "f5446669d1072ecf623015e8176352db42abbdfb4d9910cd28e5520892ac7be2"
+    },
+    {
+      "path": "/Users/ppanati/Documents/projects/abacus/work/21_ema_cloud_trend_follow_opportunity/20261010T221954Z_s1_8c6e_r3/plan.md",
+      "bytes": 43877,
+      "sha256": "da3160f2fcb4af2d9881bc08f92138031c3909ca26262575c144ff1e88822ca7"
+    },
+    {
+      "path": "/Users/ppanati/Documents/projects/abacus/work/21_ema_cloud_trend_follow_opportunity/20261010T221954Z_s1_8c6e_r3/protocol.md",
+      "bytes": 7675,
+      "sha256": "85905da017efca7f8724361ef34e445d566592165446f57d7a96bf7babd58bf9"
+    },
+    {
+      "path": "/Users/ppanati/Documents/projects/abacus/work/21_ema_cloud_trend_follow_opportunity/20261010T221954Z_s1_8c6e_r3/provenance/reviews/coverage-adapter-before-execution.json",
+      "bytes": 68413,
+      "sha256": "7306c2f730c5965852b46a00a22fb169980e1a5ea0a1b1943d690f0bafa72466"
+    },
+    {
+      "path": "/Users/ppanati/Documents/projects/abacus/work/21_ema_cloud_trend_follow_opportunity/20261010T221954Z_s1_8c6e_r3/provenance/reviews/coverage-adapter-completion.json",
+      "bytes": 1519,
+      "sha256": "0517fcd21888d19026e25e6bebdafc913c481f4050e2f8a17df38bc501a59d27"
+    },
+    {
+      "path": "/Users/ppanati/Documents/projects/abacus/work/21_ema_cloud_trend_follow_opportunity/20261010T221954Z_s1_8c6e_r3/provenance/source/studies/21_ema_cloud_trend_follow_opportunity/plan.md",
+      "bytes": 43877,
+      "sha256": "da3160f2fcb4af2d9881bc08f92138031c3909ca26262575c144ff1e88822ca7"
+    },
+    {
+      "path": "/Users/ppanati/Documents/projects/abacus/work/21_ema_cloud_trend_follow_opportunity/20261010T221954Z_s1_8c6e_r3/provenance/source-inventory.json",
+      "bytes": 16077,
+      "sha256": "504c524eeb44aa72866679be55bd06f300b73d91a8a6f5f246fc2131af767057"
+    },
+    {
+      "path": "/Users/ppanati/Documents/projects/abacus/work/21_ema_cloud_trend_follow_opportunity/20261010T221954Z_s1_8c6e_r3/publication.json",
+      "bytes": 83175,
+      "sha256": "b6beda093b3e24a53a299e6644f613877b7971631fb436c5de971b1152e1960d"
+    },
+    {
+      "path": "/Users/ppanati/Documents/projects/abacus/work/21_ema_cloud_trend_follow_opportunity/20261010T221954Z_s1_8c6e_r3/report.html",
+      "bytes": 37322,
+      "sha256": "f10abc981c01b74a60f806e5a61fcb47152be5b00e5975b8e2244f3a10857f89"
+    },
+    {
+      "path": "/Users/ppanati/Documents/projects/abacus/work/21_ema_cloud_trend_follow_opportunity/20261010T221954Z_s1_8c6e_r3/report.md",
+      "bytes": 26561,
+      "sha256": "f31e438da9c079c90f54ffbebed616002d63af755ca0760b2cd5f36f8acb04b7"
+    },
+    {
+      "path": "/Users/ppanati/Documents/projects/abacus/work/21_ema_cloud_trend_follow_opportunity/20261010T221954Z_s1_8c6e_r3/source-bindings.json",
+      "bytes": 1022728,
+      "sha256": "9ee780f64ded943a3277607924654354743e1d12071d999b0250c589f06f6c24"
+    },
+    {
+      "path": "/Users/ppanati/Documents/projects/abacus/work/21_ema_cloud_trend_follow_opportunity/20261010T221954Z_s1_8c6e_r3/tables/S1-T00_coverage.csv",
+      "bytes": 2614,
+      "sha256": "b95d70bf8dc44080da7dac48c1bb7622494023b075ebdefc781678c46f3cd488"
+    },
+    {
+      "path": "/Users/ppanati/Documents/projects/abacus/work/21_ema_cloud_trend_follow_opportunity/20261010T221954Z_s1_8c6e_r3/tables/S1-T01_signal_flow.csv",
+      "bytes": 151857,
+      "sha256": "a4f2b6e8a239c5533388e2431b210c54d314f71e449f88407820b8e5153b5c84"
+    },
+    {
+      "path": "/Users/ppanati/Documents/projects/abacus/work/21_ema_cloud_trend_follow_opportunity/20261010T221954Z_s1_8c6e_r3/tables/S1-T02_horizon_scorecard.csv",
+      "bytes": 686671,
+      "sha256": "3fc05c87aa1b9622a5713036d8cd7d52646136a4400e9ca4a71d0713c00f32d0"
+    },
+    {
+      "path": "/Users/ppanati/Documents/projects/abacus/work/21_ema_cloud_trend_follow_opportunity/20261010T221954Z_s1_8c6e_r3/tables/S1-T03_quantiles.csv",
+      "bytes": 2080612,
+      "sha256": "cfc60bf2ffa7d0e9784a011246837ed0dd23ba1e1f17274364a5ea3bc1b2f4ac"
+    },
+    {
+      "path": "/Users/ppanati/Documents/projects/abacus/work/21_ema_cloud_trend_follow_opportunity/20261010T221954Z_s1_8c6e_r3/tables/S1-T04_stability.csv",
+      "bytes": 11274640,
+      "sha256": "476224a4c10fbaf665a59cf20e5ffe5af406c0ba49a21be711044fee6fc9878d"
+    },
+    {
+      "path": "/Users/ppanati/Documents/projects/abacus/work/21_ema_cloud_trend_follow_opportunity/20261010T221954Z_s1_8c6e_r3/tables/S1-T05_calendar.csv",
+      "bytes": 3700063,
+      "sha256": "84f7acaeb3bef239024aa22ef874ff2166bcadae64a747b9b97a1c5bd5f6e7b0"
+    },
+    {
+      "path": "/Users/ppanati/Documents/projects/abacus/work/21_ema_cloud_trend_follow_opportunity/20261010T221954Z_s1_8c6e_r3/tables/S1-T06_examples.csv",
+      "bytes": 9713,
+      "sha256": "b0a5e5bba59d8c07dc573de239da800321723676564a810068197358a3d77f3d"
+    },
+    {
+      "path": "/Users/ppanati/Documents/projects/abacus/work/21_ema_cloud_trend_follow_opportunity/20261010T221954Z_s1_8c6e_r3/tables/selected-example-paths.parquet",
+      "bytes": 45033,
+      "sha256": "7af156835a0d6d0523dae3e97fce4c087e65dfb6e171f3d9d4f0d3053c84fc99"
+    }
+  ],
+  "review_script": {
+    "path": "/Users/ppanati/Documents/projects/abacus/work/21_ema_cloud_trend_follow_opportunity/20261010T221954Z_s1_8c6e_r3/provenance/reviews/check_report_artifacts.py",
+    "bytes": 12260,
+    "sha256": "3cbe16d14524d73126d844bb54c14764454b6be9e308893566021e5e9c40db0d"
+  },
+  "source_mutations": false,
+  "generated_report_mutations": false
+}

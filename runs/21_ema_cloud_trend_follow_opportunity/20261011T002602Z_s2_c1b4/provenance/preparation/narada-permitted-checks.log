@@ -1,0 +1,176 @@
+[narada-test] ["npm", "test"]
+
+> @abacus/narada@0.1.0 test
+> node --test tests/*.test.mjs
+
+✔ ordinary passed records preserve exact inventory order, attribution and qualifications (52.520959ms)
+▶ source mappings require exact selected-index coverage and supported version
+  ✔ missing (19.456375ms)
+  ✔ extra (21.339042ms)
+  ✔ duplicate (23.983584ms)
+  ✔ version (17.94725ms)
+✔ source mappings require exact selected-index coverage and supported version (83.527375ms)
+✔ revision locators reject absolute, traversal, dot, separator and wrong-depth forms (109.912333ms)
+▶ every declared source, output and asset locator is checked before reading
+  ✔ source (62.554084ms)
+  ✔ output (54.019458ms)
+  ✔ asset (56.790042ms)
+✔ every declared source, output and asset locator is checked before reading (173.775292ms)
+✔ source publication must equal staged content (3.918542ms)
+▶ publication, source-run and study attribution must agree
+  ✔ publication_id (4.336542ms)
+  ✔ source_run_id (3.327166ms)
+  ✔ study_id (3.2995ms)
+✔ publication, source-run and study attribution must agree (11.175208ms)
+✔ changed saved sources, revision outputs and declared selected assets fail closed (19.506666ms)
+✔ publication and source-map outputs must be declared in the retained manifest (7.461584ms)
+▶ declared source, output and asset identities require nonempty valid SHA-256 pins
+  ✔ source (24.974417ms)
+  ✔ output (25.591792ms)
+  ✔ asset (27.27575ms)
+✔ declared source, output and asset identities require nonempty valid SHA-256 pins (78.085917ms)
+▶ missing and nonregular selected files are rejected across each read boundary
+  ✔ missing (20.712167ms)
+  ✔ directory (24.29625ms)
+✔ missing and nonregular selected files are rejected across each read boundary (45.223292ms)
+✔ file symlinks are rejected before JSON parsing or retained-byte access (22.663666ms)
+✔ symlinked ancestors of revision, source and asset files are rejected (25.530209ms)
+✔ safe retained snapshot filenames with bracketed app routes remain accepted (5.869583ms)
+✔ checks-only verification requires a nonempty array of explicitly passed checks (20.303333ms)
+✔ explicit passed verification accepts historical descriptive checks without imposing a new schema (4.191959ms)
+✔ superseded presentation status retains its catalog qualification only for a presentation revision (6.418292ms)
+✔ explicit failed and unknown results cannot be rescued by positive checks (25.688542ms)
+✔ Phase 2 fallback preserves its inherited qualification and hashes the consumed record (19.631333ms)
+✔ undeclared Phase 2 fallback is checked before parsing and missing fallback fails (9.159375ms)
+✔ future study 08/09 exporter and shared-helper snapshots are covered by generic output hashes (20.935625ms)
+✔ importing the audit is side-effect free and independent of Python or CLI dispatch (29.091208ms)
+✔ versions 1.0 and 1.1 coexist without rewriting old publication bytes (38.350833ms)
+✔ version selection, unsafe URLs, references and source attribution are strict (0.962041ms)
+✔ download paths, unsupported types, missing files and source/file/directory symlinks are rejected (11.664583ms)
+✔ download hashes, UTF-8 structure, headers, row count and formulas are checked (9.58275ms)
+✔ per-file and total download budgets are independent of figure budgets (19.90625ms)
+✔ staged downloads verify their hashes and unselected source files never cross the boundary (7.919292ms)
+✔ explicit formats preserve scale, zero, missing values, and units (39.395292ms)
+✔ publication dates use UTC regardless of the reader time zone (6.361666ms)
+✔ reference URLs reject ASCII controls, whitespace and backslashes (1.744791ms)
+✔ CSV retains tab, LF and CR but rejects its established forbidden controls (1.43175ms)
+✔ catalog text retains internal tab and LF while rejecting CR and other ASCII controls (1.87325ms)
+✔ preview origins admit only explicit clean HTTP loopback origins (2.902834ms)
+✔ local smoke checks bounded app-owned bytes and GET/HEAD headers without changing output (29.34875ms)
+✔ preview smoke rejects incorrect GET bytes, media headers and HEAD bodies (90.292667ms)
+✔ selected CSV attachment filenames and nosniff are checked for GET and HEAD (21.427167ms)
+✔ unknown study, report, asset and private routes must return the exported 404 rather than 200 fallbacks (30.558958ms)
+✔ redirect status, redirect metadata and a changed response URL fail closed (12.216875ms)
+✔ invalid cases, selected hashes and export file boundaries fail before transport (11.814291ms)
+✔ a supplied local fixture server transport checks actual HTTP and rejects redirects (49.22175ms)
+✔ strict contract rejects unknown containers, duplicate sections, undeclared row keys and invalid dates (7.805208ms)
+✔ dry run writes nothing and ordinary publication verifies (15.344416ms)
+✔ deterministic output and formatting-only idempotence (17.608042ms)
+✔ changed existing ID is rejected without damaging the published result (10.85425ms)
+✔ path traversal, symlink escape, and false raster signatures are rejected (5.140042ms)
+✔ modified assets, report content, stale files, and index drift fail verification (11.393834ms)
+✔ report and asset budgets reject oversized inputs (5.728833ms)
+✔ concurrent publication lock is respected and unrelated files are never copied (5.566416ms)
+✔ missing selected figure leaves existing publication bytes and index unchanged (6.136583ms)
+✔ an empty symlink output directory is rejected (2.580041ms)
+✔ index orders timestamps chronologically across optional milliseconds (9.469083ms)
+✔ gate accepts exact passed artifact and supplied origin without inspecting JSON kind or timestamps (16.939583ms)
+✔ any matching passing event suffices after a failed event (5.052875ms)
+✔ browser gate without an origin retains the original optional-origin predicate (27.168208ms)
+✔ missing, failed and mismatched gates reject without changing bytes (41.962417ms)
+✔ malformed matching JSON and missing event directory retain their underlying errors (14.538959ms)
+✔ malformed unrelated files are ignored by the exact filename suffix (7.508958ms)
+✔ helper import from an unrelated directory has no CLI, subprocess or filesystem side effects (36.966375ms)
+✔ release helper export surface and insertion-order JSON bytes remain identical (7.46925ms)
+✔ inventory preserves original locale ordering, field ordering, hashes and source bytes (21.849917ms)
+✔ complete Build Output routes and serialized config retain their original order and bytes (0.451209ms)
+✔ deployment argument arrays and parsed deployment fields remain identical (0.375958ms)
+✔ protected HTTP parser skips proxy and interim headers while preserving binary bytes (0.672125ms)
+✔ local command execution preserves strings, binary output and original failure payloads (151.938792ms)
+✔ release boundary admits selected pages/assets and rejects private or unknown output (31.660292ms)
+✔ exact inventory copy rejects symlinks, additions and modified bytes (59.478666ms)
+✔ deployment format has explicit routes, attachment headers and a hard 404 (0.317625ms)
+✔ production stages without domains and preview never requests production (0.260208ms)
+✔ structured CLI output and protected binary responses are parsed without losing bytes (0.289709ms)
+✔ command failures propagate and preparation primitives do not call hosting (58.581333ms)
+✔ hosted verification checks exact bytes, CSV headers and real 404; rejects auth walls (14.008833ms)
+✔ table scroll region describes keyboard access while preserving scalar meanings and escaping text (11.919ms)
+✔ table context remains visible, accessible and linked to an attributed reference (0.565583ms)
+✔ selected downloads and references render safe links, visible scope and useful filenames (5.017125ms)
+✔ figures retain alternative text and caption with a visible full-size link (1.155792ms)
+✔ explicit catalog supports routes, lookup and distinct source relationships (1.376291ms)
+✔ duplicate identities, slugs and publication ownership fail (0.399584ms)
+✔ missing, repeated or wrongly attributed publication references fail (0.30275ms)
+✔ relationship labels must agree with source-run identity and allowed kinds (0.214666ms)
+✔ bounded authored fields reject paths, unsafe slugs and unexpected containers (0.198458ms)
+✔ catalog loader rejects oversized input and symlinks without workspace access (3.779541ms)
+✔ identity and product fields reject trailing whitespace and control characters (0.205541ms)
+✔ publication context separates featured content, related revision labels and missing IDs (0.10425ms)
+ℹ tests 98
+ℹ suites 0
+ℹ pass 98
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 851.746959
+[narada-test] passed
+[narada-lint] ["npm", "run", "lint"]
+
+> @abacus/narada@0.1.0 lint
+> eslint src types scripts tests
+
+[narada-lint] passed
+[narada-build] ["npm", "run", "build"]
+
+> @abacus/narada@0.1.0 prebuild
+> npm run verify
+
+
+> @abacus/narada@0.1.0 verify
+> node scripts/verify.mjs
+
+Verified 19 studies, 25 publications, 29 raster assets and 14 selected CSVs.
+
+> @abacus/narada@0.1.0 build
+> next build
+
+▲ Next.js 16.2.10 (Turbopack)
+
+  Creating an optimized production build ...
+✓ Compiled successfully in 996ms
+  Running TypeScript ...
+  Finished TypeScript in 909ms ...
+  Collecting page data using 6 workers ...
+  Generating static pages using 6 workers (0/47) ...
+  Generating static pages using 6 workers (11/47) 
+  Generating static pages using 6 workers (23/47) 
+  Generating static pages using 6 workers (35/47) 
+✓ Generating static pages using 6 workers (47/47) in 417ms
+  Finalizing page optimization ...
+
+Route (app)
+┌ ○ /
+├ ○ /_not-found
+├ ● /reports/[id]
+│ ├ /reports/camarilla-ema-20261008t220932z-cb2711
+│ ├ /reports/value-area-fade-tracker-20261007-source-review-r2
+│ ├ /reports/12-gc-ema-band-excursions-20261007-evidence
+│ └ [+22 more paths]
+└ ● /studies/[slug]
+  ├ /studies/reversal-follow-through
+  ├ /studies/followthrough-candle-adverse
+  ├ /studies/multi-rxv-alignment
+  └ [+16 more paths]
+
+
+○  (Static)  prerendered as static content
+●  (SSG)     prerendered as static HTML (uses generateStaticParams)
+
+
+> @abacus/narada@0.1.0 postbuild
+> node scripts/verify-export.mjs
+
+Verified library, 19 study routes, 25 publication routes and 413 bounded page payloads in out/.
+[narada-build] passed
+Selected checks: passed (3 selected)

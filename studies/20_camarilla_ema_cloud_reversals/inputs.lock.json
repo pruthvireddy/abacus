@@ -1,0 +1,839 @@
+{
+  "schema_version": "study-execution-lock-1",
+  "root_resolution": {
+    "publication_root": "/Users/ppanati/Documents/projects/abacus",
+    "workspace_root": "/Users/ppanati/Documents/projects/abacus"
+  },
+  "sources": [
+    {
+      "id": "original-pine",
+      "kind": "user_supplied_pine_source",
+      "path": "studies/20_camarilla_ema_cloud_reversals/reference/source_user_camarilla_optional_cpr.pine",
+      "root_alias": "workspace_root",
+      "sha256": "4f7970bb3575cd130070d6b840814d5db39b4c5463866091b2bfc8b9a2363716",
+      "bytes": 50334,
+      "original_locator": "/Users/ppanati/.codex/attachments/5ba6dc68-21de-4d96-8c59-d1c4997c0552/Pasted text.txt"
+    },
+    {
+      "id": "strategy-excerpt",
+      "kind": "user_supplied_screenshot",
+      "path": "data/research/sahadeva/20_camarilla_ema_cloud_reversals/sources/20261008/strategy-excerpt.png",
+      "root_alias": "publication_root",
+      "sha256": "23b3f5907003920ef5675510965199a29f98969a4c2b81f3d72fb806a0a01eed",
+      "bytes": 1171910,
+      "original_locator": "/var/folders/8m/7y_qdqcn1fn6gkf6ggc_39bc0000gn/T/codex-clipboard-961e1d46-e219-487e-af29-d7e05ab1ef8b.png",
+      "retention": "retained ignored research storage; external backup not verified"
+    },
+    {
+      "id": "ema-cloud-settings",
+      "kind": "user_supplied_screenshot",
+      "path": "data/research/sahadeva/20_camarilla_ema_cloud_reversals/sources/20261008/ema-cloud-settings.png",
+      "root_alias": "publication_root",
+      "sha256": "73048cbacb78dec9fe706d8fd4d22fc33c2cc89cff188735dd3a19546b949e7c",
+      "bytes": 34742,
+      "original_locator": "/var/folders/8m/7y_qdqcn1fn6gkf6ggc_39bc0000gn/T/codex-clipboard-e287a789-2ebd-4e9f-afd9-f50c5ff493b3.png",
+      "retention": "retained ignored research storage; external backup not verified"
+    },
+    {
+      "id": "horizon-table-reference",
+      "kind": "user_supplied_screenshot_layout_only",
+      "path": "data/research/sahadeva/20_camarilla_ema_cloud_reversals/sources/20261008/horizon-table-reference.png",
+      "root_alias": "publication_root",
+      "sha256": "689b5e4858a4405b7b7a8798fd5d434d071e4c80b5ce3fbd727a018a9a2c0986",
+      "bytes": 113011,
+      "original_locator": "/var/folders/8m/7y_qdqcn1fn6gkf6ggc_39bc0000gn/T/codex-clipboard-ce02472e-09c6-4560-8538-cc54b79a5a5b.png",
+      "retention": "retained ignored research storage; external backup not verified"
+    },
+    {
+      "id": "weekly-table-reference",
+      "kind": "user_supplied_screenshot_layout_only",
+      "path": "data/research/sahadeva/20_camarilla_ema_cloud_reversals/sources/20261008/weekly-table-reference.png",
+      "root_alias": "publication_root",
+      "sha256": "2891a12ec4969b96b63907a43b63f013e650d0d4e422824fd01a34d87f95ce28",
+      "bytes": 76449,
+      "original_locator": "/var/folders/8m/7y_qdqcn1fn6gkf6ggc_39bc0000gn/T/codex-clipboard-31c15f34-2930-4915-9f98-aa8d5318c289.png",
+      "retention": "retained ignored research storage; external backup not verified"
+    }
+  ],
+  "market_datasets": [
+    "volume_lead_unadjusted_v1",
+    "tv_indicators__dridr_ohlcv_5m__v1"
+  ],
+  "files": [
+    {
+      "role": "manifest",
+      "path": "catalog/datasets/volume_lead_unadjusted_v1.json",
+      "sha256": "00757f5fc8278e75744d7adfaddc688be588d619d82b1dc1811aa60f21b7e5d4",
+      "bytes": 23097
+    },
+    {
+      "bytes": 2521451,
+      "path": "data/curated/continuous/1m/product=ES/roll=volume_lead_v1/variant=unadjusted/year=2010/part-000.parquet",
+      "sha256": "9017a632085fff75b161130844cab497ddb17223370cef47579b7bc03d6d53b9",
+      "role": "consumed_partition_or_lineage",
+      "verified": true
+    },
+    {
+      "bytes": 4569737,
+      "path": "data/curated/continuous/1m/product=ES/roll=volume_lead_v1/variant=unadjusted/year=2011/part-000.parquet",
+      "sha256": "947ce25527c9b6e6a82692453b8b0878bdac7c538c65e0ec576b9c5d35765950",
+      "role": "consumed_partition_or_lineage",
+      "verified": true
+    },
+    {
+      "bytes": 4335061,
+      "path": "data/curated/continuous/1m/product=ES/roll=volume_lead_v1/variant=unadjusted/year=2012/part-000.parquet",
+      "sha256": "59f9d97c7e0745d721b537f0c1427af209aeccef4d18ee05f7b64c77276f9f2c",
+      "role": "consumed_partition_or_lineage",
+      "verified": true
+    },
+    {
+      "bytes": 4188664,
+      "path": "data/curated/continuous/1m/product=ES/roll=volume_lead_v1/variant=unadjusted/year=2013/part-000.parquet",
+      "sha256": "ec129717acb05503c34b9375e05face598d21ca27c56974a86877db7a3ade016",
+      "role": "consumed_partition_or_lineage",
+      "verified": true
+    },
+    {
+      "bytes": 4169026,
+      "path": "data/curated/continuous/1m/product=ES/roll=volume_lead_v1/variant=unadjusted/year=2014/part-000.parquet",
+      "sha256": "735c99a140bb0679847837e6c6076045ff037e943636550c65a932995a76c56d",
+      "role": "consumed_partition_or_lineage",
+      "verified": true
+    },
+    {
+      "bytes": 4582190,
+      "path": "data/curated/continuous/1m/product=ES/roll=volume_lead_v1/variant=unadjusted/year=2015/part-000.parquet",
+      "sha256": "6ccaba9283c02ab446283da7f73a2a02bfbf0865773477387f18c73f33fbe8a9",
+      "role": "consumed_partition_or_lineage",
+      "verified": true
+    },
+    {
+      "bytes": 4546905,
+      "path": "data/curated/continuous/1m/product=ES/roll=volume_lead_v1/variant=unadjusted/year=2016/part-000.parquet",
+      "sha256": "73d786f78d1581a29bf32cb166fe98eefae85f02a7f7526eb42065cb903762c1",
+      "role": "consumed_partition_or_lineage",
+      "verified": true
+    },
+    {
+      "bytes": 4203237,
+      "path": "data/curated/continuous/1m/product=ES/roll=volume_lead_v1/variant=unadjusted/year=2017/part-000.parquet",
+      "sha256": "3b0b23d778552709ca9611cbd3ffa1d4e0167a2d0991c72410b0d603163e90ae",
+      "role": "consumed_partition_or_lineage",
+      "verified": true
+    },
+    {
+      "bytes": 4822775,
+      "path": "data/curated/continuous/1m/product=ES/roll=volume_lead_v1/variant=unadjusted/year=2018/part-000.parquet",
+      "sha256": "6986b55930e59fb6325c57cd4650389ce1facdffcc333a4d3543a1121f9cb9dc",
+      "role": "consumed_partition_or_lineage",
+      "verified": true
+    },
+    {
+      "bytes": 4734130,
+      "path": "data/curated/continuous/1m/product=ES/roll=volume_lead_v1/variant=unadjusted/year=2019/part-000.parquet",
+      "sha256": "a6640e13ebb16c082c67e5c857a563396c31ee62a3b53decaba6287e27ff7f86",
+      "role": "consumed_partition_or_lineage",
+      "verified": true
+    },
+    {
+      "bytes": 5312783,
+      "path": "data/curated/continuous/1m/product=ES/roll=volume_lead_v1/variant=unadjusted/year=2020/part-000.parquet",
+      "sha256": "b134d42d8721fd1c458743682a0c119bf973f2576c2c9bc67a11def1f71ebe0c",
+      "role": "consumed_partition_or_lineage",
+      "verified": true
+    },
+    {
+      "bytes": 5108070,
+      "path": "data/curated/continuous/1m/product=ES/roll=volume_lead_v1/variant=unadjusted/year=2021/part-000.parquet",
+      "sha256": "721f8cf454096dc85477fd7df891d9a23230fa09e872c0bb56f2574d804a7560",
+      "role": "consumed_partition_or_lineage",
+      "verified": true
+    },
+    {
+      "bytes": 5560868,
+      "path": "data/curated/continuous/1m/product=ES/roll=volume_lead_v1/variant=unadjusted/year=2022/part-000.parquet",
+      "sha256": "55748a5064507eb37641a59bb1d3ebf0f1593bab793168328d07469c08710b6c",
+      "role": "consumed_partition_or_lineage",
+      "verified": true
+    },
+    {
+      "bytes": 5105561,
+      "path": "data/curated/continuous/1m/product=ES/roll=volume_lead_v1/variant=unadjusted/year=2023/part-000.parquet",
+      "sha256": "015e11fc39d48b40ef045ea5fb5556ef41e94e774456ea49725a7738da615d15",
+      "role": "consumed_partition_or_lineage",
+      "verified": true
+    },
+    {
+      "bytes": 5188628,
+      "path": "data/curated/continuous/1m/product=ES/roll=volume_lead_v1/variant=unadjusted/year=2024/part-000.parquet",
+      "sha256": "35caa6398de667f129f8fcb3a91f5545bd32fdf619ee7cd9cbe69a34f50d5d94",
+      "role": "consumed_partition_or_lineage",
+      "verified": true
+    },
+    {
+      "bytes": 5452536,
+      "path": "data/curated/continuous/1m/product=ES/roll=volume_lead_v1/variant=unadjusted/year=2025/part-000.parquet",
+      "sha256": "51ce31523819e66ca92fa2845fb77aea49dc7322b89d447d53a96280e4010a5c",
+      "role": "consumed_partition_or_lineage",
+      "verified": true
+    },
+    {
+      "bytes": 3988836,
+      "path": "data/curated/continuous/1m/product=ES/roll=volume_lead_v1/variant=unadjusted/year=2026/part-000.parquet",
+      "sha256": "e837be7469f8dd28af6430d4b8269c4d484a0695cb7a46f116619e08917ce98a",
+      "role": "consumed_partition_or_lineage",
+      "verified": true
+    },
+    {
+      "bytes": 2401384,
+      "path": "data/curated/continuous/1m/product=NQ/roll=volume_lead_v1/variant=unadjusted/year=2010/part-000.parquet",
+      "sha256": "e64358d168cacea31c5345cb8a98ac0f25498fc744ee5d9ed55455a00f7301ef",
+      "role": "consumed_partition_or_lineage",
+      "verified": true
+    },
+    {
+      "bytes": 4513707,
+      "path": "data/curated/continuous/1m/product=NQ/roll=volume_lead_v1/variant=unadjusted/year=2011/part-000.parquet",
+      "sha256": "d8052e0fa1d9ded451437109cf87d718dcb8e2f9b000d51719e23796623aded8",
+      "role": "consumed_partition_or_lineage",
+      "verified": true
+    },
+    {
+      "bytes": 4362919,
+      "path": "data/curated/continuous/1m/product=NQ/roll=volume_lead_v1/variant=unadjusted/year=2012/part-000.parquet",
+      "sha256": "458b652ddc1b6b63d12568d06ea5f720edc7e432cdfe55b4fb8151ddd355bd37",
+      "role": "consumed_partition_or_lineage",
+      "verified": true
+    },
+    {
+      "bytes": 4177159,
+      "path": "data/curated/continuous/1m/product=NQ/roll=volume_lead_v1/variant=unadjusted/year=2013/part-000.parquet",
+      "sha256": "4f689e69c0b878ed084516295a263d54797e907a8cf9a64636871c768d2499be",
+      "role": "consumed_partition_or_lineage",
+      "verified": true
+    },
+    {
+      "bytes": 4349894,
+      "path": "data/curated/continuous/1m/product=NQ/roll=volume_lead_v1/variant=unadjusted/year=2014/part-000.parquet",
+      "sha256": "a4ec8eb94309442121c953cade2d540cb020aed466f2e11ff5eb5d13796a8307",
+      "role": "consumed_partition_or_lineage",
+      "verified": true
+    },
+    {
+      "bytes": 4853991,
+      "path": "data/curated/continuous/1m/product=NQ/roll=volume_lead_v1/variant=unadjusted/year=2015/part-000.parquet",
+      "sha256": "2cf36378314ec59fec490aa86c4b8d17825971582623fedc66421de90d2d6791",
+      "role": "consumed_partition_or_lineage",
+      "verified": true
+    },
+    {
+      "bytes": 4925763,
+      "path": "data/curated/continuous/1m/product=NQ/roll=volume_lead_v1/variant=unadjusted/year=2016/part-000.parquet",
+      "sha256": "9280ec4db23963e9103c96b1d6a06807c820265a549789dd0485f84ddeb804b3",
+      "role": "consumed_partition_or_lineage",
+      "verified": true
+    },
+    {
+      "bytes": 4824472,
+      "path": "data/curated/continuous/1m/product=NQ/roll=volume_lead_v1/variant=unadjusted/year=2017/part-000.parquet",
+      "sha256": "a6d0565a9534324e1a631cac41a66453e7d0c1cd685ac6a17a1a44c213ed238a",
+      "role": "consumed_partition_or_lineage",
+      "verified": true
+    },
+    {
+      "bytes": 5677449,
+      "path": "data/curated/continuous/1m/product=NQ/roll=volume_lead_v1/variant=unadjusted/year=2018/part-000.parquet",
+      "sha256": "04c6c711f045e9f119bd1edafa8e77c21b5bd711ff1fb75fb83868ad31aae394",
+      "role": "consumed_partition_or_lineage",
+      "verified": true
+    },
+    {
+      "bytes": 5557259,
+      "path": "data/curated/continuous/1m/product=NQ/roll=volume_lead_v1/variant=unadjusted/year=2019/part-000.parquet",
+      "sha256": "f5e74b0f4cb3a415e24e38b9499dc28904c5b3db80a38863d8b1298904f1fe56",
+      "role": "consumed_partition_or_lineage",
+      "verified": true
+    },
+    {
+      "bytes": 6412680,
+      "path": "data/curated/continuous/1m/product=NQ/roll=volume_lead_v1/variant=unadjusted/year=2020/part-000.parquet",
+      "sha256": "6ea99b69520c2efbf611473ed03dfde3ed111bb2c132f08795454adaad360e84",
+      "role": "consumed_partition_or_lineage",
+      "verified": true
+    },
+    {
+      "bytes": 6348093,
+      "path": "data/curated/continuous/1m/product=NQ/roll=volume_lead_v1/variant=unadjusted/year=2021/part-000.parquet",
+      "sha256": "998a57d3c24310979e4b90f8c2a74e43372a8136e155a80934a9e8b5873fa48a",
+      "role": "consumed_partition_or_lineage",
+      "verified": true
+    },
+    {
+      "bytes": 6926067,
+      "path": "data/curated/continuous/1m/product=NQ/roll=volume_lead_v1/variant=unadjusted/year=2022/part-000.parquet",
+      "sha256": "96e682e1d12d7ade78ed27820331f119453d8b9f9947c94cb7097ec17d550a30",
+      "role": "consumed_partition_or_lineage",
+      "verified": true
+    },
+    {
+      "bytes": 6328123,
+      "path": "data/curated/continuous/1m/product=NQ/roll=volume_lead_v1/variant=unadjusted/year=2023/part-000.parquet",
+      "sha256": "7d5964f87dbcf33aa1f64b05aeca8cb54349b2b27131a6d9bf04ce1ff39e59b8",
+      "role": "consumed_partition_or_lineage",
+      "verified": true
+    },
+    {
+      "bytes": 6627808,
+      "path": "data/curated/continuous/1m/product=NQ/roll=volume_lead_v1/variant=unadjusted/year=2024/part-000.parquet",
+      "sha256": "14f7db407508ecf98ead144bfc78e39117414d60a44d8215d93247e5f10053b0",
+      "role": "consumed_partition_or_lineage",
+      "verified": true
+    },
+    {
+      "bytes": 6946818,
+      "path": "data/curated/continuous/1m/product=NQ/roll=volume_lead_v1/variant=unadjusted/year=2025/part-000.parquet",
+      "sha256": "3ff89d8977467220b755a541987836d7a2ea01a7b275e16c9947a38552257dbc",
+      "role": "consumed_partition_or_lineage",
+      "verified": true
+    },
+    {
+      "bytes": 5338063,
+      "path": "data/curated/continuous/1m/product=NQ/roll=volume_lead_v1/variant=unadjusted/year=2026/part-000.parquet",
+      "sha256": "583be325ce40ff87055ffdffcbc3ff027c6e23d6deefc4386e813be612cbfbdf",
+      "role": "consumed_partition_or_lineage",
+      "verified": true
+    },
+    {
+      "bytes": 2532282,
+      "path": "data/curated/continuous/1m/product=GC/roll=volume_lead_v1/variant=unadjusted/year=2010/part-000.parquet",
+      "sha256": "62340a3895ecd23bbf08dda845b3c50bdc31092413d03f9271e5e06a7303fe71",
+      "role": "consumed_partition_or_lineage",
+      "verified": true
+    },
+    {
+      "bytes": 4806423,
+      "path": "data/curated/continuous/1m/product=GC/roll=volume_lead_v1/variant=unadjusted/year=2011/part-000.parquet",
+      "sha256": "4b211b5d929a51b408a38f4258c677fb3f8dd865184c544cca4d971201e14d33",
+      "role": "consumed_partition_or_lineage",
+      "verified": true
+    },
+    {
+      "bytes": 4550265,
+      "path": "data/curated/continuous/1m/product=GC/roll=volume_lead_v1/variant=unadjusted/year=2012/part-000.parquet",
+      "sha256": "75b0b0f2ce5987faa4fcc1f7039663443d175e89da38130256a74a1450024ab9",
+      "role": "consumed_partition_or_lineage",
+      "verified": true
+    },
+    {
+      "bytes": 4547493,
+      "path": "data/curated/continuous/1m/product=GC/roll=volume_lead_v1/variant=unadjusted/year=2013/part-000.parquet",
+      "sha256": "e498bfcde1688b584155ab1288988ac5ba59ca5c86164a580c90e5d9238b9c61",
+      "role": "consumed_partition_or_lineage",
+      "verified": true
+    },
+    {
+      "bytes": 4223841,
+      "path": "data/curated/continuous/1m/product=GC/roll=volume_lead_v1/variant=unadjusted/year=2014/part-000.parquet",
+      "sha256": "e28c69bb59566f21fda9309c1cb02bbbe7ca5af052e771ba3a393cf01fcd9276",
+      "role": "consumed_partition_or_lineage",
+      "verified": true
+    },
+    {
+      "bytes": 4312172,
+      "path": "data/curated/continuous/1m/product=GC/roll=volume_lead_v1/variant=unadjusted/year=2015/part-000.parquet",
+      "sha256": "316e03481eb0f2c70ccc2c5ec77da9cb3fc65efdbcae712f6e8854a7a37d1c03",
+      "role": "consumed_partition_or_lineage",
+      "verified": true
+    },
+    {
+      "bytes": 4503376,
+      "path": "data/curated/continuous/1m/product=GC/roll=volume_lead_v1/variant=unadjusted/year=2016/part-000.parquet",
+      "sha256": "22da19ec1536160c0ce4d39532ad4e99bcf7ebe93fe56d8183a917857544e32c",
+      "role": "consumed_partition_or_lineage",
+      "verified": true
+    },
+    {
+      "bytes": 4307049,
+      "path": "data/curated/continuous/1m/product=GC/roll=volume_lead_v1/variant=unadjusted/year=2017/part-000.parquet",
+      "sha256": "80dbc3f088db349e794388b4a54135e75522066a1d79439e3d319feff8787001",
+      "role": "consumed_partition_or_lineage",
+      "verified": true
+    },
+    {
+      "bytes": 4317937,
+      "path": "data/curated/continuous/1m/product=GC/roll=volume_lead_v1/variant=unadjusted/year=2018/part-000.parquet",
+      "sha256": "09a7584351a95695f636dec3c4f41b17b1ed349d292bd1bd2274ba9b345dd64c",
+      "role": "consumed_partition_or_lineage",
+      "verified": true
+    },
+    {
+      "bytes": 4409598,
+      "path": "data/curated/continuous/1m/product=GC/roll=volume_lead_v1/variant=unadjusted/year=2019/part-000.parquet",
+      "sha256": "b4831362bbfa7234c97150bc3a2b00f91c1a1a178f1247f6d5f3d57117da91e4",
+      "role": "consumed_partition_or_lineage",
+      "verified": true
+    },
+    {
+      "bytes": 4941132,
+      "path": "data/curated/continuous/1m/product=GC/roll=volume_lead_v1/variant=unadjusted/year=2020/part-000.parquet",
+      "sha256": "98d497ca71ea40644a863684fc7105ede27f7711093a761a3e7c4db85e0eb6c4",
+      "role": "consumed_partition_or_lineage",
+      "verified": true
+    },
+    {
+      "bytes": 4673022,
+      "path": "data/curated/continuous/1m/product=GC/roll=volume_lead_v1/variant=unadjusted/year=2021/part-000.parquet",
+      "sha256": "4dfd4e7e4115f6ce4c355c79d282f9116bcd857e03314c2ccc688013883b1a3a",
+      "role": "consumed_partition_or_lineage",
+      "verified": true
+    },
+    {
+      "bytes": 4758047,
+      "path": "data/curated/continuous/1m/product=GC/roll=volume_lead_v1/variant=unadjusted/year=2022/part-000.parquet",
+      "sha256": "005d670a7b6152ed717f83ccfcdb25338ad60b7a3817e1b34d5055f5137b8084",
+      "role": "consumed_partition_or_lineage",
+      "verified": true
+    },
+    {
+      "bytes": 4659102,
+      "path": "data/curated/continuous/1m/product=GC/roll=volume_lead_v1/variant=unadjusted/year=2023/part-000.parquet",
+      "sha256": "38a740078ee836ca9cf5d383d6a3005a9dc72ef9c74967b674154335884916a2",
+      "role": "consumed_partition_or_lineage",
+      "verified": true
+    },
+    {
+      "bytes": 4967859,
+      "path": "data/curated/continuous/1m/product=GC/roll=volume_lead_v1/variant=unadjusted/year=2024/part-000.parquet",
+      "sha256": "3c82ca99d461ba6d4d65995c1fef35bfe9144e7b0a35f7c3af16691b2a8f268f",
+      "role": "consumed_partition_or_lineage",
+      "verified": true
+    },
+    {
+      "bytes": 5491052,
+      "path": "data/curated/continuous/1m/product=GC/roll=volume_lead_v1/variant=unadjusted/year=2025/part-000.parquet",
+      "sha256": "d1913e78fb70a12e7fa89c1417e6da267b774b02ba26426d5380e51d1c2a56f9",
+      "role": "consumed_partition_or_lineage",
+      "verified": true
+    },
+    {
+      "bytes": 4389553,
+      "path": "data/curated/continuous/1m/product=GC/roll=volume_lead_v1/variant=unadjusted/year=2026/part-000.parquet",
+      "sha256": "e06b69e10d361c55f28ea9507bce8324d054de0a9c1b25c57814261504e1bcea",
+      "role": "consumed_partition_or_lineage",
+      "verified": true
+    },
+    {
+      "bytes": 12411,
+      "path": "data/curated/instruments/roll=volume_lead_v1/instrument_master.parquet",
+      "sha256": "2ead75515df44461e2abfa3699dac1c0afec0a112409aecb1d5bfdffb1b8051f",
+      "role": "consumed_partition_or_lineage",
+      "verified": true
+    },
+    {
+      "bytes": 10386,
+      "path": "data/curated/continuous/1m/roll=volume_lead_v1/roll_schedule.parquet",
+      "sha256": "0149b99b75da1138454e5face6516184ace3fef819b324183448c678460621b0",
+      "role": "consumed_partition_or_lineage",
+      "verified": true
+    },
+    {
+      "bytes": 40881,
+      "path": "data/curated/continuous/1m/roll=volume_lead_v1/roll_schedule.csv",
+      "sha256": "b0f4ee48c32fbc5ef089754c5b837f1d9e07d41c5e60e881ee35425a9fd0d589",
+      "role": "consumed_partition_or_lineage",
+      "verified": true
+    },
+    {
+      "bytes": 23167,
+      "path": "data/raw/databento/GLBX.MDP3/symbology/continuous/volume-rank-0/2010-06-06_2026-09-20.json",
+      "sha256": "2e0d48d93b1cf7a4c0556a9522f3de603ca06f36fd1bb692706db02033fef456",
+      "role": "consumed_partition_or_lineage",
+      "verified": true
+    },
+    {
+      "bytes": 617010,
+      "path": "data/raw/databento/GLBX.MDP3/ohlcv-1m/GLBX-20260920-577W4VCSK7/condition.json",
+      "sha256": "5a72a88291b5f03e286ffd56334786e396a5a649cfdaeb178d41c62159ff030f",
+      "role": "consumed_partition_or_lineage",
+      "verified": true
+    },
+    {
+      "bytes": 617010,
+      "path": "data/raw/databento/GLBX.MDP3/definition/GLBX-20260920-QQQSGCKWES/condition.json",
+      "sha256": "5a72a88291b5f03e286ffd56334786e396a5a649cfdaeb178d41c62159ff030f",
+      "role": "consumed_partition_or_lineage",
+      "verified": true
+    },
+    {
+      "role": "manifest",
+      "path": "catalog/datasets/tv_indicators__dridr_ohlcv_5m__v1.json",
+      "sha256": "d5044c605c4b13249b0f51118fccbd4d86b6811b17821f339cdd25ffb578c5d7",
+      "bytes": 126075
+    },
+    {
+      "bytes": 606100,
+      "path": "data/features/bars/5m/feature_set=dridr_ohlcv_5m/version=1.0.0/product=ES/year=2010/part-000.parquet",
+      "sha256": "2bc29b71996001f6139138fe59c6f8f1e761980925a3a3ac752f5a0b8cc113e4",
+      "role": "consumed_partition_or_lineage",
+      "verified": true
+    },
+    {
+      "bytes": 1077949,
+      "path": "data/features/bars/5m/feature_set=dridr_ohlcv_5m/version=1.0.0/product=ES/year=2011/part-000.parquet",
+      "sha256": "042df26a6f6c699423706acbba0d957eb0beccd1208ed6f344f6a7931797885d",
+      "role": "consumed_partition_or_lineage",
+      "verified": true
+    },
+    {
+      "bytes": 1034370,
+      "path": "data/features/bars/5m/feature_set=dridr_ohlcv_5m/version=1.0.0/product=ES/year=2012/part-000.parquet",
+      "sha256": "683b54570b55263824f49d44bd05c9e0620a1288a978a509aa6b997c27377069",
+      "role": "consumed_partition_or_lineage",
+      "verified": true
+    },
+    {
+      "bytes": 1007497,
+      "path": "data/features/bars/5m/feature_set=dridr_ohlcv_5m/version=1.0.0/product=ES/year=2013/part-000.parquet",
+      "sha256": "c0fa95e5fe686f76e9dc19f947848201fb62b827a690c24c00b8c6feba1e4a62",
+      "role": "consumed_partition_or_lineage",
+      "verified": true
+    },
+    {
+      "bytes": 1009033,
+      "path": "data/features/bars/5m/feature_set=dridr_ohlcv_5m/version=1.0.0/product=ES/year=2014/part-000.parquet",
+      "sha256": "b979759b80148117cb9ec2f9a8bdf6d5a4f048b88316d1f59be2a82972aa0213",
+      "role": "consumed_partition_or_lineage",
+      "verified": true
+    },
+    {
+      "bytes": 1082800,
+      "path": "data/features/bars/5m/feature_set=dridr_ohlcv_5m/version=1.0.0/product=ES/year=2015/part-000.parquet",
+      "sha256": "4b8b1e11fde8aa6c36cefc62e495679f82706c4b4753731ae9f7809288278b72",
+      "role": "consumed_partition_or_lineage",
+      "verified": true
+    },
+    {
+      "bytes": 1069373,
+      "path": "data/features/bars/5m/feature_set=dridr_ohlcv_5m/version=1.0.0/product=ES/year=2016/part-000.parquet",
+      "sha256": "0c8ed172e3ff91082aae71353761f71136d00d8da786a2b506ffc64949aaef6f",
+      "role": "consumed_partition_or_lineage",
+      "verified": true
+    },
+    {
+      "bytes": 1011290,
+      "path": "data/features/bars/5m/feature_set=dridr_ohlcv_5m/version=1.0.0/product=ES/year=2017/part-000.parquet",
+      "sha256": "11e166bf43037160884756bdf7e286178b569ea3c2eb8846a7c05898e1c3c6bb",
+      "role": "consumed_partition_or_lineage",
+      "verified": true
+    },
+    {
+      "bytes": 1138717,
+      "path": "data/features/bars/5m/feature_set=dridr_ohlcv_5m/version=1.0.0/product=ES/year=2018/part-000.parquet",
+      "sha256": "5ad887fefb95bc882bc06dfb5746e61ee022c9d7742f82c878d7b629ab63aebb",
+      "role": "consumed_partition_or_lineage",
+      "verified": true
+    },
+    {
+      "bytes": 1116624,
+      "path": "data/features/bars/5m/feature_set=dridr_ohlcv_5m/version=1.0.0/product=ES/year=2019/part-000.parquet",
+      "sha256": "31577b760831c41015bd0799aea367e3fe68726f7189a0870b715c882e38ee03",
+      "role": "consumed_partition_or_lineage",
+      "verified": true
+    },
+    {
+      "bytes": 1247493,
+      "path": "data/features/bars/5m/feature_set=dridr_ohlcv_5m/version=1.0.0/product=ES/year=2020/part-000.parquet",
+      "sha256": "3a97819e7c34c91ffb3e3f3e869cc7f2b14470b863046bf2fb1b7104004ddf45",
+      "role": "consumed_partition_or_lineage",
+      "verified": true
+    },
+    {
+      "bytes": 1188886,
+      "path": "data/features/bars/5m/feature_set=dridr_ohlcv_5m/version=1.0.0/product=ES/year=2021/part-000.parquet",
+      "sha256": "966cf121186ab85c4981c2285b2aafd72613cd09de2b50ddf5f8289781af7e1c",
+      "role": "consumed_partition_or_lineage",
+      "verified": true
+    },
+    {
+      "bytes": 1307100,
+      "path": "data/features/bars/5m/feature_set=dridr_ohlcv_5m/version=1.0.0/product=ES/year=2022/part-000.parquet",
+      "sha256": "ed43d78fd0af3d8d0281063f0a2b10c23319a695f92a824bf8ed4c98d7977e05",
+      "role": "consumed_partition_or_lineage",
+      "verified": true
+    },
+    {
+      "bytes": 1196987,
+      "path": "data/features/bars/5m/feature_set=dridr_ohlcv_5m/version=1.0.0/product=ES/year=2023/part-000.parquet",
+      "sha256": "feed83d9add5407c31f49fbbfc61e998c6aafe1ddb9e1bd4592fa39d448b4e28",
+      "role": "consumed_partition_or_lineage",
+      "verified": true
+    },
+    {
+      "bytes": 1229995,
+      "path": "data/features/bars/5m/feature_set=dridr_ohlcv_5m/version=1.0.0/product=ES/year=2024/part-000.parquet",
+      "sha256": "8f1594de0776f1391159c0fb0df3574d62dfdaa62f0deb8f20faf0184bde10c8",
+      "role": "consumed_partition_or_lineage",
+      "verified": true
+    },
+    {
+      "bytes": 1296797,
+      "path": "data/features/bars/5m/feature_set=dridr_ohlcv_5m/version=1.0.0/product=ES/year=2025/part-000.parquet",
+      "sha256": "d57d0ada6fb065d2624b906ec6dbc1c69f88621daed09c48a6494ff4cdde9e95",
+      "role": "consumed_partition_or_lineage",
+      "verified": true
+    },
+    {
+      "bytes": 929658,
+      "path": "data/features/bars/5m/feature_set=dridr_ohlcv_5m/version=1.0.0/product=ES/year=2026/part-000.parquet",
+      "sha256": "2601163f6de86195ea5a70006141284b7ccb45027d6d448671629409f5b7ad72",
+      "role": "consumed_partition_or_lineage",
+      "verified": true
+    },
+    {
+      "bytes": 633426,
+      "path": "data/features/bars/5m/feature_set=dridr_ohlcv_5m/version=1.0.0/product=GC/year=2010/part-000.parquet",
+      "sha256": "ebccf750c1b4c4883f361d5d921854b429e7909a79ccd9917dacefca7f4935f0",
+      "role": "consumed_partition_or_lineage",
+      "verified": true
+    },
+    {
+      "bytes": 1180881,
+      "path": "data/features/bars/5m/feature_set=dridr_ohlcv_5m/version=1.0.0/product=GC/year=2011/part-000.parquet",
+      "sha256": "85a4aa2ca5c70463db058e74b476dc673e956223217fa89058c83c0b10379192",
+      "role": "consumed_partition_or_lineage",
+      "verified": true
+    },
+    {
+      "bytes": 1115747,
+      "path": "data/features/bars/5m/feature_set=dridr_ohlcv_5m/version=1.0.0/product=GC/year=2012/part-000.parquet",
+      "sha256": "6ef90912f343777157d09ec580186d178300e7c5c848c3f1837adcc3d61cf979",
+      "role": "consumed_partition_or_lineage",
+      "verified": true
+    },
+    {
+      "bytes": 1120902,
+      "path": "data/features/bars/5m/feature_set=dridr_ohlcv_5m/version=1.0.0/product=GC/year=2013/part-000.parquet",
+      "sha256": "4e56694497c72b9301488883d7a29cac61f69215a2b62556efbe61725e2672b7",
+      "role": "consumed_partition_or_lineage",
+      "verified": true
+    },
+    {
+      "bytes": 1049488,
+      "path": "data/features/bars/5m/feature_set=dridr_ohlcv_5m/version=1.0.0/product=GC/year=2014/part-000.parquet",
+      "sha256": "e86bdeb7d5a4e251ce8f252948ff0b854ef5a8b9ab3308d19120d61da6862086",
+      "role": "consumed_partition_or_lineage",
+      "verified": true
+    },
+    {
+      "bytes": 1066289,
+      "path": "data/features/bars/5m/feature_set=dridr_ohlcv_5m/version=1.0.0/product=GC/year=2015/part-000.parquet",
+      "sha256": "a55f8990851798ab63f8cef46d213be48962fe9e06863c7028ee700a767ebc97",
+      "role": "consumed_partition_or_lineage",
+      "verified": true
+    },
+    {
+      "bytes": 1091259,
+      "path": "data/features/bars/5m/feature_set=dridr_ohlcv_5m/version=1.0.0/product=GC/year=2016/part-000.parquet",
+      "sha256": "3ad068b8f226bbadd9bced3fb696c15b50a2be81d0daabdcd43496096451693d",
+      "role": "consumed_partition_or_lineage",
+      "verified": true
+    },
+    {
+      "bytes": 1030480,
+      "path": "data/features/bars/5m/feature_set=dridr_ohlcv_5m/version=1.0.0/product=GC/year=2017/part-000.parquet",
+      "sha256": "e6523429350292ff7b21b5c57fdb1acc6bbb994f355a36530a024d4f199280af",
+      "role": "consumed_partition_or_lineage",
+      "verified": true
+    },
+    {
+      "bytes": 1023958,
+      "path": "data/features/bars/5m/feature_set=dridr_ohlcv_5m/version=1.0.0/product=GC/year=2018/part-000.parquet",
+      "sha256": "8e0e37d28f64b5eead4b34b6f9832514a5763e8486e940d5837387b132a5d069",
+      "role": "consumed_partition_or_lineage",
+      "verified": true
+    },
+    {
+      "bytes": 1047644,
+      "path": "data/features/bars/5m/feature_set=dridr_ohlcv_5m/version=1.0.0/product=GC/year=2019/part-000.parquet",
+      "sha256": "5d8092691d3afd3c20f6e89e5241642c83e79da779716eb6eccf2cf850c9b24b",
+      "role": "consumed_partition_or_lineage",
+      "verified": true
+    },
+    {
+      "bytes": 1173516,
+      "path": "data/features/bars/5m/feature_set=dridr_ohlcv_5m/version=1.0.0/product=GC/year=2020/part-000.parquet",
+      "sha256": "0da377c70efe5680ecf981d3585cf0eb87dacf2b600dc4fb9854abffc1205a10",
+      "role": "consumed_partition_or_lineage",
+      "verified": true
+    },
+    {
+      "bytes": 1115507,
+      "path": "data/features/bars/5m/feature_set=dridr_ohlcv_5m/version=1.0.0/product=GC/year=2021/part-000.parquet",
+      "sha256": "d63b7ebe203a310ffe46f12bbce9f2ad442f2640821b1d4c63f4a96df631ba25",
+      "role": "consumed_partition_or_lineage",
+      "verified": true
+    },
+    {
+      "bytes": 1147432,
+      "path": "data/features/bars/5m/feature_set=dridr_ohlcv_5m/version=1.0.0/product=GC/year=2022/part-000.parquet",
+      "sha256": "c35b2054378fe7d79c5fe5d8fcdb8dc07981cbd7e58eb77af1ba81cae48b4804",
+      "role": "consumed_partition_or_lineage",
+      "verified": true
+    },
+    {
+      "bytes": 1122279,
+      "path": "data/features/bars/5m/feature_set=dridr_ohlcv_5m/version=1.0.0/product=GC/year=2023/part-000.parquet",
+      "sha256": "437508b39411e029a3d7820730100d401f596553a3689a7c87a39d2d847fd1db",
+      "role": "consumed_partition_or_lineage",
+      "verified": true
+    },
+    {
+      "bytes": 1198881,
+      "path": "data/features/bars/5m/feature_set=dridr_ohlcv_5m/version=1.0.0/product=GC/year=2024/part-000.parquet",
+      "sha256": "e6202e65c6c82ae33ae182eace55421cb487809c09b85b821d7830422087b5bc",
+      "role": "consumed_partition_or_lineage",
+      "verified": true
+    },
+    {
+      "bytes": 1340990,
+      "path": "data/features/bars/5m/feature_set=dridr_ohlcv_5m/version=1.0.0/product=GC/year=2025/part-000.parquet",
+      "sha256": "38d6ffceee42fad72dbf3536b8db2e1bd50b1e661267da427faf49e8592cb812",
+      "role": "consumed_partition_or_lineage",
+      "verified": true
+    },
+    {
+      "bytes": 1075231,
+      "path": "data/features/bars/5m/feature_set=dridr_ohlcv_5m/version=1.0.0/product=GC/year=2026/part-000.parquet",
+      "sha256": "f5ac28260ef13cb974cca7b9c61d8f259a73d750db8af441e1827dd8df4ae3c4",
+      "role": "consumed_partition_or_lineage",
+      "verified": true
+    },
+    {
+      "bytes": 648717,
+      "path": "data/features/bars/5m/feature_set=dridr_ohlcv_5m/version=1.0.0/product=NQ/year=2010/part-000.parquet",
+      "sha256": "724383910a095d93aa8c7adf1e8806f56329791f02fe4ef5670f87611e3b730c",
+      "role": "consumed_partition_or_lineage",
+      "verified": true
+    },
+    {
+      "bytes": 1161256,
+      "path": "data/features/bars/5m/feature_set=dridr_ohlcv_5m/version=1.0.0/product=NQ/year=2011/part-000.parquet",
+      "sha256": "f18f57396934d0ea57468e23772b055186dfc7e6c2decc0e562293ceabe86880",
+      "role": "consumed_partition_or_lineage",
+      "verified": true
+    },
+    {
+      "bytes": 1135682,
+      "path": "data/features/bars/5m/feature_set=dridr_ohlcv_5m/version=1.0.0/product=NQ/year=2012/part-000.parquet",
+      "sha256": "70aedbef24014900a491251d0fbf20f2d8b9034f79a031e374209f64844b7462",
+      "role": "consumed_partition_or_lineage",
+      "verified": true
+    },
+    {
+      "bytes": 1095248,
+      "path": "data/features/bars/5m/feature_set=dridr_ohlcv_5m/version=1.0.0/product=NQ/year=2013/part-000.parquet",
+      "sha256": "6bc4fbbefaf6b98691f1db38bdddb8ad1c4a87a3d7055771f60515ace358adf1",
+      "role": "consumed_partition_or_lineage",
+      "verified": true
+    },
+    {
+      "bytes": 1129600,
+      "path": "data/features/bars/5m/feature_set=dridr_ohlcv_5m/version=1.0.0/product=NQ/year=2014/part-000.parquet",
+      "sha256": "7892daeaf00097cf6cd9ee783fb5c96a0b5b37a9dda188576d4991d8b4709614",
+      "role": "consumed_partition_or_lineage",
+      "verified": true
+    },
+    {
+      "bytes": 1220233,
+      "path": "data/features/bars/5m/feature_set=dridr_ohlcv_5m/version=1.0.0/product=NQ/year=2015/part-000.parquet",
+      "sha256": "a9845356b19412207d7785624060156de0e0bf79b2702cf745757d5050df5270",
+      "role": "consumed_partition_or_lineage",
+      "verified": true
+    },
+    {
+      "bytes": 1212174,
+      "path": "data/features/bars/5m/feature_set=dridr_ohlcv_5m/version=1.0.0/product=NQ/year=2016/part-000.parquet",
+      "sha256": "76d47a3f3245e2674b2c0e6bc8e2cf4a91017a9132a33ba0f6437599f9780021",
+      "role": "consumed_partition_or_lineage",
+      "verified": true
+    },
+    {
+      "bytes": 1178519,
+      "path": "data/features/bars/5m/feature_set=dridr_ohlcv_5m/version=1.0.0/product=NQ/year=2017/part-000.parquet",
+      "sha256": "6db91ddd49d7085026264296e4ae06561dd00df1fd6c4e06326a949c23633efa",
+      "role": "consumed_partition_or_lineage",
+      "verified": true
+    },
+    {
+      "bytes": 1367739,
+      "path": "data/features/bars/5m/feature_set=dridr_ohlcv_5m/version=1.0.0/product=NQ/year=2018/part-000.parquet",
+      "sha256": "0a9cb7cf383065850c69d128c2ba357bef06eedf089c69f2b5375e7397414643",
+      "role": "consumed_partition_or_lineage",
+      "verified": true
+    },
+    {
+      "bytes": 1339705,
+      "path": "data/features/bars/5m/feature_set=dridr_ohlcv_5m/version=1.0.0/product=NQ/year=2019/part-000.parquet",
+      "sha256": "c83391150f012fa4f48238f17ea06d46a666fb53285520e40f7d3cfa9e3b92ab",
+      "role": "consumed_partition_or_lineage",
+      "verified": true
+    },
+    {
+      "bytes": 1584841,
+      "path": "data/features/bars/5m/feature_set=dridr_ohlcv_5m/version=1.0.0/product=NQ/year=2020/part-000.parquet",
+      "sha256": "bec51f64a8341eed84a1f9202215d78a6f6dc50ee2ec9e4c99b555d8af00de02",
+      "role": "consumed_partition_or_lineage",
+      "verified": true
+    },
+    {
+      "bytes": 1546714,
+      "path": "data/features/bars/5m/feature_set=dridr_ohlcv_5m/version=1.0.0/product=NQ/year=2021/part-000.parquet",
+      "sha256": "951233592020123b687581eea470eb0ffce1660572632bbe7deeb6a3d3f76acc",
+      "role": "consumed_partition_or_lineage",
+      "verified": true
+    },
+    {
+      "bytes": 1703548,
+      "path": "data/features/bars/5m/feature_set=dridr_ohlcv_5m/version=1.0.0/product=NQ/year=2022/part-000.parquet",
+      "sha256": "b2b9874f396925e60f2d2b42ac5fe660ad600ce0da73ce71c653183e0daee9b9",
+      "role": "consumed_partition_or_lineage",
+      "verified": true
+    },
+    {
+      "bytes": 1561942,
+      "path": "data/features/bars/5m/feature_set=dridr_ohlcv_5m/version=1.0.0/product=NQ/year=2023/part-000.parquet",
+      "sha256": "d60fae15ed1bf5b66b17e47e85896e4c1c2945b73a6b946055413c70c37663a2",
+      "role": "consumed_partition_or_lineage",
+      "verified": true
+    },
+    {
+      "bytes": 1613809,
+      "path": "data/features/bars/5m/feature_set=dridr_ohlcv_5m/version=1.0.0/product=NQ/year=2024/part-000.parquet",
+      "sha256": "c0739440be9a0522d818b3fdaecb60a14eb6cd46dace7bb40167359a0c8c1dca",
+      "role": "consumed_partition_or_lineage",
+      "verified": true
+    },
+    {
+      "bytes": 1703374,
+      "path": "data/features/bars/5m/feature_set=dridr_ohlcv_5m/version=1.0.0/product=NQ/year=2025/part-000.parquet",
+      "sha256": "ba0e4f686033c4667905b3e7cec7a2d05ed719e5ec7d917789b1627914f0af77",
+      "role": "consumed_partition_or_lineage",
+      "verified": true
+    },
+    {
+      "bytes": 1279156,
+      "path": "data/features/bars/5m/feature_set=dridr_ohlcv_5m/version=1.0.0/product=NQ/year=2026/part-000.parquet",
+      "sha256": "b5c59bbf6e4a5d6a0112d23b3d6f7525a41b3a5a2b74cc2e2590d14e02a934f8",
+      "role": "consumed_partition_or_lineage",
+      "verified": true
+    },
+    {
+      "role": "calendar_reference",
+      "path": "catalog/calendars/cme_fixed_clock_session_v1.json",
+      "sha256": "d5e9d7895f02c5c66a2231e3f79e6bfbc21cd7ce7aa2f42974cfa50492186bcf",
+      "bytes": 3211
+    }
+  ],
+  "certification": "hash and retained lineage verified; mapping arrival times and individual annual holiday schedules unavailable"
+}

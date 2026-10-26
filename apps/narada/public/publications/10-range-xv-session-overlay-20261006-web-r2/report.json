@@ -1,0 +1,721 @@
+{
+  "provenance": {
+    "assets": [],
+    "sourceSha256": "c433c3a3b915e4e4c4229c48d587e568ddd1d0fb99b0d04bfa44d1e40a4ba0e3"
+  },
+  "report": {
+    "id": "10-range-xv-session-overlay-20261006-web-r2",
+    "publishedAt": "2026-10-06T23:09:36Z",
+    "schemaVersion": "1.0",
+    "sections": [
+      {
+        "body": "This separate overlay run segments the saved Study 07 candidate, Study 08 countertrend and corrected Study 09 confirmation cohorts. It does not combine their observations into a new sample. Candidate tables show all products; colour tables use the explicitly selected NQ 10 illustration.",
+        "id": "question",
+        "kind": "text",
+        "title": "Question and scope"
+      },
+      {
+        "body": "No Study 07 idea/product/session passes the declared price screen. Some Study 08 NQ 10 cells beat their other two named segments only narrowly; Study 09 confirmation shows some ordinary-control lifts but far less segment-specific evidence. The saved wait means remain negative in every screened chart/direction/session cell. Colour differences and price payoffs disagree.",
+        "id": "findings",
+        "kind": "text",
+        "title": "Supported findings"
+      },
+      {
+        "columns": [
+          {
+            "key": "product",
+            "label": "product"
+          },
+          {
+            "key": "idea",
+            "label": "idea"
+          },
+          {
+            "key": "segment",
+            "label": "segment"
+          },
+          {
+            "format": "number",
+            "key": "denominator",
+            "label": "Original opportunities",
+            "precision": 0
+          },
+          {
+            "format": "number",
+            "key": "candidate_trades",
+            "label": "Executed proxy trades",
+            "precision": 0
+          },
+          {
+            "format": "number",
+            "key": "estimate",
+            "label": "Mean after haircut",
+            "precision": 2,
+            "unit": "ticks"
+          },
+          {
+            "format": "number",
+            "key": "candidate_net_family_low",
+            "label": "Familywise mean low",
+            "precision": 2,
+            "unit": "ticks"
+          },
+          {
+            "format": "number",
+            "key": "candidate_net_family_high",
+            "label": "Familywise mean high",
+            "precision": 2,
+            "unit": "ticks"
+          },
+          {
+            "format": "number",
+            "key": "difference",
+            "label": "Candidate minus control",
+            "precision": 2,
+            "unit": "ticks"
+          },
+          {
+            "format": "number",
+            "key": "family_ci_low",
+            "label": "Familywise difference low",
+            "precision": 2,
+            "unit": "ticks"
+          },
+          {
+            "format": "number",
+            "key": "family_ci_high",
+            "label": "Familywise difference high",
+            "precision": 2,
+            "unit": "ticks"
+          }
+        ],
+        "id": "candidate-overlay",
+        "kind": "table",
+        "rows": [
+          {
+            "candidate_net_family_high": -0.934227085460539,
+            "candidate_net_family_low": -3.079026725009971,
+            "candidate_trades": 1509,
+            "denominator": 1509,
+            "difference": -0.0306077205829768,
+            "estimate": -2.006626905235255,
+            "family_ci_high": 0.3080569923498183,
+            "family_ci_low": -0.3692724335157721,
+            "idea": "pullback",
+            "product": "ES",
+            "segment": "asia"
+          },
+          {
+            "candidate_net_family_high": -1.4744325966195748,
+            "candidate_net_family_low": -3.529782366499498,
+            "candidate_trades": 1898,
+            "denominator": 1898,
+            "difference": -0.0073656077545649,
+            "estimate": -2.5021074815595363,
+            "family_ci_high": 0.3171014902522175,
+            "family_ci_low": -0.3318327057613475,
+            "idea": "pullback",
+            "product": "ES",
+            "segment": "london"
+          },
+          {
+            "candidate_net_family_high": -1.589754917218012,
+            "candidate_net_family_low": -2.737988732126169,
+            "candidate_trades": 6023,
+            "denominator": 6023,
+            "difference": 0.0155806422352502,
+            "estimate": -2.1638718246720905,
+            "family_ci_high": 0.2199365912905931,
+            "family_ci_low": -0.1887753068200927,
+            "idea": "pullback",
+            "product": "ES",
+            "segment": "new york"
+          },
+          {
+            "candidate_net_family_high": -0.3287232994617763,
+            "candidate_net_family_low": -3.749311382619149,
+            "candidate_trades": 466,
+            "denominator": 692,
+            "difference": 1.4291907514450868,
+            "estimate": -2.0390173410404624,
+            "family_ci_high": 3.592326487134881,
+            "family_ci_low": -0.7339449842447072,
+            "idea": "exhaustion",
+            "product": "ES",
+            "segment": "asia"
+          },
+          {
+            "candidate_net_family_high": -0.1515700451571227,
+            "candidate_net_family_low": -3.1571256070167903,
+            "candidate_trades": 672,
+            "denominator": 920,
+            "difference": 0.1054347826086956,
+            "estimate": -1.6543478260869566,
+            "family_ci_high": 2.0177470329514717,
+            "family_ci_low": -1.8068774677340804,
+            "idea": "exhaustion",
+            "product": "ES",
+            "segment": "london"
+          },
+          {
+            "candidate_net_family_high": -0.4944710096361312,
+            "candidate_net_family_low": -2.3185709605338305,
+            "candidate_trades": 2063,
+            "denominator": 2883,
+            "difference": 0.6011099549080818,
+            "estimate": -1.406520985084981,
+            "family_ci_high": 1.7498455630869012,
+            "family_ci_low": -0.5476256532707375,
+            "idea": "exhaustion",
+            "product": "ES",
+            "segment": "new york"
+          },
+          {
+            "candidate_net_family_high": -0.2262198928911694,
+            "candidate_net_family_low": -3.989227261580376,
+            "candidate_trades": 984,
+            "denominator": 984,
+            "difference": -0.5376086347070368,
+            "estimate": -2.1077235772357725,
+            "family_ci_high": 1.5338085652711717,
+            "family_ci_low": -2.6090258346852453,
+            "idea": "quiet breakout",
+            "product": "ES",
+            "segment": "asia"
+          },
+          {
+            "candidate_net_family_high": -1.050570560891015,
+            "candidate_net_family_low": -3.762738126724511,
+            "candidate_trades": 1623,
+            "denominator": 1623,
+            "difference": 0.3593597219592013,
+            "estimate": -2.406654343807763,
+            "family_ci_high": 1.915644036976112,
+            "family_ci_low": -1.1969245930577093,
+            "idea": "quiet breakout",
+            "product": "ES",
+            "segment": "london"
+          },
+          {
+            "candidate_net_family_high": -1.908549818138592,
+            "candidate_net_family_low": -3.681857855722319,
+            "candidate_trades": 4170,
+            "denominator": 4170,
+            "difference": -0.4575631790845298,
+            "estimate": -2.7952038369304555,
+            "family_ci_high": 0.6157355440499583,
+            "family_ci_low": -1.530861902219018,
+            "idea": "quiet breakout",
+            "product": "ES",
+            "segment": "new york"
+          },
+          {
+            "candidate_net_family_high": 1.4646715065050462,
+            "candidate_net_family_low": -4.690505552698374,
+            "candidate_trades": 2338,
+            "denominator": 2338,
+            "difference": 0.0419136953178695,
+            "estimate": -1.6129170230966638,
+            "family_ci_high": 0.6082862876857752,
+            "family_ci_low": -0.524458897050036,
+            "idea": "pullback",
+            "product": "GC",
+            "segment": "asia"
+          },
+          {
+            "candidate_net_family_high": 2.0795377017948,
+            "candidate_net_family_low": -4.39064881290591,
+            "candidate_trades": 1755,
+            "denominator": 1755,
+            "difference": 0.0416896235078054,
+            "estimate": -1.1555555555555554,
+            "family_ci_high": 0.6072228801663652,
+            "family_ci_low": -0.5238436331507542,
+            "idea": "pullback",
+            "product": "GC",
+            "segment": "london"
+          },
+          {
+            "candidate_net_family_high": 0.4335253892774657,
+            "candidate_net_family_low": -4.816257921542708,
+            "candidate_trades": 2247,
+            "denominator": 2247,
+            "difference": 0.1161587447416718,
+            "estimate": -2.191366266132621,
+            "family_ci_high": 0.5749634920240001,
+            "family_ci_low": -0.3426460025406563,
+            "idea": "pullback",
+            "product": "GC",
+            "segment": "new york"
+          },
+          {
+            "candidate_net_family_high": 1.9723731570320224,
+            "candidate_net_family_low": -6.718838755524011,
+            "candidate_trades": 728,
+            "denominator": 1061,
+            "difference": 1.2026390197926484,
+            "estimate": -2.3732327992459945,
+            "family_ci_high": 6.719867608487652,
+            "family_ci_low": -4.314589568902356,
+            "idea": "exhaustion",
+            "product": "GC",
+            "segment": "asia"
+          },
+          {
+            "candidate_net_family_high": 6.20914914909008,
+            "candidate_net_family_low": -5.456598128681917,
+            "candidate_trades": 561,
+            "denominator": 784,
+            "difference": 1.9528061224489792,
+            "estimate": 0.3762755102040816,
+            "family_ci_high": 8.250952802660478,
+            "family_ci_low": -4.345340557762519,
+            "idea": "exhaustion",
+            "product": "GC",
+            "segment": "london"
+          },
+          {
+            "candidate_net_family_high": 2.870130416735053,
+            "candidate_net_family_low": -5.215019305623942,
+            "candidate_trades": 811,
+            "denominator": 1125,
+            "difference": -0.3493333333333333,
+            "estimate": -1.1724444444444444,
+            "family_ci_high": 4.638401010251896,
+            "family_ci_low": -5.337067676918562,
+            "idea": "exhaustion",
+            "product": "GC",
+            "segment": "new york"
+          },
+          {
+            "candidate_net_family_high": 6.658208143848361,
+            "candidate_net_family_low": -7.737819794333797,
+            "candidate_trades": 515,
+            "denominator": 515,
+            "difference": 1.0567265084030173,
+            "estimate": -0.5398058252427185,
+            "family_ci_high": 8.444724506860988,
+            "family_ci_low": -6.331271490054954,
+            "idea": "quiet breakout",
+            "product": "GC",
+            "segment": "asia"
+          },
+          {
+            "candidate_net_family_high": 1.0493259998974658,
+            "candidate_net_family_low": -11.892463254799427,
+            "candidate_trades": 714,
+            "denominator": 714,
+            "difference": -2.847469309047865,
+            "estimate": -5.421568627450981,
+            "family_ci_high": 3.831708552156054,
+            "family_ci_low": -9.526647170251785,
+            "idea": "quiet breakout",
+            "product": "GC",
+            "segment": "london"
+          },
+          {
+            "candidate_net_family_high": 3.816391672371189,
+            "candidate_net_family_low": -9.392938903641546,
+            "candidate_trades": 614,
+            "denominator": 614,
+            "difference": -0.1962289540859814,
+            "estimate": -2.788273615635179,
+            "family_ci_high": 6.991282907663184,
+            "family_ci_low": -7.383740815835147,
+            "idea": "quiet breakout",
+            "product": "GC",
+            "segment": "new york"
+          },
+          {
+            "candidate_net_family_high": -0.3362694115013296,
+            "candidate_net_family_low": -4.376574625195918,
+            "candidate_trades": 4360,
+            "denominator": 4360,
+            "difference": -0.1609634252943048,
+            "estimate": -2.3564220183486237,
+            "family_ci_high": 0.1163071996734209,
+            "family_ci_low": -0.4382340502620306,
+            "idea": "pullback",
+            "product": "NQ",
+            "segment": "asia"
+          },
+          {
+            "candidate_net_family_high": -0.3477436834068967,
+            "candidate_net_family_low": -4.369458749260349,
+            "candidate_trades": 4604,
+            "denominator": 4604,
+            "difference": -0.0620725672328279,
+            "estimate": -2.3586012163336227,
+            "family_ci_high": 0.294377288900138,
+            "family_ci_low": -0.4185224233657938,
+            "idea": "pullback",
+            "product": "NQ",
+            "segment": "london"
+          },
+          {
+            "candidate_net_family_high": -1.296106292129935,
+            "candidate_net_family_low": -3.796684927625615,
+            "candidate_trades": 16036,
+            "denominator": 16036,
+            "difference": -0.0776606992066013,
+            "estimate": -2.546395609877775,
+            "family_ci_high": 0.1119957445990101,
+            "family_ci_low": -0.2673171430122129,
+            "idea": "pullback",
+            "product": "NQ",
+            "segment": "new york"
+          },
+          {
+            "candidate_net_family_high": 1.4345908958282194,
+            "candidate_net_family_low": -5.30743984420298,
+            "candidate_trades": 1478,
+            "denominator": 2092,
+            "difference": 1.8130975143403445,
+            "estimate": -1.9364244741873804,
+            "family_ci_high": 5.655403213395376,
+            "family_ci_low": -2.029208184714687,
+            "idea": "exhaustion",
+            "product": "NQ",
+            "segment": "asia"
+          },
+          {
+            "candidate_net_family_high": -1.3989674089484505,
+            "candidate_net_family_low": -7.54511460409908,
+            "candidate_trades": 1552,
+            "denominator": 2146,
+            "difference": -2.462721342031687,
+            "estimate": -4.4720410065237655,
+            "family_ci_high": 0.8751561916326653,
+            "family_ci_low": -5.800598875696039,
+            "idea": "exhaustion",
+            "product": "NQ",
+            "segment": "london"
+          },
+          {
+            "candidate_net_family_high": -0.8797134499065451,
+            "candidate_net_family_low": -4.0707509463782845,
+            "candidate_trades": 5326,
+            "denominator": 7752,
+            "difference": 0.8666150670794632,
+            "estimate": -2.475232198142415,
+            "family_ci_high": 3.015245413325369,
+            "family_ci_low": -1.2820152791664428,
+            "idea": "exhaustion",
+            "product": "NQ",
+            "segment": "new york"
+          },
+          {
+            "candidate_net_family_high": 3.0612648323720455,
+            "candidate_net_family_low": -4.782954973217116,
+            "candidate_trades": 1775,
+            "denominator": 1775,
+            "difference": 2.2133729733308547,
+            "estimate": -0.8608450704225352,
+            "family_ci_high": 6.350794904652546,
+            "family_ci_low": -1.9240489579908369,
+            "idea": "quiet breakout",
+            "product": "NQ",
+            "segment": "asia"
+          },
+          {
+            "candidate_net_family_high": -1.0255678619684383,
+            "candidate_net_family_low": -7.684132823210069,
+            "candidate_trades": 2773,
+            "denominator": 2773,
+            "difference": -1.0332553958857402,
+            "estimate": -4.354850342589254,
+            "family_ci_high": 2.641211992954125,
+            "family_ci_low": -4.707722784725606,
+            "idea": "quiet breakout",
+            "product": "NQ",
+            "segment": "london"
+          },
+          {
+            "candidate_net_family_high": -1.4707227394984943,
+            "candidate_net_family_low": -5.226164946563752,
+            "candidate_trades": 7390,
+            "denominator": 7390,
+            "difference": -0.6206017520480356,
+            "estimate": -3.348443843031123,
+            "family_ci_high": 1.4065361741099975,
+            "family_ci_low": -2.6477396782060687,
+            "idea": "quiet breakout",
+            "product": "NQ",
+            "segment": "new york"
+          }
+        ],
+        "title": "Candidate means by product and primary segment"
+      },
+      {
+        "columns": [
+          {
+            "key": "segment",
+            "label": "segment"
+          },
+          {
+            "key": "direction",
+            "label": "Direction (1 bullish, −1 bearish)"
+          },
+          {
+            "format": "number",
+            "key": "numerator",
+            "label": "numerator",
+            "precision": 0
+          },
+          {
+            "format": "number",
+            "key": "denominator",
+            "label": "denominator",
+            "precision": 0
+          },
+          {
+            "format": "percent",
+            "key": "estimate",
+            "label": "Rate",
+            "precision": 1
+          },
+          {
+            "format": "percent",
+            "key": "baseline_estimate",
+            "label": "Other-segment rate",
+            "precision": 1
+          },
+          {
+            "format": "number",
+            "key": "difference",
+            "label": "Difference",
+            "precision": 2,
+            "unit": "pp"
+          },
+          {
+            "format": "number",
+            "key": "family_ci_low",
+            "label": "Familywise low",
+            "precision": 2,
+            "unit": "pp"
+          },
+          {
+            "format": "number",
+            "key": "family_ci_high",
+            "label": "Familywise high",
+            "precision": 2,
+            "unit": "pp"
+          }
+        ],
+        "id": "countertrend-example",
+        "kind": "table",
+        "rows": [
+          {
+            "baseline_estimate": 0.47021951749619656,
+            "denominator": 45458,
+            "difference": 0.6660239642260979,
+            "direction": "-1",
+            "estimate": 0.4768797571384575,
+            "family_ci_high": 1.5152829661990008,
+            "family_ci_low": -0.183235037746805,
+            "numerator": 21678,
+            "segment": "asia"
+          },
+          {
+            "baseline_estimate": 0.46940957546032375,
+            "denominator": 55717,
+            "difference": 0.9438890896443564,
+            "direction": "-1",
+            "estimate": 0.47884846635676726,
+            "family_ci_high": 1.7634250186953238,
+            "family_ci_low": 0.1243531605933888,
+            "numerator": 26680,
+            "segment": "london"
+          },
+          {
+            "baseline_estimate": 0.47796392389424264,
+            "denominator": 174333,
+            "difference": -1.0502227026753408,
+            "direction": "-1",
+            "estimate": 0.46746169686748923,
+            "family_ci_high": -0.3740419729904313,
+            "family_ci_low": -1.7264034323602502,
+            "numerator": 81494,
+            "segment": "new york"
+          },
+          {
+            "baseline_estimate": 0.46797366253709427,
+            "denominator": 44865,
+            "difference": 1.3158623209032994,
+            "direction": "1",
+            "estimate": 0.48113228574612726,
+            "family_ci_high": 2.206106825146517,
+            "family_ci_low": 0.425617816660082,
+            "numerator": 21586,
+            "segment": "asia"
+          },
+          {
+            "baseline_estimate": 0.46755974992448307,
+            "denominator": 55854,
+            "difference": 1.2602816767248948,
+            "direction": "1",
+            "estimate": 0.480162566691732,
+            "family_ci_high": 2.0299483227683845,
+            "family_ci_low": 0.4906150306814049,
+            "numerator": 26819,
+            "segment": "london"
+          },
+          {
+            "baseline_estimate": 0.48059452536264263,
+            "denominator": 173629,
+            "difference": -1.654186134914254,
+            "direction": "1",
+            "estimate": 0.46405266401350004,
+            "family_ci_high": -0.9478567782097068,
+            "family_ci_low": -2.360515491618801,
+            "numerator": 80573,
+            "segment": "new york"
+          }
+        ],
+        "title": "NQ 10: two-more-bar colour probabilities"
+      },
+      {
+        "columns": [
+          {
+            "key": "segment",
+            "label": "segment"
+          },
+          {
+            "format": "number",
+            "key": "denominator",
+            "label": "Confirmed eligible n",
+            "precision": 0
+          },
+          {
+            "format": "percent",
+            "key": "estimate",
+            "label": "Confirmed rate",
+            "precision": 1
+          },
+          {
+            "format": "number",
+            "key": "ordinary_baseline_denominator",
+            "label": "Ordinary control n",
+            "precision": 0
+          },
+          {
+            "format": "percent",
+            "key": "ordinary_baseline_estimate",
+            "label": "Ordinary rate",
+            "precision": 1
+          },
+          {
+            "format": "number",
+            "key": "ordinary_difference",
+            "label": "Ordinary difference",
+            "precision": 2,
+            "unit": "pp"
+          },
+          {
+            "format": "number",
+            "key": "ordinary_family_ci_low",
+            "label": "Familywise ordinary low",
+            "precision": 2,
+            "unit": "pp"
+          },
+          {
+            "format": "number",
+            "key": "ordinary_family_ci_high",
+            "label": "Familywise ordinary high",
+            "precision": 2,
+            "unit": "pp"
+          },
+          {
+            "format": "number",
+            "key": "other_difference",
+            "label": "Other-segment difference",
+            "precision": 2,
+            "unit": "pp"
+          },
+          {
+            "format": "number",
+            "key": "other_family_ci_low",
+            "label": "Familywise other low",
+            "precision": 2,
+            "unit": "pp"
+          },
+          {
+            "format": "number",
+            "key": "other_family_ci_high",
+            "label": "Familywise other high",
+            "precision": 2,
+            "unit": "pp"
+          }
+        ],
+        "id": "confirmation-example",
+        "kind": "table",
+        "rows": [
+          {
+            "denominator": 32030,
+            "estimate": 0.4142054324071183,
+            "ordinary_baseline_denominator": 134007,
+            "ordinary_baseline_estimate": 0.3991955644108144,
+            "ordinary_difference": 1.5009867996303938,
+            "ordinary_family_ci_high": 2.479206771816062,
+            "ordinary_family_ci_low": 0.5227668274447252,
+            "other_difference": 0.4476344014790856,
+            "other_family_ci_high": 1.46405387479787,
+            "other_family_ci_low": -0.5687850718396987,
+            "segment": "asia"
+          },
+          {
+            "denominator": 39566,
+            "estimate": 0.42159935297983114,
+            "ordinary_baseline_denominator": 174004,
+            "ordinary_baseline_estimate": 0.4072779936093423,
+            "ordinary_difference": 1.432135937048884,
+            "ordinary_family_ci_high": 2.333153375564281,
+            "ordinary_family_ci_low": 0.5311184985334871,
+            "other_difference": 1.4056684231380734,
+            "other_family_ci_high": 2.3571158948106152,
+            "other_family_ci_low": 0.4542209514655315,
+            "segment": "london"
+          },
+          {
+            "denominator": 117201,
+            "estimate": 0.4057217941826435,
+            "ordinary_baseline_denominator": 483207,
+            "ordinary_baseline_estimate": 0.3902364825012883,
+            "ordinary_difference": 1.5485311681355196,
+            "ordinary_family_ci_high": 2.0959853088930993,
+            "ordinary_family_ci_low": 1.00107702737794,
+            "other_difference": -1.2569730483538988,
+            "other_family_ci_high": -0.4401647133845098,
+            "other_family_ci_low": -2.0737813833232877,
+            "segment": "new york"
+          }
+        ],
+        "title": "NQ 10 bearish: two distinct control comparisons"
+      },
+      {
+        "body": "Asia is 18:00–03:00, London 03:00–09:30 and New York 09:30–16:00 in inferred New York time. Transition is excluded from primary screening. The overlay source is 20260924T145715Z_session_v1; upstream cohorts remain separately attributed to 07: 20260924T004900Z_rxv07, 08: 20260924T132916Z_ctbars_v1 and 09: 20260924T141810Z_c2confirm_v1. Study 07 retains its older pre-normalization cohort and uses corrected clocks only for segment labels. Its estimate is mean signed proxy price after a two-tick executed-trade haircut. Studies 08 and 09 rates use C1 and confirmed-C2 denominators respectively. Their saved percentage-valued cells are converted to ratios for display; saved differences are already percentage points. Bounds retain the original overlay family corrections. The ordinary and other-segment controls answer different questions.",
+        "id": "methods",
+        "kind": "text",
+        "title": "Definitions and methods"
+      },
+      {
+        "body": "The short Study 07 and long Study 08/09 histories are unequal and previously viewed. Segments and chart settings are correlated. A comparison against ordinary bars is not evidence of segment-specific lift; the latter requires the separate other-segment contrast. Clock inference, retrospective exclusions, completion proxies and absent fill/cost evidence limit these to descriptive chart-price paths.",
+        "id": "limitations",
+        "kind": "text",
+        "title": "Limitations and uncertainty"
+      },
+      {
+        "body": "Study 10_range_xv_session_overlay; source run 20260924T145715Z_session_v1. Registered reference: Explicit registered reference; retain its executed scope and saved qualifications.\n\nPresentation revision 20261006T235500Z_web10r2, web-study-report-1.0. Saved numerical tables are the authority; only selected rows and columns are presented. No new statistics or research execution. The publication record identifies this JSON and its selected assets.",
+        "id": "sources-provenance",
+        "kind": "text",
+        "title": "Source and presentation provenance"
+      }
+    ],
+    "source": {
+      "producer": "sahadeva",
+      "runId": "20260924T145715Z_session_v1"
+    },
+    "summary": "Asia, London and New York overlays preserve negative price screens. Selected NQ colour contrasts vary by session, while the confirmation wait policy remains negative.",
+    "title": "Session overlay: local colour patterns do not prove edge"
+  }
+}

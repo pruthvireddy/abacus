@@ -1,0 +1,1100 @@
+{
+  "schemaVersion": "1.1",
+  "id": "value-area-fade-tracker-20261007-source-review",
+  "title": "Value-area fade tracker: 55 to 100 reported trades",
+  "summary": "An external evidence study and proposed first-touch VAH/VAL-to-POC strategy. Two overlapping snapshots, seven source charts, reported rates and sample counts, contrary evidence, execution gaps and a plan for future independent Abacus analysis.",
+  "publishedAt": "2026-10-07T14:44:57Z",
+  "source": {
+    "producer": "Sahadeva external source review",
+    "runId": "20261007T143300Z_tracker19"
+  },
+  "sections": [
+    {
+      "id": "evidence",
+      "title": "What this study establishes",
+      "kind": "text",
+      "body": "Study 19 is an external source review of two user-supplied community posts and seven tracker screenshots. One trader reports every taken trade was logged: 55 cumulative trades over four weeks, then 100 over seven weeks. Browser headers attribute both posts to Christopher Thornton, with date labels Aug 5 and Aug 28 (edited); the year is not visible. We have no raw ledger or independently authenticated fills. These are overlapping cumulative samples, not 155 independent observations. Abacus has documented the source; our empirical analysis is planned for a future run."
+    },
+    {
+      "id": "headline",
+      "kind": "metrics",
+      "title": "Reported snapshot sizes and latest win rate",
+      "items": [
+        {
+          "label": "First snapshot",
+          "value": 55,
+          "format": "number",
+          "unit": "trades",
+          "note": "Four weeks; included again in the later cumulative snapshot."
+        },
+        {
+          "label": "Later snapshot",
+          "value": 100,
+          "format": "number",
+          "unit": "trades",
+          "note": "Seven weeks; unaudited external tracking."
+        },
+        {
+          "label": "Later reported wins",
+          "value": 0.69,
+          "format": "percent",
+          "precision": 0,
+          "note": "69% of all 100 trades. P&L and costs were not supplied."
+        }
+      ]
+    },
+    {
+      "id": "snapshots",
+      "kind": "table",
+      "title": "Cumulative results and direction mix",
+      "columns": [
+        {
+          "key": "snapshot",
+          "label": "Snapshot"
+        },
+        {
+          "key": "weeks",
+          "label": "Weeks",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "trades",
+          "label": "Trades",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "win",
+          "label": "Wins",
+          "format": "percent",
+          "precision": 0
+        },
+        {
+          "key": "loss",
+          "label": "Losses",
+          "format": "percent",
+          "precision": 0
+        },
+        {
+          "key": "breakeven",
+          "label": "Break-even",
+          "format": "percent",
+          "precision": 0
+        },
+        {
+          "key": "long",
+          "label": "Long mix",
+          "format": "percent",
+          "precision": 0
+        },
+        {
+          "key": "short",
+          "label": "Short mix",
+          "format": "percent",
+          "precision": 0
+        }
+      ],
+      "rows": [
+        {
+          "snapshot": "First",
+          "weeks": 4,
+          "trades": 55,
+          "win": 0.71,
+          "loss": 0.27,
+          "breakeven": 0.02,
+          "long": 0.55,
+          "short": 0.45
+        },
+        {
+          "snapshot": "Later",
+          "weeks": 7,
+          "trades": 100,
+          "win": 0.69,
+          "loss": 0.29,
+          "breakeven": 0.02,
+          "long": 0.49,
+          "short": 0.51
+        }
+      ],
+      "description": "Image 1 / post 1 and image 4 / post 2. Rates are the displayed rounded percentages.",
+      "notes": [
+        "Direction columns describe proportions of trades. No long-versus-short outcome rates are supplied.",
+        "The first text calls direction almost evenly split; its chart shows 55% long and 45% short.",
+        "Arithmetic reconciliation gives 39 wins, 15 losses and one break-even at 55; 69 wins, 29 losses and two break-evens at 100. The earlier counts are reconstructed from rounded percentages, not a supplied ledger."
+      ]
+    },
+    {
+      "id": "strategy",
+      "title": "Candidate strategy: first-touch value-area fade",
+      "kind": "text",
+      "body": "Strategy value_area_first_touch_fade · proposed · decision date 2026-10-07. In a balanced/rotational market, the source describes selling from value-area high (VAH) toward point of control (POC), or buying from value-area low (VAL) toward POC. Developing/current-session value areas, D-shaped profiles, early touches and VWAP are possible context variables. The first post reports 40 such fades among 55 trades, but no fade-only win rate; its overall rate cannot be assigned to this strategy. The author says they do not enter at POC. Later discussion separates balanced-day reversals from trending-day continuation. No operational continuation setup is provided, so that is a separate future branch. No Abacus trading or risk-increase recommendation follows from this source review."
+    },
+    {
+      "id": "rules",
+      "kind": "table",
+      "title": "What is described, and what must be defined",
+      "columns": [
+        {
+          "key": "element",
+          "label": "Element"
+        },
+        {
+          "key": "source",
+          "label": "Source description"
+        },
+        {
+          "key": "gap",
+          "label": "Required before testing"
+        }
+      ],
+      "rows": [
+        {
+          "element": "Market state",
+          "source": "Balanced/rotational fades; trending continuation",
+          "gap": "A causal classifier and separate policies"
+        },
+        {
+          "element": "Profile",
+          "source": "D-shape or clear volume building / acceptance",
+          "gap": "Volume resolution, shape metric and value-area percentage"
+        },
+        {
+          "element": "Levels",
+          "source": "Developing/current VAH or VAL toward POC",
+          "gap": "Session reset, profile algorithm and level availability"
+        },
+        {
+          "element": "Touch",
+          "source": "First/second contact favored",
+          "gap": "Tolerance, approach side, reset and deduplication"
+        },
+        {
+          "element": "VWAP",
+          "source": "Additional confluence; later used for day context",
+          "gap": "Anchor, bands, proximity and context rule"
+        },
+        {
+          "element": "Grade",
+          "source": "A/B/C quality grouping",
+          "gap": "An entry-time rubric independent of outcome; an author comment mentions generally three confluences with discretion"
+        },
+        {
+          "element": "Entry / stop",
+          "source": "Wait for the setup; no POC entries",
+          "gap": "Trigger, timing, fill, stop, invalidation and timeout"
+        },
+        {
+          "element": "Exit",
+          "source": "Initially 1:1; later let winners run",
+          "gap": "POC, fixed R and partial/runner policies separately"
+        },
+        {
+          "element": "Products",
+          "source": "NQ/MNQ, ES/MES, GC/MGC, CL/MCL",
+          "gap": "Contract identity, rolls, fees, liquidity and position size"
+        }
+      ],
+      "description": "Extracted descriptions are not complete executable rules. A final-session profile may not classify an earlier setup.",
+      "notes": []
+    },
+    {
+      "id": "grades",
+      "kind": "table",
+      "title": "Reported trade grades",
+      "columns": [
+        {
+          "key": "grade",
+          "label": "Grade"
+        },
+        {
+          "key": "n55",
+          "label": "N at 55",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "rate55",
+          "label": "Win rate at 55",
+          "format": "percent",
+          "precision": 0
+        },
+        {
+          "key": "n100",
+          "label": "N at 100",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "rate100",
+          "label": "Win rate at 100",
+          "format": "percent",
+          "precision": 0
+        }
+      ],
+      "rows": [
+        {
+          "grade": "A",
+          "n55": 10,
+          "rate55": 1,
+          "n100": 22,
+          "rate100": 0.86
+        },
+        {
+          "grade": "B",
+          "n55": 15,
+          "rate55": 0.67,
+          "n100": 35,
+          "rate100": 0.69
+        },
+        {
+          "grade": "C",
+          "n55": 30,
+          "rate55": 0.63,
+          "n100": 43,
+          "rate100": 0.6
+        }
+      ],
+      "description": "Posts 1–2 and images 1 / 4. All rates are rounded source percentages.",
+      "notes": [
+        "Grade counts sum to 55 and 100. The grading rubric and when labels were assigned are unknown.",
+        "A-grade 100% describes ten trades. Neither snapshot is a held-out test; increasing risk is the author’s suggestion, not a tested Abacus policy."
+      ]
+    },
+    {
+      "id": "context",
+      "kind": "table",
+      "title": "Profile, touch and VWAP observations",
+      "columns": [
+        {
+          "key": "group",
+          "label": "Group"
+        },
+        {
+          "key": "label",
+          "label": "Subgroup"
+        },
+        {
+          "key": "rate55",
+          "label": "Win rate at 55",
+          "format": "percent",
+          "precision": 0
+        },
+        {
+          "key": "n55",
+          "label": "N at 55",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "rate100",
+          "label": "Win rate at 100",
+          "format": "percent",
+          "precision": 0
+        },
+        {
+          "key": "n100",
+          "label": "N at 100",
+          "format": "number",
+          "precision": 0
+        }
+      ],
+      "rows": [
+        {
+          "group": "Profile",
+          "label": "D-shape",
+          "rate55": 0.82,
+          "n55": null,
+          "rate100": 0.8,
+          "n100": null
+        },
+        {
+          "group": "Profile",
+          "label": "B-shape",
+          "rate55": 0.6,
+          "n55": null,
+          "rate100": 0.6,
+          "n100": null
+        },
+        {
+          "group": "Profile",
+          "label": "P-shape",
+          "rate55": 0.5,
+          "n55": null,
+          "rate100": 0.5,
+          "n100": null
+        },
+        {
+          "group": "Profile",
+          "label": "No real shape",
+          "rate55": 0.61,
+          "n55": null,
+          "rate100": 0.56,
+          "n100": null
+        },
+        {
+          "group": "Touch",
+          "label": "First",
+          "rate55": 0.89,
+          "n55": null,
+          "rate100": 0.78,
+          "n100": null
+        },
+        {
+          "group": "Touch",
+          "label": "Second",
+          "rate55": 0.77,
+          "n55": null,
+          "rate100": 0.71,
+          "n100": null
+        },
+        {
+          "group": "Touch",
+          "label": "Third",
+          "rate55": 0.6,
+          "n55": null,
+          "rate100": 0.58,
+          "n100": null
+        },
+        {
+          "group": "Touch",
+          "label": "Fourth",
+          "rate55": 0.57,
+          "n55": null,
+          "rate100": 0.63,
+          "n100": null
+        },
+        {
+          "group": "Touch",
+          "label": "Fifth",
+          "rate55": 0.45,
+          "n55": null,
+          "rate100": 0.56,
+          "n100": null
+        },
+        {
+          "group": "Confluence",
+          "label": "VWAP",
+          "rate55": 0.81,
+          "n55": 16,
+          "rate100": 0.67,
+          "n100": null
+        }
+      ],
+      "description": "Posts 1–2 and images 2–3 / 5–6. Missing denominators display as Not available.",
+      "notes": [
+        "These are marginal groups, potentially overlapping. No combined A-grade + D-shape + first-touch + VWAP result is supplied.",
+        "First/second-touch rates are higher in both snapshots; rates are not strictly decreasing at every later touch (fourth exceeds third at 100). This does not prove levels weaken causally.",
+        "VWAP was introduced during tracking: 81% at N=16 becomes 67% at unspecified N. Selection and the later change in VWAP interpretation prevent an incremental-effect claim.",
+        "Separate win rates are not shares of all wins. Source pie-slice areas are not appropriate comparisons."
+      ]
+    },
+    {
+      "id": "tickers",
+      "kind": "table",
+      "title": "Reported ticker results and sample counts",
+      "columns": [
+        {
+          "key": "ticker",
+          "label": "Ticker"
+        },
+        {
+          "key": "n55",
+          "label": "N at 55",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "rate55",
+          "label": "Win rate at 55",
+          "format": "percent",
+          "precision": 0
+        },
+        {
+          "key": "n100",
+          "label": "N at 100",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "rate100",
+          "label": "Win rate at 100",
+          "format": "percent",
+          "precision": 0
+        }
+      ],
+      "rows": [
+        {
+          "ticker": "NQ",
+          "n55": 1,
+          "rate55": 1,
+          "n100": 14,
+          "rate100": 0.79
+        },
+        {
+          "ticker": "MNQ",
+          "n55": 11,
+          "rate55": 0.55,
+          "n100": 24,
+          "rate100": 0.63
+        },
+        {
+          "ticker": "ES",
+          "n55": 2,
+          "rate55": 0,
+          "n100": 5,
+          "rate100": 0.4
+        },
+        {
+          "ticker": "MES",
+          "n55": 16,
+          "rate55": 0.81,
+          "n100": 18,
+          "rate100": 0.78
+        },
+        {
+          "ticker": "GC",
+          "n55": 2,
+          "rate55": 0.5,
+          "n100": 7,
+          "rate100": 0.86
+        },
+        {
+          "ticker": "MGC",
+          "n55": 20,
+          "rate55": 0.8,
+          "n100": 27,
+          "rate100": 0.67
+        },
+        {
+          "ticker": "CL",
+          "n55": 3,
+          "rate55": 0.67,
+          "n100": 4,
+          "rate100": 0.75
+        },
+        {
+          "ticker": "MCL",
+          "n55": 0,
+          "rate55": null,
+          "n100": 1,
+          "rate100": 0
+        }
+      ],
+      "description": "Images 3 / 6 provide the full quantities; posts discuss selected tickers.",
+      "notes": [
+        "At 55, the source displays MCL 0% with N=0; its rate is normalized here to unavailable. At 100, MCL 0% has N=1 and is a reported observed rate.",
+        "Small groups, including NQ N=1 and GC N=2 at 55, cannot establish stable ticker rankings.",
+        "The author later trades more minis and reports partial fills in micros. This is not a matched micro-versus-mini comparison."
+      ]
+    },
+    {
+      "id": "days",
+      "kind": "table",
+      "title": "Weekday labels as reported",
+      "columns": [
+        {
+          "key": "label",
+          "label": "Source weekday label"
+        },
+        {
+          "key": "rate55",
+          "label": "Win rate at 55",
+          "format": "percent",
+          "precision": 0
+        },
+        {
+          "key": "rate100",
+          "label": "Win rate at 100",
+          "format": "percent",
+          "precision": 0
+        }
+      ],
+      "rows": [
+        {
+          "label": "Monday",
+          "rate55": 0.75,
+          "rate100": 0.85
+        },
+        {
+          "label": "Tuesday",
+          "rate55": 0.6,
+          "rate100": 0.56
+        },
+        {
+          "label": "Wednesday",
+          "rate55": 0.9,
+          "rate100": 0.92
+        },
+        {
+          "label": "Thursday",
+          "rate55": 0.64,
+          "rate100": 0.68
+        },
+        {
+          "label": "Friday",
+          "rate55": 0.69,
+          "rate100": 0.64
+        }
+      ],
+      "description": "Images 2 / 5. The later post says these are New Zealand weekdays: its Monday/Wednesday correspond to New York Sunday/Tuesday sessions.",
+      "notes": [
+        "Subgroup counts and dated timestamps are absent. Do not use these rows as New York exchange weekday filters.",
+        "The author has more time to focus on Wednesday, a possible availability confound. The first post’s weekday convention was not explicitly defined."
+      ]
+    },
+    {
+      "id": "timeblocks",
+      "kind": "table",
+      "title": "Time blocks labeled New York time",
+      "columns": [
+        {
+          "key": "block",
+          "label": "NY time block"
+        },
+        {
+          "key": "rate55",
+          "label": "Win rate at 55",
+          "format": "percent",
+          "precision": 0
+        },
+        {
+          "key": "n55",
+          "label": "N at 55",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "display55",
+          "label": "Original label at 55"
+        },
+        {
+          "key": "rate100",
+          "label": "Win rate at 100",
+          "format": "percent",
+          "precision": 0
+        },
+        {
+          "key": "n100",
+          "label": "N at 100",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "display100",
+          "label": "Original label at 100"
+        }
+      ],
+      "rows": [
+        {
+          "block": "00:00–02:00",
+          "rate55": 0.9,
+          "n55": 10,
+          "display55": "90%",
+          "rate100": 0.65,
+          "n100": null,
+          "display100": "65%"
+        },
+        {
+          "block": "02:00–04:00",
+          "rate55": 0.6,
+          "n55": null,
+          "display55": "60%",
+          "rate100": 0.67,
+          "n100": null,
+          "display100": "67%"
+        },
+        {
+          "block": "04:00–06:00",
+          "rate55": null,
+          "n55": null,
+          "display55": "0%",
+          "rate100": null,
+          "n100": null,
+          "display100": "0%"
+        },
+        {
+          "block": "06:00–08:00",
+          "rate55": null,
+          "n55": null,
+          "display55": "0%",
+          "rate100": null,
+          "n100": null,
+          "display100": "0%"
+        },
+        {
+          "block": "08:00–10:00",
+          "rate55": null,
+          "n55": null,
+          "display55": "0%",
+          "rate100": null,
+          "n100": null,
+          "display100": "0%"
+        },
+        {
+          "block": "10:00–12:00",
+          "rate55": null,
+          "n55": null,
+          "display55": "0%",
+          "rate100": null,
+          "n100": null,
+          "display100": "0%"
+        },
+        {
+          "block": "12:00–14:00",
+          "rate55": null,
+          "n55": null,
+          "display55": "0%",
+          "rate100": null,
+          "n100": null,
+          "display100": "0%"
+        },
+        {
+          "block": "14:00–16:00",
+          "rate55": null,
+          "n55": null,
+          "display55": "0%",
+          "rate100": 0.5,
+          "n100": null,
+          "display100": "50%"
+        },
+        {
+          "block": "16:00–18:00",
+          "rate55": null,
+          "n55": null,
+          "display55": "0%",
+          "rate100": null,
+          "n100": null,
+          "display100": "0%"
+        },
+        {
+          "block": "18:00–20:00",
+          "rate55": 0.76,
+          "n55": 21,
+          "display55": "76%",
+          "rate100": 0.68,
+          "n100": null,
+          "display100": "68%"
+        },
+        {
+          "block": "20:00–22:00",
+          "rate55": 0.64,
+          "n55": null,
+          "display55": "64%",
+          "rate100": 0.74,
+          "n100": null,
+          "display100": "74%"
+        },
+        {
+          "block": "22:00–00:00",
+          "rate55": 0.4,
+          "n55": null,
+          "display55": "40%",
+          "rate100": 0.7,
+          "n100": null,
+          "display100": "70%"
+        }
+      ],
+      "description": "Images 2 / 5; post 1 supplies N=10 at 00:00–02:00 and N=21 at 18:00–20:00.",
+      "notes": [
+        "A displayed 0% with unspecified N cannot distinguish no trades from zero wins. Normalized rates are unavailable; original labels are preserved.",
+        "The source favors Asia trading, but descriptions change from the hour leading into Asia open to about an hour after the market opens. Exact session boundaries are undefined.",
+        "At 100 the largest nonzero time-block rate shown is 74% at 20:00–22:00, not 18:00–20:00 (68%). Missing counts prevent a reliable best-time ranking.",
+        "Future analysis must use dated UTC timestamps, America/New_York DST and explicit exchange/session dates."
+      ]
+    },
+    {
+      "id": "streaksummary",
+      "kind": "table",
+      "title": "Reported streak summary at 100 trades",
+      "columns": [
+        {
+          "key": "type",
+          "label": "Streak type"
+        },
+        {
+          "key": "count",
+          "label": "Streaks",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "longest",
+          "label": "Longest",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "current",
+          "label": "Current",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "average",
+          "label": "Reported average length",
+          "format": "number",
+          "precision": 1
+        },
+        {
+          "key": "trades",
+          "label": "Trades in streaks",
+          "format": "number",
+          "precision": 0
+        }
+      ],
+      "rows": [
+        {
+          "type": "Win",
+          "count": 22,
+          "longest": 6,
+          "current": 1,
+          "average": 3.1,
+          "trades": 69
+        },
+        {
+          "type": "Loss",
+          "count": 21,
+          "longest": 3,
+          "current": 0,
+          "average": 1.4,
+          "trades": 29
+        }
+      ],
+      "description": "Image 7. Total: 43 streaks, 98 included trades, reported average 2.3; latest result is a win.",
+      "notes": [
+        "Two break-even trades are ignored and do not end a streak. This convention affects streak counts.",
+        "The sequence itself is unavailable. No independent sequence check, simulation or future losing-streak forecast is established."
+      ]
+    },
+    {
+      "id": "streaklength",
+      "kind": "table",
+      "title": "Reported streak-length distribution",
+      "columns": [
+        {
+          "key": "length",
+          "label": "Length",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "wins",
+          "label": "Win streaks",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "losses",
+          "label": "Loss streaks",
+          "format": "number",
+          "precision": 0
+        }
+      ],
+      "rows": [
+        {
+          "length": 1,
+          "wins": 3,
+          "losses": 14
+        },
+        {
+          "length": 2,
+          "wins": 7,
+          "losses": 6
+        },
+        {
+          "length": 3,
+          "wins": 4,
+          "losses": 1
+        },
+        {
+          "length": 4,
+          "wins": 3,
+          "losses": 0
+        },
+        {
+          "length": 5,
+          "wins": 2,
+          "losses": 0
+        },
+        {
+          "length": 6,
+          "wins": 3,
+          "losses": 0
+        }
+      ],
+      "description": "Image 7. Quantities reconcile to 22 win streaks / 69 wins and 21 loss streaks / 29 losses.",
+      "notes": []
+    },
+    {
+      "id": "opposing",
+      "title": "Negative and inconclusive source claims",
+      "kind": "text",
+      "body": "The author reports no support for the idea that same-type aligned value areas (for example current VAH aligning with prior or overnight VAH) improve success relative to unlike-type alignment. No sample counts, effect estimate or exact comparison rule were provided. Preserve this as a negative external claim, not a controlled Abacus rejection. The later VWAP rate falls to 67%, and A-grade falls to 86%; high early rates did not persist unchanged. The source’s direction-neutrality conclusion lacks direction-specific outcome rates. D-shape, first-touch and grade associations have unspecified confounding and no joint-filter data."
+    },
+    {
+      "id": "management",
+      "title": "Trade management and execution limits",
+      "kind": "text",
+      "body": "Post 1 describes standardizing trades at 1:1 R:R. Post 2 says letting winners run improved profitability despite lower win rate; it reports an average 1:2 R:R for the last eight A-grade trades and suggests partial profits at 1:1 with a runner. These are the author’s descriptions, not verified realized returns or a tested exit comparison. A follow-up author comment says they only trade 1:1 and tracked how far A grades would run, so the 1:2 figure may describe potential excursion rather than realized payoff. There is no payoff series, mean win/loss, fees, slippage, sizing or P&L amounts. Reported partial fills in micros matter for capacity. A 69% win rate cannot establish positive net expectancy, nor does the streak summary justify increasing risk. Psychological comments describe the author’s experience; they are not statistical proof of a coin-flip process."
+    },
+    {
+      "id": "future",
+      "title": "Planned Abacus extension",
+      "kind": "text",
+      "body": "Future work will first obtain a raw timestamped ledger if available and define reproducible causal profiles, balanced/trending state, D-shape, touch counting, grade and VWAP rules before outcome inspection. Pin immutable Bhishma releases and available_at timing. Prespecify chronological development and untouched holdout periods. Compare first-touch balanced VA fades with later-touch opportunities under the same execution policy, then assess shape and VWAP separately; report coverage and retain negative findings. Freeze entry/fill, stop, timeout, POC/fixed-R/partial-runner exits, unadjusted prices, costs, contract rolls and overlapping-position treatment. Report net R, drawdown, MFE/MAE and session-clustered uncertainty, with all missing/ambiguous events retained. Separate discretionary taken-trade audits from all-eligible market-event research. Our own analysis has not been run."
+    },
+    {
+      "id": "ledger",
+      "kind": "table",
+      "title": "Fields to collect for our future analysis",
+      "columns": [
+        {
+          "key": "field",
+          "label": "Field group"
+        },
+        {
+          "key": "purpose",
+          "label": "Purpose"
+        }
+      ],
+      "rows": [
+        {
+          "field": "Identity",
+          "purpose": "Trade/event ID, contract, instrument, strategy branch and rule version"
+        },
+        {
+          "field": "Time",
+          "purpose": "UTC signal/order/fill/exit; IANA timezone, exchange trade date, session"
+        },
+        {
+          "field": "Causal levels",
+          "purpose": "VAH/VAL/POC and available_at; profile algorithm, window and value percentage"
+        },
+        {
+          "field": "Context",
+          "purpose": "Shape, balanced/trending state, VWAP/anchor; exact values at signal"
+        },
+        {
+          "field": "Touch / grade",
+          "purpose": "Pre-entry touch count/reset/tolerance and frozen grade rubric"
+        },
+        {
+          "field": "Orders / fills",
+          "purpose": "Submitted/filled size, order type, partial fills, cancellations and liquidity"
+        },
+        {
+          "field": "Risk / exit",
+          "purpose": "Initial stop/risk, target, exit policy, partial/runner fills and timeout"
+        },
+        {
+          "field": "Payoff",
+          "purpose": "Unadjusted prices, fees/slippage, realized net R, MFE/MAE and ambiguity"
+        },
+        {
+          "field": "Selection",
+          "purpose": "All eligible opportunities, exclusion reason, taken/skipped and trader availability"
+        }
+      ],
+      "description": "Collection plan only; these fields were not supplied in the external summaries.",
+      "notes": []
+    },
+    {
+      "id": "limitations",
+      "title": "Interpretation limits",
+      "kind": "text",
+      "body": "One trader, a short evolving seven-week process, self-selected opportunities, overlapping groups and cumulative samples. Grades may be retrospective; many denominators and all individual timestamps are missing. We cannot estimate joint-filter performance, incremental VWAP benefit, a weekday edge, fill capacity, drawdown or net profitability. Rounded percentages and arithmetic consistency do not authenticate the record. Changes in market mix, exits and the author’s skill prevent attributing changes to one filter. The screenshots’ rate pies should be read as labeled values rather than valid shares of a whole."
+    },
+    {
+      "id": "sources",
+      "title": "Source and preservation record",
+      "kind": "text",
+      "body": "Two pasted posts and seven supplied screenshots were reviewed on 2026-10-07. The first post is linked by the later post; its webpage was not retrievable with the web tool. Existing signed-in browser tabs confirmed Christopher Thornton as author, the follow-up URL, and date labels Aug 5 / Aug 28 (edited). No year was visible. Selected author comments clarify discretionary grading and uncertainty over realized versus potential R:R. Cam Narayan is acknowledged as a teacher, not the author. Full post bytes are retained privately with checksums. Selected screenshots are preserved without editing, and public tables/downloads are transferred from the saved source-review tables. The completed review has frozen settings, input hashes, source/environment identities and an integrity manifest. New analysis or interpretation requires a new run.",
+      "referenceIds": [
+        "first-post",
+        "follow-up"
+      ]
+    },
+    {
+      "id": "exhibit-1",
+      "kind": "figure",
+      "title": "55 trades: overall, direction and grades",
+      "path": "figures/chart-01.png",
+      "alt": "Original supplied tracker screenshot: 55 trades: overall, direction and grades. Transcribed values and limitations appear in the report tables.",
+      "caption": "Source exhibit 1. Overall 71% wins, 27% losses, 2% break-even; long/short is trade mix, not directional win rate. Grade counts are 10/15/30. Separate grade win rates are not a composition."
+    },
+    {
+      "id": "exhibit-2",
+      "kind": "figure",
+      "title": "55 trades: days, time blocks, VWAP and touches",
+      "path": "figures/chart-02.png",
+      "alt": "Original supplied tracker screenshot: 55 trades: days, time blocks, VWAP and touches. Transcribed values and limitations appear in the report tables.",
+      "caption": "Source exhibit 2. Individual win rates are shown as pie slices; slice areas are not subgroup weights. Zero time-block labels do not supply denominators. Weekdays have the later post’s New Zealand caveat."
+    },
+    {
+      "id": "exhibit-3",
+      "kind": "figure",
+      "title": "55 trades: shapes and ticker counts",
+      "path": "figures/chart-03.png",
+      "alt": "Original supplied tracker screenshot: 55 trades: shapes and ticker counts. Transcribed values and limitations appear in the report tables.",
+      "caption": "Source exhibit 3. Ticker table supplies sample counts. MCL displays 0% with zero trades, so its rate is undefined. Shape/ticker rate slices are not shares of all wins."
+    },
+    {
+      "id": "exhibit-4",
+      "kind": "figure",
+      "title": "100 trades: overall, direction and grades",
+      "path": "figures/chart-04.png",
+      "alt": "Original supplied tracker screenshot: 100 trades: overall, direction and grades. Transcribed values and limitations appear in the report tables.",
+      "caption": "Source exhibit 4. Overall 69% wins, 29% losses, 2% break-even. Long/short is 49%/51% of trades. Grades have 22/35/43 observations."
+    },
+    {
+      "id": "exhibit-5",
+      "kind": "figure",
+      "title": "100 trades: days, time blocks, VWAP and touches",
+      "path": "figures/chart-05.png",
+      "alt": "Original supplied tracker screenshot: 100 trades: days, time blocks, VWAP and touches. Transcribed values and limitations appear in the report tables.",
+      "caption": "Source exhibit 5. Later chart reports VWAP 67%, first touch 78%, and 20:00–22:00 at 74%; subgroup counts are absent. The later text’s Asia preference is not an independently established best time."
+    },
+    {
+      "id": "exhibit-6",
+      "kind": "figure",
+      "title": "100 trades: shapes and ticker counts",
+      "path": "figures/chart-06.png",
+      "alt": "Original supplied tracker screenshot: 100 trades: shapes and ticker counts. Transcribed values and limitations appear in the report tables.",
+      "caption": "Source exhibit 6. Sample sizes are NQ 14, MNQ 24, ES 5, MES 18, GC 7, MGC 27, CL 4 and MCL 1. These are not paired micro/mini comparisons."
+    },
+    {
+      "id": "exhibit-7",
+      "kind": "figure",
+      "title": "100 trades: streak summary and length distribution",
+      "path": "figures/chart-07.png",
+      "alt": "Original supplied tracker screenshot: 100 trades: streak summary and length distribution. Transcribed values and limitations appear in the report tables.",
+      "caption": "Source exhibit 7. Two break-even trades are ignored and do not end a streak. The 98 included trades comprise 69 wins and 29 losses; longest observed streaks are six wins and three losses."
+    }
+  ],
+  "notes": [
+    "Source review completed; independent analysis planned. No Abacus backtest or verified profitability.",
+    "The first 55 trades are included in the 100. Missing values stay unavailable; percentages are rounded source labels."
+  ],
+  "references": [
+    {
+      "id": "first-post",
+      "kind": "external",
+      "label": "First tracker post (linked in supplied follow-up)",
+      "title": "Trading Stats - Tracked Results",
+      "creator": "Christopher Thornton",
+      "url": "https://www.skool.com/volumeprofile/trading-stats-tracked-results?p=6c7c7fc7",
+      "accessedOn": "2026-10-07"
+    },
+    {
+      "id": "follow-up",
+      "kind": "external",
+      "label": "100-trade follow-up",
+      "title": "Trading Stats - Tracked Results (100 Trades)",
+      "creator": "Christopher Thornton",
+      "url": "https://www.skool.com/volumeprofile/trading-stats-tracked-results-100-trades?p=fcadc280",
+      "accessedOn": "2026-10-07"
+    }
+  ],
+  "downloads": [
+    {
+      "id": "grades",
+      "path": "downloads/grades.csv",
+      "label": "Reported trade grades",
+      "description": "Posts 1–2 and images 1 / 4. All rates are rounded source percentages.",
+      "population": "One external trader; cumulative 55- and 100-trade snapshots, overlapping and unaudited.",
+      "units": "Win rates are ratios (0.69 = 69%); N is trade count. Blank means unavailable, not zero.",
+      "scope": "All rows and columns of this selected summary table; no individual trade ledger.",
+      "mediaType": "text/csv",
+      "sha256": "67375335703e503ad06f88aceda4cd440728b2b0e98b20499b70ee377517ca8b",
+      "rowCount": 3,
+      "columns": [
+        "grade",
+        "n55",
+        "rate55",
+        "n100",
+        "rate100"
+      ],
+      "source": {
+        "runId": "20261007T143300Z_tracker19",
+        "artifact": "tables/grades.csv",
+        "sha256": "67375335703e503ad06f88aceda4cd440728b2b0e98b20499b70ee377517ca8b"
+      }
+    },
+    {
+      "id": "tickers",
+      "path": "downloads/tickers.csv",
+      "label": "Reported ticker results and sample counts",
+      "description": "Images 3 / 6 provide the full quantities; posts discuss selected tickers.",
+      "population": "One external trader; cumulative 55- and 100-trade snapshots, overlapping and unaudited.",
+      "units": "Win rates are ratios (0.69 = 69%); N is trade count. Blank means unavailable, not zero.",
+      "scope": "All rows and columns of this selected summary table; no individual trade ledger.",
+      "mediaType": "text/csv",
+      "sha256": "933b1c519dbeee04c7e36076787798b45aa007225e254bff8edbf3758afda8ac",
+      "rowCount": 8,
+      "columns": [
+        "ticker",
+        "n55",
+        "rate55",
+        "n100",
+        "rate100"
+      ],
+      "source": {
+        "runId": "20261007T143300Z_tracker19",
+        "artifact": "tables/tickers.csv",
+        "sha256": "933b1c519dbeee04c7e36076787798b45aa007225e254bff8edbf3758afda8ac"
+      }
+    },
+    {
+      "id": "context",
+      "path": "downloads/context.csv",
+      "label": "Profile, touch and VWAP observations",
+      "description": "Posts 1–2 and images 2–3 / 5–6. Missing denominators display as Not available.",
+      "population": "One external trader; cumulative 55- and 100-trade snapshots, overlapping and unaudited.",
+      "units": "Win rates are ratios (0.69 = 69%); N is trade count. Blank means unavailable, not zero.",
+      "scope": "All rows and columns of this selected summary table; no individual trade ledger.",
+      "mediaType": "text/csv",
+      "sha256": "ef5bccb62cbbf300daf386b0a9fddff16bea4aa3ef1bdab1b86299a4b2283b3b",
+      "rowCount": 10,
+      "columns": [
+        "group",
+        "label",
+        "rate55",
+        "n55",
+        "rate100",
+        "n100"
+      ],
+      "source": {
+        "runId": "20261007T143300Z_tracker19",
+        "artifact": "tables/context.csv",
+        "sha256": "ef5bccb62cbbf300daf386b0a9fddff16bea4aa3ef1bdab1b86299a4b2283b3b"
+      }
+    },
+    {
+      "id": "timeblocks",
+      "path": "downloads/timeblocks.csv",
+      "label": "Time blocks labeled New York time",
+      "description": "Images 2 / 5; post 1 supplies N=10 at 00:00–02:00 and N=21 at 18:00–20:00.",
+      "population": "One external trader; cumulative 55- and 100-trade snapshots, overlapping and unaudited.",
+      "units": "Win rates are ratios (0.69 = 69%); N is trade count. Blank means unavailable, not zero.",
+      "scope": "All rows and columns of this selected summary table; no individual trade ledger.",
+      "mediaType": "text/csv",
+      "sha256": "49f678e273f9017412ab0ff0dde70c0f9ca18357c64f7f4b6729a44be1857738",
+      "rowCount": 12,
+      "columns": [
+        "block",
+        "rate55",
+        "n55",
+        "display55",
+        "rate100",
+        "n100",
+        "display100"
+      ],
+      "source": {
+        "runId": "20261007T143300Z_tracker19",
+        "artifact": "tables/timeblocks.csv",
+        "sha256": "49f678e273f9017412ab0ff0dde70c0f9ca18357c64f7f4b6729a44be1857738"
+      }
+    }
+  ]
+}

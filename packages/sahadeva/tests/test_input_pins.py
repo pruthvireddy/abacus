@@ -102,6 +102,18 @@ class InputPinsTests(unittest.TestCase):
         with self.assertRaisesRegex(InputPinError, "explicitly supported"):
             verify_inputs(self.paths, "inputs.lock.json")
 
+    def test_non_vwap_lock_contract_is_rejected(self):
+        self.lock["feature_set"] = "gc_ema_deviation_bands"
+        self.save_lock()
+        with self.assertRaisesRegex(InputPinError, "supported session_anchored_vwap version"):
+            verify_inputs(self.paths, "inputs.lock.json")
+
+    def test_unsupported_lock_schema_version_is_rejected(self):
+        self.lock["schema_version"] = 2
+        self.save_lock()
+        with self.assertRaisesRegex(InputPinError, "Unsupported inputs.lock schema_version"):
+            verify_inputs(self.paths, "inputs.lock.json")
+
     def test_dataset_identity_must_agree_with_pinned_manifest(self):
         self.lock["datasets"][0]["dataset_id"] = "wrong_dataset"
         self.save_lock()

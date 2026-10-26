@@ -1,15 +1,32 @@
 # Dataset requests
 
-Downstream repositories should request reusable bars, indicators, or meta columns by copying and completing:
+Sahadeva studies and other consumers request reusable bars, indicators, or
+metadata from **Bhishma — Data & Features** by copying and completing:
 
 ```text
 requests/templates/feature-dataset-request.yaml
 ```
 
-The completed request can be pasted into a Codex task working in Abacus Bhishma or saved under `requests/inbox/` with a unique request ID. Do not edit the shared template in place.
+Save the completed request under `requests/inbox/` with a unique request ID and
+link it from the requesting study's notes. A task working on Bhishma can then use
+that specification. Do not edit the shared template in place. See the current
+[repository map](../ARCHITECTURE.md) and [Bhishma instructions](../packages/bhishma/AGENTS.md).
 
-Abacus Bhishma owns market-data selection, session-aware aggregation, reusable feature calculation, validation, and versioned publication. Strategy-specific entries, exits, success criteria, and performance statistics normally remain in the requesting repository. Forward-looking research labels must be explicitly declared so they cannot be confused with causal features.
+Bhishma owns market-data selection, session-aware aggregation, reusable feature
+calculation, validation, and versioned dataset publication. Study-specific entries,
+exits, success criteria, and statistics remain with Sahadeva and the study.
+Forward-looking research labels must be explicitly declared so they cannot be
+confused with causal features.
 
-A completed delivery should publish data under `data/curated/` or `data/features/`, record lineage and checksums under `catalog/datasets/`, create a report under `reports/quality/`, and return a delivery receipt containing stable paths and the manifest checksum.
+A completed delivery follows Bhishma's configured dataset project root:
+`data/curated/` or `data/features/`, lineage and checksums under `catalog/datasets/`,
+and quality reports under `reports/quality/` relative to that root. Return stable
+dataset identities, paths, and manifest checksums. The current publication root
+is this workspace (`.`), with physical data under `data/`. Creating a request
+does not authorize rebuilding an existing release. The
+[storage relocation](../docs/migration/storage-relocation-20260922.md) preserved
+release identities and bytes. Pin delivered records for the consuming study.
 
-Fulfilled request specifications are snapshotted under `requests/fulfilled/` so a delivery remains reproducible even if the requesting repository later changes its copy.
+Fulfilled specifications are preserved under `requests/fulfilled/` so the agreed
+delivery remains identifiable as the consuming study evolves. Keep existing
+snapshots unchanged; create a new request for changed requirements.

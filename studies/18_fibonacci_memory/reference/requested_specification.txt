@@ -1,0 +1,290 @@
+You are an experienced Pine Script v6 developer with a strong understanding of statistical event studies and trading execution assumptions.
+
+Upgrade the attached “Fibonacci Memory [Quantum Algo]” indicator into a first version that measures the quality of opportunities around Fibonacci levels.
+
+Deliver a complete Pine Script v6 indicator. Preserve the useful Fibonacci ladder, golden-pocket shading, impulse drawing, and statistics panel. Replace the current touch/reaction scoring with the event framework described below.
+
+All numerical defaults below are initial research settings, not optimized parameters or claims of profitability.
+
+1. **Define the purpose and scope**
+
+The indicator should answer:
+
+- How much favorable movement typically follows an eligible Fibonacci touch?
+- How much adverse movement accompanies it?
+- How often does a predefined target occur before a predefined stop?
+- How quickly does the favorable movement occur?
+- What is the hypothetical payoff under explicit entry and exit assumptions?
+- How much completed evidence supports these statistics?
+
+Keep version 1 focused on these questions. Do not add machine learning, automatic parameter optimization, regime classifiers, composite opportunity scores, or multiple entry models.
+
+This remains an indicator. Hypothetical entries and exits are measurement conventions; the script must not place orders.
+
+2. **Repair the swing engine and level calculations**
+
+Use confirmed pivot highs and lows for the official impulse anchors.
+
+Retain the existing Swing Length and Minimum Leg Size inputs. A pivot becomes available only when it is confirmed, and a newly established ladder becomes eligible for touch detection starting on the following bar.
+
+Assign every official impulse a unique swing ID based on its confirmed anchor identities. Include anchor bar indexes, so equal prices at different times are distinguishable.
+
+Do not repeatedly create a new impulse merely because a live endpoint differs from the last confirmed pivot. For version 1, remove live endpoint extension from the official statistical ladder. Official levels remain fixed until a new confirmed impulse replaces them.
+
+Historical drawings may connect the original pivot candles, but explain that the ladder was not available for signals before confirmation.
+
+Use these calculations, with A as the impulse origin, B as the endpoint, and D as +1 for bullish impulses or −1 for bearish impulses:
+
+- Range = absolute value of B − A.
+- Retracement price = B − D × Range × ratio.
+- Continuation extension price = A + D × Range × extension ratio.
+
+For an upward impulse from 100 to 120, the 1.272 extension must be 125.44.
+
+Display the 0 and 1 endpoints, but exclude them from opportunity statistics. Extensions may remain visible, but do not grade them in version 1.
+
+3. **Define the statistical buckets**
+
+Use five retracement buckets:
+
+- 0.236
+- 0.382
+- 0.500
+- Golden pocket: 0.618–0.650
+- 0.786
+
+Treat the golden pocket as one statistical zone. Keep its two boundary lines and shading, but do not count the same interaction as separate 0.618 and 0.650 opportunities.
+
+Track bullish/long and bearish/short events separately. Provide a panel selector for Long, Short, or Combined. Combined must pool event records and recalculate statistics; do not average subgroup percentages or medians.
+
+4. **Define an eligible touch without future information**
+
+Only evaluate a candle against levels that were established before that candle began. Do not use levels recalculated from that candle’s new high, low, or newly confirmed pivot to classify its earlier price movement.
+
+Use the ATR(14) value from the last completed bar before the touch candle. Freeze this value for the event.
+
+Expand each level or zone by a touch tolerance of 0.15 times this frozen ATR.
+
+For a bullish impulse:
+
+- The intended opportunity direction is long.
+- The previous close must be above the expanded zone.
+- The current candle’s high–low range must overlap the expanded zone.
+
+For a bearish impulse:
+
+- The intended opportunity direction is short.
+- The previous close must be below the expanded zone.
+- The current candle’s high–low range must overlap the expanded zone.
+
+Use only the first eligible touch per swing and statistical bucket. Mark that bucket as used for the swing when the touch is registered. Later retests are outside version 1’s scope.
+
+A touch becomes a signal only when its candle closes. Do not infer opportunity direction from whether the touch candle closes above or below the level.
+
+5. **Use one explicit hypothetical entry model**
+
+The hypothetical entry is at the next bar’s open after the confirmed touch signal.
+
+Do not assume an entry at the exact Fibonacci price after observing that price retrospectively. Do not count any movement on the signal candle as post-entry movement.
+
+For every event, freeze and retain:
+
+- Swing ID and bucket.
+- Direction.
+- Signal bar and entry bar.
+- Zone boundaries.
+- Hypothetical entry price.
+- ATR known before the touch candle.
+- Target distance, stop distance, and observation horizon.
+- Entry distance from the zone, expressed in ATR.
+
+Default settings:
+
+- Observation horizon: 16 bars.
+- Target distance: 1.0 ATR.
+- Stop distance: 0.5 ATR.
+- Estimated round-trip cost: 0 ticks.
+
+These should be configurable inputs. A zero-cost default must be clearly identified in the panel or its tooltip.
+
+Continue observing an existing event if a new swing forms. Do not discard it, move its reference prices, or transfer it to the new swing.
+
+6. **Calculate fixed-window MAE and MFE**
+
+For a long event:
+
+- MFE = max(0, highest post-entry high − entry price).
+- MAE = max(0, entry price − lowest post-entry low).
+
+For a short event:
+
+- MFE = max(0, entry price − lowest post-entry low).
+- MAE = max(0, highest post-entry high − entry price).
+
+Normalize both by the event’s frozen ATR.
+
+Include the entry bar as observation bar 1. Complete an event after exactly H observation bars, including that entry bar.
+
+Maintain fixed-window MAE and MFE for the entire observation window, even if the hypothetical target or stop was reached earlier. Label them explicitly as “window MAE” and “window MFE.”
+
+Keep hypothetical trade payoff separate. Movement after a hypothetical exit must not change its realized payoff.
+
+Do not treat MFE as a realized return, and do not label an MFE/MAE ratio as expectancy.
+
+7. **Track target and stop ordering**
+
+For longs:
+
+- Target = entry + targetATR × frozenATR.
+- Stop = entry − stopATR × frozenATR.
+
+Mirror these for shorts.
+
+Track mutually exclusive outcomes:
+
+- Target first.
+- Stop first.
+- Timeout: neither barrier reached within H bars.
+- Ambiguous: both barriers occur within a candle and their order cannot be established.
+
+Evaluate the bar’s open before its high and low. If the open already crosses a barrier, that barrier is first for that bar, provided the event had no earlier resolved outcome.
+
+If the open is between the barriers and the candle reaches both, mark the outcome ambiguous. Do not guess a favorable intrabar path.
+
+Once the first barrier outcome is recorded, it cannot change. Continue collecting the separate fixed-window excursions.
+
+Also record:
+
+- Bars to the first target or stop.
+- MAE before a target-first exit.
+- MFE before a stop-first exit.
+
+Do not include post-exit movement in these pre-exit measures. If the exit candle’s extremes cannot be ordered relative to the exit, mark the affected measure uncertain or retain explicit bounds rather than reporting a falsely precise value.
+
+8. **Calculate hypothetical realized payoff**
+
+Define initial risk as the configured stop distance in price units.
+
+For resolved events:
+
+- Target-first exits occur at the configured target price. For favorable gaps, use that target price as a conservative fill assumption.
+- Stop-first exits occur at the stop price, except that a gap through the stop exits at the bar’s open.
+- Timeout exits occur at the close of the final observation bar.
+
+Convert signed payoff into R, where 1R equals initial risk.
+
+Subtract estimated round-trip cost:
+
+Cost in R = costTicks × minimumTick / initialRiskPriceDistance.
+
+For ambiguous events, preserve conservative and optimistic payoff bounds. Do not silently drop them from expectancy or choose the profitable outcome.
+
+Report a single mean net R only when all included payoffs are resolved. Otherwise report a mean net R range using the ambiguous-event bounds.
+
+9. **Use consistent denominators and bounded memory**
+
+Use a configurable rolling window of the latest completed events per bucket and direction, defaulting to 200.
+
+All statistics shown for a selected cohort must use that same retained sample. Do not combine lifetime success counts with excursion percentiles from a shorter window.
+
+Pending observations are excluded from completed-event statistics. A signal awaiting its next-bar entry is pending, not a completed event.
+
+Completed events include target-first, stop-first, timeout, and ambiguous outcomes.
+
+Keep storage bounded and avoid unbounded arrays or increasingly expensive history scans. Compute sorting-based summaries only when necessary.
+
+For each displayed bucket, calculate:
+
+- Number of completed events.
+- Number of pending events.
+- Number of distinct swings represented.
+- Median window MFE.
+- Median window MAE.
+- 90th-percentile window MAE.
+- Target-before-stop probability.
+- Median bars to target among target-first events.
+- Mean hypothetical net R, or its bounds.
+- Ambiguous-event count.
+
+Document the percentile convention used.
+
+10. **Show uncertainty honestly**
+
+Let N be all completed events, W be target-first events, and A be ambiguous events.
+
+Show the target-first probability bounds as:
+
+- Lower bound: W / N.
+- Upper bound: (W + A) / N.
+
+Timeouts remain in N and are not target-first successes.
+
+When A is zero, calculate an approximate 95% Wilson interval for W / N. When A is nonzero, display the ordering bounds and ambiguity count; do not substitute an apparently precise single probability.
+
+Wilson intervals do not fully account for dependence between events sharing a swing or trading day. Explain this limitation briefly in a tooltip or accompanying explanation.
+
+Replace the existing `(respects + 2) / (touches + 4)` score. Do not describe that smoothing formula as a Wilson interval.
+
+Use a minimum completed-event setting, defaulting to 30, before applying statistical emphasis to a level. Explain that this threshold controls display behavior and does not guarantee reliability.
+
+11. **Design a readable panel and meaningful alerts**
+
+Use concise panel columns such as:
+
+- Level or zone.
+- Completed N.
+- Median MFE.
+- Median MAE.
+- MAE P90.
+- Target-first percentage or bounds.
+- Median bars to target.
+- Mean net R or bounds.
+
+Put additional details in tooltips or a compact footer, including pending counts, ambiguous counts, distinct swings, observation horizon, memory length, direction selection, and costs.
+
+Show a dash when a statistic is undefined. Zero favorable movement is a valid zero; an unavailable result is not zero.
+
+Keep small samples visually neutral. Do not call the highest observed percentage the “best” or “most honored” level without qualifying the sample and uncertainty.
+
+Provide alert conditions for:
+
+- A newly confirmed official impulse.
+- An eligible first-touch opportunity confirmed at bar close.
+- A hypothetical target-first outcome.
+- A hypothetical stop-first outcome.
+
+Clearly distinguish an opportunity signal from a later outcome confirmation. Outcome markers must appear when the outcome is recognized, not be backdated to imply advance knowledge.
+
+12. **Validate the implementation**
+
+Check deterministic examples covering:
+
+- Long and short MAE/MFE calculations.
+- Target before stop and stop before target.
+- Identical fixed-window excursions with different barrier ordering.
+- Timeout with no barrier reached.
+- Both barriers reached within one candle.
+- A gap through the stop.
+- Entry at the next open, with the signal candle excluded.
+- A new swing appearing during an active observation.
+- Duplicate touches within the same swing.
+- A candle overlapping both golden-pocket boundaries.
+- Rolling-window removal and matching statistical denominators.
+- Incomplete events at the end of the chart.
+- Equal-price pivots occurring on different bars.
+- Correct continuation extension calculations.
+
+Verify that no signal uses a ladder before its confirmation and no event is reclassified using later anchors.
+
+13. **Deliver the result**
+
+Return:
+
+- The complete Pine Script v6 source, without placeholders.
+- A concise explanation of the event lifecycle, formulas, and defaults.
+- A list of the original statistical and swing-engine issues corrected.
+- The validation performed and any remaining limitations.
+
+Use comments to explain timing, frozen references, ambiguity handling, and statistical denominators. Do not claim TradingView compilation or runtime testing unless you actually performed it.
+
+Keep version 1 to the specified scope. Leave regime filters, retest studies, alternative entries, multiple simultaneous horizons, matched non-Fibonacci controls, and parameter optimization for later versions.

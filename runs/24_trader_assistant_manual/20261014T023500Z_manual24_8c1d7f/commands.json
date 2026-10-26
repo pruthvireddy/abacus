@@ -1,0 +1,141 @@
+[
+  {
+    "argv": [
+      "/Library/Developer/CommandLineTools/usr/bin/python3",
+      "studies/24_trader_assistant_manual/document.py",
+      "prepare",
+      "--run-id",
+      "20261014T023500Z_manual24_8c1d7f"
+    ],
+    "cwd": "/Users/ppanati/Documents/projects/abacus"
+  },
+  {
+    "argv": [
+      "./scripts/uv",
+      "run",
+      "--locked",
+      "--no-sync",
+      "python",
+      "studies/24_trader_assistant_manual/illustrate.py",
+      "--output",
+      "work/24_trader_assistant_manual/20261014T023500Z_manual24_8c1d7f/figures"
+    ],
+    "cwd": "/Users/ppanati/Documents/projects/abacus",
+    "environment": {
+      "UV_CACHE_DIR": "/private/tmp/abacus-manual24-uv"
+    }
+  },
+  {
+    "argv": [
+      "npm",
+      "run",
+      "report:publish",
+      "--",
+      "--report",
+      "../../work/24_trader_assistant_manual/20261014T023500Z_manual24_8c1d7f/publication.json",
+      "--dry-run"
+    ],
+    "cwd": "/Users/ppanati/Documents/projects/abacus/apps/narada"
+  },
+  {
+    "argv": [
+      "npm",
+      "run",
+      "report:publish",
+      "--",
+      "--report",
+      "../../work/24_trader_assistant_manual/20261014T023500Z_manual24_8c1d7f/publication.json"
+    ],
+    "cwd": "/Users/ppanati/Documents/projects/abacus/apps/narada"
+  },
+  {
+    "argv": [
+      "npm",
+      "run",
+      "verify"
+    ],
+    "cwd": "/Users/ppanati/Documents/projects/abacus/apps/narada"
+  },
+  {
+    "argv": [
+      "npm",
+      "test"
+    ],
+    "cwd": "/Users/ppanati/Documents/projects/abacus/apps/narada"
+  },
+  {
+    "argv": [
+      "npm",
+      "run",
+      "lint"
+    ],
+    "cwd": "/Users/ppanati/Documents/projects/abacus/apps/narada"
+  },
+  {
+    "argv": [
+      "npm",
+      "test"
+    ],
+    "cwd": "/Users/ppanati/Documents/projects/abacus/apps/narada"
+  },
+  {
+    "argv": [
+      "npm",
+      "run",
+      "build"
+    ],
+    "cwd": "/Users/ppanati/Documents/projects/abacus/apps/narada"
+  },
+  {
+    "argv": [
+      "npm",
+      "run",
+      "preview"
+    ],
+    "cwd": "/Users/ppanati/Documents/projects/abacus/apps/narada"
+  },
+  {
+    "argv": [
+      "npm",
+      "run",
+      "smoke:preview",
+      "--",
+      "--origin",
+      "http://127.0.0.1:4173"
+    ],
+    "cwd": "/Users/ppanati/Documents/projects/abacus/apps/narada"
+  },
+  {
+    "argv": [
+      "python3",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "scripts/tests",
+      "-p",
+      "test_check_registry.py"
+    ],
+    "cwd": "/Users/ppanati/Documents/projects/abacus"
+  },
+  {
+    "argv": [
+      "/Library/Developer/CommandLineTools/usr/bin/python3",
+      "studies/24_trader_assistant_manual/document.py",
+      "finalize",
+      "--run-id",
+      "20261014T023500Z_manual24_8c1d7f"
+    ],
+    "cwd": "/Users/ppanati/Documents/projects/abacus"
+  },
+  {
+    "argv": [
+      "node",
+      "scripts/publish.mjs",
+      "--report",
+      "/Users/ppanati/Documents/projects/abacus/work/24_trader_assistant_manual/20261014T023500Z_manual24_8c1d7f/publication.json",
+      "--dry-run"
+    ],
+    "cwd": "/Users/ppanati/Documents/projects/abacus/apps/narada"
+  }
+]

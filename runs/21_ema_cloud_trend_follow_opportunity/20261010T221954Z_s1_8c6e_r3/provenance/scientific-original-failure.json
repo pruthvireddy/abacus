@@ -1,0 +1,31 @@
+{
+  "status": "failed",
+  "time_recorded": "2026-10-10T22:39:23.543789+00:00",
+  "command": {
+    "argv": [
+      "./scripts/uv",
+      "run",
+      "--locked",
+      "--no-sync",
+      "python",
+      "studies/21_ema_cloud_trend_follow_opportunity/run.py",
+      "verify",
+      "--stage",
+      "work/21_ema_cloud_trend_follow_opportunity/20261010T221954Z_s1_8c6e_r3"
+    ],
+    "cwd": "/Users/ppanati/Documents/projects/abacus",
+    "environment": {
+      "UV_CACHE_DIR": "/private/tmp/abacus-study21-uv-cache",
+      "OPENBLAS_NUM_THREADS": "1",
+      "VECLIB_MAXIMUM_THREADS": "1"
+    }
+  },
+  "exit_code": 1,
+  "log": {
+    "path": "provenance/scientific-verify.log",
+    "bytes": 1804,
+    "sha256": "fc9d0dae0c6bc3955d9d94beac1fa63efb66b5addcc7927f45f3a41759b3b589"
+  },
+  "failure": "Coverage checker expected null development readiness for 3m; T00 intentionally stores usable-and-mapped-valid counts. No signal/outcome discrepancy. Full scientific check repeated through separately pre-execution-pinned coverage-only adapter, preserving frozen producer and checker source bytes.",
+  "replacement_record": "provenance/scientific-reconciliation.json"
+}

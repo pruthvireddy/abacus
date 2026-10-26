@@ -1,0 +1,35 @@
+schema_version: 1
+study_id: 25_forex_news_ema
+protocol: per-future-descriptive-2
+status: completed
+run_id: 20261017T193830Z_perfuture25_d2c74b
+calculation_scope: descriptive aggregation of saved observation rows
+source_project: tv-indicators/forex_news/per_future_news
+selected_analysis: study
+configuration: config-per-future-v2.json
+inputs_lock: inputs-per-future-v2.lock.json
+protocol_document: protocol-per-future-v2.md
+symbols: [6E, 6B, 6J, 6A, 6C, 6S]
+modes: [combined, us_only, local_only]
+horizons_bars: [5, 10, 15, 50, 100]
+entry: completed 15-minute bar close at scheduled release
+direction: same completed bar EMA20 versus EMA50
+first_measured_bar: bar opening at release
+monthly_timezone: America/Chicago
+weekly_convention: ISO week-year with Monday start in America/Chicago
+costs_modeled: false
+outcome_reexecution: false
+descriptive_aggregation_validation: independently_verified
+publication_ids: [forex-news-6e-20261017-v2-r1, forex-news-6b-20261017-v2-r1, forex-news-6j-20261017-v2-r1, forex-news-6a-20261017-v2-r1, forex-news-6c-20261017-v2-r1, forex-news-6s-20261017-v2-r1]
+sealed_publication_source_ids: [forex-news-6e-20261017-v2, forex-news-6b-20261017-v2, forex-news-6j-20261017-v2, forex-news-6a-20261017-v2, forex-news-6c-20261017-v2, forex-news-6s-20261017-v2]
+presentation_revision_scope: publication ID and canonical sahadeva producer attribution only; numerical content and selected asset bytes unchanged
+presentation_revision_root: reports/exports/25_forex_news_ema/20261017T193830Z_perfuture25_d2c74b
+presentation_revision_ids: [20261017T205500Z_attribution_6e_r1, 20261017T205500Z_attribution_6b_r1, 20261017T205500Z_attribution_6j_r1, 20261017T205500Z_attribution_6a_r1, 20261017T205500Z_attribution_6c_r1, 20261017T205500Z_attribution_6s_r1]
+preserved_original_import:
+  protocol: saved-evidence-import-1
+  run_id: 20261017T190030Z_import25_4b8a21
+  selected_analysis: cross_currency_news_study/extended_year
+  cohort: common_events
+  calculation_scope: none
+  numerical_revalidation: false
+  publication_id: forex-news-ema-20261017-v1

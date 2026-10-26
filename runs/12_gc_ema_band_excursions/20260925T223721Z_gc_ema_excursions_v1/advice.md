@@ -1,0 +1,3 @@
+# Dated interpretation — 2026-09-25
+
+This run describes path excursions after lower-band closes; it does not establish a profitable long strategy. The first useful next study would freeze a single cooldown, horizon, and executable exit policy; use unadjusted prices, fees, and slippage; and compare with a time-matched GC baseline on later data. Do not select a stop or target from these same 35 exploratory cells and call the resulting performance validated. Support and counterevidence are the full annual table, including years with larger mean MAE than MFE and the substantial 2026 volatility scale.

@@ -1,0 +1,153 @@
+{
+  "schema_version": "study21.coverage-overlay-review/v1",
+  "status": "passed",
+  "stage_id": "20261010T221954Z_s1_8c6e_r3",
+  "created_at": "2026-10-10T22:49:38.802464+00:00",
+  "checker_sha256": "391dc46ccc5fb5bd2551837c25bce6d279c51c8c80fa94d543f837ab22ccb364",
+  "preexecution_pin_file_sha256": "c2ea97c4f4cf930826236656c91f48056ffc2fdaa02cb466b4b119d1bd662a56",
+  "command": [
+    "./scripts/uv",
+    "run",
+    "--locked",
+    "--no-sync",
+    "python",
+    "/Users/ppanati/Documents/projects/abacus/work/21_ema_cloud_trend_follow_opportunity/20261010T221954Z_s1_8c6e_r3/provenance/reviews/coverage-overlay-review.py"
+  ],
+  "producer_modules_imported": false,
+  "outcomes_scored": false,
+  "estimators_written": false,
+  "table_scope": [
+    {
+      "table": "S1-T04_stability.csv",
+      "rows_checked": 29376,
+      "coverage_fields_checked": [
+        "scheduled_slots",
+        "eligible_slots",
+        "unknown_signal_slots",
+        "coverage_complete",
+        "zero_event_qualification"
+      ],
+      "coverage_cells_checked": 146880,
+      "accepted_cells_cross_checked": 29376,
+      "period_kinds": [
+        "hour",
+        "session",
+        "time_stratum",
+        "year"
+      ],
+      "directions": [
+        "All",
+        "Buy",
+        "Sell"
+      ],
+      "units": [
+        "atr",
+        "points"
+      ],
+      "zero_event_rows": 19718
+    },
+    {
+      "table": "S1-T05_calendar.csv",
+      "rows_checked": 6948,
+      "coverage_fields_checked": [
+        "scheduled_slots",
+        "eligible_slots",
+        "unknown_signal_slots",
+        "coverage_complete",
+        "zero_event_qualification"
+      ],
+      "coverage_cells_checked": 34740,
+      "accepted_cells_cross_checked": 6948,
+      "period_kinds": [
+        "month",
+        "week"
+      ],
+      "directions": [
+        "All",
+        "Buy",
+        "Sell"
+      ],
+      "units": [
+        "atr",
+        "points"
+      ],
+      "zero_event_rows": 2732
+    }
+  ],
+  "total_rows_checked": 36324,
+  "total_coverage_cells_checked": 181620,
+  "accepted_cells_cross_checked": 36324,
+  "independent_calendar_and_side_labels_checked": 3437056,
+  "technical_ledgers": [
+    {
+      "product": "ES",
+      "interval_minutes": 3,
+      "development_slots_checked": 356720,
+      "accepted_events": 1366,
+      "path": "/Users/ppanati/Documents/projects/abacus/data/research/sahadeva/21_ema_cloud_trend_follow_opportunity/20261010T221954Z_s1_8c6e_r3/ES_3m_technical.parquet",
+      "sha256": "2f3cd24caa79c770d70a61eafa46d2fc9d4674e063847a9dd2b416dd84a6b3ad"
+    },
+    {
+      "product": "ES",
+      "interval_minutes": 5,
+      "development_slots_checked": 214032,
+      "accepted_events": 1143,
+      "path": "/Users/ppanati/Documents/projects/abacus/data/research/sahadeva/21_ema_cloud_trend_follow_opportunity/20261010T221954Z_s1_8c6e_r3/ES_5m_technical.parquet",
+      "sha256": "e2326fbfda76e353d8ea4042d8d902db29ce01099ed1b0408c9ada95a64f801f"
+    },
+    {
+      "product": "GC",
+      "interval_minutes": 3,
+      "development_slots_checked": 360640,
+      "accepted_events": 347,
+      "path": "/Users/ppanati/Documents/projects/abacus/data/research/sahadeva/21_ema_cloud_trend_follow_opportunity/20261010T221954Z_s1_8c6e_r3/GC_3m_technical.parquet",
+      "sha256": "a58a906f380fe3ac6a03052e38a850ff0f3610535c88d6287dcd288a2ff45be6"
+    },
+    {
+      "product": "GC",
+      "interval_minutes": 5,
+      "development_slots_checked": 216384,
+      "accepted_events": 275,
+      "path": "/Users/ppanati/Documents/projects/abacus/data/research/sahadeva/21_ema_cloud_trend_follow_opportunity/20261010T221954Z_s1_8c6e_r3/GC_5m_technical.parquet",
+      "sha256": "fd3ff0ff578bb2d95d6f53faaf8f6745361812fd069130dfcd8d005783d2dcb3"
+    },
+    {
+      "product": "NQ",
+      "interval_minutes": 3,
+      "development_slots_checked": 356720,
+      "accepted_events": 1165,
+      "path": "/Users/ppanati/Documents/projects/abacus/data/research/sahadeva/21_ema_cloud_trend_follow_opportunity/20261010T221954Z_s1_8c6e_r3/NQ_3m_technical.parquet",
+      "sha256": "9ff56658805a2b795689afdb93bf0d81dc99b35d259b32bdd2520091acb72ce4"
+    },
+    {
+      "product": "NQ",
+      "interval_minutes": 5,
+      "development_slots_checked": 214032,
+      "accepted_events": 961,
+      "path": "/Users/ppanati/Documents/projects/abacus/data/research/sahadeva/21_ema_cloud_trend_follow_opportunity/20261010T221954Z_s1_8c6e_r3/NQ_5m_technical.parquet",
+      "sha256": "8402b87b99945c358566fc840e650b74e553ccf3fe73a358a164abce222de497"
+    }
+  ],
+  "accepted_by_cell": {
+    "ES/3m": 1366,
+    "ES/5m": 1143,
+    "GC/3m": 347,
+    "GC/5m": 275,
+    "NQ/3m": 1165,
+    "NQ/5m": 961
+  },
+  "grouped_support_keys": 15432,
+  "mismatch_count": 0,
+  "mismatches": [],
+  "definitions": {
+    "eligible": "usable AND feature_valid",
+    "week": "NY calendar Monday of signal open",
+    "month": "NY year-month of signal open",
+    "session": "NY date plus one calendar day for open hour >=18",
+    "direction": "usable valid finite cloud: Buy EMA20>EMA50, Sell EMA20<EMA50, equality/undefined None",
+    "coverage_complete": "positive scheduled directional-cohort slots and no ineligible slots in that cohort",
+    "zero_event_qualification": "accepted>0 events_observed; accepted=0 and eligible>0 auditable_eligible_support; accepted=0 and eligible=0 no_eligible_support"
+  },
+  "qualification": "Buy/Sell support is conditional on a defined valid cloud direction; undefined-direction slots remain in All coverage only. A Buy/Sell coverage_complete flag therefore does not certify complete market-feed or whole-calendar coverage. Unknown slots and feature readiness remain visible in All rows.",
+  "assurance_scope": "Every S1-T04/T05 saved row coverage overlay and accepted-count cross-check only; no outcome paths, estimates, uncertainty or report values recalculated."
+}

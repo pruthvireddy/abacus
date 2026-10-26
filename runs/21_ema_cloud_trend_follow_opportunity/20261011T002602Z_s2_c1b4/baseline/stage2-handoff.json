@@ -1,0 +1,65 @@
+{
+  "schema_version": 1,
+  "study_id": "21_ema_cloud_trend_follow_opportunity",
+  "baseline_run_id": "20261010T221954Z_s1_8c6e_r3",
+  "completed_scope": "Stage 1 slow-touch development price paths only, signals opened in New York 2018\u20132020.",
+  "slow_baseline": [
+    {
+      "artifact": "config.json",
+      "sha256": "d79872553daf496bf16b3e1d9c8e2ba792ad73fd5b0b6684bb0851d3596c7251"
+    },
+    {
+      "artifact": "protocol.md",
+      "sha256": "85905da017efca7f8724361ef34e445d566592165446f57d7a96bf7babd58bf9"
+    },
+    {
+      "artifact": "inputs.lock.json",
+      "sha256": "f5446669d1072ecf623015e8176352db42abbdfb4d9910cd28e5520892ac7be2"
+    },
+    {
+      "artifact": "events.manifest.json",
+      "sha256": "49e1b469fea926dc0c93000e2b3d515ee8715988338c4cd371e5bdfcd0414f07"
+    },
+    {
+      "artifact": "tables/S1-T02_horizon_scorecard.csv",
+      "sha256": "3fc05c87aa1b9622a5713036d8cd7d52646136a4400e9ca4a71d0713c00f32d0"
+    },
+    {
+      "artifact": "tables/S1-bootstrap.csv",
+      "sha256": "c96628bc678688352a2f495d70be905f1f0c4a802d8f4bedde23747de4bf5f51"
+    },
+    {
+      "artifact": "tables/S1-comparisons.csv",
+      "sha256": "8a1d2afdf7c7fcc901b4cc183943b08682d113f5379089546060e118156c562a"
+    }
+  ],
+  "reusable_delivery": {
+    "dataset_id": "same_contract_ema_cloud",
+    "version": "1.0.0",
+    "manifest": "catalog/datasets/same_contract_ema_cloud__1.0.0.json",
+    "sha256": "59010a558b4e727dbfaa37a64b4a209590288f23744127ab98747cd27ff56d44",
+    "partitions": "ES/GC/NQ \u00d7 3m/5m, 2017 causal warmup and 2018\u20132020 development; same-contract 5m EMA20/50 and ATR14."
+  },
+  "retain_definitions": [
+    "Five-minute cloud on both chart intervals; current close-derived cloud at 5m, latest scheduled completed cloud at 3m open.",
+    "Fixed inclusive widths ES 2.4, GC 2.0, NQ 10 raw points; both directions, zero cooldown.",
+    "Independent selected-EMA arm/consume state, strict full-cloud departure, invalid feature resets and one signal per pullback.",
+    "Entry candle excluded; overlapping observations, scheduled-slot censoring, nulls and exact signal-close unadjusted prices.",
+    "Frozen horizons, session/quantile/calendar definitions, 157-week roster, paired 10,000-resample bootstrap with 1/4/8-week blocks and deterministic examples."
+  ],
+  "stage2_next_scope": "Following a separate Stage 2 instruction, add and test the fast-selected EMA20 event stream, retaining slow events as an independent stream and comparing both on the same immutable inputs/settings/support.",
+  "qualifications_to_carry": [
+    "Changing coverage and sparse early GC support.",
+    "Conservative uncertified calendar exclusions and unknown missing-minute treatment.",
+    "Unavailable original raw reconstruction, live arrival timestamps, native TradingView chart equivalence and off-device backup certification.",
+    "Later market history was previously inspected elsewhere in Abacus; reserved outcomes are not a pristine market holdout."
+  ],
+  "unexecuted": [
+    "Fast-touch outcomes",
+    "2010\u20132017 outcome extension",
+    "2021+ signal-conditioned outcomes",
+    "Width, ATR-gateway, horizon or cooldown optimization",
+    "Trade/stop/target/profitability simulation",
+    "Public Narada staging/catalog/deployment"
+  ]
+}

@@ -1,0 +1,500 @@
+{
+  "provenance": {
+    "assets": [],
+    "sourceSha256": "b4a93e50f26efa7fe12de5179aa74954f4dc74c8df6f1ee4f67f512e7bfd5876"
+  },
+  "report": {
+    "id": "14-asia-session-vp-levels-20261006-web",
+    "publishedAt": "2026-10-06T23:09:36Z",
+    "schemaVersion": "1.0",
+    "sections": [
+      {
+        "body": "This selected original protocol 1.0.0 run evaluates three NQ setups during 20:00–00:00 New York time: A, a confirmed reversal toward prior RTH POC after a VAH/VAL excursion; B, developing Asia value-boundary break and retest; C, a fade at a pre-touch selected HVN. The publication emphasizes validation 2024–2025 with a fixed thirty-minute horizon.",
+        "id": "question",
+        "kind": "text",
+        "title": "Question and scope"
+      },
+      {
+        "body": "POC reversal contrasts are inconclusive. The short-side value-boundary retest has favorable matched excursion evidence, while the short-side HVN fade has worse adverse excursion. Results differ by setup and side. They remain exploratory descriptive paths; this page does not incorporate the separate D/E extension.",
+        "id": "findings",
+        "kind": "text",
+        "title": "Supported findings"
+      },
+      {
+        "columns": [
+          {
+            "key": "setup",
+            "label": "setup"
+          },
+          {
+            "key": "direction",
+            "label": "direction"
+          },
+          {
+            "format": "number",
+            "key": "events",
+            "label": "events",
+            "precision": 0
+          },
+          {
+            "format": "number",
+            "key": "complete",
+            "label": "Complete paths",
+            "precision": 0
+          },
+          {
+            "format": "number",
+            "key": "censored",
+            "label": "censored",
+            "precision": 0
+          },
+          {
+            "format": "number",
+            "key": "sessions",
+            "label": "sessions",
+            "precision": 0
+          },
+          {
+            "key": "support",
+            "label": "support"
+          },
+          {
+            "format": "number",
+            "key": "mfe_points_mean",
+            "label": "Mean MFE",
+            "precision": 2,
+            "unit": "points"
+          },
+          {
+            "format": "number",
+            "key": "mae_points_mean",
+            "label": "Mean MAE",
+            "precision": 2,
+            "unit": "points"
+          },
+          {
+            "format": "number",
+            "key": "terminal_points_mean",
+            "label": "Mean terminal change",
+            "precision": 2,
+            "unit": "points"
+          }
+        ],
+        "id": "paths",
+        "kind": "table",
+        "rows": [
+          {
+            "censored": 28,
+            "complete": 450,
+            "direction": "-1",
+            "events": 478,
+            "mae_points_mean": 13.293888888888889,
+            "mfe_points_mean": 13.949444444444444,
+            "sessions": 281,
+            "setup": "A",
+            "support": "adequate",
+            "terminal_points_mean": -0.9366666666666666
+          },
+          {
+            "censored": 44,
+            "complete": 588,
+            "direction": "1",
+            "events": 632,
+            "mae_points_mean": 12.364795918367347,
+            "mfe_points_mean": 12.821428571428571,
+            "sessions": 321,
+            "setup": "A",
+            "support": "adequate",
+            "terminal_points_mean": 1.1636904761904763
+          },
+          {
+            "censored": 55,
+            "complete": 540,
+            "direction": "-1",
+            "events": 595,
+            "mae_points_mean": 13.785648148148148,
+            "mfe_points_mean": 15.438888888888888,
+            "sessions": 264,
+            "setup": "B",
+            "support": "adequate",
+            "terminal_points_mean": -0.35138888888888886
+          },
+          {
+            "censored": 87,
+            "complete": 889,
+            "direction": "1",
+            "events": 976,
+            "mae_points_mean": 10.967379077615298,
+            "mfe_points_mean": 11.970753655793025,
+            "sessions": 351,
+            "setup": "B",
+            "support": "adequate",
+            "terminal_points_mean": 1.3166479190101237
+          },
+          {
+            "censored": 5,
+            "complete": 95,
+            "direction": "-1",
+            "events": 100,
+            "mae_points_mean": 22.07894736842105,
+            "mfe_points_mean": 19.06578947368421,
+            "sessions": 65,
+            "setup": "C",
+            "support": "adequate",
+            "terminal_points_mean": -3.1605263157894736
+          },
+          {
+            "censored": 6,
+            "complete": 111,
+            "direction": "1",
+            "events": 117,
+            "mae_points_mean": 17.63063063063063,
+            "mfe_points_mean": 20.556306306306308,
+            "sessions": 71,
+            "setup": "C",
+            "support": "adequate",
+            "terminal_points_mean": 3.358108108108108
+          }
+        ],
+        "title": "Validation: original primary thirty-minute paths"
+      },
+      {
+        "columns": [
+          {
+            "key": "setup",
+            "label": "setup"
+          },
+          {
+            "key": "direction",
+            "label": "direction"
+          },
+          {
+            "format": "number",
+            "key": "events",
+            "label": "events",
+            "precision": 0
+          },
+          {
+            "format": "number",
+            "key": "matched",
+            "label": "matched",
+            "precision": 0
+          },
+          {
+            "format": "number",
+            "key": "unmatched",
+            "label": "unmatched",
+            "precision": 0
+          },
+          {
+            "format": "number",
+            "key": "mfe_difference_mean",
+            "label": "MFE difference",
+            "precision": 2,
+            "unit": "points"
+          },
+          {
+            "format": "number",
+            "key": "mfe_ci_lower",
+            "label": "95% MFE low",
+            "precision": 2,
+            "unit": "points"
+          },
+          {
+            "format": "number",
+            "key": "mfe_ci_upper",
+            "label": "95% MFE high",
+            "precision": 2,
+            "unit": "points"
+          },
+          {
+            "format": "number",
+            "key": "mae_difference_mean",
+            "label": "MAE difference",
+            "precision": 2,
+            "unit": "points"
+          },
+          {
+            "format": "number",
+            "key": "mae_ci_lower",
+            "label": "95% MAE low",
+            "precision": 2,
+            "unit": "points"
+          },
+          {
+            "format": "number",
+            "key": "mae_ci_upper",
+            "label": "95% MAE high",
+            "precision": 2,
+            "unit": "points"
+          }
+        ],
+        "id": "controls",
+        "kind": "table",
+        "rows": [
+          {
+            "direction": "-1",
+            "events": 450,
+            "mae_ci_lower": -1.576694707081943,
+            "mae_ci_upper": 2.2062756180350958,
+            "mae_difference_mean": 0.1272222222222222,
+            "matched": 450,
+            "mfe_ci_lower": -2.8796946161353283,
+            "mfe_ci_upper": 2.205164499209119,
+            "mfe_difference_mean": -0.1922222222222222,
+            "setup": "A",
+            "unmatched": 0
+          },
+          {
+            "direction": "1",
+            "events": 588,
+            "mae_ci_lower": -2.9388190855681877,
+            "mae_ci_upper": 0.7130883302346798,
+            "mae_difference_mean": -1.0569727891156462,
+            "matched": 588,
+            "mfe_ci_lower": -0.8603963313506567,
+            "mfe_ci_upper": 3.0403061809464242,
+            "mfe_difference_mean": 1.0977891156462585,
+            "setup": "A",
+            "unmatched": 0
+          },
+          {
+            "direction": "-1",
+            "events": 540,
+            "mae_ci_lower": -1.3485618735445986,
+            "mae_ci_upper": 2.714527674706244,
+            "mae_difference_mean": 0.5231481481481481,
+            "matched": 540,
+            "mfe_ci_lower": 0.6427929958391124,
+            "mfe_ci_upper": 5.100688744942922,
+            "mfe_difference_mean": 2.758796296296296,
+            "setup": "B",
+            "unmatched": 0
+          },
+          {
+            "direction": "1",
+            "events": 889,
+            "mae_ci_lower": -1.6706919732286862,
+            "mae_ci_upper": 0.8987840906120953,
+            "mae_difference_mean": -0.3323959505061867,
+            "matched": 889,
+            "mfe_ci_lower": -1.0041568864654051,
+            "mfe_ci_upper": 1.7057273484962043,
+            "mfe_difference_mean": 0.2618110236220472,
+            "setup": "B",
+            "unmatched": 0
+          },
+          {
+            "direction": "-1",
+            "events": 95,
+            "mae_ci_lower": 1.0509917719659123,
+            "mae_ci_upper": 14.414351851851848,
+            "mae_difference_mean": 6.7973684210526315,
+            "matched": 95,
+            "mfe_ci_lower": -3.6476713466183575,
+            "mfe_ci_upper": 7.3825630252100805,
+            "mfe_difference_mean": 2.0605263157894735,
+            "setup": "C",
+            "unmatched": 0
+          },
+          {
+            "direction": "1",
+            "events": 111,
+            "mae_ci_lower": -6.806997166589039,
+            "mae_ci_upper": 3.5538860234627805,
+            "mae_difference_mean": -1.6216216216216217,
+            "matched": 111,
+            "mfe_ci_lower": -2.666248698933125,
+            "mfe_ci_upper": 9.215371088142405,
+            "mfe_difference_mean": 3.225225225225225,
+            "setup": "C",
+            "unmatched": 0
+          }
+        ],
+        "title": "Validation: candidate minus matched controls"
+      },
+      {
+        "columns": [
+          {
+            "format": "number",
+            "key": "year",
+            "label": "year",
+            "precision": 0
+          },
+          {
+            "format": "number",
+            "key": "source_dates",
+            "label": "source dates",
+            "precision": 0
+          },
+          {
+            "format": "number",
+            "key": "complete_futures_sessions",
+            "label": "Complete futures sessions",
+            "precision": 0
+          },
+          {
+            "format": "number",
+            "key": "missing_evening_minutes",
+            "label": "Missing evening minutes",
+            "precision": 0
+          },
+          {
+            "format": "number",
+            "key": "complete_six_hour_evenings",
+            "label": "Complete six-hour evenings",
+            "precision": 0
+          }
+        ],
+        "id": "coverage",
+        "kind": "table",
+        "rows": [
+          {
+            "complete_futures_sessions": 0,
+            "complete_six_hour_evenings": 0,
+            "missing_evening_minutes": 16176,
+            "source_dates": 149,
+            "year": 2010
+          },
+          {
+            "complete_futures_sessions": 0,
+            "complete_six_hour_evenings": 0,
+            "missing_evening_minutes": 20258,
+            "source_dates": 258,
+            "year": 2011
+          },
+          {
+            "complete_futures_sessions": 0,
+            "complete_six_hour_evenings": 0,
+            "missing_evening_minutes": 20122,
+            "source_dates": 258,
+            "year": 2012
+          },
+          {
+            "complete_futures_sessions": 0,
+            "complete_six_hour_evenings": 0,
+            "missing_evening_minutes": 21356,
+            "source_dates": 252,
+            "year": 2013
+          },
+          {
+            "complete_futures_sessions": 1,
+            "complete_six_hour_evenings": 1,
+            "missing_evening_minutes": 18855,
+            "source_dates": 250,
+            "year": 2014
+          },
+          {
+            "complete_futures_sessions": 1,
+            "complete_six_hour_evenings": 1,
+            "missing_evening_minutes": 15266,
+            "source_dates": 259,
+            "year": 2015
+          },
+          {
+            "complete_futures_sessions": 5,
+            "complete_six_hour_evenings": 11,
+            "missing_evening_minutes": 8976,
+            "source_dates": 258,
+            "year": 2016
+          },
+          {
+            "complete_futures_sessions": 5,
+            "complete_six_hour_evenings": 11,
+            "missing_evening_minutes": 4086,
+            "source_dates": 257,
+            "year": 2017
+          },
+          {
+            "complete_futures_sessions": 103,
+            "complete_six_hour_evenings": 147,
+            "missing_evening_minutes": 766,
+            "source_dates": 259,
+            "year": 2018
+          },
+          {
+            "complete_futures_sessions": 179,
+            "complete_six_hour_evenings": 197,
+            "missing_evening_minutes": 290,
+            "source_dates": 258,
+            "year": 2019
+          },
+          {
+            "complete_futures_sessions": 222,
+            "complete_six_hour_evenings": 242,
+            "missing_evening_minutes": 530,
+            "source_dates": 259,
+            "year": 2020
+          },
+          {
+            "complete_futures_sessions": 224,
+            "complete_six_hour_evenings": 240,
+            "missing_evening_minutes": 34,
+            "source_dates": 259,
+            "year": 2021
+          },
+          {
+            "complete_futures_sessions": 237,
+            "complete_six_hour_evenings": 246,
+            "missing_evening_minutes": 15,
+            "source_dates": 258,
+            "year": 2022
+          },
+          {
+            "complete_futures_sessions": 217,
+            "complete_six_hour_evenings": 231,
+            "missing_evening_minutes": 36,
+            "source_dates": 258,
+            "year": 2023
+          },
+          {
+            "complete_futures_sessions": 214,
+            "complete_six_hour_evenings": 238,
+            "missing_evening_minutes": 39,
+            "source_dates": 259,
+            "year": 2024
+          },
+          {
+            "complete_futures_sessions": 227,
+            "complete_six_hour_evenings": 243,
+            "missing_evening_minutes": 169,
+            "source_dates": 258,
+            "year": 2025
+          },
+          {
+            "complete_futures_sessions": 173,
+            "complete_six_hour_evenings": 179,
+            "missing_evening_minutes": 27,
+            "source_dates": 186,
+            "year": 2026
+          }
+        ],
+        "title": "Saved input coverage by year"
+      },
+      {
+        "body": "A is a confirmed reversal toward POC after an upper/lower excursion, not a generic value-area reentry rule. B confirms a retest of developing VAH/VAL. C selects its overhead/below HVN before the touch and counts actual range contact, not a gap crossing. Entry references are next one-minute opens; thirty-minute paths remain within the midnight deadline. Volume profiles allocate bar volume uniformly across price bins, an approximation rather than trade-by-trade volume at price. Matched controls share year, side, New York hour and development volatility quintile. Positive MFE differences favor the candidate; positive MAE differences mean more adverse excursion. Saved 95% intervals use two-week moving ISO-week bootstrap blocks. A variable midnight deadline is separate and excluded here.",
+        "id": "methods",
+        "kind": "text",
+        "title": "Definitions and methods"
+      },
+      {
+        "body": "Older years have sparse one-minute source coverage; the saved quality rows disclose it. Historical 2010–2019, development 2020–2023, validation 2024–2025 and 2026 YTD are chronological diagnostics, not pristine confirmation. Adjustment mapping and whole-day eligibility are retrospective. Bar-volume profiles, intrabar ordering and live fills lack independent indicator/execution parity. An original event-ledger manifest is absent; saved report, configuration and artifact ledgers still provide bounded presentation provenance.",
+        "id": "limitations",
+        "kind": "text",
+        "title": "Limitations and uncertainty"
+      },
+      {
+        "body": "Study 14_asia_session_vp_levels; source run 20260929T124500Z_asiavp_b2. Publication-only choice: Original protocol 1.0.0 A–C evidence directly answers the registered scope; later D/E exploratory extensions remain separately attributed and outside this featured page.\n\nPresentation revision 20261006T230936Z_web14, web-study-report-1.0. Saved numerical tables are the authority; only selected rows and columns are presented. No new statistics or research execution. The publication record identifies this JSON and its selected assets.",
+        "id": "sources-provenance",
+        "kind": "text",
+        "title": "Source and presentation provenance"
+      }
+    ],
+    "source": {
+      "producer": "sahadeva",
+      "runId": "20260929T124500Z_asiavp_b2"
+    },
+    "summary": "The original A–C protocol studies POC reversal, value-boundary retest and pre-touch HVN fade on NQ. Matched-control evidence is mixed; later D/E extensions are excluded.",
+    "title": "Asia volume-profile levels: the original three setups"
+  }
+}

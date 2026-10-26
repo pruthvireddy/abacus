@@ -1,0 +1,49 @@
+{
+  "schema_version": 1,
+  "study_id": "28_globex_ema_crossings",
+  "publication_root_key": "publication_root",
+  "releases": [
+    {
+      "path": "catalog/datasets/session_anchored_vwap__1.0.0.release.json",
+      "sha256": "0fb21224a74a793c639d226b709e461c60064f53ccc8ec53c01dd456ea1eb495"
+    },
+    {
+      "path": "catalog/datasets/session_anchored_vwap_5m_v1.json",
+      "sha256": "32f79a14ecdb604fb132e00c6e9511b8323a4145ae52e57fba4a046bd4fc2310"
+    },
+    {
+      "path": "catalog/datasets/session_anchored_vwap_2m_v1.json",
+      "sha256": "7ec9b9093cf12be856a976c1e41a3f7d8c29896b2e15c59cc46708694a7f9bff"
+    },
+    {
+      "path": "catalog/datasets/volume_lead_back_adjusted_v1.json",
+      "sha256": "5500ac1e472c48b0f31b11c6586354dc700e4ba2ef526ebef5fa05582b228ce8"
+    },
+    {
+      "path": "catalog/datasets/tradingview_daily_context__1.0.0.json",
+      "sha256": "b7395d6ec2a3263e6f17b2ed95d22ea235d543a01e5b7f850eff81604ba6ce8f"
+    },
+    {
+      "path": "catalog/indicators/session_anchored_vwap__1.0.0.json",
+      "sha256": "455306ef51a94b8ccf99dfa4c61ecec34165d123afb2a518aea7a4661588fc2c"
+    },
+    {
+      "path": "catalog/calendars/cme_fixed_clock_session_v1.json",
+      "sha256": "d5e9d7895f02c5c66a2231e3f79e6bfbc21cd7ce7aa2f42974cfa50492186bcf"
+    },
+    {
+      "path": "catalog/indicators/tradingview_daily_context__1.0.0.json",
+      "sha256": "7d1989745fedaf58540d0bb3b2651eaad45ecbe3afd41031af0af9ab0fc51984"
+    }
+  ],
+  "study_derivation": {
+    "timeframe": "3m",
+    "kind": "study-local analytical derivative; no feature publication",
+    "ohlcv_source": "volume_lead_back_adjusted_v1",
+    "vwap_price": "three-minute HLC3",
+    "weight": "three-minute volume",
+    "anchor": "18:00 America/New_York",
+    "eligibility": "existing session_anchored_vwap 1.0.0 product-day audit",
+    "helpers": "Bhishma aggregate_session and output_schema in memory; output publication metadata discarded"
+  }
+}

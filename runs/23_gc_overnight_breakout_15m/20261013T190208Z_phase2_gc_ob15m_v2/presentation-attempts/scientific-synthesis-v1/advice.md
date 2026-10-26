@@ -1,0 +1,17 @@
+# Phase2 interpretation — 2026-10-13
+
+Saved validation decision: `retain_baseline_no_qualifying_replacement`; selected rule: `Unavailable`. Later assessment: `baseline_retained_no_primary_qualifier`. These decisions use the frozen criteria, rather than filled-only rankings.
+
+Phase2 preserves the unchanged Phase1 baseline and uses all accepted original breakout episodes, including censored trades. Primary inward-reclaim comparisons use one common complete-day mask. Known no-fill is zero; unknown execution remains unavailable. Protected-low results use all upper-first episodes; protected-high mirrors are explicit. Actual-entry trade performance has a different cohort anchor from original-breakout paired and occurrence results.
+
+Protected low is the frozen overnight range low, and protected high is the frozen overnight range high. Touch, one-tick breach and completed-candle closing break are separate. Same-session rates have shorter and unequal exposure; remaining-window occurrence continues after the original leg exits. Price touches/reclaims to the breached boundary, midpoint or original boundary are diagnostics rather than target fills or financial recovery.
+
+All standardized trades use one GC contract, unadjusted same-contract prices, 15-minute confirmed decisions and observed one-minute OHLC execution approximations. The primary assumed fees are $2.50 per contract per side plus one adverse tick per fill. Signal-close initial 1% stops reset once from actual fill only at a surviving entry candle close; passive stops initially reference the submitted executable limit. Gap fills and protective exits remain executed. There is no profit target or optimized management. Assumed costs are not the user's broker charges.
+
+Actual account experiments separately use $10,000 initial capital, 1% start-of-day risk, 10x leverage, 5% margin and whole contracts. Two-leg allocations split risk equally without replenishment or a third attempt. Financial recovery requires actual executed legs and an original realized net loss known at the first qualifying signal. Unknown equity and fills remain unavailable; observed quantity skips do not prove missing setups were infeasible. Standardized replacement profits are not source-account returns.
+
+Development 2018–2020 and validation 2021–2023 preceded the hashed selection. Later 2024–2025 assessment and qualified available 2026 replication followed without retuning. Published baseline years are exposed, not pristine holdouts. Four-week aligned calendar block intervals use 10,000 draws and seed230015, with one/eight-week sensitivities; four primary contrasts use 98.75% marginal intervals and three upper-first protected contrasts use 98.333333%. Mirrors and subgroups remain exploratory.
+
+Inputs end September18,2026, so 2026 is partial. Strict range completeness, roll barriers and uncertified holiday candidates reduce support. Missing later evidence remains censored. Live mapping receipt timing, annual holiday certification, tick ordering and native TradingView replay remain unverified. Closed-P&L drawdown excludes floating account equity. Phase3 EMA/cloud management and new filter searches remain uncomputed.
+
+Exact aggregate evidence and cohort masks are in report.md and the selected saved tables. Negative and inconclusive conditions remain in all23 prepared publications. This evidence does not authorize a live trade or a new optimized filter.

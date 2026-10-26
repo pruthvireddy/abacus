@@ -1,0 +1,3570 @@
+{
+  "provenance": {
+    "assets": [
+      {
+        "path": "downloads/annual.csv",
+        "sha256": "a603c5d34dbd6c8df23ea0347db7664cc973f7651783f29586095252d9866035"
+      },
+      {
+        "path": "downloads/primary_comparison.csv",
+        "sha256": "609bc6228eec56c3cf4a5d66e464b8332a00bee9fcbc5730ddb409834523f558"
+      },
+      {
+        "path": "downloads/primary_cuts.csv",
+        "sha256": "d1c4a2577421812eac765a2860bbf1a10f6e40b7f50c3f78c06b2b789191085f"
+      },
+      {
+        "path": "downloads/variant_summary.csv",
+        "sha256": "aa83f202861a1b3e943f6b71ba664ec68f491ad9ee4721fb949216c898f701fa"
+      },
+      {
+        "path": "figures/audited-examples.png",
+        "sha256": "e80458cfba1a48a5dc370b7b0bfdaa3fa6e6fecfce0151add0a862d42f9a1ecf"
+      },
+      {
+        "path": "figures/primary-equity.png",
+        "sha256": "c7e3fdb724f06798e6a43277af72bfc2e1bfdebda2e7aa43ab38e28030d8bb1a"
+      }
+    ],
+    "sourceSha256": "6b708d04508a3728bb30ea5d98fbdea981b714dbb7f8c080c7dfaf912ee48b52"
+  },
+  "report": {
+    "downloads": [
+      {
+        "columns": [
+          "entry_policy",
+          "mask",
+          "exit_policy",
+          "eligible_sessions",
+          "unavailable_sessions",
+          "trades",
+          "participation",
+          "net_per_session",
+          "session_ci_low",
+          "session_ci_high",
+          "expectancy_dollars",
+          "expectancy_r",
+          "win_rate",
+          "profit_factor",
+          "max_drawdown_dollars"
+        ],
+        "description": "Explicit saved summary projection; source cells are pinned in source-map.json.",
+        "id": "variant-summary",
+        "label": "variant summary.csv",
+        "mediaType": "text/csv",
+        "path": "downloads/variant_summary.csv",
+        "population": "Input-eligible sessions in the pinned retrospective ES sample, with subset labels retained.",
+        "rowCount": 16,
+        "scope": "Prespecified saved summary only; no raw event or workspace data.",
+        "sha256": "aa83f202861a1b3e943f6b71ba664ec68f491ad9ee4721fb949216c898f701fa",
+        "source": {
+          "artifact": "tables/variant_summary.csv",
+          "runId": "20261021T044616Z_reportfix_v1",
+          "sha256": "fd2babd1fc188de83c96266c2725423d4d44ea4f14309527e980bc3304b970b6"
+        },
+        "units": "US dollars per one ES contract; R uses frozen initial risk; proportions are fractions."
+      },
+      {
+        "columns": [
+          "cohort",
+          "eligible_sessions",
+          "common_defined_sessions",
+          "paired_sessions",
+          "unavailable_pairs",
+          "both_filled",
+          "neither_filled",
+          "coincident_entries",
+          "coincident_rate",
+          "confirmation_rate",
+          "confirmed_fill_rate_per_candidate",
+          "left_only",
+          "right_only",
+          "left_mean",
+          "right_mean",
+          "difference_dollars",
+          "available_pair_difference",
+          "ci_low",
+          "ci_high",
+          "week_ci_low",
+          "week_ci_high",
+          "bootstrap_tail_probability",
+          "weak_evidence",
+          "population"
+        ],
+        "description": "Explicit saved summary projection; source cells are pinned in source-map.json.",
+        "id": "primary-comparison",
+        "label": "primary comparison.csv",
+        "mediaType": "text/csv",
+        "path": "downloads/primary_comparison.csv",
+        "population": "Input-eligible sessions in the pinned retrospective ES sample, with subset labels retained.",
+        "rowCount": 4,
+        "scope": "Prespecified saved summary only; no raw event or workspace data.",
+        "sha256": "609bc6228eec56c3cf4a5d66e464b8332a00bee9fcbc5730ddb409834523f558",
+        "source": {
+          "artifact": "tables/primary_comparison.csv",
+          "runId": "20261021T044616Z_reportfix_v1",
+          "sha256": "9583cc687243c51c741c59d5f8a472acf2e944ca64e2d9463f897a2527101091"
+        },
+        "units": "US dollars per one ES contract; R uses frozen initial risk; proportions are fractions."
+      },
+      {
+        "columns": [
+          "entry_policy",
+          "mask",
+          "exit_policy",
+          "year",
+          "split",
+          "eligible_sessions",
+          "trades",
+          "net_per_session",
+          "session_ci_low",
+          "session_ci_high",
+          "expectancy_r",
+          "weak_evidence"
+        ],
+        "description": "Explicit saved summary projection; source cells are pinned in source-map.json.",
+        "id": "annual",
+        "label": "annual.csv",
+        "mediaType": "text/csv",
+        "path": "downloads/annual.csv",
+        "population": "Input-eligible sessions in the pinned retrospective ES sample, with subset labels retained.",
+        "rowCount": 80,
+        "scope": "Prespecified saved summary only; no raw event or workspace data.",
+        "sha256": "a603c5d34dbd6c8df23ea0347db7664cc973f7651783f29586095252d9866035",
+        "source": {
+          "artifact": "tables/annual.csv",
+          "runId": "20261021T044616Z_reportfix_v1",
+          "sha256": "ddc0b00a2c03a4e6f1c28b9e017471a88c8e5dafe8088ca9102c224430933902"
+        },
+        "units": "US dollars per one ES contract; R uses frozen initial risk; proportions are fractions."
+      },
+      {
+        "columns": [
+          "cut",
+          "cell",
+          "eligible_sessions",
+          "trades",
+          "net_per_session",
+          "expectancy_dollars",
+          "trade_ci_low",
+          "trade_ci_high",
+          "expectancy_r",
+          "weak_evidence"
+        ],
+        "description": "Explicit saved summary projection; source cells are pinned in source-map.json.",
+        "id": "primary-cuts",
+        "label": "primary cuts.csv",
+        "mediaType": "text/csv",
+        "path": "downloads/primary_cuts.csv",
+        "population": "Input-eligible sessions in the pinned retrospective ES sample, with subset labels retained.",
+        "rowCount": 95,
+        "scope": "Prespecified saved summary only; no raw event or workspace data.",
+        "sha256": "d1c4a2577421812eac765a2860bbf1a10f6e40b7f50c3f78c06b2b789191085f",
+        "source": {
+          "artifact": "tables/primary_cuts.csv",
+          "runId": "20261021T044616Z_reportfix_v1",
+          "sha256": "a8c726d5860b29c4b24a3c357a783a91e16a692969591569ff77315b3eab718f"
+        },
+        "units": "US dollars per one ES contract; R uses frozen initial risk; proportions are fractions."
+      }
+    ],
+    "id": "es-opening-pivot-cloud-26-v1-20261021t044616zreportfixv1",
+    "notes": [
+      "Research evidence is conditional on saved daily levels. No verified historical pre-open-availability cohort exists.",
+      "Weak cells, correlated cuts and prior chart exposure limit inference. No favorable subgroup establishes a profitable strategy."
+    ],
+    "patternOverviewId": "model-schematic",
+    "patterns": [
+      {
+        "description": "Authored geometry on a normalized 0–100 scale; this is a rule illustration, not an empirical price path. Both directions require a completed reaction after pivot/cloud interaction.",
+        "id": "model-schematic",
+        "title": "Opening pivot/cloud model — causal schematic",
+        "variants": [
+          {
+            "candles": [
+              {
+                "close": 70,
+                "high": 84,
+                "id": "c0",
+                "label": "approach",
+                "low": 68,
+                "open": 78,
+                "role": "context"
+              },
+              {
+                "close": 49,
+                "high": 73,
+                "id": "c1",
+                "label": "return",
+                "low": 45,
+                "open": 70,
+                "role": "context"
+              },
+              {
+                "close": 67,
+                "high": 70,
+                "id": "c2",
+                "label": "reaction",
+                "low": 46,
+                "open": 49,
+                "role": "signal"
+              },
+              {
+                "close": 72,
+                "high": 76,
+                "id": "c3",
+                "label": "next open",
+                "low": 62,
+                "open": 67,
+                "role": "measured"
+              }
+            ],
+            "description": "Approach, return, completed reaction, next-open entry. Confirmation may coincide with the reaction; otherwise wait at most three bars before the fill cutoff.",
+            "id": "long",
+            "marks": [
+              {
+                "endCandle": "c3",
+                "high": 54,
+                "kind": "band",
+                "label": "pivot zone",
+                "low": 46,
+                "startCandle": "c0"
+              },
+              {
+                "endCandle": "c3",
+                "high": 60,
+                "kind": "band",
+                "label": "EMA20/50 cloud",
+                "low": 43,
+                "startCandle": "c1"
+              },
+              {
+                "endCandle": "c2",
+                "kind": "span",
+                "label": "return → completed reaction",
+                "startCandle": "c1"
+              }
+            ],
+            "title": "Long support"
+          },
+          {
+            "candles": [
+              {
+                "close": 30,
+                "high": 32,
+                "id": "c0",
+                "label": "approach",
+                "low": 16,
+                "open": 22,
+                "role": "context"
+              },
+              {
+                "close": 51,
+                "high": 55,
+                "id": "c1",
+                "label": "return",
+                "low": 27,
+                "open": 30,
+                "role": "context"
+              },
+              {
+                "close": 33,
+                "high": 54,
+                "id": "c2",
+                "label": "reaction",
+                "low": 30,
+                "open": 51,
+                "role": "signal"
+              },
+              {
+                "close": 28,
+                "high": 38,
+                "id": "c3",
+                "label": "next open",
+                "low": 24,
+                "open": 33,
+                "role": "measured"
+              }
+            ],
+            "description": "Approach, return, completed reaction, next-open entry. Confirmation may coincide with the reaction; otherwise wait at most three bars before the fill cutoff.",
+            "id": "short",
+            "marks": [
+              {
+                "endCandle": "c3",
+                "high": 54,
+                "kind": "band",
+                "label": "pivot zone",
+                "low": 46,
+                "startCandle": "c0"
+              },
+              {
+                "endCandle": "c3",
+                "high": 60,
+                "kind": "band",
+                "label": "EMA20/50 cloud",
+                "low": 43,
+                "startCandle": "c1"
+              },
+              {
+                "endCandle": "c2",
+                "kind": "span",
+                "label": "return → completed reaction",
+                "startCandle": "c1"
+              }
+            ],
+            "title": "Short rejection"
+          }
+        ]
+      }
+    ],
+    "publishedAt": "2026-10-21T04:48:24Z",
+    "references": [
+      {
+        "artifact": "tables/primary_comparison.csv",
+        "id": "primary",
+        "kind": "saved-artifact",
+        "label": "Primary paired comparisons",
+        "runId": "20261021T044616Z_reportfix_v1",
+        "sha256": "9583cc687243c51c741c59d5f8a472acf2e944ca64e2d9463f897a2527101091",
+        "title": "Primary paired comparisons"
+      },
+      {
+        "artifact": "tables/equity.csv",
+        "id": "equity",
+        "kind": "saved-artifact",
+        "label": "Chronological saved equity",
+        "runId": "20261021T044616Z_reportfix_v1",
+        "sha256": "c94c3da1b7c0a3d824af39a077694c9facf98e5550ee7d1032164927272537b0",
+        "title": "Chronological saved equity"
+      },
+      {
+        "artifact": "tables/examples.csv",
+        "id": "examples",
+        "kind": "saved-artifact",
+        "label": "Deterministic audited examples",
+        "runId": "20261021T044616Z_reportfix_v1",
+        "sha256": "31884fe99478094b7110b9a78dfb5f6442b9e42250d90d092cae2a85cd360675",
+        "title": "Deterministic audited examples"
+      }
+    ],
+    "schemaVersion": "1.1",
+    "sections": [
+      {
+        "body": "Standard ES 5-minute pivot/cloud reaction candidates between 09:30 and 10:00 New York; early next-open versus pivot-and-cloud-confirmed next-open entries, four frozen EMA masks and two exits. No CVD is used. Primary inference uses mask A, fixed 2R, one contract and the first daily candidate. All saved Verne historical available_at values are unverified/null: this is conditional retrospective research, not evidence that the levels were obtainable before each historical open. The verified availability cohort is empty. The inspiration chart date 2026-09-15 was visually exposed before this study. Regular input gates exclude it because its quoted contract does not match the stitched price contract and published feature readiness is below 250 bars; no date-specific exclusion is applied. Native TradingView parity has not been established.",
+        "id": "tested",
+        "kind": "text",
+        "title": "What was tested and what the evidence means"
+      },
+      {
+        "body": "This run reproduces the initial frozen protocol after correcting presentation wording and publication verification metadata. The original run is 20261021T042230Z_opening_pivot_v1. Its outcomes had already been viewed before this reproduction. All 20 numerical ledgers, metrics and tables are byte-identical; no trading rules, parameters, fills, statistics or bootstrap draws changed. The original pre-outcome freeze remains the evidence that scientific choices preceded initial outcomes.",
+        "id": "reproduction-context",
+        "kind": "text",
+        "title": "Correction and reproduction qualification"
+      },
+      {
+        "columns": [
+          {
+            "key": "year",
+            "label": "year"
+          },
+          {
+            "key": "stage",
+            "label": "stage"
+          },
+          {
+            "format": "number",
+            "key": "sessions",
+            "label": "sessions",
+            "precision": 2
+          },
+          {
+            "format": "number",
+            "key": "removed",
+            "label": "removed",
+            "precision": 2
+          },
+          {
+            "format": "number",
+            "key": "ambiguous_duplicate_dates",
+            "label": "ambiguous duplicate dates",
+            "precision": 2
+          },
+          {
+            "key": "partial_year",
+            "label": "partial year"
+          }
+        ],
+        "id": "coverage-table",
+        "kind": "table",
+        "rows": [
+          {
+            "ambiguous_duplicate_dates": 2,
+            "partial_year": true,
+            "removed": 9,
+            "sessions": 251,
+            "stage": "exchange_sessions_in_scope",
+            "year": "2022"
+          },
+          {
+            "ambiguous_duplicate_dates": 2,
+            "partial_year": true,
+            "removed": 1,
+            "sessions": 250,
+            "stage": "calendar_certified_sessions",
+            "year": "2022"
+          },
+          {
+            "ambiguous_duplicate_dates": 2,
+            "partial_year": true,
+            "removed": 95,
+            "sessions": 155,
+            "stage": "dates_with_source_levels",
+            "year": "2022"
+          },
+          {
+            "ambiguous_duplicate_dates": 2,
+            "partial_year": true,
+            "removed": 9,
+            "sessions": 146,
+            "stage": "unique_complete_daily_plans",
+            "year": "2022"
+          },
+          {
+            "ambiguous_duplicate_dates": 2,
+            "partial_year": true,
+            "removed": 7,
+            "sessions": 139,
+            "stage": "quote_contract_matches",
+            "year": "2022"
+          },
+          {
+            "ambiguous_duplicate_dates": 2,
+            "partial_year": true,
+            "removed": 0,
+            "sessions": 139,
+            "stage": "usable_opening_bars",
+            "year": "2022"
+          },
+          {
+            "ambiguous_duplicate_dates": 2,
+            "partial_year": true,
+            "removed": 11,
+            "sessions": 128,
+            "stage": "ema_atr_readiness",
+            "year": "2022"
+          },
+          {
+            "ambiguous_duplicate_dates": 2,
+            "partial_year": true,
+            "removed": 0,
+            "sessions": 128,
+            "stage": "complete_execution_data",
+            "year": "2022"
+          },
+          {
+            "ambiguous_duplicate_dates": 2,
+            "partial_year": true,
+            "removed": 0,
+            "sessions": 128,
+            "stage": "final_input_eligible_sessions",
+            "year": "2022"
+          },
+          {
+            "ambiguous_duplicate_dates": 3,
+            "partial_year": false,
+            "removed": 10,
+            "sessions": 250,
+            "stage": "exchange_sessions_in_scope",
+            "year": "2023"
+          },
+          {
+            "ambiguous_duplicate_dates": 3,
+            "partial_year": false,
+            "removed": 2,
+            "sessions": 248,
+            "stage": "calendar_certified_sessions",
+            "year": "2023"
+          },
+          {
+            "ambiguous_duplicate_dates": 3,
+            "partial_year": false,
+            "removed": 6,
+            "sessions": 242,
+            "stage": "dates_with_source_levels",
+            "year": "2023"
+          },
+          {
+            "ambiguous_duplicate_dates": 3,
+            "partial_year": false,
+            "removed": 7,
+            "sessions": 235,
+            "stage": "unique_complete_daily_plans",
+            "year": "2023"
+          },
+          {
+            "ambiguous_duplicate_dates": 3,
+            "partial_year": false,
+            "removed": 5,
+            "sessions": 230,
+            "stage": "quote_contract_matches",
+            "year": "2023"
+          },
+          {
+            "ambiguous_duplicate_dates": 3,
+            "partial_year": false,
+            "removed": 0,
+            "sessions": 230,
+            "stage": "usable_opening_bars",
+            "year": "2023"
+          },
+          {
+            "ambiguous_duplicate_dates": 3,
+            "partial_year": false,
+            "removed": 94,
+            "sessions": 136,
+            "stage": "ema_atr_readiness",
+            "year": "2023"
+          },
+          {
+            "ambiguous_duplicate_dates": 3,
+            "partial_year": false,
+            "removed": 0,
+            "sessions": 136,
+            "stage": "complete_execution_data",
+            "year": "2023"
+          },
+          {
+            "ambiguous_duplicate_dates": 3,
+            "partial_year": false,
+            "removed": 0,
+            "sessions": 136,
+            "stage": "final_input_eligible_sessions",
+            "year": "2023"
+          },
+          {
+            "ambiguous_duplicate_dates": 4,
+            "partial_year": false,
+            "removed": 10,
+            "sessions": 252,
+            "stage": "exchange_sessions_in_scope",
+            "year": "2024"
+          },
+          {
+            "ambiguous_duplicate_dates": 4,
+            "partial_year": false,
+            "removed": 3,
+            "sessions": 249,
+            "stage": "calendar_certified_sessions",
+            "year": "2024"
+          },
+          {
+            "ambiguous_duplicate_dates": 4,
+            "partial_year": false,
+            "removed": 6,
+            "sessions": 243,
+            "stage": "dates_with_source_levels",
+            "year": "2024"
+          },
+          {
+            "ambiguous_duplicate_dates": 4,
+            "partial_year": false,
+            "removed": 7,
+            "sessions": 236,
+            "stage": "unique_complete_daily_plans",
+            "year": "2024"
+          },
+          {
+            "ambiguous_duplicate_dates": 4,
+            "partial_year": false,
+            "removed": 5,
+            "sessions": 231,
+            "stage": "quote_contract_matches",
+            "year": "2024"
+          },
+          {
+            "ambiguous_duplicate_dates": 4,
+            "partial_year": false,
+            "removed": 0,
+            "sessions": 231,
+            "stage": "usable_opening_bars",
+            "year": "2024"
+          },
+          {
+            "ambiguous_duplicate_dates": 4,
+            "partial_year": false,
+            "removed": 84,
+            "sessions": 147,
+            "stage": "ema_atr_readiness",
+            "year": "2024"
+          },
+          {
+            "ambiguous_duplicate_dates": 4,
+            "partial_year": false,
+            "removed": 0,
+            "sessions": 147,
+            "stage": "complete_execution_data",
+            "year": "2024"
+          },
+          {
+            "ambiguous_duplicate_dates": 4,
+            "partial_year": false,
+            "removed": 0,
+            "sessions": 147,
+            "stage": "final_input_eligible_sessions",
+            "year": "2024"
+          },
+          {
+            "ambiguous_duplicate_dates": 4,
+            "partial_year": false,
+            "removed": 11,
+            "sessions": 250,
+            "stage": "exchange_sessions_in_scope",
+            "year": "2025"
+          },
+          {
+            "ambiguous_duplicate_dates": 4,
+            "partial_year": false,
+            "removed": 3,
+            "sessions": 247,
+            "stage": "calendar_certified_sessions",
+            "year": "2025"
+          },
+          {
+            "ambiguous_duplicate_dates": 4,
+            "partial_year": false,
+            "removed": 8,
+            "sessions": 239,
+            "stage": "dates_with_source_levels",
+            "year": "2025"
+          },
+          {
+            "ambiguous_duplicate_dates": 4,
+            "partial_year": false,
+            "removed": 6,
+            "sessions": 233,
+            "stage": "unique_complete_daily_plans",
+            "year": "2025"
+          },
+          {
+            "ambiguous_duplicate_dates": 4,
+            "partial_year": false,
+            "removed": 5,
+            "sessions": 228,
+            "stage": "quote_contract_matches",
+            "year": "2025"
+          },
+          {
+            "ambiguous_duplicate_dates": 4,
+            "partial_year": false,
+            "removed": 0,
+            "sessions": 228,
+            "stage": "usable_opening_bars",
+            "year": "2025"
+          },
+          {
+            "ambiguous_duplicate_dates": 4,
+            "partial_year": false,
+            "removed": 34,
+            "sessions": 194,
+            "stage": "ema_atr_readiness",
+            "year": "2025"
+          },
+          {
+            "ambiguous_duplicate_dates": 4,
+            "partial_year": false,
+            "removed": 0,
+            "sessions": 194,
+            "stage": "complete_execution_data",
+            "year": "2025"
+          },
+          {
+            "ambiguous_duplicate_dates": 4,
+            "partial_year": false,
+            "removed": 0,
+            "sessions": 194,
+            "stage": "final_input_eligible_sessions",
+            "year": "2025"
+          },
+          {
+            "ambiguous_duplicate_dates": 2,
+            "partial_year": true,
+            "removed": 8,
+            "sessions": 179,
+            "stage": "exchange_sessions_in_scope",
+            "year": "2026"
+          },
+          {
+            "ambiguous_duplicate_dates": 2,
+            "partial_year": true,
+            "removed": 0,
+            "sessions": 179,
+            "stage": "calendar_certified_sessions",
+            "year": "2026"
+          },
+          {
+            "ambiguous_duplicate_dates": 2,
+            "partial_year": true,
+            "removed": 8,
+            "sessions": 171,
+            "stage": "dates_with_source_levels",
+            "year": "2026"
+          },
+          {
+            "ambiguous_duplicate_dates": 2,
+            "partial_year": true,
+            "removed": 2,
+            "sessions": 169,
+            "stage": "unique_complete_daily_plans",
+            "year": "2026"
+          },
+          {
+            "ambiguous_duplicate_dates": 2,
+            "partial_year": true,
+            "removed": 3,
+            "sessions": 166,
+            "stage": "quote_contract_matches",
+            "year": "2026"
+          },
+          {
+            "ambiguous_duplicate_dates": 2,
+            "partial_year": true,
+            "removed": 0,
+            "sessions": 166,
+            "stage": "usable_opening_bars",
+            "year": "2026"
+          },
+          {
+            "ambiguous_duplicate_dates": 2,
+            "partial_year": true,
+            "removed": 17,
+            "sessions": 149,
+            "stage": "ema_atr_readiness",
+            "year": "2026"
+          },
+          {
+            "ambiguous_duplicate_dates": 2,
+            "partial_year": true,
+            "removed": 0,
+            "sessions": 149,
+            "stage": "complete_execution_data",
+            "year": "2026"
+          },
+          {
+            "ambiguous_duplicate_dates": 2,
+            "partial_year": true,
+            "removed": 0,
+            "sessions": 149,
+            "stage": "final_input_eligible_sessions",
+            "year": "2026"
+          }
+        ],
+        "title": "Coverage and exclusion waterfall by year"
+      },
+      {
+        "body": "The regular audited gates retain 754 input-eligible sessions from 2022-05-16 through 2026-09-18. Partial years are 2022 and 2026. The waterfall preserves source-level coverage, unique plans, duplicate exclusions, contract matches, opening bars, readiness, execution completeness and final eligibility. All exclusion checks are retrospective input-quality rules; unverified historical level availability remains a separate qualification.",
+        "id": "coverage-context",
+        "kind": "text",
+        "title": "Actual eligible coverage"
+      },
+      {
+        "body": "Input-eligible pooled sessions: 754. Early trades: 85; confirmed trades: 82. Early net dollars/session: -20.46; confirmed: -16.56. Net dollars/trade: early -181.47, confirmed -152.26. Pooled exploratory early-minus-confirmed net dollars/session: -3.90, day bootstrap 95% interval [-9.99, 0.05]. Locked 2026 temporal-test mean dollars/session: early -33.04, confirmed -27.05; difference -5.99, interval [-17.97, 0.00]. Intervals use 4,000 fixed-seed session resamples; week-cluster intervals are saved separately. This comparison includes zero on genuine no-trade days. Undefined outcomes remain unavailable. A positive point estimate alone does not establish a profitable strategy; annual consistency, temporal test, costs and uncertainty must agree.",
+        "id": "primary-finding",
+        "kind": "text",
+        "referenceIds": [
+          "primary"
+        ],
+        "title": "Primary comparison"
+      },
+      {
+        "columns": [
+          {
+            "key": "cohort",
+            "label": "cohort"
+          },
+          {
+            "format": "number",
+            "key": "paired_sessions",
+            "label": "paired sessions",
+            "precision": 2
+          },
+          {
+            "format": "number",
+            "key": "both_filled",
+            "label": "both filled",
+            "precision": 2
+          },
+          {
+            "format": "number",
+            "key": "left_mean",
+            "label": "left mean",
+            "precision": 2,
+            "unit": "USD"
+          },
+          {
+            "format": "number",
+            "key": "right_mean",
+            "label": "right mean",
+            "precision": 2,
+            "unit": "USD"
+          },
+          {
+            "format": "number",
+            "key": "difference_dollars",
+            "label": "difference dollars",
+            "precision": 2,
+            "unit": "USD"
+          },
+          {
+            "format": "number",
+            "key": "ci_low",
+            "label": "ci low",
+            "precision": 2,
+            "unit": "USD"
+          },
+          {
+            "format": "number",
+            "key": "ci_high",
+            "label": "ci high",
+            "precision": 2,
+            "unit": "USD"
+          },
+          {
+            "format": "number",
+            "key": "week_ci_low",
+            "label": "week ci low",
+            "precision": 2,
+            "unit": "USD"
+          },
+          {
+            "format": "number",
+            "key": "week_ci_high",
+            "label": "week ci high",
+            "precision": 2,
+            "unit": "USD"
+          },
+          {
+            "format": "percent",
+            "key": "coincident_rate",
+            "label": "coincident rate",
+            "precision": 1
+          },
+          {
+            "format": "percent",
+            "key": "confirmation_rate",
+            "label": "confirmation fill rate",
+            "precision": 1
+          }
+        ],
+        "description": "Left is early; right is confirmed. Dollar means include genuine zero-trade days. Confirmation fill rate is confirmed-policy fills divided by common candidates; it includes filtering, invalidation, cutoff and availability attrition. It is not a raw confirmation-close event rate.",
+        "id": "primary-table",
+        "kind": "table",
+        "rows": [
+          {
+            "both_filled": 82,
+            "ci_high": 0.04973474801061008,
+            "ci_low": -9.986737400530505,
+            "cohort": "pooled_exploratory",
+            "coincident_rate": 0.9878048780487805,
+            "confirmation_rate": 0.9647058823529412,
+            "difference_dollars": -3.8992042440318304,
+            "left_mean": -20.457559681697465,
+            "paired_sessions": 754,
+            "right_mean": -16.558355437665632,
+            "week_ci_high": 0.04947392934197273,
+            "week_ci_low": -9.872124843533317
+          },
+          {
+            "both_filled": 54,
+            "ci_high": 0.2737226277372263,
+            "ci_low": 0,
+            "cohort": "development",
+            "coincident_rate": 0.9814814814814815,
+            "confirmation_rate": 1,
+            "difference_dollars": 0.09124087591240876,
+            "left_mean": -18.87469586374646,
+            "paired_sessions": 411,
+            "right_mean": -18.96593673965887,
+            "week_ci_high": 0.28553299492385786,
+            "week_ci_low": 0
+          },
+          {
+            "both_filled": 12,
+            "ci_high": 0,
+            "ci_low": -30.927835051546392,
+            "cohort": "validation",
+            "coincident_rate": 1,
+            "confirmation_rate": 0.8571428571428571,
+            "difference_dollars": -10.74742268041237,
+            "left_mean": -14.149484536082474,
+            "paired_sessions": 194,
+            "right_mean": -3.402061855670103,
+            "week_ci_high": 0,
+            "week_ci_low": -31.222826086956523
+          },
+          {
+            "both_filled": 16,
+            "ci_high": 0,
+            "ci_low": -17.969798657718123,
+            "cohort": "temporal_test",
+            "coincident_rate": 1,
+            "confirmation_rate": 0.9411764705882353,
+            "difference_dollars": -5.989932885906041,
+            "left_mean": -33.036912751678464,
+            "paired_sessions": 149,
+            "right_mean": -27.04697986577242,
+            "week_ci_high": 0,
+            "week_ci_low": -18.72707266325224
+          }
+        ],
+        "title": "Primary paired comparison and temporal splits"
+      },
+      {
+        "columns": [
+          {
+            "key": "entry_policy",
+            "label": "entry policy"
+          },
+          {
+            "key": "mask",
+            "label": "mask"
+          },
+          {
+            "key": "exit_policy",
+            "label": "exit policy"
+          },
+          {
+            "format": "number",
+            "key": "eligible_sessions",
+            "label": "eligible sessions",
+            "precision": 2
+          },
+          {
+            "format": "number",
+            "key": "unavailable_sessions",
+            "label": "unavailable sessions",
+            "precision": 2
+          },
+          {
+            "format": "number",
+            "key": "trades",
+            "label": "trades",
+            "precision": 2
+          },
+          {
+            "format": "percent",
+            "key": "participation",
+            "label": "participation",
+            "precision": 1
+          },
+          {
+            "format": "number",
+            "key": "net_per_session",
+            "label": "net per session",
+            "precision": 2,
+            "unit": "USD"
+          },
+          {
+            "format": "number",
+            "key": "expectancy_r",
+            "label": "expectancy r",
+            "precision": 2,
+            "unit": "R"
+          },
+          {
+            "format": "percent",
+            "key": "win_rate",
+            "label": "win rate",
+            "precision": 1
+          },
+          {
+            "format": "number",
+            "key": "profit_factor",
+            "label": "profit factor",
+            "precision": 2
+          },
+          {
+            "format": "number",
+            "key": "max_drawdown_dollars",
+            "label": "max drawdown dollars",
+            "precision": 2,
+            "unit": "USD"
+          }
+        ],
+        "description": "Masks: A no trend filter; B ordering; C slope; D both. A filtered first candidate is never replaced. Verne availability is explicit; null is not zero.",
+        "id": "variants-table",
+        "kind": "table",
+        "rows": [
+          {
+            "eligible_sessions": 754,
+            "entry_policy": "early",
+            "exit_policy": "fixed_2r",
+            "expectancy_r": -0.2511546238736348,
+            "mask": "A",
+            "max_drawdown_dollars": 15594.999999999887,
+            "net_per_session": -20.457559681697465,
+            "participation": 0.11273209549071618,
+            "profit_factor": 0.5354964992848036,
+            "trades": 85,
+            "unavailable_sessions": 0,
+            "win_rate": 0.3058823529411765
+          },
+          {
+            "eligible_sessions": 754,
+            "entry_policy": "early",
+            "exit_policy": "verne",
+            "expectancy_r": -0.27551660410038914,
+            "mask": "A",
+            "max_drawdown_dollars": null,
+            "net_per_session": null,
+            "participation": 0.11140583554376658,
+            "profit_factor": 0.4712966680048154,
+            "trades": 84,
+            "unavailable_sessions": 1,
+            "win_rate": 0.44047619047619047
+          },
+          {
+            "eligible_sessions": 754,
+            "entry_policy": "early",
+            "exit_policy": "fixed_2r",
+            "expectancy_r": -0.12033810061030283,
+            "mask": "B",
+            "max_drawdown_dollars": 9097.499999999933,
+            "net_per_session": -11.840185676392482,
+            "participation": 0.09018567639257294,
+            "profit_factor": 0.6551424432641269,
+            "trades": 68,
+            "unavailable_sessions": 0,
+            "win_rate": 0.3382352941176471
+          },
+          {
+            "eligible_sessions": 754,
+            "entry_policy": "early",
+            "exit_policy": "verne",
+            "expectancy_r": -0.2041035175875742,
+            "mask": "B",
+            "max_drawdown_dollars": null,
+            "net_per_session": null,
+            "participation": 0.08885941644562334,
+            "profit_factor": 0.5033854166666625,
+            "trades": 67,
+            "unavailable_sessions": 1,
+            "win_rate": 0.47761194029850745
+          },
+          {
+            "eligible_sessions": 754,
+            "entry_policy": "early",
+            "exit_policy": "fixed_2r",
+            "expectancy_r": -0.2892109276278944,
+            "mask": "C",
+            "max_drawdown_dollars": 12250.000000000022,
+            "net_per_session": -15.881962864721485,
+            "participation": 0.08620689655172414,
+            "profit_factor": 0.5378232342724818,
+            "trades": 65,
+            "unavailable_sessions": 0,
+            "win_rate": 0.27692307692307694
+          },
+          {
+            "eligible_sessions": 754,
+            "entry_policy": "early",
+            "exit_policy": "verne",
+            "expectancy_r": -0.3468602676282142,
+            "mask": "C",
+            "max_drawdown_dollars": null,
+            "net_per_session": null,
+            "participation": 0.08488063660477453,
+            "profit_factor": 0.38943099733874004,
+            "trades": 64,
+            "unavailable_sessions": 1,
+            "win_rate": 0.40625
+          },
+          {
+            "eligible_sessions": 754,
+            "entry_policy": "early",
+            "exit_policy": "fixed_2r",
+            "expectancy_r": -0.11919440097735683,
+            "mask": "D",
+            "max_drawdown_dollars": 6695.0000000000455,
+            "net_per_session": -7.562997347480167,
+            "participation": 0.07029177718832891,
+            "profit_factor": 0.7096117122851671,
+            "trades": 53,
+            "unavailable_sessions": 0,
+            "win_rate": 0.33962264150943394
+          },
+          {
+            "eligible_sessions": 754,
+            "entry_policy": "early",
+            "exit_policy": "verne",
+            "expectancy_r": -0.24244107304765825,
+            "mask": "D",
+            "max_drawdown_dollars": null,
+            "net_per_session": null,
+            "participation": 0.06896551724137931,
+            "profit_factor": 0.4624958513109834,
+            "trades": 52,
+            "unavailable_sessions": 1,
+            "win_rate": 0.46153846153846156
+          },
+          {
+            "eligible_sessions": 754,
+            "entry_policy": "confirmed",
+            "exit_policy": "fixed_2r",
+            "expectancy_r": -0.23100415358580648,
+            "mask": "A",
+            "max_drawdown_dollars": 12654.999999999887,
+            "net_per_session": -16.558355437665632,
+            "participation": 0.10875331564986737,
+            "profit_factor": 0.587511357066164,
+            "trades": 82,
+            "unavailable_sessions": 0,
+            "win_rate": 0.3170731707317073
+          },
+          {
+            "eligible_sessions": 754,
+            "entry_policy": "confirmed",
+            "exit_policy": "verne",
+            "expectancy_r": -0.27736004614544796,
+            "mask": "A",
+            "max_drawdown_dollars": null,
+            "net_per_session": null,
+            "participation": 0.10742705570291777,
+            "profit_factor": 0.48638600328047904,
+            "trades": 81,
+            "unavailable_sessions": 1,
+            "win_rate": 0.4444444444444444
+          },
+          {
+            "eligible_sessions": 754,
+            "entry_policy": "confirmed",
+            "exit_policy": "fixed_2r",
+            "expectancy_r": -0.10298770312542063,
+            "mask": "B",
+            "max_drawdown_dollars": 7049.999999999932,
+            "net_per_session": -9.124668435013172,
+            "participation": 0.08753315649867374,
+            "profit_factor": 0.7114093959731578,
+            "trades": 66,
+            "unavailable_sessions": 0,
+            "win_rate": 0.3484848484848485
+          },
+          {
+            "eligible_sessions": 754,
+            "entry_policy": "confirmed",
+            "exit_policy": "verne",
+            "expectancy_r": -0.18906358835607145,
+            "mask": "B",
+            "max_drawdown_dollars": null,
+            "net_per_session": null,
+            "participation": 0.08620689655172414,
+            "profit_factor": 0.5634747121410827,
+            "trades": 65,
+            "unavailable_sessions": 1,
+            "win_rate": 0.49230769230769234
+          },
+          {
+            "eligible_sessions": 754,
+            "entry_policy": "confirmed",
+            "exit_policy": "fixed_2r",
+            "expectancy_r": -0.2772474931923274,
+            "mask": "C",
+            "max_drawdown_dollars": 9565.000000000022,
+            "net_per_session": -12.320954907161804,
+            "participation": 0.08355437665782493,
+            "profit_factor": 0.6000000000000002,
+            "trades": 63,
+            "unavailable_sessions": 0,
+            "win_rate": 0.2857142857142857
+          },
+          {
+            "eligible_sessions": 754,
+            "entry_policy": "confirmed",
+            "exit_policy": "verne",
+            "expectancy_r": -0.3644437150335584,
+            "mask": "C",
+            "max_drawdown_dollars": null,
+            "net_per_session": null,
+            "participation": 0.08222811671087533,
+            "profit_factor": 0.393783105659325,
+            "trades": 62,
+            "unavailable_sessions": 1,
+            "win_rate": 0.4032258064516129
+          },
+          {
+            "eligible_sessions": 754,
+            "entry_policy": "confirmed",
+            "exit_policy": "fixed_2r",
+            "expectancy_r": -0.11548432744429611,
+            "mask": "D",
+            "max_drawdown_dollars": 4902.5000000000455,
+            "net_per_session": -5.185676392573004,
+            "participation": 0.06896551724137931,
+            "profit_factor": 0.7808910058839992,
+            "trades": 52,
+            "unavailable_sessions": 0,
+            "win_rate": 0.34615384615384615
+          },
+          {
+            "eligible_sessions": 754,
+            "entry_policy": "confirmed",
+            "exit_policy": "verne",
+            "expectancy_r": -0.24107485438787682,
+            "mask": "D",
+            "max_drawdown_dollars": null,
+            "net_per_session": null,
+            "participation": 0.06763925729442971,
+            "profit_factor": 0.5249576191373115,
+            "trades": 51,
+            "unavailable_sessions": 1,
+            "win_rate": 0.47058823529411764
+          }
+        ],
+        "title": "Sixteen declared variants"
+      },
+      {
+        "columns": [
+          {
+            "key": "entry_policy",
+            "label": "entry policy"
+          },
+          {
+            "key": "mask",
+            "label": "mask"
+          },
+          {
+            "format": "number",
+            "key": "trades",
+            "label": "trades",
+            "precision": 2
+          },
+          {
+            "format": "percent",
+            "key": "participation",
+            "label": "participation",
+            "precision": 1
+          },
+          {
+            "format": "number",
+            "key": "net_per_session",
+            "label": "net per session",
+            "precision": 2,
+            "unit": "USD"
+          },
+          {
+            "format": "number",
+            "key": "session_ci_low",
+            "label": "session ci low",
+            "precision": 2,
+            "unit": "USD"
+          },
+          {
+            "format": "number",
+            "key": "session_ci_high",
+            "label": "session ci high",
+            "precision": 2,
+            "unit": "USD"
+          },
+          {
+            "format": "number",
+            "key": "expectancy_dollars",
+            "label": "expectancy dollars",
+            "precision": 2,
+            "unit": "USD"
+          },
+          {
+            "format": "number",
+            "key": "expectancy_r",
+            "label": "expectancy r",
+            "precision": 2,
+            "unit": "R"
+          },
+          {
+            "key": "weak_evidence",
+            "label": "weak evidence"
+          }
+        ],
+        "description": "Filter comparisons share the first daily candidate; higher per-trade expectancy can accompany lower daily participation and weaker daily evidence.",
+        "id": "filter-table",
+        "kind": "table",
+        "rows": [
+          {
+            "entry_policy": "early",
+            "expectancy_dollars": -181.47058823529278,
+            "expectancy_r": -0.2511546238736348,
+            "mask": "A",
+            "net_per_session": -20.457559681697465,
+            "participation": 0.11273209549071618,
+            "session_ci_high": -3.90915119363401,
+            "session_ci_low": -37.85237068965501,
+            "trades": 85,
+            "weak_evidence": false
+          },
+          {
+            "entry_policy": "early",
+            "expectancy_dollars": -131.28676470588135,
+            "expectancy_r": -0.12033810061030283,
+            "mask": "B",
+            "net_per_session": -11.840185676392482,
+            "participation": 0.09018567639257294,
+            "session_ci_high": 3.339937002652757,
+            "session_ci_low": -27.3939820954908,
+            "trades": 68,
+            "weak_evidence": false
+          },
+          {
+            "entry_policy": "early",
+            "expectancy_dollars": -184.23076923076923,
+            "expectancy_r": -0.2892109276278944,
+            "mask": "C",
+            "net_per_session": -15.881962864721485,
+            "participation": 0.08620689655172414,
+            "session_ci_high": -1.5179045092838195,
+            "session_ci_low": -30.754724801060945,
+            "trades": 65,
+            "weak_evidence": false
+          },
+          {
+            "entry_policy": "early",
+            "expectancy_dollars": -107.59433962264237,
+            "expectancy_r": -0.11919440097735683,
+            "mask": "D",
+            "net_per_session": -7.562997347480167,
+            "participation": 0.07029177718832891,
+            "session_ci_high": 6.4689157824932195,
+            "session_ci_low": -21.44612068965535,
+            "trades": 53,
+            "weak_evidence": false
+          },
+          {
+            "entry_policy": "confirmed",
+            "expectancy_dollars": -152.25609756097424,
+            "expectancy_r": -0.23100415358580648,
+            "mask": "A",
+            "net_per_session": -16.558355437665632,
+            "participation": 0.10875331564986737,
+            "session_ci_high": -0.9971816976128498,
+            "session_ci_low": -32.534980106100875,
+            "trades": 82,
+            "weak_evidence": false
+          },
+          {
+            "entry_policy": "confirmed",
+            "expectancy_dollars": -104.24242424242321,
+            "expectancy_r": -0.10298770312542063,
+            "mask": "B",
+            "net_per_session": -9.124668435013172,
+            "participation": 0.08753315649867374,
+            "session_ci_high": 5.773126657825174,
+            "session_ci_low": -24.002238063659917,
+            "trades": 66,
+            "weak_evidence": false
+          },
+          {
+            "entry_policy": "confirmed",
+            "expectancy_dollars": -147.46031746031747,
+            "expectancy_r": -0.2772474931923274,
+            "mask": "C",
+            "net_per_session": -12.320954907161804,
+            "participation": 0.08355437665782493,
+            "session_ci_high": 1.366462201591215,
+            "session_ci_low": -26.572612732095582,
+            "trades": 63,
+            "weak_evidence": false
+          },
+          {
+            "entry_policy": "confirmed",
+            "expectancy_dollars": -75.19230769230856,
+            "expectancy_r": -0.11548432744429611,
+            "mask": "D",
+            "net_per_session": -5.185676392573004,
+            "participation": 0.06896551724137931,
+            "session_ci_high": 7.90193965517218,
+            "session_ci_low": -18.49900530503961,
+            "trades": 52,
+            "weak_evidence": false
+          }
+        ],
+        "title": "EMA filters: participation and uncertainty"
+      },
+      {
+        "body": "early — B: 68/754 sessions traded, -11.84 dollars/session (8.62 versus A), 95% interval [-27.39, 3.34]; C: 65/754 sessions traded, -15.88 dollars/session (4.58 versus A), 95% interval [-30.75, -1.52]; D: 53/754 sessions traded, -7.56 dollars/session (12.89 versus A), 95% interval [-21.45, 6.47]. confirmed — B: 66/754 sessions traded, -9.12 dollars/session (7.43 versus A), 95% interval [-24.00, 5.77]; C: 63/754 sessions traded, -12.32 dollars/session (4.24 versus A), 95% interval [-26.57, 1.37]; D: 52/754 sessions traded, -5.19 dollars/session (11.37 versus A), 95% interval [-18.50, 7.90]. These are observed pooled point estimates, not demonstrated filter superiority. Filtering always acts on the common first candidate, so participation and dollars/session must be assessed together. The temporal-test source table tables/splits.csv and the fifteen-contrast secondary Holm family qualify any apparent gain; no filter is selected from the most favorable cut. Held-out temporal results may differ from pooled results.",
+        "id": "filter-finding",
+        "kind": "text",
+        "title": "Do trend filters improve daily results?"
+      },
+      {
+        "columns": [
+          {
+            "key": "entry_policy",
+            "label": "entry policy"
+          },
+          {
+            "key": "mask",
+            "label": "mask"
+          },
+          {
+            "key": "population",
+            "label": "population"
+          },
+          {
+            "format": "number",
+            "key": "paired_sessions",
+            "label": "paired sessions",
+            "precision": 2
+          },
+          {
+            "format": "number",
+            "key": "verne_unavailable",
+            "label": "verne unavailable",
+            "precision": 2
+          },
+          {
+            "format": "number",
+            "key": "difference_dollars",
+            "label": "difference dollars",
+            "precision": 2,
+            "unit": "USD"
+          },
+          {
+            "format": "number",
+            "key": "ci_low",
+            "label": "ci low",
+            "precision": 2,
+            "unit": "USD"
+          },
+          {
+            "format": "number",
+            "key": "ci_high",
+            "label": "ci high",
+            "precision": 2,
+            "unit": "USD"
+          },
+          {
+            "format": "number",
+            "key": "week_ci_low",
+            "label": "week ci low",
+            "precision": 2,
+            "unit": "USD"
+          },
+          {
+            "format": "number",
+            "key": "week_ci_high",
+            "label": "week ci high",
+            "precision": 2,
+            "unit": "USD"
+          }
+        ],
+        "description": "Both target policies are evaluated on their common defined daily population. Full-coverage figures and target-unavailable counts remain separate.",
+        "id": "target-table",
+        "kind": "table",
+        "rows": [
+          {
+            "ci_high": 12.234810756972342,
+            "ci_low": -9.911188579017594,
+            "difference_dollars": 0.9130146082335807,
+            "entry_policy": "early",
+            "mask": "A",
+            "paired_sessions": 753,
+            "population": "common_defined_days",
+            "verne_unavailable": 1,
+            "week_ci_high": 12.193741123960324,
+            "week_ci_low": -9.996953663044932
+          },
+          {
+            "ci_high": 110.42410714285691,
+            "ci_low": -93.16964285714371,
+            "difference_dollars": 8.184523809522457,
+            "entry_policy": "early",
+            "mask": "A",
+            "paired_sessions": 84,
+            "population": "both_filled",
+            "verne_unavailable": 1,
+            "week_ci_high": 109.10568019942995,
+            "week_ci_low": -91.20450191571084
+          },
+          {
+            "ci_high": 7.420733731739648,
+            "ci_low": -13.015023240372194,
+            "difference_dollars": -2.8884462151395933,
+            "entry_policy": "early",
+            "mask": "B",
+            "paired_sessions": 753,
+            "population": "common_defined_days",
+            "verne_unavailable": 1,
+            "week_ci_high": 7.390235581776881,
+            "week_ci_low": -12.797638783630287
+          },
+          {
+            "ci_high": 82.2854477611903,
+            "ci_low": -139.5569029850787,
+            "difference_dollars": -32.462686567165875,
+            "entry_policy": "early",
+            "mask": "B",
+            "paired_sessions": 67,
+            "population": "both_filled",
+            "verne_unavailable": 1,
+            "week_ci_high": 86.50832403273877,
+            "week_ci_low": -139.58333333333238
+          },
+          {
+            "ci_high": 8.085159362549838,
+            "ci_low": -12.07005312084993,
+            "difference_dollars": -2.174634794156646,
+            "entry_policy": "early",
+            "mask": "C",
+            "paired_sessions": 753,
+            "population": "common_defined_days",
+            "verne_unavailable": 1,
+            "week_ci_high": 7.3717227236549245,
+            "week_ci_low": -11.891478997975621
+          },
+          {
+            "ci_high": 88.4765624999962,
+            "ci_low": -138.691406250003,
+            "difference_dollars": -25.58593749999929,
+            "entry_policy": "early",
+            "mask": "C",
+            "paired_sessions": 64,
+            "population": "both_filled",
+            "verne_unavailable": 1,
+            "week_ci_high": 91.74211149513327,
+            "week_ci_low": -131.95833333333084
+          },
+          {
+            "ci_high": 3.436254980079562,
+            "ci_low": -14.260043160690541,
+            "difference_dollars": -5.262284196547085,
+            "entry_policy": "early",
+            "mask": "D",
+            "paired_sessions": 753,
+            "population": "common_defined_days",
+            "verne_unavailable": 1,
+            "week_ci_high": 3.0076098060624674,
+            "week_ci_low": -13.879746232269444
+          },
+          {
+            "ci_high": 46.64062500000172,
+            "ci_low": -202.175480769232,
+            "difference_dollars": -76.2019230769222,
+            "entry_policy": "early",
+            "mask": "D",
+            "paired_sessions": 52,
+            "population": "both_filled",
+            "verne_unavailable": 1,
+            "week_ci_high": 44.751533018871086,
+            "week_ci_low": -200.25076304106364
+          },
+          {
+            "ci_high": 9.462566401062567,
+            "ci_low": -11.554199867198143,
+            "difference_dollars": -1.095617529880629,
+            "entry_policy": "confirmed",
+            "mask": "A",
+            "paired_sessions": 753,
+            "population": "common_defined_days",
+            "verne_unavailable": 1,
+            "week_ci_high": 9.203489115698371,
+            "week_ci_low": -11.168215524540727
+          },
+          {
+            "ci_high": 85.49768518518658,
+            "ci_low": -107.87422839506485,
+            "difference_dollars": -10.185185185186588,
+            "entry_policy": "confirmed",
+            "mask": "A",
+            "paired_sessions": 81,
+            "population": "both_filled",
+            "verne_unavailable": 1,
+            "week_ci_high": 88.11053783614621,
+            "week_ci_low": -105.3571428571426
+          },
+          {
+            "ci_high": 7.420733731739648,
+            "ci_low": -13.015023240372194,
+            "difference_dollars": -2.8884462151395933,
+            "entry_policy": "confirmed",
+            "mask": "B",
+            "paired_sessions": 753,
+            "population": "common_defined_days",
+            "verne_unavailable": 1,
+            "week_ci_high": 7.390235581776881,
+            "week_ci_low": -12.797638783630287
+          },
+          {
+            "ci_high": 81.34615384614841,
+            "ci_low": -146.15865384615705,
+            "difference_dollars": -33.46153846154021,
+            "entry_policy": "confirmed",
+            "mask": "B",
+            "paired_sessions": 65,
+            "population": "both_filled",
+            "verne_unavailable": 1,
+            "week_ci_high": 89.83572232521153,
+            "week_ci_low": -144.78361035730487
+          },
+          {
+            "ci_high": 4.731490703851327,
+            "ci_low": -13.215886454182904,
+            "difference_dollars": -4.183266932270856,
+            "entry_policy": "confirmed",
+            "mask": "C",
+            "paired_sessions": 753,
+            "population": "common_defined_days",
+            "verne_unavailable": 1,
+            "week_ci_high": 4.360050667115715,
+            "week_ci_low": -13.075902523317612
+          },
+          {
+            "ci_high": 61.89516129032295,
+            "ci_low": -162.30342741935615,
+            "difference_dollars": -50.80645161290249,
+            "entry_policy": "confirmed",
+            "mask": "C",
+            "paired_sessions": 62,
+            "population": "both_filled",
+            "verne_unavailable": 1,
+            "week_ci_high": 57.330888487208796,
+            "week_ci_low": -155.48084077380744
+          },
+          {
+            "ci_high": 3.436254980079562,
+            "ci_low": -14.260043160690541,
+            "difference_dollars": -5.262284196547085,
+            "entry_policy": "confirmed",
+            "mask": "D",
+            "paired_sessions": 753,
+            "population": "common_defined_days",
+            "verne_unavailable": 1,
+            "week_ci_high": 3.0076098060624674,
+            "week_ci_low": -13.879746232269444
+          },
+          {
+            "ci_high": 48.54166666666542,
+            "ci_low": -206.37254901960526,
+            "difference_dollars": -77.69607843137166,
+            "entry_policy": "confirmed",
+            "mask": "D",
+            "paired_sessions": 51,
+            "population": "both_filled",
+            "verne_unavailable": 1,
+            "week_ci_high": 49.018750000001,
+            "week_ci_low": -200.7552884615398
+          }
+        ],
+        "title": "Verne minus 2R on common defined days"
+      },
+      {
+        "columns": [
+          {
+            "key": "entry_policy",
+            "label": "entry policy"
+          },
+          {
+            "key": "year",
+            "label": "year"
+          },
+          {
+            "key": "split",
+            "label": "split"
+          },
+          {
+            "format": "number",
+            "key": "eligible_sessions",
+            "label": "eligible sessions",
+            "precision": 2
+          },
+          {
+            "format": "number",
+            "key": "trades",
+            "label": "trades",
+            "precision": 2
+          },
+          {
+            "format": "number",
+            "key": "net_per_session",
+            "label": "net per session",
+            "precision": 2,
+            "unit": "USD"
+          },
+          {
+            "format": "number",
+            "key": "session_ci_low",
+            "label": "session ci low",
+            "precision": 2,
+            "unit": "USD"
+          },
+          {
+            "format": "number",
+            "key": "session_ci_high",
+            "label": "session ci high",
+            "precision": 2,
+            "unit": "USD"
+          },
+          {
+            "format": "number",
+            "key": "expectancy_r",
+            "label": "expectancy r",
+            "precision": 2,
+            "unit": "R"
+          },
+          {
+            "key": "weak_evidence",
+            "label": "weak evidence"
+          }
+        ],
+        "id": "annual-table",
+        "kind": "table",
+        "rows": [
+          {
+            "eligible_sessions": 128,
+            "entry_policy": "early",
+            "expectancy_r": 0.1184682255104194,
+            "net_per_session": -20.68359374999858,
+            "session_ci_high": 30.118652343750874,
+            "session_ci_low": -75.47460937499791,
+            "split": "development",
+            "trades": 17,
+            "weak_evidence": true,
+            "year": "2022"
+          },
+          {
+            "eligible_sessions": 136,
+            "entry_policy": "early",
+            "expectancy_r": -0.007928411664438103,
+            "net_per_session": -8.566176470588069,
+            "session_ci_high": 23.827205882353443,
+            "session_ci_low": -41.49172794117647,
+            "split": "development",
+            "trades": 18,
+            "weak_evidence": true,
+            "year": "2023"
+          },
+          {
+            "eligible_sessions": 147,
+            "entry_policy": "early",
+            "expectancy_r": -0.4522387197578666,
+            "net_per_session": -26.836734693877553,
+            "session_ci_high": 3.470663265306127,
+            "session_ci_low": -58.53826530612245,
+            "split": "development",
+            "trades": 19,
+            "weak_evidence": true,
+            "year": "2024"
+          },
+          {
+            "eligible_sessions": 194,
+            "entry_policy": "early",
+            "expectancy_r": -0.4377338003866213,
+            "net_per_session": -14.149484536082474,
+            "session_ci_high": 16.61275773195877,
+            "session_ci_low": -45.05186855670103,
+            "split": "validation",
+            "trades": 14,
+            "weak_evidence": true,
+            "year": "2025"
+          },
+          {
+            "eligible_sessions": 149,
+            "entry_policy": "early",
+            "expectancy_r": -0.4999166218920024,
+            "net_per_session": -33.036912751678464,
+            "session_ci_high": 8.196308724833703,
+            "session_ci_low": -73.45679530201548,
+            "split": "temporal_test",
+            "trades": 17,
+            "weak_evidence": true,
+            "year": "2026"
+          },
+          {
+            "eligible_sessions": 128,
+            "entry_policy": "confirmed",
+            "expectancy_r": 0.1184682255104194,
+            "net_per_session": -20.68359374999858,
+            "session_ci_high": 30.118652343750874,
+            "session_ci_low": -75.47460937499791,
+            "split": "development",
+            "trades": 17,
+            "weak_evidence": true,
+            "year": "2022"
+          },
+          {
+            "eligible_sessions": 136,
+            "entry_policy": "confirmed",
+            "expectancy_r": -0.007928411664438103,
+            "net_per_session": -8.566176470588069,
+            "session_ci_high": 23.827205882353443,
+            "session_ci_low": -41.49172794117647,
+            "split": "development",
+            "trades": 18,
+            "weak_evidence": true,
+            "year": "2023"
+          },
+          {
+            "eligible_sessions": 147,
+            "entry_policy": "confirmed",
+            "expectancy_r": -0.45189758915357814,
+            "net_per_session": -27.091836734693878,
+            "session_ci_high": 3.269982993197296,
+            "session_ci_low": -59.08290816326531,
+            "split": "development",
+            "trades": 19,
+            "weak_evidence": true,
+            "year": "2024"
+          },
+          {
+            "eligible_sessions": 194,
+            "entry_policy": "confirmed",
+            "expectancy_r": -0.39574602097261263,
+            "net_per_session": -3.402061855670103,
+            "session_ci_high": 22.310244845360838,
+            "session_ci_low": -24.253865979381445,
+            "split": "validation",
+            "trades": 12,
+            "weak_evidence": true,
+            "year": "2025"
+          },
+          {
+            "eligible_sessions": 149,
+            "entry_policy": "confirmed",
+            "expectancy_r": -0.46741141076025267,
+            "net_per_session": -27.04697986577242,
+            "session_ci_high": 13.28859060402625,
+            "session_ci_low": -64.91862416107531,
+            "split": "temporal_test",
+            "trades": 16,
+            "weak_evidence": true,
+            "year": "2026"
+          }
+        ],
+        "title": "Annual results: partial 2022 and partial 2026"
+      },
+      {
+        "columns": [
+          {
+            "key": "cut",
+            "label": "cut"
+          },
+          {
+            "key": "cell",
+            "label": "cell"
+          },
+          {
+            "format": "number",
+            "key": "eligible_sessions",
+            "label": "eligible sessions",
+            "precision": 2
+          },
+          {
+            "format": "number",
+            "key": "trades",
+            "label": "trades",
+            "precision": 2
+          },
+          {
+            "format": "number",
+            "key": "net_per_session",
+            "label": "net per session",
+            "precision": 2,
+            "unit": "USD"
+          },
+          {
+            "format": "number",
+            "key": "expectancy_dollars",
+            "label": "expectancy dollars",
+            "precision": 2,
+            "unit": "USD"
+          },
+          {
+            "format": "number",
+            "key": "trade_ci_low",
+            "label": "trade ci low",
+            "precision": 2,
+            "unit": "USD"
+          },
+          {
+            "format": "number",
+            "key": "trade_ci_high",
+            "label": "trade ci high",
+            "precision": 2,
+            "unit": "USD"
+          },
+          {
+            "format": "number",
+            "key": "expectancy_r",
+            "label": "expectancy r",
+            "precision": 2,
+            "unit": "R"
+          },
+          {
+            "key": "weak_evidence",
+            "label": "weak evidence"
+          }
+        ],
+        "description": "Fixed bins were declared before outcomes. Cells overlap and are correlated. Fewer than 30 trades is weak descriptive evidence; cells are not ranked as discoveries. Complete sixteen-variant cuts are retained in the source run.",
+        "id": "cuts-table",
+        "kind": "table",
+        "rows": [
+          {
+            "cell": "[0, 0.25)",
+            "cut": "cloud_width_atr",
+            "eligible_sessions": 12,
+            "expectancy_dollars": -196.6666666666572,
+            "expectancy_r": -0.37270286135146397,
+            "net_per_session": -196.6666666666572,
+            "trade_ci_high": 189.79166666666865,
+            "trade_ci_low": -534.1666666666515,
+            "trades": 12,
+            "weak_evidence": true
+          },
+          {
+            "cell": "[0.25, 0.5)",
+            "cut": "cloud_width_atr",
+            "eligible_sessions": 15,
+            "expectancy_dollars": -526.6666666666697,
+            "expectancy_r": -0.7936732091788966,
+            "net_per_session": -526.6666666666697,
+            "trade_ci_high": -285.0000000000015,
+            "trade_ci_low": -790.0208333333379,
+            "trades": 15,
+            "weak_evidence": true
+          },
+          {
+            "cell": "[0.5, 1)",
+            "cut": "cloud_width_atr",
+            "eligible_sessions": 36,
+            "expectancy_dollars": -167.1527777777784,
+            "expectancy_r": -0.20541271827773108,
+            "net_per_session": -167.1527777777784,
+            "trade_ci_high": 56.46701388888959,
+            "trade_ci_low": -378.2725694444518,
+            "trades": 36,
+            "weak_evidence": false
+          },
+          {
+            "cell": "[1, 2)",
+            "cut": "cloud_width_atr",
+            "eligible_sessions": 22,
+            "expectancy_dollars": 38.7500000000031,
+            "expectancy_r": 0.11019305921092615,
+            "net_per_session": 38.7500000000031,
+            "trade_ci_high": 344.47443181818215,
+            "trade_ci_low": -251.619318181821,
+            "trades": 22,
+            "weak_evidence": true
+          },
+          {
+            "cell": "unknown",
+            "cut": "cloud_width_atr",
+            "eligible_sessions": 669,
+            "expectancy_dollars": null,
+            "expectancy_r": null,
+            "net_per_session": 0,
+            "trade_ci_high": null,
+            "trade_ci_low": null,
+            "trades": 0,
+            "weak_evidence": true
+          },
+          {
+            "cell": "unavailable",
+            "cut": "confirmation_delay",
+            "eligible_sessions": 754,
+            "expectancy_dollars": -181.47058823529278,
+            "expectancy_r": -0.2511546238736348,
+            "net_per_session": -20.457559681697465,
+            "trade_ci_high": -38.37867647058685,
+            "trade_ci_low": -326.33455882352524,
+            "trades": 85,
+            "weak_evidence": false
+          },
+          {
+            "cell": "long",
+            "cut": "direction",
+            "eligible_sessions": 52,
+            "expectancy_dollars": -148.99038461538768,
+            "expectancy_r": -0.1925839794763246,
+            "net_per_session": -148.99038461538768,
+            "trade_ci_high": 18.335336538459888,
+            "trade_ci_low": -313.1790865384683,
+            "trades": 52,
+            "weak_evidence": false
+          },
+          {
+            "cell": "no_candidate",
+            "cut": "direction",
+            "eligible_sessions": 669,
+            "expectancy_dollars": null,
+            "expectancy_r": null,
+            "net_per_session": 0,
+            "trade_ci_high": null,
+            "trade_ci_low": null,
+            "trades": 0,
+            "weak_evidence": true
+          },
+          {
+            "cell": "short",
+            "cut": "direction",
+            "eligible_sessions": 33,
+            "expectancy_dollars": -232.65151515150689,
+            "expectancy_r": -0.3434477604996995,
+            "net_per_session": -232.65151515150689,
+            "trade_ci_high": 23.4280303030379,
+            "trade_ci_low": -473.57954545453845,
+            "trades": 33,
+            "weak_evidence": false
+          },
+          {
+            "cell": "early | A",
+            "cut": "entry_by_mask",
+            "eligible_sessions": 754,
+            "expectancy_dollars": -181.47058823529278,
+            "expectancy_r": -0.2511546238736348,
+            "net_per_session": -20.457559681697465,
+            "trade_ci_high": -38.37867647058685,
+            "trade_ci_low": -326.33455882352524,
+            "trades": 85,
+            "weak_evidence": false
+          },
+          {
+            "cell": "[0, 1)",
+            "cut": "entry_pivot_distance_points",
+            "eligible_sessions": 4,
+            "expectancy_dollars": -823.75,
+            "expectancy_r": -0.8644135717686702,
+            "net_per_session": -823.75,
+            "trade_ci_high": -286.25,
+            "trade_ci_low": -1451.875,
+            "trades": 4,
+            "weak_evidence": true
+          },
+          {
+            "cell": "[1, 2)",
+            "cut": "entry_pivot_distance_points",
+            "eligible_sessions": 6,
+            "expectancy_dollars": -348.74999999997345,
+            "expectancy_r": -0.5380447631506217,
+            "net_per_session": -348.74999999997345,
+            "trade_ci_high": 107.60416666670514,
+            "trade_ci_low": -725.8333333333181,
+            "trades": 6,
+            "weak_evidence": true
+          },
+          {
+            "cell": "[10, inf)",
+            "cut": "entry_pivot_distance_points",
+            "eligible_sessions": 15,
+            "expectancy_dollars": -445.83333333333485,
+            "expectancy_r": -0.5510081069642822,
+            "net_per_session": -445.83333333333485,
+            "trade_ci_high": 28.35416666666659,
+            "trade_ci_low": -833.3333333333352,
+            "trades": 15,
+            "weak_evidence": true
+          },
+          {
+            "cell": "[2, 5)",
+            "cut": "entry_pivot_distance_points",
+            "eligible_sessions": 30,
+            "expectancy_dollars": 5.833333333334849,
+            "expectancy_r": 0.0078108552151894125,
+            "net_per_session": 5.833333333334849,
+            "trade_ci_high": 189.17708333333562,
+            "trade_ci_low": -166.67708333333485,
+            "trades": 30,
+            "weak_evidence": false
+          },
+          {
+            "cell": "[5, 10)",
+            "cut": "entry_pivot_distance_points",
+            "eligible_sessions": 30,
+            "expectancy_dollars": -117.50000000000227,
+            "expectancy_r": -0.2210474738424001,
+            "net_per_session": -117.50000000000227,
+            "trade_ci_high": 114.1770833333303,
+            "trade_ci_low": -332.5104166666705,
+            "trades": 30,
+            "weak_evidence": false
+          },
+          {
+            "cell": "unknown",
+            "cut": "entry_pivot_distance_points",
+            "eligible_sessions": 669,
+            "expectancy_dollars": null,
+            "expectancy_r": null,
+            "net_per_session": 0,
+            "trade_ci_high": null,
+            "trade_ci_low": null,
+            "trades": 0,
+            "weak_evidence": true
+          },
+          {
+            "cell": "early",
+            "cut": "entry_policy",
+            "eligible_sessions": 754,
+            "expectancy_dollars": -181.47058823529278,
+            "expectancy_r": -0.2511546238736348,
+            "net_per_session": -20.457559681697465,
+            "trade_ci_high": -38.37867647058685,
+            "trade_ci_low": -326.33455882352524,
+            "trades": 85,
+            "weak_evidence": false
+          },
+          {
+            "cell": "09:35",
+            "cut": "entry_time",
+            "eligible_sessions": 26,
+            "expectancy_dollars": -59.80769230769318,
+            "expectancy_r": -0.15807016957794512,
+            "net_per_session": -59.80769230769318,
+            "trade_ci_high": 205.57692307692227,
+            "trade_ci_low": -293.4855769230846,
+            "trades": 26,
+            "weak_evidence": true
+          },
+          {
+            "cell": "09:40",
+            "cut": "entry_time",
+            "eligible_sessions": 27,
+            "expectancy_dollars": -312.8703703703653,
+            "expectancy_r": -0.5100792549719647,
+            "net_per_session": -312.8703703703653,
+            "trade_ci_high": -101.29629629629287,
+            "trade_ci_low": -517.4999999999983,
+            "trades": 27,
+            "weak_evidence": true
+          },
+          {
+            "cell": "09:45",
+            "cut": "entry_time",
+            "eligible_sessions": 19,
+            "expectancy_dollars": -152.3684210526316,
+            "expectancy_r": -0.21153131391318603,
+            "net_per_session": -152.3684210526316,
+            "trade_ci_high": 202.3190789473733,
+            "trade_ci_low": -472.1052631578877,
+            "trades": 19,
+            "weak_evidence": true
+          },
+          {
+            "cell": "09:50",
+            "cut": "entry_time",
+            "eligible_sessions": 7,
+            "expectancy_dollars": -147.85714285713962,
+            "expectancy_r": 0.2205299827364065,
+            "net_per_session": -147.85714285713962,
+            "trade_ci_high": 437.85714285714283,
+            "trade_ci_low": -837.1428571428474,
+            "trades": 7,
+            "weak_evidence": true
+          },
+          {
+            "cell": "09:55",
+            "cut": "entry_time",
+            "eligible_sessions": 6,
+            "expectancy_dollars": -248.75000000000378,
+            "expectancy_r": -0.16513227513227505,
+            "net_per_session": -248.75000000000378,
+            "trade_ci_high": 238.75,
+            "trade_ci_low": -734.1666666666667,
+            "trades": 6,
+            "weak_evidence": true
+          },
+          {
+            "cell": "no_fill",
+            "cut": "entry_time",
+            "eligible_sessions": 669,
+            "expectancy_dollars": null,
+            "expectancy_r": null,
+            "net_per_session": 0,
+            "trade_ci_high": null,
+            "trade_ci_low": null,
+            "trades": 0,
+            "weak_evidence": true
+          },
+          {
+            "cell": "no_fill",
+            "cut": "execution_ambiguity",
+            "eligible_sessions": 669,
+            "expectancy_dollars": null,
+            "expectancy_r": null,
+            "net_per_session": 0,
+            "trade_ci_high": null,
+            "trade_ci_low": null,
+            "trades": 0,
+            "weak_evidence": true
+          },
+          {
+            "cell": "unambiguous",
+            "cut": "execution_ambiguity",
+            "eligible_sessions": 85,
+            "expectancy_dollars": -181.47058823529278,
+            "expectancy_r": -0.2511546238736348,
+            "net_per_session": -181.47058823529278,
+            "trade_ci_high": -38.37867647058685,
+            "trade_ci_low": -326.33455882352524,
+            "trades": 85,
+            "weak_evidence": false
+          },
+          {
+            "cell": "no_fill",
+            "cut": "exit_reason",
+            "eligible_sessions": 669,
+            "expectancy_dollars": null,
+            "expectancy_r": null,
+            "net_per_session": 0,
+            "trade_ci_high": null,
+            "trade_ci_low": null,
+            "trades": 0,
+            "weak_evidence": true
+          },
+          {
+            "cell": "stop",
+            "cut": "exit_reason",
+            "eligible_sessions": 58,
+            "expectancy_dollars": -540.9913793103449,
+            "expectancy_r": -1.0416966393159794,
+            "net_per_session": -540.9913793103449,
+            "trade_ci_high": -476.1099137931023,
+            "trade_ci_low": -610.3879310344812,
+            "trades": 58,
+            "weak_evidence": false
+          },
+          {
+            "cell": "target",
+            "cut": "exit_reason",
+            "eligible_sessions": 16,
+            "expectancy_dollars": 846.562500000007,
+            "expectancy_r": 1.9867043662807853,
+            "net_per_session": 846.562500000007,
+            "trade_ci_high": 1046.6015625000168,
+            "trade_ci_low": 695.0000000000027,
+            "trades": 16,
+            "weak_evidence": true
+          },
+          {
+            "cell": "time",
+            "cut": "exit_reason",
+            "eligible_sessions": 11,
+            "expectancy_dollars": 218.86363636363637,
+            "expectancy_r": 0.6620901991432079,
+            "net_per_session": 218.86363636363637,
+            "trade_ci_high": 578.0397727272731,
+            "trade_ci_low": -255,
+            "trades": 11,
+            "weak_evidence": true
+          },
+          {
+            "cell": "[16, inf)",
+            "cut": "initial_risk_points",
+            "eligible_sessions": 10,
+            "expectancy_dollars": -727.5000000000023,
+            "expectancy_r": -0.5294211720354823,
+            "net_per_session": -727.5000000000023,
+            "trade_ci_high": -24.968749999999773,
+            "trade_ci_low": -1246.2500000000043,
+            "trades": 10,
+            "weak_evidence": true
+          },
+          {
+            "cell": "[4, 8)",
+            "cut": "initial_risk_points",
+            "eligible_sessions": 33,
+            "expectancy_dollars": -31.136363636358123,
+            "expectancy_r": -0.16097454198095876,
+            "net_per_session": -31.136363636358123,
+            "trade_ci_high": 121.89393939394698,
+            "trade_ci_low": -177.7272727272693,
+            "trades": 33,
+            "weak_evidence": false
+          },
+          {
+            "cell": "[8, 16)",
+            "cut": "initial_risk_points",
+            "eligible_sessions": 42,
+            "expectancy_dollars": -169.58333333333442,
+            "expectancy_r": -0.2557564624650595,
+            "net_per_session": -169.58333333333442,
+            "trade_ci_high": 29.82142857142753,
+            "trade_ci_low": -360.9598214285757,
+            "trades": 42,
+            "weak_evidence": false
+          },
+          {
+            "cell": "unknown",
+            "cut": "initial_risk_points",
+            "eligible_sessions": 669,
+            "expectancy_dollars": null,
+            "expectancy_r": null,
+            "net_per_session": 0,
+            "trade_ci_high": null,
+            "trade_ci_low": null,
+            "trades": 0,
+            "weak_evidence": true
+          },
+          {
+            "cell": "A",
+            "cut": "mask",
+            "eligible_sessions": 754,
+            "expectancy_dollars": -181.47058823529278,
+            "expectancy_r": -0.2511546238736348,
+            "net_per_session": -20.457559681697465,
+            "trade_ci_high": -38.37867647058685,
+            "trade_ci_low": -326.33455882352524,
+            "trades": 85,
+            "weak_evidence": false
+          },
+          {
+            "cell": "above",
+            "cut": "opening_cloud_position",
+            "eligible_sessions": 42,
+            "expectancy_dollars": -101.42857142857305,
+            "expectancy_r": -0.09406825589509944,
+            "net_per_session": -101.42857142857305,
+            "trade_ci_high": 100.0595238095244,
+            "trade_ci_low": -293.4002976190519,
+            "trades": 42,
+            "weak_evidence": false
+          },
+          {
+            "cell": "below",
+            "cut": "opening_cloud_position",
+            "eligible_sessions": 29,
+            "expectancy_dollars": -237.32758620688713,
+            "expectancy_r": -0.3424018606261179,
+            "net_per_session": -237.32758620688713,
+            "trade_ci_high": 53.62068965517406,
+            "trade_ci_low": -514.0517241379192,
+            "trades": 29,
+            "weak_evidence": true
+          },
+          {
+            "cell": "inside",
+            "cut": "opening_cloud_position",
+            "eligible_sessions": 14,
+            "expectancy_dollars": -305.89285714286365,
+            "expectancy_r": -0.5334015945362406,
+            "net_per_session": -305.89285714286365,
+            "trade_ci_high": -63.03571428571579,
+            "trade_ci_low": -526.4508928571605,
+            "trades": 14,
+            "weak_evidence": true
+          },
+          {
+            "cell": "unknown",
+            "cut": "opening_cloud_position",
+            "eligible_sessions": 669,
+            "expectancy_dollars": null,
+            "expectancy_r": null,
+            "net_per_session": 0,
+            "trade_ci_high": null,
+            "trade_ci_low": null,
+            "trades": 0,
+            "weak_evidence": true
+          },
+          {
+            "cell": "above",
+            "cut": "opening_pivot_position",
+            "eligible_sessions": 49,
+            "expectancy_dollars": -140.45918367347218,
+            "expectancy_r": -0.20276485803836714,
+            "net_per_session": -140.45918367347218,
+            "trade_ci_high": 39.91071428570891,
+            "trade_ci_low": -310.61224489796297,
+            "trades": 49,
+            "weak_evidence": false
+          },
+          {
+            "cell": "below",
+            "cut": "opening_pivot_position",
+            "eligible_sessions": 35,
+            "expectancy_dollars": -191.78571428570714,
+            "expectancy_r": -0.3173436640618269,
+            "net_per_session": -191.78571428570714,
+            "trade_ci_high": 41.089285714289005,
+            "trade_ci_low": -411.0803571428442,
+            "trades": 35,
+            "weak_evidence": false
+          },
+          {
+            "cell": "inside",
+            "cut": "opening_pivot_position",
+            "eligible_sessions": 1,
+            "expectancy_dollars": -1830,
+            "expectancy_r": -0.3056367432150313,
+            "net_per_session": -1830,
+            "trade_ci_high": null,
+            "trade_ci_low": null,
+            "trades": 1,
+            "weak_evidence": true
+          },
+          {
+            "cell": "unknown",
+            "cut": "opening_pivot_position",
+            "eligible_sessions": 669,
+            "expectancy_dollars": null,
+            "expectancy_r": null,
+            "net_per_session": 0,
+            "trade_ci_high": null,
+            "trade_ci_low": null,
+            "trades": 0,
+            "weak_evidence": true
+          },
+          {
+            "cell": "[0, 1)",
+            "cut": "pivot_cloud_separation",
+            "eligible_sessions": 85,
+            "expectancy_dollars": -181.47058823529278,
+            "expectancy_r": -0.2511546238736348,
+            "net_per_session": -181.47058823529278,
+            "trade_ci_high": -38.37867647058685,
+            "trade_ci_low": -326.33455882352524,
+            "trades": 85,
+            "weak_evidence": false
+          },
+          {
+            "cell": "unknown",
+            "cut": "pivot_cloud_separation",
+            "eligible_sessions": 669,
+            "expectancy_dollars": null,
+            "expectancy_r": null,
+            "net_per_session": 0,
+            "trade_ci_high": null,
+            "trade_ci_low": null,
+            "trades": 0,
+            "weak_evidence": true
+          },
+          {
+            "cell": "single",
+            "cut": "pivot_kind",
+            "eligible_sessions": 80,
+            "expectancy_dollars": -145.78124999999886,
+            "expectancy_r": -0.2314779097721303,
+            "net_per_session": -145.78124999999886,
+            "trade_ci_high": -6.7148437500025295,
+            "trade_ci_low": -281.10156249999966,
+            "trades": 80,
+            "weak_evidence": false
+          },
+          {
+            "cell": "unknown",
+            "cut": "pivot_kind",
+            "eligible_sessions": 669,
+            "expectancy_dollars": null,
+            "expectancy_r": null,
+            "net_per_session": 0,
+            "trade_ci_high": null,
+            "trade_ci_low": null,
+            "trades": 0,
+            "weak_evidence": true
+          },
+          {
+            "cell": "zone",
+            "cut": "pivot_kind",
+            "eligible_sessions": 5,
+            "expectancy_dollars": -752.4999999999955,
+            "expectancy_r": -0.5659820494977073,
+            "net_per_session": -752.4999999999955,
+            "trade_ci_high": -177.49999999999545,
+            "trade_ci_low": -1377.5,
+            "trades": 5,
+            "weak_evidence": true
+          },
+          {
+            "cell": "HVE",
+            "cut": "pivot_type",
+            "eligible_sessions": 36,
+            "expectancy_dollars": -168.5416666666654,
+            "expectancy_r": -0.1398890156205294,
+            "net_per_session": -168.5416666666654,
+            "trade_ci_high": 65.17361111110453,
+            "trade_ci_low": -397.03125000000057,
+            "trades": 36,
+            "weak_evidence": false
+          },
+          {
+            "cell": "HVE+YPOC",
+            "cut": "pivot_type",
+            "eligible_sessions": 1,
+            "expectancy_dollars": 82.5,
+            "expectancy_r": 0.12222222222222222,
+            "net_per_session": 82.5,
+            "trade_ci_high": null,
+            "trade_ci_low": null,
+            "trades": 1,
+            "weak_evidence": true
+          },
+          {
+            "cell": "HVE+YVAL",
+            "cut": "pivot_type",
+            "eligible_sessions": 4,
+            "expectancy_dollars": -636.2499999999943,
+            "expectancy_r": -1.032729044834308,
+            "net_per_session": -636.2499999999943,
+            "trade_ci_high": -423.75,
+            "trade_ci_low": -848.7499999999886,
+            "trades": 4,
+            "weak_evidence": true
+          },
+          {
+            "cell": "YPOC",
+            "cut": "pivot_type",
+            "eligible_sessions": 8,
+            "expectancy_dollars": -323.74999999999716,
+            "expectancy_r": -0.8624469389363948,
+            "net_per_session": -323.74999999999716,
+            "trade_ci_high": -139.33593749998016,
+            "trade_ci_low": -501.8750000000057,
+            "trades": 8,
+            "weak_evidence": true
+          },
+          {
+            "cell": "YVAL",
+            "cut": "pivot_type",
+            "eligible_sessions": 10,
+            "expectancy_dollars": -310.00000000000455,
+            "expectancy_r": -0.2736816575019637,
+            "net_per_session": -310.00000000000455,
+            "trade_ci_high": 52.499999999995566,
+            "trade_ci_low": -655.0000000000024,
+            "trades": 10,
+            "weak_evidence": true
+          },
+          {
+            "cell": "other",
+            "cut": "pivot_type",
+            "eligible_sessions": 26,
+            "expectancy_dollars": -46.346153846151225,
+            "expectancy_r": -0.10257893935746526,
+            "net_per_session": -46.346153846151225,
+            "trade_ci_high": 244.06250000000358,
+            "trade_ci_low": -304.51923076923174,
+            "trades": 26,
+            "weak_evidence": true
+          },
+          {
+            "cell": "unknown",
+            "cut": "pivot_type",
+            "eligible_sessions": 669,
+            "expectancy_dollars": null,
+            "expectancy_r": null,
+            "net_per_session": 0,
+            "trade_ci_high": null,
+            "trade_ci_low": null,
+            "trades": 0,
+            "weak_evidence": true
+          },
+          {
+            "cell": "[1, 2)",
+            "cut": "pivot_width",
+            "eligible_sessions": 1,
+            "expectancy_dollars": -505,
+            "expectancy_r": -1.035897435897436,
+            "net_per_session": -505,
+            "trade_ci_high": null,
+            "trade_ci_low": null,
+            "trades": 1,
+            "weak_evidence": true
+          },
+          {
+            "cell": "[10, inf)",
+            "cut": "pivot_width",
+            "eligible_sessions": 2,
+            "expectancy_dollars": -1361.25,
+            "expectancy_r": -0.6628183716075157,
+            "net_per_session": -1361.25,
+            "trade_ci_high": -892.5,
+            "trade_ci_low": -1830,
+            "trades": 2,
+            "weak_evidence": true
+          },
+          {
+            "cell": "[2, 5)",
+            "cut": "pivot_width",
+            "eligible_sessions": 2,
+            "expectancy_dollars": -267.49999999998863,
+            "expectancy_r": -0.23418803418803447,
+            "net_per_session": -267.49999999998863,
+            "trade_ci_high": 270,
+            "trade_ci_low": -804.9999999999773,
+            "trades": 2,
+            "weak_evidence": true
+          },
+          {
+            "cell": "single_price",
+            "cut": "pivot_width",
+            "eligible_sessions": 80,
+            "expectancy_dollars": -145.78124999999886,
+            "expectancy_r": -0.2314779097721303,
+            "net_per_session": -145.78124999999886,
+            "trade_ci_high": -6.7148437500025295,
+            "trade_ci_low": -281.10156249999966,
+            "trades": 80,
+            "weak_evidence": false
+          },
+          {
+            "cell": "unknown",
+            "cut": "pivot_width",
+            "eligible_sessions": 669,
+            "expectancy_dollars": null,
+            "expectancy_r": null,
+            "net_per_session": 0,
+            "trade_ci_high": null,
+            "trade_ci_low": null,
+            "trades": 0,
+            "weak_evidence": true
+          },
+          {
+            "cell": "[0, 2)",
+            "cut": "prior_known_volatility",
+            "eligible_sessions": 5,
+            "expectancy_dollars": -132.5,
+            "expectancy_r": -0.4447037037037037,
+            "net_per_session": -132.5,
+            "trade_ci_high": 310,
+            "trade_ci_low": -365,
+            "trades": 5,
+            "weak_evidence": true
+          },
+          {
+            "cell": "[2, 4)",
+            "cut": "prior_known_volatility",
+            "eligible_sessions": 47,
+            "expectancy_dollars": -60.31914893616731,
+            "expectancy_r": -0.14643193637767432,
+            "net_per_session": -60.31914893616731,
+            "trade_ci_high": 77.97872340425633,
+            "trade_ci_low": -199.15558510638246,
+            "trades": 47,
+            "weak_evidence": false
+          },
+          {
+            "cell": "[4, 8)",
+            "cut": "prior_known_volatility",
+            "eligible_sessions": 31,
+            "expectancy_dollars": -403.38709677419286,
+            "expectancy_r": -0.42636938178886924,
+            "net_per_session": -403.38709677419286,
+            "trade_ci_high": -103.38709677419347,
+            "trade_ci_low": -675.9879032258026,
+            "trades": 31,
+            "weak_evidence": false
+          },
+          {
+            "cell": "[8, 16)",
+            "cut": "prior_known_volatility",
+            "eligible_sessions": 2,
+            "expectancy_dollars": 288.74999999997726,
+            "expectancy_r": 0.48756366723259814,
+            "net_per_session": 288.74999999997726,
+            "trade_ci_high": 1545,
+            "trade_ci_low": -967.5000000000455,
+            "trades": 2,
+            "weak_evidence": true
+          },
+          {
+            "cell": "unknown",
+            "cut": "prior_known_volatility",
+            "eligible_sessions": 669,
+            "expectancy_dollars": null,
+            "expectancy_r": null,
+            "net_per_session": 0,
+            "trade_ci_high": null,
+            "trade_ci_low": null,
+            "trades": 0,
+            "weak_evidence": true
+          },
+          {
+            "cell": "development",
+            "cut": "split",
+            "eligible_sessions": 411,
+            "expectancy_dollars": -143.65740740740364,
+            "expectancy_r": -0.12446828243855965,
+            "net_per_session": -18.87469586374646,
+            "trade_ci_high": 26.481481481485325,
+            "trade_ci_low": -310.5671296296292,
+            "trades": 54,
+            "weak_evidence": false
+          },
+          {
+            "cell": "temporal_test",
+            "cut": "split",
+            "eligible_sessions": 149,
+            "expectancy_dollars": -289.5588235294171,
+            "expectancy_r": -0.4999166218920024,
+            "net_per_session": -33.036912751678464,
+            "trade_ci_high": 70.75367647059866,
+            "trade_ci_low": -586.6176470588318,
+            "trades": 17,
+            "weak_evidence": true
+          },
+          {
+            "cell": "validation",
+            "cut": "split",
+            "eligible_sessions": 194,
+            "expectancy_dollars": -196.07142857142858,
+            "expectancy_r": -0.4377338003866213,
+            "net_per_session": -14.149484536082474,
+            "trade_ci_high": 232.5,
+            "trade_ci_low": -580.8928571428571,
+            "trades": 14,
+            "weak_evidence": true
+          },
+          {
+            "cell": "[2, 3)",
+            "cut": "target_distance_r",
+            "eligible_sessions": 85,
+            "expectancy_dollars": -181.47058823529278,
+            "expectancy_r": -0.2511546238736348,
+            "net_per_session": -181.47058823529278,
+            "trade_ci_high": -38.37867647058685,
+            "trade_ci_low": -326.33455882352524,
+            "trades": 85,
+            "weak_evidence": false
+          },
+          {
+            "cell": "unknown",
+            "cut": "target_distance_r",
+            "eligible_sessions": 669,
+            "expectancy_dollars": null,
+            "expectancy_r": null,
+            "net_per_session": 0,
+            "trade_ci_high": null,
+            "trade_ci_low": null,
+            "trades": 0,
+            "weak_evidence": true
+          },
+          {
+            "cell": "fixed_2r",
+            "cut": "target_identity",
+            "eligible_sessions": 754,
+            "expectancy_dollars": -181.47058823529278,
+            "expectancy_r": -0.2511546238736348,
+            "net_per_session": -20.457559681697465,
+            "trade_ci_high": -38.37867647058685,
+            "trade_ci_low": -326.33455882352524,
+            "trades": 85,
+            "weak_evidence": false
+          },
+          {
+            "cell": "Friday",
+            "cut": "weekday",
+            "eligible_sessions": 163,
+            "expectancy_dollars": -376.87499999999886,
+            "expectancy_r": -0.511675108795311,
+            "net_per_session": -46.24233128834342,
+            "trade_ci_high": -111.84375000000318,
+            "trade_ci_low": -648.7656249999977,
+            "trades": 20,
+            "weak_evidence": true
+          },
+          {
+            "cell": "Monday",
+            "cut": "weekday",
+            "eligible_sessions": 145,
+            "expectancy_dollars": -189.72222222221464,
+            "expectancy_r": -0.3695470686428622,
+            "net_per_session": -11.775862068965047,
+            "trade_ci_high": 274.1666666666818,
+            "trade_ci_low": -536.9791666666641,
+            "trades": 9,
+            "weak_evidence": true
+          },
+          {
+            "cell": "Thursday",
+            "cut": "weekday",
+            "eligible_sessions": 167,
+            "expectancy_dollars": -65.11904761904546,
+            "expectancy_r": 0.007064838399405976,
+            "net_per_session": -8.188622754490746,
+            "trade_ci_high": 208.1101190476232,
+            "trade_ci_low": -323.46726190476085,
+            "trades": 21,
+            "weak_evidence": true
+          },
+          {
+            "cell": "Tuesday",
+            "cut": "weekday",
+            "eligible_sessions": 130,
+            "expectancy_dollars": 87.85714285714123,
+            "expectancy_r": 0.1551252961607069,
+            "net_per_session": 9.461538461538286,
+            "trade_ci_high": 550.4017857142827,
+            "trade_ci_low": -328.258928571435,
+            "trades": 14,
+            "weak_evidence": true
+          },
+          {
+            "cell": "Wednesday",
+            "cut": "weekday",
+            "eligible_sessions": 149,
+            "expectancy_dollars": -287.73809523809524,
+            "expectancy_r": -0.4813729994383052,
+            "net_per_session": -40.553691275167786,
+            "trade_ci_high": -38.318452380954405,
+            "trade_ci_low": -522.2619047619016,
+            "trades": 21,
+            "weak_evidence": true
+          },
+          {
+            "cell": "2022 (partial)",
+            "cut": "year",
+            "eligible_sessions": 128,
+            "expectancy_dollars": -155.73529411763636,
+            "expectancy_r": 0.1184682255104194,
+            "net_per_session": -20.68359374999858,
+            "trade_ci_high": 248.67647058824488,
+            "trade_ci_low": -563.0882352940991,
+            "trades": 17,
+            "weak_evidence": true
+          },
+          {
+            "cell": "2023",
+            "cut": "year",
+            "eligible_sessions": 136,
+            "expectancy_dollars": -64.72222222222096,
+            "expectancy_r": -0.007928411664438103,
+            "net_per_session": -8.566176470588069,
+            "trade_ci_high": 183.24652777778908,
+            "trade_ci_low": -307.77777777777396,
+            "trades": 18,
+            "weak_evidence": true
+          },
+          {
+            "cell": "2024",
+            "cut": "year",
+            "eligible_sessions": 147,
+            "expectancy_dollars": -207.6315789473684,
+            "expectancy_r": -0.4522387197578666,
+            "net_per_session": -26.836734693877553,
+            "trade_ci_high": 27.894736842105264,
+            "trade_ci_low": -405.6578947368421,
+            "trades": 19,
+            "weak_evidence": true
+          },
+          {
+            "cell": "2025",
+            "cut": "year",
+            "eligible_sessions": 194,
+            "expectancy_dollars": -196.07142857142858,
+            "expectancy_r": -0.4377338003866213,
+            "net_per_session": -14.149484536082474,
+            "trade_ci_high": 232.5,
+            "trade_ci_low": -580.8928571428571,
+            "trades": 14,
+            "weak_evidence": true
+          },
+          {
+            "cell": "2026 (partial)",
+            "cut": "year",
+            "eligible_sessions": 149,
+            "expectancy_dollars": -289.5588235294171,
+            "expectancy_r": -0.4999166218920024,
+            "net_per_session": -33.036912751678464,
+            "trade_ci_high": 70.75367647059866,
+            "trade_ci_low": -586.6176470588318,
+            "trades": 17,
+            "weak_evidence": true
+          },
+          {
+            "cell": "2022 (partial) | long",
+            "cut": "year_by_direction",
+            "eligible_sessions": 5,
+            "expectancy_dollars": 85.00000000001819,
+            "expectancy_r": 0.774141025641039,
+            "net_per_session": 85.00000000001819,
+            "trade_ci_high": 700.0000000000455,
+            "trade_ci_low": -685.0000000000045,
+            "trades": 5,
+            "weak_evidence": true
+          },
+          {
+            "cell": "2022 (partial) | no_candidate",
+            "cut": "year_by_direction",
+            "eligible_sessions": 111,
+            "expectancy_dollars": null,
+            "expectancy_r": null,
+            "net_per_session": 0,
+            "trade_ci_high": null,
+            "trade_ci_low": null,
+            "trades": 0,
+            "weak_evidence": true
+          },
+          {
+            "cell": "2022 (partial) | short",
+            "cut": "year_by_direction",
+            "eligible_sessions": 12,
+            "expectancy_dollars": -256.04166666665907,
+            "expectancy_r": -0.15472877454400544,
+            "net_per_session": -256.04166666665907,
+            "trade_ci_high": 221.0416666666593,
+            "trade_ci_low": -699.7916666666497,
+            "trades": 12,
+            "weak_evidence": true
+          },
+          {
+            "cell": "2023 | long",
+            "cut": "year_by_direction",
+            "eligible_sessions": 11,
+            "expectancy_dollars": -55.00000000000207,
+            "expectancy_r": 0.10351876169980119,
+            "net_per_session": -55.00000000000207,
+            "trade_ci_high": 258.66477272728105,
+            "trade_ci_low": -364.1193181818305,
+            "trades": 11,
+            "weak_evidence": true
+          },
+          {
+            "cell": "2023 | no_candidate",
+            "cut": "year_by_direction",
+            "eligible_sessions": 118,
+            "expectancy_dollars": null,
+            "expectancy_r": null,
+            "net_per_session": 0,
+            "trade_ci_high": null,
+            "trade_ci_low": null,
+            "trades": 0,
+            "weak_evidence": true
+          },
+          {
+            "cell": "2023 | short",
+            "cut": "year_by_direction",
+            "eligible_sessions": 7,
+            "expectancy_dollars": -79.9999999999935,
+            "expectancy_r": -0.18305968409395704,
+            "net_per_session": -79.9999999999935,
+            "trade_ci_high": 275.4017857142923,
+            "trade_ci_low": -422.8571428571299,
+            "trades": 7,
+            "weak_evidence": true
+          },
+          {
+            "cell": "2024 | long",
+            "cut": "year_by_direction",
+            "eligible_sessions": 15,
+            "expectancy_dollars": -160,
+            "expectancy_r": -0.2921254511935635,
+            "net_per_session": -160,
+            "trade_ci_high": 120,
+            "trade_ci_low": -412.5208333333333,
+            "trades": 15,
+            "weak_evidence": true
+          },
+          {
+            "cell": "2024 | no_candidate",
+            "cut": "year_by_direction",
+            "eligible_sessions": 128,
+            "expectancy_dollars": null,
+            "expectancy_r": null,
+            "net_per_session": 0,
+            "trade_ci_high": null,
+            "trade_ci_low": null,
+            "trades": 0,
+            "weak_evidence": true
+          },
+          {
+            "cell": "2024 | short",
+            "cut": "year_by_direction",
+            "eligible_sessions": 4,
+            "expectancy_dollars": -386.25,
+            "expectancy_r": -1.0526634768740033,
+            "net_per_session": -386.25,
+            "trade_ci_high": -273.75,
+            "trade_ci_low": -498.75,
+            "trades": 4,
+            "weak_evidence": true
+          },
+          {
+            "cell": "2025 | long",
+            "cut": "year_by_direction",
+            "eligible_sessions": 9,
+            "expectancy_dollars": -316.1111111111111,
+            "expectancy_r": -0.8146064582439778,
+            "net_per_session": -316.1111111111111,
+            "trade_ci_high": -60.55555555555556,
+            "trade_ci_low": -488.3333333333333,
+            "trades": 9,
+            "weak_evidence": true
+          },
+          {
+            "cell": "2025 | no_candidate",
+            "cut": "year_by_direction",
+            "eligible_sessions": 180,
+            "expectancy_dollars": null,
+            "expectancy_r": null,
+            "net_per_session": 0,
+            "trade_ci_high": null,
+            "trade_ci_low": null,
+            "trades": 0,
+            "weak_evidence": true
+          },
+          {
+            "cell": "2025 | short",
+            "cut": "year_by_direction",
+            "eligible_sessions": 5,
+            "expectancy_dollars": 20,
+            "expectancy_r": 0.2406369837566203,
+            "net_per_session": 20,
+            "trade_ci_high": 1117.5,
+            "trade_ci_low": -1065,
+            "trades": 5,
+            "weak_evidence": true
+          },
+          {
+            "cell": "2026 (partial) | long",
+            "cut": "year_by_direction",
+            "eligible_sessions": 12,
+            "expectancy_dollars": -193.54166666668561,
+            "expectancy_r": -0.27586987896438614,
+            "net_per_session": -193.54166666668561,
+            "trade_ci_high": 287.7083333333182,
+            "trade_ci_low": -611.250000000019,
+            "trades": 12,
+            "weak_evidence": true
+          },
+          {
+            "cell": "2026 (partial) | no_candidate",
+            "cut": "year_by_direction",
+            "eligible_sessions": 132,
+            "expectancy_dollars": null,
+            "expectancy_r": null,
+            "net_per_session": 0,
+            "trade_ci_high": null,
+            "trade_ci_low": null,
+            "trades": 0,
+            "weak_evidence": true
+          },
+          {
+            "cell": "2026 (partial) | short",
+            "cut": "year_by_direction",
+            "eligible_sessions": 5,
+            "expectancy_dollars": -519.9999999999727,
+            "expectancy_r": -1.0376288049182816,
+            "net_per_session": -519.9999999999727,
+            "trade_ci_high": -399.9999999999636,
+            "trade_ci_low": -639.9999999999818,
+            "trades": 5,
+            "weak_evidence": true
+          }
+        ],
+        "title": "Prespecified descriptive cuts: early, A, fixed 2R"
+      },
+      {
+        "columns": [
+          {
+            "key": "entry_policy",
+            "label": "entry policy"
+          },
+          {
+            "key": "mask",
+            "label": "mask"
+          },
+          {
+            "key": "exit_policy",
+            "label": "exit policy"
+          },
+          {
+            "format": "number",
+            "key": "paired_sessions",
+            "label": "paired sessions",
+            "precision": 2
+          },
+          {
+            "format": "number",
+            "key": "difference_dollars",
+            "label": "difference dollars",
+            "precision": 2,
+            "unit": "USD"
+          },
+          {
+            "format": "number",
+            "key": "ci_low",
+            "label": "ci low",
+            "precision": 2,
+            "unit": "USD"
+          },
+          {
+            "format": "number",
+            "key": "ci_high",
+            "label": "ci high",
+            "precision": 2,
+            "unit": "USD"
+          },
+          {
+            "format": "percent",
+            "key": "bootstrap_tail_probability",
+            "label": "bootstrap tail probability",
+            "precision": 1
+          },
+          {
+            "format": "percent",
+            "key": "holm_tail_probability",
+            "label": "holm tail probability",
+            "precision": 1
+          }
+        ],
+        "description": "Variant minus early/A/2R on common defined days. Holm family contains fifteen prespecified contrasts. These descriptive bootstrap sign-tail probabilities are not randomization-test p-values; cuts carry no inferential discovery claims.",
+        "id": "secondary-table",
+        "kind": "table",
+        "rows": [
+          {
+            "bootstrap_tail_probability": 0.88127968007998,
+            "ci_high": 12.234810756972342,
+            "ci_low": -9.911188579017594,
+            "difference_dollars": 0.9130146082335807,
+            "entry_policy": "early",
+            "exit_policy": "verne",
+            "holm_tail_probability": 1,
+            "mask": "A",
+            "paired_sessions": 753
+          },
+          {
+            "bootstrap_tail_probability": 0.0014996250937265683,
+            "ci_high": 14.360991379310319,
+            "ci_low": 3.282078912466784,
+            "difference_dollars": 8.61737400530498,
+            "entry_policy": "early",
+            "exit_policy": "fixed_2r",
+            "holm_tail_probability": 0.020994751312171954,
+            "mask": "B",
+            "paired_sessions": 754
+          },
+          {
+            "bootstrap_tail_probability": 0.33341664583854036,
+            "ci_high": 17.683017928286763,
+            "ci_low": -6.08250332005327,
+            "difference_dollars": 5.740371845949324,
+            "entry_policy": "early",
+            "exit_policy": "verne",
+            "holm_tail_probability": 1,
+            "mask": "B",
+            "paired_sessions": 753
+          },
+          {
+            "bootstrap_tail_probability": 0.21594601349662584,
+            "ci_high": 12.182112068965543,
+            "ci_low": -2.7124502652523512,
+            "difference_dollars": 4.575596816975977,
+            "entry_policy": "early",
+            "exit_policy": "fixed_2r",
+            "holm_tail_probability": 1,
+            "mask": "C",
+            "paired_sessions": 754
+          },
+          {
+            "bootstrap_tail_probability": 0.7078230442389403,
+            "ci_high": 15.123505976095501,
+            "ci_low": -9.94040504648069,
+            "difference_dollars": 2.4070385126161113,
+            "entry_policy": "early",
+            "exit_policy": "verne",
+            "holm_tail_probability": 1,
+            "mask": "C",
+            "paired_sessions": 753
+          },
+          {
+            "bootstrap_tail_probability": 0.0049987503124218945,
+            "ci_high": 22.100049734747987,
+            "ci_low": 3.931448938991769,
+            "difference_dollars": 12.894562334217294,
+            "entry_policy": "early",
+            "exit_policy": "fixed_2r",
+            "holm_tail_probability": 0.05998500374906274,
+            "mask": "D",
+            "paired_sessions": 754
+          },
+          {
+            "bootstrap_tail_probability": 0.23344163959010247,
+            "ci_high": 20.501826029216296,
+            "ci_low": -5.139442231075881,
+            "difference_dollars": 7.649402390438096,
+            "entry_policy": "early",
+            "exit_policy": "verne",
+            "holm_tail_probability": 1,
+            "mask": "D",
+            "paired_sessions": 753
+          },
+          {
+            "bootstrap_tail_probability": 0.10697325668582855,
+            "ci_high": 9.986737400530505,
+            "ci_low": -0.04973474801061008,
+            "difference_dollars": 3.8992042440318304,
+            "entry_policy": "confirmed",
+            "exit_policy": "fixed_2r",
+            "holm_tail_probability": 1,
+            "mask": "A",
+            "paired_sessions": 754
+          },
+          {
+            "bootstrap_tail_probability": 0.6243439140214946,
+            "ci_high": 15.037931606905776,
+            "ci_low": -8.725265604249996,
+            "difference_dollars": 2.808764940238893,
+            "entry_policy": "confirmed",
+            "exit_policy": "verne",
+            "holm_tail_probability": 1,
+            "mask": "A",
+            "paired_sessions": 753
+          },
+          {
+            "bootstrap_tail_probability": 0.000999750062484379,
+            "ci_high": 19.409897214854052,
+            "ci_low": 4.714771220159062,
+            "difference_dollars": 11.332891246684289,
+            "entry_policy": "confirmed",
+            "exit_policy": "fixed_2r",
+            "holm_tail_probability": 0.014996250937265684,
+            "mask": "B",
+            "paired_sessions": 754
+          },
+          {
+            "bootstrap_tail_probability": 0.18645338665333666,
+            "ci_high": 21.399402390437746,
+            "ci_low": -4.120268924303082,
+            "difference_dollars": 8.459495351925419,
+            "entry_policy": "confirmed",
+            "exit_policy": "verne",
+            "holm_tail_probability": 1,
+            "mask": "B",
+            "paired_sessions": 753
+          },
+          {
+            "bootstrap_tail_probability": 0.06748312921769557,
+            "ci_high": 17.69031830238724,
+            "ci_low": -0.6404177718833839,
+            "difference_dollars": 8.136604774535659,
+            "entry_policy": "confirmed",
+            "exit_policy": "fixed_2r",
+            "holm_tail_probability": 0.7423144213946513,
+            "mask": "C",
+            "paired_sessions": 754
+          },
+          {
+            "bootstrap_tail_probability": 0.5463634091477131,
+            "ci_high": 17.227838645418444,
+            "ci_low": -9.011039176626797,
+            "difference_dollars": 3.96414342629473,
+            "entry_policy": "confirmed",
+            "exit_policy": "verne",
+            "holm_tail_probability": 1,
+            "mask": "C",
+            "paired_sessions": 753
+          },
+          {
+            "bootstrap_tail_probability": 0.0024993751562109472,
+            "ci_high": 25.909814323607105,
+            "ci_low": 5.513262599469138,
+            "difference_dollars": 15.271883289124457,
+            "entry_policy": "confirmed",
+            "exit_policy": "fixed_2r",
+            "holm_tail_probability": 0.032491877030742314,
+            "mask": "D",
+            "paired_sessions": 754
+          },
+          {
+            "bootstrap_tail_probability": 0.1419645088727818,
+            "ci_high": 23.61254980079652,
+            "ci_low": -3.1914010624170555,
+            "difference_dollars": 10.029880478087499,
+            "entry_policy": "confirmed",
+            "exit_policy": "verne",
+            "holm_tail_probability": 1,
+            "mask": "D",
+            "paired_sessions": 753
+          }
+        ],
+        "title": "Secondary contrasts and multiplicity"
+      },
+      {
+        "columns": [
+          {
+            "key": "sensitivity",
+            "label": "sensitivity"
+          },
+          {
+            "format": "number",
+            "key": "paired_sessions",
+            "label": "paired sessions",
+            "precision": 2
+          },
+          {
+            "format": "number",
+            "key": "left_mean",
+            "label": "left mean",
+            "precision": 2,
+            "unit": "USD"
+          },
+          {
+            "format": "number",
+            "key": "right_mean",
+            "label": "right mean",
+            "precision": 2,
+            "unit": "USD"
+          },
+          {
+            "format": "number",
+            "key": "difference_dollars",
+            "label": "difference dollars",
+            "precision": 2,
+            "unit": "USD"
+          },
+          {
+            "format": "number",
+            "key": "ci_low",
+            "label": "ci low",
+            "precision": 2,
+            "unit": "USD"
+          },
+          {
+            "format": "number",
+            "key": "ci_high",
+            "label": "ci high",
+            "precision": 2,
+            "unit": "USD"
+          },
+          {
+            "format": "number",
+            "key": "week_ci_low",
+            "label": "week ci low",
+            "precision": 2,
+            "unit": "USD"
+          },
+          {
+            "format": "number",
+            "key": "week_ci_high",
+            "label": "week ci high",
+            "precision": 2,
+            "unit": "USD"
+          },
+          {
+            "format": "number",
+            "key": "early_trades",
+            "label": "early trades",
+            "precision": 2
+          },
+          {
+            "format": "number",
+            "key": "confirmed_trades",
+            "label": "confirmed trades",
+            "precision": 2
+          }
+        ],
+        "id": "robustness-table",
+        "kind": "table",
+        "rows": [
+          {
+            "ci_high": 0.04973474801061008,
+            "ci_low": -9.986737400530505,
+            "confirmed_trades": 82,
+            "difference_dollars": -3.8992042440318304,
+            "early_trades": 85,
+            "left_mean": -20.457559681697465,
+            "paired_sessions": 754,
+            "right_mean": -16.558355437665632,
+            "sensitivity": "proximity_0.05",
+            "week_ci_high": 0.04947392934197273,
+            "week_ci_low": -9.872124843533317
+          },
+          {
+            "ci_high": 0.04973474801061008,
+            "ci_low": -9.986737400530505,
+            "confirmed_trades": 83,
+            "difference_dollars": -3.8992042440318304,
+            "early_trades": 86,
+            "left_mean": -22.669098143235924,
+            "paired_sessions": 754,
+            "right_mean": -18.769893899204096,
+            "sensitivity": "proximity_0.15",
+            "week_ci_high": 0.04947392934197273,
+            "week_ci_low": -9.872124843533317
+          },
+          {
+            "ci_high": 0.04973474801061008,
+            "ci_low": -10.162466843501326,
+            "confirmed_trades": 82,
+            "difference_dollars": -3.9986737400530505,
+            "early_trades": 85,
+            "left_mean": -23.590848806365898,
+            "paired_sessions": 754,
+            "right_mean": -19.592175066312848,
+            "sensitivity": "slippage_2",
+            "week_ci_high": 0.04947392934197273,
+            "week_ci_low": -10.09174914706627
+          },
+          {
+            "ci_high": 0.04973474801061008,
+            "ci_low": -10.544512599469495,
+            "confirmed_trades": 82,
+            "difference_dollars": -4.19761273209549,
+            "early_trades": 85,
+            "left_mean": -32.27785145888591,
+            "paired_sessions": 754,
+            "right_mean": -28.080238726790423,
+            "sensitivity": "slippage_4",
+            "week_ci_high": 0.04947392934197273,
+            "week_ci_low": -10.468486995108826
+          },
+          {
+            "ci_high": 0.04973474801061008,
+            "ci_low": -9.887267904509283,
+            "confirmed_trades": 82,
+            "difference_dollars": -3.8328912466843503,
+            "early_trades": 85,
+            "left_mean": -19.13129973474792,
+            "paired_sessions": 754,
+            "right_mean": -15.298408488063568,
+            "sensitivity": "stop_buffer_0.5",
+            "week_ci_high": 0.04947392934197273,
+            "week_ci_low": -9.794565550015301
+          },
+          {
+            "ci_high": 0.04973474801061008,
+            "ci_low": -10.036472148541113,
+            "confirmed_trades": 82,
+            "difference_dollars": -3.9655172413793105,
+            "early_trades": 85,
+            "left_mean": -21.385941644562184,
+            "paired_sessions": 754,
+            "right_mean": -17.420424403182874,
+            "sensitivity": "stop_buffer_1.5",
+            "week_ci_high": 0.04947392934197273,
+            "week_ci_low": -9.970932580388817
+          }
+        ],
+        "title": "One-factor primary sensitivities"
+      },
+      {
+        "alt": "Saved chronological net dollar equity and drawdown for early and confirmed primary variants.",
+        "caption": "One ES contract, mask A, fixed 2R. Reference fees and slippage are included. Saved tables/equity.csv is the source.",
+        "id": "equity-figure",
+        "kind": "figure",
+        "path": "figures/primary-equity.png",
+        "referenceIds": [
+          "equity"
+        ],
+        "title": "Equity and drawdown"
+      },
+      {
+        "alt": "Earliest saved win, loss, failed confirmation and invalidated setup with unadjusted candles, cloud and frozen levels.",
+        "caption": "Earliest date and candidate ID per declared class; absent classes remain absent. These examples describe paths and do not estimate performance.",
+        "id": "examples-figure",
+        "kind": "figure",
+        "path": "figures/audited-examples.png",
+        "referenceIds": [
+          "examples"
+        ],
+        "title": "Deterministic audited examples"
+      },
+      {
+        "columns": [
+          {
+            "key": "example_class",
+            "label": "example class"
+          },
+          {
+            "key": "available",
+            "label": "available"
+          },
+          {
+            "key": "date",
+            "label": "date"
+          },
+          {
+            "key": "candidate_id",
+            "label": "candidate id"
+          },
+          {
+            "key": "direction",
+            "label": "direction"
+          },
+          {
+            "key": "entry_time",
+            "label": "entry time"
+          },
+          {
+            "key": "exit_reason",
+            "label": "exit reason"
+          },
+          {
+            "key": "reason",
+            "label": "reason"
+          },
+          {
+            "format": "number",
+            "key": "net_dollars",
+            "label": "net dollars",
+            "precision": 2,
+            "unit": "USD"
+          }
+        ],
+        "id": "examples-table",
+        "kind": "table",
+        "rows": [
+          {
+            "available": true,
+            "candidate_id": "2022-06-03:0945:short:1",
+            "date": "2022-06-03",
+            "direction": "short",
+            "entry_time": "2022-06-03T09:45:00-04:00",
+            "example_class": "win",
+            "exit_reason": "time",
+            "net_dollars": 170,
+            "reason": "filled"
+          },
+          {
+            "available": true,
+            "candidate_id": "2022-06-08:0935:short:1",
+            "date": "2022-06-08",
+            "direction": "short",
+            "entry_time": "2022-06-08T09:35:00-04:00",
+            "example_class": "loss",
+            "exit_reason": "stop",
+            "net_dollars": -480,
+            "reason": "filled"
+          },
+          {
+            "available": true,
+            "candidate_id": "2025-02-28:0950:short:1",
+            "date": "2025-02-28",
+            "direction": "short",
+            "entry_time": null,
+            "example_class": "failed_confirmation",
+            "exit_reason": null,
+            "net_dollars": 0,
+            "reason": "confirmation_expired"
+          },
+          {
+            "available": true,
+            "candidate_id": "2025-07-10:0945:long:1",
+            "date": "2025-07-10",
+            "direction": "long",
+            "entry_time": null,
+            "example_class": "invalidated",
+            "exit_reason": null,
+            "net_dollars": 0,
+            "reason": "structural_invalidation"
+          }
+        ],
+        "title": "Audited example identities"
+      },
+      {
+        "body": "Reset setup state at 09:30. A prior close establishes approach direction. Freeze tick-rounded delta=max(1 point,0.10×prior ATR14) at first return touch. The return and next two bars must touch pivot and cloud, with separation no greater than delta on an interaction bar. A directional reaction closes beyond the cloud and creates the common candidate. Early fills next open; confirmed waits for a close beyond pivot and cloud, then fills next open before 10:00. Freeze the structural stop at reaction. Primary exit is 2R or stop with 11:00 flatten; saved Verne targets use the nearest profitable near edge among the first two targets. Use 1-minute sequencing, adverse first for unresolved stop/target ambiguity and worse-opening gap stop fills. Reference costs assume $5 round-trip fees, one adverse market/stop tick, and one tick target trade-through. Unadjusted ES tick=$12.50; point=$50.",
+        "id": "rules",
+        "kind": "text",
+        "patternFocus": "Mirrored long support and short rejection; early and confirmed may enter together when the reaction already closes beyond pivot and cloud.",
+        "patternId": "model-schematic",
+        "title": "Causal setup and execution rules"
+      },
+      {
+        "body": "2022–2024 is development, 2025 validation and 2026 the locked retrospective temporal test. Parameters were hypotheses; no outcome optimization is claimed. Completeness through 11:00 is assessed retrospectively. Contract mismatches, duplicate daily plans and published feature unreadiness are excluded by the frozen audit, without replacing the price contract or weakening readiness. No data-readiness alternative is substituted for the primary release. Cost, stop-buffer and proximity checks are bounded one-factor sensitivities. Saved tables retain outcome distributions, stop distance, MAE, MFE, holding time, ambiguity optimistic bounds, all declared cuts and paired both-filled outcomes; the both-filled subset omits missed opportunities. Full-period pooled cuts are exploratory and correlated. Undefined ratios, absent targets and missing outcomes remain undefined. Source run: 20261021T044616Z_reportfix_v1. Reproduce with the exact commands and frozen input/config hashes in manifest.json and the retained source snapshot. summarize(stage) creates saved statistical evidence; report(stage,study_id,run_id) only renders that saved evidence. Hosted deployment is a separate action.",
+        "id": "limitations",
+        "kind": "text",
+        "title": "Uncertainty, qualifications and reproduction"
+      }
+    ],
+    "source": {
+      "producer": "sahadeva",
+      "runId": "20261021T044616Z_reportfix_v1"
+    },
+    "summary": "Conditional retrospective ES research comparing early and pivot-confirmed opening reactions, four EMA masks and two exits. Historical level availability is unverified; saved temporal results, uncertainty and participation remain explicit.",
+    "title": "ES Opening Pivot–Cloud Rejection/Support"
+  }
+}

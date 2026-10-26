@@ -1,0 +1,391 @@
+{
+  "status": "recorded",
+  "records": [
+    {
+      "command_index": 0,
+      "log": {
+        "path": "dev-validation.log",
+        "bytes": 196,
+        "sha256": "f91644acfe67011c4454d1faa31eb37f2a2b1fc6417e9f758ea4d42bed7478ae"
+      },
+      "exit_code": 0,
+      "scope": "Exact command text recovered from root session tool call; unrelated session content excluded.",
+      "at": "2026-10-13T19:03:27.946Z",
+      "actual_shell_command": "UV_CACHE_DIR=/private/tmp/abacus-study23-uv-cache ./scripts/uv run --locked --no-sync python studies/23_gc_overnight_breakout_15m/phase2_run.py --stage work/23_gc_overnight_breakout_15m/20261013T190208Z_phase2_gc_ob15m_v2 --phase dev-validation > work/23_gc_overnight_breakout_15m/20261013T190208Z_phase2_gc_ob15m_v2/dev-validation.log 2>&1",
+      "command_evidence": {
+        "path": "verification/root-execution-command-evidence.json",
+        "bytes": 2017,
+        "sha256": "12fa299f35a9bac4b9ec5574b9f39c133b4d97193fdf24c27ebfaf7e702506d7"
+      }
+    },
+    {
+      "command_index": 1,
+      "log": {
+        "path": "later.log",
+        "bytes": 94,
+        "sha256": "66f6c0f18f8f54266e141528746ebe8a48f6e003962e2d2f1f4d293a0be46845"
+      },
+      "exit_code": 0,
+      "scope": "Exact command text recovered from root session tool call; unrelated session content excluded.",
+      "at": "2026-10-13T19:09:09.381Z",
+      "actual_shell_command": "UV_CACHE_DIR=/private/tmp/abacus-study23-uv-cache ./scripts/uv run --locked --no-sync python studies/23_gc_overnight_breakout_15m/phase2_run.py --stage work/23_gc_overnight_breakout_15m/20261013T190208Z_phase2_gc_ob15m_v2 --phase later > work/23_gc_overnight_breakout_15m/20261013T190208Z_phase2_gc_ob15m_v2/later.log 2>&1",
+      "command_evidence": {
+        "path": "verification/root-execution-command-evidence.json",
+        "bytes": 2017,
+        "sha256": "12fa299f35a9bac4b9ec5574b9f39c133b4d97193fdf24c27ebfaf7e702506d7"
+      }
+    },
+    {
+      "command_index": 2,
+      "log": {
+        "path": "summarize.log",
+        "bytes": 895,
+        "sha256": "d3575a9b8f801ca0310a84ff7ef9394c28baef238480f9f0d48f5b5eab1e8013"
+      },
+      "exit_code": 0,
+      "scope": "Exact command text recovered from root session tool call; unrelated session content excluded.",
+      "at": "2026-10-13T19:10:25.053Z",
+      "actual_shell_command": "UV_CACHE_DIR=/private/tmp/abacus-study23-uv-cache ./scripts/uv run --locked --no-sync python studies/23_gc_overnight_breakout_15m/phase2_run.py --stage work/23_gc_overnight_breakout_15m/20261013T190208Z_phase2_gc_ob15m_v2 --phase summarize > work/23_gc_overnight_breakout_15m/20261013T190208Z_phase2_gc_ob15m_v2/summarize.log 2>&1",
+      "command_evidence": {
+        "path": "verification/root-execution-command-evidence.json",
+        "bytes": 2017,
+        "sha256": "12fa299f35a9bac4b9ec5574b9f39c133b4d97193fdf24c27ebfaf7e702506d7"
+      }
+    },
+    {
+      "command_index": 3,
+      "log": {
+        "path": "pre-execution-tests.log",
+        "bytes": 363,
+        "sha256": "f40ca930ad8d89f60d53f4610627fa4cfe8bc1bdf861922200e4d07751f36509"
+      },
+      "exit_code": 0,
+      "scope": "Actual root pre-execution263-test invocation."
+    },
+    {
+      "command_index": 4,
+      "log": {
+        "path": "baseline-pin/baseline-pin.log",
+        "bytes": 484,
+        "sha256": "c4db7cc093808265ac5bcdcd2dc586db88291541f2ab191030502b241dfe3217"
+      },
+      "exit_code": 0,
+      "scope": "Original v1 no-outcome baseline audit reused exact bytes in v2."
+    },
+    {
+      "command_index": 5,
+      "log": {
+        "path": "workspace-default-prior-attempt.log",
+        "bytes": 3586,
+        "sha256": "919203ff70163808ec8fbf642570f5048ced9f6768e6dde2cc45a33a6dec8bf5"
+      },
+      "exit_code": 1,
+      "scope": "Original v1 fail-fast broad default attempt: agent-docs passed; Bhishma226 tests/2 prerequisite errors; other four selected checks unexecuted."
+    },
+    {
+      "command_index": 6,
+      "log": {
+        "path": "independent-dev-v1.log",
+        "bytes": 2091,
+        "sha256": "15dfa961556735a2b9675b0b989dca353aa4c8511a87cd85eef4a5d961f97943"
+      },
+      "exit_code": 0,
+      "scope": "Separate independent causal replay; retained actual attempt result."
+    },
+    {
+      "command_index": 7,
+      "log": {
+        "path": "independent-later-v1.log",
+        "bytes": 4415,
+        "sha256": "948bc4de1f16cc8d24b3332b901d70b4d6b5e0e50e0f63f6f1e93bf334882a86"
+      },
+      "exit_code": 0,
+      "scope": "Separate independent causal replay; retained actual attempt result."
+    },
+    {
+      "command_index": 8,
+      "log": {
+        "path": "independent-full-v1.log",
+        "bytes": 1810,
+        "sha256": "04269e7f4b3e195eea8327f9ab62617c8f45b32cac730222360312705f4d0c2d"
+      },
+      "exit_code": 1,
+      "scope": "Separate independent causal replay; retained actual attempt result."
+    },
+    {
+      "command_index": 9,
+      "log": {
+        "path": "independent-full-v2.log",
+        "bytes": 2614,
+        "sha256": "9d49b17d9d3a78b95c30a945f97867a0bc13344e7c2f38d41e7f34203f88744a"
+      },
+      "exit_code": 1,
+      "scope": "Separate independent causal replay; retained actual attempt result."
+    },
+    {
+      "command_index": 10,
+      "log": {
+        "path": "independent-full-v3.log",
+        "bytes": 17560,
+        "sha256": "4ad47da75bcdf429b47fa7810f6ddcb7b9c205a362dd8f17ca6e1bd617d6523a"
+      },
+      "exit_code": 0,
+      "scope": "Separate independent causal replay; retained actual attempt result."
+    },
+    {
+      "command_index": 11,
+      "log": {
+        "path": "independent-publication-transfer-v1.log",
+        "bytes": 1458,
+        "sha256": "7504de14e292fc6842a03c95a66638717b1a4b7a361f9e39ec9d9c0c3f81e51f"
+      },
+      "exit_code": 1,
+      "scope": "Independent source-cell/geometry/inventory transfer; earlier checker failures retained."
+    },
+    {
+      "command_index": 12,
+      "log": {
+        "path": "independent-publication-transfer-v2.log",
+        "bytes": 275240,
+        "sha256": "451ac87f2b2f36502d80ab93423e749dd0d79cdca05e4feb7cd70618c85826a6"
+      },
+      "exit_code": 0,
+      "scope": "Independent source-cell/geometry/inventory transfer; earlier checker failures retained."
+    },
+    {
+      "command_index": 13,
+      "log": {
+        "path": "independent-publication-final-v1.log",
+        "bytes": 309255,
+        "sha256": "ea5061d95e56e3aff4d090711bc1c9c81034970812a6b70ea0dc0baca4a45711"
+      },
+      "exit_code": 0,
+      "scope": "Independent source-cell/geometry/inventory transfer; earlier checker failures retained."
+    },
+    {
+      "command_index": 14,
+      "log": {
+        "path": "independent-synthesis-v1.log",
+        "bytes": 847,
+        "sha256": "8dec4bc553d73f3961ef051a01a923f9c0a62ea2923a01403bad5522fa3cbc5c"
+      },
+      "exit_code": 1,
+      "scope": "Independent exact saved synthesis cells/decision prose."
+    },
+    {
+      "command_index": 15,
+      "log": {
+        "path": "independent-synthesis-v2.log",
+        "bytes": 8327,
+        "sha256": "251887cf16a75e5844e8ba9f4791451414340182c485153add4b903567afa6c9"
+      },
+      "exit_code": 0,
+      "scope": "Independent exact saved synthesis cells/decision prose."
+    },
+    {
+      "command_index": 16,
+      "log": {
+        "path": "independent-time-recovery-v1.log",
+        "bytes": 3519,
+        "sha256": "cd8f8529777400c3a41de8d4059a5a532d46262a774e78298eabbf6e15f5b7cf"
+      },
+      "exit_code": 0,
+      "scope": "Separate post-policy-execution breach-origin measurement verification."
+    },
+    {
+      "command_index": 17,
+      "log": {
+        "path": "time-recovery-preparation.log",
+        "bytes": 525,
+        "sha256": "bd062e6ecf1803da00ef294ae803b973126f0143af91567b0ac6372e1a3e7e27"
+      },
+      "exit_code": 0,
+      "scope": "Requested measurement froze source/input hashes before derivation; changes no policy/order/mask/selection."
+    },
+    {
+      "command_index": 18,
+      "log": {
+        "path": "report-preparation.log",
+        "bytes": 57,
+        "sha256": "ff4c4cd7a558ab12433c1549ef8d4b759145aa5ac9dcbc41e4460910d8ab1af0"
+      },
+      "exit_code": 0,
+      "scope": "Saved-cell synthesis refreshed after final publications; earlier synthesis losslessly retained."
+    },
+    {
+      "command_index": 19,
+      "log": null,
+      "exit_code": 0,
+      "scope": "Actual final native read-only publisher dry-run; exact log pin in supplemental native contract receipt."
+    },
+    {
+      "command_index": 20,
+      "log": null,
+      "exit_code": 0,
+      "scope": "Actual final native read-only publisher dry-run; exact log pin in supplemental native contract receipt."
+    },
+    {
+      "command_index": 21,
+      "log": null,
+      "exit_code": 0,
+      "scope": "Actual final native read-only publisher dry-run; exact log pin in supplemental native contract receipt."
+    },
+    {
+      "command_index": 22,
+      "log": null,
+      "exit_code": 0,
+      "scope": "Actual final native read-only publisher dry-run; exact log pin in supplemental native contract receipt."
+    },
+    {
+      "command_index": 23,
+      "log": null,
+      "exit_code": 0,
+      "scope": "Actual final native read-only publisher dry-run; exact log pin in supplemental native contract receipt."
+    },
+    {
+      "command_index": 24,
+      "log": null,
+      "exit_code": 0,
+      "scope": "Actual final native read-only publisher dry-run; exact log pin in supplemental native contract receipt."
+    },
+    {
+      "command_index": 25,
+      "log": null,
+      "exit_code": 0,
+      "scope": "Actual final native read-only publisher dry-run; exact log pin in supplemental native contract receipt."
+    },
+    {
+      "command_index": 26,
+      "log": null,
+      "exit_code": 0,
+      "scope": "Actual final native read-only publisher dry-run; exact log pin in supplemental native contract receipt."
+    },
+    {
+      "command_index": 27,
+      "log": null,
+      "exit_code": 0,
+      "scope": "Actual final native read-only publisher dry-run; exact log pin in supplemental native contract receipt."
+    },
+    {
+      "command_index": 28,
+      "log": null,
+      "exit_code": 0,
+      "scope": "Actual final native read-only publisher dry-run; exact log pin in supplemental native contract receipt."
+    },
+    {
+      "command_index": 29,
+      "log": null,
+      "exit_code": 0,
+      "scope": "Actual final native read-only publisher dry-run; exact log pin in supplemental native contract receipt."
+    },
+    {
+      "command_index": 30,
+      "log": null,
+      "exit_code": 0,
+      "scope": "Actual final native read-only publisher dry-run; exact log pin in supplemental native contract receipt."
+    },
+    {
+      "command_index": 31,
+      "log": null,
+      "exit_code": 0,
+      "scope": "Actual final native read-only publisher dry-run; exact log pin in supplemental native contract receipt."
+    },
+    {
+      "command_index": 32,
+      "log": null,
+      "exit_code": 0,
+      "scope": "Actual final native read-only publisher dry-run; exact log pin in supplemental native contract receipt."
+    },
+    {
+      "command_index": 33,
+      "log": null,
+      "exit_code": 0,
+      "scope": "Actual final native read-only publisher dry-run; exact log pin in supplemental native contract receipt."
+    },
+    {
+      "command_index": 34,
+      "log": null,
+      "exit_code": 0,
+      "scope": "Actual final native read-only publisher dry-run; exact log pin in supplemental native contract receipt."
+    },
+    {
+      "command_index": 35,
+      "log": null,
+      "exit_code": 0,
+      "scope": "Actual final native read-only publisher dry-run; exact log pin in supplemental native contract receipt."
+    },
+    {
+      "command_index": 36,
+      "log": null,
+      "exit_code": 0,
+      "scope": "Actual final native read-only publisher dry-run; exact log pin in supplemental native contract receipt."
+    },
+    {
+      "command_index": 37,
+      "log": null,
+      "exit_code": 0,
+      "scope": "Actual final native read-only publisher dry-run; exact log pin in supplemental native contract receipt."
+    },
+    {
+      "command_index": 38,
+      "log": null,
+      "exit_code": 0,
+      "scope": "Actual final native read-only publisher dry-run; exact log pin in supplemental native contract receipt."
+    },
+    {
+      "command_index": 39,
+      "log": null,
+      "exit_code": 0,
+      "scope": "Actual final native read-only publisher dry-run; exact log pin in supplemental native contract receipt."
+    },
+    {
+      "command_index": 40,
+      "log": null,
+      "exit_code": 0,
+      "scope": "Actual final native read-only publisher dry-run; exact log pin in supplemental native contract receipt."
+    },
+    {
+      "command_index": 41,
+      "log": null,
+      "exit_code": 0,
+      "scope": "Actual final native read-only publisher dry-run; exact log pin in supplemental native contract receipt."
+    },
+    {
+      "command_index": 42,
+      "log": {
+        "path": "operations-records/narada/exporter-generation-final-anchors.log",
+        "bytes": 6461,
+        "sha256": "5aa8af9689df2eb9247837c509618748f7e255836e25fc1c82aec73dd7e0df9b"
+      },
+      "exit_code": 0,
+      "scope": "Final saved-cell exporter generation; prior failed/superseded drafts remain archived."
+    },
+    {
+      "command_index": 43,
+      "log": {
+        "path": "numerical-tests/final-v1/tests.log",
+        "bytes": 436,
+        "sha256": "e008bb2879c5da54631c05a3b8df056d6ce6ec982728c98e6d05dc4cfcdaaf9b"
+      },
+      "exit_code": 0,
+      "scope": "Actual stage-bound final numerical336 tests/353 success callbacks/0 skips."
+    },
+    {
+      "command_index": 44,
+      "log": {
+        "path": "final-numerical-record.log",
+        "bytes": 240,
+        "sha256": "102730950e331535faed42bc5a0e346b46475d31cc08a53684cf669788e91160"
+      },
+      "exit_code": 0,
+      "scope": "Root actual outer final numerical recorder invocation."
+    },
+    {
+      "command_index": 45,
+      "log": null,
+      "exit_code": null,
+      "scope": "This metadata/retention preparation; exact stdin retained in sealing-preparation.stdin.txt and redirected output in sealing-preparation.log."
+    }
+  ],
+  "qualification": "commands.json follows the narrow evidence-contract argv/cwd/environment schema; details retain actual status/log/source qualifications. No recorded command was replayed by sealing preparation."
+}

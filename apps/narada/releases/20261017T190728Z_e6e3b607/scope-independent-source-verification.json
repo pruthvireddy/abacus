@@ -1,0 +1,1978 @@
+{
+  "schema_version": "abacus.narada-source-scope-independent/v1",
+  "result": "passed",
+  "at": "2026-10-17T19:06:10.025357+00:00",
+  "base_release_id": "20261013T211202Z_4c5b1446",
+  "base_release_record_sha256": "71742251e0b95a6ef9235eabb11d4ab2bb52633546c7dba89692a064798ef42d",
+  "staged_app": "apps/narada-forex-release-staging",
+  "expected_file_count": 486,
+  "exact_production_file_count": 484,
+  "changed_files": [
+    "content/release-sources.json",
+    "content/studies.json"
+  ],
+  "appended_catalog_checks": [
+    {
+      "path": "content/studies.json",
+      "result": "passed",
+      "sole_appended_identity": "25_forex_news_ema",
+      "baseline_after_removing_forex_sha256": "caef9b8a3d6b7bc340a458fcb7c5c916fe1a001651e7d2f35f6a1c03359e71b1"
+    },
+    {
+      "path": "content/release-sources.json",
+      "result": "passed",
+      "sole_appended_identity": "forex-news-ema-20261017-v1",
+      "baseline_after_removing_forex_sha256": "749824ee200ca243282f5befe53b3e00f52f837e90e8e045e48dfe3a76fa8489"
+    }
+  ],
+  "missing_files": [],
+  "extra_in_inventoried_folders": [],
+  "preservation": "All original source/schema/test/publication files match production. Local manual24 and phaseFamilies drafts are excluded from sibling only.",
+  "qualification": "Verified before Forex publisher staging; index and public bundles still equal production. Does not establish postpublish build, hosted behavior or research validity.",
+  "files": [
+    {
+      "path": ".npmrc",
+      "sha256": "7151cf397def0c2cb0ab65643701d27d335a72c90f775675b5f826bc7005818a"
+    },
+    {
+      "path": "content/release-sources.json",
+      "sha256": "f361d22736f989a86989f654281115ff5d962750760ec6abfecd1586d937f5a0"
+    },
+    {
+      "path": "content/studies.json",
+      "sha256": "175b7040a3b5e6bb73020baa443ea330d39396958703c8de69e295e653a1c38d"
+    },
+    {
+      "path": "contracts/bundle.schema.json",
+      "sha256": "d3519dc11c635c82a26b2e3ee34b59f5e0871d87a18f7f3739fb1fe122bb7125"
+    },
+    {
+      "path": "contracts/index.schema.json",
+      "sha256": "6e0b104e7ef7f70d462c0b9e5e106b5ea718624b1fb283fa3b4b3595969ff6b7"
+    },
+    {
+      "path": "contracts/report-1.0.schema.json",
+      "sha256": "0b90460d3b93e15ad9ed0ae86413e9f7e061744c65a9930b7776b6c1bab8cc54"
+    },
+    {
+      "path": "contracts/report-1.1.schema.json",
+      "sha256": "f73582653c7c2bc27263849ca3ddc1fbeda6325e7615ceb950b47d48fabb46e9"
+    },
+    {
+      "path": "contracts/report.schema.json",
+      "sha256": "475a1c26a96ee4f284b646fa7f77ad7a7bbe8d90a5ea97e0a47e1e223f2e8177"
+    },
+    {
+      "path": "contracts/studies.schema.json",
+      "sha256": "3a89d32a3a49db2f95cacd0d3d2331fe462cd9112a84eeff95bc6abb749221f6"
+    },
+    {
+      "path": "eslint.config.mjs",
+      "sha256": "9b89a24d54c69cf468ce712055b7acce9a03ca7d80bbb13fa077f61f4a64e276"
+    },
+    {
+      "path": "examples/report.json",
+      "sha256": "35fc736c7c53c3f5e9b2ac191acd71ca80dff25a7792c3d70288a06b2806c5a8"
+    },
+    {
+      "path": "next-env.d.ts",
+      "sha256": "7b550dda9686c16f36a17bf9051d5dbf31e98555b30d114ac49fc49a1e712651"
+    },
+    {
+      "path": "next.config.ts",
+      "sha256": "5a09e5efcbee1761b34ad5de65d2425e424e592ef02f2cbe9cbf99929528ba02"
+    },
+    {
+      "path": "package-lock.json",
+      "sha256": "b53dfd002799ba1c70a4b86a43ba6c8c999d206449d6eeadfde492cb0586686f"
+    },
+    {
+      "path": "package.json",
+      "sha256": "025b28b0d22efbd4d37585993bbaac3c5e1b017464258ba721fce566a6010500"
+    },
+    {
+      "path": "public/publications/01-reversal-follow-through-20261006-web/report.json",
+      "sha256": "86e529ea17d62cb603b5a8ec8e2a548e2d094e34ae610c4db84cb303c2190e17"
+    },
+    {
+      "path": "public/publications/02-followthrough-candle-adverse-20261006-web/report.json",
+      "sha256": "4211fd3b7a473e9b69f1ab7cd9c604ee82d9d685794976564dd89a8ef6402d98"
+    },
+    {
+      "path": "public/publications/03-multi-rxv-alignment-20261006-web/report.json",
+      "sha256": "23087ea2c8d428dd703a10b7319ddad756db1716cab19b7a9e311228095d0c98"
+    },
+    {
+      "path": "public/publications/04-reversal-candle-quality-20261006-web/report.json",
+      "sha256": "6b78b1eeae3d729bf9db8362ffd42a7192ee80394af510a7500dd995188ce14d"
+    },
+    {
+      "path": "public/publications/06-vwap-state-dynamics-20261006-web/report.json",
+      "sha256": "a5f489d500603d15080f1219ae776041637736d1a298a76ff8206c1ca763a9d0"
+    },
+    {
+      "path": "public/publications/07-range-xv-edge-candidates-20261006-web/report.json",
+      "sha256": "991641916ac77cbce031409c3fdef76c6bf88c21dad1d3202341105175c60e1c"
+    },
+    {
+      "path": "public/publications/08-countertrend-bar-continuation-20261006-web-r2/report.json",
+      "sha256": "4e32c17af5b91554c793745e536d9faefd4e203d497c4d5db44136d6b0088732"
+    },
+    {
+      "path": "public/publications/08-countertrend-bar-continuation-20261006-web/report.json",
+      "sha256": "5d072e518bea433cc856fe9db4902b126e50199c1c0d354da75fa9643627bf61"
+    },
+    {
+      "path": "public/publications/09-range-xv-c2-confirmation-20261006-web/report.json",
+      "sha256": "a1b8bb6e0bf72f2ddc2a04b061dcc6dbc79bbdb78f2ee7c74fcf16a64f1e8380"
+    },
+    {
+      "path": "public/publications/10-range-xv-session-overlay-20261006-web-r2/report.json",
+      "sha256": "aceea386c4864e506ee11e9b6b556ff4516353354ea33f98534c5726a1cac432"
+    },
+    {
+      "path": "public/publications/10-range-xv-session-overlay-20261006-web/report.json",
+      "sha256": "609e369e852d1815a4afe9fdbb1cb43768d48bddf28fd6fa66f7f6fd47787d28"
+    },
+    {
+      "path": "public/publications/11-vwap-conditional-probabilities-20261006-web/report.json",
+      "sha256": "0e1a12a4e1ae5ddb321e1cc3e790fd4dc8238f1573068cc1c333e405d555bac4"
+    },
+    {
+      "path": "public/publications/12-gc-ema-band-excursions-20261006-web/report.json",
+      "sha256": "223a20e5e2c0295753663cedf32ec0811573fe2dffa0a56c5a3efc8bb731e5a4"
+    },
+    {
+      "path": "public/publications/12-gc-ema-band-excursions-20261007-evidence/downloads/gc-cooldown10-year-horizon.csv",
+      "sha256": "c2f90ac4d8c295675c803089cf876626b7347dc740216169d6c4d70efda1d713"
+    },
+    {
+      "path": "public/publications/12-gc-ema-band-excursions-20261007-evidence/figures/yearly-excursions.png",
+      "sha256": "09851707f3d7bed185aee60f3f0ea2ee31a16aaf3c856c64a2088c3725d63c2b"
+    },
+    {
+      "path": "public/publications/12-gc-ema-band-excursions-20261007-evidence/report.json",
+      "sha256": "b36c6bc2b4e930dc03004d6b384957b46c1beccf60600f99891b2518d549863b"
+    },
+    {
+      "path": "public/publications/13-gc-ema-band-filter-validation-20261006-web/report.json",
+      "sha256": "6e5231b5a115a85cc84ca2e94b7e2a422ddef81b35c75c4ce42b27863ef1ea38"
+    },
+    {
+      "path": "public/publications/14-asia-session-vp-levels-20261006-web/report.json",
+      "sha256": "ea220e054ad02268a8c1312fcd31af9ce02449b3a789236e70346060d7b13daf"
+    },
+    {
+      "path": "public/publications/15-vwap-excursion-response-20261006-web/report.json",
+      "sha256": "a317a9a01a5ad002b434d2972ff30daa9b42a65aa677d6d8a6efbfbec037e1a2"
+    },
+    {
+      "path": "public/publications/15-vwap-excursion-response-20261007-evidence/downloads/vwap-departure-20-100-minutes.csv",
+      "sha256": "4d975d79582880f6538749eb3504feec2a194c312f09cfc14c30fb5188fc5c59"
+    },
+    {
+      "path": "public/publications/15-vwap-excursion-response-20261007-evidence/downloads/vwap-touch-endpoint-20-100-minutes.csv",
+      "sha256": "99174e8ed160dc32196cd668b65b2d1a64184f2d0d89175b6bee9a2129232d23"
+    },
+    {
+      "path": "public/publications/15-vwap-excursion-response-20261007-evidence/figures/es-asia-non-return.png",
+      "sha256": "12b74d80d5c43b04f5204107aaafefa2579d2d18fb72156afef2851d990a2fdc"
+    },
+    {
+      "path": "public/publications/15-vwap-excursion-response-20261007-evidence/figures/es-asia-return.png",
+      "sha256": "1c3ff4d09200bccf93b8deabc0897f6e5f37ad076d4c8b039f258f07ac20326b"
+    },
+    {
+      "path": "public/publications/15-vwap-excursion-response-20261007-evidence/report.json",
+      "sha256": "d7b535499d18da4f7d6544c09a2ac901616c7dcf09aae0641b805b29d6862e3a"
+    },
+    {
+      "path": "public/publications/16-range-xv-reversal-paths-20261006-web/report.json",
+      "sha256": "46ef77033e0c69a1f23764336d537ac51dac942e2cd474a3badbdd4056308811"
+    },
+    {
+      "path": "public/publications/16-range-xv-reversal-paths-20261007-evidence/downloads/fx-colour-continuation.csv",
+      "sha256": "94b965f6f7ec60070538de7e645689367f72f53a4e24ec75fd07bf977f1d07f2"
+    },
+    {
+      "path": "public/publications/16-range-xv-reversal-paths-20261007-evidence/downloads/fx-later-primary-prediction.csv",
+      "sha256": "b64ac3480bd2e029ffbee780ced2bacc20aefcf4a62283a50d40e68d6b5b8c5d"
+    },
+    {
+      "path": "public/publications/16-range-xv-reversal-paths-20261007-evidence/downloads/fx-strict-three-bar-paths.csv",
+      "sha256": "576956b6b55afb314b9381302b151f900e059a89369d795d9642149e29063e46"
+    },
+    {
+      "path": "public/publications/16-range-xv-reversal-paths-20261007-evidence/figures/6j4-bearish-l2-f0.png",
+      "sha256": "4cdab6eaf179ed12f222a846a2e6732740820824bf1f26573ea290c4eb48ab4a"
+    },
+    {
+      "path": "public/publications/16-range-xv-reversal-paths-20261007-evidence/figures/6j4-bearish-l3-f4.png",
+      "sha256": "4a2435930754a80158da14551453cf7a118eb571964412fc2be5b63447707f9b"
+    },
+    {
+      "path": "public/publications/16-range-xv-reversal-paths-20261007-evidence/report.json",
+      "sha256": "bbc466bc3e96e620254ec5e5da766c7c664bbe596b22eee78f0176b390402675"
+    },
+    {
+      "path": "public/publications/camarilla-ema-20261008t220932z-cb2711/downloads/annual-core.csv",
+      "sha256": "c7c21986ce310d812fc6966607fba0e1681a58bc758bbbfc699ad36516621401"
+    },
+    {
+      "path": "public/publications/camarilla-ema-20261008t220932z-cb2711/downloads/es-weekly.csv",
+      "sha256": "87a1dbc0cfcbd5b31828e986b2d0bb1bc0fdfcca4c6a1b08e89d95e0234099f2"
+    },
+    {
+      "path": "public/publications/camarilla-ema-20261008t220932z-cb2711/downloads/final-horizons.csv",
+      "sha256": "9a474446c8926a5cfacc17cf02859bfd82b7fbac71da11112d1c62bef54af0d4"
+    },
+    {
+      "path": "public/publications/camarilla-ema-20261008t220932z-cb2711/downloads/final-policy.csv",
+      "sha256": "1b5046d51d2a3f6b8b398e869350b253500b3a36f4d39342da703462aa6a3077"
+    },
+    {
+      "path": "public/publications/camarilla-ema-20261008t220932z-cb2711/figures/annual_stability.png",
+      "sha256": "051217b98285ac4fa55be23e189e95399c6a2f06f7a5410a629bbdb3f0f8bbdf"
+    },
+    {
+      "path": "public/publications/camarilla-ema-20261008t220932z-cb2711/figures/cloud_grid.png",
+      "sha256": "867a6fabce6215216856cacf906bd7e007ccdd8918a723f868f5559f69f77005"
+    },
+    {
+      "path": "public/publications/camarilla-ema-20261008t220932z-cb2711/figures/horizons.png",
+      "sha256": "5d0ea8fbbff59b8870defe7f14c9b5576864cfe902c1a945b66e40286f37aee7"
+    },
+    {
+      "path": "public/publications/camarilla-ema-20261008t220932z-cb2711/figures/joint_excursions.png",
+      "sha256": "a751cff6b4fa1063275c2c7a10839cd0222132697ad66447829d702e1bc5d0e3"
+    },
+    {
+      "path": "public/publications/camarilla-ema-20261008t220932z-cb2711/figures/policy_costs.png",
+      "sha256": "bfa12c1fd709c5cf094d2eaf2b72eed924ae2bd76407e5bd4fa2e07dd3f06ac6"
+    },
+    {
+      "path": "public/publications/camarilla-ema-20261008t220932z-cb2711/figures/threshold_ordering.png",
+      "sha256": "5f24c052bd0cca7b102e386f73b9acb87fe7b3faa4a7f147a1e332af96914405"
+    },
+    {
+      "path": "public/publications/camarilla-ema-20261008t220932z-cb2711/report.json",
+      "sha256": "382f32afb3f6d2aa5fec784fed138b9756bc1967ec8a0d23e7f66b65d75f6f82"
+    },
+    {
+      "path": "public/publications/es-range-xv-pullback-continuation-4t-20261012-patterns-r1/downloads/known-outcomes.csv",
+      "sha256": "c0b819481d2c23773f7c3fc7ec6083b17ace674f698ec5a980d398826d01203f"
+    },
+    {
+      "path": "public/publications/es-range-xv-pullback-continuation-4t-20261012-patterns-r1/downloads/probabilities.csv",
+      "sha256": "b987ab9e50a4bbb709d0c0fa6a1e8e159ffe19cdbc4f8d5aa14321127a2f5927"
+    },
+    {
+      "path": "public/publications/es-range-xv-pullback-continuation-4t-20261012-patterns-r1/downloads/successes.csv",
+      "sha256": "93b0bae3fd9888fea7fb0e00fe9d08d64c793b6c1c9ec9e63156d62ae878e35d"
+    },
+    {
+      "path": "public/publications/es-range-xv-pullback-continuation-4t-20261012-patterns-r1/downloads/unknown-outcomes.csv",
+      "sha256": "972b57d52cb13c8be466e7e9f359a134e913531925106d4ece2a8937914d9703"
+    },
+    {
+      "path": "public/publications/es-range-xv-pullback-continuation-4t-20261012-patterns-r1/report.json",
+      "sha256": "ca79d0c310cee5e6760440f17353e6539b659d2b2181e49e5d9c7d2d7d37004f"
+    },
+    {
+      "path": "public/publications/es-range-xv-pullback-continuation-4t-20261012/downloads/known-outcomes.csv",
+      "sha256": "c0b819481d2c23773f7c3fc7ec6083b17ace674f698ec5a980d398826d01203f"
+    },
+    {
+      "path": "public/publications/es-range-xv-pullback-continuation-4t-20261012/downloads/probabilities.csv",
+      "sha256": "b987ab9e50a4bbb709d0c0fa6a1e8e159ffe19cdbc4f8d5aa14321127a2f5927"
+    },
+    {
+      "path": "public/publications/es-range-xv-pullback-continuation-4t-20261012/downloads/successes.csv",
+      "sha256": "93b0bae3fd9888fea7fb0e00fe9d08d64c793b6c1c9ec9e63156d62ae878e35d"
+    },
+    {
+      "path": "public/publications/es-range-xv-pullback-continuation-4t-20261012/downloads/unknown-outcomes.csv",
+      "sha256": "972b57d52cb13c8be466e7e9f359a134e913531925106d4ece2a8937914d9703"
+    },
+    {
+      "path": "public/publications/es-range-xv-pullback-continuation-4t-20261012/report.json",
+      "sha256": "0032796f69f1c3e21cf005a8c4478c541245069c6e261fa862cf5027be2857e7"
+    },
+    {
+      "path": "public/publications/es-range-xv-pullback-continuation-5t-20261012-patterns-r1/downloads/known-outcomes.csv",
+      "sha256": "563ddb99504f92bff5cf4d3663c196567b7ff0eee8b852928ca3102060b47ac7"
+    },
+    {
+      "path": "public/publications/es-range-xv-pullback-continuation-5t-20261012-patterns-r1/downloads/probabilities.csv",
+      "sha256": "b6c1ab4a6dd008884abb99f7cddd50a7f5aa18d630157d62945a45dbc2850509"
+    },
+    {
+      "path": "public/publications/es-range-xv-pullback-continuation-5t-20261012-patterns-r1/downloads/successes.csv",
+      "sha256": "5e22e4cb36751ce38bd5b501b4215640b321f702ef5c2e1371960b6e62bc1ae0"
+    },
+    {
+      "path": "public/publications/es-range-xv-pullback-continuation-5t-20261012-patterns-r1/downloads/unknown-outcomes.csv",
+      "sha256": "fb2258217d2cdb4c5127c7806d3763148616ecb208c044891626e761900d668d"
+    },
+    {
+      "path": "public/publications/es-range-xv-pullback-continuation-5t-20261012-patterns-r1/report.json",
+      "sha256": "897faae3064d589784d1cc7c47e92976286c72fc5d169efa82d2d8ac4c59c9bd"
+    },
+    {
+      "path": "public/publications/es-range-xv-pullback-continuation-5t-20261012/downloads/known-outcomes.csv",
+      "sha256": "563ddb99504f92bff5cf4d3663c196567b7ff0eee8b852928ca3102060b47ac7"
+    },
+    {
+      "path": "public/publications/es-range-xv-pullback-continuation-5t-20261012/downloads/probabilities.csv",
+      "sha256": "b6c1ab4a6dd008884abb99f7cddd50a7f5aa18d630157d62945a45dbc2850509"
+    },
+    {
+      "path": "public/publications/es-range-xv-pullback-continuation-5t-20261012/downloads/successes.csv",
+      "sha256": "5e22e4cb36751ce38bd5b501b4215640b321f702ef5c2e1371960b6e62bc1ae0"
+    },
+    {
+      "path": "public/publications/es-range-xv-pullback-continuation-5t-20261012/downloads/unknown-outcomes.csv",
+      "sha256": "fb2258217d2cdb4c5127c7806d3763148616ecb208c044891626e761900d668d"
+    },
+    {
+      "path": "public/publications/es-range-xv-pullback-continuation-5t-20261012/report.json",
+      "sha256": "15c16267c15d4edf6b1d4e526136d23f92f3df90f63fce9fc05a8e02a70eb4ab"
+    },
+    {
+      "path": "public/publications/es-range-xv-pullback-continuation-6t-20261012-patterns-r1/downloads/known-outcomes.csv",
+      "sha256": "5ace73bba8ad6d921a7dd4b9028c23e753623078f2fc6744807f562ed7c59068"
+    },
+    {
+      "path": "public/publications/es-range-xv-pullback-continuation-6t-20261012-patterns-r1/downloads/probabilities.csv",
+      "sha256": "ce6ecc69eba4a1aff7654ec702f9cf75308d27599a33ac9bb3a9a2f99435ac8e"
+    },
+    {
+      "path": "public/publications/es-range-xv-pullback-continuation-6t-20261012-patterns-r1/downloads/successes.csv",
+      "sha256": "04ca12c3912656e14076e100febd8fa2caab54fa60874d3b686ebe46f7a51080"
+    },
+    {
+      "path": "public/publications/es-range-xv-pullback-continuation-6t-20261012-patterns-r1/downloads/unknown-outcomes.csv",
+      "sha256": "6e02260e7271d3889d255caf7d63924a61786b9d94a989ebd1264321585cf063"
+    },
+    {
+      "path": "public/publications/es-range-xv-pullback-continuation-6t-20261012-patterns-r1/report.json",
+      "sha256": "6f33da47b990c7c3ad25913e90cf8cfcf95e4f3d47b11223a85a11d70d4548bd"
+    },
+    {
+      "path": "public/publications/es-range-xv-pullback-continuation-6t-20261012/downloads/known-outcomes.csv",
+      "sha256": "5ace73bba8ad6d921a7dd4b9028c23e753623078f2fc6744807f562ed7c59068"
+    },
+    {
+      "path": "public/publications/es-range-xv-pullback-continuation-6t-20261012/downloads/probabilities.csv",
+      "sha256": "ce6ecc69eba4a1aff7654ec702f9cf75308d27599a33ac9bb3a9a2f99435ac8e"
+    },
+    {
+      "path": "public/publications/es-range-xv-pullback-continuation-6t-20261012/downloads/successes.csv",
+      "sha256": "04ca12c3912656e14076e100febd8fa2caab54fa60874d3b686ebe46f7a51080"
+    },
+    {
+      "path": "public/publications/es-range-xv-pullback-continuation-6t-20261012/downloads/unknown-outcomes.csv",
+      "sha256": "6e02260e7271d3889d255caf7d63924a61786b9d94a989ebd1264321585cf063"
+    },
+    {
+      "path": "public/publications/es-range-xv-pullback-continuation-6t-20261012/report.json",
+      "sha256": "d08db0538965dcd43d0e1a5caad8495d2f7598c2f68b1954a27147ded08a041d"
+    },
+    {
+      "path": "public/publications/es-range-xv-pullback-payoff-4t-20261012-patterns-r1/downloads/gross-ohlc-payoff.csv",
+      "sha256": "f40371cc36120c82440cda462228e5266996eab555da095cf1a56a305fe219a8"
+    },
+    {
+      "path": "public/publications/es-range-xv-pullback-payoff-4t-20261012-patterns-r1/downloads/payoff-resolution.csv",
+      "sha256": "df89f3910467b04d74a8559e4ae98cb47b8fe30e2a6e449eb5fdef628cb10940"
+    },
+    {
+      "path": "public/publications/es-range-xv-pullback-payoff-4t-20261012-patterns-r1/report.json",
+      "sha256": "52ea05baedca45de2e1693f013694fa598228a01b135e728847849c2e3e459ee"
+    },
+    {
+      "path": "public/publications/es-range-xv-pullback-payoff-4t-20261012/downloads/gross-ohlc-payoff.csv",
+      "sha256": "f40371cc36120c82440cda462228e5266996eab555da095cf1a56a305fe219a8"
+    },
+    {
+      "path": "public/publications/es-range-xv-pullback-payoff-4t-20261012/downloads/payoff-resolution.csv",
+      "sha256": "df89f3910467b04d74a8559e4ae98cb47b8fe30e2a6e449eb5fdef628cb10940"
+    },
+    {
+      "path": "public/publications/es-range-xv-pullback-payoff-4t-20261012/report.json",
+      "sha256": "5b29e36eef6c4e48e272f5f74ddb2f0e3e6776c31843f9b32f03cab769fb745a"
+    },
+    {
+      "path": "public/publications/es-range-xv-pullback-payoff-5t-20261012-patterns-r1/downloads/gross-ohlc-payoff.csv",
+      "sha256": "6abe0523e707a9b59bb8a73915c8f42ae6f873071c8d84575079e45ad16e46a4"
+    },
+    {
+      "path": "public/publications/es-range-xv-pullback-payoff-5t-20261012-patterns-r1/downloads/payoff-resolution.csv",
+      "sha256": "c3919a99c436a936c1e4561ab4c0bc358a84e004f742fa3f5fb03e4d2205dbf8"
+    },
+    {
+      "path": "public/publications/es-range-xv-pullback-payoff-5t-20261012-patterns-r1/report.json",
+      "sha256": "c8d548d0bbb4c73eb485ee49639c30c57608b22f1eca42b02b24c94e698abc10"
+    },
+    {
+      "path": "public/publications/es-range-xv-pullback-payoff-5t-20261012/downloads/gross-ohlc-payoff.csv",
+      "sha256": "6abe0523e707a9b59bb8a73915c8f42ae6f873071c8d84575079e45ad16e46a4"
+    },
+    {
+      "path": "public/publications/es-range-xv-pullback-payoff-5t-20261012/downloads/payoff-resolution.csv",
+      "sha256": "c3919a99c436a936c1e4561ab4c0bc358a84e004f742fa3f5fb03e4d2205dbf8"
+    },
+    {
+      "path": "public/publications/es-range-xv-pullback-payoff-5t-20261012/report.json",
+      "sha256": "01b58811769bd86c7e7e0955f2d458a2b76fc72167eae28ef132ec9bd89cb392"
+    },
+    {
+      "path": "public/publications/es-range-xv-pullback-payoff-6t-20261012-patterns-r1/downloads/gross-ohlc-payoff.csv",
+      "sha256": "c943257c2866498fd90df0f61636bd49b0b2dba85af0d4a754c49552382699f9"
+    },
+    {
+      "path": "public/publications/es-range-xv-pullback-payoff-6t-20261012-patterns-r1/downloads/payoff-resolution.csv",
+      "sha256": "23d78e0a68c3072fc3c85c23844965cc34922d77f2cbfb281cef2336cdcc752c"
+    },
+    {
+      "path": "public/publications/es-range-xv-pullback-payoff-6t-20261012-patterns-r1/report.json",
+      "sha256": "fbfaec968693c3c767044bcf6c01f61838f15335a72dbb60d240e07c71b9bb5f"
+    },
+    {
+      "path": "public/publications/es-range-xv-pullback-payoff-6t-20261012/downloads/gross-ohlc-payoff.csv",
+      "sha256": "c943257c2866498fd90df0f61636bd49b0b2dba85af0d4a754c49552382699f9"
+    },
+    {
+      "path": "public/publications/es-range-xv-pullback-payoff-6t-20261012/downloads/payoff-resolution.csv",
+      "sha256": "23d78e0a68c3072fc3c85c23844965cc34922d77f2cbfb281cef2336cdcc752c"
+    },
+    {
+      "path": "public/publications/es-range-xv-pullback-payoff-6t-20261012/report.json",
+      "sha256": "62cd4927a933817e0cb2b045072874416a4482d08781aaae9872c34b6accc235"
+    },
+    {
+      "path": "public/publications/es-range-xv-pullback-retracement-4t-20261012-patterns-r1/downloads/retracement-recovery.csv",
+      "sha256": "c1e9359f04d3da6ae0ac3fd40b3718d05066e759d0d7a84b35836380b3063f49"
+    },
+    {
+      "path": "public/publications/es-range-xv-pullback-retracement-4t-20261012-patterns-r1/downloads/setup-samples.csv",
+      "sha256": "2123f49a800d9cfa26727077000719e8e3b97c33c64e1fda722aa004a58df929"
+    },
+    {
+      "path": "public/publications/es-range-xv-pullback-retracement-4t-20261012-patterns-r1/report.json",
+      "sha256": "389355539b9f252ab0d3b07d8786df983e155aa54c57c4dd122850bce15bea0c"
+    },
+    {
+      "path": "public/publications/es-range-xv-pullback-retracement-4t-20261012/downloads/retracement-recovery.csv",
+      "sha256": "c1e9359f04d3da6ae0ac3fd40b3718d05066e759d0d7a84b35836380b3063f49"
+    },
+    {
+      "path": "public/publications/es-range-xv-pullback-retracement-4t-20261012/downloads/setup-samples.csv",
+      "sha256": "2123f49a800d9cfa26727077000719e8e3b97c33c64e1fda722aa004a58df929"
+    },
+    {
+      "path": "public/publications/es-range-xv-pullback-retracement-4t-20261012/report.json",
+      "sha256": "60e0e9eca478ff09afdc9e0554a0057d0a7015453ab1824071b41b57c73e3bfb"
+    },
+    {
+      "path": "public/publications/es-range-xv-pullback-retracement-5t-20261012-patterns-r1/downloads/retracement-recovery.csv",
+      "sha256": "cdd26470026108ac8a1adfada8fb8a53f23be09c779d5aef4d23b3eff86ae8c2"
+    },
+    {
+      "path": "public/publications/es-range-xv-pullback-retracement-5t-20261012-patterns-r1/downloads/setup-samples.csv",
+      "sha256": "f592530751f2192a328968252eb6d769e703a1e03077f5fe992269f8c7128a12"
+    },
+    {
+      "path": "public/publications/es-range-xv-pullback-retracement-5t-20261012-patterns-r1/report.json",
+      "sha256": "bf66e8f13f7926e168d5d86f6ec3254eae76650d7981877a085adddd38bc5ff8"
+    },
+    {
+      "path": "public/publications/es-range-xv-pullback-retracement-5t-20261012/downloads/retracement-recovery.csv",
+      "sha256": "cdd26470026108ac8a1adfada8fb8a53f23be09c779d5aef4d23b3eff86ae8c2"
+    },
+    {
+      "path": "public/publications/es-range-xv-pullback-retracement-5t-20261012/downloads/setup-samples.csv",
+      "sha256": "f592530751f2192a328968252eb6d769e703a1e03077f5fe992269f8c7128a12"
+    },
+    {
+      "path": "public/publications/es-range-xv-pullback-retracement-5t-20261012/report.json",
+      "sha256": "0843cdb7dee6be6d88c42fc92ea33f6c9ef662032bd5dd4a9e4df79f1f346d5e"
+    },
+    {
+      "path": "public/publications/es-range-xv-pullback-retracement-6t-20261012-patterns-r1/downloads/retracement-recovery.csv",
+      "sha256": "353c885404c96c47d9ef6e2717e2e82cd874384d1cda00a3c544581de739f869"
+    },
+    {
+      "path": "public/publications/es-range-xv-pullback-retracement-6t-20261012-patterns-r1/downloads/setup-samples.csv",
+      "sha256": "0cb3eacc2a7aa176cb5156ed5db799183117ed0055920fe0d8ddd51f7d694ca1"
+    },
+    {
+      "path": "public/publications/es-range-xv-pullback-retracement-6t-20261012-patterns-r1/report.json",
+      "sha256": "57323c89620bb85b19583c90d0539da3247e99d3717ec54190628dcd37694166"
+    },
+    {
+      "path": "public/publications/es-range-xv-pullback-retracement-6t-20261012/downloads/retracement-recovery.csv",
+      "sha256": "353c885404c96c47d9ef6e2717e2e82cd874384d1cda00a3c544581de739f869"
+    },
+    {
+      "path": "public/publications/es-range-xv-pullback-retracement-6t-20261012/downloads/setup-samples.csv",
+      "sha256": "0cb3eacc2a7aa176cb5156ed5db799183117ed0055920fe0d8ddd51f7d694ca1"
+    },
+    {
+      "path": "public/publications/es-range-xv-pullback-retracement-6t-20261012/report.json",
+      "sha256": "15c05ee7bdae5c1ce9d334e583c1a6fd4d20b99e13f79a394754c36b9c437a9e"
+    },
+    {
+      "path": "public/publications/es-range-xv-reversal-continuation-4t-20261012-patterns-r1/downloads/known-outcomes.csv",
+      "sha256": "e90e0abb7b6792f3cb93c4092c0e0e7014714451caaf0f760cd034f524f53500"
+    },
+    {
+      "path": "public/publications/es-range-xv-reversal-continuation-4t-20261012-patterns-r1/downloads/probabilities.csv",
+      "sha256": "22d02bf77cb83d5b7a786fd41ab38a66461f378cde35b5e83747e659da87f90d"
+    },
+    {
+      "path": "public/publications/es-range-xv-reversal-continuation-4t-20261012-patterns-r1/downloads/successes.csv",
+      "sha256": "b0d75a8d74730e57228b29da5145123010754bfc56a212d2713cb794b7ae957d"
+    },
+    {
+      "path": "public/publications/es-range-xv-reversal-continuation-4t-20261012-patterns-r1/downloads/unknown-outcomes.csv",
+      "sha256": "97a8c53d5f431f12ee58c719d93a00033c276902b5db8977328cfd0beabf7709"
+    },
+    {
+      "path": "public/publications/es-range-xv-reversal-continuation-4t-20261012-patterns-r1/report.json",
+      "sha256": "9d051cf30e5bf8ef1fb717033ff071d958a1542c5157dea7e159772e623a7ebe"
+    },
+    {
+      "path": "public/publications/es-range-xv-reversal-continuation-4t-20261012/downloads/known-outcomes.csv",
+      "sha256": "e90e0abb7b6792f3cb93c4092c0e0e7014714451caaf0f760cd034f524f53500"
+    },
+    {
+      "path": "public/publications/es-range-xv-reversal-continuation-4t-20261012/downloads/probabilities.csv",
+      "sha256": "22d02bf77cb83d5b7a786fd41ab38a66461f378cde35b5e83747e659da87f90d"
+    },
+    {
+      "path": "public/publications/es-range-xv-reversal-continuation-4t-20261012/downloads/successes.csv",
+      "sha256": "b0d75a8d74730e57228b29da5145123010754bfc56a212d2713cb794b7ae957d"
+    },
+    {
+      "path": "public/publications/es-range-xv-reversal-continuation-4t-20261012/downloads/unknown-outcomes.csv",
+      "sha256": "97a8c53d5f431f12ee58c719d93a00033c276902b5db8977328cfd0beabf7709"
+    },
+    {
+      "path": "public/publications/es-range-xv-reversal-continuation-4t-20261012/report.json",
+      "sha256": "ff232233ce0f08fe7c4e34ecf229eca59cfdfb3069e5a90f4dc0596e18b3c38a"
+    },
+    {
+      "path": "public/publications/es-range-xv-reversal-continuation-5t-20261012-patterns-r1/downloads/known-outcomes.csv",
+      "sha256": "61cbfd5b238afc82b95728e3f3202a131825299f44df09fcc0bc2b69127ad14c"
+    },
+    {
+      "path": "public/publications/es-range-xv-reversal-continuation-5t-20261012-patterns-r1/downloads/probabilities.csv",
+      "sha256": "c3e45fab432c11fdf1e2dcac00f8517d376e88195c54b46537fa2bbc98a9e7d2"
+    },
+    {
+      "path": "public/publications/es-range-xv-reversal-continuation-5t-20261012-patterns-r1/downloads/successes.csv",
+      "sha256": "6bc2ec3e421ddcbdfa58f6d0d5c4177459061a0bccb62fca2ecf7fe9370b872c"
+    },
+    {
+      "path": "public/publications/es-range-xv-reversal-continuation-5t-20261012-patterns-r1/downloads/unknown-outcomes.csv",
+      "sha256": "13beef3e6e409d0daf12221c20b7000fd25719a6a6a7f09956cc0175249b9c8e"
+    },
+    {
+      "path": "public/publications/es-range-xv-reversal-continuation-5t-20261012-patterns-r1/report.json",
+      "sha256": "51147426d6cbe20690e5da18ae38ba0ba18525fc3c9ee0c3341c78102bf415c6"
+    },
+    {
+      "path": "public/publications/es-range-xv-reversal-continuation-5t-20261012/downloads/known-outcomes.csv",
+      "sha256": "61cbfd5b238afc82b95728e3f3202a131825299f44df09fcc0bc2b69127ad14c"
+    },
+    {
+      "path": "public/publications/es-range-xv-reversal-continuation-5t-20261012/downloads/probabilities.csv",
+      "sha256": "c3e45fab432c11fdf1e2dcac00f8517d376e88195c54b46537fa2bbc98a9e7d2"
+    },
+    {
+      "path": "public/publications/es-range-xv-reversal-continuation-5t-20261012/downloads/successes.csv",
+      "sha256": "6bc2ec3e421ddcbdfa58f6d0d5c4177459061a0bccb62fca2ecf7fe9370b872c"
+    },
+    {
+      "path": "public/publications/es-range-xv-reversal-continuation-5t-20261012/downloads/unknown-outcomes.csv",
+      "sha256": "13beef3e6e409d0daf12221c20b7000fd25719a6a6a7f09956cc0175249b9c8e"
+    },
+    {
+      "path": "public/publications/es-range-xv-reversal-continuation-5t-20261012/report.json",
+      "sha256": "6153e31a1fa087dece562add5feb5032552d693c765237613d0cd9d72136ea52"
+    },
+    {
+      "path": "public/publications/es-range-xv-reversal-continuation-6t-20261012-patterns-r1/downloads/known-outcomes.csv",
+      "sha256": "e12fdbdc1dcaf4220cb4b831407090d20833961f7e4f7e16fd94bd7c1a9e8d3d"
+    },
+    {
+      "path": "public/publications/es-range-xv-reversal-continuation-6t-20261012-patterns-r1/downloads/probabilities.csv",
+      "sha256": "035af09eb38e0df59b4304535ae4f6b2a2408b5e1f971817cb78f876ecf3469c"
+    },
+    {
+      "path": "public/publications/es-range-xv-reversal-continuation-6t-20261012-patterns-r1/downloads/successes.csv",
+      "sha256": "99e0ab0bb4e7802eea040f68fed85ffd9401de05796b92076d4330d88a932800"
+    },
+    {
+      "path": "public/publications/es-range-xv-reversal-continuation-6t-20261012-patterns-r1/downloads/unknown-outcomes.csv",
+      "sha256": "73d0d27263297c01ed5558c6975ddc18cfc418ab023539f900328e04f293b9d9"
+    },
+    {
+      "path": "public/publications/es-range-xv-reversal-continuation-6t-20261012-patterns-r1/report.json",
+      "sha256": "4d962800ac44442d39baab84355918ca4c925cfe33208fec386b5e026adc28ed"
+    },
+    {
+      "path": "public/publications/es-range-xv-reversal-continuation-6t-20261012/downloads/known-outcomes.csv",
+      "sha256": "e12fdbdc1dcaf4220cb4b831407090d20833961f7e4f7e16fd94bd7c1a9e8d3d"
+    },
+    {
+      "path": "public/publications/es-range-xv-reversal-continuation-6t-20261012/downloads/probabilities.csv",
+      "sha256": "035af09eb38e0df59b4304535ae4f6b2a2408b5e1f971817cb78f876ecf3469c"
+    },
+    {
+      "path": "public/publications/es-range-xv-reversal-continuation-6t-20261012/downloads/successes.csv",
+      "sha256": "99e0ab0bb4e7802eea040f68fed85ffd9401de05796b92076d4330d88a932800"
+    },
+    {
+      "path": "public/publications/es-range-xv-reversal-continuation-6t-20261012/downloads/unknown-outcomes.csv",
+      "sha256": "73d0d27263297c01ed5558c6975ddc18cfc418ab023539f900328e04f293b9d9"
+    },
+    {
+      "path": "public/publications/es-range-xv-reversal-continuation-6t-20261012/report.json",
+      "sha256": "9be9c8958a6af1d88408eae0459d656a7c9e9120644d2359e24ad5012a7aaeeb"
+    },
+    {
+      "path": "public/publications/es-range-xv-reversal-retracement-4t-20261012-patterns-r1/downloads/retracement-recovery.csv",
+      "sha256": "bbb2df72a98076afb30541afa39478185814be15415d9a4570cb28c3b67f80d7"
+    },
+    {
+      "path": "public/publications/es-range-xv-reversal-retracement-4t-20261012-patterns-r1/downloads/reversal-samples.csv",
+      "sha256": "ee4c30a6eb9a4551e313eed0cb5bb6c1b3a9ad330165dc71d1bf77201aa14a84"
+    },
+    {
+      "path": "public/publications/es-range-xv-reversal-retracement-4t-20261012-patterns-r1/report.json",
+      "sha256": "4fe28ce81f5ee7cb93c39ebf81ed3f3c771d80405a03802686669b1814e89ab7"
+    },
+    {
+      "path": "public/publications/es-range-xv-reversal-retracement-4t-20261012/downloads/retracement-recovery.csv",
+      "sha256": "bbb2df72a98076afb30541afa39478185814be15415d9a4570cb28c3b67f80d7"
+    },
+    {
+      "path": "public/publications/es-range-xv-reversal-retracement-4t-20261012/downloads/reversal-samples.csv",
+      "sha256": "ee4c30a6eb9a4551e313eed0cb5bb6c1b3a9ad330165dc71d1bf77201aa14a84"
+    },
+    {
+      "path": "public/publications/es-range-xv-reversal-retracement-4t-20261012/report.json",
+      "sha256": "576e9a623ad24cb0982c26a97486824d0aabdf68e7d4cfae32642f3a2d15bc6a"
+    },
+    {
+      "path": "public/publications/es-range-xv-reversal-retracement-5t-20261012-patterns-r1/downloads/retracement-recovery.csv",
+      "sha256": "da6748bfba8c5f0649d44f17e95e7c45a56c5f7554c0167cdc69e1ec4b750475"
+    },
+    {
+      "path": "public/publications/es-range-xv-reversal-retracement-5t-20261012-patterns-r1/downloads/reversal-samples.csv",
+      "sha256": "397455a1ca2836f29eb81c9e4e352dc41e9d926f6ac30718d5a80f7c2c1698e4"
+    },
+    {
+      "path": "public/publications/es-range-xv-reversal-retracement-5t-20261012-patterns-r1/report.json",
+      "sha256": "c37ee11dfac53e10ade9d78516972e3d1a0c35888f119494cb82ece4a341496d"
+    },
+    {
+      "path": "public/publications/es-range-xv-reversal-retracement-5t-20261012/downloads/retracement-recovery.csv",
+      "sha256": "da6748bfba8c5f0649d44f17e95e7c45a56c5f7554c0167cdc69e1ec4b750475"
+    },
+    {
+      "path": "public/publications/es-range-xv-reversal-retracement-5t-20261012/downloads/reversal-samples.csv",
+      "sha256": "397455a1ca2836f29eb81c9e4e352dc41e9d926f6ac30718d5a80f7c2c1698e4"
+    },
+    {
+      "path": "public/publications/es-range-xv-reversal-retracement-5t-20261012/report.json",
+      "sha256": "a570ec16a8d3f80d91ed60a16b8f6696ba7fc553c32ab51a1460113a0ca657b0"
+    },
+    {
+      "path": "public/publications/es-range-xv-reversal-retracement-6t-20261012-patterns-r1/downloads/retracement-recovery.csv",
+      "sha256": "ea8ddb884c7164106159f217266b082f092ba69391b0199768de68a075f9653b"
+    },
+    {
+      "path": "public/publications/es-range-xv-reversal-retracement-6t-20261012-patterns-r1/downloads/reversal-samples.csv",
+      "sha256": "5d1c09b81f82ef7e3872bc14d473a6f31cd25fe90cad3b8d9262054c9091da6c"
+    },
+    {
+      "path": "public/publications/es-range-xv-reversal-retracement-6t-20261012-patterns-r1/report.json",
+      "sha256": "f6fa21467bbddc92dca1af488fabf9647f8b049e33563fe753981c7c475b7840"
+    },
+    {
+      "path": "public/publications/es-range-xv-reversal-retracement-6t-20261012/downloads/retracement-recovery.csv",
+      "sha256": "ea8ddb884c7164106159f217266b082f092ba69391b0199768de68a075f9653b"
+    },
+    {
+      "path": "public/publications/es-range-xv-reversal-retracement-6t-20261012/downloads/reversal-samples.csv",
+      "sha256": "5d1c09b81f82ef7e3872bc14d473a6f31cd25fe90cad3b8d9262054c9091da6c"
+    },
+    {
+      "path": "public/publications/es-range-xv-reversal-retracement-6t-20261012/report.json",
+      "sha256": "7c601103867cadd828e1d0526fcc65253dbf2a1b9767acc20b9da2485cdce21f"
+    },
+    {
+      "path": "public/publications/es-range-xv-trend-length-4t-20261012-patterns-r1/downloads/bearish-length-distribution.csv",
+      "sha256": "08d551373e41fd3255182c487e20b3310b2aee6717aca0c001a884535927282e"
+    },
+    {
+      "path": "public/publications/es-range-xv-trend-length-4t-20261012-patterns-r1/downloads/bullish-length-distribution.csv",
+      "sha256": "2c033a716bce392ff27e5714bfe336b6af72836bab192901dce5b034fe6b828d"
+    },
+    {
+      "path": "public/publications/es-range-xv-trend-length-4t-20261012-patterns-r1/downloads/directional-length-shares.csv",
+      "sha256": "2d322f8a6d2e2041b761c9cf1853c1bd11f119625d06c35f6ac2e3ec9a3fbfaf"
+    },
+    {
+      "path": "public/publications/es-range-xv-trend-length-4t-20261012-patterns-r1/downloads/trend-summary.csv",
+      "sha256": "481499c15e97cadfbb055c6eec0df4f8d21e788e0ee359d92104aba8c2cc47be"
+    },
+    {
+      "path": "public/publications/es-range-xv-trend-length-4t-20261012-patterns-r1/report.json",
+      "sha256": "562c9b645d9e844702211c5ded21539e0fd089e419002fc2104e3f6ccddf78dd"
+    },
+    {
+      "path": "public/publications/es-range-xv-trend-length-4t-20261012/downloads/bearish-length-distribution.csv",
+      "sha256": "08d551373e41fd3255182c487e20b3310b2aee6717aca0c001a884535927282e"
+    },
+    {
+      "path": "public/publications/es-range-xv-trend-length-4t-20261012/downloads/bullish-length-distribution.csv",
+      "sha256": "2c033a716bce392ff27e5714bfe336b6af72836bab192901dce5b034fe6b828d"
+    },
+    {
+      "path": "public/publications/es-range-xv-trend-length-4t-20261012/downloads/directional-length-shares.csv",
+      "sha256": "2d322f8a6d2e2041b761c9cf1853c1bd11f119625d06c35f6ac2e3ec9a3fbfaf"
+    },
+    {
+      "path": "public/publications/es-range-xv-trend-length-4t-20261012/downloads/trend-summary.csv",
+      "sha256": "481499c15e97cadfbb055c6eec0df4f8d21e788e0ee359d92104aba8c2cc47be"
+    },
+    {
+      "path": "public/publications/es-range-xv-trend-length-4t-20261012/report.json",
+      "sha256": "f2d2589f2cf7fc81059d94047ef5c366f3f5c1f54abeb075e67cc74773a960d9"
+    },
+    {
+      "path": "public/publications/es-range-xv-trend-length-5t-20261012-patterns-r1/downloads/bearish-length-distribution.csv",
+      "sha256": "574317b74afbdce87ef20072f7ad3786dee18c0cae8fe586cdeb90f15e92b15d"
+    },
+    {
+      "path": "public/publications/es-range-xv-trend-length-5t-20261012-patterns-r1/downloads/bullish-length-distribution.csv",
+      "sha256": "4a5db4e8292a33e5153b9229474dc52f0092ab614704432dc89325eb9c0e3ab7"
+    },
+    {
+      "path": "public/publications/es-range-xv-trend-length-5t-20261012-patterns-r1/downloads/directional-length-shares.csv",
+      "sha256": "e40b174e526c41c122a2ed58ee59d75036a17576fe6f184b0a414fbc9f4a001c"
+    },
+    {
+      "path": "public/publications/es-range-xv-trend-length-5t-20261012-patterns-r1/downloads/trend-summary.csv",
+      "sha256": "3b7570cb49d04a238017b8ac2761b071bc1a0c524ecc9b2d543379c02a9ff151"
+    },
+    {
+      "path": "public/publications/es-range-xv-trend-length-5t-20261012-patterns-r1/report.json",
+      "sha256": "9f596c980b122837cb3f4c7a8fe1ac1b28ed1090731b9ac90d1bf529e5915f75"
+    },
+    {
+      "path": "public/publications/es-range-xv-trend-length-5t-20261012/downloads/bearish-length-distribution.csv",
+      "sha256": "574317b74afbdce87ef20072f7ad3786dee18c0cae8fe586cdeb90f15e92b15d"
+    },
+    {
+      "path": "public/publications/es-range-xv-trend-length-5t-20261012/downloads/bullish-length-distribution.csv",
+      "sha256": "4a5db4e8292a33e5153b9229474dc52f0092ab614704432dc89325eb9c0e3ab7"
+    },
+    {
+      "path": "public/publications/es-range-xv-trend-length-5t-20261012/downloads/directional-length-shares.csv",
+      "sha256": "e40b174e526c41c122a2ed58ee59d75036a17576fe6f184b0a414fbc9f4a001c"
+    },
+    {
+      "path": "public/publications/es-range-xv-trend-length-5t-20261012/downloads/trend-summary.csv",
+      "sha256": "3b7570cb49d04a238017b8ac2761b071bc1a0c524ecc9b2d543379c02a9ff151"
+    },
+    {
+      "path": "public/publications/es-range-xv-trend-length-5t-20261012/report.json",
+      "sha256": "8959b31f8074e6d5f3eb0f6358f05903602dcd41832f2703bcbbfa6d73bbc15d"
+    },
+    {
+      "path": "public/publications/es-range-xv-trend-length-6t-20261012-patterns-r1/downloads/bearish-length-distribution.csv",
+      "sha256": "8b554963041428a63456c5d4a51eb5848d438b7bd07fedd2f5e9da7d8d47d500"
+    },
+    {
+      "path": "public/publications/es-range-xv-trend-length-6t-20261012-patterns-r1/downloads/bullish-length-distribution.csv",
+      "sha256": "04389534f2ba6d09017a7181b484750dc5602d09789406ee6f70f931f018c4e0"
+    },
+    {
+      "path": "public/publications/es-range-xv-trend-length-6t-20261012-patterns-r1/downloads/directional-length-shares.csv",
+      "sha256": "4f4613cbfc5cc4b75f812c4dd99049041f6aebe7813ada83d1b0f2568600afde"
+    },
+    {
+      "path": "public/publications/es-range-xv-trend-length-6t-20261012-patterns-r1/downloads/trend-summary.csv",
+      "sha256": "341459f493e161c98190a3c964926be0c0df4c626ce011cbb4bd7e96b2da5013"
+    },
+    {
+      "path": "public/publications/es-range-xv-trend-length-6t-20261012-patterns-r1/report.json",
+      "sha256": "451b7ac54d2bde8343a887945d39085a99e8de6b4e89d7c9ff441c452f3546b4"
+    },
+    {
+      "path": "public/publications/es-range-xv-trend-length-6t-20261012/downloads/bearish-length-distribution.csv",
+      "sha256": "8b554963041428a63456c5d4a51eb5848d438b7bd07fedd2f5e9da7d8d47d500"
+    },
+    {
+      "path": "public/publications/es-range-xv-trend-length-6t-20261012/downloads/bullish-length-distribution.csv",
+      "sha256": "04389534f2ba6d09017a7181b484750dc5602d09789406ee6f70f931f018c4e0"
+    },
+    {
+      "path": "public/publications/es-range-xv-trend-length-6t-20261012/downloads/directional-length-shares.csv",
+      "sha256": "4f4613cbfc5cc4b75f812c4dd99049041f6aebe7813ada83d1b0f2568600afde"
+    },
+    {
+      "path": "public/publications/es-range-xv-trend-length-6t-20261012/downloads/trend-summary.csv",
+      "sha256": "341459f493e161c98190a3c964926be0c0df4c626ce011cbb4bd7e96b2da5013"
+    },
+    {
+      "path": "public/publications/es-range-xv-trend-length-6t-20261012/report.json",
+      "sha256": "16eaaea4941b7e2896de68e0f2b02a931a43367d55d92b807cc6815030545198"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase1-20261013-v1/downloads/cohort-performance.csv",
+      "sha256": "298cf4758264960cca24cad6e1aa68ef47037665ce360b690e9f5867a3b3dd3b"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase1-20261013-v1/downloads/entry-timing.csv",
+      "sha256": "caf8b04875e1c270ab8cbda2ee82ebd7c4297b10ac8aff947b944499945328d0"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase1-20261013-v1/downloads/execution-scenarios.csv",
+      "sha256": "4134ff48a79f6318fc4e04d1b630074b6ace12d6923d9a5993567d7ac399b5db"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase1-20261013-v1/downloads/risk-and-uncertainty.csv",
+      "sha256": "1ad8d1c0dda1097ccdf56dbb1fdd43ad085953044c29854c75f8397ba7e0004e"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase1-20261013-v1/figures/annual-net.png",
+      "sha256": "3647084aceae2a552440572eecdbcb4ec5f029fe8c505aa17f2f0773a843cf72"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase1-20261013-v1/figures/entry-hours.png",
+      "sha256": "f986fc87097df77453effb2627cdc3c3aa34e4218983d5efbf3f24d77a080698"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase1-20261013-v1/figures/equity-path.png",
+      "sha256": "0c4e2f05db1607eb589435810be72bbeff1a55371b43e31715bade1c5091473a"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase1-20261013-v1/figures/illustrative-guide.png",
+      "sha256": "5a627ef823eba8245e943de1e8c1f28ecc9b8f32fc1ab267a3017c7382db4b3b"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase1-20261013-v1/figures/long-short-net.png",
+      "sha256": "a6c696e473832cbfabae126f17f0a13137f59ab0ae3b1ba2e1dccc38fe7ab25d"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase1-20261013-v1/figures/observed-examples.png",
+      "sha256": "ff36ae50cc1ed48cdc72b05aa490e4fa6d0c8833381f86c0a37c37fb6cb833d5"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase1-20261013-v1/figures/session-counts.png",
+      "sha256": "b445211440a2d5cfb6c38a26924bff8996dc7642dfad464d76145974855782a8"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase1-20261013-v1/figures/year-session-net.png",
+      "sha256": "d07c20157e10cdd0b810c511df36ed56d1341755886457f32ff2a473a31899d7"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase1-20261013-v1/report.json",
+      "sha256": "872611416363910b7bedbb8f184be2a0e012782e6bd91836fa092704db7783cc"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase2-20261013-v1-boundary-reclaim-entry/downloads/candidate-performance.csv",
+      "sha256": "fab78797f89dbf1b41d333c32b42f92c6189c19975357316f578725970844527"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase2-20261013-v1-boundary-reclaim-entry/downloads/paired.csv",
+      "sha256": "77eabeedcaf25c611e24397cd13d31390378029b6a5006165d7886e84c6e7d58"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase2-20261013-v1-boundary-reclaim-entry/downloads/scenarios.csv",
+      "sha256": "5f779cdfc5af355203a61dccc416df610abe0f0e32618337b7d2436bf45a8ffc"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase2-20261013-v1-boundary-reclaim-entry/figures/cohort-net.png",
+      "sha256": "2453a1a52bbcc5a06b799f410ac751a5626c33b576de263c9d1110c431c3dad8"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase2-20261013-v1-boundary-reclaim-entry/report.json",
+      "sha256": "fd3e559afb3b70f9843747ab6388b7e90fe92a6932e203d2d8cb64ec6872acd2"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase2-20261013-v1-boundary-reclaim-summary/downloads/candidate-performance.csv",
+      "sha256": "fab78797f89dbf1b41d333c32b42f92c6189c19975357316f578725970844527"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase2-20261013-v1-boundary-reclaim-summary/downloads/paired.csv",
+      "sha256": "77eabeedcaf25c611e24397cd13d31390378029b6a5006165d7886e84c6e7d58"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase2-20261013-v1-boundary-reclaim-summary/downloads/scenarios.csv",
+      "sha256": "5f779cdfc5af355203a61dccc416df610abe0f0e32618337b7d2436bf45a8ffc"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase2-20261013-v1-boundary-reclaim-summary/figures/cohort-net.png",
+      "sha256": "c192085991ee594baefdd9d797ec3528c895a868156cba814466b9530cd2d414"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase2-20261013-v1-boundary-reclaim-summary/figures/drawdown.png",
+      "sha256": "50954d905b0c96cb40aab7547d2e0ab9909667536f7d8894dea7bb56fceb1688"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase2-20261013-v1-boundary-reclaim-summary/figures/equity.png",
+      "sha256": "a40185809e17c12aec77ff52ffda2b12dc483ba82edeb0f2401f6b166f0a67f1"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase2-20261013-v1-boundary-reclaim-summary/figures/method-guide.png",
+      "sha256": "a96314d4e2740896a93da773f33bf08ba1ff7e09f32f75ef6926f4f77120d495"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase2-20261013-v1-boundary-reclaim-summary/figures/reclaim-q000-candidate.png",
+      "sha256": "ad7bd89f264cf8e29397a1d1e042e548cecb56ec3373a12b8787fd770548bbf2"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase2-20261013-v1-boundary-reclaim-summary/figures/reclaim-q000-no-fill.png",
+      "sha256": "13f3e069b55d4d3b6f1815275123d356751dddd66230895967038351c332da2f"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase2-20261013-v1-boundary-reclaim-summary/report.json",
+      "sha256": "fb6c5f2c9d09344e7d90ae97090947c905610a53d898bfc7deeb804f74a61b84"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase2-20261013-v1-boundary-reclaim-year/downloads/candidate-performance.csv",
+      "sha256": "fab78797f89dbf1b41d333c32b42f92c6189c19975357316f578725970844527"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase2-20261013-v1-boundary-reclaim-year/downloads/paired.csv",
+      "sha256": "77eabeedcaf25c611e24397cd13d31390378029b6a5006165d7886e84c6e7d58"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase2-20261013-v1-boundary-reclaim-year/downloads/scenarios.csv",
+      "sha256": "5f779cdfc5af355203a61dccc416df610abe0f0e32618337b7d2436bf45a8ffc"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase2-20261013-v1-boundary-reclaim-year/figures/annual-paired.png",
+      "sha256": "9c5c518ac2a990147eb3dbbb5d718307e0822cefeaa020bab8c67cc40d2560d9"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase2-20261013-v1-boundary-reclaim-year/figures/cohort-net.png",
+      "sha256": "aa7dd63de2d8f32d81ee5a64cae9cf990ed53fffe8afc9fd00664fb15909ccd0"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase2-20261013-v1-boundary-reclaim-year/figures/year-session-net.png",
+      "sha256": "ad6e5afff0abc3f0e9908e262ed77439315ad2abb5e5699d939726ff9666c989"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase2-20261013-v1-boundary-reclaim-year/report.json",
+      "sha256": "7a02526550194fb56106ef16dcf197a203fb60c18a5eef246d097de63b534e65"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase2-20261013-v1-comparison-account-risk/downloads/account-outcomes.csv",
+      "sha256": "7882616ccb0e1152e1e6d0c149a8e00c92e85aaed3ddeab8efbe10c0d0782cc2"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase2-20261013-v1-comparison-account-risk/downloads/static-capacity.csv",
+      "sha256": "5094b1c6efea55dc5a39b366c9a3f3eff8012ea4dafc9a7134d3ec33475323d4"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase2-20261013-v1-comparison-account-risk/figures/method-guide.png",
+      "sha256": "675102928a393b8a89feecf36ddcf643ebba497c8ceb113ca30355dbb37340a9"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase2-20261013-v1-comparison-account-risk/report.json",
+      "sha256": "f5704042c139587b2109624966b32f775a5386fec4a684ef3ea20ea0fccf29e5"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase2-20261013-v1-comparison-entry/downloads/candidate-performance.csv",
+      "sha256": "f45cf0b0233c000fa50d575ac4eabbb6ba61c0e5dd0529680ca8da9dc3cbc6bb"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase2-20261013-v1-comparison-entry/downloads/paired.csv",
+      "sha256": "14ef34e79e6e6652935e14ce661a5e6868a7d59a14a33c11c6ac2c10325fcd92"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase2-20261013-v1-comparison-entry/downloads/scenarios.csv",
+      "sha256": "26d103f7aeea44fac793842f2ababb1213ca2b0a5f00aa76e4ef8aeae7addc4a"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase2-20261013-v1-comparison-entry/report.json",
+      "sha256": "766149cf30ee88c636c96765c2836008a8def7f78bd85a0e77ff1a24143a640e"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase2-20261013-v1-comparison-summary/downloads/candidate-performance.csv",
+      "sha256": "87c49a65d374518251e335d59b097ee2b99e67a5aaa22b39205560fadd476b6d"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase2-20261013-v1-comparison-summary/downloads/paired.csv",
+      "sha256": "5fb437e6cb284b26ee301bf03aaf83177a1f2e54c63cc5e0279e75c4ab843c6f"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase2-20261013-v1-comparison-summary/downloads/scenarios.csv",
+      "sha256": "26d103f7aeea44fac793842f2ababb1213ca2b0a5f00aa76e4ef8aeae7addc4a"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase2-20261013-v1-comparison-summary/figures/paired-mean.png",
+      "sha256": "f68d88423942ec486c5bcd1dbb213fa3c4dd63a1e3d03df2f7b2299b2d6ad44d"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase2-20261013-v1-comparison-summary/figures/participation-counts.png",
+      "sha256": "99d1e30ac3da25a4d99a24d5cf6fea90dbec6f675e46b77df28c96e5806f0aea"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase2-20261013-v1-comparison-summary/report.json",
+      "sha256": "4a4a28954e9f2212ab5dfe387a8e8a6f49099947e609bbbdb4f55491ff3ca50d"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase2-20261013-v1-comparison-year/downloads/candidate-performance.csv",
+      "sha256": "c64a9cfa9abeb6e30e65a0b91ec502f9552547acc69a2713c7759008b94adb13"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase2-20261013-v1-comparison-year/downloads/paired.csv",
+      "sha256": "0910c5157561cdbd32784319aacc04ce0019b8d945d07db6a3701c381ea8dbd9"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase2-20261013-v1-comparison-year/downloads/scenarios.csv",
+      "sha256": "26d103f7aeea44fac793842f2ababb1213ca2b0a5f00aa76e4ef8aeae7addc4a"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase2-20261013-v1-comparison-year/report.json",
+      "sha256": "ed6e61bb29b2d81befca316f531e7b5c7d13169601e108bc631ca9db05d6f127"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase2-20261013-v1-midpoint-reclaim-entry/downloads/candidate-performance.csv",
+      "sha256": "1884449b6e32b6df1d9843e6f35e063585b528b78028199083d9c88fdba15b82"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase2-20261013-v1-midpoint-reclaim-entry/downloads/paired.csv",
+      "sha256": "ccd2b42fe2eaf0f21d8d1d3f41f4d925550bd994d94dec24155748a3761e2205"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase2-20261013-v1-midpoint-reclaim-entry/downloads/scenarios.csv",
+      "sha256": "485dd7b583e7bf48fae28b8f0394f5f80264cf53d538a2549227923f403e18ab"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase2-20261013-v1-midpoint-reclaim-entry/figures/cohort-net.png",
+      "sha256": "daedb85e5fbc5fac47c641e4e6d892df25dc316d44f2f4dffbb1ef9e5110c3e3"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase2-20261013-v1-midpoint-reclaim-entry/report.json",
+      "sha256": "f30b9871c32f21c419ef495f77616d4fdeaf9ce535d5a6a44b8d4a074837bba4"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase2-20261013-v1-midpoint-reclaim-summary/downloads/candidate-performance.csv",
+      "sha256": "1884449b6e32b6df1d9843e6f35e063585b528b78028199083d9c88fdba15b82"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase2-20261013-v1-midpoint-reclaim-summary/downloads/paired.csv",
+      "sha256": "ccd2b42fe2eaf0f21d8d1d3f41f4d925550bd994d94dec24155748a3761e2205"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase2-20261013-v1-midpoint-reclaim-summary/downloads/scenarios.csv",
+      "sha256": "485dd7b583e7bf48fae28b8f0394f5f80264cf53d538a2549227923f403e18ab"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase2-20261013-v1-midpoint-reclaim-summary/figures/cohort-net.png",
+      "sha256": "5ccf8aca0896c5596f868d08b8ef2649dc755fa9221e9a65413404836e604512"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase2-20261013-v1-midpoint-reclaim-summary/figures/drawdown.png",
+      "sha256": "2a5dc37632c0383443cf488852e83c2127e4f57d8e8f6b5828d139dad7131704"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase2-20261013-v1-midpoint-reclaim-summary/figures/equity.png",
+      "sha256": "b3ddf7cdc42885d41ab14a7668c2539d2426ab35109cc51636e806d093799280"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase2-20261013-v1-midpoint-reclaim-summary/figures/method-guide.png",
+      "sha256": "74d0e9a53b7d532b76f21ef45ba3b1bba9716ec3a3109536a5cd1234afdd14c4"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase2-20261013-v1-midpoint-reclaim-summary/figures/reclaim-q050-candidate.png",
+      "sha256": "1117226c01c2cd4ea9c87c89473658ddf75dd1a6ad379c5ddff3a4101ae5d7f8"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase2-20261013-v1-midpoint-reclaim-summary/figures/reclaim-q050-no-fill.png",
+      "sha256": "ee17c780b489e428a6e236e05dda74695c400028bc905659ef894c72c808d8c2"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase2-20261013-v1-midpoint-reclaim-summary/report.json",
+      "sha256": "5906ef2ce21addd237af40f89884cf8d1e9069e49496c3b7280b950e13c6f446"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase2-20261013-v1-midpoint-reclaim-year/downloads/candidate-performance.csv",
+      "sha256": "1884449b6e32b6df1d9843e6f35e063585b528b78028199083d9c88fdba15b82"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase2-20261013-v1-midpoint-reclaim-year/downloads/paired.csv",
+      "sha256": "ccd2b42fe2eaf0f21d8d1d3f41f4d925550bd994d94dec24155748a3761e2205"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase2-20261013-v1-midpoint-reclaim-year/downloads/scenarios.csv",
+      "sha256": "485dd7b583e7bf48fae28b8f0394f5f80264cf53d538a2549227923f403e18ab"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase2-20261013-v1-midpoint-reclaim-year/figures/annual-paired.png",
+      "sha256": "476f46805a3d6cc89091b79cc378c30ee03e892a0c82c263877b2c2f54235aa7"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase2-20261013-v1-midpoint-reclaim-year/figures/cohort-net.png",
+      "sha256": "5c5b7f4af4af0efd54c89f60648df63a97aba07922946a0827e846a419d1b4dd"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase2-20261013-v1-midpoint-reclaim-year/figures/year-session-net.png",
+      "sha256": "fc01f4a28b0c541c889b52cb351ad74d3d5f073bcd843452c9ee944f51d97cd0"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase2-20261013-v1-midpoint-reclaim-year/report.json",
+      "sha256": "146c3b2a06d493e15aafa6c53aa1fd47ccca29a3778cb5355a07ebcd7ba4e47b"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase2-20261013-v1-passive-limits-entry/downloads/candidate-performance.csv",
+      "sha256": "0626467a1b885568cf16f6fced1ee9e7d51b6fda5e30c824225daa01c658794f"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase2-20261013-v1-passive-limits-entry/downloads/level-opportunities.csv",
+      "sha256": "7f569df8ca7851edb06706c51dd9834c3ba40028b1efbb341a7bd22d2bf9fd7c"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase2-20261013-v1-passive-limits-entry/downloads/paired.csv",
+      "sha256": "e9c810b69a07f6ef03986b8ba211c86ca11cf79523bad9e14e9fecf75a8e24c3"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase2-20261013-v1-passive-limits-entry/downloads/scenarios.csv",
+      "sha256": "6a60f9a8047fad9d0514ce6c0f0829e7e1db3bb2c81bd8b3453c3d0c7ad50d04"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase2-20261013-v1-passive-limits-entry/figures/passive-q025-cohort-net.png",
+      "sha256": "473ed2cce0d4dda651b65eaca0fd3b8f022807021d4a4f37629612283926983b"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase2-20261013-v1-passive-limits-entry/figures/passive-q050-cohort-net.png",
+      "sha256": "0a747a0271a82c228621299dcf889d625ebfe56a273b85ef8d7e38c343041d88"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase2-20261013-v1-passive-limits-entry/figures/passive-q075-cohort-net.png",
+      "sha256": "1e66bc9d43072eadcc7452514285c2525a312cce0b5de2c267ab4e47a67028c2"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase2-20261013-v1-passive-limits-entry/report.json",
+      "sha256": "c40e6f97099a881e789b7b4a88c2d07518b6ae2f758b41039e8dd9dcecef587b"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase2-20261013-v1-passive-limits-summary/downloads/candidate-performance.csv",
+      "sha256": "0626467a1b885568cf16f6fced1ee9e7d51b6fda5e30c824225daa01c658794f"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase2-20261013-v1-passive-limits-summary/downloads/level-opportunities.csv",
+      "sha256": "7f569df8ca7851edb06706c51dd9834c3ba40028b1efbb341a7bd22d2bf9fd7c"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase2-20261013-v1-passive-limits-summary/downloads/paired.csv",
+      "sha256": "e9c810b69a07f6ef03986b8ba211c86ca11cf79523bad9e14e9fecf75a8e24c3"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase2-20261013-v1-passive-limits-summary/downloads/scenarios.csv",
+      "sha256": "6a60f9a8047fad9d0514ce6c0f0829e7e1db3bb2c81bd8b3453c3d0c7ad50d04"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase2-20261013-v1-passive-limits-summary/figures/method-guide.png",
+      "sha256": "8434ff4e1b5d35892617a62ee9b674bb575d3a34d6eeeb319b43b510e81c5b58"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase2-20261013-v1-passive-limits-summary/figures/paired-mean.png",
+      "sha256": "63322266d7844f0ad969d75db57e3656034d81ba6fd09c83e213f2802ea56449"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase2-20261013-v1-passive-limits-summary/figures/passive-q025-candidate.png",
+      "sha256": "6c539a8ca38fa104f44299d2c7ea924d4f19b5777e7e7ad6feb351f9e2faefc7"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase2-20261013-v1-passive-limits-summary/figures/passive-q025-no-fill.png",
+      "sha256": "8b9eb27bb68f1864d91197726438bf0dd7c45c66e744e8c210a54c4183e56143"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase2-20261013-v1-passive-limits-summary/figures/passive-q050-candidate.png",
+      "sha256": "4686cda9772bf856982a5bde252995005581693aba70bde036c56732c831bca3"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase2-20261013-v1-passive-limits-summary/figures/passive-q050-no-fill.png",
+      "sha256": "7ea8e39be90326994f6151c0834c74f4a3c799a34392535e6c759d4cc1869a29"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase2-20261013-v1-passive-limits-summary/figures/passive-q075-candidate.png",
+      "sha256": "4afebde4ed9124c9a547e034f1b59360282ec300a5916ae40682187fc38b8ed1"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase2-20261013-v1-passive-limits-summary/figures/passive-q075-no-fill.png",
+      "sha256": "9947ebdf5c129cd577888e4956c52376d3f25abdaed3fdaf5ca1d478238274ef"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase2-20261013-v1-passive-limits-summary/report.json",
+      "sha256": "c7bbec76fc60dc231a8dbd96dcab22860e3781b47d0950a2baadf94270c3c403"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase2-20261013-v1-passive-limits-year/downloads/candidate-performance.csv",
+      "sha256": "0626467a1b885568cf16f6fced1ee9e7d51b6fda5e30c824225daa01c658794f"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase2-20261013-v1-passive-limits-year/downloads/level-opportunities.csv",
+      "sha256": "7f569df8ca7851edb06706c51dd9834c3ba40028b1efbb341a7bd22d2bf9fd7c"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase2-20261013-v1-passive-limits-year/downloads/paired.csv",
+      "sha256": "e9c810b69a07f6ef03986b8ba211c86ca11cf79523bad9e14e9fecf75a8e24c3"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase2-20261013-v1-passive-limits-year/downloads/scenarios.csv",
+      "sha256": "6a60f9a8047fad9d0514ce6c0f0829e7e1db3bb2c81bd8b3453c3d0c7ad50d04"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase2-20261013-v1-passive-limits-year/figures/passive-q025-annual-paired.png",
+      "sha256": "58a9caced2bf558ece9089a2216214956c5f166897e43136d5f07da5e5f14c26"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase2-20261013-v1-passive-limits-year/figures/passive-q025-cohort-net.png",
+      "sha256": "dda0147b15e05113e6bca88444cbbd9b04f72fc0ac9c6b79a7d6148f69120df2"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase2-20261013-v1-passive-limits-year/figures/passive-q025-year-session.png",
+      "sha256": "c6e0f1de6d7938003798b0ca4e2be8776283165b36166ab81a4a419057b97e18"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase2-20261013-v1-passive-limits-year/figures/passive-q050-annual-paired.png",
+      "sha256": "2c945a47b787d209b28603f3d7c604f52c279867551442a84a2e82a9478cd36f"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase2-20261013-v1-passive-limits-year/figures/passive-q050-cohort-net.png",
+      "sha256": "e89f2963918b4fcc97edc64253e75fdb85e6c508873596983bb8b3ed5b0a6aec"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase2-20261013-v1-passive-limits-year/figures/passive-q050-year-session.png",
+      "sha256": "5a4b6538a50084c169e4df666f7a42af3c28c6cf22e512be45c3443e2c3c250e"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase2-20261013-v1-passive-limits-year/figures/passive-q075-annual-paired.png",
+      "sha256": "32a12197b3510da704290b6d639b46a53a803308ea866c9c3bf1aeb938047020"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase2-20261013-v1-passive-limits-year/figures/passive-q075-cohort-net.png",
+      "sha256": "430de980628fa00228b57c9b1cd353a6611b6ee686730838b5380847e3da5bd2"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase2-20261013-v1-passive-limits-year/figures/passive-q075-year-session.png",
+      "sha256": "f4c123438bbb09d9f564d2e67200d16e4be3988ec92884c2a9d3ab6a6ca4e401"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase2-20261013-v1-passive-limits-year/report.json",
+      "sha256": "a55482e62b7edee1b0ccddd5e40f6ce7430a8c9775c607a77de62660d3e8bfc5"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase2-20261013-v1-protected-events/downloads/occurrence.csv",
+      "sha256": "50e3c6413d5009fad2e25173bad78d37144752b5b933214a62df4c8356db6a54"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase2-20261013-v1-protected-events/downloads/recovery.csv",
+      "sha256": "25e1f3f77dcf2fdc1675ff604a030f998a31515bf6f3000f07248f31ecf59f0b"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase2-20261013-v1-protected-events/figures/breach-frequency.png",
+      "sha256": "0ca498ffbad575b246ff8b264b88d234cc41f3ad8cf75a8421f2a3c05a3fdf56"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase2-20261013-v1-protected-events/figures/protected-failed-break-reclaim-year-session.png",
+      "sha256": "a6205735f113b354ae5459f5dd2317e68d8e68bd1bec2041cc3ed31972de3d6d"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase2-20261013-v1-protected-events/figures/protected-reversal-year-session.png",
+      "sha256": "fe63e681f2dfd2ad4dbfdd882bab5a97906e417702bc72c5f46dbf4a43caaa59"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase2-20261013-v1-protected-events/figures/protected-touch-hold-year-session.png",
+      "sha256": "a6ee354869606eb43b1258dda3710f43ce5da0ee93c0d15809a6e5b29cc5b3bd"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase2-20261013-v1-protected-events/figures/transition-grid.png",
+      "sha256": "feeff68ebd0a15bef40acaf0878ae2e92458518d74bc3ad01f63954b226cbfdd"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase2-20261013-v1-protected-events/report.json",
+      "sha256": "d94261719bc605fe0d17f3504ec1d35d32370512e5f31de577feea5d030d33dc"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase2-20261013-v1-protected-occurrence/downloads/occurrence.csv",
+      "sha256": "a2cded3fd0121e29ad4a4ee5e8bba86e13ab3753f2c78f997e9913676d0db571"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase2-20261013-v1-protected-occurrence/downloads/recovery-timing.csv",
+      "sha256": "0656407f9f5754fdf637b137cfcadbd056f3033427b1ab66a3862dc6a55e40ee"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase2-20261013-v1-protected-occurrence/downloads/recovery.csv",
+      "sha256": "08f01efd5d067c9f206c7626280e5005ec00fc23c1d64be2384aa8438a356ce4"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase2-20261013-v1-protected-occurrence/figures/breach-frequency.png",
+      "sha256": "a2bcec9af9a1e73f7cbb107c33d42653a667eac1782ef96ca9a304d106313282"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase2-20261013-v1-protected-occurrence/figures/method-guide.png",
+      "sha256": "8e9f1fa29668cb11a77f18cfe74c4f50ab54767881a44f44a9f4a353438dd9cb"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase2-20261013-v1-protected-occurrence/figures/time-after-breach.png",
+      "sha256": "96000db5d9a6af34ea227ead2c86ef8e061bae8c73cb6254d86fdb35796808e6"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase2-20261013-v1-protected-occurrence/figures/time-from-original.png",
+      "sha256": "300d544fe7fef6a585b6f17c994d0f269639a3e3fa888cbe7fac960512231341"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase2-20261013-v1-protected-occurrence/report.json",
+      "sha256": "7c8d94ce38b7b4e8a8d79dda5daa6d2e303f9acb2cc8a3c643c6683efbc3c73e"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase2-20261013-v1-protected-trades/downloads/candidate-performance.csv",
+      "sha256": "8ffe8bbd1aa15b0000b4243136956d2349dce05499f3a5f294d4b70b4e471e1a"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase2-20261013-v1-protected-trades/downloads/paired.csv",
+      "sha256": "1051aa4669608721a839b72824b669eefeaa6409e46ede43afb95297d6563adc"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase2-20261013-v1-protected-trades/downloads/scenarios.csv",
+      "sha256": "09b95daec774c218c9ea1430a2e0b14cf26fe4a92d05c10b687988e0e8e71c8f"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase2-20261013-v1-protected-trades/figures/method-guide.png",
+      "sha256": "8e9f1fa29668cb11a77f18cfe74c4f50ab54767881a44f44a9f4a353438dd9cb"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase2-20261013-v1-protected-trades/figures/paired-mean.png",
+      "sha256": "858a78d088d88bfa4f83c3b39e84184531774e55a55d561db5ac6fca99b06594"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase2-20261013-v1-protected-trades/figures/protected-failed-break-reclaim-candidate.png",
+      "sha256": "fd342eb629711c1f8e602215df5fb0b78954c6ec50d333914ac3e718e9c71dc3"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase2-20261013-v1-protected-trades/figures/protected-failed-break-reclaim-no-fill.png",
+      "sha256": "132bff3516f93a898babfa61422f6a4c7a83a258d3061e5cc4e8a8c3d474f09e"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase2-20261013-v1-protected-trades/figures/protected-reversal-candidate.png",
+      "sha256": "6fd2b3f036505a2ac576141c892033b89f2063db2f3f465ab84000513716085a"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase2-20261013-v1-protected-trades/figures/protected-reversal-no-fill.png",
+      "sha256": "2ee26d3fe6d68c0ffa68e15475fee5699077662acd3d142456e94105327ac2ab"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase2-20261013-v1-protected-trades/figures/protected-touch-hold-candidate.png",
+      "sha256": "09cec864fde7b5aaccd3a2c726b1ecbaf2d5d5147819a038c4977f0264efd19f"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase2-20261013-v1-protected-trades/figures/protected-touch-hold-no-fill.png",
+      "sha256": "b66e26bdb08f2d3200cd70249c7917ff4602f8c7bf7f5bb94401ad70210971cd"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase2-20261013-v1-protected-trades/report.json",
+      "sha256": "dd7967677c0d14601ad0bf774bb85c0ffb229aada50155c74cec8e5e700cb41a"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase2-20261013-v1-protected-year/downloads/candidate-performance.csv",
+      "sha256": "8ffe8bbd1aa15b0000b4243136956d2349dce05499f3a5f294d4b70b4e471e1a"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase2-20261013-v1-protected-year/downloads/paired.csv",
+      "sha256": "1051aa4669608721a839b72824b669eefeaa6409e46ede43afb95297d6563adc"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase2-20261013-v1-protected-year/downloads/scenarios.csv",
+      "sha256": "09b95daec774c218c9ea1430a2e0b14cf26fe4a92d05c10b687988e0e8e71c8f"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase2-20261013-v1-protected-year/figures/protected-failed-break-reclaim-annual-paired.png",
+      "sha256": "c02b214e0f394b2b5d34b2debae13401b96b92df57865629437a65e6b0761f57"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase2-20261013-v1-protected-year/figures/protected-failed-break-reclaim-cohort-net.png",
+      "sha256": "f6e4b160610ba3f68d9f5c978e19e9217cd6b07c2fb391b24969b4b25d934a1d"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase2-20261013-v1-protected-year/figures/protected-failed-break-reclaim-year-session.png",
+      "sha256": "857db13fcd710a3e61924bbfff9e0e08b10fff26ff8dff0adbff203d910c4d41"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase2-20261013-v1-protected-year/figures/protected-reversal-annual-paired.png",
+      "sha256": "b1fc6835b939288b9384b5401d9f01a2a1a9ab2a96699b1aa208fadd8bd9db4b"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase2-20261013-v1-protected-year/figures/protected-reversal-cohort-net.png",
+      "sha256": "619e0af8636ddc87ce94c89df9a7713dd07a808c2439f8047099f692d7c5ead3"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase2-20261013-v1-protected-year/figures/protected-reversal-year-session.png",
+      "sha256": "726d59afaee793ce354b7bc7700b5ad58b3479b4a45724456cb8d6a3eb46d375"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase2-20261013-v1-protected-year/figures/protected-touch-hold-annual-paired.png",
+      "sha256": "0328537c87516358750808ef323f294a68a591b4e145fab9ac3dcc082cd3c507"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase2-20261013-v1-protected-year/figures/protected-touch-hold-cohort-net.png",
+      "sha256": "8877120c2e2501945271c8fa2a126224c581494286d5d86752ddc41a19590758"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase2-20261013-v1-protected-year/figures/protected-touch-hold-year-session.png",
+      "sha256": "0e0f63bc68903c35eafa288227714aabb316a1b8e5a7bcc4b2e821ea3986084c"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase2-20261013-v1-protected-year/report.json",
+      "sha256": "d7950147bd56a72d802eee9f2c074fa8c779ee88f6d90006b5754c61e592d583"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase2-20261013-v1-quarter-reclaim-entry/downloads/candidate-performance.csv",
+      "sha256": "611632f8426d49afe3846477fe3fec1bd1e451242bd17d073f5b446bdae86455"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase2-20261013-v1-quarter-reclaim-entry/downloads/paired.csv",
+      "sha256": "07d1479bc5c5cd3a3b58a07eff2fd5f049c5615a8e8ee87da38018e6aa2500dc"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase2-20261013-v1-quarter-reclaim-entry/downloads/scenarios.csv",
+      "sha256": "6e0a5f24a55596bcdc366a9d0afcb3498e2846fedefc18b113ec74086707efaf"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase2-20261013-v1-quarter-reclaim-entry/figures/cohort-net.png",
+      "sha256": "d902afdd467533766818b86822d525df34b69a94319c9036e9e1ad4659bb7e1f"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase2-20261013-v1-quarter-reclaim-entry/report.json",
+      "sha256": "b110df10ff0d8b182d22145306829cbeb9416a01f197a6ec4c47d9d157b2f547"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase2-20261013-v1-quarter-reclaim-summary/downloads/candidate-performance.csv",
+      "sha256": "611632f8426d49afe3846477fe3fec1bd1e451242bd17d073f5b446bdae86455"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase2-20261013-v1-quarter-reclaim-summary/downloads/paired.csv",
+      "sha256": "07d1479bc5c5cd3a3b58a07eff2fd5f049c5615a8e8ee87da38018e6aa2500dc"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase2-20261013-v1-quarter-reclaim-summary/downloads/scenarios.csv",
+      "sha256": "6e0a5f24a55596bcdc366a9d0afcb3498e2846fedefc18b113ec74086707efaf"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase2-20261013-v1-quarter-reclaim-summary/figures/cohort-net.png",
+      "sha256": "f52ae43f1e37a2178e8f750a27ebea9b379eb2a4b66b71c6401ef857d532a778"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase2-20261013-v1-quarter-reclaim-summary/figures/drawdown.png",
+      "sha256": "b8759a3b8174b7b0782b700e81acaf1d07ed75f13e14b4a85764fa4affbaa4a8"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase2-20261013-v1-quarter-reclaim-summary/figures/equity.png",
+      "sha256": "15b0ba9614231d1f0be629be4a444ed2cc754663f04b709e346a64b393229afc"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase2-20261013-v1-quarter-reclaim-summary/figures/method-guide.png",
+      "sha256": "f64fe7da0cb2805c62021460e59e873d5e0178ea94de16d9da2dbd89c330febb"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase2-20261013-v1-quarter-reclaim-summary/figures/reclaim-q025-candidate.png",
+      "sha256": "b39b2d37861adde5e078107b5a75391ad85696f7937c59c391c8a82e32ca3afa"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase2-20261013-v1-quarter-reclaim-summary/figures/reclaim-q025-no-fill.png",
+      "sha256": "4a99d379112ef6deea8fc5c8835ea309a249f937c8711f5a8071a181763835e2"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase2-20261013-v1-quarter-reclaim-summary/report.json",
+      "sha256": "c146691c92e78a88a5bce71951f11327e4b6c7b118ccb7e8cbb2de51777067db"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase2-20261013-v1-quarter-reclaim-year/downloads/candidate-performance.csv",
+      "sha256": "611632f8426d49afe3846477fe3fec1bd1e451242bd17d073f5b446bdae86455"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase2-20261013-v1-quarter-reclaim-year/downloads/paired.csv",
+      "sha256": "07d1479bc5c5cd3a3b58a07eff2fd5f049c5615a8e8ee87da38018e6aa2500dc"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase2-20261013-v1-quarter-reclaim-year/downloads/scenarios.csv",
+      "sha256": "6e0a5f24a55596bcdc366a9d0afcb3498e2846fedefc18b113ec74086707efaf"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase2-20261013-v1-quarter-reclaim-year/figures/annual-paired.png",
+      "sha256": "81be719cd89d8afb9fb0dff070e09a1549daaf3eff1919e17ccbf82da9f9cfb8"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase2-20261013-v1-quarter-reclaim-year/figures/cohort-net.png",
+      "sha256": "97e8d1d3a067d525d1bce16693ef9899acfd30ba9cadfdd4e48add15de37f68f"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase2-20261013-v1-quarter-reclaim-year/figures/year-session-net.png",
+      "sha256": "915931f93e0dd62b5163163292e9c1d0f9c88dca8bec90aa3e1066ad408388cf"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase2-20261013-v1-quarter-reclaim-year/report.json",
+      "sha256": "c2ebb852eeeca2f17583975c5ec74fe10def64cb919c08e7a41885304cd46072"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase2-20261013-v1-threequarter-reclaim-entry/downloads/candidate-performance.csv",
+      "sha256": "671c53ac913aea58f6d9a1e95317e4c2782b78b4d25d7ad574fca33223d277a6"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase2-20261013-v1-threequarter-reclaim-entry/downloads/paired.csv",
+      "sha256": "16c3276a718c678f039044a5db6c40317e56ea87ca199ef94ddcab52a69975b1"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase2-20261013-v1-threequarter-reclaim-entry/downloads/scenarios.csv",
+      "sha256": "25e3b8dc41f8a7e09504ed782026b8cbea9e230984aa8b2bcb77e6234aefb88e"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase2-20261013-v1-threequarter-reclaim-entry/figures/cohort-net.png",
+      "sha256": "08f17b2cd49bedfba7c12d0b9185449cdc937f978296deb0a076db325a6c60ca"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase2-20261013-v1-threequarter-reclaim-entry/report.json",
+      "sha256": "f85d6b3b5da8be69c7f2ab8cb018f2831b74a15aba5e18044b760b8b23f81131"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase2-20261013-v1-threequarter-reclaim-summary/downloads/candidate-performance.csv",
+      "sha256": "671c53ac913aea58f6d9a1e95317e4c2782b78b4d25d7ad574fca33223d277a6"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase2-20261013-v1-threequarter-reclaim-summary/downloads/paired.csv",
+      "sha256": "16c3276a718c678f039044a5db6c40317e56ea87ca199ef94ddcab52a69975b1"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase2-20261013-v1-threequarter-reclaim-summary/downloads/scenarios.csv",
+      "sha256": "25e3b8dc41f8a7e09504ed782026b8cbea9e230984aa8b2bcb77e6234aefb88e"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase2-20261013-v1-threequarter-reclaim-summary/figures/cohort-net.png",
+      "sha256": "745616b51c562a175682c16da0603ef017d6e566381f8d7a897da4ed31d6c612"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase2-20261013-v1-threequarter-reclaim-summary/figures/drawdown.png",
+      "sha256": "2647f853c01ddaf81e71b01c218da7b8979c0e9390a1337dd3cd34e27d14252e"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase2-20261013-v1-threequarter-reclaim-summary/figures/equity.png",
+      "sha256": "6c933e813a579cc13ad9fb28e951c6d5c509392c9cf1dbc70b5d6b2fadab71a3"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase2-20261013-v1-threequarter-reclaim-summary/figures/method-guide.png",
+      "sha256": "3cef2d04af89ea9f9e1a15aaccf726c021d746772403692433681def104aa077"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase2-20261013-v1-threequarter-reclaim-summary/figures/reclaim-q075-candidate.png",
+      "sha256": "29eced8795cea5a5d806bb75f7e05c042198f99fc54dc981dd7ea7a92d821e23"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase2-20261013-v1-threequarter-reclaim-summary/figures/reclaim-q075-no-fill.png",
+      "sha256": "22b894887d75ee3efe076934a45c6dba5bd5597a5bf9d19558d9ffa752fbabbd"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase2-20261013-v1-threequarter-reclaim-summary/report.json",
+      "sha256": "2734f41107d0fd5a4165b028d8e4dbd0a927ff004506d49d38e73e2f9c16215e"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase2-20261013-v1-threequarter-reclaim-year/downloads/candidate-performance.csv",
+      "sha256": "671c53ac913aea58f6d9a1e95317e4c2782b78b4d25d7ad574fca33223d277a6"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase2-20261013-v1-threequarter-reclaim-year/downloads/paired.csv",
+      "sha256": "16c3276a718c678f039044a5db6c40317e56ea87ca199ef94ddcab52a69975b1"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase2-20261013-v1-threequarter-reclaim-year/downloads/scenarios.csv",
+      "sha256": "25e3b8dc41f8a7e09504ed782026b8cbea9e230984aa8b2bcb77e6234aefb88e"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase2-20261013-v1-threequarter-reclaim-year/figures/annual-paired.png",
+      "sha256": "a952270d22a97fbef837bd4e5379d4138b304dcb571db48af65748f51715ddea"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase2-20261013-v1-threequarter-reclaim-year/figures/cohort-net.png",
+      "sha256": "0b3d277134a96a73916df806c7eaa2ced0d643f45f379dd3270a2381e531c2d7"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase2-20261013-v1-threequarter-reclaim-year/figures/year-session-net.png",
+      "sha256": "ee69cd7c72ba8534b2e7d115c818e8acdb46f7657b12c8d7d58fb00d05c57d7f"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase2-20261013-v1-threequarter-reclaim-year/report.json",
+      "sha256": "fc91c18da0b7c3f47def249152a49d483479f33a7c082e2181941c144a58c8d8"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase2-protected-entry-20261013-r1/downloads/all-level-time-recovery.csv",
+      "sha256": "0656407f9f5754fdf637b137cfcadbd056f3033427b1ab66a3862dc6a55e40ee"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase2-protected-entry-20261013-r1/downloads/protected-entry-performance.csv",
+      "sha256": "8ffe8bbd1aa15b0000b4243136956d2349dce05499f3a5f294d4b70b4e471e1a"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase2-protected-entry-20261013-r1/downloads/protected-transitions.csv",
+      "sha256": "62ddc300aa577f571e7779d7299be698a9c7344c1d75f012273f1053c5cdb46a"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase2-protected-entry-20261013-r1/report.json",
+      "sha256": "5e163bd7d31f870135589c6fdab24bcd078b88dc27271561b77eb05c4a4da8ac"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase2-session-transitions-20261013-r1/downloads/boundary-transitions.csv",
+      "sha256": "4a5d7ccf7e4d965831751d15038e8006be1e3e1dc60db09800be71dc12a57384"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase2-session-transitions-20261013-r1/downloads/breakout-candidate-transitions.csv",
+      "sha256": "7fe2eb0dc59469de2ecee699578b4cecb17fb425c732a8999cf2d7371da57f6d"
+    },
+    {
+      "path": "public/publications/gc-overnight-breakout-15m-phase2-session-transitions-20261013-r1/report.json",
+      "sha256": "8804ebc9299ab8f8e876f8e5948af3acdaacfdb14d948dc9ac1bb392e88abd08"
+    },
+    {
+      "path": "public/publications/index.json",
+      "sha256": "de2cabbbd5bd65def6bd53e6910df9912f4be13164286794eba54f60fb496fb1"
+    },
+    {
+      "path": "public/publications/nq-amd-source-review-20261006-web17/figures/01_weekly_context.jpg",
+      "sha256": "3c58a33ad4303ac10a4c44e58423f0f4eb9b7873cdf6fe0c3d67b26f913dd362"
+    },
+    {
+      "path": "public/publications/nq-amd-source-review-20261006-web17/figures/06_wednesday_ob_chain.jpg",
+      "sha256": "b94b10bc923cc3bc07531d25c1523ea2bc8645dcbeccdaa3156e949d1e71c202"
+    },
+    {
+      "path": "public/publications/nq-amd-source-review-20261006-web17/figures/09_thursday_no_trade.jpg",
+      "sha256": "774795cdccb861226ba22cb4cf6beeefc86a97e05beaa67067cb808290e8d889"
+    },
+    {
+      "path": "public/publications/nq-amd-source-review-20261006-web17/figures/11_friday_news_distribution.jpg",
+      "sha256": "7106b46203fad89d61056db157e5150a55244d99abe70ca570cfed91665e51f5"
+    },
+    {
+      "path": "public/publications/nq-amd-source-review-20261006-web17/figures/13_friday_target_shortfall.jpg",
+      "sha256": "c5caad94094510f84e565ed473c6bb28ff2a40210196d2c6198e3a402b904e80"
+    },
+    {
+      "path": "public/publications/nq-amd-source-review-20261006-web17/report.json",
+      "sha256": "b42faac1cfa56d125e86edd255284f364f29486abdb93bdc969cb630b9fc36c8"
+    },
+    {
+      "path": "public/publications/nq-amd-source-review-20261007-references/figures/01_weekly_context.jpg",
+      "sha256": "3c58a33ad4303ac10a4c44e58423f0f4eb9b7873cdf6fe0c3d67b26f913dd362"
+    },
+    {
+      "path": "public/publications/nq-amd-source-review-20261007-references/figures/06_wednesday_ob_chain.jpg",
+      "sha256": "b94b10bc923cc3bc07531d25c1523ea2bc8645dcbeccdaa3156e949d1e71c202"
+    },
+    {
+      "path": "public/publications/nq-amd-source-review-20261007-references/figures/09_thursday_no_trade.jpg",
+      "sha256": "774795cdccb861226ba22cb4cf6beeefc86a97e05beaa67067cb808290e8d889"
+    },
+    {
+      "path": "public/publications/nq-amd-source-review-20261007-references/figures/11_friday_news_distribution.jpg",
+      "sha256": "7106b46203fad89d61056db157e5150a55244d99abe70ca570cfed91665e51f5"
+    },
+    {
+      "path": "public/publications/nq-amd-source-review-20261007-references/figures/13_friday_target_shortfall.jpg",
+      "sha256": "c5caad94094510f84e565ed473c6bb28ff2a40210196d2c6198e3a402b904e80"
+    },
+    {
+      "path": "public/publications/nq-amd-source-review-20261007-references/report.json",
+      "sha256": "53704eccd158160c5bc29e583a8b5d8434597e7d07c85dc09bacbadd60f8c4a0"
+    },
+    {
+      "path": "public/publications/session-vwap-vwap3-20261006-web05/figures/barrier-outcomes.png",
+      "sha256": "5d27fdc704079ce44558ea48619fef2e193dcb481c046141725317038df7d8ab"
+    },
+    {
+      "path": "public/publications/session-vwap-vwap3-20261006-web05/report.json",
+      "sha256": "c11bba466a9fee1e44e41a5da1a1c257451de73f7691ddf9b569c6d5d4e1bb5b"
+    },
+    {
+      "path": "public/publications/value-area-fade-tracker-20261007-source-review-r2/downloads/context.csv",
+      "sha256": "ef5bccb62cbbf300daf386b0a9fddff16bea4aa3ef1bdab1b86299a4b2283b3b"
+    },
+    {
+      "path": "public/publications/value-area-fade-tracker-20261007-source-review-r2/downloads/grades.csv",
+      "sha256": "67375335703e503ad06f88aceda4cd440728b2b0e98b20499b70ee377517ca8b"
+    },
+    {
+      "path": "public/publications/value-area-fade-tracker-20261007-source-review-r2/downloads/tickers.csv",
+      "sha256": "933b1c519dbeee04c7e36076787798b45aa007225e254bff8edbf3758afda8ac"
+    },
+    {
+      "path": "public/publications/value-area-fade-tracker-20261007-source-review-r2/downloads/timeblocks.csv",
+      "sha256": "49f678e273f9017412ab0ff0dde70c0f9ca18357c64f7f4b6729a44be1857738"
+    },
+    {
+      "path": "public/publications/value-area-fade-tracker-20261007-source-review-r2/figures/chart-01.png",
+      "sha256": "dcc9d34bf9dfc78af84991a740acee88e40396687f0a1cb372ed0fabfcf74b0a"
+    },
+    {
+      "path": "public/publications/value-area-fade-tracker-20261007-source-review-r2/figures/chart-02.png",
+      "sha256": "697238e15d5b5911f5270b22e52ebe100ebc24b2b3c9ac3796844122cd937560"
+    },
+    {
+      "path": "public/publications/value-area-fade-tracker-20261007-source-review-r2/figures/chart-03.png",
+      "sha256": "6d9423dce18094daa26fc6e88cc4551a38093f72bfe2bb1823e1ef8dbdd2d231"
+    },
+    {
+      "path": "public/publications/value-area-fade-tracker-20261007-source-review-r2/figures/chart-04.png",
+      "sha256": "3588b3a730f801df24571a19cd92875a0706ab6358634ba9e70821b1e7a189af"
+    },
+    {
+      "path": "public/publications/value-area-fade-tracker-20261007-source-review-r2/figures/chart-05.png",
+      "sha256": "914ee245c0944aa365f54f6acbf65fd4d067e5f2c8680db280ed551c3f1c0de5"
+    },
+    {
+      "path": "public/publications/value-area-fade-tracker-20261007-source-review-r2/figures/chart-06.png",
+      "sha256": "cf9d1a451372fca0008841cd408389a3efbd926700742ba68aa783d20b4c0c12"
+    },
+    {
+      "path": "public/publications/value-area-fade-tracker-20261007-source-review-r2/figures/chart-07.png",
+      "sha256": "b470ecbd7c230fe811a2b4441070348876307dd1b54a9c9129894e463702c4c6"
+    },
+    {
+      "path": "public/publications/value-area-fade-tracker-20261007-source-review-r2/report.json",
+      "sha256": "1291bad1f229ecb8d43b8679d1ce6c1f74c870059783a0acc176dd2c3f198c19"
+    },
+    {
+      "path": "scripts/audit-release-sources.mjs",
+      "sha256": "4cb2dd63beff3ada77caded73daca8bef704308e53a731585295f2ad38f89443"
+    },
+    {
+      "path": "scripts/audit-sources.mjs",
+      "sha256": "7e34088249d39fd1b8b641f0fd0835246dd5feca688c36ff952a105e261faf8e"
+    },
+    {
+      "path": "scripts/lib/evidence.mjs",
+      "sha256": "b20a665f332f5a3a211e968818a558eb26782edcd12dfe3e8de9f5f6ee3015ff"
+    },
+    {
+      "path": "scripts/lib/preview-smoke.mjs",
+      "sha256": "2c395c60082ff0d7e51a7fafbed16812c586d5819c057ac4c7ed66bb328efd98"
+    },
+    {
+      "path": "scripts/lib/publication.mjs",
+      "sha256": "0ac6e2ad252e4bb63d2b456bc3b4a4729442fc1b2318640c63350477f660279d"
+    },
+    {
+      "path": "scripts/lib/release-gates.mjs",
+      "sha256": "0bab6796f8d4f65eeec0928132ff2f5a6159a79c3795d265ef659202b3cf7e2a"
+    },
+    {
+      "path": "scripts/lib/release.mjs",
+      "sha256": "b8c7179c4c44822adbfb0459fc4be51a26ffd5698b642a12eaad04b7aecbb4b7"
+    },
+    {
+      "path": "scripts/lib/static-page-budget.mjs",
+      "sha256": "1436ef182f965defaca27a8736fa0aeadf88ec9a45f2f3cdb0279e55a55521b1"
+    },
+    {
+      "path": "scripts/lib/studies.mjs",
+      "sha256": "5acee71b5c178bb7f3889239256a77c8604a471b4ee68d9d90e57578a68cdbe9"
+    },
+    {
+      "path": "scripts/lib/study-selections.mjs",
+      "sha256": "f6c7d0b53ea064563dc87bc91df3e515323740b96f6f87040fc44ac2a974396d"
+    },
+    {
+      "path": "scripts/preview.mjs",
+      "sha256": "cccf415c9a6060e7f3d7d8082fd85c64c66c449c8f8319ea40ca8c6884618fa2"
+    },
+    {
+      "path": "scripts/publish.mjs",
+      "sha256": "8b01bdba035246061db6cdd10e98d45748311253052b0f11830431c5cd1ad04d"
+    },
+    {
+      "path": "scripts/release.mjs",
+      "sha256": "96699f7b1791fc1a668b0a55029804a279df08ca9562dc190aa2d91cd46931f2"
+    },
+    {
+      "path": "scripts/smoke-preview.mjs",
+      "sha256": "dc3cdbfc791641900e579e41ffd73706b8796aa64e6d2dd1d98dae4b961fe33d"
+    },
+    {
+      "path": "scripts/verify-export.mjs",
+      "sha256": "b1d5a229d27b966a76a6e399ec5b9265b1e0fc975f43f3e64baa907bfc1092ef"
+    },
+    {
+      "path": "scripts/verify.mjs",
+      "sha256": "3b746c1fa35d6170dad3f9a71995aa3e506dbc8ec215f0890a96167e59c68170"
+    },
+    {
+      "path": "src/app/globals.css",
+      "sha256": "27cbe85f102c7849af0f65d0c04ab86879957bb40c536f58577d5b9a34e4896e"
+    },
+    {
+      "path": "src/app/layout.tsx",
+      "sha256": "8c0fe596b806549234be5139d38f09c3543c64ee6ed574fa2d42c232b571b241"
+    },
+    {
+      "path": "src/app/not-found.tsx",
+      "sha256": "00fac47f8e93fc1f24c6005260f1976d9f814384c285d73828724492ada8b11b"
+    },
+    {
+      "path": "src/app/page.tsx",
+      "sha256": "e17737a8bc4e2a3994d06ee4280289250f035d5041217079a6f390cdbf1b90fc"
+    },
+    {
+      "path": "src/app/reports/[id]/page.tsx",
+      "sha256": "a68e293b0aa662f053878be0ea3d1b7e0dc8dab8aff552bc889a313b957a28bb"
+    },
+    {
+      "path": "src/app/studies/[slug]/page.tsx",
+      "sha256": "bb9ff89c15eb17fa5c567a091ba87c19b5af7780dec628870d6166aab5bf303b"
+    },
+    {
+      "path": "src/components/filtered-report-table.tsx",
+      "sha256": "77b2bc008dc0bdd4465d2af151a8fc06c9e1fde2fd3b1410339ed1838742b418"
+    },
+    {
+      "path": "src/components/pattern-panel.tsx",
+      "sha256": "1318e60bd654362076e12e5a99e710b660673d2ebaf9fd0641972b1a545ef9ac"
+    },
+    {
+      "path": "src/components/publication-content.tsx",
+      "sha256": "5303d6b5f658b9e51ab60f6cf4e043a21279660ec7e8f7053ea27cf2992e67e7"
+    },
+    {
+      "path": "src/components/publication-evidence.tsx",
+      "sha256": "5257d3f7f5526063d8516ff21a3a6641d926f106cff012d80821ef8d9b4bc2ab"
+    },
+    {
+      "path": "src/components/publication-tabs.tsx",
+      "sha256": "cb70224000baa590bb602ed428272b8c0b8811214faffeced849cdce7544bc44"
+    },
+    {
+      "path": "src/components/report-sections.tsx",
+      "sha256": "ab9f3719713f797746fd92aadd97b4d38f609f1fe310f33de9bf0240f1e1ce9f"
+    },
+    {
+      "path": "src/components/report-table.tsx",
+      "sha256": "36634616489fb386335d79d22cc7193c25749b94567b3f00bf6b97e88d496b84"
+    },
+    {
+      "path": "src/components/site-header.tsx",
+      "sha256": "c17a58cc36a1cabd472a097af1b8c13c8694853b91e1080cbafa9a21ba857af4"
+    },
+    {
+      "path": "src/components/study-analyses.tsx",
+      "sha256": "1fd48af67f56ba3e17928a885d17b225ed88774439c20a9ace2ed2db4cd8243e"
+    },
+    {
+      "path": "src/lib/format.ts",
+      "sha256": "83613aa18e7b334256a6c558286bfe5581839556a5143a718eba32d9d56ee113"
+    },
+    {
+      "path": "src/lib/publications.ts",
+      "sha256": "bd562dc68e032d33d1e56925a004ea3934fa02c763fb4147618ba5b7ed777732"
+    },
+    {
+      "path": "src/lib/saved-tables.ts",
+      "sha256": "03f966dfdf39b2c30a3c5b6d36336a5e0b9cf69b8c08175def514eceb78cd385"
+    },
+    {
+      "path": "src/lib/studies.ts",
+      "sha256": "5e6c882a3d2f559636a5a27bcbf10e5ca9999f4d014936007e9298157eff4d84"
+    },
+    {
+      "path": "src/lib/table-filters.ts",
+      "sha256": "a0f5eda69c17615e7317404839d097b38aa0fc9613187390a2832a2a19a9b686"
+    },
+    {
+      "path": "tests/audit-release-sources.test.mjs",
+      "sha256": "af1eda0ffa25a3f242a0f67b292d73b1882bd9779c597f500ed800d69c84a5c1"
+    },
+    {
+      "path": "tests/evidence.test.mjs",
+      "sha256": "3437d6aefe09cece5b81bb14b037d131d2784d8adb1adc9285a2947740187fc9"
+    },
+    {
+      "path": "tests/filtered-publication.test.mjs",
+      "sha256": "b92bf519e35fac76dcd56988566585fe7ebde47282d2cc0db31fd563f373091d"
+    },
+    {
+      "path": "tests/format.test.mjs",
+      "sha256": "0cd60808abe33996f63249f84ca7fcff435d91c269d1758d5cff4e9dd1606a4d"
+    },
+    {
+      "path": "tests/operational-inputs.test.mjs",
+      "sha256": "3adcf9106176e8f9ca7e5de3066e281224ea8cb031fa56268964a5f9adb04d38"
+    },
+    {
+      "path": "tests/patterns.test.mjs",
+      "sha256": "ca5ab43afeb4aead45ce84eaba90432d63cbf37ed98312b24410dda5e2cd019c"
+    },
+    {
+      "path": "tests/preview-smoke.test.mjs",
+      "sha256": "5bc68efaa0073d1e88394b3e526dcf65652e7385dd830d8286385c1535cfb451"
+    },
+    {
+      "path": "tests/publication.test.mjs",
+      "sha256": "f4adafd9ff1e864988c4b822fc106bf1832f950f77b1c7e65c1571f7c5622c4c"
+    },
+    {
+      "path": "tests/release-gates.test.mjs",
+      "sha256": "ff3fa1c46efe8ba22b6ac6bae76d1646678e3deb91ae6e76a988bb5c4dcd96be"
+    },
+    {
+      "path": "tests/release-identity.test.mjs",
+      "sha256": "77276d52fea1d5e043d1dab8d5eb4925268882457439413bfb1d6c58a5d41a38"
+    },
+    {
+      "path": "tests/release.test.mjs",
+      "sha256": "aea1f077b549cce7bd1c37dfa0118bd484a43683594f59160f68af4fd39429cd"
+    },
+    {
+      "path": "tests/report-sections.test.mjs",
+      "sha256": "0d2386b952618dbd140b7853736ac73c1b23d3fed7caac0caa17a5b85d6fd1be"
+    },
+    {
+      "path": "tests/saved-tables.test.mjs",
+      "sha256": "562834964c1c154f6b01bcdd335f875d437f581b5011df92219299035cfa1575"
+    },
+    {
+      "path": "tests/static-page-budget.test.mjs",
+      "sha256": "eb881ed89301ec4b0782a88ad729d0d383d0089115b01e3dad39ae10d88d739b"
+    },
+    {
+      "path": "tests/studies.test.mjs",
+      "sha256": "cdc7ac0b271ced75125955d8a06705c7a0f0d7fbda4a5a3c2bd9a4fbd0b17c5b"
+    },
+    {
+      "path": "tests/table-filters.test.mjs",
+      "sha256": "b7d420311a6f2745effa335516e7f0d1aa143498bcc8005d01a9e3073dfb0b1e"
+    },
+    {
+      "path": "tsconfig.json",
+      "sha256": "6c5d121a6814bd766024bd8a140763a9b2a7faed3e15cb8847e6cb871d6e5a73"
+    },
+    {
+      "path": "types/report.ts",
+      "sha256": "02c2c58cd073a85ac2493c1afa9348c3ceca1aaf1ca3acb276e6ca492c1d23b9"
+    },
+    {
+      "path": "types/study.ts",
+      "sha256": "dcc455165074fc588298549dd6b52d3dd84b794f5da6129eda202582f3006c3d"
+    },
+    {
+      "path": "vercel.json",
+      "sha256": "3f312a996e96a9851b760fb560f1a915b519f126d86324122c2a2b1bfd437d56"
+    }
+  ]
+}

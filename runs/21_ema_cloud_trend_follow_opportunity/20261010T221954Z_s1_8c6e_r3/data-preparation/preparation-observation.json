@@ -1,0 +1,106 @@
+{
+  "schema_version": 1,
+  "scope": "Observed preparation success and current producer/snapshot byte equality; explicit source list, not dependency discovery or independent execution proof",
+  "recorded_at": "2026-10-10T22:01:05.846434+00:00",
+  "manifest": {
+    "path": "catalog/datasets/same_contract_ema_cloud__1.0.0.json",
+    "sha256": "59010a558b4e727dbfaa37a64b4a209590288f23744127ab98747cd27ff56d44"
+  },
+  "command": [
+    "./scripts/uv",
+    "run",
+    "--locked",
+    "--no-sync",
+    "python",
+    "-m",
+    "abacus_bhishma.ema_cloud_release",
+    "--workspace",
+    ".",
+    "--audit-dir",
+    "work/21_ema_cloud_trend_follow_opportunity/20261010T215130Z_s1_8c6e/data-preparation",
+    "--release-id",
+    "20261010T215130Z_s1_8c6e_prep2"
+  ],
+  "environment_overrides": {
+    "UV_CACHE_DIR": "/private/tmp/abacus-stage21-uv-cache"
+  },
+  "observed_exit_code": 0,
+  "snapshot_equality": [
+    {
+      "source": "packages/bhishma/src/abacus_bhishma/ema_cloud.py",
+      "retained": "data/features/ema_cloud/version=1.0.0/provenance/ema_cloud.py",
+      "sha256": "c9a030f1940fd5ac4776a5a6c1ba741e36f4a334e9d684f7cbe629d8074e390e",
+      "retained_sha256": "c9a030f1940fd5ac4776a5a6c1ba741e36f4a334e9d684f7cbe629d8074e390e"
+    },
+    {
+      "source": "packages/bhishma/src/abacus_bhishma/ema_cloud_release.py",
+      "retained": "data/features/ema_cloud/version=1.0.0/provenance/ema_cloud_release.py",
+      "sha256": "41cb48db5928b07e06bb79474baa626b8702466b6be19ec6ae770912ce5e90a1",
+      "retained_sha256": "41cb48db5928b07e06bb79474baa626b8702466b6be19ec6ae770912ce5e90a1"
+    },
+    {
+      "source": "packages/bhishma/src/abacus_bhishma/calendar.py",
+      "retained": "data/features/ema_cloud/version=1.0.0/provenance/calendar.py",
+      "sha256": "94c89dfc03e36ad57819c4337da1f4b02a27dd18f49c92ae5a143582624da314",
+      "retained_sha256": "94c89dfc03e36ad57819c4337da1f4b02a27dd18f49c92ae5a143582624da314"
+    },
+    {
+      "source": "packages/bhishma/src/abacus_bhishma/continuous_loader.py",
+      "retained": "data/features/ema_cloud/version=1.0.0/provenance/continuous_loader.py",
+      "sha256": "810ca34425a3f620850e8e576130065fb0824adabb21a5aff2019c2467cbec6c",
+      "retained_sha256": "810ca34425a3f620850e8e576130065fb0824adabb21a5aff2019c2467cbec6c"
+    },
+    {
+      "source": "packages/bhishma/src/abacus_bhishma/manifest_selection.py",
+      "retained": "data/features/ema_cloud/version=1.0.0/provenance/manifest_selection.py",
+      "sha256": "bdbf8c2c65759c1e2b2cb82f74b04c7aa18920dbc638af525446d9d3ec5c550d",
+      "retained_sha256": "bdbf8c2c65759c1e2b2cb82f74b04c7aa18920dbc638af525446d9d3ec5c550d"
+    },
+    {
+      "source": "packages/bhishma/src/abacus_bhishma/paths.py",
+      "retained": "data/features/ema_cloud/version=1.0.0/provenance/paths.py",
+      "sha256": "f3125bcff0953fcfc9845119c9ff9b3f006b2d1df77c3899e0d49609e93aac18",
+      "retained_sha256": "f3125bcff0953fcfc9845119c9ff9b3f006b2d1df77c3899e0d49609e93aac18"
+    },
+    {
+      "source": "packages/bhishma/src/abacus_bhishma/provenance.py",
+      "retained": "data/features/ema_cloud/version=1.0.0/provenance/provenance.py",
+      "sha256": "34e75937186557e92d3e26feac8a4c576158e44f98ba4b67e3803a65517350d9",
+      "retained_sha256": "34e75937186557e92d3e26feac8a4c576158e44f98ba4b67e3803a65517350d9"
+    }
+  ],
+  "python": "3.11.16 (main, Aug 25 2026, 13:50:51) [Clang 22.1.3 ]",
+  "packages": {
+    "numpy": "2.4.6",
+    "pandas": "2.3.3",
+    "pyarrow": "25.0.1"
+  },
+  "git_revision": "cd11be3f8f7d27c9429b2ff03872f3b6485a6e27",
+  "git_dirty": true,
+  "numerical_fixture_result": {
+    "counts": {
+      "discovered": 11,
+      "errors": 0,
+      "expected_failures": 0,
+      "failures": 0,
+      "skipped": 0,
+      "tests_run": 11,
+      "unexpected_successes": 0
+    },
+    "outcome": "passed",
+    "schema_version": 1,
+    "skips": [],
+    "successful_callbacks": 11
+  },
+  "fixture_log_sha256": "0ab9bdea23a887856aa29db6580363817662dd71546372011a083ce2e7dfaf53",
+  "tests": [
+    {
+      "path": "packages/bhishma/tests/test_ema_cloud.py",
+      "sha256": "f800a48835c3599e69c4e430ee20a8519179bb13b4f9ee4e24528dcaf2a2f3c2"
+    },
+    {
+      "path": "packages/bhishma/tests/test_ema_cloud_release.py",
+      "sha256": "fa682e516abb38ded5af9b863655e7823975ad57dad548c18701aea0bc2177ce"
+    }
+  ]
+}

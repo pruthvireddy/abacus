@@ -1,0 +1,3 @@
+# Dated interpretation — 2026-09-24
+
+No study 07 price candidate passes the three-segment screen after two ticks (`tables/07_summary.csv`). Study 08 has 3 small NQ 10RXV continuation differences versus other named segments (`tables/08_summary.csv`). Study 09 has 7 C2-confirmed differences versus ordinary pairs, but only 1 is also segment-specific: NQ 10RXV bearish in London/pre-NY (`tables/09_summary.csv`). Its wait-policy chart-price mean per original C1 is negative (`tables/09_opportunity.csv`). These retrospective, correlated chart settings are not a validated trading rule. Verify ATAS clock/feed/contract settings and use a fresh unseen export before testing a prespecified session filter. Study 07 quiet-breakout calibration needs a separate corrected-clock rerun.

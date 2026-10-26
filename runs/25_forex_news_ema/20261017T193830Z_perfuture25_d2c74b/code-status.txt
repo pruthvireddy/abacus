@@ -1,0 +1,227 @@
+ M .gitignore
+ M AGENTS.md
+ M README.md
+ M config/paths.example.toml
+ M data/README.md
+ M docs/README.md
+ M legacy/README.md
+ T legacy/sahadeva/data/README.md
+ T legacy/sahadeva/data/range_xv_exports_manifest.json
+ M packages/bhishma/README.md
+ M packages/bhishma/pyproject.toml
+ M packages/bhishma/src/abacus_bhishma/continuous_loader.py
+ M packages/bhishma/src/abacus_bhishma/continuous_phase1.py
+ M packages/bhishma/src/abacus_bhishma/continuous_phase2.py
+ M packages/bhishma/src/abacus_bhishma/derived_ohlcv_5m.py
+ M packages/bhishma/src/abacus_bhishma/feature_loader.py
+ M packages/bhishma/src/abacus_bhishma/session_anchored_vwap.py
+ M packages/sahadeva/README.md
+ M packages/sahadeva/src/abacus_sahadeva/cli.py
+ M packages/sahadeva/src/abacus_sahadeva/inputs.py
+ M packages/sahadeva/tests/test_input_pins.py
+ M reports/index.html
+ M reports/index.md
+ M requests/README.md
+ M runs/README.md
+ M scripts/build-research-index.py
+ M scripts/check-workspace
+ M scripts/verify-migration.py
+ M strategies/README.md
+ M strategies/index.json
+ M strategies/vwap_extreme_fade.md
+ M strategies/vwap_first_retest_bounce.md
+ M strategies/vwap_reentry_fade.md
+ M strategies/vwap_return_after_departure.md
+ M studies/05_session_vwap/README.md
+ M studies/05_session_vwap/notes.md
+ M studies/05_session_vwap/plan.md
+ M studies/05_session_vwap/study.json
+ M studies/05_session_vwap/study.yaml
+ M studies/README.md
+ M templates/README.md
+ M uv.lock
+ M work/README.md
+?? ARCHITECTURE.md
+?? apps/
+?? catalog/datasets/gc_ema_deviation_bands__1.0.0.json
+?? catalog/datasets/nq_causal_vp_hvn__1.0.0.json
+?? catalog/datasets/same_contract_ema_cloud__1.0.0.json
+?? catalog/datasets/same_contract_ema_cloud__1.1.0.json
+?? catalog/datasets/tradingview_daily_context__1.0.0.json
+?? catalog/indicators/gc_ema_deviation_bands__1.0.0.json
+?? catalog/indicators/gc_hac_levels_bands__20260925.pine
+?? catalog/indicators/hac_lpt_mtf__20260926.md
+?? catalog/indicators/hac_lpt_mtf__20260926.pine
+?? catalog/indicators/nq_causal_vp_hvn__1.0.0.json
+?? catalog/indicators/nq_causal_vp_hvn__1.0.0.source.pine
+?? catalog/indicators/nq_causal_vp_hvn__1.0.0.spec.json
+?? catalog/indicators/same_contract_ema_cloud__1.0.0.json
+?? catalog/indicators/same_contract_ema_cloud__1.1.0.json
+?? catalog/indicators/tradingview_daily_context__1.0.0.json
+?? catalog/indicators/tradingview_daily_context__1.0.0.pine
+?? catalog/schemas/nq_causal_vp_hvn__1.0.0.json
+?? catalog/schemas/same_contract_ema_cloud__1.0.0.json
+?? catalog/schemas/same_contract_ema_cloud__1.1.0.json
+?? catalog/schemas/tradingview_daily_context__1.0.0.json
+?? config/workspace-checks.json
+?? data/range_xv/
+?? docs/assets/
+?? docs/daily-context-20260924.md
+?? docs/data/
+?? docs/evidence-contract.md
+?? docs/migration/nonbulk-audit-20260922.json
+?? docs/migration/range-xv-clock-normalization-20260924.json
+?? docs/migration/storage-acceptance-20260922.json
+?? docs/migration/storage-files-20260922.json
+?? docs/migration/storage-publication-verification-20260922.json
+?? docs/migration/storage-relocation-20260922.md
+?? docs/migration/storage-verification-20260922.json
+?? docs/migration/storage-workspace-check-20260922.log
+?? docs/narada-publication-plan.md
+?? docs/narada.md
+?? docs/range-xv-fx-20261001.md
+?? docs/range-xv-long-history-20260924.md
+?? packages/bhishma/AGENTS.md
+?? packages/bhishma/src/abacus_bhishma/calendar.py
+?? packages/bhishma/src/abacus_bhishma/daily_context.py
+?? packages/bhishma/src/abacus_bhishma/ema_cloud.py
+?? packages/bhishma/src/abacus_bhishma/ema_cloud_loader_v2.py
+?? packages/bhishma/src/abacus_bhishma/ema_cloud_release.py
+?? packages/bhishma/src/abacus_bhishma/ema_cloud_release_v2.py
+?? packages/bhishma/src/abacus_bhishma/gc_ema_bands.py
+?? packages/bhishma/src/abacus_bhishma/manifest_selection.py
+?? packages/bhishma/src/abacus_bhishma/provenance.py
+?? packages/bhishma/src/abacus_bhishma/publication_safety.py
+?? packages/bhishma/src/abacus_bhishma/range_xv.py
+?? packages/bhishma/src/abacus_bhishma/vp_hvn.py
+?? packages/bhishma/src/abacus_bhishma/vp_hvn_loader.py
+?? packages/bhishma/src/abacus_bhishma/vp_hvn_native.cpp
+?? packages/bhishma/src/abacus_bhishma/vp_hvn_release.py
+?? packages/bhishma/tests/test_calendar.py
+?? packages/bhishma/tests/test_continuous_publication_safety.py
+?? packages/bhishma/tests/test_daily_context.py
+?? packages/bhishma/tests/test_ema_cloud.py
+?? packages/bhishma/tests/test_ema_cloud_release.py
+?? packages/bhishma/tests/test_ema_cloud_v2.py
+?? packages/bhishma/tests/test_feature_loaders.py
+?? packages/bhishma/tests/test_feature_publication_safety.py
+?? packages/bhishma/tests/test_gc_ema_bands.py
+?? packages/bhishma/tests/test_loader_import_boundaries.py
+?? packages/bhishma/tests/test_manifest_selected_loaders.py
+?? packages/bhishma/tests/test_provenance.py
+?? packages/bhishma/tests/test_publication_provenance.py
+?? packages/bhishma/tests/test_range_xv.py
+?? packages/bhishma/tests/test_runtime_prerequisites.py
+?? packages/bhishma/tests/test_vp_hvn.py
+?? packages/bhishma/tests/test_vp_hvn_loader.py
+?? packages/sahadeva/AGENTS.md
+?? packages/sahadeva/src/abacus_sahadeva/cooldown.py
+?? packages/sahadeva/src/abacus_sahadeva/presentation_revision.py
+?? packages/sahadeva/src/abacus_sahadeva/saved_evidence.py
+?? packages/sahadeva/tests/test_cooldown.py
+?? packages/sahadeva/tests/test_export_guards.py
+?? packages/sahadeva/tests/test_export_projection.py
+?? packages/sahadeva/tests/test_presentation_export_writer.py
+?? packages/sahadeva/tests/test_saved_evidence.py
+?? packages/sahadeva/tests/test_study22_pattern_export.py
+?? reports/README.md
+?? reports/exports/
+?? reports/quality/gc_ema_deviation_bands__1.0.0.md
+?? reports/quality/nq_causal_vp_hvn__1.0.0.md
+?? reports/quality/same_contract_ema_cloud__1.0.0.md
+?? reports/quality/same_contract_ema_cloud__1.1.0.md
+?? reports/quality/tradingview_daily_context__1.0.0.md
+?? requests/fulfilled/gc_ema_deviation_bands__1.0.0.yaml
+?? requests/fulfilled/nq_causal_vp_hvn__1.0.0.yaml
+?? requests/fulfilled/same_contract_ema_cloud__1.0.0.yaml
+?? requests/fulfilled/same_contract_ema_cloud__1.1.0.yaml
+?? requests/fulfilled/tradingview_daily_context__1.0.0.yaml
+?? requests/inbox/
+?? runs/05_session_vwap/
+?? runs/06_vwap_state_dynamics/
+?? runs/07_range_xv_edge_candidates/
+?? runs/08_countertrend_bar_continuation/
+?? runs/09_range_xv_c2_confirmation/
+?? runs/10_range_xv_session_overlay/
+?? runs/11_vwap_conditional_probabilities/
+?? runs/12_gc_ema_band_excursions/
+?? runs/13_gc_ema_band_filter_validation/
+?? runs/14_asia_session_vp_levels/
+?? runs/15_vwap_excursion_response/
+?? runs/16_range_xv_reversal_paths/
+?? runs/17_nq_advanced_amd_video/
+?? runs/19_value_area_fade_tracker/
+?? runs/20_camarilla_ema_cloud_reversals/
+?? runs/21_ema_cloud_trend_follow_opportunity/
+?? runs/22_es_range_xv_focused/
+?? runs/23_gc_overnight_breakout_15m/
+?? runs/24_trader_assistant_manual/
+?? runs/25_forex_news_ema/
+?? scripts/check-agent-docs.py
+?? scripts/check-evidence-bundle.py
+?? scripts/check-evidence-references.py
+?? scripts/check-navigation-metadata.py
+?? scripts/check-study-provenance.py
+?? scripts/check_registry.py
+?? scripts/evidence_contract.py
+?? scripts/evidence_paths.py
+?? scripts/evidence_refs.py
+?? scripts/import-range-xv-20260924.py
+?? scripts/import-range-xv-20261001.py
+?? scripts/navigation_metadata.py
+?? scripts/normalize-range-xv-clock.py
+?? scripts/numerical_test_record.py
+?? scripts/record-numerical-tests.py
+?? scripts/study_provenance.py
+?? scripts/tests/
+?? scripts/unittest_child.py
+?? scripts/verify-storage.py
+?? scripts/workspace_checks.py
+?? strategies/gc_ema_outer_lower_long.md
+?? strategies/nq_prev_rth_poc_fade.md
+?? strategies/nq_prev_rth_va_breakout_retest.md
+?? strategies/value_area_first_touch_fade.md
+?? studies/01_reversal_follow_through/notes.md
+?? studies/01_reversal_follow_through/publish_web.py
+?? studies/02_followthrough_candle_adverse/notes.md
+?? studies/02_followthrough_candle_adverse/publish_web.py
+?? studies/03_multi_rxv_alignment/notes.md
+?? studies/03_multi_rxv_alignment/publish_web.py
+?? studies/04_reversal_candle_quality/notes.md
+?? studies/04_reversal_candle_quality/publish_web.py
+?? studies/05_session_vwap/audit.py
+?? studies/05_session_vwap/conditional_audit.py
+?? studies/05_session_vwap/conditional_run.py
+?? studies/05_session_vwap/conditional_seal.py
+?? studies/05_session_vwap/conditional_summarize.py
+?? studies/05_session_vwap/enrich.py
+?? studies/05_session_vwap/protocol-1.0.0.md
+?? studies/05_session_vwap/protocol-1.1.0.md
+?? studies/05_session_vwap/run.py
+?? studies/05_session_vwap/seal.py
+?? studies/05_session_vwap/src/
+?? studies/05_session_vwap/summarize.py
+?? studies/05_session_vwap/tests/
+?? studies/05_session_vwap/warmup_sensitivity.py
+?? studies/06_vwap_state_dynamics/
+?? studies/07_range_xv_edge_candidates/
+?? studies/08_countertrend_bar_continuation/
+?? studies/09_range_xv_c2_confirmation/
+?? studies/10_range_xv_session_overlay/
+?? studies/11_vwap_conditional_probabilities/
+?? studies/12_gc_ema_band_excursions/
+?? studies/13_gc_ema_band_filter_validation/
+?? studies/14_asia_session_vp_levels/
+?? studies/15_vwap_excursion_response/
+?? studies/16_range_xv_reversal_paths/
+?? studies/17_nq_advanced_amd_video/
+?? studies/18_fibonacci_memory/
+?? studies/19_value_area_fade_tracker/
+?? studies/20_camarilla_ema_cloud_reversals/
+?? studies/21_ema_cloud_trend_follow_opportunity/
+?? studies/22_es_range_xv_focused/
+?? studies/23_gc_overnight_breakout_15m/
+?? studies/24_trader_assistant_manual/
+?? studies/25_forex_news_ema/
+?? studies/AGENTS.md
+?? templates/web-study-report.md

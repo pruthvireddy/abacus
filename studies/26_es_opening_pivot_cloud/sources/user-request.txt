@@ -1,0 +1,387 @@
+Build an Abacus study named:
+
+“ES Opening Pivot–Cloud Rejection/Support”
+
+Research question:
+Do reactions around Verne’s daily pivot and the 5-minute EMA20/50 cloud provide a useful ES entry model during 09:30–10:00 New York? Compare early reaction entries with pivot-confirmed entries. Make EMA ordering and slope optional filters. Exclude CVD entirely.
+
+Audit inputs, freeze the protocol, implement and test the engine, run the study, and prepare a reproducible report and local Abacus board preview. Hosted deployment is a later step.
+
+Treat the following as the proposed initial protocol. Resolve any remaining implementation ambiguity conservatively and document it BEFORE examining strategy outcomes.
+
+1. WORKSPACE AND EVIDENCE RULES
+
+Read README.md, ARCHITECTURE.md, studies/AGENTS.md, studies/README.md, packages/sahadeva/AGENTS.md, and the relevant data guides.
+
+Use the next unused study ID. Keep study-specific code, tests and configuration under studies/<study-id>/.
+
+Create plan.md, study.yaml, inputs.lock.json, study.json, README.md and decision notes. Freeze the executed protocol and settings before running outcomes.
+
+Stage outputs under work/<study-id>/<run-id>/. Seal completed evidence into a unique runs/<study-id>/<run-id>/.
+
+Never overwrite published datasets, old runs or historical artifacts. Pin input versions and manifest/file hashes. Preserve source qualifications and original level descriptions.
+
+2. INPUTS AND ACTUAL COVERAGE
+
+Requested research universe: 2022–2026, through the latest common complete date in the pinned inputs.
+
+Current annual Verne releases are independent, not cumulative:
+
+2022: verniman_daily_levels__6.0.0
+2023: verniman_daily_levels__5.0.0
+2024: verniman_daily_levels__4.0.0
+2025: verniman_daily_levels__3.0.0
+2026: verniman_daily_levels__2.0.0
+
+Current price/feature authorities:
+
+catalog/datasets/same_contract_ema_cloud__1.1.0.json
+catalog/datasets/volume_lead_unadjusted_v1.json
+
+Use Bhishma’s supported loaders and verify pins.
+
+The currently known overlap begins May 16, 2022 and ends September 18, 2026. Re-audit rather than assuming every intervening session is eligible. Do not manufacture earlier Verne levels or silently substitute another pivot system.
+
+Produce a coverage/exclusion waterfall by year:
+- Exchange sessions in scope.
+- Dates with source levels.
+- Unique complete daily plans.
+- Ambiguous duplicate dates skipped.
+- Quote-contract matches.
+- Usable opening bars.
+- EMA/ATR readiness.
+- Complete execution data.
+- Final input-eligible sessions.
+
+Skip ambiguous duplicate source dates entirely, following the existing indicator policy. Do not select whichever duplicate produces a better result.
+
+All current Verne available_at values are unverified/null. Preserve this. The initial study is conditional, retrospective research using saved levels. A genuinely verified pre-open-availability cohort must be reported separately if reliable evidence becomes available; it may currently be empty.
+
+Do not infer historical availability from modern capture timestamps.
+
+3. CONTRACTS, BARS AND CLOUD
+
+Generate signals from standard ES 5-minute OHLC bars. Use 1-minute data for execution refinement.
+
+All session rules use timezone-aware America/New_York timestamps and the appropriate exchange/cash-session calendar.
+
+Use unadjusted prices. Match each daily plan’s quoted ES contract to the actual contract underlying the price bars. The volume-leader series is stitched; it does not contain every parallel dated contract.
+
+Skip contract mismatches unless correctly pinned matching-contract data is obtained. Never translate levels using an undocumented adjustment.
+
+Use the published same-contract EMA20/50 and Wilder ATR14 definitions when compatible with this protocol:
+- Overnight continuity.
+- No reset at 09:30, year boundaries or evaluation folds.
+- Published resets for contract changes, invalid slots and unknown gaps.
+- Preserve the existing 250-bar readiness requirement.
+
+Audit readiness-related attrition. Do not weaken readiness because the retained sample looks disappointing. Any alternative readiness rule requires a separately declared sensitivity.
+
+Document that native TradingView parity has not been established. Verify feature timing and representative values independently before trusting signals.
+
+4. DAILY PIVOT REPRESENTATION
+
+Match the current indicator’s pivot construction:
+- Coincident trigger levels become one pivot price.
+- Distinct trigger prices/ranges become one pivot zone spanning their outer bounds.
+
+Retain pivot lower/upper bounds, original descriptions, source row identities and quoted contract.
+
+Preserve labels such as YVAL, YPOC, HVE and combinations. Group labels only through documented rules; retain original strings.
+
+Do not treat bullish/bearish target levels as additional pivots.
+
+5. SETUP FAMILY AND EVENT SEQUENCE
+
+Mandatory ingredients:
+- A return toward the daily pivot.
+- Interaction with the EMA cloud.
+- A completed directional reaction bar.
+
+EMA ordering and slope are optional filters. Cloud interaction remains required even when both filters are OFF.
+
+Use causal state transitions, not an exact reproduction of the example screenshot.
+
+At 09:30, reset setup state. The last completed pre-open bar may establish approach direction, but all qualifying pivot/cloud interactions must occur at or after 09:30.
+
+Define proximity tolerance at the first pivot-return touch:
+
+delta = max(1 ES point, 0.10 × prior completed bar’s ATR14)
+
+Round upward to the ES tick and freeze it for that episode.
+
+A touch means the completed bar’s range intersects the tolerance-expanded pivot or cloud zone. Use completed-bar cloud values, without claiming to know the EMA’s intrabar path.
+
+SHORT — PIVOT/CLOUD REJECTION:
+- A previously completed close establishes price below the pivot’s lower edge by at least delta.
+- Price subsequently returns to the tolerance-expanded pivot.
+- Allow that return bar and the next two bars for the reaction to form.
+- During this episode, price must touch both the pivot and cloud. The touches may occur on different bars.
+- Require pivot/cloud separation no greater than delta on at least one interaction bar.
+- The first bearish bar closing below the cloud’s lower boundary completes the short candidate.
+
+LONG — PIVOT/CLOUD SUPPORT:
+- Mirror the short rules.
+- Establish approach from above the pivot.
+- Require a return toward pivot/cloud.
+- The first bullish bar closing above the cloud’s upper boundary completes the long candidate.
+
+Define bearish as close < open and bullish as close > open.
+
+Do not require a giant candle, two consecutive reaction candles, a particular wick ratio, or an EMA crossover. Record such characteristics as descriptive tags rather than adding them to the baseline.
+
+Expire an incomplete return episode after its three-bar formation window.
+
+Document exact boundary comparisons and episode deduplication. Candidate formation must not depend on later trade outcomes.
+
+6. EARLY VERSUS CONFIRMED ENTRIES
+
+Create a common candidate ID at the reaction close, before applying either entry policy.
+
+EARLY:
+Enter at the next 5-minute open after the completed reaction bar.
+
+CONFIRMED:
+After the same reaction, wait for a completed close beyond BOTH the pivot zone and cloud in the trade direction:
+- Short: below pivot lower edge and cloud lower edge.
+- Long: above pivot upper edge and cloud upper edge.
+
+Enter at the following 5-minute open.
+
+Confirmation may occur on the reaction bar itself. In that case the two policies coincide. Report this frequency; do not assume “early” always produces an earlier fill.
+
+Expire confirmation after three subsequent bars, structural invalidation, or the entry cutoff, whichever comes first.
+
+Entry fills must satisfy:
+09:30 <= fill time < 10:00 New York.
+
+With completed cash-bar reactions, the earliest possible entry is 09:35. A candle closing at 10:00 cannot generate an eligible entry.
+
+Do not mix reaction-low/high stop entries into this comparison. That would be a separately named future model.
+
+7. OPTIONAL EMA FILTERS
+
+Test exactly four masks:
+A. No EMA trend filter.
+B. EMA ordering only.
+C. EMA slope only.
+D. Both ordering and slope.
+
+Ordering:
+- Long: EMA20 > EMA50.
+- Short: EMA20 < EMA50.
+
+Slope:
+- Long: both EMAs are above their values three completed bars earlier.
+- Short: both EMAs are below their values three completed bars earlier.
+
+Evaluate and freeze these filters at the common reaction close so both entry policies use the same candidate population.
+
+Do not add an entry-time recheck to the primary experiment.
+
+This produces eight entry/filter combinations.
+
+8. STOPS AND TARGETS
+
+Freeze the structural stop when the reaction candidate completes.
+
+Short stop:
+max(highest high from first return touch through reaction,
+    pivot upper edge) + 1 ES point.
+
+Long stop:
+min(lowest low over that episode,
+    pivot lower edge) - 1 ES point.
+
+Use the same frozen stop for early and confirmed entries. Do not widen it while confirmation develops.
+
+Cancel an unfilled candidate if its structural stop is reached. Reject an entry whose opening price is already beyond the stop; record the reason.
+
+PRIMARY EXIT:
+- Fixed 2R target.
+- Structural stop.
+- Flatten any remaining position at 11:00 New York.
+
+Define initial R from actual entry fill to the frozen stop. Report net R after costs using that initial risk.
+
+SECONDARY EXIT:
+Use the nearest profitable target among the first two saved Verne targets for that direction.
+- Use the near edge of a target zone.
+- Select using information available at entry.
+- Record original target ordinal, description and price.
+- If neither target is strictly beyond entry, mark this policy unavailable.
+- Do not fall back silently to 2R.
+
+Compare target policies on their common eligible population and separately show their coverage differences.
+
+Do not choose exits trade by trade according to which would have worked.
+
+The full declared comparison is:
+2 entry policies × 4 EMA masks × 2 exit policies = 16 variants.
+
+Primary comparison:
+Early versus confirmed, EMA filters OFF, fixed 2R exit.
+
+9. EXECUTION AND COSTS
+
+Use one ES contract, no pyramiding, no scaling, no breakeven move and no trailing stop.
+
+Primary portfolio rule:
+Use the first qualifying reaction candidate each day, selected before optional EMA filters. A filtered-out candidate does not get replaced by a later candidate.
+
+Allow at most one trade per variant per day.
+
+Use 1-minute sequencing after entry to resolve stops, targets and time exits. Never count target touches that occurred before entry.
+
+If stop and target remain touched within the same finest available bar:
+- Use adverse-first ordering for primary results.
+- Report the ambiguity count and optimistic bound.
+- Do not silently infer a favorable price path.
+
+Model gaps through stops at the worse available opening price, plus applicable slippage.
+
+Reference cost scenario:
+- ES tick: 0.25 point; $12.50 per tick.
+- $5 round-trip fees per contract, explicitly labelled an assumption.
+- One tick adverse slippage per market/stop execution.
+- Conservative target-limit fills requiring one tick of trade-through.
+- Stress tests at two and four ticks of market/stop slippage.
+
+Freeze all fill and cost rules before outcomes. Do not double-count fees or slippage.
+
+Predeclare a fixed data-completeness window through the 11:00 exit. Disclose retrospective data-quality eligibility. Preserve missing/undefined outcomes rather than converting them to losses, wins or zeros.
+
+10. COMPARISON AND STATISTICS
+
+Primary metric:
+Net dollars per input-eligible session, including zero dollars on genuine no-trade sessions.
+
+Also report:
+- Eligible sessions, candidates and trades.
+- Trade participation and confirmation rate.
+- Early-only, confirmed-only, both-filled and neither-filled counts.
+- Coincident-entry rate.
+- Net expectancy per trade in R and dollars.
+- Win rate, average win/loss, payoff ratio and profit factor.
+- Median R and outcome distribution.
+- Initial stop distance and achieved reward/risk.
+- MAE, MFE, holding time and exit reason.
+- Chronological one-contract dollar equity and maximum drawdown.
+
+Use paired daily comparisons between entry policies. Also report paired outcomes on both-filled candidates, while explaining that this subset omits missed opportunities.
+
+Report uncertainty using a fixed-seed, day-clustered bootstrap; include a week-block sensitivity where feasible.
+
+Do not treat correlated trades or overlapping analytical cuts as independent observations.
+
+Keep undefined quantities undefined—for example, profit factor with no losses.
+
+11. PRESPECIFIED CUTS
+
+Produce bounded tables, with sample sizes and uncertainty, for:
+- Year, clearly marking partial 2022 and partial 2026.
+- Long versus short.
+- Five-minute entry-time bins.
+- Weekday.
+- Early versus confirmed and confirmation delay.
+- Four EMA filter masks.
+- Pivot description/type, including combinations and unknowns.
+- Single-price pivot versus zone.
+- Pivot-zone width.
+- Opening position relative to pivot/cloud.
+- Pivot/cloud separation.
+- Cloud width relative to ATR.
+- Prior-known volatility regime.
+- Stop distance and distance from entry to pivot.
+- Target identity and target-distance/R.
+- Exit reason and execution-ambiguity status.
+
+Define continuous-variable bins from development data or causal prior history, then freeze them. Do not calculate thresholds using the final test period.
+
+Publish one-way cuts and a small explicitly declared set of two-way cuts, such as year × direction and entry policy × EMA mask. Avoid an unrestricted cross-product.
+
+Show sparse cells, but flag fewer than 30 trades as weak descriptive evidence. Do not rank tiny cells as discoveries.
+
+Separate primary inference, secondary comparisons and exploratory cuts. Apply an appropriate multiple-comparison treatment to inferential secondary claims.
+
+12. VALIDATION AND ROBUSTNESS
+
+Use chronological evaluation:
+- 2022–2024: development.
+- 2025: validation.
+- 2026 through the common data cutoff: locked temporal test.
+
+Initial parameters are hypotheses, not optimized values. Any development-driven change needs a new recorded protocol version before validation/test access.
+
+Disclose that a previously viewed chart inspired this family. Identify and tag that date if possible. Describe the evaluation as retrospective temporal validation, not a pristine prospective trial.
+
+Do not repeatedly retune against 2026.
+
+Keep robustness bounded:
+- Cost/slippage stress.
+- Stop buffer 0.5 and 1.5 points around the 1-point baseline.
+- Proximity multiplier 0.05 and 0.15 ATR around the 0.10 baseline.
+- Input-readiness/coverage qualifications, without silently changing the primary release policy.
+
+Run these as one-factor sensitivities on the primary comparison, not a giant optimization grid.
+
+Retain negative and inconclusive findings. Distinguish stable evidence from an attractive best-performing cut.
+
+13. IMPLEMENTATION QA AND AUDIT ARTIFACTS
+
+Before a full run, test:
+- Timezone/DST and bar-open versus completion timestamps.
+- 09:30 initialization and 10:00 cutoff.
+- No signal or fill before the required information exists.
+- Single-price pivots and zones.
+- Separate-bar pivot/cloud touches.
+- Expiration, invalidation and duplicate suppression.
+- Identical early/confirmed entries.
+- Filter OFF behavior.
+- Contract mismatch and feature readiness.
+- Gap fills and same-minute stop/target ambiguity.
+- Target zones and missing targets.
+- Costs, units and R calculations.
+- Missing data versus genuine no-trade sessions.
+
+Retain:
+- Input coverage/exclusion ledger.
+- Candidate and rejection-reason ledger.
+- Trade ledger with common candidate IDs.
+- Source levels, contract lineage and feature values.
+- Variant settings and exact timestamps.
+- Metrics, cut tables and paired comparisons.
+- Deterministically selected chart examples containing wins, losses, failed confirmation and invalidated setups.
+- Exact commands, code revision/dirty snapshot, environment lock, seeds and artifact hashes.
+
+Run appropriate focused scientific tests and workspace checks. Integrity checks alone do not validate research calculations.
+
+14. REPORT AND ABACUS BOARD
+
+Lead the report with:
+- What was tested.
+- Actual eligible coverage and exclusions.
+- Historical source-availability qualification.
+- Primary early-versus-confirmed result.
+- Whether optional EMA filters improve results or merely reduce participation.
+- Robustness, uncertainty and limitations.
+
+Prepare saved publication content before sealing the run. Follow apps/narada/AGENTS.md and docs/narada.md.
+
+Prepare an explicitly selected Narada report with:
+- Model/rule schematic.
+- Coverage waterfall.
+- Main comparison table.
+- EMA-filter comparison.
+- Target comparison.
+- Annual and other prespecified cuts.
+- Equity/drawdown charts.
+- Representative audited examples.
+- Selected summary downloads.
+- Provenance and reproduction instructions.
+
+Render saved statistics; do not calculate research results in the website.
+
+Validate the report and inspect a local board preview. Preserve immutable publication IDs and source hashes. Keep hosted deployment separate.
+
+Final delivery should state what is supported, unsupported or inconclusive, with exact references to saved tables and runs. Do not declare a profitable strategy from the most favorable subgroup.

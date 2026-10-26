@@ -1,0 +1,66 @@
+{
+  "schema_version": "1.0.0",
+  "reports": [
+    "report",
+    "asia",
+    "london",
+    "ny",
+    "globex"
+  ],
+  "formats": [
+    "html",
+    "md"
+  ],
+  "numerical_authority": "tables/summary.parquet",
+  "primary_key": "metric_id",
+  "primary_sections": [
+    "coverage",
+    "departure response",
+    "VWAP return",
+    "first-touch response",
+    "common cohort",
+    "stability",
+    "sensitivity",
+    "examples",
+    "limitations"
+  ],
+  "evidence_keys": {
+    "parents": "parent_id",
+    "thresholds": "event_id",
+    "touches": "event_id",
+    "candidates": "candidate_id",
+    "departure-horizons": "horizon_id",
+    "touch-horizons": "horizon_id"
+  },
+  "units": {
+    "unsuffixed": "price points",
+    "_ticks": "minimum ticks",
+    "_sigma": "frozen signal or touch sigma"
+  },
+  "required_cell_metadata": [
+    "n",
+    "candidate_events",
+    "unavailable",
+    "parents",
+    "days",
+    "weeks",
+    "support_flag"
+  ],
+  "report_links": [
+    "metrics.json",
+    "tables/summary.csv",
+    "tables/coverage.csv",
+    "verification.json",
+    "events.manifest.json"
+  ],
+  "null": "unavailable, never false",
+  "first_move_classes": [
+    "bounce",
+    "through",
+    "neither",
+    "ambiguous",
+    "unavailable"
+  ],
+  "conditional_latency": "among actual touchers only",
+  "intervals": "95% shared ISO-week bootstrap; boundary uncertainty flagged"
+}

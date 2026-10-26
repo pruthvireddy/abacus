@@ -1,0 +1,51 @@
+{
+  "status": "passed",
+  "checked_at_local_date": "2026-09-22",
+  "checks": [
+    {
+      "name": "focused_study_tests",
+      "command": ".venv/bin/python -m unittest discover -s studies/05_session_vwap/tests -v",
+      "result": "10 passed"
+    },
+    {
+      "name": "python_syntax",
+      "command": ".venv/bin/python -m py_compile studies/05_session_vwap/src/reporting.py studies/05_session_vwap/src/enrich.py studies/05_session_vwap/seal.py studies/05_session_vwap/warmup_sensitivity.py",
+      "result": "passed"
+    },
+    {
+      "name": "published_source_reconciliation",
+      "evidence": "source-audit.json",
+      "result": "23 product-year partitions; 2,935,674 feature-bar checks and 701,488 event-reference checks passed"
+    },
+    {
+      "name": "independent_denominator_audit",
+      "evidence": "denominator-audit.json",
+      "result": "passed; 3,039 product-days, 42,546 windows, one B event per 42,487 departure windows, exhaustive A/C barriers"
+    },
+    {
+      "name": "deterministic_examples",
+      "evidence": "tables/examples.csv and events/*.parquet",
+      "result": "42 event IDs and outcome classes checked across all nine product-strategy pairs"
+    },
+    {
+      "name": "offline_report_structure",
+      "evidence": "report.html, metrics.json, publication.json",
+      "result": "3 HTML tables, 8 links, local SVG present, 12 unique metric IDs, 3 publication sections"
+    },
+    {
+      "name": "documentation_navigation",
+      "command": "python3 scripts/check-agent-docs.py",
+      "result": "20 active navigation guides checked; 0 errors"
+    },
+    {
+      "name": "narada_contract",
+      "command": "npm run report:publish -- --report /Users/ppanati/Documents/projects/abacus/work/05_session_vwap/20260923T015900Z_vwap3/publication.json --dry-run",
+      "result": "ready; dry-run only"
+    },
+    {
+      "name": "narada_application",
+      "commands": ["npm run verify", "npm test", "npm run lint", "npm run build"],
+      "result": "all passed; 0 reports published"
+    }
+  ]
+}

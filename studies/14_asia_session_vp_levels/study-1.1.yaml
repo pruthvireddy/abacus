@@ -1,0 +1,32 @@
+study_id: 14_asia_session_vp_levels
+protocol_version: 1.1.0
+protocol_status: frozen_before_outcomes
+research_status: exploratory_after_prior_report_inspection
+authorized_scope: implementation_and_local_execution
+product: NQ
+bar_interval: 1m
+timezone: America/New_York
+previous_day_profile: previous_rth
+previous_day_profile_hours: "09:30-16:00"
+price_frame: unadjusted_selected_contract
+signal_snapshot: before_signal_candle
+entry_model: next_contiguous_1m_open
+entry_window: "[20:00,00:00)"
+setups:
+  D: first_previous_rth_poc_approach_fade_per_side_per_session
+  E: previous_rth_vah_val_breakout_retest_continuation
+fade_from_above_long: true
+fade_from_below_short: true
+breakout_buffer_ticks: 1
+touch_tolerance_ticks: 1
+breakout_to_retest_expiry_minutes: 60
+signal_lockout_minutes: 15
+fixed_horizon_bars: [5, 10, 20]
+complete_horizon_by_midnight: true
+normalized_by: mean_true_range_prior_60_complete_minutes
+splits:
+  historical_context: [2010, 2019]
+  development: [2020, 2023]
+  previously_inspected_validation: [2024, 2025]
+  final_ytd_descriptive: [2026, 2026]
+publication_authorized: false

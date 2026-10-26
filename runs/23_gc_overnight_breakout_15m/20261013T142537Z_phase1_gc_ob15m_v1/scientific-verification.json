@@ -1,0 +1,199 @@
+{
+  "status": "passed",
+  "created_at": "2026-10-13T15:21:03.598876+00:00",
+  "study_id": "23_gc_overnight_breakout_15m",
+  "run_id": "20261013T142537Z_phase1_gc_ob15m_v1",
+  "independent_numerical_verification": true,
+  "independent_engine_runner_metric_imports": false,
+  "comparisons": 592328,
+  "mismatch_count": 0,
+  "numerical_tolerance": {
+    "absolute": 1e-07,
+    "relative": 1e-10,
+    "identities_and_counts": "exact"
+  },
+  "primary_minute_reconstruction": [
+    {
+      "scenario": "primary-one-tick",
+      "ledger_trades": 880,
+      "oracle_trades": 880,
+      "path_oracle": "all_quality_qualified_days"
+    },
+    {
+      "scenario": "gross-zero-cost",
+      "ledger_trades": 880,
+      "oracle_trades": 880,
+      "path_oracle": "all_quality_qualified_days"
+    },
+    {
+      "scenario": "net-zero-ticks",
+      "ledger_trades": 880,
+      "oracle_trades": 880,
+      "path_oracle": "all_quality_qualified_days"
+    },
+    {
+      "scenario": "net-two-ticks",
+      "ledger_trades": 880,
+      "oracle_trades": 880,
+      "path_oracle": "all_quality_qualified_days"
+    },
+    {
+      "scenario": "high-first-one-tick",
+      "ledger_trades": 880,
+      "oracle_trades": 880,
+      "path_oracle": "all_quality_qualified_days"
+    },
+    {
+      "scenario": "low-first-one-tick",
+      "ledger_trades": 880,
+      "oracle_trades": 880,
+      "path_oracle": "all_quality_qualified_days"
+    },
+    {
+      "scenario": "native-observed-one-minute",
+      "ledger_trades": 2202,
+      "oracle_trades": 0,
+      "path_oracle": "saved_accounting_and_events_only"
+    },
+    {
+      "scenario": "source-fifteen-minute-ohlc",
+      "ledger_trades": 2202,
+      "oracle_trades": 0,
+      "path_oracle": "saved_accounting_and_events_only"
+    },
+    {
+      "scenario": "source-account",
+      "ledger_trades": 0,
+      "oracle_trades": 0,
+      "path_oracle": "saved_accounting_and_events_only"
+    }
+  ],
+  "primary_counts": {
+    "eligible_days": 994,
+    "accepted_fills": 880,
+    "completed": 863,
+    "censored": 17,
+    "no_trade_days": 28,
+    "unknown_before_fill_days": 86,
+    "unknown_including_censored_days": 103
+  },
+  "scope": [
+    "separate per-day minute-path reconstruction for every validated scenario; all scenario ledger accounting/events/day counts and all primary cohort/timing metrics/intervals/closed P&L path",
+    "all selected immutable input file bytes, annual coverage, daywise ordering bounds, deterministic example selection and every empirical example OHLC/source minute, full exclusions roster"
+  ],
+  "limits": "No native TradingView or tick-level validation; native observed/15m models have accounting/event reconciliation, not an independent full replay; holiday certification and raw reconstruction remain unverified.",
+  "actual_commands": [
+    {
+      "command": "UV_CACHE_DIR=/private/tmp/abacus-study23-uv-cache ./scripts/uv run --locked --no-sync python studies/23_gc_overnight_breakout_15m/verify_execution.py --stage work/23_gc_overnight_breakout_15m/20261013T142537Z_phase1_gc_ob15m_v1 --output work/23_gc_overnight_breakout_15m/20261013T142537Z_phase1_gc_ob15m_v1/independent-verification-final.json",
+      "exit_code": 0,
+      "result": "independent-verification-final.json",
+      "log": "independent-verification-final.log"
+    },
+    {
+      "command": "UV_CACHE_DIR=/private/tmp/abacus-study23-uv-cache ./scripts/uv run --locked --no-sync python -m unittest discover -s studies/23_gc_overnight_breakout_15m/tests -p test_independent_verifier.py",
+      "exit_code": 0,
+      "actual_tests": 7,
+      "failures": 0,
+      "errors": 0,
+      "skips": 0,
+      "log": "independent-verifier-tests.log"
+    },
+    {
+      "command": "UV_CACHE_DIR=/private/tmp/abacus-study23-uv-cache ./scripts/uv run --locked --no-sync python -",
+      "stdin": "import importlib.util,json\nfrom pathlib import Path\nspec=importlib.util.spec_from_file_location('study23_independent','studies/23_gc_overnight_breakout_15m/verify_execution.py'); m=importlib.util.module_from_spec(spec);spec.loader.exec_module(m)\nstage=Path('work/23_gc_overnight_breakout_15m/20261013T142537Z_phase1_gc_ob15m_v1'); result=m.verify_selected_tables(stage)\np=stage/'selected-table-verification-v2.json'\nwith p.open('x') as f:json.dump(result,f,indent=2,allow_nan=False);f.write('\\n')\nprint(json.dumps(result,indent=2,allow_nan=False))\nraise SystemExit(0 if result['status']=='passed' else 1)\n",
+      "exit_code": 0,
+      "result": "selected-table-verification-v2.json"
+    }
+  ],
+  "source_versions": [
+    {
+      "path": "verification-source/input-audit-final/studies/23_gc_overnight_breakout_15m/tests/test_independent_verifier.py",
+      "bytes": 4793,
+      "sha256": "8d642c709448b3518320cc18f2ac3aed531b1b17a92dfeb8d1d4b1cbcf0f64ce"
+    },
+    {
+      "path": "verification-source/input-audit-final/studies/23_gc_overnight_breakout_15m/verify_execution.py",
+      "bytes": 32568,
+      "sha256": "2a999e79ca2495665bc50e7cb5e525841a367279f38150cb8231a95308df45e7"
+    }
+  ],
+  "records": [
+    {
+      "path": "independent-verification.json",
+      "bytes": 23451,
+      "sha256": "77bb75e2b03604de638f88990e4126589a4f3799da6a15555e8d7dbe46c9345a"
+    },
+    {
+      "path": "independent-verification-v2.json",
+      "bytes": 2159,
+      "sha256": "c23ca669658aa2468517b0fd465162da7081307398110110bb61d8370dc0937d"
+    },
+    {
+      "path": "independent-verification-v3.json",
+      "bytes": 2159,
+      "sha256": "c470e197082b9cc70fe97f45bb0aed8a118277a65ade7672eae1e8e0ded72c66"
+    },
+    {
+      "path": "independent-verification-final.json",
+      "bytes": 2159,
+      "sha256": "666971b09286e8227c0cb2f2899d0e0eb93b6921efb402d3ac7c476c1c107edb"
+    },
+    {
+      "path": "selected-table-verification.json",
+      "bytes": 24595,
+      "sha256": "cd300c71635ac9fc1672274241bd14ca4337a18299d022a01f710ae3d6e64c44"
+    },
+    {
+      "path": "selected-table-verification-v2.json",
+      "bytes": 393,
+      "sha256": "f7bd63acab0f10550b6d9dfa6b47b0d4b3426bcfdf69899f250a5050b5bbefa2"
+    },
+    {
+      "path": "independent-verifier-tests.log",
+      "bytes": 105,
+      "sha256": "55c443882838af1a647fbd8c514e974fa1fc55b0f5546ea5d7e5f0d11fdd0998"
+    },
+    {
+      "path": "verification-source-final-manifest.json",
+      "bytes": 457,
+      "sha256": "c7818ce19546689f10abebdb0b36df5434ab1af0b74e0fd376b9d01b0aa2c92e"
+    }
+  ],
+  "verification_environment": {
+    "python": "3.11.16 (main, Aug 25 2026, 13:50:51) [Clang 22.1.3 ]",
+    "executable": "/Users/ppanati/Documents/projects/abacus/.venv/bin/python",
+    "packages": {
+      "numpy": "2.4.6",
+      "pandas": "2.3.3",
+      "pyarrow": "25.0.1"
+    },
+    "environment_sync": false,
+    "environment_lock_sha256": "b2c02f82320599b00cb3277479c660a9c56c37c6476bc423215c9cbb7ab0c645"
+  },
+  "earlier_attempts": [
+    {
+      "record": "independent-verification.json",
+      "status": "failed",
+      "reason": "Verifier CSV year type inference: integer2018 versus lexical cohort identity2018; no engine or saved-result changes"
+    },
+    {
+      "record": "selected-table-verification.json",
+      "status": "failed",
+      "reason": "Verifier nullable display-cell normalization: CSV blank versus JSON empty exclusion reason; no engine or saved-result changes"
+    },
+    {
+      "record": "independent-verification-v2.json",
+      "status": "passed"
+    },
+    {
+      "record": "independent-verification-v3.json",
+      "status": "passed"
+    }
+  ],
+  "raw_reconstruction_prerequisites": {
+    "status": "failed_unrepaired",
+    "record": "input-audit/prerequisite-recheck.json",
+    "scope": "missing raw volume-rank0 mapping JSON and ESroll1 definition pair; selected publishedGC bytes independently verified"
+  },
+  "phase2_outcomes": "unimplemented_uncomputed_unexecuted"
+}

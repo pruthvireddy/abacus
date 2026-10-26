@@ -1,0 +1,33 @@
+study_id: 18_fibonacci_memory
+protocol_version: 1.0.0
+status: indicator_implementation
+scope: synthetic_validation_only
+market_data_execution: false
+runtime: TradingView Pine Script v6
+defaults:
+  pivot_strength: 12
+  minimum_leg_atr: 2.0
+  touch_tolerance_atr: 0.15
+  horizon_bars: 16
+  target_atr: 1.0
+  stop_atr: 0.5
+  round_trip_cost_ticks: 0.0
+  completed_capacity_per_bucket_and_direction: 200
+  minimum_display_sample: 30
+  panel_direction: Combined
+buckets:
+  - [0.236, 0.236]
+  - [0.382, 0.382]
+  - [0.5, 0.5]
+  - [0.618, 0.65]
+  - [0.786, 0.786]
+percentiles: linear_interpolation_rank_n_minus_one_times_p
+pending_in_completed_denominator: false
+entry: next_available_chart_bar_open_after_touch_close
+volatility: atr14_of_completed_bar_before_touch
+same_bar_target_and_stop: preserve_ambiguity
+target_gap_fill: configured_target_price
+stop_gap_fill: bar_open
+timeout_fill: close_of_final_observation_bar
+wilson: approximate_95_percent_only_without_ambiguous_events
+reference_compiler_verified: false

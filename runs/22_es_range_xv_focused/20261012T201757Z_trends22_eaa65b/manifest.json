@@ -1,0 +1,507 @@
+{
+  "schema_version": 1,
+  "study_id": "22_es_range_xv_focused",
+  "run_id": "20261012T201757Z_trends22_eaa65b",
+  "sealed_at": "2026-10-12T20:22:53.306638+00:00",
+  "execution": {
+    "schema_version": 1,
+    "study_id": "22_es_range_xv_focused",
+    "run_id": "20261012T201757Z_trends22_eaa65b",
+    "started_at": "2026-10-12T20:17:57.699190+00:00",
+    "command": {
+      "argv": [
+        "/Users/ppanati/Documents/projects/abacus/.venv/bin/python",
+        "/Users/ppanati/Documents/projects/abacus/studies/22_es_range_xv_focused/run.py",
+        "execute",
+        "--out",
+        "work/22_es_range_xv_focused/20261012T201757Z_trends22_eaa65b",
+        "--publication-root",
+        "."
+      ],
+      "cwd": "/Users/ppanati/Documents/projects/abacus",
+      "python": {
+        "executable": "/Users/ppanati/Documents/projects/abacus/.venv/bin/python",
+        "version": "3.11.16 (main, Aug 25 2026, 13:50:51) [Clang 22.1.3 ]",
+        "implementation": "cpython",
+        "optimize": 0
+      },
+      "recorded_at": "2026-10-12T20:17:57.699283+00:00"
+    },
+    "git": {
+      "revision": "cd11be3f8f7d27c9429b2ff03872f3b6485a6e27",
+      "dirty": true,
+      "dirty_snapshot_scope": "Exact declared execution-source bytes and frozen protocol; not a whole-repository dependency closure."
+    },
+    "publication_root": "/Users/ppanati/Documents/projects/abacus",
+    "execution_sources": [
+      {
+        "path": "studies/22_es_range_xv_focused/run.py",
+        "bytes": 21449,
+        "sha256": "a6187ee2b57922bb72e85ebec9be953c837811dcbef330fd92da73326fc75d26",
+        "snapshot_path": "provenance/source-snapshot/studies/22_es_range_xv_focused/run.py"
+      },
+      {
+        "path": "studies/22_es_range_xv_focused/src/timeframes.py",
+        "bytes": 6110,
+        "sha256": "d0764b17731f2aef01490ea19a426b2916af9cb6742be0a2ce2914e43db07aee",
+        "snapshot_path": "provenance/source-snapshot/studies/22_es_range_xv_focused/src/timeframes.py"
+      },
+      {
+        "path": "studies/22_es_range_xv_focused/src/trends.py",
+        "bytes": 12147,
+        "sha256": "ea5399e4b530454faaecc82de3fd714f874031882f68d1c0f7321ec8189cd27c",
+        "snapshot_path": "provenance/source-snapshot/studies/22_es_range_xv_focused/src/trends.py"
+      },
+      {
+        "path": "studies/22_es_range_xv_focused/src/analysis.py",
+        "bytes": 9910,
+        "sha256": "e4adbf31b4143afb896ab4c11c60f163d3944078c9f6c67b4417c469971988a4",
+        "snapshot_path": "provenance/source-snapshot/studies/22_es_range_xv_focused/src/analysis.py"
+      },
+      {
+        "path": "studies/22_es_range_xv_focused/src/reporting.py",
+        "bytes": 25829,
+        "sha256": "37fab529f4f0f1ce83ef75d0558d91fc0907ae13108b28b452344d6be93dccf2",
+        "snapshot_path": "provenance/source-snapshot/studies/22_es_range_xv_focused/src/reporting.py"
+      }
+    ],
+    "frozen_inputs": [
+      {
+        "path": "studies/22_es_range_xv_focused/study.yaml",
+        "bytes": 4152,
+        "sha256": "6b5942c3d29546db95d0d14dc6b3cdd86e97ba0f4bb1298529bd224242997f84",
+        "snapshot_path": "study.yaml"
+      },
+      {
+        "path": "studies/22_es_range_xv_focused/plan.md",
+        "bytes": 10062,
+        "sha256": "dcaa93f475cb7f3d0523d77c61fe0e85080a5f9c372f9e5d164dd1d56c351b9d",
+        "snapshot_path": "plan.md"
+      },
+      {
+        "path": "studies/22_es_range_xv_focused/notes.md",
+        "bytes": 2638,
+        "sha256": "382192d5b35df270d6c5b8eaf8e2b1f04367076b1b6977fb754961de2c0bf492",
+        "snapshot_path": "notes.md"
+      },
+      {
+        "path": "studies/22_es_range_xv_focused/inputs.lock.json",
+        "bytes": 4254,
+        "sha256": "2f771ea490e464a946dd5af140f490453611c6853779db353b708df9215edbfc",
+        "snapshot_path": "inputs.lock.json"
+      },
+      {
+        "path": "uv.lock",
+        "bytes": 335045,
+        "sha256": "b2c02f82320599b00cb3277479c660a9c56c37c6476bc423215c9cbb7ab0c645",
+        "snapshot_path": "uv.lock"
+      }
+    ],
+    "environment_lock": {
+      "path": "uv.lock",
+      "bytes": 335045,
+      "sha256": "b2c02f82320599b00cb3277479c660a9c56c37c6476bc423215c9cbb7ab0c645"
+    },
+    "source_scope": "Declared study execution modules only; independent verification has its own receipt."
+  },
+  "input_verification": {
+    "result": "passed",
+    "checked_at": "2026-10-12T20:17:58.004350+00:00",
+    "files": [
+      {
+        "path": "data/range_xv/20191101_20260924/range_xv_exports_manifest.json",
+        "bytes": 9172,
+        "sha256": "4b022d387b6460a5e33c08507a46c6b5c62ed4c0b304fd6de869d8ec463ab33e",
+        "root_alias": "publication_root",
+        "role": "range_xv_export_manifest"
+      },
+      {
+        "path": "data/range_xv/20191101_20260924/source/ES_rangexv_4t_20191101_20260924.csv",
+        "bytes": 66662024,
+        "sha256": "32993a0e7882a811362b320fabb9a56c835ab77931c09ccba50a2898f52d34fa",
+        "root_alias": "publication_root",
+        "role": "source"
+      },
+      {
+        "path": "data/range_xv/20191101_20260924/enhanced/ES_rangexv_4t_20191101_20260924.csv",
+        "bytes": 172313903,
+        "sha256": "909e7a08fc067abbe64b11950f83a28595d9791aa832516f32cb29c059974a67",
+        "root_alias": "publication_root",
+        "role": "enhanced"
+      },
+      {
+        "path": "data/range_xv/20191101_20260924/source/ES_rangexv_5t_20191101_20260924.csv",
+        "bytes": 46031544,
+        "sha256": "2b8fd77eb597659106ba5bfeaa2ca0e9af185eb1818a90ee5063a0056eedfba8",
+        "root_alias": "publication_root",
+        "role": "source"
+      },
+      {
+        "path": "data/range_xv/20191101_20260924/enhanced/ES_rangexv_5t_20191101_20260924.csv",
+        "bytes": 118783249,
+        "sha256": "2bad06aee9fc19f6d188dcf8f5ca4079b16b5a4d7badaa28e68cb456d0ad6b34",
+        "root_alias": "publication_root",
+        "role": "enhanced"
+      },
+      {
+        "path": "data/range_xv/20191101_20260924/source/ES_rangexv_6t_20191101_20260924.csv",
+        "bytes": 33691372,
+        "sha256": "cc3d8160ccfb9f069f0820902367b12c232d665eaf81b8584c8c0140c4f193e7",
+        "root_alias": "publication_root",
+        "role": "source"
+      },
+      {
+        "path": "data/range_xv/20191101_20260924/enhanced/ES_rangexv_6t_20191101_20260924.csv",
+        "bytes": 86939113,
+        "sha256": "2ffb25f506d0a222020df30f9b23fcf65d811caa40add8455fe4c40e492e4212",
+        "root_alias": "publication_root",
+        "role": "enhanced"
+      },
+      {
+        "path": "docs/migration/range-xv-clock-normalization-20260924.json",
+        "bytes": 16875,
+        "sha256": "cddf06958784a850ec68ef1ae19e7f9adefb05519578abe9696c3066abd6b80d",
+        "root_alias": "workspace_root",
+        "role": "clock_migration"
+      }
+    ],
+    "market_statistics_recomputed": false,
+    "all_six_input_files_verified": true
+  },
+  "artifacts": [
+    {
+      "path": "advice.md",
+      "bytes": 324,
+      "sha256": "debc15503ba8538f054779489c9c9a7c402b55dbf722640518632077a37265e7"
+    },
+    {
+      "path": "config.json",
+      "bytes": 4152,
+      "sha256": "6b5942c3d29546db95d0d14dc6b3cdd86e97ba0f4bb1298529bd224242997f84"
+    },
+    {
+      "path": "events.manifest.json",
+      "bytes": 1715,
+      "sha256": "cd13bec01dcd42ece553a8c094147992eb14659c522710c77ac482b45fe5364f"
+    },
+    {
+      "path": "input-audit.json",
+      "bytes": 1947,
+      "sha256": "e69fe977189dc8b503c247a45d1addae14cd6820ef74109e0e4dab46d6bec273"
+    },
+    {
+      "path": "input-verification.json",
+      "bytes": 2394,
+      "sha256": "5844e56a733c4ce605bad3d01628d72001444b851c8c3e638dc0100e9f87c164"
+    },
+    {
+      "path": "inputs.lock.json",
+      "bytes": 4254,
+      "sha256": "2f771ea490e464a946dd5af140f490453611c6853779db353b708df9215edbfc"
+    },
+    {
+      "path": "notes.md",
+      "bytes": 2638,
+      "sha256": "382192d5b35df270d6c5b8eaf8e2b1f04367076b1b6977fb754961de2c0bf492"
+    },
+    {
+      "path": "plan.md",
+      "bytes": 10062,
+      "sha256": "dcaa93f475cb7f3d0523d77c61fe0e85080a5f9c372f9e5d164dd1d56c351b9d"
+    },
+    {
+      "path": "preseal-checks.json",
+      "bytes": 2017,
+      "sha256": "59b63d24e6b07ae1ac13c38a8660d509930058f249cb1b2e3ce39aedc1b9f35e"
+    },
+    {
+      "path": "protocol.md",
+      "bytes": 10062,
+      "sha256": "dcaa93f475cb7f3d0523d77c61fe0e85080a5f9c372f9e5d164dd1d56c351b9d"
+    },
+    {
+      "path": "provenance/execution-complete.json",
+      "bytes": 2463,
+      "sha256": "7452c8cebf2a69897a994b50a852a09591c0089bbb1615b47c064bc8060d4e68"
+    },
+    {
+      "path": "provenance/execution-start.json",
+      "bytes": 3876,
+      "sha256": "e11feb90fbb6db7c719421ce8ccebd5f14ebff68e4c7a2af8cac8224c012efd9"
+    },
+    {
+      "path": "provenance/rendering-command.json",
+      "bytes": 441,
+      "sha256": "3f0e1077d28491f3bc74bb517bab44eb1a642bcf293383bae1348e89438338a8"
+    },
+    {
+      "path": "provenance/sealing.json",
+      "bytes": 1026,
+      "sha256": "4e1ad2be268c267adb7627572645c74e7de303fd186055f9c6f22cb56fc7afda"
+    },
+    {
+      "path": "provenance/source-snapshot/studies/22_es_range_xv_focused/run.py",
+      "bytes": 21449,
+      "sha256": "a6187ee2b57922bb72e85ebec9be953c837811dcbef330fd92da73326fc75d26"
+    },
+    {
+      "path": "provenance/source-snapshot/studies/22_es_range_xv_focused/src/analysis.py",
+      "bytes": 9910,
+      "sha256": "e4adbf31b4143afb896ab4c11c60f163d3944078c9f6c67b4417c469971988a4"
+    },
+    {
+      "path": "provenance/source-snapshot/studies/22_es_range_xv_focused/src/reporting.py",
+      "bytes": 25829,
+      "sha256": "37fab529f4f0f1ce83ef75d0558d91fc0907ae13108b28b452344d6be93dccf2"
+    },
+    {
+      "path": "provenance/source-snapshot/studies/22_es_range_xv_focused/src/timeframes.py",
+      "bytes": 6110,
+      "sha256": "d0764b17731f2aef01490ea19a426b2916af9cb6742be0a2ce2914e43db07aee"
+    },
+    {
+      "path": "provenance/source-snapshot/studies/22_es_range_xv_focused/src/trends.py",
+      "bytes": 12147,
+      "sha256": "ea5399e4b530454faaecc82de3fd714f874031882f68d1c0f7321ec8189cd27c"
+    },
+    {
+      "path": "provenance/verification-source-snapshot/scripts/unittest_child.py",
+      "bytes": 3897,
+      "sha256": "adc4f06c95b7db5e99c93f3677f79473e9a67a000d52be8309f4cd520479a3a5"
+    },
+    {
+      "path": "provenance/verification-source-snapshot/studies/22_es_range_xv_focused/audit.py",
+      "bytes": 24137,
+      "sha256": "9000200c827a0d43c8d0984071ad9f7d582dca903eee7fd2330213b88e495e8b"
+    },
+    {
+      "path": "provenance/verification-source-snapshot/studies/22_es_range_xv_focused/tests/test_analysis.py",
+      "bytes": 8348,
+      "sha256": "be24569faee3977ea9b08c60d8bce5a76b8d586cb7ef71a56b2d855ca3524bf5"
+    },
+    {
+      "path": "provenance/verification-source-snapshot/studies/22_es_range_xv_focused/tests/test_audit.py",
+      "bytes": 10782,
+      "sha256": "3c24591064e2b4aa937ea2b87a45a9868f6344afeedab56fc9ace17167b86d85"
+    },
+    {
+      "path": "provenance/verification-source-snapshot/studies/22_es_range_xv_focused/tests/test_lifecycle.py",
+      "bytes": 12288,
+      "sha256": "c4dfda65cb716f3000a8a53f2c47185dbbdd659068ff34987e750089ccd5d805"
+    },
+    {
+      "path": "provenance/verification-source-snapshot/studies/22_es_range_xv_focused/tests/test_reporting.py",
+      "bytes": 12213,
+      "sha256": "980bdb32fa193d4f3b71700ea7b7c41d57d2198efc529b1fa041847fa6673eec"
+    },
+    {
+      "path": "provenance/verification-source-snapshot/studies/22_es_range_xv_focused/tests/test_timeframes.py",
+      "bytes": 10667,
+      "sha256": "994ebcd63475d1b192052b044e17d882c02b620f97956a555ae54e556e403794"
+    },
+    {
+      "path": "provenance/verification-source-snapshot/studies/22_es_range_xv_focused/tests/test_trends.py",
+      "bytes": 11465,
+      "sha256": "017a660129b9cf4429b5a49f5823019de649206f6a0a2cc7f9dc53bb874d7e16"
+    },
+    {
+      "path": "publication-verification.json",
+      "bytes": 3813,
+      "sha256": "009056e8545fae1d7a54f85e54dbfa1894c05b81e6530c161508ef154b4af7af"
+    },
+    {
+      "path": "publications/4t/downloads/bearish-length-distribution.csv",
+      "bytes": 42069,
+      "sha256": "08d551373e41fd3255182c487e20b3310b2aee6717aca0c001a884535927282e"
+    },
+    {
+      "path": "publications/4t/downloads/bullish-length-distribution.csv",
+      "bytes": 42176,
+      "sha256": "2c033a716bce392ff27e5714bfe336b6af72836bab192901dce5b034fe6b828d"
+    },
+    {
+      "path": "publications/4t/downloads/directional-length-shares.csv",
+      "bytes": 37949,
+      "sha256": "2d322f8a6d2e2041b761c9cf1853c1bd11f119625d06c35f6ac2e3ec9a3fbfaf"
+    },
+    {
+      "path": "publications/4t/downloads/trend-summary.csv",
+      "bytes": 27371,
+      "sha256": "481499c15e97cadfbb055c6eec0df4f8d21e788e0ee359d92104aba8c2cc47be"
+    },
+    {
+      "path": "publications/4t/publication.json",
+      "bytes": 93593,
+      "sha256": "93eba85f814559520ea8f11e665ba11abe10f87c7aa015b0a591f048f4bb6207"
+    },
+    {
+      "path": "publications/4t/source-map.json",
+      "bytes": 1090763,
+      "sha256": "a84bf7e2963eb8003a3ca340d71d96df979f8d55f1ba384446b3867f2aa67af5"
+    },
+    {
+      "path": "publications/4t/verification.json",
+      "bytes": 246,
+      "sha256": "ce12786ba69fc6f66e55e04cb5942714bd5c705377aa9862a08124b695f6705e"
+    },
+    {
+      "path": "publications/5t/downloads/bearish-length-distribution.csv",
+      "bytes": 41745,
+      "sha256": "574317b74afbdce87ef20072f7ad3786dee18c0cae8fe586cdeb90f15e92b15d"
+    },
+    {
+      "path": "publications/5t/downloads/bullish-length-distribution.csv",
+      "bytes": 41650,
+      "sha256": "4a5db4e8292a33e5153b9229474dc52f0092ab614704432dc89325eb9c0e3ab7"
+    },
+    {
+      "path": "publications/5t/downloads/directional-length-shares.csv",
+      "bytes": 37454,
+      "sha256": "e40b174e526c41c122a2ed58ee59d75036a17576fe6f184b0a414fbc9f4a001c"
+    },
+    {
+      "path": "publications/5t/downloads/trend-summary.csv",
+      "bytes": 27292,
+      "sha256": "3b7570cb49d04a238017b8ac2761b071bc1a0c524ecc9b2d543379c02a9ff151"
+    },
+    {
+      "path": "publications/5t/publication.json",
+      "bytes": 93242,
+      "sha256": "6b138508f5d84fcfe224aac71d828543138e778f5b3f06f7d003376d7161aa20"
+    },
+    {
+      "path": "publications/5t/source-map.json",
+      "bytes": 1093768,
+      "sha256": "dd44437986067a0af179d95cb12f1f198f0afb77fb3766f167ee19c62d81f10a"
+    },
+    {
+      "path": "publications/5t/verification.json",
+      "bytes": 246,
+      "sha256": "058a0742ded710a97a904a24a4b13506c963ec1c1f6f6270e286d443c45a44a6"
+    },
+    {
+      "path": "publications/6t/downloads/bearish-length-distribution.csv",
+      "bytes": 41401,
+      "sha256": "8b554963041428a63456c5d4a51eb5848d438b7bd07fedd2f5e9da7d8d47d500"
+    },
+    {
+      "path": "publications/6t/downloads/bullish-length-distribution.csv",
+      "bytes": 41286,
+      "sha256": "04389534f2ba6d09017a7181b484750dc5602d09789406ee6f70f931f018c4e0"
+    },
+    {
+      "path": "publications/6t/downloads/directional-length-shares.csv",
+      "bytes": 37047,
+      "sha256": "4f4613cbfc5cc4b75f812c4dd99049041f6aebe7813ada83d1b0f2568600afde"
+    },
+    {
+      "path": "publications/6t/downloads/trend-summary.csv",
+      "bytes": 27249,
+      "sha256": "341459f493e161c98190a3c964926be0c0df4c626ce011cbb4bd7e96b2da5013"
+    },
+    {
+      "path": "publications/6t/publication.json",
+      "bytes": 93023,
+      "sha256": "1870621f672416cc5d6d285cbcdd253165f2b3b28b5ef2fc00fc6fc55899bdc6"
+    },
+    {
+      "path": "publications/6t/source-map.json",
+      "bytes": 1092892,
+      "sha256": "a269e423d42361d66658a63bee73cb16e48dfc165a32b108a087868b34891d3c"
+    },
+    {
+      "path": "publications/6t/verification.json",
+      "bytes": 246,
+      "sha256": "ac084159f30791a45d25544fe4d37fbd117190021500aaacf85b3c92becbb694"
+    },
+    {
+      "path": "report.html",
+      "bytes": 1463,
+      "sha256": "be15af5d5358ca7b9533f1099178f32b1db4a404425060f9e31e350a99c9537e"
+    },
+    {
+      "path": "report.md",
+      "bytes": 1340,
+      "sha256": "b74848f3493e35071b720c6ffbda9d3da0688949ef3ec6daa73a9322d36af050"
+    },
+    {
+      "path": "study.yaml",
+      "bytes": 4152,
+      "sha256": "6b5942c3d29546db95d0d14dc6b3cdd86e97ba0f4bb1298529bd224242997f84"
+    },
+    {
+      "path": "tables/coverage.csv",
+      "bytes": 9879,
+      "sha256": "d695e2b10c4299e1b59fbf5df777ec6707a1c7906a1eaacea5b1cbc7ba05fcc9"
+    },
+    {
+      "path": "tables/trend_histogram.csv",
+      "bytes": 362006,
+      "sha256": "426ec8129ceaa1f01e044d6f8a0874caa7fd34ab33374d6754b2ab01829ad7c4"
+    },
+    {
+      "path": "tables/trend_summary.csv",
+      "bytes": 85725,
+      "sha256": "491d69418e96de664f7d2e977a468cb9951083091623f301db845f98a16aed17"
+    },
+    {
+      "path": "tables/trend_survival.csv",
+      "bytes": 162193,
+      "sha256": "92171e5960768d1b065c33f0e6a60149f480ed375d14a2ae20ae43597cafc41f"
+    },
+    {
+      "path": "uv.lock",
+      "bytes": 335045,
+      "sha256": "b2c02f82320599b00cb3277479c660a9c56c37c6476bc423215c9cbb7ab0c645"
+    },
+    {
+      "path": "verification/agent-docs.log",
+      "bytes": 85,
+      "sha256": "a01dd7f53c735e9eb865dd8c63287a89041c3343241ba4c937d592ee7ba90f33"
+    },
+    {
+      "path": "verification/numerical-test-command.json",
+      "bytes": 2739,
+      "sha256": "81ec2def6dbc3904fe05ca72506128129592ecb728577e6ce08d3d0092e5b856"
+    },
+    {
+      "path": "verification/numerical-test-result.json",
+      "bytes": 225,
+      "sha256": "8c4ca7d88d6257f789db3d9ebc531db46152342dddde6b4fe2ae479cebd22aa5"
+    },
+    {
+      "path": "verification/numerical-tests.log",
+      "bytes": 892,
+      "sha256": "34086ee9074c9a4366dcfe047c2f4119fa2516cf6876bd1d45cf228f1540855c"
+    },
+    {
+      "path": "verification/publisher-dry-run.json",
+      "bytes": 2625,
+      "sha256": "01099494f9017d372deb9c4f8529f8b31ba24f04796cb16b6ad2b6818d984d63"
+    },
+    {
+      "path": "verification.json",
+      "bytes": 4399,
+      "sha256": "5cc5a523b7bfe0a246d3cf1a44d588ef54205db904e3204d37456dc5c14cd730"
+    }
+  ],
+  "checks": {
+    "independent": "passed",
+    "publication": "passed",
+    "preseal": "passed",
+    "numerical_counts": {
+      "discovered": 73,
+      "errors": 0,
+      "expected_failures": 0,
+      "failures": 0,
+      "skipped": 0,
+      "tests_run": 73,
+      "unexpected_successes": 0
+    }
+  },
+  "events_manifest": "events.manifest.json",
+  "limitations": [
+    "Observed candle-colour trend lengths, not a trading strategy or profitability claim.",
+    "Exact lengths condition on uncensored starts and ends; no generic evidence-contract adoption."
+  ]
+}

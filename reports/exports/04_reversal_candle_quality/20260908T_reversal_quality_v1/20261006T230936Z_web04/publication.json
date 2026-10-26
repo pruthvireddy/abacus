@@ -1,0 +1,469 @@
+{
+  "schemaVersion": "1.0",
+  "id": "04-reversal-candle-quality-20261006-web",
+  "title": "Reversal quality: colour advantage, negative payoff",
+  "summary": "Aligned strong candles show a next-bar colour advantage that weakens over longer runs. Saved mean next-bar returns remain negative before costs, despite high continuation rates.",
+  "publishedAt": "2026-10-06T23:09:36Z",
+  "source": {
+    "producer": "sahadeva",
+    "runId": "20260908T_reversal_quality_v1"
+  },
+  "sections": [
+    {
+      "kind": "text",
+      "id": "question",
+      "title": "Question and scope",
+      "body": "Does reversal candle quality add to strictly prior larger-chart alignment? The retained historical run compares quality-stack candles and one-bar failed pullbacks across ES 5→6, GC 6→10, NQ 10→20 and secondary GC 10→20."
+    },
+    {
+      "kind": "text",
+      "id": "findings",
+      "title": "Supported findings",
+      "body": "Quality-stack alignment improves next-bar colour persistence more consistently than longer runs. A break of the full prior run largely identifies the one-bar pullback structure rather than an independent candle factor. The saved price means are negative before fees and slippage: larger failures outweigh frequent small colour successes."
+    },
+    {
+      "kind": "table",
+      "id": "quality",
+      "title": "Aligned quality stack: colour and next-bar price",
+      "columns": [
+        {
+          "key": "pair_id",
+          "label": "pair id"
+        },
+        {
+          "key": "outcome",
+          "label": "outcome"
+        },
+        {
+          "key": "feature_n",
+          "label": "Quality eligible n",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "nonfeature_n",
+          "label": "Other eligible n",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "feature_rate",
+          "label": "Quality rate",
+          "format": "percent",
+          "precision": 1
+        },
+        {
+          "key": "nonfeature_rate",
+          "label": "Other rate",
+          "format": "percent",
+          "precision": 1
+        },
+        {
+          "key": "feature_minus_nonfeature",
+          "label": "Rate difference",
+          "format": "number",
+          "precision": 1,
+          "unit": "pp"
+        },
+        {
+          "key": "cluster_bootstrap_ci_low",
+          "label": "95% difference low",
+          "format": "number",
+          "precision": 1,
+          "unit": "pp"
+        },
+        {
+          "key": "cluster_bootstrap_ci_high",
+          "label": "95% difference high",
+          "format": "number",
+          "precision": 1,
+          "unit": "pp"
+        },
+        {
+          "key": "feature_mean_forward_return_ticks",
+          "label": "Quality mean next-bar return",
+          "format": "number",
+          "precision": 2,
+          "unit": "ticks"
+        },
+        {
+          "key": "nonfeature_mean_forward_return_ticks",
+          "label": "Other mean next-bar return",
+          "format": "number",
+          "precision": 2,
+          "unit": "ticks"
+        }
+      ],
+      "rows": [
+        {
+          "pair_id": "ES 5 6",
+          "outcome": "P(L>=1)",
+          "feature_n": 3663.0,
+          "nonfeature_n": 1604.0,
+          "feature_rate": 0.7963417963417964,
+          "nonfeature_rate": 0.75,
+          "feature_minus_nonfeature": 4.634179634179636,
+          "cluster_bootstrap_ci_low": 2.052785328320334,
+          "cluster_bootstrap_ci_high": 7.14279233784096,
+          "feature_mean_forward_return_ticks": -0.48480700793868053,
+          "nonfeature_mean_forward_return_ticks": -0.402377972465582
+        },
+        {
+          "pair_id": "ES 5 6",
+          "outcome": "P(L>=3)",
+          "feature_n": 3662.0,
+          "nonfeature_n": 1604.0,
+          "feature_rate": 0.3216821409066084,
+          "nonfeature_rate": 0.3254364089775561,
+          "feature_minus_nonfeature": -0.3754268070947697,
+          "cluster_bootstrap_ci_low": -2.8265453861901277,
+          "cluster_bootstrap_ci_high": 2.1590336859253005,
+          "feature_mean_forward_return_ticks": -0.2657496561210454,
+          "nonfeature_mean_forward_return_ticks": 0.03957286432160804
+        },
+        {
+          "pair_id": "ES 5 6",
+          "outcome": "P(L>=5)",
+          "feature_n": 3661.0,
+          "nonfeature_n": 1604.0,
+          "feature_rate": 0.12701447691887463,
+          "nonfeature_rate": 0.1440149625935162,
+          "feature_minus_nonfeature": -1.7000485674641574,
+          "cluster_bootstrap_ci_low": -3.5738013287084147,
+          "cluster_bootstrap_ci_high": 0.10096949208362452,
+          "feature_mean_forward_return_ticks": -0.2917471708528844,
+          "nonfeature_mean_forward_return_ticks": 0.14996849401386264
+        },
+        {
+          "pair_id": "GC 6 10",
+          "outcome": "P(L>=1)",
+          "feature_n": 21353.0,
+          "nonfeature_n": 5941.0,
+          "feature_rate": 0.7857443918887276,
+          "nonfeature_rate": 0.7520619424339337,
+          "feature_minus_nonfeature": 3.368244945479393,
+          "cluster_bootstrap_ci_low": 2.310348444669045,
+          "cluster_bootstrap_ci_high": 4.4311396656222986,
+          "feature_mean_forward_return_ticks": -1.0591158407948853,
+          "nonfeature_mean_forward_return_ticks": -1.063636363636266
+        },
+        {
+          "pair_id": "GC 6 10",
+          "outcome": "P(L>=3)",
+          "feature_n": 21347.0,
+          "nonfeature_n": 5941.0,
+          "feature_rate": 0.3491825549257507,
+          "nonfeature_rate": 0.33294058239353647,
+          "feature_minus_nonfeature": 1.624197253221421,
+          "cluster_bootstrap_ci_low": 0.1975206065991145,
+          "cluster_bootstrap_ci_high": 3.075149813316113,
+          "feature_mean_forward_return_ticks": -0.24869809992949982,
+          "nonfeature_mean_forward_return_ticks": -0.06319514661259837
+        },
+        {
+          "pair_id": "GC 6 10",
+          "outcome": "P(L>=5)",
+          "feature_n": 21346.0,
+          "nonfeature_n": 5941.0,
+          "feature_rate": 0.14967675442705894,
+          "nonfeature_rate": 0.15148964820737248,
+          "feature_minus_nonfeature": -0.1812893780313546,
+          "cluster_bootstrap_ci_low": -1.1588872880783716,
+          "cluster_bootstrap_ci_high": 0.8091536335870678,
+          "feature_mean_forward_return_ticks": -0.42376860590680926,
+          "nonfeature_mean_forward_return_ticks": -0.2029352226720206
+        },
+        {
+          "pair_id": "GC 10 20",
+          "outcome": "P(L>=1)",
+          "feature_n": 11165.0,
+          "nonfeature_n": 3404.0,
+          "feature_rate": 0.7818181818181819,
+          "nonfeature_rate": 0.7529377203290247,
+          "feature_minus_nonfeature": 2.8880461489157128,
+          "cluster_bootstrap_ci_low": 1.3919742521628018,
+          "cluster_bootstrap_ci_high": 4.375800193644406,
+          "feature_mean_forward_return_ticks": -0.8949304620906164,
+          "nonfeature_mean_forward_return_ticks": -0.8097618347544843
+        },
+        {
+          "pair_id": "GC 10 20",
+          "outcome": "P(L>=3)",
+          "feature_n": 11163.0,
+          "nonfeature_n": 3402.0,
+          "feature_rate": 0.3480247245364149,
+          "nonfeature_rate": 0.33274544385655497,
+          "feature_minus_nonfeature": 1.5279280679859952,
+          "cluster_bootstrap_ci_low": -0.24436518795844073,
+          "cluster_bootstrap_ci_high": 3.3798954906713794,
+          "feature_mean_forward_return_ticks": 0.0708187292172077,
+          "nonfeature_mean_forward_return_ticks": 0.30168092008260555
+        },
+        {
+          "pair_id": "GC 10 20",
+          "outcome": "P(L>=5)",
+          "feature_n": 11163.0,
+          "nonfeature_n": 3401.0,
+          "feature_rate": 0.15085550479261847,
+          "nonfeature_rate": 0.13937077330197,
+          "feature_minus_nonfeature": 1.1484731490648463,
+          "cluster_bootstrap_ci_low": -0.0368376226774849,
+          "cluster_bootstrap_ci_high": 2.3819310610148516,
+          "feature_mean_forward_return_ticks": 0.057006484149800786,
+          "nonfeature_mean_forward_return_ticks": 0.15214180206795758
+        },
+        {
+          "pair_id": "NQ 10 20",
+          "outcome": "P(L>=1)",
+          "feature_n": 55649.0,
+          "nonfeature_n": 16800.0,
+          "feature_rate": 0.7812000215637298,
+          "nonfeature_rate": 0.7499404761904762,
+          "feature_minus_nonfeature": 3.1259545373253594,
+          "cluster_bootstrap_ci_low": 2.4712270575126523,
+          "cluster_bootstrap_ci_high": 3.875013482919956,
+          "feature_mean_forward_return_ticks": -1.0415775377037984,
+          "nonfeature_mean_forward_return_ticks": -1.150672699130849
+        },
+        {
+          "pair_id": "NQ 10 20",
+          "outcome": "P(L>=3)",
+          "feature_n": 55641.0,
+          "nonfeature_n": 16797.0,
+          "feature_rate": 0.34497942164950307,
+          "nonfeature_rate": 0.3427993094004882,
+          "feature_minus_nonfeature": 0.2180112249014876,
+          "cluster_bootstrap_ci_low": -0.5952427741158705,
+          "cluster_bootstrap_ci_high": 1.0419252563437909,
+          "feature_mean_forward_return_ticks": -0.2331403085997914,
+          "nonfeature_mean_forward_return_ticks": 0.1301732864884178
+        },
+        {
+          "pair_id": "NQ 10 20",
+          "outcome": "P(L>=5)",
+          "feature_n": 55639.0,
+          "nonfeature_n": 16797.0,
+          "feature_rate": 0.15320189076007837,
+          "nonfeature_rate": 0.15318211585402156,
+          "feature_minus_nonfeature": 0.001977490605681309,
+          "cluster_bootstrap_ci_low": -0.6113829281881861,
+          "cluster_bootstrap_ci_high": 0.5996360700701711,
+          "feature_mean_forward_return_ticks": -0.2621399399075224,
+          "nonfeature_mean_forward_return_ticks": -0.0681398534754899
+        }
+      ]
+    },
+    {
+      "kind": "table",
+      "id": "snapback",
+      "title": "Aligned one-bar pullback versus longer prior runs",
+      "columns": [
+        {
+          "key": "pair_id",
+          "label": "pair id"
+        },
+        {
+          "key": "outcome",
+          "label": "outcome"
+        },
+        {
+          "key": "one_bar_n",
+          "label": "one bar n",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "longer_n",
+          "label": "longer n",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "one_bar_prior_run_rate",
+          "label": "one bar prior run rate",
+          "format": "percent",
+          "precision": 1
+        },
+        {
+          "key": "longer_prior_run_rate",
+          "label": "longer prior run rate",
+          "format": "percent",
+          "precision": 1
+        },
+        {
+          "key": "one_bar_minus_longer",
+          "label": "Rate difference",
+          "format": "number",
+          "precision": 1,
+          "unit": "pp"
+        },
+        {
+          "key": "cluster_bootstrap_ci_low",
+          "label": "95% low",
+          "format": "number",
+          "precision": 1,
+          "unit": "pp"
+        },
+        {
+          "key": "cluster_bootstrap_ci_high",
+          "label": "95% high",
+          "format": "number",
+          "precision": 1,
+          "unit": "pp"
+        }
+      ],
+      "rows": [
+        {
+          "pair_id": "ES 5 6",
+          "outcome": "P(L>=1)",
+          "one_bar_n": 2986.0,
+          "longer_n": 2281.0,
+          "one_bar_prior_run_rate": 0.8174815807099799,
+          "longer_prior_run_rate": 0.7360806663743972,
+          "one_bar_minus_longer": 8.140091433558272,
+          "cluster_bootstrap_ci_low": 5.560184178293123,
+          "cluster_bootstrap_ci_high": 10.513832525577078
+        },
+        {
+          "pair_id": "ES 5 6",
+          "outcome": "P(L>=3)",
+          "one_bar_n": 2985.0,
+          "longer_n": 2281.0,
+          "one_bar_prior_run_rate": 0.3319932998324958,
+          "longer_prior_run_rate": 0.31082858395440593,
+          "one_bar_minus_longer": 2.116471587808988,
+          "cluster_bootstrap_ci_low": -0.34437083733743296,
+          "cluster_bootstrap_ci_high": 4.828970421325411
+        },
+        {
+          "pair_id": "ES 5 6",
+          "outcome": "P(L>=5)",
+          "one_bar_n": 2984.0,
+          "longer_n": 2281.0,
+          "one_bar_prior_run_rate": 0.12902144772117963,
+          "longer_prior_run_rate": 0.13634370889960543,
+          "one_bar_minus_longer": -0.7322261178425798,
+          "cluster_bootstrap_ci_low": -2.5187432292835337,
+          "cluster_bootstrap_ci_high": 0.9193097806678019
+        },
+        {
+          "pair_id": "GC 6 10",
+          "outcome": "P(L>=1)",
+          "one_bar_n": 15761.0,
+          "longer_n": 11533.0,
+          "one_bar_prior_run_rate": 0.8048347186092253,
+          "longer_prior_run_rate": 0.7423046908870199,
+          "one_bar_minus_longer": 6.2530027722205395,
+          "cluster_bootstrap_ci_low": 5.411414915489749,
+          "cluster_bootstrap_ci_high": 7.130274248175655
+        },
+        {
+          "pair_id": "GC 6 10",
+          "outcome": "P(L>=3)",
+          "one_bar_n": 15756.0,
+          "longer_n": 11532.0,
+          "one_bar_prior_run_rate": 0.35300837776085303,
+          "longer_prior_run_rate": 0.3355879292403746,
+          "one_bar_minus_longer": 1.7420448520478415,
+          "cluster_bootstrap_ci_low": 0.5557495170288945,
+          "cluster_bootstrap_ci_high": 2.8561713487736435
+        },
+        {
+          "pair_id": "GC 6 10",
+          "outcome": "P(L>=5)",
+          "one_bar_n": 15755.0,
+          "longer_n": 11532.0,
+          "one_bar_prior_run_rate": 0.14966677245318946,
+          "longer_prior_run_rate": 0.15062434963579605,
+          "one_bar_minus_longer": -0.09575771826065838,
+          "cluster_bootstrap_ci_low": -0.8762430761962852,
+          "cluster_bootstrap_ci_high": 0.7421210261677038
+        },
+        {
+          "pair_id": "GC 10 20",
+          "outcome": "P(L>=1)",
+          "one_bar_n": 6482.0,
+          "longer_n": 8087.0,
+          "one_bar_prior_run_rate": 0.8008330762110459,
+          "longer_prior_run_rate": 0.7544206751576604,
+          "one_bar_minus_longer": 4.641240105338551,
+          "cluster_bootstrap_ci_low": 3.341435025396919,
+          "cluster_bootstrap_ci_high": 5.932489011133764
+        },
+        {
+          "pair_id": "GC 10 20",
+          "outcome": "P(L>=3)",
+          "one_bar_n": 6480.0,
+          "longer_n": 8085.0,
+          "one_bar_prior_run_rate": 0.35216049382716047,
+          "longer_prior_run_rate": 0.33828076685219544,
+          "one_bar_minus_longer": 1.3879726974965034,
+          "cluster_bootstrap_ci_low": -0.17240118338392438,
+          "cluster_bootstrap_ci_high": 2.8126185147297953
+        },
+        {
+          "pair_id": "GC 10 20",
+          "outcome": "P(L>=5)",
+          "one_bar_n": 6480.0,
+          "longer_n": 8084.0,
+          "one_bar_prior_run_rate": 0.1521604938271605,
+          "longer_prior_run_rate": 0.14497773379515091,
+          "one_bar_minus_longer": 0.7182760032009572,
+          "cluster_bootstrap_ci_low": -0.39489503227382167,
+          "cluster_bootstrap_ci_high": 1.8381955642611434
+        },
+        {
+          "pair_id": "NQ 10 20",
+          "outcome": "P(L>=1)",
+          "one_bar_n": 33186.0,
+          "longer_n": 39263.0,
+          "one_bar_prior_run_rate": 0.8042246730549026,
+          "longer_prior_run_rate": 0.7483635993174236,
+          "one_bar_minus_longer": 5.586107373747906,
+          "cluster_bootstrap_ci_low": 5.074820131556414,
+          "cluster_bootstrap_ci_high": 6.129453384350371
+        },
+        {
+          "pair_id": "NQ 10 20",
+          "outcome": "P(L>=3)",
+          "one_bar_n": 33182.0,
+          "longer_n": 39256.0,
+          "one_bar_prior_run_rate": 0.3541377855463806,
+          "longer_prior_run_rate": 0.3363052781740371,
+          "one_bar_minus_longer": 1.7832507372343487,
+          "cluster_bootstrap_ci_low": 1.0360009098410214,
+          "cluster_bootstrap_ci_high": 2.548246371134705
+        },
+        {
+          "pair_id": "NQ 10 20",
+          "outcome": "P(L>=5)",
+          "one_bar_n": 33180.0,
+          "longer_n": 39256.0,
+          "one_bar_prior_run_rate": 0.152833031946956,
+          "longer_prior_run_rate": 0.15350519665783574,
+          "one_bar_minus_longer": -0.06721647108797468,
+          "cluster_bootstrap_ci_low": -0.5684762513477201,
+          "cluster_bootstrap_ci_high": 0.4488614892256295
+        }
+      ]
+    },
+    {
+      "kind": "text",
+      "id": "methods",
+      "title": "Definitions and methods",
+      "body": "Quality stack requires body at least seventy percent of high-low range, favorable close within the final twenty percent, and a break of the previous bar directional extreme. The larger state must complete strictly before the small signal; same-second ambiguity is excluded. L excludes the reversal. The test-labelled April–September 2026 contrasts use saved 95% session-cluster pointwise intervals and do not correct a feature search. The next-bar-close price diagnostic is measured in small-chart product ticks; it is not the colour probability. One-bar snapback compares exactly one opposing prior bar with longer prior runs."
+    },
+    {
+      "kind": "text",
+      "id": "limitations",
+      "title": "Limitations and uncertainty",
+      "body": "Historical import is not newly validated execution evidence. Inputs and modern code/environment provenance are incomplete; chart clocks, completion and fills remain unverified. Longer-horizon and exhaustion interactions are weak or unstable. Shared chart settings and earlier study inspection limit independence. OHLC cannot establish stop/target order, and hypothetical stops must not be inferred to repair the negative payoff."
+    },
+    {
+      "kind": "text",
+      "id": "sources-provenance",
+      "title": "Source and presentation provenance",
+      "body": "Study 04_reversal_candle_quality; source run 20260908T_reversal_quality_v1. Publication-only choice: Sole retained candle-quality follow-up directly covers the question and preserves the negative price diagnostic. Historical and provenance limitations remain explicit; no research reference is created.\n\nPresentation revision 20261006T230936Z_web04, web-study-report-1.0. Saved numerical tables are the authority; only selected rows and columns are presented. No new statistics or research execution. The publication record identifies this JSON and its selected assets."
+    }
+  ]
+}

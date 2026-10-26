@@ -1,0 +1,19 @@
+study_id: 28_globex_ema_crossings
+protocol_version: 1.1.0
+products: [ES, NQ, GC]
+timeframes: [3m]
+ema_period: 6
+ema_alpha: 0.2857142857142857
+ema_min_preceding_bars: 250
+anchor: globex_1800_America_New_York
+common_start: '2021-06-28'
+common_end: '2026-09-18'
+atr_period: 14
+atr_percentile_lookback: 252
+atr_max_age_days: 7
+atr_percentile_cuts: [0.3333333333333333, 0.6666666666666666]
+realized_range_atr_cuts: [0.75, 1.25]
+small_cell_sessions: 30
+bootstrap_replicates: 2000
+bootstrap_block_observed_sessions: 5
+bootstrap_seed: 20261023

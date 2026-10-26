@@ -1,0 +1,95 @@
+{
+  "passed": true,
+  "verified_at": "2026-10-08T23:20:50.911150+00:00",
+  "publication_id": "camarilla-ema-20261008t220932z-cb2711",
+  "node": "24.18.0",
+  "npm": "11.16.0",
+  "checks": [
+    {
+      "command": "npm run verify",
+      "exit_code": 0,
+      "log": "narada-verify.log",
+      "log_sha256": "f6dfedaa781f76333559643ef0ec75280fa365db01ffea94df120bc89045db31"
+    },
+    {
+      "command": "npm test",
+      "exit_code": 0,
+      "log": "narada-test.log",
+      "log_sha256": "afeeda75b25cd119e822d3a06c80fe4a2561f8ddea16a65b9098623d730b75ed"
+    },
+    {
+      "command": "npm run lint",
+      "exit_code": 0,
+      "log": "narada-lint.log",
+      "log_sha256": "9dad69a5a84810014fa73d3f6c47accb02d6f76ee649c4a7c21b793078b05775"
+    },
+    {
+      "command": "npm run build",
+      "exit_code": 0,
+      "log": "narada-build.log",
+      "log_sha256": "e5695e0c93ba40e62c0bf09a9b3962413682d84b313700c524d64d6bba2300fc"
+    }
+  ],
+  "app_tests": 38,
+  "verified_studies": 19,
+  "verified_publications": 25,
+  "static_page_payloads": 413,
+  "contract": "1.1",
+  "bundle_bytes": 129357,
+  "selected_downloads": 4,
+  "selected_figures": 6,
+  "source_value_verification": "verification.json: 1986 displayed cells and 31152 exact CSV cells",
+  "asset_verification": "download-verification.json: native browser CSV + all 4 CSV / 6 PNG HTTP hashes and headers",
+  "scientific_figure_QA": "All 11 saved figures visually inspected; figures generated only from saved numerical evidence. F04 legend, F02 counts/sparse labels and F05 year axes adjusted for readable display before final staging.",
+  "browser": {
+    "desktop": {
+      "saved_screenshot_viewport": [
+        970,
+        864
+      ],
+      "previous_table_test_viewport": [
+        1280,
+        720
+      ],
+      "keyboard_scroll": {
+        "before_left": 0,
+        "after_left": 101,
+        "client_width": 904,
+        "scroll_width": 1330
+      }
+    },
+    "mobile": {
+      "viewport": [
+        390,
+        844
+      ],
+      "document_width": 390,
+      "page_horizontal_overflow": false,
+      "table_scroll_is_local": true
+    },
+    "figure_load": {
+      "figure": "F01",
+      "loaded": true,
+      "natural_width": 1820,
+      "rendered_width": 904,
+      "rendered_height": 307.3
+    },
+    "screenshots": [
+      {
+        "path": "preview-desktop.jpg",
+        "sha256": "a6bce3779cd6e0b7e4acba1cf41f3b3f637d76f0dd8510fc957d0c784f9d800a"
+      },
+      {
+        "path": "preview-mobile.jpg",
+        "sha256": "35606c2d2952d93ae513653e793f75a0faa18e7671aa51b4fa0c5ab37f1572f9"
+      }
+    ]
+  },
+  "local_url": "http://127.0.0.1:4174/reports/camarilla-ema-20261008t220932z-cb2711/",
+  "study_url": "http://127.0.0.1:4174/studies/camarilla-ema-reversals/",
+  "hosted_deployment": false,
+  "limitations": [
+    "Local static preview; hosted checks require a separate explicit publication instruction.",
+    "Website verification tests transfer/rendering, not profitability or point-in-time source availability."
+  ]
+}

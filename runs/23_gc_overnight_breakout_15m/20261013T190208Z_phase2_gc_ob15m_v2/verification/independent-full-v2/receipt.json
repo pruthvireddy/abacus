@@ -1,0 +1,210 @@
+{
+  "schema_version": "study23-phase2-independent-verification/v1",
+  "attempt": "full-v2",
+  "phase": "all",
+  "command": [
+    "studies/23_gc_overnight_breakout_15m/phase2_verify.py",
+    "--stage",
+    "work/23_gc_overnight_breakout_15m/20261013T190208Z_phase2_gc_ob15m_v2",
+    "--phase",
+    "all",
+    "--attempt",
+    "full-v2"
+  ],
+  "source_snapshots": [
+    {
+      "path": "verification/independent-full-v2/phase2_verify.py",
+      "bytes": 111049,
+      "sha256": "a283e5250e96a1e355497c0055983c7157f2d1b52ca81693c18ce86062024d24"
+    },
+    {
+      "path": "verification/independent-full-v2/test_phase2_independent.py",
+      "bytes": 22496,
+      "sha256": "8b6f3b21aa6b56392409af7048c3d8fc35ed5a6095bcba742e1d76677936abfa"
+    }
+  ],
+  "started_at": "2026-10-13T19:33:06.487410Z",
+  "runtime_freeze": {
+    "status": "passed",
+    "hash_checks": 20,
+    "phase3_uncomputed_by_scope": true
+  },
+  "later_gate": {
+    "status": "passed",
+    "selection_sha256": "d7a6aafcbda07574b6abdccaabf727cc5ed48b164392249da74572ecb59d88f0",
+    "development_receipt_sha256": "63614517e0e5906d6107baa3c4b241365aa36b89ff141ddff2585fd09a0d24be",
+    "later_started_at": "2026-10-13T19:09:09.613021+00:00",
+    "source": "phase-starts.json"
+  },
+  "phases": [
+    {
+      "phase": "dev-validation",
+      "episodes": 550,
+      "policy_rows": 5500,
+      "comparisons": 1298384,
+      "status": "passed"
+    },
+    {
+      "phase": "later",
+      "episodes": 330,
+      "policy_rows": 3300,
+      "comparisons": 741231,
+      "status": "passed"
+    }
+  ],
+  "selection": {
+    "status": "passed",
+    "selected_policy": null,
+    "validation_episodes": 213,
+    "common_complete_pairs": 207,
+    "comparisons": 34,
+    "chronology": "saved settings \u2192 development/validation \u2192 hashed selection \u2192 later completion",
+    "prior_baseline_exposure": true
+  },
+  "metrics": {
+    "status": "passed",
+    "comparisons": 708825,
+    "verified_tables": [
+      "trade-cohorts",
+      "timing",
+      "equity",
+      "trades",
+      "paired",
+      "interval-sensitivities",
+      "occurrence",
+      "recovery",
+      "level-opportunities"
+    ],
+    "csv_projection_omissions": {
+      "artifact": "tables/trades.csv",
+      "omitted_optional_canonical_fields": {
+        "observed_holding_minutes": 23
+      },
+      "canonical_sources": [
+        "phases/dev-validation/policies.jsonl.gz",
+        "phases/later/policies.jsonl.gz"
+      ],
+      "qualification": "Every declared CSV column is reconciled. Optional fields omitted by first-row CSV projection remain independently replayed and retained in canonical raw ledgers."
+    },
+    "all_table_hashes": {
+      "trade-cohorts": {
+        "path": "tables/trade-cohorts.csv",
+        "bytes": 849492,
+        "sha256": "ba1b9e1caed269b25875cd1bdc3d7357c524426e4029ee932640bb99ce7d3553",
+        "rows": 1500
+      },
+      "paired": {
+        "path": "tables/paired.csv",
+        "bytes": 415828,
+        "sha256": "526e24f6a30d7c12fe98030a45590297d865f6aa3e171689392e46f87c082b6a",
+        "rows": 1500
+      },
+      "timing": {
+        "path": "tables/timing.csv",
+        "bytes": 376248,
+        "sha256": "012fd5479082ad9d9d8a51ba3375546b53c1515be2c48a422ff5cfa4929752cd",
+        "rows": 930
+      },
+      "equity": {
+        "path": "tables/equity.csv",
+        "bytes": 611091,
+        "sha256": "b345647a2d5ec1058fe5e2d52762ed0035a83d4289092228f1cd951869c587ad",
+        "rows": 3718
+      },
+      "occurrence": {
+        "path": "tables/occurrence.csv",
+        "bytes": 201850,
+        "sha256": "f7b30e9eb5a25905f6578ded49c482e17a27f3f1d10cb3e31e168318b1bdd7f5",
+        "rows": 1200
+      },
+      "recovery": {
+        "path": "tables/recovery.csv",
+        "bytes": 426460,
+        "sha256": "9984f570d3ffed4bb15e2076e48a6b46fc62d7d7fa06f3e765bc0d1d46342e3f",
+        "rows": 1800
+      },
+      "level-opportunities": {
+        "path": "tables/level-opportunities.csv",
+        "bytes": 872384,
+        "sha256": "8c706804f0927b8c3a4ad3ddf35fcca12d3003fc8d01dadbea8b95fbe508310e",
+        "rows": 1800
+      },
+      "transitions": {
+        "path": "tables/transitions.csv",
+        "bytes": 2177387,
+        "sha256": "e55e056aeaa20853cf28fad8bd3b0db60684a11c676c07d459d35de012889a74",
+        "rows": 16500
+      },
+      "event-distribution": {
+        "path": "tables/event-distribution.csv",
+        "bytes": 151394,
+        "sha256": "9aa8743df54bb7c18d3746d83aed063cd55d4320ee3bb3feccfcab44b365bb97",
+        "rows": 1584
+      },
+      "interval-sensitivities": {
+        "path": "tables/interval-sensitivities.csv",
+        "bytes": 45831,
+        "sha256": "3cf756920db8ca6fb278d5d87a6496a287aa8bb37a31022567145458ea29944b",
+        "rows": 315
+      },
+      "scenarios": {
+        "path": "tables/scenarios.csv",
+        "bytes": 12022,
+        "sha256": "4a988a16b60caab49ee9102dc091aab0c3a0da70c15be66d28a622702a9ead75",
+        "rows": 73
+      },
+      "ordering-bounds": {
+        "path": "tables/ordering-bounds.csv",
+        "bytes": 1204010,
+        "sha256": "caea1e4f3a6883be30adfe410f1f54940e0750fbdf04dc0f3cc6ca9fd053c1ab",
+        "rows": 8800
+      },
+      "account": {
+        "path": "tables/account.csv",
+        "bytes": 388228,
+        "sha256": "957573c09818028b3e1e51945001f8aa0d5d9a80c3b29c243509b6dbc347602e",
+        "rows": 2400
+      },
+      "account-capacity": {
+        "path": "tables/account-capacity.csv",
+        "bytes": 440055,
+        "sha256": "ef79717792ca529b342fb1ab2c339a26360760ad6e66a6190edd0599f9f17b23",
+        "rows": 1988
+      },
+      "trades": {
+        "path": "tables/trades.csv",
+        "bytes": 4316203,
+        "sha256": "ac3fb9d9dad68d262891e27f8126365b0aef43deea3141550e546b9e36d4d3e7",
+        "rows": 3741
+      },
+      "selected-example-bars": {
+        "path": "tables/selected-example-bars.csv",
+        "bytes": 8345718,
+        "sha256": "4676767cd485a1753057583bedd9b7ea23f8ddb4135300ead0efbf26eca17f64",
+        "rows": 45347
+      }
+    }
+  },
+  "transitions": {
+    "status": "passed",
+    "comparisons": 188288,
+    "edges": 5056,
+    "transition_rows": 16500,
+    "event_distribution_rows": 1584
+  },
+  "accounts": {
+    "status": "passed",
+    "scope": "separate actual whole-contract historical accounts, causal unknown capital/fill/loss propagation, zero observed executable sizes and 994-day capacity audit",
+    "comparisons": 914339,
+    "account_rows": 14080,
+    "capacity_rows": 1988,
+    "known_original_fills": 0,
+    "known_second_fills": 0,
+    "unknown_original_fill_rows": 865,
+    "unknown_second_fill_rows": 788,
+    "nonzero_two_leg_accounting": "independent executed synthetic fixture only; no substituted standardized historical profits"
+  },
+  "status": "failed",
+  "finished_at": "2026-10-13T19:44:07.407142Z",
+  "error": "ValueError: sensitivity:passive-touch:validated_native:one_contract:source_ohlc:2018-03-08:24:passive-q025-touch:trade:gap_entry: expected False, got True"
+}

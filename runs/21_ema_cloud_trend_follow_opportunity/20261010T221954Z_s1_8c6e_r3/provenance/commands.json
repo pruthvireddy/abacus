@@ -1,0 +1,661 @@
+[
+  {
+    "argv": [
+      "./scripts/uv",
+      "run",
+      "--locked",
+      "--no-sync",
+      "python",
+      "-m",
+      "abacus_bhishma.ema_cloud_release",
+      "--workspace",
+      ".",
+      "--audit-dir",
+      "work/21_ema_cloud_trend_follow_opportunity/20261010T215130Z_s1_8c6e/data-preparation",
+      "--release-id",
+      "20261010T215130Z_s1_8c6e_prep2"
+    ],
+    "cwd": "/Users/ppanati/Documents/projects/abacus",
+    "environment": {
+      "UV_CACHE_DIR": "/private/tmp/abacus-stage21-uv-cache"
+    }
+  },
+  {
+    "argv": [
+      "./scripts/check-workspace",
+      "--check",
+      "study-21",
+      "--report",
+      "/Users/ppanati/Documents/projects/abacus/work/21_ema_cloud_trend_follow_opportunity/20261010T220715Z_s1_8c6e_r2/provenance/study21-tests.json"
+    ],
+    "cwd": "/Users/ppanati/Documents/projects/abacus",
+    "environment": {
+      "UV_CACHE_DIR": "/private/tmp/abacus-study21-uv-cache",
+      "PYTHONPATH": "/private/tmp/abacus-study21-plot-deps",
+      "MPLCONFIGDIR": "/private/tmp/abacus-study21-mpl",
+      "OPENBLAS_NUM_THREADS": "1",
+      "VECLIB_MAXIMUM_THREADS": "1"
+    }
+  },
+  {
+    "argv": [
+      "./scripts/uv",
+      "run",
+      "--locked",
+      "--no-sync",
+      "python",
+      "scripts/unittest_child.py",
+      "--spec",
+      "{\"start_dir\":\"packages/bhishma/tests\",\"pattern\":\"test_ema_cloud*.py\"}",
+      "--result",
+      "/Users/ppanati/Documents/projects/abacus/work/21_ema_cloud_trend_follow_opportunity/20261010T220715Z_s1_8c6e_r2/provenance/bhishma-ema-tests.json"
+    ],
+    "cwd": "/Users/ppanati/Documents/projects/abacus",
+    "environment": {
+      "UV_CACHE_DIR": "/private/tmp/abacus-study21-uv-cache"
+    }
+  },
+  {
+    "argv": [
+      "/Users/ppanati/Documents/projects/abacus/scripts/uv",
+      "run",
+      "--locked",
+      "--no-sync",
+      "python",
+      "scripts/check-agent-docs.py"
+    ],
+    "cwd": "/Users/ppanati/Documents/projects/abacus"
+  },
+  {
+    "argv": [
+      "/Users/ppanati/Documents/projects/abacus/scripts/uv",
+      "run",
+      "--locked",
+      "--no-sync",
+      "python",
+      "-B",
+      "/Users/ppanati/Documents/projects/abacus/scripts/unittest_child.py",
+      "--spec",
+      "{\"optimize\": false, \"pattern\": \"test*.py\", \"start_dir\": \"/Users/ppanati/Documents/projects/abacus/packages/bhishma/tests\"}",
+      "--result",
+      "/var/folders/8m/7y_qdqcn1fn6gkf6ggc_39bc0000gn/T/abacus-check-e06rtk4x/unittest-result.json"
+    ],
+    "cwd": "/Users/ppanati/Documents/projects/abacus"
+  },
+  {
+    "argv": [
+      "/Users/ppanati/Documents/projects/abacus/scripts/uv",
+      "run",
+      "--locked",
+      "--no-sync",
+      "python",
+      "-B",
+      "/Users/ppanati/Documents/projects/abacus/scripts/unittest_child.py",
+      "--spec",
+      "{\"optimize\": false, \"pattern\": \"test*.py\", \"start_dir\": \"/Users/ppanati/Documents/projects/abacus/packages/sahadeva/tests\"}",
+      "--result",
+      "/var/folders/8m/7y_qdqcn1fn6gkf6ggc_39bc0000gn/T/abacus-check-28kalm4d/unittest-result.json"
+    ],
+    "cwd": "/Users/ppanati/Documents/projects/abacus"
+  },
+  {
+    "argv": [
+      "/Users/ppanati/Documents/projects/abacus/scripts/uv",
+      "run",
+      "--locked",
+      "--no-sync",
+      "python",
+      "-B",
+      "/Users/ppanati/Documents/projects/abacus/scripts/unittest_child.py",
+      "--spec",
+      "{\"optimize\": false, \"pattern\": \"test*.py\", \"start_dir\": \"/Users/ppanati/Documents/projects/abacus/legacy/sahadeva/analysis/01_reversal_follow_through/tests\"}",
+      "--result",
+      "/var/folders/8m/7y_qdqcn1fn6gkf6ggc_39bc0000gn/T/abacus-check-qxcmql6_/unittest-result.json"
+    ],
+    "cwd": "/Users/ppanati/Documents/projects/abacus",
+    "environment": {
+      "PYTHONPATH": "/Users/ppanati/Documents/projects/abacus/legacy/sahadeva/analysis/01_reversal_follow_through/src"
+    }
+  },
+  {
+    "argv": [
+      "/Users/ppanati/Documents/projects/abacus/scripts/uv",
+      "run",
+      "--locked",
+      "--no-sync",
+      "python",
+      "-B",
+      "/Users/ppanati/Documents/projects/abacus/scripts/unittest_child.py",
+      "--spec",
+      "{\"optimize\": false, \"pattern\": \"test*.py\", \"start_dir\": \"/Users/ppanati/Documents/projects/abacus/legacy/sahadeva/analysis/02_followthrough_candle_adverse/tests\"}",
+      "--result",
+      "/var/folders/8m/7y_qdqcn1fn6gkf6ggc_39bc0000gn/T/abacus-check-il1zbp6l/unittest-result.json"
+    ],
+    "cwd": "/Users/ppanati/Documents/projects/abacus",
+    "environment": {
+      "PYTHONPATH": "/Users/ppanati/Documents/projects/abacus/legacy/sahadeva/analysis/02_followthrough_candle_adverse/src"
+    }
+  },
+  {
+    "argv": [
+      "/Users/ppanati/Documents/projects/abacus/scripts/uv",
+      "run",
+      "--locked",
+      "--no-sync",
+      "abacus-research",
+      "doctor",
+      "--workspace-root",
+      "/Users/ppanati/Documents/projects/abacus",
+      "--read-sample"
+    ],
+    "cwd": "/Users/ppanati/Documents/projects/abacus"
+  },
+  {
+    "argv": [
+      "/Library/Developer/CommandLineTools/usr/bin/python3",
+      "-B",
+      "/Users/ppanati/Documents/projects/abacus/scripts/unittest_child.py",
+      "--spec",
+      "{\"optimize\": false, \"pattern\": \"test*.py\", \"start_dir\": \"/Users/ppanati/Documents/projects/abacus/scripts/tests\"}",
+      "--result",
+      "/var/folders/8m/7y_qdqcn1fn6gkf6ggc_39bc0000gn/T/abacus-check-7eu_mz8g/unittest-result.json"
+    ],
+    "cwd": "/Users/ppanati/Documents/projects/abacus"
+  },
+  {
+    "argv": [
+      "npm",
+      "run",
+      "verify"
+    ],
+    "cwd": "/Users/ppanati/Documents/projects/abacus/apps/narada",
+    "environment": {
+      "UV_CACHE_DIR": "/private/tmp/abacus-study21-uv-cache",
+      "OPENBLAS_NUM_THREADS": "1",
+      "VECLIB_MAXIMUM_THREADS": "1"
+    }
+  },
+  {
+    "argv": [
+      "npm",
+      "test"
+    ],
+    "cwd": "/Users/ppanati/Documents/projects/abacus/apps/narada"
+  },
+  {
+    "argv": [
+      "npm",
+      "run",
+      "lint"
+    ],
+    "cwd": "/Users/ppanati/Documents/projects/abacus/apps/narada"
+  },
+  {
+    "argv": [
+      "npm",
+      "run",
+      "build"
+    ],
+    "cwd": "/Users/ppanati/Documents/projects/abacus/apps/narada"
+  },
+  {
+    "argv": [
+      "/Users/ppanati/Documents/projects/abacus/.venv/bin/python",
+      "/Users/ppanati/Documents/projects/abacus/studies/21_ema_cloud_trend_follow_opportunity/run.py",
+      "freeze",
+      "--stage",
+      "work/21_ema_cloud_trend_follow_opportunity/20261010T221954Z_s1_8c6e_r3"
+    ],
+    "cwd": "/Users/ppanati/Documents/projects/abacus",
+    "environment": {
+      "UV_CACHE_DIR": "/private/tmp/abacus-study21-uv-cache"
+    }
+  },
+  {
+    "argv": [
+      "./scripts/check-workspace",
+      "--check",
+      "study-21",
+      "--report",
+      "/Users/ppanati/Documents/projects/abacus/work/21_ema_cloud_trend_follow_opportunity/20261010T221954Z_s1_8c6e_r3/provenance/study21-tests.json"
+    ],
+    "cwd": "/Users/ppanati/Documents/projects/abacus",
+    "environment": {
+      "UV_CACHE_DIR": "/private/tmp/abacus-study21-uv-cache",
+      "PYTHONPATH": "/private/tmp/abacus-study21-plot-deps",
+      "MPLCONFIGDIR": "/private/tmp/abacus-study21-mpl",
+      "OPENBLAS_NUM_THREADS": "1",
+      "VECLIB_MAXIMUM_THREADS": "1"
+    }
+  },
+  {
+    "argv": [
+      "./scripts/uv",
+      "run",
+      "--locked",
+      "--no-sync",
+      "python",
+      "scripts/unittest_child.py",
+      "--spec",
+      "{\"start_dir\":\"packages/bhishma/tests\",\"pattern\":\"test_ema_cloud*.py\"}",
+      "--result",
+      "/Users/ppanati/Documents/projects/abacus/work/21_ema_cloud_trend_follow_opportunity/20261010T221954Z_s1_8c6e_r3/provenance/bhishma-ema-tests.json"
+    ],
+    "cwd": "/Users/ppanati/Documents/projects/abacus",
+    "environment": {
+      "UV_CACHE_DIR": "/private/tmp/abacus-study21-uv-cache"
+    }
+  },
+  {
+    "argv": [
+      "/Users/ppanati/Documents/projects/abacus/.venv/bin/python",
+      "/Users/ppanati/Documents/projects/abacus/studies/21_ema_cloud_trend_follow_opportunity/run.py",
+      "audit",
+      "--stage",
+      "work/21_ema_cloud_trend_follow_opportunity/20261010T221954Z_s1_8c6e_r3"
+    ],
+    "cwd": "/Users/ppanati/Documents/projects/abacus",
+    "environment": {
+      "UV_CACHE_DIR": "/private/tmp/abacus-study21-uv-cache"
+    }
+  },
+  {
+    "argv": [
+      "/Users/ppanati/Documents/projects/abacus/.venv/bin/python",
+      "/Users/ppanati/Documents/projects/abacus/studies/21_ema_cloud_trend_follow_opportunity/run.py",
+      "slice",
+      "--stage",
+      "work/21_ema_cloud_trend_follow_opportunity/20261010T221954Z_s1_8c6e_r3"
+    ],
+    "cwd": "/Users/ppanati/Documents/projects/abacus",
+    "environment": {
+      "UV_CACHE_DIR": "/private/tmp/abacus-study21-uv-cache"
+    }
+  },
+  {
+    "argv": [
+      "./scripts/uv",
+      "run",
+      "--locked",
+      "--no-sync",
+      "python",
+      "work/21_ema_cloud_trend_follow_opportunity/20261010T221954Z_s1_8c6e_r3/provenance/reviews/data-input-review.py"
+    ],
+    "cwd": "/Users/ppanati/Documents/projects/abacus",
+    "environment": {
+      "UV_CACHE_DIR": "/private/tmp/abacus-stage21-uv-cache"
+    }
+  },
+  {
+    "argv": [
+      "/Users/ppanati/Documents/projects/abacus/.venv/bin/python",
+      "/Users/ppanati/Documents/projects/abacus/studies/21_ema_cloud_trend_follow_opportunity/run.py",
+      "execute",
+      "--stage",
+      "work/21_ema_cloud_trend_follow_opportunity/20261010T221954Z_s1_8c6e_r3"
+    ],
+    "cwd": "/Users/ppanati/Documents/projects/abacus",
+    "environment": {
+      "UV_CACHE_DIR": "/private/tmp/abacus-study21-uv-cache"
+    }
+  },
+  {
+    "argv": [
+      "/Users/ppanati/Documents/projects/abacus/.venv/bin/python",
+      "/Users/ppanati/Documents/projects/abacus/studies/21_ema_cloud_trend_follow_opportunity/run.py",
+      "summarize",
+      "--stage",
+      "work/21_ema_cloud_trend_follow_opportunity/20261010T221954Z_s1_8c6e_r3"
+    ],
+    "cwd": "/Users/ppanati/Documents/projects/abacus",
+    "environment": {
+      "UV_CACHE_DIR": "/private/tmp/abacus-study21-uv-cache",
+      "OPENBLAS_NUM_THREADS": "1",
+      "VECLIB_MAXIMUM_THREADS": "1"
+    }
+  },
+  {
+    "argv": [
+      "/Users/ppanati/Documents/projects/abacus/work/21_ema_cloud_trend_follow_opportunity/20261010T221954Z_s1_8c6e_r3/provenance/supplemental-verification/check_sample.py"
+    ],
+    "cwd": "/Users/ppanati/Documents/projects/abacus",
+    "environment": {
+      "UV_CACHE_DIR": "/private/tmp/abacus-study21-uv-cache"
+    }
+  },
+  {
+    "argv": [
+      "python3",
+      "work/21_ema_cloud_trend_follow_opportunity/20261010T221954Z_s1_8c6e_r3/provenance/corrected-replay-check.py"
+    ],
+    "cwd": "/Users/ppanati/Documents/projects/abacus"
+  },
+  {
+    "argv": [
+      "/Users/ppanati/Documents/projects/abacus/.venv/bin/python",
+      "/Users/ppanati/Documents/projects/abacus/studies/21_ema_cloud_trend_follow_opportunity/run.py",
+      "render",
+      "--stage",
+      "work/21_ema_cloud_trend_follow_opportunity/20261010T221954Z_s1_8c6e_r3"
+    ],
+    "cwd": "/Users/ppanati/Documents/projects/abacus",
+    "environment": {
+      "UV_CACHE_DIR": "/private/tmp/abacus-study21-uv-cache",
+      "PYTHONPATH": "/private/tmp/abacus-study21-plot-deps",
+      "MPLCONFIGDIR": "/private/tmp/abacus-study21-mpl"
+    }
+  },
+  {
+    "argv": [
+      "/Users/ppanati/Documents/projects/abacus/.venv/bin/python",
+      "/Users/ppanati/Documents/projects/abacus/studies/21_ema_cloud_trend_follow_opportunity/run.py",
+      "verify",
+      "--stage",
+      "work/21_ema_cloud_trend_follow_opportunity/20261010T221954Z_s1_8c6e_r3"
+    ],
+    "cwd": "/Users/ppanati/Documents/projects/abacus",
+    "environment": {
+      "UV_CACHE_DIR": "/private/tmp/abacus-study21-uv-cache",
+      "OPENBLAS_NUM_THREADS": "1",
+      "VECLIB_MAXIMUM_THREADS": "1"
+    }
+  },
+  {
+    "argv": [
+      "./scripts/uv",
+      "run",
+      "--locked",
+      "--no-sync",
+      "python",
+      "/Users/ppanati/Documents/projects/abacus/work/21_ema_cloud_trend_follow_opportunity/20261010T221954Z_s1_8c6e_r3/provenance/reviews/check_engine_results.py"
+    ],
+    "cwd": "/Users/ppanati/Documents/projects/abacus",
+    "environment": {
+      "UV_CACHE_DIR": "/private/tmp/abacus-study21-uv-cache"
+    }
+  },
+  {
+    "argv": [
+      "python3",
+      "/Users/ppanati/Documents/projects/abacus/work/21_ema_cloud_trend_follow_opportunity/20261010T221954Z_s1_8c6e_r3/provenance/reviews/write_interpretation_review.py"
+    ],
+    "cwd": "/Users/ppanati/Documents/projects/abacus"
+  },
+  {
+    "argv": [
+      "python3",
+      "/Users/ppanati/Documents/projects/abacus/work/21_ema_cloud_trend_follow_opportunity/20261010T221954Z_s1_8c6e_r3/provenance/finalize-presentation.py"
+    ],
+    "cwd": "/Users/ppanati/Documents/projects/abacus"
+  },
+  {
+    "argv": [
+      "npm",
+      "run",
+      "report:publish",
+      "--",
+      "--report",
+      "../../work/21_ema_cloud_trend_follow_opportunity/20261010T221954Z_s1_8c6e_r3/publication.json",
+      "--dry-run"
+    ],
+    "cwd": "/Users/ppanati/Documents/projects/abacus/apps/narada"
+  },
+  {
+    "argv": [
+      "python3",
+      "-m",
+      "http.server",
+      "43121",
+      "--bind",
+      "127.0.0.1",
+      "--directory",
+      "work/21_ema_cloud_trend_follow_opportunity/20261010T221954Z_s1_8c6e_r3"
+    ],
+    "cwd": "/Users/ppanati/Documents/projects/abacus"
+  },
+  {
+    "argv": [
+      "kill",
+      "-TERM",
+      "55791"
+    ],
+    "cwd": "/Users/ppanati/Documents/projects/abacus"
+  },
+  {
+    "argv": [
+      "python3",
+      "/Users/ppanati/Documents/projects/abacus/work/21_ema_cloud_trend_follow_opportunity/20261010T221954Z_s1_8c6e_r3/provenance/reviews/extract_interpretation_tables.py"
+    ],
+    "cwd": "/Users/ppanati/Documents/projects/abacus"
+  },
+  {
+    "argv": [
+      "python3",
+      "/Users/ppanati/Documents/projects/abacus/work/21_ema_cloud_trend_follow_opportunity/20261010T221954Z_s1_8c6e_r3/provenance/reviews/extract_interpretation_tables_v2.py"
+    ],
+    "cwd": "/Users/ppanati/Documents/projects/abacus"
+  },
+  {
+    "argv": [
+      "python3",
+      "/Users/ppanati/Documents/projects/abacus/work/21_ema_cloud_trend_follow_opportunity/20261010T221954Z_s1_8c6e_r3/provenance/finalize-presentation.py"
+    ],
+    "cwd": "/Users/ppanati/Documents/projects/abacus"
+  },
+  {
+    "argv": [
+      "./scripts/uv",
+      "run",
+      "--locked",
+      "--no-sync",
+      "python",
+      "/Users/ppanati/Documents/projects/abacus/work/21_ema_cloud_trend_follow_opportunity/20261010T221954Z_s1_8c6e_r3/provenance/reviews/check_comparisons_uncertainty.py"
+    ],
+    "cwd": "/Users/ppanati/Documents/projects/abacus",
+    "environment": {
+      "UV_CACHE_DIR": "/private/tmp/abacus-study21-uv-cache"
+    }
+  },
+  {
+    "argv": [
+      "./scripts/uv",
+      "run",
+      "--locked",
+      "--no-sync",
+      "python",
+      "/Users/ppanati/Documents/projects/abacus/work/21_ema_cloud_trend_follow_opportunity/20261010T221954Z_s1_8c6e_r3/provenance/reviews/check_comparisons_uncertainty_v2.py"
+    ],
+    "cwd": "/Users/ppanati/Documents/projects/abacus",
+    "environment": {
+      "UV_CACHE_DIR": "/private/tmp/abacus-study21-uv-cache"
+    }
+  },
+  {
+    "argv": [
+      "./scripts/uv",
+      "run",
+      "--locked",
+      "--no-sync",
+      "python",
+      "work/21_ema_cloud_trend_follow_opportunity/20261010T221954Z_s1_8c6e_r3/provenance/reviews/coverage-overlay-review.py"
+    ],
+    "cwd": "/Users/ppanati/Documents/projects/abacus",
+    "environment": {
+      "UV_CACHE_DIR": "/private/tmp/abacus-stage21-uv-cache"
+    }
+  },
+  {
+    "argv": [
+      "./scripts/uv",
+      "run",
+      "--locked",
+      "--no-sync",
+      "python",
+      "work/21_ema_cloud_trend_follow_opportunity/20261010T221954Z_s1_8c6e_r3/provenance/reviews/coverage_verification_adapter.py",
+      "fixtures"
+    ],
+    "cwd": "/Users/ppanati/Documents/projects/abacus",
+    "environment": {
+      "UV_CACHE_DIR": "/private/tmp/abacus-study21-uv-cache"
+    }
+  },
+  {
+    "argv": [
+      "./scripts/uv",
+      "run",
+      "--locked",
+      "--no-sync",
+      "python",
+      "work/21_ema_cloud_trend_follow_opportunity/20261010T221954Z_s1_8c6e_r3/provenance/reviews/coverage_verification_adapter.py",
+      "prepare"
+    ],
+    "cwd": "/Users/ppanati/Documents/projects/abacus",
+    "environment": {
+      "UV_CACHE_DIR": "/private/tmp/abacus-study21-uv-cache"
+    }
+  },
+  {
+    "argv": [
+      "./scripts/uv",
+      "run",
+      "--locked",
+      "--no-sync",
+      "python",
+      "work/21_ema_cloud_trend_follow_opportunity/20261010T221954Z_s1_8c6e_r3/provenance/reviews/coverage_verification_adapter.py",
+      "run"
+    ],
+    "cwd": "/Users/ppanati/Documents/projects/abacus",
+    "environment": {
+      "UV_CACHE_DIR": "/private/tmp/abacus-study21-uv-cache"
+    }
+  },
+  {
+    "argv": [
+      "./scripts/uv",
+      "run",
+      "--locked",
+      "--no-sync",
+      "python",
+      "work/21_ema_cloud_trend_follow_opportunity/20261010T221954Z_s1_8c6e_r3/provenance/reviews/check_report_artifacts.py"
+    ],
+    "cwd": "/Users/ppanati/Documents/projects/abacus",
+    "environment": {
+      "UV_CACHE_DIR": "/private/tmp/abacus-study21-uv-cache"
+    }
+  },
+  {
+    "argv": [
+      "./scripts/uv",
+      "run",
+      "--locked",
+      "--no-sync",
+      "python",
+      "/Users/ppanati/Documents/projects/abacus/work/21_ema_cloud_trend_follow_opportunity/20261010T221954Z_s1_8c6e_r3/provenance/finalize-check-records.py"
+    ],
+    "cwd": "/Users/ppanati/Documents/projects/abacus",
+    "environment": {
+      "UV_CACHE_DIR": "/private/tmp/abacus-study21-uv-cache"
+    }
+  },
+  {
+    "argv": [
+      "./scripts/uv",
+      "run",
+      "--locked",
+      "--no-sync",
+      "python",
+      "/Users/ppanati/Documents/projects/abacus/work/21_ema_cloud_trend_follow_opportunity/20261010T221954Z_s1_8c6e_r3/provenance/prepare-sealing.py"
+    ],
+    "cwd": "/Users/ppanati/Documents/projects/abacus",
+    "environment": {
+      "UV_CACHE_DIR": "/private/tmp/abacus-study21-uv-cache"
+    }
+  },
+  {
+    "argv": [
+      "./scripts/uv",
+      "run",
+      "--locked",
+      "--no-sync",
+      "python",
+      "/Users/ppanati/Documents/projects/abacus/work/21_ema_cloud_trend_follow_opportunity/20261010T221954Z_s1_8c6e_r3/provenance/preflight-manifest.py"
+    ],
+    "cwd": "/Users/ppanati/Documents/projects/abacus",
+    "environment": {
+      "UV_CACHE_DIR": "/private/tmp/abacus-study21-uv-cache"
+    }
+  },
+  {
+    "argv": [
+      "python3",
+      "scripts/check-evidence-bundle.py",
+      "/Users/ppanati/Documents/projects/abacus/work/21_ema_cloud_trend_follow_opportunity/20261010T221954Z_s1_8c6e_r3",
+      "--json"
+    ],
+    "cwd": "/Users/ppanati/Documents/projects/abacus"
+  },
+  {
+    "argv": [
+      "./scripts/uv",
+      "run",
+      "--locked",
+      "--no-sync",
+      "python",
+      "studies/21_ema_cloud_trend_follow_opportunity/run.py",
+      "seal",
+      "--stage",
+      "/Users/ppanati/Documents/projects/abacus/work/21_ema_cloud_trend_follow_opportunity/20261010T221954Z_s1_8c6e_r3"
+    ],
+    "cwd": "/Users/ppanati/Documents/projects/abacus",
+    "environment": {
+      "UV_CACHE_DIR": "/private/tmp/abacus-study21-uv-cache"
+    }
+  },
+  {
+    "argv": [
+      "./scripts/uv",
+      "run",
+      "--locked",
+      "--no-sync",
+      "python",
+      "/Users/ppanati/Documents/projects/abacus/work/21_ema_cloud_trend_follow_opportunity/20261010T221954Z_s1_8c6e_r3/provenance/prepare-sealing.py"
+    ],
+    "cwd": "/Users/ppanati/Documents/projects/abacus",
+    "environment": {
+      "UV_CACHE_DIR": "/private/tmp/abacus-study21-uv-cache"
+    }
+  },
+  {
+    "argv": [
+      "./scripts/uv",
+      "run",
+      "--locked",
+      "--no-sync",
+      "python",
+      "/Users/ppanati/Documents/projects/abacus/work/21_ema_cloud_trend_follow_opportunity/20261010T221954Z_s1_8c6e_r3/provenance/preflight-manifest.py"
+    ],
+    "cwd": "/Users/ppanati/Documents/projects/abacus",
+    "environment": {
+      "UV_CACHE_DIR": "/private/tmp/abacus-study21-uv-cache"
+    }
+  },
+  {
+    "argv": [
+      "python3",
+      "scripts/check-evidence-bundle.py",
+      "/Users/ppanati/Documents/projects/abacus/work/21_ema_cloud_trend_follow_opportunity/20261010T221954Z_s1_8c6e_r3",
+      "--json"
+    ],
+    "cwd": "/Users/ppanati/Documents/projects/abacus"
+  },
+  {
+    "argv": [
+      "/Users/ppanati/Documents/projects/abacus/.venv/bin/python",
+      "/Users/ppanati/Documents/projects/abacus/studies/21_ema_cloud_trend_follow_opportunity/run.py",
+      "seal",
+      "--stage",
+      "/Users/ppanati/Documents/projects/abacus/work/21_ema_cloud_trend_follow_opportunity/20261010T221954Z_s1_8c6e_r3"
+    ],
+    "cwd": "/Users/ppanati/Documents/projects/abacus"
+  }
+]

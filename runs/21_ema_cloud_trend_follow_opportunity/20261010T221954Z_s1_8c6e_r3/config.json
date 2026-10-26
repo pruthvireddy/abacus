@@ -1,0 +1,110 @@
+{
+  "study_id": "21_ema_cloud_trend_follow_opportunity",
+  "stage": 1,
+  "protocol_version": "0.1.0-stage1.2",
+  "plan_version": "0.1.0",
+  "products": [
+    "ES",
+    "GC",
+    "NQ"
+  ],
+  "interval_minutes": [
+    3,
+    5
+  ],
+  "cloud_interval_minutes": 5,
+  "ema_lengths": [
+    20,
+    50
+  ],
+  "ema_seed": "first_close",
+  "atr_length": 14,
+  "atr_seed": "mean_first_14_true_ranges",
+  "warmup_observations": 250,
+  "warmup_sensitivity_observations": 500,
+  "minimum_width_points": {
+    "ES": 2.4,
+    "GC": 2.0,
+    "NQ": 10.0
+  },
+  "width_epsilon_scale": 1e-10,
+  "mfe_mae_tie_epsilon_scale": 1e-10,
+  "touch_mode": "slow",
+  "directions": [
+    "Buy",
+    "Sell"
+  ],
+  "one_per_pullback": true,
+  "cooldown_bars": 0,
+  "reference_price": "confirmed_signal_close_unadjusted",
+  "development_start_ny": "2018-01-01T00:00:00-05:00",
+  "development_endpoint_ny": "2021-01-01T00:00:00-05:00",
+  "warmup_start_session": "2017-01-01",
+  "primary_horizon_bars": 15,
+  "horizons_3m": [
+    5,
+    10,
+    15,
+    20,
+    30,
+    50,
+    100
+  ],
+  "horizons_5m": [
+    5,
+    10,
+    12,
+    15,
+    20,
+    30,
+    50,
+    100
+  ],
+  "calendar_policy": "normal_ny_18_to_17_weekday_session_retained_equity_pause_uncertified_holidays_unusable",
+  "quantile_method": "linear_rank_p_times_n_minus_1",
+  "calendar_timezone": "America/New_York",
+  "session_strata": {
+    "Asia": [
+      18,
+      24,
+      0,
+      3
+    ],
+    "Europe": [
+      3,
+      9
+    ],
+    "US": [
+      9,
+      16
+    ],
+    "Late": [
+      16,
+      18
+    ]
+  },
+  "hour_strata": "all_24_ny_hours_fixed_at_signal_open",
+  "bootstrap": {
+    "method": "paired_circular_calendar_week_moving_blocks",
+    "block_weeks": 4,
+    "sensitivity_block_weeks": [
+      1,
+      8
+    ],
+    "resamples": 10000,
+    "seed": 20261010,
+    "interval": "pointwise_percentile_95",
+    "week_roster": "all_signal_open_calendar_weeks_intersecting_development",
+    "session_week_assignment": "whole_contributing_session_mean_at_ny_trading_date_monday_week"
+  },
+  "sparse_support": {
+    "minimum_completed": 100,
+    "minimum_sessions": 30
+  },
+  "example_selection": "per_cell_h15_typical_nearest_median_delta_max_mae_max_mfe_first_rejected_first_censored_ties_time_then_id",
+  "reserved_outcomes_computed": false,
+  "public_staging_authorized": false,
+  "reconciliation_slice_start_ny": "2018-06-04T00:00:00-04:00",
+  "reconciliation_slice_end_ny": "2018-06-16T00:00:00-04:00",
+  "reconciliation_prefix_end_ny": "2018-06-29T23:59:59-04:00"
+}

@@ -1,0 +1,43 @@
+{
+  "dataset_id": "tradingview_daily_context__1.0.0",
+  "source": "TradingView chart CSV exports",
+  "formula_source": "catalog/indicators/tradingview_daily_context__1.0.0.pine",
+  "formula_source_sha256": "1087e6b4f096b322b7470c1e8ab59aaf201d9ce4061258b79b3fac8585687711",
+  "provenance": "Pine v6 script supplied by the user on 2026-09-24. Indicator values are copied from the exports; Bhishma has not independently recalculated them or verified chart settings and historical revisions.",
+  "chart_dependency": "Calculations inherit each source chart's OHLCV, session, settlement, symbol, and roll settings. The script does not define continuous-futures roll construction.",
+  "price_columns": ["open", "high", "low", "close"],
+  "trend_columns": ["ema20", "ema50", "sma200", "ema20_slope5_atr"],
+  "volatility_columns": ["bb20_mid", "bb20_upper_2sd", "bb20_lower_2sd", "bb20_percent_b", "bb20_bandwidth_pct", "atr14", "atr14_pct", "rv5_annualized_pct", "rv20_annualized_pct", "rv5_rv20_ratio"],
+  "momentum_columns": ["rsi14", "adx14", "plus_di14", "minus_di14", "roc5_pct", "roc20_pct", "roc60_pct", "macd_12_26", "macd_signal9", "macd_hist", "macd_hist_atr14"],
+  "range_columns": ["donchian20_prior_high", "donchian20_prior_low", "donchian55_prior_high", "donchian55_prior_low"],
+  "volume_columns": ["volume_raw", "volume_prior20_mean", "rvol20_prior", "Volume"],
+  "distance_columns": ["dist_ema20_atr", "dist_ema50_atr", "dist_sma200_atr"],
+  "formulas": {
+    "ema20": "ta.ema(close, 20)",
+    "ema50": "ta.ema(close, 50)",
+    "sma200": "ta.sma(close, 200)",
+    "atr14": "ta.atr(14)",
+    "atr14_pct": "100 * atr14 / close",
+    "rsi14": "ta.rsi(close, 14)",
+    "adx14_plus_di14_minus_di14": "ta.dmi(14, 14)",
+    "bb20_mid": "ta.sma(close, 20)",
+    "bb20_upper_lower_2sd": "bb20_mid +/- 2 * ta.stdev(close, 20, true)",
+    "donchian20_prior_high_low": "highest(high[1], 20) / lowest(low[1], 20)",
+    "donchian55_prior_high_low": "highest(high[1], 55) / lowest(low[1], 55)",
+    "rv5_annualized_pct": "100 * sample_stdev(log(close / close[1]), 5) * sqrt(252)",
+    "rv20_annualized_pct": "100 * sample_stdev(log(close / close[1]), 20) * sqrt(252)",
+    "roc5_20_60_pct": "ta.roc(close, 5/20/60)",
+    "volume_prior20_mean": "ta.sma(volume[1], 20)",
+    "macd_12_26_signal9_hist": "ta.macd(close, 12, 26, 9)",
+    "ratios_and_distances": "See formula_source; ratio returns na for missing or zero denominators."
+  },
+  "warmup": "warmup1000_complete is 1 for bar_index >= 1000; each indicator has its own shorter initial warmup.",
+  "timing": "A completed daily bar and all of its supplied indicators are available no earlier than bar_close_unix_s. No value is made available during its own open bar.",
+  "units": {
+    "close": "source price or index points",
+    "atr14": "source price or index points",
+    "atr14_pct": "source-labeled percent",
+    "rv5_annualized_pct": "source-labeled annualized percent",
+    "rv20_annualized_pct": "source-labeled annualized percent"
+  }
+}

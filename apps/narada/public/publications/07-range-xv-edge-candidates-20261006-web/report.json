@@ -1,0 +1,350 @@
+{
+  "provenance": {
+    "assets": [],
+    "sourceSha256": "2e7430a9bd18f4c58d145e1448477b4673e5ce70d81297c1b6fd14fb34079520"
+  },
+  "report": {
+    "id": "07-range-xv-edge-candidates-20261006-web",
+    "publishedAt": "2026-10-06T23:09:36Z",
+    "schemaVersion": "1.0",
+    "sections": [
+      {
+        "body": "This study asks whether a one-bar pullback, an extended-run reversal, or a quiet-period breakout improves signed chart-price paths on ES 6RXV, NQ 20RXV and GC 20RXV. The selected run executed corrected protocol 1.0.1 on the pinned pre-normalization exports.",
+        "id": "question",
+        "kind": "text",
+        "title": "Question and scope"
+      },
+      {
+        "body": "No primary idea-by-product comparison passes the declared screen. The selected all-history means below retain adverse tails and unsuccessful contrasts. Favorable point differences do not establish a candidate when uncertainty and later-block requirements fail.",
+        "id": "findings",
+        "kind": "text",
+        "title": "Supported findings"
+      },
+      {
+        "columns": [
+          {
+            "key": "product",
+            "label": "product"
+          },
+          {
+            "key": "idea",
+            "label": "idea"
+          },
+          {
+            "key": "cohort",
+            "label": "cohort"
+          },
+          {
+            "format": "number",
+            "key": "horizon_bars",
+            "label": "Future bars",
+            "precision": 0
+          },
+          {
+            "format": "number",
+            "key": "opportunities",
+            "label": "opportunities",
+            "precision": 0
+          },
+          {
+            "format": "number",
+            "key": "trades",
+            "label": "Executed proxy trades",
+            "precision": 0
+          },
+          {
+            "format": "number",
+            "key": "mean_ticks",
+            "label": "Gross mean",
+            "precision": 2,
+            "unit": "ticks"
+          },
+          {
+            "format": "number",
+            "key": "mean_net_2_ticks",
+            "label": "Mean after haircut",
+            "precision": 2,
+            "unit": "ticks"
+          },
+          {
+            "format": "number",
+            "key": "p05_ticks",
+            "label": "5th percentile",
+            "precision": 2,
+            "unit": "ticks"
+          }
+        ],
+        "id": "means",
+        "kind": "table",
+        "rows": [
+          {
+            "cohort": "extreme break",
+            "horizon_bars": 1,
+            "idea": "pullback",
+            "mean_net_2_ticks": -2.184976,
+            "mean_ticks": -0.184976,
+            "opportunities": 9731,
+            "p05_ticks": -28,
+            "product": "ES",
+            "trades": 9731
+          },
+          {
+            "cohort": "wait policy",
+            "horizon_bars": 3,
+            "idea": "exhaustion",
+            "mean_net_2_ticks": -1.525849,
+            "mean_ticks": -0.103829,
+            "opportunities": 4623,
+            "p05_ticks": -28,
+            "product": "ES",
+            "trades": 3287
+          },
+          {
+            "cohort": "quiet",
+            "horizon_bars": 3,
+            "idea": "quiet breakout",
+            "mean_net_2_ticks": -2.549608,
+            "mean_ticks": -0.549608,
+            "opportunities": 6894,
+            "p05_ticks": -28,
+            "product": "ES",
+            "trades": 6894
+          },
+          {
+            "cohort": "extreme break",
+            "horizon_bars": 1,
+            "idea": "pullback",
+            "mean_net_2_ticks": -2.473262,
+            "mean_ticks": -0.473262,
+            "opportunities": 25806,
+            "p05_ticks": -87,
+            "product": "NQ",
+            "trades": 25806
+          },
+          {
+            "cohort": "wait policy",
+            "horizon_bars": 3,
+            "idea": "exhaustion",
+            "mean_net_2_ticks": -2.641046,
+            "mean_ticks": -1.248456,
+            "opportunities": 12308,
+            "p05_ticks": -86,
+            "product": "NQ",
+            "trades": 8570
+          },
+          {
+            "cohort": "quiet",
+            "horizon_bars": 3,
+            "idea": "quiet breakout",
+            "mean_net_2_ticks": -3.154774,
+            "mean_ticks": -1.154774,
+            "opportunities": 12276,
+            "p05_ticks": -85,
+            "product": "NQ",
+            "trades": 12276
+          },
+          {
+            "cohort": "extreme break",
+            "horizon_bars": 1,
+            "idea": "pullback",
+            "mean_net_2_ticks": -1.57227,
+            "mean_ticks": 0.42773,
+            "opportunities": 6455,
+            "p05_ticks": -90,
+            "product": "GC",
+            "trades": 6455
+          },
+          {
+            "cohort": "wait policy",
+            "horizon_bars": 3,
+            "idea": "exhaustion",
+            "mean_net_2_ticks": -1.083721,
+            "mean_ticks": 0.328904,
+            "opportunities": 3010,
+            "p05_ticks": -87,
+            "product": "GC",
+            "trades": 2126
+          },
+          {
+            "cohort": "quiet",
+            "horizon_bars": 3,
+            "idea": "quiet breakout",
+            "mean_net_2_ticks": -2.860828,
+            "mean_ticks": -0.860828,
+            "opportunities": 1861,
+            "p05_ticks": -85,
+            "product": "GC",
+            "trades": 1861
+          }
+        ],
+        "title": "Primary all-history chart-price means"
+      },
+      {
+        "columns": [
+          {
+            "key": "product",
+            "label": "product"
+          },
+          {
+            "key": "idea",
+            "label": "idea"
+          },
+          {
+            "key": "candidate",
+            "label": "candidate"
+          },
+          {
+            "key": "control",
+            "label": "control"
+          },
+          {
+            "format": "number",
+            "key": "n_sessions",
+            "label": "Session clusters",
+            "precision": 0
+          },
+          {
+            "format": "number",
+            "key": "difference_ticks",
+            "label": "Difference",
+            "precision": 2,
+            "unit": "ticks"
+          },
+          {
+            "format": "number",
+            "key": "lower",
+            "label": "Familywise low",
+            "precision": 2,
+            "unit": "ticks"
+          },
+          {
+            "format": "number",
+            "key": "upper",
+            "label": "Familywise high",
+            "precision": 2,
+            "unit": "ticks"
+          }
+        ],
+        "id": "contrasts",
+        "kind": "table",
+        "rows": [
+          {
+            "candidate": "extreme break",
+            "control": "unfiltered",
+            "difference_ticks": 0.013869,
+            "idea": "pullback",
+            "lower": -0.132227,
+            "n_sessions": 532,
+            "product": "ES",
+            "upper": 0.158954
+          },
+          {
+            "candidate": "wait policy",
+            "control": "early policy",
+            "difference_ticks": 0.60026,
+            "idea": "exhaustion",
+            "lower": -0.163659,
+            "n_sessions": 510,
+            "product": "ES",
+            "upper": 1.44334
+          },
+          {
+            "candidate": "quiet",
+            "control": "not quiet",
+            "difference_ticks": -0.200639,
+            "idea": "quiet breakout",
+            "lower": -0.9951,
+            "n_sessions": 533,
+            "product": "ES",
+            "upper": 0.58753
+          },
+          {
+            "candidate": "extreme break",
+            "control": "unfiltered",
+            "difference_ticks": -0.093875,
+            "idea": "pullback",
+            "lower": -0.218977,
+            "n_sessions": 534,
+            "product": "NQ",
+            "upper": 0.031067
+          },
+          {
+            "candidate": "wait policy",
+            "control": "early policy",
+            "difference_ticks": 0.383003,
+            "idea": "exhaustion",
+            "lower": -1.085611,
+            "n_sessions": 531,
+            "product": "NQ",
+            "upper": 1.949745
+          },
+          {
+            "candidate": "quiet",
+            "control": "not quiet",
+            "difference_ticks": -0.292843,
+            "idea": "quiet breakout",
+            "lower": -1.794388,
+            "n_sessions": 534,
+            "product": "NQ",
+            "upper": 1.308373
+          },
+          {
+            "candidate": "extreme break",
+            "control": "unfiltered",
+            "difference_ticks": 0.06408,
+            "idea": "pullback",
+            "lower": -0.194394,
+            "n_sessions": 505,
+            "product": "GC",
+            "upper": 0.356064
+          },
+          {
+            "candidate": "wait policy",
+            "control": "early policy",
+            "difference_ticks": 0.774086,
+            "idea": "exhaustion",
+            "lower": -2.170469,
+            "n_sessions": 445,
+            "product": "GC",
+            "upper": 4.131343
+          },
+          {
+            "candidate": "quiet",
+            "control": "not quiet",
+            "difference_ticks": -0.666752,
+            "idea": "quiet breakout",
+            "lower": -4.784975,
+            "n_sessions": 532,
+            "product": "GC",
+            "upper": 2.939037
+          }
+        ],
+        "title": "Candidate minus its declared control"
+      },
+      {
+        "body": "Pullback uses a completed return bar after one opposing bar and measures one future bar against all unfiltered snapbacks. Exhaustion compares a wait-for-second-reversal policy with the early policy on every original opportunity, using three future bars. Quiet breakout uses a low prior thirty-minute bar count and a two-bar extreme break, against the same breakout without low activity. Entry and exit are next-bar open references; wait opportunities without confirmation contribute zero and incur no assumed cost. Net deducts two ticks per executed round trip. The contrast interval is the saved 99.44% session-cluster familywise interval for nine comparisons.",
+        "id": "methods",
+        "kind": "text",
+        "title": "Definitions and methods"
+      },
+      {
+        "body": "All dates were retrospectively inspected. Completion is only a next-bar-start proxy; timezone, intrabar order, bid/ask and fills are unverified. The run used older export-clock inputs; later clock correction does not change this sealed cohort or its quiet-period calibration. Assumed tick haircuts do not establish executable net profitability.",
+        "id": "limitations",
+        "kind": "text",
+        "title": "Limitations and uncertainty"
+      },
+      {
+        "body": "Study 07_range_xv_edge_candidates; source run 20260924T004900Z_rxv07. Registered reference: Explicit registered reference; retain its executed scope and saved qualifications.\n\nPresentation revision 20261006T230936Z_web07, web-study-report-1.0. Saved numerical tables are the authority; only selected rows and columns are presented. No new statistics or research execution. The publication record identifies this JSON and its selected assets.",
+        "id": "sources-provenance",
+        "kind": "text",
+        "title": "Source and presentation provenance"
+      }
+    ],
+    "source": {
+      "producer": "sahadeva",
+      "runId": "20260924T004900Z_rxv07"
+    },
+    "summary": "Three ES/NQ/GC chart-price candidates fail the frozen cost and familywise screen. Retrospectively inspected dates and unverified completion/fill timing limit trading claims.",
+    "title": "Range XV: three candidates fail the declared screen"
+  }
+}

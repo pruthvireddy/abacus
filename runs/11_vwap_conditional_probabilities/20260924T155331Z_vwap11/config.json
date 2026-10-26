@@ -1,0 +1,293 @@
+{
+  "schema_version": 1,
+  "study_id": "11_vwap_conditional_probabilities",
+  "protocol_version": "1.0.0",
+  "status": "frozen",
+  "frozen_at_utc": "2026-09-24T16:00:00Z",
+  "threshold_source_run_id": "20260924T155331Z_vwap11",
+  "future_outcomes_seen_before_freeze": false,
+  "release_id": "session_anchored_vwap__1.0.0",
+  "products": [
+    "ES",
+    "NQ",
+    "GC"
+  ],
+  "primary_timeframe": "2m",
+  "sensitivity_timeframe": "5m",
+  "timezone": "America/New_York",
+  "anchor_warmup_minutes": 30,
+  "additional_path_context_start_anchor_age_minutes": 60,
+  "checkpoint_clock_cadence_minutes": 10,
+  "horizon_minutes": 30,
+  "touch_zone_ticks": 1,
+  "departure": {
+    "threshold": "abs(close-vwap) >= max(1*sigma, 4*ticks)",
+    "fresh_only": true,
+    "survival_reference": "causally known evolving VWAP zone; exact contact, gap-through, reference overtake, window/anchor change, or contract change ends the episode",
+    "rearm": "a later mature completed close inside the departure threshold after termination; no same-bar rearm",
+    "already_away_policy": "exclude from elapsed-since-departure analyses because the true departure time is unobserved"
+  },
+  "question_a": {
+    "primary": "contact checkpoint-frozen VWAP zone within 30 elapsed minutes",
+    "secondary": [
+      "contact checkpoint-frozen VWAP zone by observation-window end",
+      "contact causally evolving VWAP over both deadlines"
+    ],
+    "reference_movement_metric": "evolving contact within 30 minutes without frozen checkpoint-VWAP contact",
+    "future_begins": "one-minute bar opening at forecast available_at"
+  },
+  "question_b": {
+    "return_destination": "checkpoint VWAP rounded half-up to instrument tick, plus/minus one tick",
+    "extension_factors_sigma": [
+      0.25,
+      0.5,
+      1.0
+    ],
+    "primary_extension_factor_sigma": 0.5,
+    "extension_rounding": "ceiling whole ticks away from checkpoint close",
+    "classes": [
+      "return_first",
+      "extension_first",
+      "neither",
+      "ambiguous"
+    ],
+    "gap_policy": "an opening gap beyond a destination resolves that destination first and is separately flagged; both destinations in one one-minute range are ambiguous",
+    "signal_bar_excluded": true
+  },
+  "question_c": {
+    "day_anchor": "globex",
+    "session_anchors": [
+      "asia",
+      "london",
+      "ny"
+    ],
+    "crossing": "published completed-close cross through local-session VWAP, with close strictly between rounded one-tick day/session zones",
+    "minimum_corridor_ticks": 8,
+    "minimum_corridor_day_sigma": 0.25,
+    "selection_reason": "at least four ticks of interior space remain after both one-tick zones; 15,078 primary events, 2,962 product-sessions, and at least 953 events in every product/session cell before outcomes",
+    "event_lockout_minutes": 30,
+    "primary_destinations": "event-time frozen rounded day and session VWAP zones",
+    "classes": [
+      "day_first",
+      "session_first",
+      "neither",
+      "ambiguous"
+    ],
+    "updated_checkpoints_minutes": [
+      10,
+      20
+    ],
+    "updated_population": "original frozen-target race still unresolved at the checkpoint; deadline remains event time plus 30 minutes"
+  },
+  "rounding": "reference centers use half-up tick rounding; extension distance uses ceiling ticks",
+  "chronology": {
+    "development_end": "2023-12-31",
+    "validation": "2024",
+    "final": "2025-01-01 through published end",
+    "pristine_holdout": false
+  },
+  "atr_terciles": {
+    "ES": [
+      67.30357142857143,
+      84.0
+    ],
+    "NQ": [
+      261.5059523809524,
+      333.1547619047618
+    ],
+    "GC": [
+      26.488095238095244,
+      36.54047619047614
+    ]
+  },
+  "bins": {
+    "distance_sigma": [
+      0,
+      0.75,
+      1.25,
+      2.0,
+      1000000
+    ],
+    "elapsed_minutes": [
+      0,
+      20,
+      40,
+      60,
+      120,
+      240,
+      1000000
+    ],
+    "anchor_age_minutes": [
+      30,
+      60,
+      120,
+      240,
+      1000000
+    ],
+    "time_remaining_minutes": [
+      30,
+      60,
+      120,
+      240,
+      480,
+      1000000
+    ],
+    "max_excursion_sigma": [
+      0,
+      1.75,
+      2.25,
+      2.75,
+      1000000
+    ],
+    "geometry_share": [
+      0,
+      0.25,
+      0.4,
+      0.6,
+      0.75,
+      1.000001
+    ],
+    "corridor_position": [
+      0,
+      0.25,
+      0.5,
+      0.75,
+      1.000001
+    ],
+    "corridor_width_day_sigma": [
+      0.25,
+      0.5,
+      0.75,
+      1.0,
+      1000000
+    ],
+    "prior_hold_minutes": [
+      0,
+      10,
+      30,
+      60,
+      1000000
+    ]
+  },
+  "labels": {
+    "distance_sigma": [
+      "<0.75",
+      "0.75-1.25",
+      "1.25-2",
+      "2+"
+    ],
+    "elapsed_minutes": [
+      "<20",
+      "20-39",
+      "40-59",
+      "60-119",
+      "120-239",
+      "240+"
+    ],
+    "anchor_age_minutes": [
+      "30-59",
+      "60-119",
+      "120-239",
+      "240+"
+    ],
+    "time_remaining_minutes": [
+      "30-59",
+      "60-119",
+      "120-239",
+      "240-479",
+      "480+"
+    ],
+    "max_excursion_sigma": [
+      "<1.75",
+      "1.75-2.25",
+      "2.25-2.75",
+      "2.75+"
+    ],
+    "geometry_share": [
+      "<0.25",
+      "0.25-0.4",
+      "0.4-0.6",
+      "0.6-0.75",
+      "0.75+"
+    ],
+    "corridor_position": [
+      "day_quarter",
+      "day_middle",
+      "session_middle",
+      "session_quarter"
+    ],
+    "corridor_width_day_sigma": [
+      "0.25-0.5",
+      "0.5-0.75",
+      "0.75-1",
+      "1+"
+    ],
+    "prior_hold_minutes": [
+      "<10",
+      "10-29",
+      "30-59",
+      "60+"
+    ]
+  },
+  "models": {
+    "type": "development-only Dirichlet-smoothed supported conditional estimator with hierarchical backoff",
+    "minimum_development_cell_support": 100,
+    "dirichlet_alpha_per_class": 1.0,
+    "question_a_baseline_keys": [
+      "product",
+      "anchor",
+      "distance_bin",
+      "clock_window",
+      "atr_bin",
+      "age_bin",
+      "remaining_bin"
+    ],
+    "question_a_added_keys": [
+      "elapsed_bin",
+      "path_context",
+      "excursion_bin"
+    ],
+    "question_b_baseline_keys": [
+      "product",
+      "anchor",
+      "geometry_bin",
+      "clock_window",
+      "atr_bin",
+      "age_bin",
+      "remaining_bin"
+    ],
+    "question_b_added_keys": [
+      "elapsed_bin",
+      "path_context",
+      "excursion_bin"
+    ],
+    "question_c_baseline_keys": [
+      "product",
+      "session_anchor",
+      "position_bin",
+      "width_bin",
+      "clock_window",
+      "atr_bin",
+      "remaining_bin"
+    ],
+    "question_c_added_keys": [
+      "path_context"
+    ],
+    "score": "one-half multiclass Brier sum; binary form equals ordinary Brier score",
+    "calibration_bins": "fixed probability deciles"
+  },
+  "uncertainty": {
+    "unit": "shared ISO week across products, anchors, timeframes, episodes, and checkpoints",
+    "repetitions": 400,
+    "seed": 1111,
+    "interval": "percentile 95%"
+  },
+  "multiple_comparison_claim": "none",
+  "complete_day_eligibility": "retrospective sample selection, not a live feature",
+  "profitability_scope": "none",
+  "run_id": "20260924T155331Z_vwap11",
+  "outcome_execution_started_at_utc": "2026-09-24T16:07:37.908446+00:00",
+  "publication_root": "/Users/ppanati/Documents/projects/abacus",
+  "workers": 3,
+  "protocol_sha256": "40a3df959b000649e1fe635cf2a92e6ab786368537320880cd42c4b2b3e5acff"
+}

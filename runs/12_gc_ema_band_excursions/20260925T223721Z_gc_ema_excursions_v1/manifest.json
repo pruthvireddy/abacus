@@ -1,0 +1,152 @@
+{
+  "study_id": "12_gc_ema_band_excursions",
+  "run_id": "20260925T223721Z_gc_ema_excursions_v1",
+  "sealed_at_utc": "2026-09-25T22:40:31.608038+00:00",
+  "git_revision": "cd11be3f8f7d27c9429b2ff03872f3b6485a6e27",
+  "working_tree_dirty": true,
+  "source_snapshot": [
+    {
+      "path": "studies/12_gc_ema_band_excursions/plan.md",
+      "sha256": "916dca3c610713e44908955f2a589722f83a700103ede3c3db2324e5dc62b1cb"
+    },
+    {
+      "path": "studies/12_gc_ema_band_excursions/study.yaml",
+      "sha256": "0d038d0011947ad718ea1472dd0d5ce12210cac7c09535b041e3bca98cbf296b"
+    },
+    {
+      "path": "studies/12_gc_ema_band_excursions/inputs.lock.json",
+      "sha256": "af1c6039073e52dffed9cb35cdd007ed3fc097e41762939e9a803d7dd08c8d87"
+    },
+    {
+      "path": "studies/12_gc_ema_band_excursions/run.py",
+      "sha256": "c41a4adaccb2f34fa5a77c9bec11b026a7ccbf1867f7cb8d165c8e5de001cccb"
+    },
+    {
+      "path": "studies/12_gc_ema_band_excursions/render.py",
+      "sha256": "1beac27c873881d20a262744186b967a7f8bb740ee7439d59d18b51f4aab645b"
+    },
+    {
+      "path": "studies/12_gc_ema_band_excursions/verify.py",
+      "sha256": "ad8fb1dd2cef6b670cb3f6a61275facb861a4162a9b71bce1c742d1ec63b0dd0"
+    },
+    {
+      "path": "studies/12_gc_ema_band_excursions/seal.py",
+      "sha256": "43884786670d4c799943b82aa7f4eba034dfe33d29788ddddf1c04a608eb2564"
+    },
+    {
+      "path": "studies/12_gc_ema_band_excursions/src/engine.py",
+      "sha256": "4c2d131dd946eae1afce283d1e192882cbeb4790bba6498c8bcbdb6a7c1c7127"
+    },
+    {
+      "path": "studies/12_gc_ema_band_excursions/src/__init__.py",
+      "sha256": "a5f3d84c103767494b2b095d55447809a68d81062b7a312005bd223dcc1bbc40"
+    },
+    {
+      "path": "studies/12_gc_ema_band_excursions/tests/test_engine.py",
+      "sha256": "0a3fb1f0b6a3812186aa17cb2913252da5ba5de1bead36a5f543fcbefb5a16cb"
+    },
+    {
+      "path": "packages/bhishma/src/abacus_bhishma/gc_ema_bands.py",
+      "sha256": "863b0fd205c2bd4ecd44bbf744780f08fffb3c73154f120486533ef8957d46ef"
+    },
+    {
+      "path": "packages/bhishma/src/abacus_bhishma/feature_loader.py",
+      "sha256": "ce7c24754411ebd0bbad33376b502f01e680c1cc4ad91ad23357eb73b61abcbe"
+    },
+    {
+      "path": "packages/bhishma/tests/test_gc_ema_bands.py",
+      "sha256": "8e7aa5c1bf177020c6185f27c6baac932a0a2f2b5af9b9e9064d0b360b25f938"
+    }
+  ],
+  "python_version": "3.11.16",
+  "environment_lock": {
+    "path": "uv.lock",
+    "sha256": "77f28c172dbbc5af07ce00d3b70f6b8f918086e6784bf2ec247803f960dbf64b"
+  },
+  "inputs_lock_sha256": "af1c6039073e52dffed9cb35cdd007ed3fc097e41762939e9a803d7dd08c8d87",
+  "config_sha256": "b66a43bc5340842f20d2af6a27c9f722e8a1e077bf6064b76c8300ecef9b180d",
+  "execution_commands": [
+    ".venv/bin/python studies/12_gc_ema_band_excursions/run.py --stage work/12_gc_ema_band_excursions/20260925T223721Z_gc_ema_excursions_v1",
+    ".venv/bin/python studies/12_gc_ema_band_excursions/render.py --stage work/12_gc_ema_band_excursions/20260925T223721Z_gc_ema_excursions_v1",
+    ".venv/bin/python studies/12_gc_ema_band_excursions/verify.py --stage work/12_gc_ema_band_excursions/20260925T223721Z_gc_ema_excursions_v1"
+  ],
+  "checks": {
+    "status": "pass",
+    "statistic_cells": 595,
+    "cohort_horizon_rows": 406910,
+    "source_recounted_events": 31,
+    "checks": [
+      "complete 17x5x7 grid",
+      "cohort and exclusion accounting",
+      "unique ordered signal timestamps",
+      "31 independent unadjusted source-bar path recounts"
+    ]
+  },
+  "verification_commands_passed": [
+    ".venv/bin/python -m unittest discover -s packages/bhishma/tests",
+    ".venv/bin/python -m unittest discover -s packages/sahadeva/tests",
+    ".venv/bin/python -m unittest discover -s studies/12_gc_ema_band_excursions/tests",
+    "python3 scripts/check-agent-docs.py",
+    ".venv/bin/abacus-research doctor --workspace-root . --read-sample",
+    "PYTHONPATH=legacy/sahadeva/analysis/01_reversal_follow_through/src .venv/bin/python -m unittest discover -s legacy/sahadeva/analysis/01_reversal_follow_through/tests",
+    "PYTHONPATH=legacy/sahadeva/analysis/02_followthrough_candle_adverse/src .venv/bin/python -m unittest discover -s legacy/sahadeva/analysis/02_followthrough_candle_adverse/tests"
+  ],
+  "workspace_gate_note": "scripts/check-workspace attempted, but uv tried to fetch setuptools and network DNS was unavailable; direct installed-environment equivalent checks passed.",
+  "artifacts": [
+    {
+      "path": "advice.md",
+      "sha256": "a111e37585a7ed4e78f4ac1c51ff5d111d9f158034b5bd9cdce45baa46953e60",
+      "bytes": 606
+    },
+    {
+      "path": "checks.json",
+      "sha256": "c10001e19cdfa3fe7a72957a099e1b7645d3aa377bec3af83125887979155b88",
+      "bytes": 298
+    },
+    {
+      "path": "config.json",
+      "sha256": "b66a43bc5340842f20d2af6a27c9f722e8a1e077bf6064b76c8300ecef9b180d",
+      "bytes": 776
+    },
+    {
+      "path": "events.manifest.json",
+      "sha256": "bb167e651b427daa42cf51877b1bcc4fac97f48584413911d6aa8689757cf022",
+      "bytes": 195
+    },
+    {
+      "path": "inputs.lock.json",
+      "sha256": "af1c6039073e52dffed9cb35cdd007ed3fc097e41762939e9a803d7dd08c8d87",
+      "bytes": 651
+    },
+    {
+      "path": "metrics.json",
+      "sha256": "73e07a890898ae38825c0f38ea10ba92894cc520c8299a5492ddf19ba1829b9e",
+      "bytes": 807
+    },
+    {
+      "path": "report.html",
+      "sha256": "a8d94bd74631f1cc254e9c5716ec82122239a0f28335f4b293c48ea9592c4f9b",
+      "bytes": 402694
+    },
+    {
+      "path": "report.md",
+      "sha256": "46896e6e20ced611a743d4ff0bdc91da0ab3023327da54c56af689de601991e3",
+      "bytes": 2809
+    },
+    {
+      "path": "tables/cohorts.csv",
+      "sha256": "13e4c0157f115687fbe34f273f53d457ffea365141410d99cd2e86c128b7b06a",
+      "bytes": 1467
+    },
+    {
+      "path": "tables/events.parquet",
+      "sha256": "7584d24af9ef3a80d336481ddc6225620e04e1f3e621fa9b799d82d98ee53084",
+      "bytes": 3609224
+    },
+    {
+      "path": "tables/yearly.csv",
+      "sha256": "20993a93b12a82944ecbad0cfaf78bd3bda9b181be9edfc12e743dc1cc3715b9",
+      "bytes": 151479
+    }
+  ]
+}

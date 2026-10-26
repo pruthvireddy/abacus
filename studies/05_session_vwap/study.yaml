@@ -1,8 +1,10 @@
 schema_version: 1
 study_id: 05_session_vwap
-protocol_version: 0.1.0
-status: planned
-authoritative_plan: plan.md
+protocol_version: 1.1.0
+status: evaluated
+authoritative_protocol: protocol-1.0.0.md
+exploratory_context_protocol: protocol-1.1.0.md
+historical_plan: plan.md
 inputs_lock: inputs.lock.json
 products: [ES, NQ, GC]
 timeframes: [2m, 5m]
@@ -35,13 +37,16 @@ execution_assumptions:
   latency: null
   position_size: null
   status: must_be_fixed_before_profitability_research
-strategy_ids:
+evaluated_strategy_ids:
   - vwap_extreme_fade
-  - vwap_reentry_fade
   - vwap_return_after_departure
   - vwap_first_retest_bounce
+unexecuted_strategy_ids:
   - vwap_cross_acceptance_retest
   - vwap_outside_band_continuation
-research_order: [3, 1, 2, 4, 5, 6]
-# Planning metadata only. There is no executable VWAP study in this scaffold.
-# Event definitions, exclusion rules, and comparison populations are in plan.md.
+partially_evaluated_strategy_ids:
+  - vwap_reentry_fade
+research_order: [3, 1, 4]
+reference_run: 20260923T015900Z_vwap3
+latest_exploratory_run: 20260923T035300Z_ac_context
+# The reference run remains the original prespecified A/B/C execution.

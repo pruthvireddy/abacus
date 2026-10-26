@@ -1,0 +1,71 @@
+study_id: 20_camarilla_ema_cloud_reversals
+protocol_version: 0.2.0
+status: planned
+authorized_scope: indicator_criteria_and_chart_statistics_tradingview_private_save_ES_5m_test
+market_data_execution: chart_local_ES_only_no_pinned_backtest
+strategy_orders_implemented: false
+runtime: TradingView_Pine_v6
+indicator:
+  title: Camarilla Pivot Levels
+  source_preservation: original_bytes_retained_title_changed_inputs_cloud_statistics_added_tabs_normalized
+  ema_source: close
+  ema_timeframe_minutes: 5
+  ema_fast: 20
+  ema_slow: 50
+  confirmed_higher_timeframe_default: true
+  lower_than_chart_cloud_timeframe: rejected_when_cloud_enabled
+  tradingview_compilation_verified: true
+research_proposal:
+  products: [MES, MNQ]
+  mini_proxy_products_if_needed: [ES, NQ]
+  primary_levels: [L3, H3]
+  signal_bar_minutes: 5
+  pivot_timeframe: daily
+  daily_session_and_close_convention: unresolved_requires_parity_and_input_lock
+  ema_filter_status: configurable_panel_alignment_default_formal_choice_unfrozen
+  primary_ema_filter_proposal: fast_above_slow_long_fast_below_slow_short
+  comparison_filters: [none, confirmed_daily_21, alignment_20_50, price_outside_20_50, alignment_and_price_outside_20_50]
+  ema_warmup_bars_minimum_proposal: 250
+  rejection_definition: strict_completed_candle_contact_and_close_back_with_directional_body
+  contact_tolerance_ticks: 0
+  tolerance_sensitivity_ticks: 1
+  entry: next_contiguous_5m_bar_open
+  entry_session_proposal: '0930-1130'
+  session_timezone: America/New_York
+  exit_deadline_proposal: '16:00_or_exchange_early_close'
+  stop: completed_confirmation_candle_extreme
+  stop_buffer_ticks: 1
+  gross_reward_to_risk: 3
+  partial_exits: false
+  trailing_stop: false
+  deduplication: first_eligible_rejection_per_contact_episode
+  rearm: full_completed_candle_strictly_on_approach_side_without_contact
+  positions_per_instrument: 1
+  ambiguous_barrier_policy: preserve_ambiguity_and_report_bounds
+  costs: unresolved_pin_broker_contract_fees_and_adverse_slippage_before_execution
+  split_fraction_proposal: [0.6, 0.2, 0.2]
+  exact_split_dates: null
+  primary_metric: mean_net_R_difference_vs_no_filter_on_holdout
+  uncertainty: paired_trading_session_blocks
+  market_inputs_locked: false
+
+chart_event_panel:
+  scope: exploratory_loaded_history_no_order_simulation
+  runtime_test_symbol: CME_MINI:ES1!
+  bar_minutes: 5
+  default_direction: both
+  default_levels: R3_S3
+  level_source: confirmed_previous_daily_HLC_offset_request
+  default_ema_filter: alignment_20_50
+  default_entry_window_NY: '0930-1130'
+  default_cooldown_bars: 10
+  cooldown_rule: skip_exactly_next_N_bars_shared_sides_reset_NY_calendar_date
+  default_episode_filter: false
+  entry: next_contiguous_full_5m_open
+  atr: signal_candle_ATR_14_frozen_per_event
+  horizons: [5, 10, 15, 50, 100]
+  weekly_horizon: 15
+  weekly_bucket: confirmation_close_week_Monday_Sunday_New_York
+  overlapping_paths: true
+  missing_bar_policy: cancel_unfinished_horizons_retain_completed_shorter_horizons
+  stop_target_costs: absent

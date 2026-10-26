@@ -1,0 +1,48 @@
+{
+  "scope": "Executed local publication checks before sealing; source bytes and market validity unverified.",
+  "checks": [
+    {
+      "name": "Narada content validation",
+      "status": "passed",
+      "record": "narada-verify.log"
+    },
+    {
+      "name": "Narada first test attempt",
+      "status": "failed",
+      "record": "narada-test.log",
+      "reason": "Sandbox blocked fixture loopback listeners; no content failure inferred."
+    },
+    {
+      "name": "Narada tests with loopback access",
+      "status": "passed",
+      "record": "narada-test-loopback.log",
+      "tests": 168
+    },
+    {
+      "name": "Narada lint",
+      "status": "passed",
+      "record": "narada-lint.log"
+    },
+    {
+      "name": "Narada static build and export budgets",
+      "status": "passed",
+      "record": "narada-build.log"
+    },
+    {
+      "name": "Narada HTTP smoke",
+      "status": "passed",
+      "record": "narada-smoke.log"
+    },
+    {
+      "name": "Registry bounded coverage",
+      "status": "passed",
+      "record": "registry-test.log",
+      "tests": 27
+    },
+    {
+      "name": "Desktop/mobile/keyboard browser inspection",
+      "status": "passed",
+      "record": "browser-verification.json"
+    }
+  ]
+}

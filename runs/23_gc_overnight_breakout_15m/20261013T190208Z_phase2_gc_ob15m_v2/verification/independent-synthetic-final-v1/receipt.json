@@ -1,0 +1,42 @@
+{
+  "status": "passed",
+  "synthetic_trials": 30,
+  "comparisons": 154033,
+  "scope": "30synthetic contexts; no historical outcomes used; synthetic producer/oracle differential only",
+  "seed": 230015,
+  "command": [
+    "./scripts/uv",
+    "run",
+    "--locked",
+    "--no-sync",
+    "python",
+    "work/23_gc_overnight_breakout_15m/20261013T190208Z_phase2_gc_ob15m_v2/verification/independent-synthetic-final-v1/phase2_oracle_differential.py"
+  ],
+  "environment": {
+    "UV_CACHE_DIR": "/private/tmp/abacus-study23-uv-cache"
+  },
+  "source_snapshots": [
+    {
+      "path": "verification/independent-synthetic-final-v1/phase2_oracle_differential.py",
+      "bytes": 2977,
+      "sha256": "24d8ebf782a7066404111e29f195f2bf531815c19d2d8b1dabec33683ac3087c"
+    },
+    {
+      "path": "verification/independent-synthetic-final-v1/phase2_verify.py",
+      "bytes": 111044,
+      "sha256": "f91d5c7f8a4c7c85638771d8d307212e4a6c87f87b9c2242571bc4d624fa0886"
+    },
+    {
+      "path": "verification/independent-synthetic-final-v1/test_phase2_independent.py",
+      "bytes": 22962,
+      "sha256": "185904a6c203fa9ec285d703df693fc115a3fb2cd833c5358ca36d9c65a90b74"
+    }
+  ],
+  "artifacts": [
+    {
+      "path": "verification/independent-synthetic-final-v1/differential.log",
+      "bytes": 68,
+      "sha256": "b926bdab89fdbb019945e2755280751b6ff543c50584600c45e38e5ad45588f3"
+    }
+  ]
+}

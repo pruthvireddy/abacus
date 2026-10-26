@@ -1,0 +1,123 @@
+{
+  "status": "pass",
+  "manifest_sha256": "4b022d387b6460a5e33c08507a46c6b5c62ed4c0b304fd6de869d8ec463ab33e",
+  "charts": {
+    "ES_4": {
+      "bars": 1281962,
+      "session_dates": 1783,
+      "c1_signals": 408694,
+      "main_opportunities": 168341,
+      "c2_confirmed": 124817,
+      "ordinary_pairs": 574500,
+      "main_completion_or_boundary_excluded": 30219,
+      "main_c1_same_second": 7953,
+      "age2_ordinary_pairs": 135040,
+      "candidate_pairs_removed_from_ordinary": 124817,
+      "larger_equal_second_ties": 106941
+    },
+    "ES_5": {
+      "bars": 885222,
+      "session_dates": 1783,
+      "c1_signals": 281003,
+      "main_opportunities": 119996,
+      "c2_confirmed": 89264,
+      "ordinary_pairs": 418121,
+      "main_completion_or_boundary_excluded": 16764,
+      "main_c1_same_second": 4019,
+      "age2_ordinary_pairs": 96250,
+      "candidate_pairs_removed_from_ordinary": 89264,
+      "larger_equal_second_ties": 71174
+    },
+    "ES_6": {
+      "bars": 647911,
+      "session_dates": 1783,
+      "c1_signals": 205195,
+      "main_opportunities": 89619,
+      "c2_confirmed": 66586,
+      "ordinary_pairs": 316714,
+      "main_completion_or_boundary_excluded": 10276,
+      "main_c1_same_second": 2231,
+      "age2_ordinary_pairs": 71839,
+      "candidate_pairs_removed_from_ordinary": 66586,
+      "larger_equal_second_ties": 0
+    },
+    "GC_6": {
+      "bars": 1661279,
+      "session_dates": 1780,
+      "c1_signals": 516993,
+      "main_opportunities": 181619,
+      "c2_confirmed": 135939,
+      "ordinary_pairs": 590560,
+      "main_completion_or_boundary_excluded": 71422,
+      "main_c1_same_second": 22800,
+      "age2_ordinary_pairs": 137142,
+      "candidate_pairs_removed_from_ordinary": 138452,
+      "larger_equal_second_ties": 104543
+    },
+    "GC_10": {
+      "bars": 737194,
+      "session_dates": 1780,
+      "c1_signals": 229181,
+      "main_opportunities": 88317,
+      "c2_confirmed": 66502,
+      "ordinary_pairs": 297927,
+      "main_completion_or_boundary_excluded": 23046,
+      "main_c1_same_second": 6702,
+      "age2_ordinary_pairs": 67590,
+      "candidate_pairs_removed_from_ordinary": 68166,
+      "larger_equal_second_ties": 0
+    },
+    "NQ_10": {
+      "bars": 4646126,
+      "session_dates": 1783,
+      "c1_signals": 1436045,
+      "main_opportunities": 519927,
+      "c2_confirmed": 386374,
+      "ordinary_pairs": 1646645,
+      "main_completion_or_boundary_excluded": 199906,
+      "main_c1_same_second": 47544,
+      "age2_ordinary_pairs": 383231,
+      "candidate_pairs_removed_from_ordinary": 386374,
+      "larger_equal_second_ties": 181985
+    },
+    "NQ_20": {
+      "bars": 1343643,
+      "session_dates": 1783,
+      "c1_signals": 415188,
+      "main_opportunities": 182278,
+      "c2_confirmed": 136091,
+      "ordinary_pairs": 631738,
+      "main_completion_or_boundary_excluded": 25804,
+      "main_c1_same_second": 4872,
+      "age2_ordinary_pairs": 137183,
+      "candidate_pairs_removed_from_ordinary": 136091,
+      "larger_equal_second_ties": 0
+    }
+  },
+  "gc_dates_absent_relative_to_es": {
+    "GC_6": [
+      "2021-04-02",
+      "2023-04-07",
+      "2026-04-03"
+    ],
+    "GC_10": [
+      "2021-04-02",
+      "2023-04-07",
+      "2026-04-03"
+    ]
+  },
+  "trace_count": 3,
+  "checks": [
+    "input hashes and manifest row/status/session counts",
+    "source row and timestamp ordering",
+    "ordinary baseline disjoint from candidates",
+    "C1 opportunity and conditional denominators",
+    "period/window arithmetic",
+    "exploratory age-two ordinary baseline arithmetic",
+    "prespecified prior-bin and equal-second sensitivity arithmetic",
+    "strict no-look-ahead larger state",
+    "price policy mean arithmetic",
+    "paired wait-minus-immediate price arithmetic",
+    "literal source/enhanced row and price traces"
+  ]
+}

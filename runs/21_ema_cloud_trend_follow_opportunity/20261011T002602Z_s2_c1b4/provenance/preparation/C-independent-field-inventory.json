@@ -1,0 +1,186 @@
+{
+  "schema_version": 1,
+  "status": "defined_before_historical_execution",
+  "frozen_checker_sources": [
+    {
+      "path": "/Users/ppanati/Documents/projects/abacus/studies/21_ema_cloud_trend_follow_opportunity/src/stage2_reference.py",
+      "bytes": 25718,
+      "sha256": "31b7b71b6cb368a86ffe9c3274ac69425beda19af135b213d5076ed71d4db529"
+    },
+    {
+      "path": "/Users/ppanati/Documents/projects/abacus/studies/21_ema_cloud_trend_follow_opportunity/src/stage2_reconcile.py",
+      "bytes": 75869,
+      "sha256": "055cfaaba943f6b7db84991cb74d8d932989d3bc7ce5560716dab9b865cd0743"
+    },
+    {
+      "path": "/Users/ppanati/Documents/projects/abacus/studies/21_ema_cloud_trend_follow_opportunity/src/stage2_reporting.py",
+      "bytes": 43742,
+      "sha256": "d13d7a3b4a53d15dfab4e61ef993213a045f30ae7ee14b4a34c7446d3b2cb56f"
+    },
+    {
+      "path": "/Users/ppanati/Documents/projects/abacus/studies/21_ema_cloud_trend_follow_opportunity/src/reconcile.py",
+      "bytes": 45828,
+      "sha256": "d71c5c07fd7b3fa627ad4a3ef723e4e388ecfd9238ce1bb27db11b5cfda3110e"
+    },
+    {
+      "path": "/Users/ppanati/Documents/projects/abacus/studies/21_ema_cloud_trend_follow_opportunity/src/reporting.py",
+      "bytes": 45019,
+      "sha256": "ccc45024b3d046b9a0ca26ef0f4669fc8894b2db5938997446a0d5d4ff1b1c0a"
+    }
+  ],
+  "interfaces": {
+    "reference_stream": "Scalar independent two-stream state replay; full causal warmup rows remain retained.",
+    "reference_outcomes": "Scalar full saved scheduled-path formula reference, development events only.",
+    "verify_bundle": "Reads one technical/bar/membership cell at a time; returns passed receipt only after all checks and final source/input pins unchanged.",
+    "select_examples": "Six frozen deterministic H15 classes; explicit unavailable; timestamp/stable-ID ties.",
+    "prepare_examples": "Writes T06 and development-only capped candles from saved ledgers.",
+    "render_bundle": "Saved-table/candle-only offline Markdown/HTML/advice, six PNGs, four original-string CSV downloads and private Narada1.1 source."
+  },
+  "ledger_checks": {
+    "technical_state": {
+      "scientific_key": [
+        "product",
+        "interval_minutes",
+        "timestamp",
+        "touch_mode"
+      ],
+      "fields": [
+        "direction",
+        "side",
+        "signal_idx",
+        "min_width",
+        "width",
+        "width_pass",
+        "episode_id",
+        "fast_touch",
+        "slow_touch",
+        "penetration",
+        "full_departure",
+        "armed_before",
+        "armed_after",
+        "technical_candidate",
+        "setup_candidate",
+        "accepted",
+        "suppression_reason",
+        "reset_reason",
+        "event_id",
+        "selected_ema"
+      ]
+    },
+    "outcomes": {
+      "scientific_key": [
+        "event_id",
+        "horizon"
+      ],
+      "fields": [
+        "reference_price",
+        "entry_atr",
+        "direction",
+        "timestamp",
+        "entry_at",
+        "horizon",
+        "horizon_minutes",
+        "status",
+        "censor_reason",
+        "terminal_at",
+        "elapsed_minutes",
+        "crosses_closure",
+        "same_session",
+        "mfe",
+        "mae",
+        "terminal_delta",
+        "mfe_atr",
+        "mae_atr",
+        "terminal_delta_atr",
+        "favorable",
+        "neutral",
+        "adverse",
+        "mfe_gt_mae",
+        "mfe_mae_tie",
+        "mfe_attainment_start",
+        "mfe_attainment_end",
+        "mae_attainment_start",
+        "mae_attainment_end",
+        "product",
+        "interval_minutes",
+        "contract",
+        "side",
+        "signal_idx",
+        "signal_timestamp",
+        "available_at",
+        "ema20",
+        "ema50",
+        "width",
+        "episode_id"
+      ],
+      "population": "Every accepted development event × every frozen local horizon; carried identities plus all formulas, null/censor reasons, first attainments and strict flags."
+    },
+    "accepted_events": {
+      "fields": [
+        "event_id",
+        "product",
+        "interval_minutes",
+        "contract",
+        "timestamp",
+        "signal_idx",
+        "reference_price",
+        "entry_at",
+        "entry_atr",
+        "direction",
+        "side",
+        "year",
+        "week",
+        "month",
+        "calendar_date",
+        "hour",
+        "time_stratum",
+        "session",
+        "touch_mode",
+        "available_at",
+        "ema20",
+        "ema50",
+        "atr14",
+        "width",
+        "feature_source_timestamp",
+        "feature_available_at",
+        "feature_contract"
+      ]
+    },
+    "mapping_coverage": "Original retained native5mfeature delivery, latest scheduled complete availability, contract match; full annual mapped usability/readiness/session fields and calendar overlays.",
+    "membership_episodes": "Every scheduled membership key and geometry/eligibility/branch state/IDs; all scalar-reference episode/pair fields, reset-before-bar/new-departure terminal distinctions, causal first IDs, warmup nulls and absent-contact false/undefined distinctions.",
+    "union": "Same-bar exact reference/ATR/path/status/attainment equality (branch episode IDs excluded); slow-preferred union projection including representative/source/both branch IDs; exact union population and half-open overlap counts.",
+    "slow_parity": "Independent exact inherited bars/technical/events/outcomes scientific fields plus all9 baseline saved table bytes; original root gate separately required."
+  },
+  "table_checks": {
+    "tables": {
+      "S2-T00": "S2-T00_coverage.csv",
+      "S2-T01": "S2-T01_signal_flow.csv",
+      "S2-T02": "S2-T02_horizon_scorecard.csv",
+      "S2-T03": "S2-T03_quantiles.csv",
+      "S2-T04": "S2-T04_stability.csv",
+      "S2-T05": "S2-T05_calendar.csv",
+      "S2-T06": "S2-T06_examples.csv",
+      "S2-T07": "S2-T07_geometry_membership.csv",
+      "S2-T08": "S2-T08_branch_contrasts.csv",
+      "S2-T09": "S2-T09_episode_pairing.csv",
+      "S2-T10": "S2-T10_union_overlap.csv"
+    },
+    "populations": "Scientific-key expected sets and population lengths for summaries, exact quantile grid, complete time/year/hour/common-session/week/month rosters, flow reasons, geometry, episode summaries, union summaries, T08 and inherited uncertainty/duration comparisons.",
+    "estimands": "All base accepted/completed/evaluable/censored/normalization supports; event/session means, medians and fixed quantiles; flag counts/shares/ties; missing outcomes bounds; elapsed/closure diagnostics; rates and paired differences.",
+    "calendar": "157Mondayweeks2018-01-01..2020-12-28,36months,3years,24hours,4strata and common audited development-session roster; null means at zero outcomes retained.",
+    "uncertainty": "All T08 descriptive effects and every saved pointwise/familywise CI; full complete157-week sum/count/cohort estimate grid; all8424 inherited fast/slow cohort/duration CIs and972 duration comparison rows independently gathered without producer imports.",
+    "paired_bootstrap": "Independent direct sampled-week-index gather; common calendar indices,10000replicates/seed20261010,blocks1/4/8; whole-session first then trading-date week; exact linear tails .025/.975 and .05/12,1-.05/12; undefined draws explicit.",
+    "primary_family": "S2-primary-six-h15-All-points-event-terminal-fast-minus-slow"
+  },
+  "source_transfer": "Every selected public table cell binds exactly once to original CSV row/column/selector/hash; every download retains original strings including blanks; every individual+aggregate claim independently reconstructed from six four-week primary pairs; each figure source uses exact bytes/columns/selector/stable IDs and T00 original CSV positions. Baseline locators private, attributed and byte checked.",
+  "verification_execution": "Root run_stage2.py verify phase calls unchanged frozen verify_bundle; before receipt records all saved ledgers/tables/paths/report/download/PNG/locks/source pins before auditing, final receipt requires pins and source guard unchanged. Any failure is retained and reported before a correction decision; no silent scientific bypass.",
+  "actual_presentation_review": [
+    "Capture final report/publication/bindings/table/PNG/download/input+source identities before review.",
+    "Read exact six primary effects with pointwise and familywise intervals, completed/censored denominators and one/eight-week sensitivity.",
+    "Inspect all six PNGs against bound saved rows; verify fixed calendar axes, product-specific units, common MFE/MAE product scale, simultaneous dual vs separate windows, colors and unavailable classes.",
+    "Check uncertainty wording is nominal, population-comparison qualifier explicit, annualGC/readiness/coverage limitations prominent, overlap/first-pair/outside-warmup/null distinctions retained.",
+    "Check no strategy optimization/side-hour-horizon selection/reserved outcome/profit/native-equivalence/raw-reconstruction/backup assertions.",
+    "Write separately retained actual presentation review JSON with exact source/input/output pins, findings and scope; do not edit frozen sources or report artifacts."
+  ],
+  "qualification": "This inventory is a pre-execution definition, not a passed historical result. Actual visual/publisher validity, bytes, fixtures and scientific reconciliation remain separate."
+}

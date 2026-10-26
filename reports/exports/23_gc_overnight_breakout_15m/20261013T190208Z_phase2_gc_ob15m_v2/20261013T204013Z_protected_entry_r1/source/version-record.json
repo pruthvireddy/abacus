@@ -1,0 +1,66 @@
+{
+  "schema_version": "study23.saved-cell-presentation-environment/v1",
+  "python": "3.9.6 (default, May 22 2026, 11:13:45) \n[Clang 21.0.0 (clang-2100.1.1.101)]",
+  "node": "v24.18.0",
+  "statistical_producer_imports": false,
+  "renderer": "stdlib saved-cell JSON/CSV projection; no raster generation",
+  "source_run_locator": "runs/23_gc_overnight_breakout_15m/20261013T190208Z_phase2_gc_ob15m_v2",
+  "source_run_manifest_sha256": "ffe43f2403520d9ba058720908ad711b88e665b0d8d3928bdaa5342ad7cb3c4a",
+  "sources": [
+    {
+      "path": "finalize_revision.py",
+      "bytes": 5638,
+      "sha256": "fb9ac01bc854e4ebd1ca5eda1766538fe29ff30ccb8d0aa8d4211aa089e17b74"
+    },
+    {
+      "path": "saved_projection_helper.py",
+      "bytes": 118421,
+      "sha256": "37bf4f5cebc4ec48318ed80bfb12697c54946307fa6382642b023e79a0409c41"
+    },
+    {
+      "path": "session_revision.py",
+      "bytes": 20284,
+      "sha256": "fc74b6dccc930336cd80782a6dcf8374801e1f5e84a2086d7b4c96e5d1a34b47"
+    },
+    {
+      "path": "test_session_revision.py",
+      "bytes": 3523,
+      "sha256": "6014ab4ce38e89ca3bed0a4010e81ae947d297056827b3b97457f4e9d85f4cef"
+    }
+  ],
+  "generation_command": [
+    "python3",
+    "work/23_gc_overnight_breakout_15m/20261013T204013Z_phase2_session_revision/source/session_revision.py",
+    "--workspace",
+    "/Users/ppanati/Documents/projects/abacus",
+    "--stage",
+    "/Users/ppanati/Documents/projects/abacus/work/23_gc_overnight_breakout_15m/20261013T204013Z_phase2_session_revision"
+  ],
+  "test_command": [
+    "python3",
+    "-m",
+    "unittest",
+    "discover",
+    "-s",
+    "work/23_gc_overnight_breakout_15m/20261013T204013Z_phase2_session_revision/source",
+    "-p",
+    "test_session_revision.py"
+  ],
+  "tests": {
+    "result": "passed",
+    "tests": 5,
+    "skipped": 0
+  },
+  "native_contract": {
+    "result": "passed",
+    "publications": 2,
+    "command_template": [
+      "/Users/ppanati/.nvm/versions/node/v24.18.0/bin/node",
+      "apps/narada/scripts/publish.mjs",
+      "--report",
+      "<revision>/publication.json",
+      "--dry-run"
+    ]
+  },
+  "qualification": "Presentation-only projection from exact saved cells; no research execution or metric recomputation."
+}

@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "study_id": "07_range_xv_edge_candidates",
+  "protocol_version": "1.0.1",
+  "status": "corrected_after_preliminary_unsealed_output",
+  "primary_charts": {
+    "ES": {"setting": 6, "tick_size": 0.25},
+    "NQ": {"setting": 20, "tick_size": 0.25},
+    "GC": {"setting": 20, "tick_size": 0.1}
+  },
+  "splits": {
+    "development": ["2024-08-14", "2025-11-10"],
+    "validation": ["2025-11-11", "2026-04-10"],
+    "final": ["2026-04-13", "2026-09-07"]
+  },
+  "excluded_partial_session": "2026-09-08",
+  "signal_status": "next_bar_start_proxy",
+  "entry": "next_bar_open_at_completion_proxy",
+  "exit": "open_after_h_completed_future_bars",
+  "delay_sensitivity_bars": 1,
+  "cost_haircuts_round_trip_ticks": [1, 2, 4],
+  "primary_cost_screen_ticks": 2,
+  "bootstrap_replicates": 2000,
+  "bootstrap_seed": 2026092307,
+  "familywise_tests": 9,
+  "primary_controls": {"pullback": "unfiltered", "exhaustion": "early_policy", "quiet_breakout": "not_quiet"},
+  "bonferroni_alpha": 0.005555555555555556,
+  "idea_1": {"prior_run_min": 3, "primary_horizon_bars": 1, "secondary_horizon_bars": 3, "quality_body_min": 0.7, "quality_adverse_wick_max": 0.2},
+  "idea_2": {"long_run_min": 8, "control_run_min": 1, "control_run_max": 2, "primary_horizon_bars": 3, "secondary_horizons_bars": [1, 5]},
+  "idea_3": {"lookback_minutes": 30, "require_full_within_session_window": true, "quiet_quantile": 0.2, "breakout_prior_bars": 10, "primary_horizon_bars": 3, "clock_bucket_minutes": 30},
+  "secondary_export_clock_window": ["09:30:00", "10:30:00"],
+  "stop_target_diagnostic": {"target_units": 1, "stop_units": [1, 2, 3, 4], "horizon_bars": 1, "simultaneous_touches": "stop_first_lower_bound_and_target_first_upper_bound"}
+}

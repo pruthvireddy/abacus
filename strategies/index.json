@@ -2,10 +2,83 @@
   "schema_version": 1,
   "strategies": [
     {
+      "strategy_id": "nq_prev_rth_poc_fade",
+      "title": "Fade the previous-RTH POC approach",
+      "path": "strategies/nq_prev_rth_poc_fade.md",
+      "status": "weak_evidence",
+      "study_ids": [
+        "14_asia_session_vp_levels"
+      ],
+      "summary": "Does the first 20:00\u201300:00 contact with the fixed previous-RTH POC favor a trade against the approach?"
+    },
+    {
+      "strategy_id": "nq_prev_rth_va_breakout_retest",
+      "title": "Previous-RTH VA breakout and retest",
+      "path": "strategies/nq_prev_rth_va_breakout_retest.md",
+      "status": "exploratory_evidence",
+      "study_ids": [
+        "14_asia_session_vp_levels"
+      ],
+      "summary": "Does a confirmed retest of fixed previous-RTH VAH or VAL favor continuation over 5, 10, or 20 minutes?"
+    },
+    {
+      "strategy_id": "gc_ema_outer_lower_long",
+      "title": "Long after a GC outer lower EMA band close",
+      "path": "strategies/gc_ema_outer_lower_long.md",
+      "status": "descriptive_evidence",
+      "study_ids": [
+        "12_gc_ema_band_excursions",
+        "13_gc_ema_band_filter_validation"
+      ],
+      "summary": "What long-side adverse and favorable movement follows an outer lower EMA band close, and does a 2025-selected candle filter improve the 2026 profile?",
+      "evidence_refs": [
+        {
+          "id": "selected-filter-2026",
+          "label": "Selected upper-half close filter: 2026 chronological check",
+          "kind": "csv_row",
+          "study_id": "13_gc_ema_band_filter_validation",
+          "run_id": "20260926T000219Z_gc_band_filters_v1",
+          "artifact": "tables/primary.csv",
+          "sha256": "86c72f35167727daac4e4709ff9d6231d1d19eec776196c52f3de23c1f88982d",
+          "where": {
+            "rule": "upper_half_close",
+            "year": "2026",
+            "cooldown": "10",
+            "horizon": "20"
+          },
+          "columns": [
+            "valid_n", "sessions", "weeks",
+            "mean_mae_points", "mean_mfe_points", "mean_clipped_score",
+            "score_delta_vs_unfiltered", "score_delta_ci_low", "score_delta_ci_high"
+          ]
+        },
+        {
+          "id": "unfiltered-comparison-2026",
+          "label": "Unfiltered comparison: 2026 at the same cooldown and horizon",
+          "kind": "csv_row",
+          "study_id": "13_gc_ema_band_filter_validation",
+          "run_id": "20260926T000219Z_gc_band_filters_v1",
+          "artifact": "tables/primary.csv",
+          "sha256": "86c72f35167727daac4e4709ff9d6231d1d19eec776196c52f3de23c1f88982d",
+          "where": {
+            "rule": "unfiltered",
+            "year": "2026",
+            "cooldown": "10",
+            "horizon": "20"
+          },
+          "columns": [
+            "valid_n", "sessions", "weeks",
+            "mean_mae_points", "mean_mfe_points", "mean_clipped_score",
+            "score_delta_vs_unfiltered", "score_delta_ci_low", "score_delta_ci_high"
+          ]
+        }
+      ]
+    },
+    {
       "strategy_id": "vwap_extreme_fade",
-      "title": "Fade the first close outside 2σ",
+      "title": "Fade the first close outside 2\u03c3",
       "path": "strategies/vwap_extreme_fade.md",
-      "status": "proposed",
+      "status": "weak_evidence",
       "study_ids": [
         "05_session_vwap"
       ],
@@ -13,9 +86,9 @@
     },
     {
       "strategy_id": "vwap_reentry_fade",
-      "title": "Fade after re-entry inside 2σ",
+      "title": "Fade after re-entry inside 2\u03c3",
       "path": "strategies/vwap_reentry_fade.md",
-      "status": "proposed",
+      "status": "exploratory_evidence",
       "study_ids": [
         "05_session_vwap"
       ],
@@ -25,17 +98,35 @@
       "strategy_id": "vwap_return_after_departure",
       "title": "Return to VWAP after departure",
       "path": "strategies/vwap_return_after_departure.md",
-      "status": "proposed",
+      "status": "descriptive_evidence",
       "study_ids": [
-        "05_session_vwap"
+        "05_session_vwap",
+        "11_vwap_conditional_probabilities"
       ],
-      "summary": "How often does a meaningful departure return during its observation window?"
+      "summary": "How often does a meaningful departure return during its observation window?",
+      "evidence_refs": [
+        {
+          "id": "original-primary-scorecard",
+          "label": "Original primary pooled departure-return scorecard",
+          "kind": "csv_row",
+          "study_id": "05_session_vwap",
+          "run_id": "20260923T015900Z_vwap3",
+          "artifact": "tables/scorecards.csv",
+          "sha256": "c342bf8f2c3a6d123f30c422865be91097e9af9503cac6c34ebb05ea9c7d1c3b",
+          "where": {
+            "metric_id": "b.all.primary"
+          },
+          "columns": [
+            "events", "evaluable", "successes", "rate", "ci_low", "ci_high"
+          ]
+        }
+      ]
     },
     {
       "strategy_id": "vwap_first_retest_bounce",
       "title": "Bounce on the first VWAP retest",
       "path": "strategies/vwap_first_retest_bounce.md",
-      "status": "proposed",
+      "status": "weak_evidence",
       "study_ids": [
         "05_session_vwap"
       ],
@@ -60,6 +151,16 @@
         "05_session_vwap"
       ],
       "summary": "Does a known period of outside closes distinguish persistence from reversion?"
+    },
+    {
+      "strategy_id": "value_area_first_touch_fade",
+      "title": "First-touch value-area fade toward POC",
+      "path": "strategies/value_area_first_touch_fade.md",
+      "status": "proposed",
+      "study_ids": [
+        "19_value_area_fade_tracker"
+      ],
+      "summary": "Does a causal first touch of developing/current-session VAH or VAL in balanced context offer a cost-adjusted fade toward POC? External reported evidence; independent testing planned."
     }
   ]
 }

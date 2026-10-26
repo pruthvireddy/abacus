@@ -1,0 +1,22 @@
+{
+  "name": "Same-contract5m EMA20/50 and WilderATR14 continuous2017\u20132026",
+  "version": "1.1.0",
+  "feature_manifest": {
+    "path": "catalog/datasets/same_contract_ema_cloud__1.1.0.json",
+    "sha256": "444043918c9b30a0d909e88328094b52936f6b379ce288b85afb6740aed0f838"
+  },
+  "parameters": {
+    "ema_lengths": [
+      20,
+      50
+    ],
+    "ema_seed": "first_close",
+    "atr_length": 14,
+    "atr_seed": "mean_first_14_true_ranges; segment-first TR=high-low",
+    "warmup": 250,
+    "resets": "contract switches, invalid slots, unknown gaps",
+    "availability": "modeled exclusive candle close"
+  },
+  "schema": "catalog/schemas/same_contract_ema_cloud__1.1.0.json",
+  "audit": "data/features/ema_cloud/version=1.1.0/audit"
+}

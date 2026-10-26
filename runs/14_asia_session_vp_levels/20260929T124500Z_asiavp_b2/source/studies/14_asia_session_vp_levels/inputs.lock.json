@@ -1,0 +1,59 @@
+{
+  "study_id": "14_asia_session_vp_levels",
+  "status": "feature_ready_required_setup_1_answer_pending",
+  "created_date": "2026-09-27",
+  "inputs": [
+    {
+      "dataset_id": "volume_lead_unadjusted_v1",
+      "role": "primary contract-price bars and execution",
+      "manifest_path": "catalog/datasets/volume_lead_unadjusted_v1.json",
+      "sha256": "00757f5fc8278e75744d7adfaddc688be588d619d82b1dc1811aa60f21b7e5d4"
+    },
+    {
+      "dataset_id": "volume_lead_back_adjusted_v1",
+      "role": "adjusted-snapshot comparison and lineage",
+      "manifest_path": "catalog/datasets/volume_lead_back_adjusted_v1.json",
+      "sha256": "5500ac1e472c48b0f31b11c6586354dc700e4ba2ef526ebef5fa05582b228ce8"
+    },
+    {
+      "dataset_id": "cme_fixed_clock_session_v1",
+      "role": "calendar context, not inherited whole-day eligibility",
+      "manifest_path": "catalog/calendars/cme_fixed_clock_session_v1.json",
+      "sha256": "d5e9d7895f02c5c66a2231e3f79e6bfbc21cd7ce7aa2f42974cfa50492186bcf"
+    }
+  ],
+  "indicator_source": {
+    "path": "studies/14_asia_session_vp_levels/reference/vp_hvn_levels_dev.pine",
+    "sha256": "6fb8254d661c41e8a867953e608886bf367ee3a759a110eab41f2469d373e8ee",
+    "description": "Byte-identical copy of user-supplied VP-HVN Levels Dev Pine v6 script"
+  },
+  "derived_feature_release": {
+    "status": "published_pinned",
+    "required_before_execution": true,
+    "owner": "Bhishma",
+    "dataset_id": "nq_causal_vp_hvn__1.0.0",
+    "version": "1.0.0",
+    "manifest_path": "catalog/datasets/nq_causal_vp_hvn__1.0.0.json",
+    "sha256": "3430768cda610b367ca52ca58d45c47e67ce619b773b7e54429e953f23a92eff",
+    "data_path": "data/features/vp_hvn/version=1.0.0",
+    "coordinate_frames": [
+      "contract",
+      "adjusted_retrospective"
+    ],
+    "snapshot_rows": 1383199,
+    "primary_comparison_frozen": false
+  },
+  "verification_status": {
+    "manifest_hashes_recorded": true,
+    "nq_partition_presence_checked": true,
+    "parquet_endpoint_metadata_inspected": true,
+    "full_partition_hashes_verified": true,
+    "signals_or_outcomes_computed": false,
+    "raw_adjusted_lineage_verified": true,
+    "source_original_order_verified": true,
+    "synthetic_feature_tests_passed": true,
+    "bounded_pilot_passed": true,
+    "full_feature_audit_passed": true,
+    "feature_release_pinned": true
+  }
+}

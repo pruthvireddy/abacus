@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "study_id": "11_vwap_conditional_probabilities",
+  "source_lock": "studies/05_session_vwap/inputs.lock.json",
+  "feature_set": "session_anchored_vwap",
+  "version": "1.0.0",
+  "publication_root_key": "publication_root",
+  "release_manifest": {"path": "catalog/datasets/session_anchored_vwap__1.0.0.release.json", "sha256": "0fb21224a74a793c639d226b709e461c60064f53ccc8ec53c01dd456ea1eb495"},
+  "datasets": [
+    {"dataset_id": "session_anchored_vwap_2m_v1", "timeframe": "2m", "manifest_path": "catalog/datasets/session_anchored_vwap_2m_v1.json", "manifest_sha256": "7ec9b9093cf12be856a976c1e41a3f7d8c29896b2e15c59cc46708694a7f9bff"},
+    {"dataset_id": "session_anchored_vwap_5m_v1", "timeframe": "5m", "manifest_path": "catalog/datasets/session_anchored_vwap_5m_v1.json", "manifest_sha256": "32f79a14ecdb604fb132e00c6e9511b8323a4145ae52e57fba4a046bd4fc2310"}
+  ],
+  "related_manifests": [
+    {"path": "catalog/datasets/volume_lead_unadjusted_v1.json", "sha256": "00757f5fc8278e75744d7adfaddc688be588d619d82b1dc1811aa60f21b7e5d4"},
+    {"path": "catalog/schemas/session_anchored_vwap__1.0.0.json", "sha256": "943bfd74686d82ed80ae1dc4d89f20f4014df825663fc51a93f980efba2a0641"},
+    {"path": "catalog/indicators/session_anchored_vwap__1.0.0.json", "sha256": "455306ef51a94b8ccf99dfa4c61ecec34165d123afb2a518aea7a4661588fc2c"},
+    {"path": "catalog/calendars/cme_fixed_clock_session_v1.json", "sha256": "d5e9d7895f02c5c66a2231e3f79e6bfbc21cd7ce7aa2f42974cfa50492186bcf"}
+  ],
+  "audit": {"path": "data/features/audits/feature_set=session_anchored_vwap/version=1.0.0/product_day_eligibility.parquet", "sha256": "9d51b47ee63b2e0aea58effa939bee3180d4672854d13aa553b4e314c459063d"},
+  "verification_scope": "Manifest and every consumed 2m, 5m, and unadjusted 1m partition SHA-256 verified before outcomes."
+}
+

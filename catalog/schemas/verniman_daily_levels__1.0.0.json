@@ -1,0 +1,231 @@
+{
+  "dataset_id": "verniman_daily_levels__1.0.0",
+  "version": "1.0.0",
+  "tables": {
+    "outlooks": [
+      {
+        "name": "outlook_id",
+        "arrow_type": "string",
+        "nullable": false
+      },
+      {
+        "name": "source_post_id",
+        "arrow_type": "string",
+        "nullable": false
+      },
+      {
+        "name": "content_sha256",
+        "arrow_type": "string",
+        "nullable": false
+      },
+      {
+        "name": "title",
+        "arrow_type": "string",
+        "nullable": false
+      },
+      {
+        "name": "source_url",
+        "arrow_type": "string",
+        "nullable": false
+      },
+      {
+        "name": "product",
+        "arrow_type": "string",
+        "nullable": false
+      },
+      {
+        "name": "contract",
+        "arrow_type": "string",
+        "nullable": false
+      },
+      {
+        "name": "session_date_method",
+        "arrow_type": "string",
+        "nullable": false
+      },
+      {
+        "name": "session_date_source_text",
+        "arrow_type": "string",
+        "nullable": false
+      },
+      {
+        "name": "timing_status",
+        "arrow_type": "string",
+        "nullable": false
+      },
+      {
+        "name": "plan_text",
+        "arrow_type": "string",
+        "nullable": false
+      },
+      {
+        "name": "raw_html_path",
+        "arrow_type": "string",
+        "nullable": false
+      },
+      {
+        "name": "raw_html_sha256",
+        "arrow_type": "string",
+        "nullable": false
+      },
+      {
+        "name": "raw_atom_path",
+        "arrow_type": "string",
+        "nullable": false
+      },
+      {
+        "name": "raw_atom_sha256",
+        "arrow_type": "string",
+        "nullable": false
+      },
+      {
+        "name": "extraction_version",
+        "arrow_type": "string",
+        "nullable": false
+      },
+      {
+        "name": "review_status",
+        "arrow_type": "string",
+        "nullable": false
+      },
+      {
+        "name": "session_date",
+        "arrow_type": "date32[day]",
+        "nullable": false
+      },
+      {
+        "name": "captured_at",
+        "arrow_type": "timestamp[us, tz=UTC]",
+        "nullable": false
+      },
+      {
+        "name": "raw_html_captured_at",
+        "arrow_type": "timestamp[us, tz=UTC]",
+        "nullable": false
+      },
+      {
+        "name": "raw_atom_captured_at",
+        "arrow_type": "timestamp[us, tz=UTC]",
+        "nullable": true
+      },
+      {
+        "name": "available_at",
+        "arrow_type": "timestamp[us, tz=UTC]",
+        "nullable": true
+      },
+      {
+        "name": "source_claimed_published",
+        "arrow_type": "string",
+        "nullable": true
+      },
+      {
+        "name": "source_claimed_published_at",
+        "arrow_type": "timestamp[us, tz=UTC]",
+        "nullable": true
+      },
+      {
+        "name": "source_claimed_published_eastern",
+        "arrow_type": "string",
+        "nullable": true
+      },
+      {
+        "name": "source_claimed_updated",
+        "arrow_type": "string",
+        "nullable": true
+      },
+      {
+        "name": "source_claimed_updated_at",
+        "arrow_type": "timestamp[us, tz=UTC]",
+        "nullable": true
+      },
+      {
+        "name": "source_claimed_updated_eastern",
+        "arrow_type": "string",
+        "nullable": true
+      }
+    ],
+    "levels": [
+      {
+        "name": "outlook_id",
+        "arrow_type": "string",
+        "nullable": false
+      },
+      {
+        "name": "session_date",
+        "arrow_type": "date32[day]",
+        "nullable": false
+      },
+      {
+        "name": "product",
+        "arrow_type": "string",
+        "nullable": false
+      },
+      {
+        "name": "contract",
+        "arrow_type": "string",
+        "nullable": false
+      },
+      {
+        "name": "side",
+        "arrow_type": "string",
+        "nullable": false
+      },
+      {
+        "name": "role",
+        "arrow_type": "string",
+        "nullable": false
+      },
+      {
+        "name": "ordinal",
+        "arrow_type": "int32",
+        "nullable": false
+      },
+      {
+        "name": "price_low",
+        "arrow_type": "decimal128(12, 2)",
+        "nullable": false
+      },
+      {
+        "name": "price_high",
+        "arrow_type": "decimal128(12, 2)",
+        "nullable": false
+      },
+      {
+        "name": "source_label",
+        "arrow_type": "string",
+        "nullable": false
+      },
+      {
+        "name": "source_text",
+        "arrow_type": "string",
+        "nullable": false
+      },
+      {
+        "name": "conditions",
+        "arrow_type": "string",
+        "nullable": false
+      },
+      {
+        "name": "scenario_text",
+        "arrow_type": "string",
+        "nullable": false
+      },
+      {
+        "name": "available_at",
+        "arrow_type": "timestamp[us, tz=UTC]",
+        "nullable": true
+      },
+      {
+        "name": "timing_status",
+        "arrow_type": "string",
+        "nullable": false
+      }
+    ]
+  },
+  "prices": "Exact decimal(12,2), source contract points; never roll adjusted. Equal bounds denote a point.",
+  "available_at": "Always null: captured current content has unverified historical availability.",
+  "timestamps": "Source-claimed published/updated metadata is retained separately and is not proof of plan availability.",
+  "session_date": "Outlook M/D with explicit body contract year; never URL, image filename, or published year.",
+  "null_semantics": "Unknown timestamps remain null; absent data is not a negative signal.",
+  "level_selection": "A/B scenarios only; trigger and ordered targets kept separately for each side."
+}

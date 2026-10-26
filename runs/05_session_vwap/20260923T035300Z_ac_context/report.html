@@ -1,0 +1,78 @@
+<!doctype html><html lang='en'><meta charset='utf-8'><title>VWAP A/C conditional context</title>
+<style>body{font:16px/1.55 system-ui;max-width:1120px;margin:3rem auto;padding:0 1.5rem;color:#17243b}table{border-collapse:collapse;width:100%;font-size:14px}th,td{padding:.48rem;border-bottom:1px solid #cbd5e1;text-align:left}th{background:#eef2f7}h1,h2{margin-top:2rem}p{max-width:88ch}a{color:#126c91}</style><main>
+<h1>VWAP A/C conditional-context study</h1>
+<p>Exploratory price-path cuts on sealed parent run `20260923T015900Z_vwap3`, with new causal context from the same pinned Bhishma 1.0.0 release. The parent A/C outcomes and excluded-event identities are unchanged. Earlier aggregate and final-period outcomes were already viewed; newly selected segments are discovery evidence, not independent confirmation or net trading performance.</p>
+<h2>Scorecard and populations</h2>
+<table><thead><tr><th>Candidate</th><th>Full 30m events</th><th>Favorable first</th><th>Adverse first</th><th>Neither</th><th>Ambiguous</th><th>95% shared-date interval</th></tr></thead><tbody>
+<tr><td>A: first outside-2σ fade</td><td>86,475</td><td>40,480 (46.8%)</td><td>41,390</td><td>2,677</td><td>1,928</td><td>46.2%–47.4%</td></tr>
+<tr><td>C: first causal VWAP retest</td><td>132,202</td><td>61,689 (46.7%)</td><td>62,010</td><td>7,017</td><td>1,486</td><td>46.2%–47.1%</td></tr>
+</tbody></table>
+<p>These are correlated anchor/timeframe views across product-sessions. See `tables/cuts.csv` for every inspected cut, four barrier classes, common 8-tick results, coverage, distinct dates, and chronological rates. `context/` retains event-linked evidence. The 0.5σ and 8-tick outcomes are measured after signal availability from the following unadjusted one-minute open. Costs and fills are unspecified.</p>
+<h2>A: NY early 2σ exits</h2>
+<p>The NY observation window starts at 09:30 America/New_York. Columns below compare the first 30 minutes, minutes 30–59, and later exits on a fixed 30-minute-capable cohort. The NY local anchor is structurally ineligible during the first 30 minutes because the original protocol requires 30 elapsed minutes of accumulation. Globex VWAP in the NY window can signal immediately.</p>
+<table><thead><tr><th>Product</th><th>Anchor</th><th>NY clock</th><th>Events</th><th>Favorable first</th><th>95% interval</th><th>8-tick rate</th><th>Coverage within anchor</th></tr></thead><tbody>
+<tr><td>ALL</td><td>globex</td><td>00-29</td><td>1,205</td><td>49.5%</td><td>46.3%–53.1%</td><td>27.3%</td><td>18.9%</td></tr>
+<tr><td>ALL</td><td>globex</td><td>30-59</td><td>1,055</td><td>47.8%</td><td>44.1%–51.1%</td><td>29.9%</td><td>16.5%</td></tr>
+<tr><td>ALL</td><td>globex</td><td>60-119</td><td>1,432</td><td>46.2%</td><td>42.5%–49.4%</td><td>34.4%</td><td>22.4%</td></tr>
+<tr><td>ALL</td><td>globex</td><td>120+</td><td>2,699</td><td>40.4%</td><td>38.0%–43.0%</td><td>35.5%</td><td>42.2%</td></tr>
+<tr><td>ALL</td><td>ny</td><td>00-29</td><td>0</td><td>n/a</td><td>n/a–n/a</td><td>n/a</td><td>0.0%</td></tr>
+<tr><td>ALL</td><td>ny</td><td>30-59</td><td>2,897</td><td>46.0%</td><td>43.8%–48.3%</td><td>32.9%</td><td>27.6%</td></tr>
+<tr><td>ALL</td><td>ny</td><td>60-119</td><td>3,048</td><td>47.7%</td><td>45.5%–49.9%</td><td>35.9%</td><td>29.0%</td></tr>
+<tr><td>ALL</td><td>ny</td><td>120+</td><td>4,562</td><td>44.4%</td><td>42.6%–46.3%</td><td>35.1%</td><td>43.4%</td></tr>
+<tr><td>ES</td><td>globex</td><td>00-29</td><td>350</td><td>47.4%</td><td>41.1%–53.4%</td><td>42.9%</td><td>14.1%</td></tr>
+<tr><td>ES</td><td>globex</td><td>30-59</td><td>403</td><td>51.6%</td><td>46.1%–57.6%</td><td>47.1%</td><td>16.3%</td></tr>
+<tr><td>ES</td><td>globex</td><td>60-119</td><td>552</td><td>50.7%</td><td>45.7%–55.8%</td><td>50.7%</td><td>22.3%</td></tr>
+<tr><td>ES</td><td>globex</td><td>120+</td><td>1,173</td><td>42.3%</td><td>38.8%–45.7%</td><td>46.5%</td><td>47.3%</td></tr>
+<tr><td>ES</td><td>ny</td><td>00-29</td><td>0</td><td>n/a</td><td>n/a–n/a</td><td>n/a</td><td>0.0%</td></tr>
+<tr><td>ES</td><td>ny</td><td>30-59</td><td>1,082</td><td>46.5%</td><td>43.3%–50.0%</td><td>46.1%</td><td>27.7%</td></tr>
+<tr><td>ES</td><td>ny</td><td>60-119</td><td>1,076</td><td>48.9%</td><td>45.7%–52.2%</td><td>47.7%</td><td>27.6%</td></tr>
+<tr><td>ES</td><td>ny</td><td>120+</td><td>1,747</td><td>44.4%</td><td>41.8%–46.8%</td><td>44.6%</td><td>44.7%</td></tr>
+<tr><td>NQ</td><td>globex</td><td>00-29</td><td>617</td><td>50.4%</td><td>46.4%–55.1%</td><td>13.0%</td><td>21.7%</td></tr>
+<tr><td>NQ</td><td>globex</td><td>30-59</td><td>492</td><td>46.1%</td><td>41.2%–50.9%</td><td>14.2%</td><td>17.3%</td></tr>
+<tr><td>NQ</td><td>globex</td><td>60-119</td><td>642</td><td>44.5%</td><td>39.2%–49.2%</td><td>19.0%</td><td>22.5%</td></tr>
+<tr><td>NQ</td><td>globex</td><td>120+</td><td>1,097</td><td>40.8%</td><td>37.3%–44.5%</td><td>22.2%</td><td>38.5%</td></tr>
+<tr><td>NQ</td><td>ny</td><td>00-29</td><td>0</td><td>n/a</td><td>n/a–n/a</td><td>n/a</td><td>0.0%</td></tr>
+<tr><td>NQ</td><td>ny</td><td>30-59</td><td>1,119</td><td>45.8%</td><td>42.2%–49.2%</td><td>14.6%</td><td>28.5%</td></tr>
+<tr><td>NQ</td><td>ny</td><td>60-119</td><td>1,097</td><td>45.0%</td><td>41.8%–48.3%</td><td>16.2%</td><td>27.9%</td></tr>
+<tr><td>NQ</td><td>ny</td><td>120+</td><td>1,709</td><td>44.2%</td><td>41.4%–47.0%</td><td>21.2%</td><td>43.5%</td></tr>
+<tr><td>GC</td><td>globex</td><td>00-29</td><td>238</td><td>50.0%</td><td>42.3%–57.8%</td><td>41.6%</td><td>22.3%</td></tr>
+<tr><td>GC</td><td>globex</td><td>30-59</td><td>160</td><td>43.1%</td><td>33.8%–51.7%</td><td>34.4%</td><td>15.0%</td></tr>
+<tr><td>GC</td><td>globex</td><td>60-119</td><td>238</td><td>39.9%</td><td>32.6%–48.1%</td><td>38.2%</td><td>22.3%</td></tr>
+<tr><td>GC</td><td>globex</td><td>120+</td><td>429</td><td>34.0%</td><td>27.9%–39.5%</td><td>39.4%</td><td>40.3%</td></tr>
+<tr><td>GC</td><td>ny</td><td>00-29</td><td>0</td><td>n/a</td><td>n/a–n/a</td><td>n/a</td><td>0.0%</td></tr>
+<tr><td>GC</td><td>ny</td><td>30-59</td><td>696</td><td>45.8%</td><td>42.0%–49.6%</td><td>41.7%</td><td>26.0%</td></tr>
+<tr><td>GC</td><td>ny</td><td>60-119</td><td>875</td><td>49.7%</td><td>46.3%–53.4%</td><td>46.1%</td><td>32.7%</td></tr>
+<tr><td>GC</td><td>ny</td><td>120+</td><td>1,106</td><td>44.9%</td><td>41.7%–48.1%</td><td>41.3%</td><td>41.3%</td></tr>
+</tbody></table>
+<figure><img src='figures/ny-early.svg' alt='NY early A outcomes' style='max-width:100%'></figure>
+<p>The proposed early-NY weakness is not present in the primary 0.5σ result for Globex: first-hour exits are 48.7% favorable first (2,260 events), versus 42.4% after the first hour (4,131). The fixed 8-tick result reverses that ordering (28.5% versus 35.2%). NY-local exits first become eligible at minute 30; their first-hour primary rate is 46.0% versus 45.8% later. These are descriptive probabilities, not an early-session trading rule.</p>
+<p>`tables/ny_early.csv` also compares the first hour with the later session. `tables/control_comparisons.csv` matches A&#x27;s 1–2σ control within product, timeframe, anchor/window, direction, window-clock bin, ATR regime, and chronological split. A and its lesser-departure control still have disjoint starting-distance support. A higher conditional fade rate alone is not an incremental edge.</p>
+<h2>C: distance before first touch and return shape</h2>
+<p>Peak excursion uses completed closes from departure through the bar before touch opens; the touching bar&#x27;s extremes are excluded. The peak bins are 1–1.5σ, 1.5–2σ, and 2σ+. The prespecified interaction compares peak-to-touch time ≤15 versus &gt;15 minutes within the 2σ+ peak group. Each outcome starts after the touch bar closes.</p>
+<table><thead><tr><th>Product</th><th>Pre-touch peak</th><th>Events</th><th>Favorable first</th><th>95% interval</th><th>8-tick rate</th></tr></thead><tbody>
+<tr><td>ALL</td><td>1-1.5</td><td>42,296</td><td>47.2%</td><td>46.5%–47.9%</td><td>40.5%</td></tr>
+<tr><td>ALL</td><td>1.5-2</td><td>34,233</td><td>47.8%</td><td>47.1%–48.7%</td><td>41.1%</td></tr>
+<tr><td>ALL</td><td>2+</td><td>55,673</td><td>45.6%</td><td>44.8%–46.3%</td><td>40.0%</td></tr>
+<tr><td>ES</td><td>1-1.5</td><td>15,489</td><td>47.4%</td><td>46.3%–48.5%</td><td>44.3%</td></tr>
+<tr><td>ES</td><td>1.5-2</td><td>12,478</td><td>48.9%</td><td>47.5%–50.2%</td><td>45.4%</td></tr>
+<tr><td>ES</td><td>2+</td><td>20,108</td><td>45.7%</td><td>44.7%–46.7%</td><td>44.4%</td></tr>
+<tr><td>NQ</td><td>1-1.5</td><td>15,924</td><td>48.0%</td><td>46.9%–49.2%</td><td>34.7%</td></tr>
+<tr><td>NQ</td><td>1.5-2</td><td>12,757</td><td>47.8%</td><td>46.6%–49.1%</td><td>34.9%</td></tr>
+<tr><td>NQ</td><td>2+</td><td>21,931</td><td>45.4%</td><td>44.4%–46.5%</td><td>33.1%</td></tr>
+<tr><td>GC</td><td>1-1.5</td><td>10,883</td><td>45.6%</td><td>44.1%–47.1%</td><td>43.6%</td></tr>
+<tr><td>GC</td><td>1.5-2</td><td>8,998</td><td>46.3%</td><td>45.1%–47.8%</td><td>44.0%</td></tr>
+<tr><td>GC</td><td>2+</td><td>13,634</td><td>45.6%</td><td>44.5%–46.9%</td><td>44.5%</td></tr>
+</tbody></table>
+<figure><img src='figures/c-peak.svg' alt='C outcomes by pre-touch peak distance' style='max-width:100%'></figure>
+<p>A prior peak of 2σ+ is associated with a 45.6% primary bounce rate, versus 47.2% at 1–1.5σ and 47.8% at 1.5–2σ. All three fixed 8-tick rates cluster near 40–41%. Within the 2σ+ group, a return from the peak in ≤15 minutes has a 47.6% primary rate versus 45.0% for slower returns; the fixed 8-tick rates are 39.0% and 40.2%. Neither dimension yields a stable improvement across barrier definitions.</p>
+<p>`tables/interactions.csv` gives the peak-distance × return-time cells; `tables/cuts.csv` also shows departure strength, sustained away closes, time to touch, touch close class, local/Globex geometry, ATR, opening balance, and session clocks. The C near-approach baseline lacks the same saved departure link, so those peak/shape cuts are within-C associations; they do not yet prove that touching VWAP adds information over a comparable near approach.</p>
+<h2>A: exit strength, prior trend, and regime</h2>
+<p>`tables/cuts.csv` includes signal-close distance past 2σ, prior 30-minute side-signed price trend, outward signal-bar close location, prior VWAP slope and sigma expansion, time since a near-VWAP close, prior ATR regime, opening-balance width/location, and local/Globex VWAP geometry. `tables/interactions.csv` records the prespecified exit-strength × prior-trend cells. Exits farther than 2.75σ are 46.7% favorable at the primary barrier and 36.6% at 8 ticks; the 2–2.25σ group is 46.3% and 40.3%. Stronger exit distance is not a consistent improvement. The outward frozen 3σ-before-return evidence remains in the event ledger, with already-passed and same-minute order bounds retained.</p>
+<h2>Re-entry is a later signal</h2>
+<p>The first published close back inside the same 2σ band is evaluated from its own following open. Confirmed and never-confirmed original A episodes stay in the denominator. `tables/reentry.csv` separates conversion, full-follow-up eligibility, remaining VWAP distance, and conditional post-confirmation outcomes. Of 90,938 original A episodes, 89,475 (98.4%) confirm re-entry, but only 84,997 have a full 30-minute follow-up. Their conditional favorable-first rate is 45.8%. A selected post-confirmation rate is not a paired trading-policy result: entry time, barrier size, and missed opportunities differ from immediate A.</p>
+<h2>Validation and limitations</h2>
+<p>Development ends in 2023, validation is 2024, and final chronological evaluation is 2025–2026. The final period was already viewed in the parent study, so every new cut is exploratory. Whole shared dates are resampled for intervals; multiple anchor/timeframe views are correlated. Small cells are flagged. Do not rank a sparse cell as a discovery, and do not infer net profitability from a barrier rate. The complete-day eligibility filter is retrospective. Source checks, parent hashes, exact commands, and artifact hashes are in the manifest and audit files.</p>
+<h2>Evidence and reproduction</h2>
+<p><a href='tables/cuts.csv'>All cuts</a> · <a href='tables/ny_early.csv'>NY early exits</a> · <a href='tables/interactions.csv'>Interactions</a> · <a href='tables/control_comparisons.csv'>Control comparisons</a> · <a href='tables/reentry.csv'>Re-entry</a> · <a href='tables/examples.csv'>Examples</a> · <a href='metrics.json'>Metrics</a> · <a href='events.manifest.json'>Event manifest</a> · <a href='manifest.json'>Run manifest</a></p>
+<p>From the workspace root, with the locked environment installed: `.venv/bin/python studies/05_session_vwap/conditional_run.py --run-id &lt;new-id&gt; --workers 3`, then `.venv/bin/python studies/05_session_vwap/conditional_summarize.py --run-id &lt;same-id&gt;`. Review audits before sealing a new unique ID.</p>
+</main></html>

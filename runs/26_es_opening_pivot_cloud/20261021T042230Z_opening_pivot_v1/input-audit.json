@@ -1,0 +1,142 @@
+{
+  "requested_start": "2022-01-01",
+  "actual_cutoff": "2026-09-18",
+  "observed_level_start": "2022-05-16",
+  "final_eligible_start": "2022-05-16",
+  "final_eligible_end": "2026-09-18",
+  "nominal_weekdays": 1230,
+  "eligible_sessions": 754,
+  "exclusions": {
+    "no_source_levels": 123,
+    "cash_session_closed": 48,
+    "incomplete_daily_plan": 16,
+    "feature_not_ready": 240,
+    "ambiguous_duplicate_source_date": 15,
+    "contract_mismatch": 25,
+    "published_calendar_uncertified": 9
+  },
+  "source_availability": "historical_availability_unverified; all available_at values remain null",
+  "verified_preopen_availability_sessions": 0,
+  "feature_audit": {
+    "status": "passed",
+    "scope": "All retained ES 5-minute slots, full-history independent scalar recurrences and reset/readiness/timing checks",
+    "scheduled_rows": 696150,
+    "usable_rows_checked": 659406,
+    "tolerance": 1e-08,
+    "max_absolute_error": {
+      "ema20": 4.547473508864641e-12,
+      "ema50": 1.1823431123048067e-11,
+      "atr14": 2.842170943040401e-14
+    },
+    "mismatch_counts": {
+      "ema20": 0,
+      "ema50": 0,
+      "atr14": 0,
+      "consecutive_count": 0,
+      "feature_valid": 0
+    },
+    "representatives": [
+      {
+        "time": "2022-01-03T09:25:00-05:00",
+        "available_at": "2022-01-03T14:30:00+00:00",
+        "contract": "ES:5782:2022:3:ESH2",
+        "consecutive_count": 369,
+        "feature_valid": true,
+        "ema20": 4780.064508170324,
+        "ema50": 4782.37376600025,
+        "atr14": 2.668081515626953
+      },
+      {
+        "time": "2023-01-04T09:25:00-05:00",
+        "available_at": "2023-01-04T14:30:00+00:00",
+        "contract": "ES:206299:2023:3:ESH3",
+        "consecutive_count": 462,
+        "feature_valid": true,
+        "ema20": 3863.570234554478,
+        "ema50": 3861.6362844260752,
+        "atr14": 3.627046276495547
+      },
+      {
+        "time": "2024-01-03T09:25:00-05:00",
+        "available_at": "2024-01-03T14:30:00+00:00",
+        "contract": "ES:17077:2024:3:ESH4",
+        "consecutive_count": 462,
+        "feature_valid": true,
+        "ema20": 4767.0410901577,
+        "ema50": 4770.551244088162,
+        "atr14": 2.4392876455548405
+      },
+      {
+        "time": "2025-01-03T09:25:00-05:00",
+        "available_at": "2025-01-03T14:30:00+00:00",
+        "contract": "ES:5002:2025:3:ESH5",
+        "consecutive_count": 462,
+        "feature_valid": true,
+        "ema20": 5936.504331240991,
+        "ema50": 5933.755659413179,
+        "atr14": 3.2028273228236976
+      },
+      {
+        "time": "2026-01-05T09:25:00-05:00",
+        "available_at": "2026-01-05T14:30:00+00:00",
+        "contract": "ES:42140878:2026:3:ESH6",
+        "consecutive_count": 462,
+        "feature_valid": true,
+        "ema20": 6924.812096739958,
+        "ema50": 6921.557318271124,
+        "atr14": 3.7244118234817285
+      },
+      {
+        "time": "2026-09-15T09:25:00-04:00",
+        "available_at": "2026-09-15T13:30:00+00:00",
+        "contract": "ES:42140870:2026:9:ESU6",
+        "consecutive_count": 163,
+        "feature_valid": false,
+        "ema20": 7618.0667945374935,
+        "ema50": 7611.183817289309,
+        "atr14": 4.7177849757067
+      }
+    ],
+    "native_tradingview_parity": "not_established",
+    "opening_aggregation": {
+      "status": "passed",
+      "bars_checked": 5278,
+      "tolerance": 1e-08,
+      "mismatch_counts": {
+        "open": 0,
+        "high": 0,
+        "low": 0,
+        "close": 0
+      }
+    }
+  },
+  "inspiration_date": {
+    "date": "2026-09-15",
+    "year": 2026,
+    "exchange_session": true,
+    "calendar_event": "",
+    "calendar_certified": true,
+    "source_levels": true,
+    "source_post_count": 1,
+    "unique_complete_plan": true,
+    "ambiguous_duplicate_date": false,
+    "quote_contract_match": false,
+    "usable_opening_bars": true,
+    "ema_atr_ready": false,
+    "complete_execution_data": true,
+    "input_eligible": false,
+    "exclusion_reason": "contract_mismatch",
+    "quoted_contract": "ESZ26",
+    "actual_contract": "ES:42140870:2026:9:ESU6",
+    "opening_feature_min_count": 160,
+    "available_at": null,
+    "verified_preopen_available": false,
+    "inspired_date": true
+  },
+  "minute_completeness": "09:30\u201310:59 inclusive, 90 unique valid one-minute bars; flatten 10:59 close available 11:00",
+  "feature_completeness": "09:10\u201309:55 inclusive, 10 usable 250-bar-ready feature slots; lag3 computed globally",
+  "calendar_policy": "Pinned Bhishma cash holiday rules; shortened and uncertified sessions excluded under published cloud policy",
+  "verified_verne_artifact_records": 4830,
+  "source_row_count": 9053,
+  "outlook_row_count": 1103
+}

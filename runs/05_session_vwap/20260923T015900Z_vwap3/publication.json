@@ -1,0 +1,105 @@
+{
+  "schemaVersion": "1.0",
+  "id": "vwap-three-20260923t015900z-vwap3",
+  "title": "Three session VWAP statistical studies",
+  "summary": "Price-path outcomes for return after departure, first outside-2\u03c3 fades, and first VWAP retest bounces.",
+  "publishedAt": "2026-09-23T03:03:06Z",
+  "source": {
+    "producer": "sahadeva",
+    "runId": "20260923T015900Z_vwap3"
+  },
+  "sections": [
+    {
+      "id": "scorecard",
+      "title": "Three-candidate scorecard",
+      "kind": "table",
+      "columns": [
+        {
+          "key": "candidate",
+          "label": "Candidate"
+        },
+        {
+          "key": "events",
+          "label": "Events"
+        },
+        {
+          "key": "evaluable",
+          "label": "Evaluable"
+        },
+        {
+          "key": "sessions",
+          "label": "Product-sessions"
+        },
+        {
+          "key": "successes",
+          "label": "Primary successes"
+        },
+        {
+          "key": "rate",
+          "label": "Primary rate",
+          "format": "percent"
+        },
+        {
+          "key": "ciLow",
+          "label": "95% low",
+          "format": "percent"
+        },
+        {
+          "key": "ciHigh",
+          "label": "95% high",
+          "format": "percent"
+        }
+      ],
+      "rows": [
+        {
+          "candidate": "Return after departure",
+          "events": 42487,
+          "evaluable": 42487,
+          "successes": 33327,
+          "rate": 0.7844046414197284,
+          "sessions": 3039,
+          "ciLow": 0.7767020840613238,
+          "ciHigh": 0.7923065357683418
+        },
+        {
+          "candidate": "First outside-2\u03c3 fade",
+          "events": 90938,
+          "evaluable": 86475,
+          "successes": 40480,
+          "rate": 0.46811217114773057,
+          "sessions": 3039,
+          "ciLow": 0.46242157080704316,
+          "ciHigh": 0.47436730143170647
+        },
+        {
+          "candidate": "First VWAP retest bounce",
+          "events": 138674,
+          "evaluable": 132202,
+          "successes": 61689,
+          "rate": 0.46662682864101906,
+          "sessions": 3039,
+          "ciLow": 0.461888894244593,
+          "ciHigh": 0.47161729229662985
+        }
+      ]
+    },
+    {
+      "id": "barrier-outcomes",
+      "title": "A/C barrier outcomes",
+      "kind": "figure",
+      "path": "figures/barrier-outcomes.png",
+      "alt": "Two stacked bars: first outside-2-sigma fade above, first VWAP retest bounce below. Green is favorable first, coral adverse first, gray neither, purple ambiguous.",
+      "caption": "Top: A fade. Bottom: C bounce. Green favorable first; coral adverse first; gray neither; purple ordering ambiguous. Each bar uses its own evaluable-event denominator."
+    },
+    {
+      "id": "scope",
+      "title": "Scope and limits",
+      "kind": "text",
+      "body": "Seven correlated anchor/window views on ES, NQ, and GC at 2m and 5m. These are statistical price paths, not net trading profits. See the saved report and tables for denominators, uncertainty, baselines, and exclusions."
+    }
+  ],
+  "notes": [
+    "95% intervals resample shared session dates; anchor and timeframe views are correlated.",
+    "Local publication source only; hosted publication requires separate authorization."
+  ]
+}

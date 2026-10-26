@@ -1,0 +1,105 @@
+request:
+  id: "same_contract_ema_cloud__1.0.0"
+  requesting_repository:
+    name: "abacus"
+    absolute_path: "/Users/ppanati/Documents/projects/abacus"
+    contact_or_owner: "Sahadeva study 21"
+  purpose: |
+    Reusable causal, unadjusted same-contract 3m/5m bars and five-minute
+    EMA20/50 plus Wilder ATR14. Authorized Stage 1 input preparation only;
+    this delivery contains no entry rules, signals or future labels.
+  requested_on: "2026-10-10"
+base_data:
+  dataset: "volume_lead_unadjusted_v1"
+  variant: "unadjusted"
+  products: ["ES", "GC", "NQ"]
+  date_range:
+    start: "2017-01-01"
+    end: "2021-01-01"
+    end_is_exclusive: true
+    timezone: "America/New_York"
+  source_timeframe: "1m"
+  requested_timeframes: ["3m", "5m"]
+aggregation:
+  timezone: "America/New_York"
+  session_scope: "supported_electronic"
+  session_open: "18:00"
+  session_close: "17:00"
+  maintenance_window: "17:00-18:00"
+  anchor: "fixed_clock_00_03_or_00_05"
+  timestamp_label: "bar_open"
+  interval_semantics: "[start,end)"
+  ohlcv_rules: {open: "first", high: "maximum", low: "minimum", close: "last", volume: "sum"}
+  missing_minutes: "never_fill"
+  partial_bars: "keep_and_flag_unusable"
+  empty_buckets: "retain_quality_slots_with_null_ohlcv"
+  include_source_bar_count: true
+  roll_handling:
+    adjusted_prices: false
+    usable_requires_one_contract: true
+    retain_instrument_and_mapping_identity: true
+  calendar_policy: |
+    Supported normal weekday 18–17 NY; omit ES/NQ 16:15–16:30 scheduled pause
+    before 2021-06-28. Retain rule-generated holidays and potentially early-close
+    sessions as calendar_uncertified unusable nominal slots; reset features.
+    Do not infer known closures from missing/no-trade minutes. Weekends,
+    maintenance and the specified pause are known scheduled closures.
+features:
+  - name: "ema20_ema50_5m"
+    input_columns: ["close"]
+    output_columns: ["ema20", "ema50", "feature_valid", "feature_reset", "feature_reset_reason", "consecutive_count"]
+    parameters: {lengths: [20, 50], timeframe_minutes: 5}
+    formula: "EMA = alpha*close + (1-alpha)*prior; alpha=2/(length+1); first-close seed. No tick rounding."
+    calculation_scope: {state_scope: "same_contract", reset_at_session_open: false, reset_on_contract_roll: true, reset_on_unknown_gap: true}
+    warmup: {required_bars: 250, output_during_warmup: "retain_values_but_feature_valid_false"}
+    null_handling: {input_nulls: "reset", insufficient_history: "feature_valid_false"}
+    causality: {causal: true, uses_future_data: false, centered_window: false}
+    output_type: "float64"
+  - name: "atr14_wilder_5m"
+    input_columns: ["high", "low", "close"]
+    output_columns: ["true_range", "atr14"]
+    parameters: {length: 14, smoothing: "Wilder"}
+    formula: |
+      Segment-first TR=high-low; later TR=max(high-low,abs(high-prior_close),abs(low-prior_close)).
+      Seed mean of first 14 usable TR values; then ATR=(13*prior_ATR+TR)/14.
+    calculation_scope: {state_scope: "same_contract", reset_at_session_open: false, reset_on_contract_roll: true, reset_on_unknown_gap: true}
+    warmup: {required_bars: 14, decision_feature_required_bars: 250, output_during_warmup: "null_until_seed"}
+    null_handling: {input_nulls: "reset", insufficient_history: "null"}
+    causality: {causal: true, uses_future_data: false, centered_window: false}
+    output_type: "float64"
+meta_columns:
+  requested: ["session", "calendar_event", "calendar_valid", "ny_offset_minutes", "known_closure_before", "source_count", "expected_count", "missing_offsets", "contract", "lineage", "quality_reason"]
+  specifications: "Stable contract binds product/instrument_id/full maturity year/month/raw_symbol via published master. available_at equals modeled exclusive completion, not actual feed latency."
+research_labels:
+  requested: []
+  allow_forward_looking_columns: false
+  leakage_acknowledgement: "Signals/outcomes are study-local and absent from this causal delivery."
+output:
+  feature_set_name: "same_contract_ema_cloud"
+  feature_set_version: "1.0.0"
+  format: "parquet"
+  compression: "zstd"
+  include_base_ohlcv_columns: true
+  include_lineage_columns: ["timestamp", "available_at", "product", "contract", "raw_symbol", "roll_id", "source_batch", "contains_roll", "lineage"]
+  partition_by: ["product", "interval"]
+  sort_by: ["product", "timestamp"]
+  expected_consumer: {language: "python", library: "pyarrow/pandas"}
+  overwrite_existing_version: false
+validation:
+  require_unique_product_timestamp: true
+  require_strict_timestamp_order: true
+  require_no_synthetic_market_bars: true
+  require_no_lookahead_in_features: true
+  require_phase1_lineage_verification: true
+  require_deterministic_rebuild: true
+  expected_columns: ["timestamp", "available_at", "product", "contract", "open", "high", "low", "close", "volume", "usable", "quality_reason", "source_count", "expected_count", "missing_offsets"]
+  indicator_spot_checks: []
+  additional_acceptance_criteria: |
+    Verify actual input bytes, master/roll identities, exact integer adjustment
+    translation to retained 5m on compatible usable support, synthetic numerical
+    fixtures, and input-only 250/500 warmup/alternate-seed sensitivity. Disclose
+    missing original raw mapping and historical roll-1 reconstruction prerequisites.
+delivery:
+  keep_inside_abacus_bhishma: true
+  copy_into_requesting_repository: false
+  return: ["dataset_id", "absolute_data_path", "portable_path_glob", "manifest_path", "quality_report_path", "schema", "row_counts", "coverage", "checksums", "loader_example", "known_limitations"]

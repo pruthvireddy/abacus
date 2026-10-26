@@ -1,0 +1,117 @@
+6E NEWS REACTION STUDY
+Completed October 17, 2026
+
+Period: October 17, 2025 through October 16, 2026, New York dates.
+Instrument: CME:6E1! continuous, back-adjusted Euro FX futures.
+Data: 23,685 native TradingView 15-minute bars. Historical TradingView
+economic calendar releases were checked against official BLS/BEA/Fed/ECB
+schedules where material. The original Forex News indicator uses Forex
+Factory metadata; its preset DXY ranks were not used as research results.
+
+MAIN FINDING
+Payrolls, Fed policy decisions and post-meeting conferences, and U.S. CPI
+formed the strongest recurring scheduled-news group in this sample.
+Payrolls led the first 30 minutes. The full hour following the Fed decision,
+including its conference, had the larger median movement.
+
+PRIMARY COMPARISON
+One observation per release package. Simultaneous unrelated core categories
+are labeled as bundles and excluded from this isolated-category table.
+No other core release may occur in the preceding 30 minutes or during the
+measurement window. The lower boundary is open; the announcement window is
+[release time, release time + 30 minutes). Speech overlaps are recorded
+separately. Table medians describe maximum absolute excursion from the
+immediately preceding 15-minute close, not net direction or a trading profit.
+
+News                                  n   30m ticks   30m pips   60m ticks*
+US NFP / unemployment / earnings       8       74.0      37.00        74.0
+FOMC decision / projections            8       61.5      30.75        96.0
+Post-FOMC Fed press conference         8       58.5      29.25        84.0
+US CPI / core CPI                     11       51.0      25.50        51.0
+US S&P flash PMI                       6       31.5      15.75        44.5
+US ISM manufacturing                  10       25.5      12.75        36.0
+US PPI / core PPI                      5       25.0      12.50        25.0
+US ISM services                       10       20.0      10.00        29.5
+
+*60-minute outcomes use the same events as the 30-minute cohort. They may
+include subsequent news. All eight FOMC decision windows include the later
+press conference, so 96 ticks / 48 pips describes that combined policy window.
+See primary_comparison.csv for exact 15/30/60-minute results, overlaps,
+dispersion, bootstrap intervals and sample sizes.
+
+One pip = 0.0001 = two standard 6E ticks. One tick = 0.00005 = $6.25 per
+standard 125,000-euro contract. A measured price excursion is not an
+executable return. Source: https://www.cmegroup.com/markets/fx/g10/euro-fx/specs
+
+OTHER RELEVANT FINDINGS
+ECB decisions: median 39.5 ticks / 19.75 pips over 30 minutes, eight dates.
+Seven have nearby core releases, leaving only one isolated observation.
+ECB conferences: median 23.5 ticks / 11.75 pips, eight dates; six have nearby
+core releases. These are descriptive event-window results; a standalone ECB
+ranking is not supported by this sample.
+
+PCE and GDP: nine of 11 PCE release timestamps coincide with GDP. Keep their
+results as combined release packages rather than attributing the move to
+either report separately. Quarterly GDP subcategories also have small counts.
+
+Minutes differ from decisions: FOMC minutes had an isolated 30-minute median
+of 18.5 ticks / 9.25 pips across eight observations. The supplied indicator
+groups titles containing FOMC together; its displayed rank remains a generic
+DXY preset, not a dynamically computed 6E rank.
+
+Large observed examples (associated movements, not causal attribution):
+2026-07-02 08:30 NY: NFP + jobless claims, 145 ticks / 72.5 pips in 30 minutes.
+2026-10-14 08:30 NY: CPI package, 142 ticks / 71.0 pips.
+2026-02-11 08:30 NY: employment report, 137 ticks / 68.5 pips.
+2025-10-29 14:00 NY: FOMC decision, 115 ticks / 57.5 pips, before conference.
+See largest_30m_events.csv for dates, components, prices and overlap flags.
+
+AUDIT AND LIMITS
+The 24 overlapping export bars agree after normalization to 6E ticks.
+Independent calculations reproduced all 1,605 valid measurement rows and
+521 ranking rows. Strict contiguous-bar checks reject windows with missing
+pre-release or post-release prices, including the November 2025 outage.
+535 release timestamps have valid 15/30/60-minute outcomes; 362 non-speech
+timestamps meet the primary 30-minute isolation rule.
+
+One stale GDP row originally dated October 30, 2025 was excluded after BEA
+confirmed the shutdown postponed that initial release to December 23.
+CPI for the October 2025 reference month was canceled; September CPI was
+released October 24. Historical PMI actual values are unavailable for
+licensing reasons, but their timestamps remain usable for price responses.
+The calendar is not a guaranteed as-of vintage.
+
+This is one year and an exploratory comparison across many categories.
+Samples, particularly central-bank and quarterly data, are small; bootstrap
+intervals overlap. The numerical ordering is not a stable permanent ranking.
+Fifteen-minute bars cannot measure first-second reactions, spread or slippage.
+Unscheduled headlines, geopolitics, positioning and other confounders remain.
+No causal-impact, forecast-surprise or directional profitability claim is made.
+The ten-clean-control minimum could not be met for payrolls/CPI; no uplift
+ratio against quiet periods is reported for those categories.
+
+APPLIED CHART SETUP
+Forex News is visible on the CME:6E1! 15-minute Forex layout, saved.
+Automatic currencies off; EUR and USD on; high and medium expected impact on.
+Shading includes policy decisions, employment report, CPI, ISM/PMI and the
+previously enabled central-bank speeches. Custom keywords add ECB Press
+Conference and FOMC Press Conference. Shading remains 30 minutes before and
+after; hover circles are on. These display settings do not recalculate ranks.
+Chart: https://www.tradingview.com/chart/zuKVhA1C/
+
+REPRODUCTION AND SUPPORTING FILES
+Run: python3 analyze.py
+primary_comparison.csv: isolated-category comparison with horizon sensitivity.
+all_single_category_comparison.csv: categories including nearby-news cases.
+rankings.csv: all categories, release bundles, uncertainty and sample filters.
+measurements.csv: every event-window measurement and exclusion status.
+calendar_audit.json: official date checks, corrections and source links.
+validation.json: methodology, price validation and limitations.
+source_manifest.json: source provenance and SHA-256 file hashes.
+
+Official reference calendars:
+https://www.bls.gov/schedule/2025/
+https://www.bls.gov/schedule/2026/
+https://www.bea.gov/news/2025/gross-domestic-product-3rd-quarter-2025-initial-estimate-and-corporate-profits
+https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm
+https://www.ecb.europa.eu/press/govcdec/mopo/html/index.en.html

@@ -1,0 +1,25 @@
+--- runs/26_es_opening_pivot_cloud/20261021T042230Z_opening_pivot_v1/provenance/source/studies/26_es_opening_pivot_cloud/src/reporting.py
++++ studies/26_es_opening_pivot_cloud/src/reporting.py
+@@ -762,7 +762,7 @@
+         "Reset setup state at 09:30. A prior close establishes approach direction. Freeze tick-rounded delta=max(1 point,0.10×prior ATR14) at first return touch. "
+         "The return and next two bars must touch pivot and cloud, with separation no greater than delta on an interaction bar. "
+         "A directional reaction closes beyond the cloud and creates the common candidate. Early fills next open; confirmed waits for a close beyond pivot and cloud, then fills next open before 10:00. "
+-        "Freeze the structural stop at reaction. Primary exit is 2R or stop with 11:00 flatten; saved Verne targets use the near edge of the first profitable of the first two targets. "
++        "Freeze the structural stop at reaction. Primary exit is 2R or stop with 11:00 flatten; saved Verne targets use the nearest profitable near edge among the first two targets. "
+         "Use 1-minute sequencing, adverse first for unresolved stop/target ambiguity and worse-opening gap stop fills. "
+         "Reference costs assume $5 round-trip fees, one adverse market/stop tick, and one tick target trade-through. Unadjusted ES tick=$12.50; point=$50."
+     ))
+@@ -831,10 +831,10 @@
+     _write_json(stage / "source-map.json", source_map)
+     # Verify projection cells from retained source bytes, separately from Narada.
+     projection_check = verify_saved_projection(stage)
+-    _write_json(stage / "publication-verification.json", {"schema": "es-opening-pivot-cloud-publication/v1", "status": "passed",
++    _write_json(stage / "publication-verification.json", {"schema": "es-opening-pivot-cloud-publication/v1", "status": "passed", "result": "passed",
+         "study_id": study_id, "source_run_id": run_id, "publication_id": publication_id,
+-        "checks": [{"name": "saved-table-cell-projection", "status": projection_check["status"], "cells": projection_check["cells"]},
+-                   {"name": "selected-download-source-projections", "status": projection_check["status"], "files": projection_check["downloads"]}],
++        "checks": [{"name": "saved-table-cell-projection", "status": projection_check["status"], "passed": projection_check["status"] == "passed", "cells": projection_check["cells"]},
++                   {"name": "selected-download-source-projections", "status": projection_check["status"], "passed": projection_check["status"] == "passed", "files": projection_check["downloads"]}],
+         "qualification": "Producer cell verification only. Narada contract, browser layout and scientific checks are separate."})
+     report_md = ["# ES Opening Pivot–Cloud Rejection/Support", "", f"Run: `{run_id}`", ""]
+     report_html = ["<!doctype html><html><head><meta charset='utf-8'><title>ES Opening Pivot–Cloud</title><style>body{font:16px system-ui;max-width:1200px;margin:2rem auto;padding:1rem;color:#152235}table{border-collapse:collapse;font-size:13px}td,th{padding:.4rem;border:1px solid #ccd2da}figure img{max-width:100%}.table{overflow:auto}h2{margin-top:2.5rem}</style></head><body><h1>ES Opening Pivot–Cloud Rejection/Support</h1>"]

@@ -1,0 +1,95 @@
+{
+  "indicator": "News EMA Move",
+  "date": "2026-10-17",
+  "symbol": "CME:6E1!",
+  "chart_timeframe": "15m",
+  "native_compile": "passed; TradingView saved version 2 at14:24; no compiler or runtime errors observed",
+  "saved_editor_source_matches_local_file": true,
+  "source_sha256": "b18a6ea42e742665b6cbc6a9849360420d02ddf84a4d8b17c24eb41976f49fa0",
+  "saved_readback_sha256": "b18a6ea42e742665b6cbc6a9849360420d02ddf84a4d8b17c24eb41976f49fa0",
+  "layout_saved": "All changes saved observed at14:26 New York",
+  "layout_url": "https://www.tradingview.com/chart/zuKVhA1C/",
+  "old_ema_cloud_and_forex_news": "hidden to prevent duplicate clouds/tables; original scripts preserved",
+  "cloud_parity": {
+    "Fast EMA": {
+      "compared_bars": 20889,
+      "max_absolute_difference": 0.0,
+      "all_agree_within_1e-12": true
+    },
+    "Slow EMA": {
+      "compared_bars": 20859,
+      "max_absolute_difference": 0.0,
+      "all_agree_within_1e-12": true
+    }
+  },
+  "native_calendar_and_direction_checks": {
+    "entry_side_matches_same_bar_ema_cloud": true,
+    "news_timestamp_equals_entry_close": true,
+    "one_entry_per_timestamp": true,
+    "exact_archived_event_timestamp_set": true,
+    "all_shared_directions_match_archive": true,
+    "all_shared_horizon_values_match_archive": true
+  },
+  "native_coverage": {
+    "native_export_first_bar_utc": "2025-11-30T23:00:00+00:00",
+    "native_export_last_bar_utc": "2026-10-16T20:45:00+00:00",
+    "native_rows": 20908,
+    "raw_selected_entries": 57,
+    "measured_entries": 57,
+    "archived_selected_events_with_entry_bar_in_export": 57,
+    "shared_calendar_event_times": 57,
+    "native_only_event_times": [],
+    "archived_only_event_times": [],
+    "shared_direction_disagreements": [],
+    "max_abs_native_vs_archived_entry_ohlc_difference": 0.0,
+    "max_abs_native_vs_stitched_ema_difference_at_entries": 0.00014696825237248134
+  },
+  "native_archive_parity": {
+    "required": true,
+    "passed": true,
+    "compared_horizon_fields": 1140,
+    "mismatches": []
+  },
+  "native_export_sha256": "493bd9973bcc671a6d6d6c15409da2cb1ecece093bc2647dac5c02895a91f463",
+  "default_setup": {
+    "cloud_fast": 20,
+    "cloud_slow": 50,
+    "overall_horizons_bars": [
+      5,
+      10,
+      15,
+      50,
+      100
+    ],
+    "period_mode": "Monthly",
+    "period_horizon_bars": 5,
+    "period_count": 8,
+    "period_timezone": "Exchange (America/Chicago)",
+    "entry": "confirmed candle close exactly at scheduled news time, using that same completed candle EMA direction",
+    "first_measured_candle": "release candle immediately following entry candle",
+    "simultaneous_releases": "one timestamp observation",
+    "touch_cooldown_thickness_filters": false,
+    "lookback": "365 calendar days anchored at load; reload advances start",
+    "historical_calendar": "audited archive2024-10-17 to2026-10-16 UTC",
+    "future_calendar": "ForexFactory Pine Seeds after archiveend"
+  },
+  "visual_check": "Both original-style tables rendered clearly; all five overall rows and monthly rows match independent rounded expectations in native_table_display_expectations.json",
+  "screenshot": "news_ema_move_applied.jpg",
+  "h5": {
+    "horizon_bars": 5,
+    "signals": 57,
+    "closed": 57,
+    "pending": 0,
+    "average_mfe_pips": 25.83333333333335,
+    "average_mae_pips": 14.552631578947498,
+    "average_close_pips": 10.087719298245554,
+    "favorable_close_percent": 59.64912280701754,
+    "mfe_above_mae_percent": 61.40350877192983
+  },
+  "limitations": [
+    "Historical archive is a corrected schedule, not guaranteed as-announced vintage.",
+    "Currently loaded15mprices start2025-11-30; tables disclose partial requested lookback coverage.",
+    "Closed-price reference and same-time due alert do not guarantee executable pre-news fill; no fees or slippage.",
+    "Each timestamp is an independent observation; overlapping windows are not portfolio positions."
+  ]
+}

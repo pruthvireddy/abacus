@@ -1,0 +1,13 @@
+study_id: 12_gc_ema_band_excursions
+protocol_version: 1.0.0
+product: GC
+timeframe_minutes: 5
+signal: close_at_or_below_lower_outer_3sigma
+ema_length: 225
+residual_lookback: 225
+outer_sigma: 3.0
+cooldown_bars: [0, 5, 10, 20, 30]
+horizons_bars: [5, 10, 15, 20, 30, 50, 100]
+entry: next_complete_bar_unadjusted_open
+year_basis: signal_close_america_new_york
+require_contiguous_complete_single_contract_path: true

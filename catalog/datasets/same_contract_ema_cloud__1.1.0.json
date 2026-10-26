@@ -1,0 +1,2367 @@
+{
+  "dataset_id": "same_contract_ema_cloud__1.1.0",
+  "version": "1.1.0",
+  "release_id": "20261011T024146Z_ema11",
+  "created_at": "2026-10-11T02:43:34.371405+00:00",
+  "output_files": [
+    {
+      "path": "data/features/ema_cloud/version=1.1.0/product=ES/interval=3m/part-000.parquet",
+      "bytes": 26229817,
+      "sha256": "168d550ffb6ba14b4923f5f5594b332f6585e3db4dafafb512ef34a687d22d74",
+      "product": "ES",
+      "interval_minutes": 3,
+      "role": "bars3",
+      "rows": 1160250
+    },
+    {
+      "path": "data/features/ema_cloud/version=1.1.0/product=ES/interval=5m/part-000.parquet",
+      "bytes": 32242253,
+      "sha256": "4c2c79b1b02a2a48d34a276dadd886c6d8ffd0b9a869f384880a618b19613a9b",
+      "product": "ES",
+      "interval_minutes": 5,
+      "role": "bars5features",
+      "rows": 696150
+    },
+    {
+      "path": "data/features/ema_cloud/version=1.1.0/product=GC/interval=3m/part-000.parquet",
+      "bytes": 26420316,
+      "sha256": "b757b6bf54ddd6f7ae8a6268a94ffb2f5a9529e5fc16f6e0fa1a03e0bb09775e",
+      "product": "GC",
+      "interval_minutes": 3,
+      "role": "bars3",
+      "rows": 1166100
+    },
+    {
+      "path": "data/features/ema_cloud/version=1.1.0/product=GC/interval=5m/part-000.parquet",
+      "bytes": 31850433,
+      "sha256": "72baba948e357a89f0f68c76d9fa66b579193b89ab5aff7defce980103e834d8",
+      "product": "GC",
+      "interval_minutes": 5,
+      "role": "bars5features",
+      "rows": 699660
+    },
+    {
+      "path": "data/features/ema_cloud/version=1.1.0/product=NQ/interval=3m/part-000.parquet",
+      "bytes": 27540999,
+      "sha256": "f646e6c9408f6a879fa277627530f13c5a39d81c2db19ccc19682a0f7f535131",
+      "product": "NQ",
+      "interval_minutes": 3,
+      "role": "bars3",
+      "rows": 1160250
+    },
+    {
+      "path": "data/features/ema_cloud/version=1.1.0/product=NQ/interval=5m/part-000.parquet",
+      "bytes": 33412821,
+      "sha256": "3ac184bec11122bd63dc5df390136c8b99fdb269f93f2f6a704285b8567aef27",
+      "product": "NQ",
+      "interval_minutes": 5,
+      "role": "bars5features",
+      "rows": 696150
+    }
+  ],
+  "source_manifest_pins": [
+    {
+      "path": "catalog/datasets/volume_lead_unadjusted_v1.json",
+      "bytes": 23097,
+      "sha256": "00757f5fc8278e75744d7adfaddc688be588d619d82b1dc1811aa60f21b7e5d4",
+      "role": "input_manifest"
+    },
+    {
+      "path": "catalog/datasets/volume_lead_back_adjusted_v1.json",
+      "bytes": 40852,
+      "sha256": "5500ac1e472c48b0f31b11c6586354dc700e4ba2ef526ebef5fa05582b228ce8",
+      "role": "input_manifest"
+    },
+    {
+      "path": "catalog/datasets/tv_indicators__dridr_ohlcv_5m__v1.json",
+      "bytes": 126075,
+      "sha256": "d5044c605c4b13249b0f51118fccbd4d86b6811b17821f339cdd25ffb578c5d7",
+      "role": "input_manifest"
+    }
+  ],
+  "source_files": [
+    {
+      "path": "data/curated/continuous/1m/product=ES/roll=volume_lead_v1/variant=unadjusted/year=2010/part-000.parquet",
+      "bytes": 2521451,
+      "sha256": "9017a632085fff75b161130844cab497ddb17223370cef47579b7bc03d6d53b9",
+      "role": "published_input_byte_verification",
+      "dataset": "volume_lead_unadjusted_v1"
+    },
+    {
+      "path": "data/curated/continuous/1m/product=ES/roll=volume_lead_v1/variant=unadjusted/year=2011/part-000.parquet",
+      "bytes": 4569737,
+      "sha256": "947ce25527c9b6e6a82692453b8b0878bdac7c538c65e0ec576b9c5d35765950",
+      "role": "published_input_byte_verification",
+      "dataset": "volume_lead_unadjusted_v1"
+    },
+    {
+      "path": "data/curated/continuous/1m/product=ES/roll=volume_lead_v1/variant=unadjusted/year=2012/part-000.parquet",
+      "bytes": 4335061,
+      "sha256": "59f9d97c7e0745d721b537f0c1427af209aeccef4d18ee05f7b64c77276f9f2c",
+      "role": "published_input_byte_verification",
+      "dataset": "volume_lead_unadjusted_v1"
+    },
+    {
+      "path": "data/curated/continuous/1m/product=ES/roll=volume_lead_v1/variant=unadjusted/year=2013/part-000.parquet",
+      "bytes": 4188664,
+      "sha256": "ec129717acb05503c34b9375e05face598d21ca27c56974a86877db7a3ade016",
+      "role": "published_input_byte_verification",
+      "dataset": "volume_lead_unadjusted_v1"
+    },
+    {
+      "path": "data/curated/continuous/1m/product=ES/roll=volume_lead_v1/variant=unadjusted/year=2014/part-000.parquet",
+      "bytes": 4169026,
+      "sha256": "735c99a140bb0679847837e6c6076045ff037e943636550c65a932995a76c56d",
+      "role": "published_input_byte_verification",
+      "dataset": "volume_lead_unadjusted_v1"
+    },
+    {
+      "path": "data/curated/continuous/1m/product=ES/roll=volume_lead_v1/variant=unadjusted/year=2015/part-000.parquet",
+      "bytes": 4582190,
+      "sha256": "6ccaba9283c02ab446283da7f73a2a02bfbf0865773477387f18c73f33fbe8a9",
+      "role": "published_input_byte_verification",
+      "dataset": "volume_lead_unadjusted_v1"
+    },
+    {
+      "path": "data/curated/continuous/1m/product=ES/roll=volume_lead_v1/variant=unadjusted/year=2016/part-000.parquet",
+      "bytes": 4546905,
+      "sha256": "73d786f78d1581a29bf32cb166fe98eefae85f02a7f7526eb42065cb903762c1",
+      "role": "published_input_byte_verification",
+      "dataset": "volume_lead_unadjusted_v1"
+    },
+    {
+      "path": "data/curated/continuous/1m/product=ES/roll=volume_lead_v1/variant=unadjusted/year=2017/part-000.parquet",
+      "bytes": 4203237,
+      "sha256": "3b0b23d778552709ca9611cbd3ffa1d4e0167a2d0991c72410b0d603163e90ae",
+      "role": "published_input_byte_verification",
+      "dataset": "volume_lead_unadjusted_v1"
+    },
+    {
+      "path": "data/curated/continuous/1m/product=ES/roll=volume_lead_v1/variant=unadjusted/year=2018/part-000.parquet",
+      "bytes": 4822775,
+      "sha256": "6986b55930e59fb6325c57cd4650389ce1facdffcc333a4d3543a1121f9cb9dc",
+      "role": "published_input_byte_verification",
+      "dataset": "volume_lead_unadjusted_v1"
+    },
+    {
+      "path": "data/curated/continuous/1m/product=ES/roll=volume_lead_v1/variant=unadjusted/year=2019/part-000.parquet",
+      "bytes": 4734130,
+      "sha256": "a6640e13ebb16c082c67e5c857a563396c31ee62a3b53decaba6287e27ff7f86",
+      "role": "published_input_byte_verification",
+      "dataset": "volume_lead_unadjusted_v1"
+    },
+    {
+      "path": "data/curated/continuous/1m/product=ES/roll=volume_lead_v1/variant=unadjusted/year=2020/part-000.parquet",
+      "bytes": 5312783,
+      "sha256": "b134d42d8721fd1c458743682a0c119bf973f2576c2c9bc67a11def1f71ebe0c",
+      "role": "published_input_byte_verification",
+      "dataset": "volume_lead_unadjusted_v1"
+    },
+    {
+      "path": "data/curated/continuous/1m/product=ES/roll=volume_lead_v1/variant=unadjusted/year=2021/part-000.parquet",
+      "bytes": 5108070,
+      "sha256": "721f8cf454096dc85477fd7df891d9a23230fa09e872c0bb56f2574d804a7560",
+      "role": "published_input_byte_verification",
+      "dataset": "volume_lead_unadjusted_v1"
+    },
+    {
+      "path": "data/curated/continuous/1m/product=ES/roll=volume_lead_v1/variant=unadjusted/year=2022/part-000.parquet",
+      "bytes": 5560868,
+      "sha256": "55748a5064507eb37641a59bb1d3ebf0f1593bab793168328d07469c08710b6c",
+      "role": "published_input_byte_verification",
+      "dataset": "volume_lead_unadjusted_v1"
+    },
+    {
+      "path": "data/curated/continuous/1m/product=ES/roll=volume_lead_v1/variant=unadjusted/year=2023/part-000.parquet",
+      "bytes": 5105561,
+      "sha256": "015e11fc39d48b40ef045ea5fb5556ef41e94e774456ea49725a7738da615d15",
+      "role": "published_input_byte_verification",
+      "dataset": "volume_lead_unadjusted_v1"
+    },
+    {
+      "path": "data/curated/continuous/1m/product=ES/roll=volume_lead_v1/variant=unadjusted/year=2024/part-000.parquet",
+      "bytes": 5188628,
+      "sha256": "35caa6398de667f129f8fcb3a91f5545bd32fdf619ee7cd9cbe69a34f50d5d94",
+      "role": "published_input_byte_verification",
+      "dataset": "volume_lead_unadjusted_v1"
+    },
+    {
+      "path": "data/curated/continuous/1m/product=ES/roll=volume_lead_v1/variant=unadjusted/year=2025/part-000.parquet",
+      "bytes": 5452536,
+      "sha256": "51ce31523819e66ca92fa2845fb77aea49dc7322b89d447d53a96280e4010a5c",
+      "role": "published_input_byte_verification",
+      "dataset": "volume_lead_unadjusted_v1"
+    },
+    {
+      "path": "data/curated/continuous/1m/product=ES/roll=volume_lead_v1/variant=unadjusted/year=2026/part-000.parquet",
+      "bytes": 3988836,
+      "sha256": "e837be7469f8dd28af6430d4b8269c4d484a0695cb7a46f116619e08917ce98a",
+      "role": "published_input_byte_verification",
+      "dataset": "volume_lead_unadjusted_v1"
+    },
+    {
+      "path": "data/curated/continuous/1m/product=NQ/roll=volume_lead_v1/variant=unadjusted/year=2010/part-000.parquet",
+      "bytes": 2401384,
+      "sha256": "e64358d168cacea31c5345cb8a98ac0f25498fc744ee5d9ed55455a00f7301ef",
+      "role": "published_input_byte_verification",
+      "dataset": "volume_lead_unadjusted_v1"
+    },
+    {
+      "path": "data/curated/continuous/1m/product=NQ/roll=volume_lead_v1/variant=unadjusted/year=2011/part-000.parquet",
+      "bytes": 4513707,
+      "sha256": "d8052e0fa1d9ded451437109cf87d718dcb8e2f9b000d51719e23796623aded8",
+      "role": "published_input_byte_verification",
+      "dataset": "volume_lead_unadjusted_v1"
+    },
+    {
+      "path": "data/curated/continuous/1m/product=NQ/roll=volume_lead_v1/variant=unadjusted/year=2012/part-000.parquet",
+      "bytes": 4362919,
+      "sha256": "458b652ddc1b6b63d12568d06ea5f720edc7e432cdfe55b4fb8151ddd355bd37",
+      "role": "published_input_byte_verification",
+      "dataset": "volume_lead_unadjusted_v1"
+    },
+    {
+      "path": "data/curated/continuous/1m/product=NQ/roll=volume_lead_v1/variant=unadjusted/year=2013/part-000.parquet",
+      "bytes": 4177159,
+      "sha256": "4f689e69c0b878ed084516295a263d54797e907a8cf9a64636871c768d2499be",
+      "role": "published_input_byte_verification",
+      "dataset": "volume_lead_unadjusted_v1"
+    },
+    {
+      "path": "data/curated/continuous/1m/product=NQ/roll=volume_lead_v1/variant=unadjusted/year=2014/part-000.parquet",
+      "bytes": 4349894,
+      "sha256": "a4ec8eb94309442121c953cade2d540cb020aed466f2e11ff5eb5d13796a8307",
+      "role": "published_input_byte_verification",
+      "dataset": "volume_lead_unadjusted_v1"
+    },
+    {
+      "path": "data/curated/continuous/1m/product=NQ/roll=volume_lead_v1/variant=unadjusted/year=2015/part-000.parquet",
+      "bytes": 4853991,
+      "sha256": "2cf36378314ec59fec490aa86c4b8d17825971582623fedc66421de90d2d6791",
+      "role": "published_input_byte_verification",
+      "dataset": "volume_lead_unadjusted_v1"
+    },
+    {
+      "path": "data/curated/continuous/1m/product=NQ/roll=volume_lead_v1/variant=unadjusted/year=2016/part-000.parquet",
+      "bytes": 4925763,
+      "sha256": "9280ec4db23963e9103c96b1d6a06807c820265a549789dd0485f84ddeb804b3",
+      "role": "published_input_byte_verification",
+      "dataset": "volume_lead_unadjusted_v1"
+    },
+    {
+      "path": "data/curated/continuous/1m/product=NQ/roll=volume_lead_v1/variant=unadjusted/year=2017/part-000.parquet",
+      "bytes": 4824472,
+      "sha256": "a6d0565a9534324e1a631cac41a66453e7d0c1cd685ac6a17a1a44c213ed238a",
+      "role": "published_input_byte_verification",
+      "dataset": "volume_lead_unadjusted_v1"
+    },
+    {
+      "path": "data/curated/continuous/1m/product=NQ/roll=volume_lead_v1/variant=unadjusted/year=2018/part-000.parquet",
+      "bytes": 5677449,
+      "sha256": "04c6c711f045e9f119bd1edafa8e77c21b5bd711ff1fb75fb83868ad31aae394",
+      "role": "published_input_byte_verification",
+      "dataset": "volume_lead_unadjusted_v1"
+    },
+    {
+      "path": "data/curated/continuous/1m/product=NQ/roll=volume_lead_v1/variant=unadjusted/year=2019/part-000.parquet",
+      "bytes": 5557259,
+      "sha256": "f5e74b0f4cb3a415e24e38b9499dc28904c5b3db80a38863d8b1298904f1fe56",
+      "role": "published_input_byte_verification",
+      "dataset": "volume_lead_unadjusted_v1"
+    },
+    {
+      "path": "data/curated/continuous/1m/product=NQ/roll=volume_lead_v1/variant=unadjusted/year=2020/part-000.parquet",
+      "bytes": 6412680,
+      "sha256": "6ea99b69520c2efbf611473ed03dfde3ed111bb2c132f08795454adaad360e84",
+      "role": "published_input_byte_verification",
+      "dataset": "volume_lead_unadjusted_v1"
+    },
+    {
+      "path": "data/curated/continuous/1m/product=NQ/roll=volume_lead_v1/variant=unadjusted/year=2021/part-000.parquet",
+      "bytes": 6348093,
+      "sha256": "998a57d3c24310979e4b90f8c2a74e43372a8136e155a80934a9e8b5873fa48a",
+      "role": "published_input_byte_verification",
+      "dataset": "volume_lead_unadjusted_v1"
+    },
+    {
+      "path": "data/curated/continuous/1m/product=NQ/roll=volume_lead_v1/variant=unadjusted/year=2022/part-000.parquet",
+      "bytes": 6926067,
+      "sha256": "96e682e1d12d7ade78ed27820331f119453d8b9f9947c94cb7097ec17d550a30",
+      "role": "published_input_byte_verification",
+      "dataset": "volume_lead_unadjusted_v1"
+    },
+    {
+      "path": "data/curated/continuous/1m/product=NQ/roll=volume_lead_v1/variant=unadjusted/year=2023/part-000.parquet",
+      "bytes": 6328123,
+      "sha256": "7d5964f87dbcf33aa1f64b05aeca8cb54349b2b27131a6d9bf04ce1ff39e59b8",
+      "role": "published_input_byte_verification",
+      "dataset": "volume_lead_unadjusted_v1"
+    },
+    {
+      "path": "data/curated/continuous/1m/product=NQ/roll=volume_lead_v1/variant=unadjusted/year=2024/part-000.parquet",
+      "bytes": 6627808,
+      "sha256": "14f7db407508ecf98ead144bfc78e39117414d60a44d8215d93247e5f10053b0",
+      "role": "published_input_byte_verification",
+      "dataset": "volume_lead_unadjusted_v1"
+    },
+    {
+      "path": "data/curated/continuous/1m/product=NQ/roll=volume_lead_v1/variant=unadjusted/year=2025/part-000.parquet",
+      "bytes": 6946818,
+      "sha256": "3ff89d8977467220b755a541987836d7a2ea01a7b275e16c9947a38552257dbc",
+      "role": "published_input_byte_verification",
+      "dataset": "volume_lead_unadjusted_v1"
+    },
+    {
+      "path": "data/curated/continuous/1m/product=NQ/roll=volume_lead_v1/variant=unadjusted/year=2026/part-000.parquet",
+      "bytes": 5338063,
+      "sha256": "583be325ce40ff87055ffdffcbc3ff027c6e23d6deefc4386e813be612cbfbdf",
+      "role": "published_input_byte_verification",
+      "dataset": "volume_lead_unadjusted_v1"
+    },
+    {
+      "path": "data/curated/continuous/1m/product=GC/roll=volume_lead_v1/variant=unadjusted/year=2010/part-000.parquet",
+      "bytes": 2532282,
+      "sha256": "62340a3895ecd23bbf08dda845b3c50bdc31092413d03f9271e5e06a7303fe71",
+      "role": "published_input_byte_verification",
+      "dataset": "volume_lead_unadjusted_v1"
+    },
+    {
+      "path": "data/curated/continuous/1m/product=GC/roll=volume_lead_v1/variant=unadjusted/year=2011/part-000.parquet",
+      "bytes": 4806423,
+      "sha256": "4b211b5d929a51b408a38f4258c677fb3f8dd865184c544cca4d971201e14d33",
+      "role": "published_input_byte_verification",
+      "dataset": "volume_lead_unadjusted_v1"
+    },
+    {
+      "path": "data/curated/continuous/1m/product=GC/roll=volume_lead_v1/variant=unadjusted/year=2012/part-000.parquet",
+      "bytes": 4550265,
+      "sha256": "75b0b0f2ce5987faa4fcc1f7039663443d175e89da38130256a74a1450024ab9",
+      "role": "published_input_byte_verification",
+      "dataset": "volume_lead_unadjusted_v1"
+    },
+    {
+      "path": "data/curated/continuous/1m/product=GC/roll=volume_lead_v1/variant=unadjusted/year=2013/part-000.parquet",
+      "bytes": 4547493,
+      "sha256": "e498bfcde1688b584155ab1288988ac5ba59ca5c86164a580c90e5d9238b9c61",
+      "role": "published_input_byte_verification",
+      "dataset": "volume_lead_unadjusted_v1"
+    },
+    {
+      "path": "data/curated/continuous/1m/product=GC/roll=volume_lead_v1/variant=unadjusted/year=2014/part-000.parquet",
+      "bytes": 4223841,
+      "sha256": "e28c69bb59566f21fda9309c1cb02bbbe7ca5af052e771ba3a393cf01fcd9276",
+      "role": "published_input_byte_verification",
+      "dataset": "volume_lead_unadjusted_v1"
+    },
+    {
+      "path": "data/curated/continuous/1m/product=GC/roll=volume_lead_v1/variant=unadjusted/year=2015/part-000.parquet",
+      "bytes": 4312172,
+      "sha256": "316e03481eb0f2c70ccc2c5ec77da9cb3fc65efdbcae712f6e8854a7a37d1c03",
+      "role": "published_input_byte_verification",
+      "dataset": "volume_lead_unadjusted_v1"
+    },
+    {
+      "path": "data/curated/continuous/1m/product=GC/roll=volume_lead_v1/variant=unadjusted/year=2016/part-000.parquet",
+      "bytes": 4503376,
+      "sha256": "22da19ec1536160c0ce4d39532ad4e99bcf7ebe93fe56d8183a917857544e32c",
+      "role": "published_input_byte_verification",
+      "dataset": "volume_lead_unadjusted_v1"
+    },
+    {
+      "path": "data/curated/continuous/1m/product=GC/roll=volume_lead_v1/variant=unadjusted/year=2017/part-000.parquet",
+      "bytes": 4307049,
+      "sha256": "80dbc3f088db349e794388b4a54135e75522066a1d79439e3d319feff8787001",
+      "role": "published_input_byte_verification",
+      "dataset": "volume_lead_unadjusted_v1"
+    },
+    {
+      "path": "data/curated/continuous/1m/product=GC/roll=volume_lead_v1/variant=unadjusted/year=2018/part-000.parquet",
+      "bytes": 4317937,
+      "sha256": "09a7584351a95695f636dec3c4f41b17b1ed349d292bd1bd2274ba9b345dd64c",
+      "role": "published_input_byte_verification",
+      "dataset": "volume_lead_unadjusted_v1"
+    },
+    {
+      "path": "data/curated/continuous/1m/product=GC/roll=volume_lead_v1/variant=unadjusted/year=2019/part-000.parquet",
+      "bytes": 4409598,
+      "sha256": "b4831362bbfa7234c97150bc3a2b00f91c1a1a178f1247f6d5f3d57117da91e4",
+      "role": "published_input_byte_verification",
+      "dataset": "volume_lead_unadjusted_v1"
+    },
+    {
+      "path": "data/curated/continuous/1m/product=GC/roll=volume_lead_v1/variant=unadjusted/year=2020/part-000.parquet",
+      "bytes": 4941132,
+      "sha256": "98d497ca71ea40644a863684fc7105ede27f7711093a761a3e7c4db85e0eb6c4",
+      "role": "published_input_byte_verification",
+      "dataset": "volume_lead_unadjusted_v1"
+    },
+    {
+      "path": "data/curated/continuous/1m/product=GC/roll=volume_lead_v1/variant=unadjusted/year=2021/part-000.parquet",
+      "bytes": 4673022,
+      "sha256": "4dfd4e7e4115f6ce4c355c79d282f9116bcd857e03314c2ccc688013883b1a3a",
+      "role": "published_input_byte_verification",
+      "dataset": "volume_lead_unadjusted_v1"
+    },
+    {
+      "path": "data/curated/continuous/1m/product=GC/roll=volume_lead_v1/variant=unadjusted/year=2022/part-000.parquet",
+      "bytes": 4758047,
+      "sha256": "005d670a7b6152ed717f83ccfcdb25338ad60b7a3817e1b34d5055f5137b8084",
+      "role": "published_input_byte_verification",
+      "dataset": "volume_lead_unadjusted_v1"
+    },
+    {
+      "path": "data/curated/continuous/1m/product=GC/roll=volume_lead_v1/variant=unadjusted/year=2023/part-000.parquet",
+      "bytes": 4659102,
+      "sha256": "38a740078ee836ca9cf5d383d6a3005a9dc72ef9c74967b674154335884916a2",
+      "role": "published_input_byte_verification",
+      "dataset": "volume_lead_unadjusted_v1"
+    },
+    {
+      "path": "data/curated/continuous/1m/product=GC/roll=volume_lead_v1/variant=unadjusted/year=2024/part-000.parquet",
+      "bytes": 4967859,
+      "sha256": "3c82ca99d461ba6d4d65995c1fef35bfe9144e7b0a35f7c3af16691b2a8f268f",
+      "role": "published_input_byte_verification",
+      "dataset": "volume_lead_unadjusted_v1"
+    },
+    {
+      "path": "data/curated/continuous/1m/product=GC/roll=volume_lead_v1/variant=unadjusted/year=2025/part-000.parquet",
+      "bytes": 5491052,
+      "sha256": "d1913e78fb70a12e7fa89c1417e6da267b774b02ba26426d5380e51d1c2a56f9",
+      "role": "published_input_byte_verification",
+      "dataset": "volume_lead_unadjusted_v1"
+    },
+    {
+      "path": "data/curated/continuous/1m/product=GC/roll=volume_lead_v1/variant=unadjusted/year=2026/part-000.parquet",
+      "bytes": 4389553,
+      "sha256": "e06b69e10d361c55f28ea9507bce8324d054de0a9c1b25c57814261504e1bcea",
+      "role": "published_input_byte_verification",
+      "dataset": "volume_lead_unadjusted_v1"
+    },
+    {
+      "path": "data/curated/instruments/roll=volume_lead_v1/instrument_master.parquet",
+      "bytes": 12411,
+      "sha256": "2ead75515df44461e2abfa3699dac1c0afec0a112409aecb1d5bfdffb1b8051f",
+      "role": "published_input_byte_verification",
+      "dataset": "volume_lead_unadjusted_v1"
+    },
+    {
+      "path": "data/curated/continuous/1m/roll=volume_lead_v1/roll_schedule.parquet",
+      "bytes": 10386,
+      "sha256": "0149b99b75da1138454e5face6516184ace3fef819b324183448c678460621b0",
+      "role": "published_input_byte_verification",
+      "dataset": "volume_lead_unadjusted_v1"
+    },
+    {
+      "path": "data/curated/continuous/1m/roll=volume_lead_v1/roll_schedule.csv",
+      "bytes": 40881,
+      "sha256": "b0f4ee48c32fbc5ef089754c5b837f1d9e07d41c5e60e881ee35425a9fd0d589",
+      "role": "published_input_byte_verification",
+      "dataset": "volume_lead_unadjusted_v1"
+    },
+    {
+      "path": "data/curated/continuous/1m/product=ES/roll=volume_lead_v1/variant=back_adjusted/adjustment=prior_session_close_additive_v1/year=2010/part-000.parquet",
+      "bytes": 2523617,
+      "sha256": "a882dba7ea5f5de2c5719c264f74cf8cc9fb04c021500afc4f7ac8a54c99434a",
+      "role": "published_input_byte_verification",
+      "dataset": "volume_lead_back_adjusted_v1"
+    },
+    {
+      "path": "data/curated/continuous/1m/product=ES/roll=volume_lead_v1/variant=back_adjusted/adjustment=prior_session_close_additive_v1/year=2011/part-000.parquet",
+      "bytes": 4567880,
+      "sha256": "bbcf8afec3e8d007228016c750b9d4be67f2ef6a04cc41c1e3ba6c2ac22d00b1",
+      "role": "published_input_byte_verification",
+      "dataset": "volume_lead_back_adjusted_v1"
+    },
+    {
+      "path": "data/curated/continuous/1m/product=ES/roll=volume_lead_v1/variant=back_adjusted/adjustment=prior_session_close_additive_v1/year=2012/part-000.parquet",
+      "bytes": 4332728,
+      "sha256": "64dbd75385f91c6415aa1353046906ab7c7b10d9b75b1d1700c23c33c15dc347",
+      "role": "published_input_byte_verification",
+      "dataset": "volume_lead_back_adjusted_v1"
+    },
+    {
+      "path": "data/curated/continuous/1m/product=ES/roll=volume_lead_v1/variant=back_adjusted/adjustment=prior_session_close_additive_v1/year=2013/part-000.parquet",
+      "bytes": 4187641,
+      "sha256": "1ef79570f3c536cf80700a22ff3d28d3a2232976085a1499cbf83928a85690bb",
+      "role": "published_input_byte_verification",
+      "dataset": "volume_lead_back_adjusted_v1"
+    },
+    {
+      "path": "data/curated/continuous/1m/product=ES/roll=volume_lead_v1/variant=back_adjusted/adjustment=prior_session_close_additive_v1/year=2014/part-000.parquet",
+      "bytes": 4169871,
+      "sha256": "270d9ec45df0def038f901bc1588d39dfae1163a733f56371b924c5c5afbcb46",
+      "role": "published_input_byte_verification",
+      "dataset": "volume_lead_back_adjusted_v1"
+    },
+    {
+      "path": "data/curated/continuous/1m/product=ES/roll=volume_lead_v1/variant=back_adjusted/adjustment=prior_session_close_additive_v1/year=2015/part-000.parquet",
+      "bytes": 4580213,
+      "sha256": "2c356deab329f44a0e716f8acd893b2d288d1903ab1a6abf5e69d3d8fd4d9bcb",
+      "role": "published_input_byte_verification",
+      "dataset": "volume_lead_back_adjusted_v1"
+    },
+    {
+      "path": "data/curated/continuous/1m/product=ES/roll=volume_lead_v1/variant=back_adjusted/adjustment=prior_session_close_additive_v1/year=2016/part-000.parquet",
+      "bytes": 4542017,
+      "sha256": "ceef3f9374425cf6f6c75461d704bc7bec724414ed101a16d9eb785ab835bd55",
+      "role": "published_input_byte_verification",
+      "dataset": "volume_lead_back_adjusted_v1"
+    },
+    {
+      "path": "data/curated/continuous/1m/product=ES/roll=volume_lead_v1/variant=back_adjusted/adjustment=prior_session_close_additive_v1/year=2017/part-000.parquet",
+      "bytes": 4198847,
+      "sha256": "fbfc3c15c4868f3fa5fbaad0ec74938c6ee20f72d1f5fbdd16cc3e4a57f0294b",
+      "role": "published_input_byte_verification",
+      "dataset": "volume_lead_back_adjusted_v1"
+    },
+    {
+      "path": "data/curated/continuous/1m/product=ES/roll=volume_lead_v1/variant=back_adjusted/adjustment=prior_session_close_additive_v1/year=2018/part-000.parquet",
+      "bytes": 4815444,
+      "sha256": "3517bf70792ca6155507d3cb3e2554d3c864ad168918d554ac8b20dc1ee012dd",
+      "role": "published_input_byte_verification",
+      "dataset": "volume_lead_back_adjusted_v1"
+    },
+    {
+      "path": "data/curated/continuous/1m/product=ES/roll=volume_lead_v1/variant=back_adjusted/adjustment=prior_session_close_additive_v1/year=2019/part-000.parquet",
+      "bytes": 4735433,
+      "sha256": "5f90ec34f15a9fd63e4a5b38a6837f32f8518bf53d881904701353e088c1d888",
+      "role": "published_input_byte_verification",
+      "dataset": "volume_lead_back_adjusted_v1"
+    },
+    {
+      "path": "data/curated/continuous/1m/product=ES/roll=volume_lead_v1/variant=back_adjusted/adjustment=prior_session_close_additive_v1/year=2020/part-000.parquet",
+      "bytes": 5319651,
+      "sha256": "6a99083dfd0e1b0fa6f4eec675479cad6f42ccc4fb7c47269257508b95c7e996",
+      "role": "published_input_byte_verification",
+      "dataset": "volume_lead_back_adjusted_v1"
+    },
+    {
+      "path": "data/curated/continuous/1m/product=ES/roll=volume_lead_v1/variant=back_adjusted/adjustment=prior_session_close_additive_v1/year=2021/part-000.parquet",
+      "bytes": 5108845,
+      "sha256": "be0dbd764f6426be8ff6f097332b230660c3b5b458845f33389d38071369d0b2",
+      "role": "published_input_byte_verification",
+      "dataset": "volume_lead_back_adjusted_v1"
+    },
+    {
+      "path": "data/curated/continuous/1m/product=ES/roll=volume_lead_v1/variant=back_adjusted/adjustment=prior_session_close_additive_v1/year=2022/part-000.parquet",
+      "bytes": 5568317,
+      "sha256": "5a99a2e615289083c5d479b2b1dccd609ffef3599714148f3ef32b8773db1230",
+      "role": "published_input_byte_verification",
+      "dataset": "volume_lead_back_adjusted_v1"
+    },
+    {
+      "path": "data/curated/continuous/1m/product=ES/roll=volume_lead_v1/variant=back_adjusted/adjustment=prior_session_close_additive_v1/year=2023/part-000.parquet",
+      "bytes": 5109673,
+      "sha256": "2b7ac9e5b43df67aaf857e52734a68bc386ea3d29ef28ac083fe0607ea41e87d",
+      "role": "published_input_byte_verification",
+      "dataset": "volume_lead_back_adjusted_v1"
+    },
+    {
+      "path": "data/curated/continuous/1m/product=ES/roll=volume_lead_v1/variant=back_adjusted/adjustment=prior_session_close_additive_v1/year=2024/part-000.parquet",
+      "bytes": 5178972,
+      "sha256": "1c9541a96189090ed4963e1e627fb41fb42c726dd8974515c42ab07c8bc9f67a",
+      "role": "published_input_byte_verification",
+      "dataset": "volume_lead_back_adjusted_v1"
+    },
+    {
+      "path": "data/curated/continuous/1m/product=ES/roll=volume_lead_v1/variant=back_adjusted/adjustment=prior_session_close_additive_v1/year=2025/part-000.parquet",
+      "bytes": 5443631,
+      "sha256": "7366966564a4bccd98b9d4d6967ed4ba829d32676f852adf7931fc2f60f49db4",
+      "role": "published_input_byte_verification",
+      "dataset": "volume_lead_back_adjusted_v1"
+    },
+    {
+      "path": "data/curated/continuous/1m/product=ES/roll=volume_lead_v1/variant=back_adjusted/adjustment=prior_session_close_additive_v1/year=2026/part-000.parquet",
+      "bytes": 3999596,
+      "sha256": "cf5bd924a7ee494ef8d52871220ed65196deea9a76758db17d3d5f3cd0ac1da5",
+      "role": "published_input_byte_verification",
+      "dataset": "volume_lead_back_adjusted_v1"
+    },
+    {
+      "path": "data/curated/continuous/1m/product=NQ/roll=volume_lead_v1/variant=back_adjusted/adjustment=prior_session_close_additive_v1/year=2010/part-000.parquet",
+      "bytes": 2403537,
+      "sha256": "1656504cc203272a334251c52c6d061365998fc008f1e14fe4da3a7fc2440202",
+      "role": "published_input_byte_verification",
+      "dataset": "volume_lead_back_adjusted_v1"
+    },
+    {
+      "path": "data/curated/continuous/1m/product=NQ/roll=volume_lead_v1/variant=back_adjusted/adjustment=prior_session_close_additive_v1/year=2011/part-000.parquet",
+      "bytes": 4509877,
+      "sha256": "e531db7e7d7c52324de829abe4f63959bb23ba5033ba0aef332fea9e8f52708a",
+      "role": "published_input_byte_verification",
+      "dataset": "volume_lead_back_adjusted_v1"
+    },
+    {
+      "path": "data/curated/continuous/1m/product=NQ/roll=volume_lead_v1/variant=back_adjusted/adjustment=prior_session_close_additive_v1/year=2012/part-000.parquet",
+      "bytes": 4364179,
+      "sha256": "2c0e6ef59e77dfcfe56ac1f22910fd324310f981fe9b14c7a963abdc36dd3db9",
+      "role": "published_input_byte_verification",
+      "dataset": "volume_lead_back_adjusted_v1"
+    },
+    {
+      "path": "data/curated/continuous/1m/product=NQ/roll=volume_lead_v1/variant=back_adjusted/adjustment=prior_session_close_additive_v1/year=2013/part-000.parquet",
+      "bytes": 4172626,
+      "sha256": "f109cdd6cd9d08862f717561ce94154bbc05d17fe286a268880884c89e85171e",
+      "role": "published_input_byte_verification",
+      "dataset": "volume_lead_back_adjusted_v1"
+    },
+    {
+      "path": "data/curated/continuous/1m/product=NQ/roll=volume_lead_v1/variant=back_adjusted/adjustment=prior_session_close_additive_v1/year=2014/part-000.parquet",
+      "bytes": 4353954,
+      "sha256": "31da00e5acd8ab68c8866d066bf2e56e5f222abb97c743fa91a70cd1637e5417",
+      "role": "published_input_byte_verification",
+      "dataset": "volume_lead_back_adjusted_v1"
+    },
+    {
+      "path": "data/curated/continuous/1m/product=NQ/roll=volume_lead_v1/variant=back_adjusted/adjustment=prior_session_close_additive_v1/year=2015/part-000.parquet",
+      "bytes": 4839443,
+      "sha256": "daa388f08f618c2c342abee6f7b806ff5b3e90adbdd9ad41cd2f76a73b4cb074",
+      "role": "published_input_byte_verification",
+      "dataset": "volume_lead_back_adjusted_v1"
+    },
+    {
+      "path": "data/curated/continuous/1m/product=NQ/roll=volume_lead_v1/variant=back_adjusted/adjustment=prior_session_close_additive_v1/year=2016/part-000.parquet",
+      "bytes": 4929424,
+      "sha256": "962bac444a8ae190f5a0f20ef11a00f6494a4148f1a2d1be3eb18f046da242b5",
+      "role": "published_input_byte_verification",
+      "dataset": "volume_lead_back_adjusted_v1"
+    },
+    {
+      "path": "data/curated/continuous/1m/product=NQ/roll=volume_lead_v1/variant=back_adjusted/adjustment=prior_session_close_additive_v1/year=2017/part-000.parquet",
+      "bytes": 4819604,
+      "sha256": "b30821ab6a7e3b33093664f05b020dc6d59984f0846aa328cffa18a92613028c",
+      "role": "published_input_byte_verification",
+      "dataset": "volume_lead_back_adjusted_v1"
+    },
+    {
+      "path": "data/curated/continuous/1m/product=NQ/roll=volume_lead_v1/variant=back_adjusted/adjustment=prior_session_close_additive_v1/year=2018/part-000.parquet",
+      "bytes": 5666261,
+      "sha256": "b4abf46e42fa0d8ec4a6befdecac385ab83d6fb78944b827f1e914cb375f08d3",
+      "role": "published_input_byte_verification",
+      "dataset": "volume_lead_back_adjusted_v1"
+    },
+    {
+      "path": "data/curated/continuous/1m/product=NQ/roll=volume_lead_v1/variant=back_adjusted/adjustment=prior_session_close_additive_v1/year=2019/part-000.parquet",
+      "bytes": 5562432,
+      "sha256": "2401850aa7acc69099c89cf4e7b2cdc9987a8743bc2458098330e168c82a3b8e",
+      "role": "published_input_byte_verification",
+      "dataset": "volume_lead_back_adjusted_v1"
+    },
+    {
+      "path": "data/curated/continuous/1m/product=NQ/roll=volume_lead_v1/variant=back_adjusted/adjustment=prior_session_close_additive_v1/year=2020/part-000.parquet",
+      "bytes": 6429042,
+      "sha256": "5ae28b8e7b11ab900cb00dea9cf696a6bb7e03efb6580570d05a9dd3f04fb704",
+      "role": "published_input_byte_verification",
+      "dataset": "volume_lead_back_adjusted_v1"
+    },
+    {
+      "path": "data/curated/continuous/1m/product=NQ/roll=volume_lead_v1/variant=back_adjusted/adjustment=prior_session_close_additive_v1/year=2021/part-000.parquet",
+      "bytes": 6357476,
+      "sha256": "d71d546960c3e1c6a81ebaecf690c1b94cceee1ba6da0360689434a1d0ca26d6",
+      "role": "published_input_byte_verification",
+      "dataset": "volume_lead_back_adjusted_v1"
+    },
+    {
+      "path": "data/curated/continuous/1m/product=NQ/roll=volume_lead_v1/variant=back_adjusted/adjustment=prior_session_close_additive_v1/year=2022/part-000.parquet",
+      "bytes": 6937467,
+      "sha256": "e3811c2909f963679970eec306a63fb4453f69d29ddb07200193f1fdb45844cb",
+      "role": "published_input_byte_verification",
+      "dataset": "volume_lead_back_adjusted_v1"
+    },
+    {
+      "path": "data/curated/continuous/1m/product=NQ/roll=volume_lead_v1/variant=back_adjusted/adjustment=prior_session_close_additive_v1/year=2023/part-000.parquet",
+      "bytes": 6332876,
+      "sha256": "a251773a941c74e8525080591f4f52d0ff89dae4c087a508b209c86801c51e72",
+      "role": "published_input_byte_verification",
+      "dataset": "volume_lead_back_adjusted_v1"
+    },
+    {
+      "path": "data/curated/continuous/1m/product=NQ/roll=volume_lead_v1/variant=back_adjusted/adjustment=prior_session_close_additive_v1/year=2024/part-000.parquet",
+      "bytes": 6584599,
+      "sha256": "84521befa7113de13aa6a64a1c2cf21b85456bdb04e8770cbe0446a05ff91027",
+      "role": "published_input_byte_verification",
+      "dataset": "volume_lead_back_adjusted_v1"
+    },
+    {
+      "path": "data/curated/continuous/1m/product=NQ/roll=volume_lead_v1/variant=back_adjusted/adjustment=prior_session_close_additive_v1/year=2025/part-000.parquet",
+      "bytes": 6942445,
+      "sha256": "9b20279dd402cd820e0a3a4939f6db882b05068db0071f0ccb9637fb3d78bab1",
+      "role": "published_input_byte_verification",
+      "dataset": "volume_lead_back_adjusted_v1"
+    },
+    {
+      "path": "data/curated/continuous/1m/product=NQ/roll=volume_lead_v1/variant=back_adjusted/adjustment=prior_session_close_additive_v1/year=2026/part-000.parquet",
+      "bytes": 5342776,
+      "sha256": "987b53376ebaef37065d61d8a0048f8c09d6f1276c1332db0f92c4e266f65044",
+      "role": "published_input_byte_verification",
+      "dataset": "volume_lead_back_adjusted_v1"
+    },
+    {
+      "path": "data/curated/continuous/1m/product=GC/roll=volume_lead_v1/variant=back_adjusted/adjustment=prior_session_close_additive_v1/year=2010/part-000.parquet",
+      "bytes": 2534050,
+      "sha256": "45b0b8a7ccde8d3dded484264d7057b60d0d7518b7ebefecd640ca5793d20db8",
+      "role": "published_input_byte_verification",
+      "dataset": "volume_lead_back_adjusted_v1"
+    },
+    {
+      "path": "data/curated/continuous/1m/product=GC/roll=volume_lead_v1/variant=back_adjusted/adjustment=prior_session_close_additive_v1/year=2011/part-000.parquet",
+      "bytes": 4803074,
+      "sha256": "10b6aac01cd65de5f15ce87ccd8b066f4f3f19163a77b207be4ccf01fcf576ea",
+      "role": "published_input_byte_verification",
+      "dataset": "volume_lead_back_adjusted_v1"
+    },
+    {
+      "path": "data/curated/continuous/1m/product=GC/roll=volume_lead_v1/variant=back_adjusted/adjustment=prior_session_close_additive_v1/year=2012/part-000.parquet",
+      "bytes": 4541805,
+      "sha256": "f36a7961c74900352205679a852a40c5139c034a1bbbf2fea0d8acb584eeb1f8",
+      "role": "published_input_byte_verification",
+      "dataset": "volume_lead_back_adjusted_v1"
+    },
+    {
+      "path": "data/curated/continuous/1m/product=GC/roll=volume_lead_v1/variant=back_adjusted/adjustment=prior_session_close_additive_v1/year=2013/part-000.parquet",
+      "bytes": 4555574,
+      "sha256": "82117d0ab3c1fa0ecf2a9319560bace0e8bcd0bee798d3449d677db4a6b0ecb1",
+      "role": "published_input_byte_verification",
+      "dataset": "volume_lead_back_adjusted_v1"
+    },
+    {
+      "path": "data/curated/continuous/1m/product=GC/roll=volume_lead_v1/variant=back_adjusted/adjustment=prior_session_close_additive_v1/year=2014/part-000.parquet",
+      "bytes": 4234746,
+      "sha256": "2d9ac7541ada316a10abf78b2751fdf52ecd330b88e47aaf19c0027193422c0a",
+      "role": "published_input_byte_verification",
+      "dataset": "volume_lead_back_adjusted_v1"
+    },
+    {
+      "path": "data/curated/continuous/1m/product=GC/roll=volume_lead_v1/variant=back_adjusted/adjustment=prior_session_close_additive_v1/year=2015/part-000.parquet",
+      "bytes": 4312293,
+      "sha256": "dcdf17b1d8a2a6e64aa4a72aaae0eed453b9b24169f9eba4c56e12b3f8e6e788",
+      "role": "published_input_byte_verification",
+      "dataset": "volume_lead_back_adjusted_v1"
+    },
+    {
+      "path": "data/curated/continuous/1m/product=GC/roll=volume_lead_v1/variant=back_adjusted/adjustment=prior_session_close_additive_v1/year=2016/part-000.parquet",
+      "bytes": 4506320,
+      "sha256": "76a534ce9acce2a1448bc3504f52e0e1e783db23ae6a9dd76cf95d6e6c0307fe",
+      "role": "published_input_byte_verification",
+      "dataset": "volume_lead_back_adjusted_v1"
+    },
+    {
+      "path": "data/curated/continuous/1m/product=GC/roll=volume_lead_v1/variant=back_adjusted/adjustment=prior_session_close_additive_v1/year=2017/part-000.parquet",
+      "bytes": 4308666,
+      "sha256": "a804abec0ec33c1b2a90c937d9b4c24b0e98bbceb897b9710b3edb66e1547702",
+      "role": "published_input_byte_verification",
+      "dataset": "volume_lead_back_adjusted_v1"
+    },
+    {
+      "path": "data/curated/continuous/1m/product=GC/roll=volume_lead_v1/variant=back_adjusted/adjustment=prior_session_close_additive_v1/year=2018/part-000.parquet",
+      "bytes": 4317464,
+      "sha256": "db2396aa36e3f7d459a182e07404051720189448c2566764965da7507aeaabe0",
+      "role": "published_input_byte_verification",
+      "dataset": "volume_lead_back_adjusted_v1"
+    },
+    {
+      "path": "data/curated/continuous/1m/product=GC/roll=volume_lead_v1/variant=back_adjusted/adjustment=prior_session_close_additive_v1/year=2019/part-000.parquet",
+      "bytes": 4416670,
+      "sha256": "8577e5073697e84860444da4bac6c3a093e3822f8faa51e2d1d59f36ac2ab898",
+      "role": "published_input_byte_verification",
+      "dataset": "volume_lead_back_adjusted_v1"
+    },
+    {
+      "path": "data/curated/continuous/1m/product=GC/roll=volume_lead_v1/variant=back_adjusted/adjustment=prior_session_close_additive_v1/year=2020/part-000.parquet",
+      "bytes": 4937152,
+      "sha256": "0746c882aca4e5f82118844829c9f62ef04a052e095ac57b0c0ee4d9e14375ff",
+      "role": "published_input_byte_verification",
+      "dataset": "volume_lead_back_adjusted_v1"
+    },
+    {
+      "path": "data/curated/continuous/1m/product=GC/roll=volume_lead_v1/variant=back_adjusted/adjustment=prior_session_close_additive_v1/year=2021/part-000.parquet",
+      "bytes": 4682363,
+      "sha256": "0c7a7a6f13dc1ad7c2d8c9721e1335676b22da293828aa3d1e3a71dd713c11e7",
+      "role": "published_input_byte_verification",
+      "dataset": "volume_lead_back_adjusted_v1"
+    },
+    {
+      "path": "data/curated/continuous/1m/product=GC/roll=volume_lead_v1/variant=back_adjusted/adjustment=prior_session_close_additive_v1/year=2022/part-000.parquet",
+      "bytes": 4764505,
+      "sha256": "24a436e15ee28e69e2806f34e78bccb5c498ee1cf277976e4e25e2a443f79a2a",
+      "role": "published_input_byte_verification",
+      "dataset": "volume_lead_back_adjusted_v1"
+    },
+    {
+      "path": "data/curated/continuous/1m/product=GC/roll=volume_lead_v1/variant=back_adjusted/adjustment=prior_session_close_additive_v1/year=2023/part-000.parquet",
+      "bytes": 4649098,
+      "sha256": "3be173fd8b1c30b379bdd8255f1352bef900163a966f282590274acc095e8702",
+      "role": "published_input_byte_verification",
+      "dataset": "volume_lead_back_adjusted_v1"
+    },
+    {
+      "path": "data/curated/continuous/1m/product=GC/roll=volume_lead_v1/variant=back_adjusted/adjustment=prior_session_close_additive_v1/year=2024/part-000.parquet",
+      "bytes": 4961525,
+      "sha256": "698e3b11553c8c097732855f6d93b3928d6dcb4e3cd79274162ee7243fe19bec",
+      "role": "published_input_byte_verification",
+      "dataset": "volume_lead_back_adjusted_v1"
+    },
+    {
+      "path": "data/curated/continuous/1m/product=GC/roll=volume_lead_v1/variant=back_adjusted/adjustment=prior_session_close_additive_v1/year=2025/part-000.parquet",
+      "bytes": 5484363,
+      "sha256": "3f0ea9f7345855867935f3ffeba93f2c38fbeecb73653e87f1215de7459f7f15",
+      "role": "published_input_byte_verification",
+      "dataset": "volume_lead_back_adjusted_v1"
+    },
+    {
+      "path": "data/curated/continuous/1m/product=GC/roll=volume_lead_v1/variant=back_adjusted/adjustment=prior_session_close_additive_v1/year=2026/part-000.parquet",
+      "bytes": 4391953,
+      "sha256": "91ba4175ee84038700bb401cd8c7f9b6b42526db951abff21bab506d8a4b9ec4",
+      "role": "published_input_byte_verification",
+      "dataset": "volume_lead_back_adjusted_v1"
+    },
+    {
+      "path": "data/curated/continuous/1m/roll=volume_lead_v1/adjustment=prior_session_close_additive_v1/adjustment_schedule.parquet",
+      "bytes": 22571,
+      "sha256": "52aeef2bd1e04aadad0a1eb2efdd81165b4c4880025c432df80870955be64027",
+      "role": "published_input_byte_verification",
+      "dataset": "volume_lead_back_adjusted_v1"
+    },
+    {
+      "path": "data/curated/continuous/1m/roll=volume_lead_v1/adjustment=prior_session_close_additive_v1/adjustment_schedule.csv",
+      "bytes": 62507,
+      "sha256": "ecb3ef462fc054dcae21e4c99bd70183f90387ab707b327d72373cbdad714b82",
+      "role": "published_input_byte_verification",
+      "dataset": "volume_lead_back_adjusted_v1"
+    },
+    {
+      "path": "data/curated/continuous/1m/roll=volume_lead_v1/adjustment=prior_session_close_additive_v1/adjustment_factors.parquet",
+      "bytes": 7561,
+      "sha256": "7682affe39711fabc09bb1424253d6a576457b54f1e869d35d393bf2db542b0b",
+      "role": "published_input_byte_verification",
+      "dataset": "volume_lead_back_adjusted_v1"
+    },
+    {
+      "path": "data/curated/continuous/1m/roll=volume_lead_v1/adjustment=prior_session_close_additive_v1/adjustment_factors.csv",
+      "bytes": 21094,
+      "sha256": "1e983682e05151fa40cc925457589210e57aa299e53903104adbf44e73df01da",
+      "role": "published_input_byte_verification",
+      "dataset": "volume_lead_back_adjusted_v1"
+    },
+    {
+      "path": "data/features/bars/5m/feature_set=dridr_ohlcv_5m/version=1.0.0/product=ES/year=2010/part-000.parquet",
+      "bytes": 606100,
+      "sha256": "2bc29b71996001f6139138fe59c6f8f1e761980925a3a3ac752f5a0b8cc113e4",
+      "role": "published_input_byte_verification",
+      "dataset": "tv_indicators__dridr_ohlcv_5m__v1"
+    },
+    {
+      "path": "data/features/bars/5m/feature_set=dridr_ohlcv_5m/version=1.0.0/product=ES/year=2011/part-000.parquet",
+      "bytes": 1077949,
+      "sha256": "042df26a6f6c699423706acbba0d957eb0beccd1208ed6f344f6a7931797885d",
+      "role": "published_input_byte_verification",
+      "dataset": "tv_indicators__dridr_ohlcv_5m__v1"
+    },
+    {
+      "path": "data/features/bars/5m/feature_set=dridr_ohlcv_5m/version=1.0.0/product=ES/year=2012/part-000.parquet",
+      "bytes": 1034370,
+      "sha256": "683b54570b55263824f49d44bd05c9e0620a1288a978a509aa6b997c27377069",
+      "role": "published_input_byte_verification",
+      "dataset": "tv_indicators__dridr_ohlcv_5m__v1"
+    },
+    {
+      "path": "data/features/bars/5m/feature_set=dridr_ohlcv_5m/version=1.0.0/product=ES/year=2013/part-000.parquet",
+      "bytes": 1007497,
+      "sha256": "c0fa95e5fe686f76e9dc19f947848201fb62b827a690c24c00b8c6feba1e4a62",
+      "role": "published_input_byte_verification",
+      "dataset": "tv_indicators__dridr_ohlcv_5m__v1"
+    },
+    {
+      "path": "data/features/bars/5m/feature_set=dridr_ohlcv_5m/version=1.0.0/product=ES/year=2014/part-000.parquet",
+      "bytes": 1009033,
+      "sha256": "b979759b80148117cb9ec2f9a8bdf6d5a4f048b88316d1f59be2a82972aa0213",
+      "role": "published_input_byte_verification",
+      "dataset": "tv_indicators__dridr_ohlcv_5m__v1"
+    },
+    {
+      "path": "data/features/bars/5m/feature_set=dridr_ohlcv_5m/version=1.0.0/product=ES/year=2015/part-000.parquet",
+      "bytes": 1082800,
+      "sha256": "4b8b1e11fde8aa6c36cefc62e495679f82706c4b4753731ae9f7809288278b72",
+      "role": "published_input_byte_verification",
+      "dataset": "tv_indicators__dridr_ohlcv_5m__v1"
+    },
+    {
+      "path": "data/features/bars/5m/feature_set=dridr_ohlcv_5m/version=1.0.0/product=ES/year=2016/part-000.parquet",
+      "bytes": 1069373,
+      "sha256": "0c8ed172e3ff91082aae71353761f71136d00d8da786a2b506ffc64949aaef6f",
+      "role": "published_input_byte_verification",
+      "dataset": "tv_indicators__dridr_ohlcv_5m__v1"
+    },
+    {
+      "path": "data/features/bars/5m/feature_set=dridr_ohlcv_5m/version=1.0.0/product=ES/year=2017/part-000.parquet",
+      "bytes": 1011290,
+      "sha256": "11e166bf43037160884756bdf7e286178b569ea3c2eb8846a7c05898e1c3c6bb",
+      "role": "published_input_byte_verification",
+      "dataset": "tv_indicators__dridr_ohlcv_5m__v1"
+    },
+    {
+      "path": "data/features/bars/5m/feature_set=dridr_ohlcv_5m/version=1.0.0/product=ES/year=2018/part-000.parquet",
+      "bytes": 1138717,
+      "sha256": "5ad887fefb95bc882bc06dfb5746e61ee022c9d7742f82c878d7b629ab63aebb",
+      "role": "published_input_byte_verification",
+      "dataset": "tv_indicators__dridr_ohlcv_5m__v1"
+    },
+    {
+      "path": "data/features/bars/5m/feature_set=dridr_ohlcv_5m/version=1.0.0/product=ES/year=2019/part-000.parquet",
+      "bytes": 1116624,
+      "sha256": "31577b760831c41015bd0799aea367e3fe68726f7189a0870b715c882e38ee03",
+      "role": "published_input_byte_verification",
+      "dataset": "tv_indicators__dridr_ohlcv_5m__v1"
+    },
+    {
+      "path": "data/features/bars/5m/feature_set=dridr_ohlcv_5m/version=1.0.0/product=ES/year=2020/part-000.parquet",
+      "bytes": 1247493,
+      "sha256": "3a97819e7c34c91ffb3e3f3e869cc7f2b14470b863046bf2fb1b7104004ddf45",
+      "role": "published_input_byte_verification",
+      "dataset": "tv_indicators__dridr_ohlcv_5m__v1"
+    },
+    {
+      "path": "data/features/bars/5m/feature_set=dridr_ohlcv_5m/version=1.0.0/product=ES/year=2021/part-000.parquet",
+      "bytes": 1188886,
+      "sha256": "966cf121186ab85c4981c2285b2aafd72613cd09de2b50ddf5f8289781af7e1c",
+      "role": "published_input_byte_verification",
+      "dataset": "tv_indicators__dridr_ohlcv_5m__v1"
+    },
+    {
+      "path": "data/features/bars/5m/feature_set=dridr_ohlcv_5m/version=1.0.0/product=ES/year=2022/part-000.parquet",
+      "bytes": 1307100,
+      "sha256": "ed43d78fd0af3d8d0281063f0a2b10c23319a695f92a824bf8ed4c98d7977e05",
+      "role": "published_input_byte_verification",
+      "dataset": "tv_indicators__dridr_ohlcv_5m__v1"
+    },
+    {
+      "path": "data/features/bars/5m/feature_set=dridr_ohlcv_5m/version=1.0.0/product=ES/year=2023/part-000.parquet",
+      "bytes": 1196987,
+      "sha256": "feed83d9add5407c31f49fbbfc61e998c6aafe1ddb9e1bd4592fa39d448b4e28",
+      "role": "published_input_byte_verification",
+      "dataset": "tv_indicators__dridr_ohlcv_5m__v1"
+    },
+    {
+      "path": "data/features/bars/5m/feature_set=dridr_ohlcv_5m/version=1.0.0/product=ES/year=2024/part-000.parquet",
+      "bytes": 1229995,
+      "sha256": "8f1594de0776f1391159c0fb0df3574d62dfdaa62f0deb8f20faf0184bde10c8",
+      "role": "published_input_byte_verification",
+      "dataset": "tv_indicators__dridr_ohlcv_5m__v1"
+    },
+    {
+      "path": "data/features/bars/5m/feature_set=dridr_ohlcv_5m/version=1.0.0/product=ES/year=2025/part-000.parquet",
+      "bytes": 1296797,
+      "sha256": "d57d0ada6fb065d2624b906ec6dbc1c69f88621daed09c48a6494ff4cdde9e95",
+      "role": "published_input_byte_verification",
+      "dataset": "tv_indicators__dridr_ohlcv_5m__v1"
+    },
+    {
+      "path": "data/features/bars/5m/feature_set=dridr_ohlcv_5m/version=1.0.0/product=ES/year=2026/part-000.parquet",
+      "bytes": 929658,
+      "sha256": "2601163f6de86195ea5a70006141284b7ccb45027d6d448671629409f5b7ad72",
+      "role": "published_input_byte_verification",
+      "dataset": "tv_indicators__dridr_ohlcv_5m__v1"
+    },
+    {
+      "path": "data/features/bars/5m/feature_set=dridr_ohlcv_5m/version=1.0.0/product=GC/year=2010/part-000.parquet",
+      "bytes": 633426,
+      "sha256": "ebccf750c1b4c4883f361d5d921854b429e7909a79ccd9917dacefca7f4935f0",
+      "role": "published_input_byte_verification",
+      "dataset": "tv_indicators__dridr_ohlcv_5m__v1"
+    },
+    {
+      "path": "data/features/bars/5m/feature_set=dridr_ohlcv_5m/version=1.0.0/product=GC/year=2011/part-000.parquet",
+      "bytes": 1180881,
+      "sha256": "85a4aa2ca5c70463db058e74b476dc673e956223217fa89058c83c0b10379192",
+      "role": "published_input_byte_verification",
+      "dataset": "tv_indicators__dridr_ohlcv_5m__v1"
+    },
+    {
+      "path": "data/features/bars/5m/feature_set=dridr_ohlcv_5m/version=1.0.0/product=GC/year=2012/part-000.parquet",
+      "bytes": 1115747,
+      "sha256": "6ef90912f343777157d09ec580186d178300e7c5c848c3f1837adcc3d61cf979",
+      "role": "published_input_byte_verification",
+      "dataset": "tv_indicators__dridr_ohlcv_5m__v1"
+    },
+    {
+      "path": "data/features/bars/5m/feature_set=dridr_ohlcv_5m/version=1.0.0/product=GC/year=2013/part-000.parquet",
+      "bytes": 1120902,
+      "sha256": "4e56694497c72b9301488883d7a29cac61f69215a2b62556efbe61725e2672b7",
+      "role": "published_input_byte_verification",
+      "dataset": "tv_indicators__dridr_ohlcv_5m__v1"
+    },
+    {
+      "path": "data/features/bars/5m/feature_set=dridr_ohlcv_5m/version=1.0.0/product=GC/year=2014/part-000.parquet",
+      "bytes": 1049488,
+      "sha256": "e86bdeb7d5a4e251ce8f252948ff0b854ef5a8b9ab3308d19120d61da6862086",
+      "role": "published_input_byte_verification",
+      "dataset": "tv_indicators__dridr_ohlcv_5m__v1"
+    },
+    {
+      "path": "data/features/bars/5m/feature_set=dridr_ohlcv_5m/version=1.0.0/product=GC/year=2015/part-000.parquet",
+      "bytes": 1066289,
+      "sha256": "a55f8990851798ab63f8cef46d213be48962fe9e06863c7028ee700a767ebc97",
+      "role": "published_input_byte_verification",
+      "dataset": "tv_indicators__dridr_ohlcv_5m__v1"
+    },
+    {
+      "path": "data/features/bars/5m/feature_set=dridr_ohlcv_5m/version=1.0.0/product=GC/year=2016/part-000.parquet",
+      "bytes": 1091259,
+      "sha256": "3ad068b8f226bbadd9bced3fb696c15b50a2be81d0daabdcd43496096451693d",
+      "role": "published_input_byte_verification",
+      "dataset": "tv_indicators__dridr_ohlcv_5m__v1"
+    },
+    {
+      "path": "data/features/bars/5m/feature_set=dridr_ohlcv_5m/version=1.0.0/product=GC/year=2017/part-000.parquet",
+      "bytes": 1030480,
+      "sha256": "e6523429350292ff7b21b5c57fdb1acc6bbb994f355a36530a024d4f199280af",
+      "role": "published_input_byte_verification",
+      "dataset": "tv_indicators__dridr_ohlcv_5m__v1"
+    },
+    {
+      "path": "data/features/bars/5m/feature_set=dridr_ohlcv_5m/version=1.0.0/product=GC/year=2018/part-000.parquet",
+      "bytes": 1023958,
+      "sha256": "8e0e37d28f64b5eead4b34b6f9832514a5763e8486e940d5837387b132a5d069",
+      "role": "published_input_byte_verification",
+      "dataset": "tv_indicators__dridr_ohlcv_5m__v1"
+    },
+    {
+      "path": "data/features/bars/5m/feature_set=dridr_ohlcv_5m/version=1.0.0/product=GC/year=2019/part-000.parquet",
+      "bytes": 1047644,
+      "sha256": "5d8092691d3afd3c20f6e89e5241642c83e79da779716eb6eccf2cf850c9b24b",
+      "role": "published_input_byte_verification",
+      "dataset": "tv_indicators__dridr_ohlcv_5m__v1"
+    },
+    {
+      "path": "data/features/bars/5m/feature_set=dridr_ohlcv_5m/version=1.0.0/product=GC/year=2020/part-000.parquet",
+      "bytes": 1173516,
+      "sha256": "0da377c70efe5680ecf981d3585cf0eb87dacf2b600dc4fb9854abffc1205a10",
+      "role": "published_input_byte_verification",
+      "dataset": "tv_indicators__dridr_ohlcv_5m__v1"
+    },
+    {
+      "path": "data/features/bars/5m/feature_set=dridr_ohlcv_5m/version=1.0.0/product=GC/year=2021/part-000.parquet",
+      "bytes": 1115507,
+      "sha256": "d63b7ebe203a310ffe46f12bbce9f2ad442f2640821b1d4c63f4a96df631ba25",
+      "role": "published_input_byte_verification",
+      "dataset": "tv_indicators__dridr_ohlcv_5m__v1"
+    },
+    {
+      "path": "data/features/bars/5m/feature_set=dridr_ohlcv_5m/version=1.0.0/product=GC/year=2022/part-000.parquet",
+      "bytes": 1147432,
+      "sha256": "c35b2054378fe7d79c5fe5d8fcdb8dc07981cbd7e58eb77af1ba81cae48b4804",
+      "role": "published_input_byte_verification",
+      "dataset": "tv_indicators__dridr_ohlcv_5m__v1"
+    },
+    {
+      "path": "data/features/bars/5m/feature_set=dridr_ohlcv_5m/version=1.0.0/product=GC/year=2023/part-000.parquet",
+      "bytes": 1122279,
+      "sha256": "437508b39411e029a3d7820730100d401f596553a3689a7c87a39d2d847fd1db",
+      "role": "published_input_byte_verification",
+      "dataset": "tv_indicators__dridr_ohlcv_5m__v1"
+    },
+    {
+      "path": "data/features/bars/5m/feature_set=dridr_ohlcv_5m/version=1.0.0/product=GC/year=2024/part-000.parquet",
+      "bytes": 1198881,
+      "sha256": "e6202e65c6c82ae33ae182eace55421cb487809c09b85b821d7830422087b5bc",
+      "role": "published_input_byte_verification",
+      "dataset": "tv_indicators__dridr_ohlcv_5m__v1"
+    },
+    {
+      "path": "data/features/bars/5m/feature_set=dridr_ohlcv_5m/version=1.0.0/product=GC/year=2025/part-000.parquet",
+      "bytes": 1340990,
+      "sha256": "38d6ffceee42fad72dbf3536b8db2e1bd50b1e661267da427faf49e8592cb812",
+      "role": "published_input_byte_verification",
+      "dataset": "tv_indicators__dridr_ohlcv_5m__v1"
+    },
+    {
+      "path": "data/features/bars/5m/feature_set=dridr_ohlcv_5m/version=1.0.0/product=GC/year=2026/part-000.parquet",
+      "bytes": 1075231,
+      "sha256": "f5ac28260ef13cb974cca7b9c61d8f259a73d750db8af441e1827dd8df4ae3c4",
+      "role": "published_input_byte_verification",
+      "dataset": "tv_indicators__dridr_ohlcv_5m__v1"
+    },
+    {
+      "path": "data/features/bars/5m/feature_set=dridr_ohlcv_5m/version=1.0.0/product=NQ/year=2010/part-000.parquet",
+      "bytes": 648717,
+      "sha256": "724383910a095d93aa8c7adf1e8806f56329791f02fe4ef5670f87611e3b730c",
+      "role": "published_input_byte_verification",
+      "dataset": "tv_indicators__dridr_ohlcv_5m__v1"
+    },
+    {
+      "path": "data/features/bars/5m/feature_set=dridr_ohlcv_5m/version=1.0.0/product=NQ/year=2011/part-000.parquet",
+      "bytes": 1161256,
+      "sha256": "f18f57396934d0ea57468e23772b055186dfc7e6c2decc0e562293ceabe86880",
+      "role": "published_input_byte_verification",
+      "dataset": "tv_indicators__dridr_ohlcv_5m__v1"
+    },
+    {
+      "path": "data/features/bars/5m/feature_set=dridr_ohlcv_5m/version=1.0.0/product=NQ/year=2012/part-000.parquet",
+      "bytes": 1135682,
+      "sha256": "70aedbef24014900a491251d0fbf20f2d8b9034f79a031e374209f64844b7462",
+      "role": "published_input_byte_verification",
+      "dataset": "tv_indicators__dridr_ohlcv_5m__v1"
+    },
+    {
+      "path": "data/features/bars/5m/feature_set=dridr_ohlcv_5m/version=1.0.0/product=NQ/year=2013/part-000.parquet",
+      "bytes": 1095248,
+      "sha256": "6bc4fbbefaf6b98691f1db38bdddb8ad1c4a87a3d7055771f60515ace358adf1",
+      "role": "published_input_byte_verification",
+      "dataset": "tv_indicators__dridr_ohlcv_5m__v1"
+    },
+    {
+      "path": "data/features/bars/5m/feature_set=dridr_ohlcv_5m/version=1.0.0/product=NQ/year=2014/part-000.parquet",
+      "bytes": 1129600,
+      "sha256": "7892daeaf00097cf6cd9ee783fb5c96a0b5b37a9dda188576d4991d8b4709614",
+      "role": "published_input_byte_verification",
+      "dataset": "tv_indicators__dridr_ohlcv_5m__v1"
+    },
+    {
+      "path": "data/features/bars/5m/feature_set=dridr_ohlcv_5m/version=1.0.0/product=NQ/year=2015/part-000.parquet",
+      "bytes": 1220233,
+      "sha256": "a9845356b19412207d7785624060156de0e0bf79b2702cf745757d5050df5270",
+      "role": "published_input_byte_verification",
+      "dataset": "tv_indicators__dridr_ohlcv_5m__v1"
+    },
+    {
+      "path": "data/features/bars/5m/feature_set=dridr_ohlcv_5m/version=1.0.0/product=NQ/year=2016/part-000.parquet",
+      "bytes": 1212174,
+      "sha256": "76d47a3f3245e2674b2c0e6bc8e2cf4a91017a9132a33ba0f6437599f9780021",
+      "role": "published_input_byte_verification",
+      "dataset": "tv_indicators__dridr_ohlcv_5m__v1"
+    },
+    {
+      "path": "data/features/bars/5m/feature_set=dridr_ohlcv_5m/version=1.0.0/product=NQ/year=2017/part-000.parquet",
+      "bytes": 1178519,
+      "sha256": "6db91ddd49d7085026264296e4ae06561dd00df1fd6c4e06326a949c23633efa",
+      "role": "published_input_byte_verification",
+      "dataset": "tv_indicators__dridr_ohlcv_5m__v1"
+    },
+    {
+      "path": "data/features/bars/5m/feature_set=dridr_ohlcv_5m/version=1.0.0/product=NQ/year=2018/part-000.parquet",
+      "bytes": 1367739,
+      "sha256": "0a9cb7cf383065850c69d128c2ba357bef06eedf089c69f2b5375e7397414643",
+      "role": "published_input_byte_verification",
+      "dataset": "tv_indicators__dridr_ohlcv_5m__v1"
+    },
+    {
+      "path": "data/features/bars/5m/feature_set=dridr_ohlcv_5m/version=1.0.0/product=NQ/year=2019/part-000.parquet",
+      "bytes": 1339705,
+      "sha256": "c83391150f012fa4f48238f17ea06d46a666fb53285520e40f7d3cfa9e3b92ab",
+      "role": "published_input_byte_verification",
+      "dataset": "tv_indicators__dridr_ohlcv_5m__v1"
+    },
+    {
+      "path": "data/features/bars/5m/feature_set=dridr_ohlcv_5m/version=1.0.0/product=NQ/year=2020/part-000.parquet",
+      "bytes": 1584841,
+      "sha256": "bec51f64a8341eed84a1f9202215d78a6f6dc50ee2ec9e4c99b555d8af00de02",
+      "role": "published_input_byte_verification",
+      "dataset": "tv_indicators__dridr_ohlcv_5m__v1"
+    },
+    {
+      "path": "data/features/bars/5m/feature_set=dridr_ohlcv_5m/version=1.0.0/product=NQ/year=2021/part-000.parquet",
+      "bytes": 1546714,
+      "sha256": "951233592020123b687581eea470eb0ffce1660572632bbe7deeb6a3d3f76acc",
+      "role": "published_input_byte_verification",
+      "dataset": "tv_indicators__dridr_ohlcv_5m__v1"
+    },
+    {
+      "path": "data/features/bars/5m/feature_set=dridr_ohlcv_5m/version=1.0.0/product=NQ/year=2022/part-000.parquet",
+      "bytes": 1703548,
+      "sha256": "b2b9874f396925e60f2d2b42ac5fe660ad600ce0da73ce71c653183e0daee9b9",
+      "role": "published_input_byte_verification",
+      "dataset": "tv_indicators__dridr_ohlcv_5m__v1"
+    },
+    {
+      "path": "data/features/bars/5m/feature_set=dridr_ohlcv_5m/version=1.0.0/product=NQ/year=2023/part-000.parquet",
+      "bytes": 1561942,
+      "sha256": "d60fae15ed1bf5b66b17e47e85896e4c1c2945b73a6b946055413c70c37663a2",
+      "role": "published_input_byte_verification",
+      "dataset": "tv_indicators__dridr_ohlcv_5m__v1"
+    },
+    {
+      "path": "data/features/bars/5m/feature_set=dridr_ohlcv_5m/version=1.0.0/product=NQ/year=2024/part-000.parquet",
+      "bytes": 1613809,
+      "sha256": "c0739440be9a0522d818b3fdaecb60a14eb6cd46dace7bb40167359a0c8c1dca",
+      "role": "published_input_byte_verification",
+      "dataset": "tv_indicators__dridr_ohlcv_5m__v1"
+    },
+    {
+      "path": "data/features/bars/5m/feature_set=dridr_ohlcv_5m/version=1.0.0/product=NQ/year=2025/part-000.parquet",
+      "bytes": 1703374,
+      "sha256": "ba0e4f686033c4667905b3e7cec7a2d05ed719e5ec7d917789b1627914f0af77",
+      "role": "published_input_byte_verification",
+      "dataset": "tv_indicators__dridr_ohlcv_5m__v1"
+    },
+    {
+      "path": "data/features/bars/5m/feature_set=dridr_ohlcv_5m/version=1.0.0/product=NQ/year=2026/part-000.parquet",
+      "bytes": 1279156,
+      "sha256": "b5c59bbf6e4a5d6a0112d23b3d6f7525a41b3a5a2b74cc2e2590d14e02a934f8",
+      "role": "published_input_byte_verification",
+      "dataset": "tv_indicators__dridr_ohlcv_5m__v1"
+    },
+    {
+      "path": "catalog/datasets/same_contract_ema_cloud__1.0.0.json",
+      "bytes": 28040,
+      "sha256": "59010a558b4e727dbfaa37a64b4a209590288f23744127ab98747cd27ff56d44",
+      "role": "exact_scientific_prefix_authority"
+    },
+    {
+      "path": "data/features/ema_cloud/version=1.0.0/product=ES/interval=3m/part-000.parquet",
+      "bytes": 10593912,
+      "sha256": "a42cc96cba64ec6e9bc34a4fbc4ef8e3ddfcb2da76aed6bdc357f96c0953567a",
+      "role": "old_release_prefix_or_producer_support"
+    },
+    {
+      "path": "data/features/ema_cloud/version=1.0.0/product=ES/interval=5m/part-000.parquet",
+      "bytes": 13595469,
+      "sha256": "39de20e9cafe34f7780b00c94ca2d818efab753dfdbff982e9a5478d94823570",
+      "role": "old_release_prefix_or_producer_support"
+    },
+    {
+      "path": "data/features/ema_cloud/version=1.0.0/product=GC/interval=3m/part-000.parquet",
+      "bytes": 10661095,
+      "sha256": "b4281452dd0bb4f6212e77ca5526a12ae8a3f12bcd74fe903e67ee2fbf7f1015",
+      "role": "old_release_prefix_or_producer_support"
+    },
+    {
+      "path": "data/features/ema_cloud/version=1.0.0/product=GC/interval=5m/part-000.parquet",
+      "bytes": 13594258,
+      "sha256": "a81e6afef47cf7c377e313688c874b753f6976f657e170f0dc31cb880dbfac1c",
+      "role": "old_release_prefix_or_producer_support"
+    },
+    {
+      "path": "data/features/ema_cloud/version=1.0.0/product=NQ/interval=3m/part-000.parquet",
+      "bytes": 11192799,
+      "sha256": "323ab085a4f71ba3cd1a599547603171ab6d0737bdecf3321b472400dcf23574",
+      "role": "old_release_prefix_or_producer_support"
+    },
+    {
+      "path": "data/features/ema_cloud/version=1.0.0/product=NQ/interval=5m/part-000.parquet",
+      "bytes": 14017809,
+      "sha256": "241c79a692859ff3c96fd96935fe7099d95a5a65a252898b944bd9658ef64d7e",
+      "role": "old_release_prefix_or_producer_support"
+    },
+    {
+      "path": "data/features/ema_cloud/version=1.0.0/audit/ES-outside-normal-schedule.csv",
+      "bytes": 7781,
+      "sha256": "43bb7d533d1378634e6d61a4b43664479f5dc0e6616f3498547af2f7f3b8ff25",
+      "role": "old_release_prefix_or_producer_support"
+    },
+    {
+      "path": "data/features/ema_cloud/version=1.0.0/audit/GC-outside-normal-schedule.csv",
+      "bytes": 1428,
+      "sha256": "5a0f2aba012af4513525501bb50073bf390475d2912b18cadcc00ab068d13ca8",
+      "role": "old_release_prefix_or_producer_support"
+    },
+    {
+      "path": "data/features/ema_cloud/version=1.0.0/audit/NQ-outside-normal-schedule.csv",
+      "bytes": 5842,
+      "sha256": "5633e9115efdf0086b442530a9c979fe539600e717c76b74960658d59068215c",
+      "role": "old_release_prefix_or_producer_support"
+    },
+    {
+      "path": "data/features/ema_cloud/version=1.0.0/audit/calendar-exclusions.csv",
+      "bytes": 4627,
+      "sha256": "aa63084bae35b3dcb8a35e7e4b947d6f5b904dca9bb2ad80e23c67457e0eb606",
+      "role": "old_release_prefix_or_producer_support"
+    },
+    {
+      "path": "data/features/ema_cloud/version=1.0.0/audit/coverage.csv",
+      "bytes": 1989,
+      "sha256": "8dcdb420f96184b139ed193cb286bd5d2ce16c539d97482a470a4899fb438552",
+      "role": "old_release_prefix_or_producer_support"
+    },
+    {
+      "path": "data/features/ema_cloud/version=1.0.0/audit/inputs.lock.json",
+      "bytes": 17596,
+      "sha256": "76aafa3c5e8f0d7f6fd486c711cb016f7cc52b9015ee78b94b10379adf9417f8",
+      "role": "old_release_prefix_or_producer_support"
+    },
+    {
+      "path": "data/features/ema_cloud/version=1.0.0/audit/provenance-qualification.json",
+      "bytes": 2255,
+      "sha256": "87ecbab344ddc8fe8c3b9c9fe4ac691056a8cd6f620ad7d4812d1ca3626ab8ad",
+      "role": "old_release_prefix_or_producer_support"
+    },
+    {
+      "path": "data/features/ema_cloud/version=1.0.0/audit/reconciliation.json",
+      "bytes": 1809,
+      "sha256": "0b3e385ac378b4aeeb852ec2482b67f8bb0f1bafa0e5b400f3c8d61665aa2515",
+      "role": "old_release_prefix_or_producer_support"
+    },
+    {
+      "path": "data/features/ema_cloud/version=1.0.0/audit/seed-sensitivity.json",
+      "bytes": 1810,
+      "sha256": "50f0a2fb39fd78e8e5dfae53428801f3dc15aebdb5007bd9c69e19ce0632cf5d",
+      "role": "old_release_prefix_or_producer_support"
+    },
+    {
+      "path": "data/features/ema_cloud/version=1.0.0/audit/source-quality.csv",
+      "bytes": 426,
+      "sha256": "43208188fa59b102a36fcb02ec16ce5b1162c24532ef4c675ded000b237f53ca",
+      "role": "old_release_prefix_or_producer_support"
+    },
+    {
+      "path": "data/features/ema_cloud/version=1.0.0/provenance/calendar.py",
+      "bytes": 3437,
+      "sha256": "94c89dfc03e36ad57819c4337da1f4b02a27dd18f49c92ae5a143582624da314",
+      "role": "old_release_prefix_or_producer_support"
+    },
+    {
+      "path": "data/features/ema_cloud/version=1.0.0/provenance/continuous_loader.py",
+      "bytes": 3349,
+      "sha256": "810ca34425a3f620850e8e576130065fb0824adabb21a5aff2019c2467cbec6c",
+      "role": "old_release_prefix_or_producer_support"
+    },
+    {
+      "path": "data/features/ema_cloud/version=1.0.0/provenance/ema_cloud.py",
+      "bytes": 12564,
+      "sha256": "c9a030f1940fd5ac4776a5a6c1ba741e36f4a334e9d684f7cbe629d8074e390e",
+      "role": "old_release_prefix_or_producer_support"
+    },
+    {
+      "path": "data/features/ema_cloud/version=1.0.0/provenance/ema_cloud_release.py",
+      "bytes": 20040,
+      "sha256": "41cb48db5928b07e06bb79474baa626b8702466b6be19ec6ae770912ce5e90a1",
+      "role": "old_release_prefix_or_producer_support"
+    },
+    {
+      "path": "data/features/ema_cloud/version=1.0.0/provenance/manifest_selection.py",
+      "bytes": 6532,
+      "sha256": "bdbf8c2c65759c1e2b2cb82f74b04c7aa18920dbc638af525446d9d3ec5c550d",
+      "role": "old_release_prefix_or_producer_support"
+    },
+    {
+      "path": "data/features/ema_cloud/version=1.0.0/provenance/paths.py",
+      "bytes": 3554,
+      "sha256": "f3125bcff0953fcfc9845119c9ff9b3f006b2d1df77c3899e0d49609e93aac18",
+      "role": "old_release_prefix_or_producer_support"
+    },
+    {
+      "path": "data/features/ema_cloud/version=1.0.0/provenance/provenance.py",
+      "bytes": 4818,
+      "sha256": "34e75937186557e92d3e26feac8a4c576158e44f98ba4b67e3803a65517350d9",
+      "role": "old_release_prefix_or_producer_support"
+    },
+    {
+      "path": "data/features/ema_cloud/version=1.0.0/provenance/uv.lock",
+      "bytes": 335045,
+      "sha256": "b2c02f82320599b00cb3277479c660a9c56c37c6476bc423215c9cbb7ab0c645",
+      "role": "old_release_prefix_or_producer_support"
+    },
+    {
+      "path": "catalog/calendars/cme_fixed_clock_session_v1.json",
+      "bytes": 3211,
+      "sha256": "d5e9d7895f02c5c66a2231e3f79e6bfbc21cd7ce7aa2f42974cfa50492186bcf",
+      "role": "input_contract"
+    },
+    {
+      "path": "requests/inbox/same_contract_ema_cloud__1.1.0.yaml",
+      "bytes": 5753,
+      "sha256": "4812c1d6b42e0fff03fcdcd3b01b492598e24cafaa259909f686aa80d3884625",
+      "role": "input_contract"
+    },
+    {
+      "path": "catalog/schemas/same_contract_ema_cloud__1.1.0.json",
+      "bytes": 7789,
+      "sha256": "9a7e29ebafdda034573d51dc4bfbd9004ebd86931040de249019aefde14015de",
+      "role": "input_contract"
+    },
+    {
+      "path": "packages/bhishma/src/abacus_bhishma/ema_cloud_release_v2.py",
+      "bytes": 23548,
+      "sha256": "0809d460e422da265e2b7f01e532865f2733af2668ed7123828cca14d26ba519",
+      "role": "executed_data_source"
+    },
+    {
+      "path": "packages/bhishma/src/abacus_bhishma/ema_cloud_loader_v2.py",
+      "bytes": 2555,
+      "sha256": "e58042d7750fcaf0ae0efc2134780f5e1a4207033422228051350478b4731030",
+      "role": "executed_data_source"
+    },
+    {
+      "path": "packages/bhishma/src/abacus_bhishma/ema_cloud.py",
+      "bytes": 12922,
+      "sha256": "3d091fce42f53fe1905c2037b1f983f8db6e1ee720cbbab8a89b289cb224d30d",
+      "role": "executed_data_source"
+    },
+    {
+      "path": "packages/bhishma/src/abacus_bhishma/ema_cloud_release.py",
+      "bytes": 20040,
+      "sha256": "41cb48db5928b07e06bb79474baa626b8702466b6be19ec6ae770912ce5e90a1",
+      "role": "executed_data_source"
+    },
+    {
+      "path": "packages/bhishma/src/abacus_bhishma/calendar.py",
+      "bytes": 3437,
+      "sha256": "94c89dfc03e36ad57819c4337da1f4b02a27dd18f49c92ae5a143582624da314",
+      "role": "executed_data_source"
+    },
+    {
+      "path": "packages/bhishma/src/abacus_bhishma/continuous_loader.py",
+      "bytes": 3349,
+      "sha256": "810ca34425a3f620850e8e576130065fb0824adabb21a5aff2019c2467cbec6c",
+      "role": "executed_data_source"
+    },
+    {
+      "path": "packages/bhishma/src/abacus_bhishma/manifest_selection.py",
+      "bytes": 6532,
+      "sha256": "bdbf8c2c65759c1e2b2cb82f74b04c7aa18920dbc638af525446d9d3ec5c550d",
+      "role": "executed_data_source"
+    },
+    {
+      "path": "packages/bhishma/src/abacus_bhishma/paths.py",
+      "bytes": 3554,
+      "sha256": "f3125bcff0953fcfc9845119c9ff9b3f006b2d1df77c3899e0d49609e93aac18",
+      "role": "executed_data_source"
+    },
+    {
+      "path": "packages/bhishma/src/abacus_bhishma/provenance.py",
+      "bytes": 4818,
+      "sha256": "34e75937186557e92d3e26feac8a4c576158e44f98ba4b67e3803a65517350d9",
+      "role": "executed_data_source"
+    },
+    {
+      "path": "uv.lock",
+      "bytes": 335045,
+      "sha256": "b2c02f82320599b00cb3277479c660a9c56c37c6476bc423215c9cbb7ab0c645",
+      "role": "environment_lock"
+    }
+  ],
+  "calendar_policy": "Normal weekday18\u201317NY; ES/NQ16:15\u201316:30 pause only before session-date2021-06-28. Rule-generated uncertified holidays/short sessions retained unusable and reset. Missing/no-trade source minutes never inferred as closures.",
+  "features": {
+    "ema_lengths": [
+      20,
+      50
+    ],
+    "ema_seed": "first_close",
+    "atr_length": 14,
+    "atr_seed": "mean_first_14_true_ranges; segment-first TR=high-low",
+    "warmup": 250,
+    "resets": "contract switches, invalid slots, unknown gaps",
+    "availability": "modeled exclusive candle close"
+  },
+  "coverage_start_session": "2017-01-02",
+  "coverage_end_completion": "2026-09-18T21:00:00+00:00",
+  "qualifications": {
+    "status": "published_input_provenance_sufficient_with_qualifications",
+    "unavailable_raw_condition_records": [
+      {
+        "bytes": 617010,
+        "path": "data/raw/databento/GLBX.MDP3/ohlcv-1m/GLBX-20260920-577W4VCSK7/condition.json",
+        "sha256": "5a72a88291b5f03e286ffd56334786e396a5a649cfdaeb178d41c62159ff030f",
+        "status": "unavailable_not_verified"
+      },
+      {
+        "bytes": 617010,
+        "path": "data/raw/databento/GLBX.MDP3/definition/GLBX-20260920-QQQSGCKWES/condition.json",
+        "sha256": "5a72a88291b5f03e286ffd56334786e396a5a649cfdaeb178d41c62159ff030f",
+        "status": "unavailable_not_verified"
+      }
+    ],
+    "source_reconstruction": "Missing original raw mapping and ES historical roll-1 definition pair prevent original source reconstruction; no mappings invented and no published input rebuilt.",
+    "published_consumption": "All declared primary/reconciliation output bytes verified; consumed 2017\u20132026 selected minute identities reconcile to master and roll schedule. Independent 3m/5m integer aggregation and exact retained5m adjustment translation passed.",
+    "calendar": "Normal weekday18\u201317NY; ES/NQ16:15\u201316:30 pause only before session-date2021-06-28. Rule-generated uncertified holidays/short sessions retained unusable and reset. Missing/no-trade source minutes never inferred as closures.",
+    "timing": "available_at is modeled exclusive candle close; actual vendor/mapping receipt times unavailable.",
+    "scientific_prefix": "All inherited 1.0.0 scientific columns, dtypes and nulls reproduce exactly through original completion endpoint; no columns excluded.",
+    "feature_continuity": "Combined full roster before EMA/ATR; calendar/source/contract resets only, no year/fold/split reset.",
+    "unverified": "Annual holiday certification, native TradingView equivalence and off-device backup.",
+    "outcome_scope": "Input-only2017 causal warmup through2026-09-18 completion; no signals/candidate-conditioned outcomes or rankings."
+  },
+  "validation": {
+    "passed": true,
+    "scientific_prefix": {
+      "status": "passed",
+      "old_manifest": {
+        "path": "catalog/datasets/same_contract_ema_cloud__1.0.0.json",
+        "bytes": 28040,
+        "sha256": "59010a558b4e727dbfaa37a64b4a209590288f23744127ab98747cd27ff56d44",
+        "role": "exact_scientific_prefix_authority"
+      },
+      "new_dataset_id": "same_contract_ema_cloud__1.1.0",
+      "prefix_endpoint": "2021-01-01T05:00:00+00:00",
+      "tolerance": 0,
+      "excluded_wrapper_columns": [],
+      "old_output_files": [
+        {
+          "path": "data/features/ema_cloud/version=1.0.0/product=ES/interval=3m/part-000.parquet",
+          "sha256": "a42cc96cba64ec6e9bc34a4fbc4ef8e3ddfcb2da76aed6bdc357f96c0953567a",
+          "bytes": 10593912,
+          "product": "ES",
+          "interval_minutes": 3,
+          "role": "bars3",
+          "rows": 475140
+        },
+        {
+          "path": "data/features/ema_cloud/version=1.0.0/product=ES/interval=5m/part-000.parquet",
+          "sha256": "39de20e9cafe34f7780b00c94ca2d818efab753dfdbff982e9a5478d94823570",
+          "bytes": 13595469,
+          "product": "ES",
+          "interval_minutes": 5,
+          "role": "bars5features",
+          "rows": 285084
+        },
+        {
+          "path": "data/features/ema_cloud/version=1.0.0/product=GC/interval=3m/part-000.parquet",
+          "sha256": "b4281452dd0bb4f6212e77ca5526a12ae8a3f12bcd74fe903e67ee2fbf7f1015",
+          "bytes": 10661095,
+          "product": "GC",
+          "interval_minutes": 3,
+          "role": "bars3",
+          "rows": 480360
+        },
+        {
+          "path": "data/features/ema_cloud/version=1.0.0/product=GC/interval=5m/part-000.parquet",
+          "sha256": "a81e6afef47cf7c377e313688c874b753f6976f657e170f0dc31cb880dbfac1c",
+          "bytes": 13594258,
+          "product": "GC",
+          "interval_minutes": 5,
+          "role": "bars5features",
+          "rows": 288216
+        },
+        {
+          "path": "data/features/ema_cloud/version=1.0.0/product=NQ/interval=3m/part-000.parquet",
+          "sha256": "323ab085a4f71ba3cd1a599547603171ab6d0737bdecf3321b472400dcf23574",
+          "bytes": 11192799,
+          "product": "NQ",
+          "interval_minutes": 3,
+          "role": "bars3",
+          "rows": 475140
+        },
+        {
+          "path": "data/features/ema_cloud/version=1.0.0/product=NQ/interval=5m/part-000.parquet",
+          "sha256": "241c79a692859ff3c96fd96935fe7099d95a5a65a252898b944bd9658ef64d7e",
+          "bytes": 14017809,
+          "product": "NQ",
+          "interval_minutes": 5,
+          "role": "bars5features",
+          "rows": 285084
+        }
+      ],
+      "new_output_files": [
+        {
+          "path": "data/features/ema_cloud/version=1.1.0/product=ES/interval=3m/part-000.parquet",
+          "bytes": 26229817,
+          "sha256": "168d550ffb6ba14b4923f5f5594b332f6585e3db4dafafb512ef34a687d22d74",
+          "product": "ES",
+          "interval_minutes": 3,
+          "role": "bars3",
+          "rows": 1160250
+        },
+        {
+          "path": "data/features/ema_cloud/version=1.1.0/product=ES/interval=5m/part-000.parquet",
+          "bytes": 32242253,
+          "sha256": "4c2c79b1b02a2a48d34a276dadd886c6d8ffd0b9a869f384880a618b19613a9b",
+          "product": "ES",
+          "interval_minutes": 5,
+          "role": "bars5features",
+          "rows": 696150
+        },
+        {
+          "path": "data/features/ema_cloud/version=1.1.0/product=GC/interval=3m/part-000.parquet",
+          "bytes": 26420316,
+          "sha256": "b757b6bf54ddd6f7ae8a6268a94ffb2f5a9529e5fc16f6e0fa1a03e0bb09775e",
+          "product": "GC",
+          "interval_minutes": 3,
+          "role": "bars3",
+          "rows": 1166100
+        },
+        {
+          "path": "data/features/ema_cloud/version=1.1.0/product=GC/interval=5m/part-000.parquet",
+          "bytes": 31850433,
+          "sha256": "72baba948e357a89f0f68c76d9fa66b579193b89ab5aff7defce980103e834d8",
+          "product": "GC",
+          "interval_minutes": 5,
+          "role": "bars5features",
+          "rows": 699660
+        },
+        {
+          "path": "data/features/ema_cloud/version=1.1.0/product=NQ/interval=3m/part-000.parquet",
+          "bytes": 27540999,
+          "sha256": "f646e6c9408f6a879fa277627530f13c5a39d81c2db19ccc19682a0f7f535131",
+          "product": "NQ",
+          "interval_minutes": 3,
+          "role": "bars3",
+          "rows": 1160250
+        },
+        {
+          "path": "data/features/ema_cloud/version=1.1.0/product=NQ/interval=5m/part-000.parquet",
+          "bytes": 33412821,
+          "sha256": "3ac184bec11122bd63dc5df390136c8b99fdb269f93f2f6a704285b8567aef27",
+          "product": "NQ",
+          "interval_minutes": 5,
+          "role": "bars5features",
+          "rows": 696150
+        }
+      ],
+      "cells": 74679408,
+      "records": [
+        {
+          "status": "passed",
+          "rows": 475140,
+          "fields": 30,
+          "cells": 14254200,
+          "tolerance": 0,
+          "columns": [
+            "timestamp",
+            "expected_count",
+            "session",
+            "calendar_event",
+            "calendar_valid",
+            "open",
+            "high",
+            "low",
+            "close",
+            "volume",
+            "source_count",
+            "distinct_count",
+            "contract",
+            "contract_count",
+            "raw_symbol",
+            "roll_id",
+            "source_batch",
+            "contains_roll",
+            "bad_source",
+            "duplicate_source",
+            "missing_offsets",
+            "quality_reason",
+            "usable",
+            "available_at",
+            "product",
+            "interval_minutes",
+            "ny_offset_minutes",
+            "known_closure_before",
+            "lineage",
+            "feature_valid"
+          ],
+          "dtypes": {
+            "timestamp": "datetime64[ns, UTC]",
+            "expected_count": "int64",
+            "session": "object",
+            "calendar_event": "object",
+            "calendar_valid": "bool",
+            "open": "float64",
+            "high": "float64",
+            "low": "float64",
+            "close": "float64",
+            "volume": "float64",
+            "source_count": "int64",
+            "distinct_count": "int64",
+            "contract": "object",
+            "contract_count": "int64",
+            "raw_symbol": "object",
+            "roll_id": "float64",
+            "source_batch": "object",
+            "contains_roll": "bool",
+            "bad_source": "bool",
+            "duplicate_source": "bool",
+            "missing_offsets": "object",
+            "quality_reason": "object",
+            "usable": "bool",
+            "available_at": "datetime64[ns, UTC]",
+            "product": "object",
+            "interval_minutes": "int64",
+            "ny_offset_minutes": "int64",
+            "known_closure_before": "bool",
+            "lineage": "object",
+            "feature_valid": "bool"
+          },
+          "excluded_wrapper_columns": [],
+          "prefix_endpoint": "2021-01-01T05:00:00+00:00",
+          "product": "ES",
+          "interval_minutes": 3
+        },
+        {
+          "status": "passed",
+          "rows": 285084,
+          "fields": 37,
+          "cells": 10548108,
+          "tolerance": 0,
+          "columns": [
+            "timestamp",
+            "expected_count",
+            "session",
+            "calendar_event",
+            "calendar_valid",
+            "open",
+            "high",
+            "low",
+            "close",
+            "volume",
+            "source_count",
+            "distinct_count",
+            "contract",
+            "contract_count",
+            "raw_symbol",
+            "roll_id",
+            "source_batch",
+            "contains_roll",
+            "bad_source",
+            "duplicate_source",
+            "missing_offsets",
+            "quality_reason",
+            "usable",
+            "available_at",
+            "product",
+            "interval_minutes",
+            "ny_offset_minutes",
+            "known_closure_before",
+            "lineage",
+            "ema20",
+            "ema50",
+            "atr14",
+            "true_range",
+            "feature_valid",
+            "feature_reset",
+            "feature_reset_reason",
+            "consecutive_count"
+          ],
+          "dtypes": {
+            "timestamp": "datetime64[ns, UTC]",
+            "expected_count": "int64",
+            "session": "object",
+            "calendar_event": "object",
+            "calendar_valid": "bool",
+            "open": "float64",
+            "high": "float64",
+            "low": "float64",
+            "close": "float64",
+            "volume": "float64",
+            "source_count": "int64",
+            "distinct_count": "int64",
+            "contract": "object",
+            "contract_count": "int64",
+            "raw_symbol": "object",
+            "roll_id": "float64",
+            "source_batch": "object",
+            "contains_roll": "bool",
+            "bad_source": "bool",
+            "duplicate_source": "bool",
+            "missing_offsets": "object",
+            "quality_reason": "object",
+            "usable": "bool",
+            "available_at": "datetime64[ns, UTC]",
+            "product": "object",
+            "interval_minutes": "int64",
+            "ny_offset_minutes": "int64",
+            "known_closure_before": "bool",
+            "lineage": "object",
+            "ema20": "float64",
+            "ema50": "float64",
+            "atr14": "float64",
+            "true_range": "float64",
+            "feature_valid": "bool",
+            "feature_reset": "bool",
+            "feature_reset_reason": "object",
+            "consecutive_count": "int32"
+          },
+          "excluded_wrapper_columns": [],
+          "prefix_endpoint": "2021-01-01T05:00:00+00:00",
+          "product": "ES",
+          "interval_minutes": 5
+        },
+        {
+          "status": "passed",
+          "rows": 480360,
+          "fields": 30,
+          "cells": 14410800,
+          "tolerance": 0,
+          "columns": [
+            "timestamp",
+            "expected_count",
+            "session",
+            "calendar_event",
+            "calendar_valid",
+            "open",
+            "high",
+            "low",
+            "close",
+            "volume",
+            "source_count",
+            "distinct_count",
+            "contract",
+            "contract_count",
+            "raw_symbol",
+            "roll_id",
+            "source_batch",
+            "contains_roll",
+            "bad_source",
+            "duplicate_source",
+            "missing_offsets",
+            "quality_reason",
+            "usable",
+            "available_at",
+            "product",
+            "interval_minutes",
+            "ny_offset_minutes",
+            "known_closure_before",
+            "lineage",
+            "feature_valid"
+          ],
+          "dtypes": {
+            "timestamp": "datetime64[ns, UTC]",
+            "expected_count": "int64",
+            "session": "object",
+            "calendar_event": "object",
+            "calendar_valid": "bool",
+            "open": "float64",
+            "high": "float64",
+            "low": "float64",
+            "close": "float64",
+            "volume": "float64",
+            "source_count": "int64",
+            "distinct_count": "int64",
+            "contract": "object",
+            "contract_count": "int64",
+            "raw_symbol": "object",
+            "roll_id": "float64",
+            "source_batch": "object",
+            "contains_roll": "bool",
+            "bad_source": "bool",
+            "duplicate_source": "bool",
+            "missing_offsets": "object",
+            "quality_reason": "object",
+            "usable": "bool",
+            "available_at": "datetime64[ns, UTC]",
+            "product": "object",
+            "interval_minutes": "int64",
+            "ny_offset_minutes": "int64",
+            "known_closure_before": "bool",
+            "lineage": "object",
+            "feature_valid": "bool"
+          },
+          "excluded_wrapper_columns": [],
+          "prefix_endpoint": "2021-01-01T05:00:00+00:00",
+          "product": "GC",
+          "interval_minutes": 3
+        },
+        {
+          "status": "passed",
+          "rows": 288216,
+          "fields": 37,
+          "cells": 10663992,
+          "tolerance": 0,
+          "columns": [
+            "timestamp",
+            "expected_count",
+            "session",
+            "calendar_event",
+            "calendar_valid",
+            "open",
+            "high",
+            "low",
+            "close",
+            "volume",
+            "source_count",
+            "distinct_count",
+            "contract",
+            "contract_count",
+            "raw_symbol",
+            "roll_id",
+            "source_batch",
+            "contains_roll",
+            "bad_source",
+            "duplicate_source",
+            "missing_offsets",
+            "quality_reason",
+            "usable",
+            "available_at",
+            "product",
+            "interval_minutes",
+            "ny_offset_minutes",
+            "known_closure_before",
+            "lineage",
+            "ema20",
+            "ema50",
+            "atr14",
+            "true_range",
+            "feature_valid",
+            "feature_reset",
+            "feature_reset_reason",
+            "consecutive_count"
+          ],
+          "dtypes": {
+            "timestamp": "datetime64[ns, UTC]",
+            "expected_count": "int64",
+            "session": "object",
+            "calendar_event": "object",
+            "calendar_valid": "bool",
+            "open": "float64",
+            "high": "float64",
+            "low": "float64",
+            "close": "float64",
+            "volume": "float64",
+            "source_count": "int64",
+            "distinct_count": "int64",
+            "contract": "object",
+            "contract_count": "int64",
+            "raw_symbol": "object",
+            "roll_id": "float64",
+            "source_batch": "object",
+            "contains_roll": "bool",
+            "bad_source": "bool",
+            "duplicate_source": "bool",
+            "missing_offsets": "object",
+            "quality_reason": "object",
+            "usable": "bool",
+            "available_at": "datetime64[ns, UTC]",
+            "product": "object",
+            "interval_minutes": "int64",
+            "ny_offset_minutes": "int64",
+            "known_closure_before": "bool",
+            "lineage": "object",
+            "ema20": "float64",
+            "ema50": "float64",
+            "atr14": "float64",
+            "true_range": "float64",
+            "feature_valid": "bool",
+            "feature_reset": "bool",
+            "feature_reset_reason": "object",
+            "consecutive_count": "int32"
+          },
+          "excluded_wrapper_columns": [],
+          "prefix_endpoint": "2021-01-01T05:00:00+00:00",
+          "product": "GC",
+          "interval_minutes": 5
+        },
+        {
+          "status": "passed",
+          "rows": 475140,
+          "fields": 30,
+          "cells": 14254200,
+          "tolerance": 0,
+          "columns": [
+            "timestamp",
+            "expected_count",
+            "session",
+            "calendar_event",
+            "calendar_valid",
+            "open",
+            "high",
+            "low",
+            "close",
+            "volume",
+            "source_count",
+            "distinct_count",
+            "contract",
+            "contract_count",
+            "raw_symbol",
+            "roll_id",
+            "source_batch",
+            "contains_roll",
+            "bad_source",
+            "duplicate_source",
+            "missing_offsets",
+            "quality_reason",
+            "usable",
+            "available_at",
+            "product",
+            "interval_minutes",
+            "ny_offset_minutes",
+            "known_closure_before",
+            "lineage",
+            "feature_valid"
+          ],
+          "dtypes": {
+            "timestamp": "datetime64[ns, UTC]",
+            "expected_count": "int64",
+            "session": "object",
+            "calendar_event": "object",
+            "calendar_valid": "bool",
+            "open": "float64",
+            "high": "float64",
+            "low": "float64",
+            "close": "float64",
+            "volume": "float64",
+            "source_count": "int64",
+            "distinct_count": "int64",
+            "contract": "object",
+            "contract_count": "int64",
+            "raw_symbol": "object",
+            "roll_id": "float64",
+            "source_batch": "object",
+            "contains_roll": "bool",
+            "bad_source": "bool",
+            "duplicate_source": "bool",
+            "missing_offsets": "object",
+            "quality_reason": "object",
+            "usable": "bool",
+            "available_at": "datetime64[ns, UTC]",
+            "product": "object",
+            "interval_minutes": "int64",
+            "ny_offset_minutes": "int64",
+            "known_closure_before": "bool",
+            "lineage": "object",
+            "feature_valid": "bool"
+          },
+          "excluded_wrapper_columns": [],
+          "prefix_endpoint": "2021-01-01T05:00:00+00:00",
+          "product": "NQ",
+          "interval_minutes": 3
+        },
+        {
+          "status": "passed",
+          "rows": 285084,
+          "fields": 37,
+          "cells": 10548108,
+          "tolerance": 0,
+          "columns": [
+            "timestamp",
+            "expected_count",
+            "session",
+            "calendar_event",
+            "calendar_valid",
+            "open",
+            "high",
+            "low",
+            "close",
+            "volume",
+            "source_count",
+            "distinct_count",
+            "contract",
+            "contract_count",
+            "raw_symbol",
+            "roll_id",
+            "source_batch",
+            "contains_roll",
+            "bad_source",
+            "duplicate_source",
+            "missing_offsets",
+            "quality_reason",
+            "usable",
+            "available_at",
+            "product",
+            "interval_minutes",
+            "ny_offset_minutes",
+            "known_closure_before",
+            "lineage",
+            "ema20",
+            "ema50",
+            "atr14",
+            "true_range",
+            "feature_valid",
+            "feature_reset",
+            "feature_reset_reason",
+            "consecutive_count"
+          ],
+          "dtypes": {
+            "timestamp": "datetime64[ns, UTC]",
+            "expected_count": "int64",
+            "session": "object",
+            "calendar_event": "object",
+            "calendar_valid": "bool",
+            "open": "float64",
+            "high": "float64",
+            "low": "float64",
+            "close": "float64",
+            "volume": "float64",
+            "source_count": "int64",
+            "distinct_count": "int64",
+            "contract": "object",
+            "contract_count": "int64",
+            "raw_symbol": "object",
+            "roll_id": "float64",
+            "source_batch": "object",
+            "contains_roll": "bool",
+            "bad_source": "bool",
+            "duplicate_source": "bool",
+            "missing_offsets": "object",
+            "quality_reason": "object",
+            "usable": "bool",
+            "available_at": "datetime64[ns, UTC]",
+            "product": "object",
+            "interval_minutes": "int64",
+            "ny_offset_minutes": "int64",
+            "known_closure_before": "bool",
+            "lineage": "object",
+            "ema20": "float64",
+            "ema50": "float64",
+            "atr14": "float64",
+            "true_range": "float64",
+            "feature_valid": "bool",
+            "feature_reset": "bool",
+            "feature_reset_reason": "object",
+            "consecutive_count": "int32"
+          },
+          "excluded_wrapper_columns": [],
+          "prefix_endpoint": "2021-01-01T05:00:00+00:00",
+          "product": "NQ",
+          "interval_minutes": 5
+        }
+      ],
+      "checker": {
+        "path": "packages/bhishma/src/abacus_bhishma/ema_cloud_release_v2.py",
+        "bytes": 23548,
+        "sha256": "0809d460e422da265e2b7f01e532865f2733af2668ed7123828cca14d26ba519",
+        "role": "prefix_checker"
+      }
+    },
+    "independent_integer_checks": 60,
+    "retained_5m_checks": 30
+  },
+  "schema_path": "catalog/schemas/same_contract_ema_cloud__1.1.0.json",
+  "quality_report_path": "reports/quality/same_contract_ema_cloud__1.1.0.md",
+  "auxiliary_files": [
+    {
+      "path": "data/features/ema_cloud/version=1.1.0/audit/ES-2017-outside-normal-schedule.csv",
+      "bytes": 385,
+      "sha256": "99ddd2e537ebd689964614d2327aeb59a617d7a324c05f9f952d29ce979215c1"
+    },
+    {
+      "path": "data/features/ema_cloud/version=1.1.0/audit/ES-2018-outside-normal-schedule.csv",
+      "bytes": 6814,
+      "sha256": "18d5355e005e28d00307c74c0464a9af71f589c20b5a8404387ba5ca73d67140"
+    },
+    {
+      "path": "data/features/ema_cloud/version=1.1.0/audit/ES-2019-outside-normal-schedule.csv",
+      "bytes": 224,
+      "sha256": "fdcea9dd81f12d6a2c1e63fa08f9a5ef9096cd56c7d90095d42db79018440a9e"
+    },
+    {
+      "path": "data/features/ema_cloud/version=1.1.0/audit/ES-2020-outside-normal-schedule.csv",
+      "bytes": 550,
+      "sha256": "dc14e52a34ef8168b9804077def0af7b81c1b04fedc4e697c5837118c58a52ef"
+    },
+    {
+      "path": "data/features/ema_cloud/version=1.1.0/audit/ES-2021-outside-normal-schedule.csv",
+      "bytes": 64,
+      "sha256": "4b70e1299f6a31dec7b00584cf1790b3d178fac785b523078f438d5cb090e1ba"
+    },
+    {
+      "path": "data/features/ema_cloud/version=1.1.0/audit/ES-2022-outside-normal-schedule.csv",
+      "bytes": 64,
+      "sha256": "4b70e1299f6a31dec7b00584cf1790b3d178fac785b523078f438d5cb090e1ba"
+    },
+    {
+      "path": "data/features/ema_cloud/version=1.1.0/audit/ES-2023-outside-normal-schedule.csv",
+      "bytes": 119,
+      "sha256": "443088d908eb537efb58b16b5aa8c6d318039ee255eb16270e191b85bf2f9795"
+    },
+    {
+      "path": "data/features/ema_cloud/version=1.1.0/audit/ES-2024-outside-normal-schedule.csv",
+      "bytes": 64,
+      "sha256": "4b70e1299f6a31dec7b00584cf1790b3d178fac785b523078f438d5cb090e1ba"
+    },
+    {
+      "path": "data/features/ema_cloud/version=1.1.0/audit/ES-2025-outside-normal-schedule.csv",
+      "bytes": 64,
+      "sha256": "4b70e1299f6a31dec7b00584cf1790b3d178fac785b523078f438d5cb090e1ba"
+    },
+    {
+      "path": "data/features/ema_cloud/version=1.1.0/audit/ES-2026-outside-normal-schedule.csv",
+      "bytes": 64,
+      "sha256": "4b70e1299f6a31dec7b00584cf1790b3d178fac785b523078f438d5cb090e1ba"
+    },
+    {
+      "path": "data/features/ema_cloud/version=1.1.0/audit/GC-2017-outside-normal-schedule.csv",
+      "bytes": 118,
+      "sha256": "b5a7cf8e9e90a6393086375b7c55306c7ac5e54cbbc8c465c410967e83822e31"
+    },
+    {
+      "path": "data/features/ema_cloud/version=1.1.0/audit/GC-2018-outside-normal-schedule.csv",
+      "bytes": 1374,
+      "sha256": "a7ff4f57fd2100edd9ab1351fad2a8f4ea06795214c1e74b45f43bed50a651d2"
+    },
+    {
+      "path": "data/features/ema_cloud/version=1.1.0/audit/GC-2019-outside-normal-schedule.csv",
+      "bytes": 64,
+      "sha256": "4b70e1299f6a31dec7b00584cf1790b3d178fac785b523078f438d5cb090e1ba"
+    },
+    {
+      "path": "data/features/ema_cloud/version=1.1.0/audit/GC-2020-outside-normal-schedule.csv",
+      "bytes": 64,
+      "sha256": "4b70e1299f6a31dec7b00584cf1790b3d178fac785b523078f438d5cb090e1ba"
+    },
+    {
+      "path": "data/features/ema_cloud/version=1.1.0/audit/GC-2021-outside-normal-schedule.csv",
+      "bytes": 64,
+      "sha256": "4b70e1299f6a31dec7b00584cf1790b3d178fac785b523078f438d5cb090e1ba"
+    },
+    {
+      "path": "data/features/ema_cloud/version=1.1.0/audit/GC-2022-outside-normal-schedule.csv",
+      "bytes": 64,
+      "sha256": "4b70e1299f6a31dec7b00584cf1790b3d178fac785b523078f438d5cb090e1ba"
+    },
+    {
+      "path": "data/features/ema_cloud/version=1.1.0/audit/GC-2023-outside-normal-schedule.csv",
+      "bytes": 64,
+      "sha256": "4b70e1299f6a31dec7b00584cf1790b3d178fac785b523078f438d5cb090e1ba"
+    },
+    {
+      "path": "data/features/ema_cloud/version=1.1.0/audit/GC-2024-outside-normal-schedule.csv",
+      "bytes": 64,
+      "sha256": "4b70e1299f6a31dec7b00584cf1790b3d178fac785b523078f438d5cb090e1ba"
+    },
+    {
+      "path": "data/features/ema_cloud/version=1.1.0/audit/GC-2025-outside-normal-schedule.csv",
+      "bytes": 64,
+      "sha256": "4b70e1299f6a31dec7b00584cf1790b3d178fac785b523078f438d5cb090e1ba"
+    },
+    {
+      "path": "data/features/ema_cloud/version=1.1.0/audit/GC-2026-outside-normal-schedule.csv",
+      "bytes": 64,
+      "sha256": "4b70e1299f6a31dec7b00584cf1790b3d178fac785b523078f438d5cb090e1ba"
+    },
+    {
+      "path": "data/features/ema_cloud/version=1.1.0/audit/NQ-2017-outside-normal-schedule.csv",
+      "bytes": 172,
+      "sha256": "3a1ae0fe01f734a8bcb78def6e8991a1dc9115c8fcacabdc6882f02be9d3a392"
+    },
+    {
+      "path": "data/features/ema_cloud/version=1.1.0/audit/NQ-2018-outside-normal-schedule.csv",
+      "bytes": 5302,
+      "sha256": "c8a54b096f5f66398ab47a460fbb1431566f783706fd8d2a89c809854979c3f7"
+    },
+    {
+      "path": "data/features/ema_cloud/version=1.1.0/audit/NQ-2019-outside-normal-schedule.csv",
+      "bytes": 172,
+      "sha256": "4008e355ea119e39b08caaa877193e9538b718d84a419d843191407feee024da"
+    },
+    {
+      "path": "data/features/ema_cloud/version=1.1.0/audit/NQ-2020-outside-normal-schedule.csv",
+      "bytes": 388,
+      "sha256": "ed1198702cf3285c2a4f951c05d2ffd03c8ccdc62dff69f013a06d359914ebb6"
+    },
+    {
+      "path": "data/features/ema_cloud/version=1.1.0/audit/NQ-2021-outside-normal-schedule.csv",
+      "bytes": 64,
+      "sha256": "4b70e1299f6a31dec7b00584cf1790b3d178fac785b523078f438d5cb090e1ba"
+    },
+    {
+      "path": "data/features/ema_cloud/version=1.1.0/audit/NQ-2022-outside-normal-schedule.csv",
+      "bytes": 64,
+      "sha256": "4b70e1299f6a31dec7b00584cf1790b3d178fac785b523078f438d5cb090e1ba"
+    },
+    {
+      "path": "data/features/ema_cloud/version=1.1.0/audit/NQ-2023-outside-normal-schedule.csv",
+      "bytes": 64,
+      "sha256": "4b70e1299f6a31dec7b00584cf1790b3d178fac785b523078f438d5cb090e1ba"
+    },
+    {
+      "path": "data/features/ema_cloud/version=1.1.0/audit/NQ-2024-outside-normal-schedule.csv",
+      "bytes": 64,
+      "sha256": "4b70e1299f6a31dec7b00584cf1790b3d178fac785b523078f438d5cb090e1ba"
+    },
+    {
+      "path": "data/features/ema_cloud/version=1.1.0/audit/NQ-2025-outside-normal-schedule.csv",
+      "bytes": 64,
+      "sha256": "4b70e1299f6a31dec7b00584cf1790b3d178fac785b523078f438d5cb090e1ba"
+    },
+    {
+      "path": "data/features/ema_cloud/version=1.1.0/audit/NQ-2026-outside-normal-schedule.csv",
+      "bytes": 64,
+      "sha256": "4b70e1299f6a31dec7b00584cf1790b3d178fac785b523078f438d5cb090e1ba"
+    },
+    {
+      "path": "data/features/ema_cloud/version=1.1.0/audit/calendar-exclusions.csv",
+      "bytes": 10840,
+      "sha256": "80b1306f6ea4c8703e4428f5ffdd8b1d3dd4e7c43d5753ea077a4c3527a79faa"
+    },
+    {
+      "path": "data/features/ema_cloud/version=1.1.0/audit/coverage.csv",
+      "bytes": 3888,
+      "sha256": "6c23300c397550f2e1971c13a901f47797b332fc12ab3c392367cb04553c8c70"
+    },
+    {
+      "path": "data/features/ema_cloud/version=1.1.0/audit/endpoint-coverage.json",
+      "bytes": 1157,
+      "sha256": "57dab93f86d3a4794e5a0244a701e9a609a1f90d34fa72a44aefaf0476f5b914"
+    },
+    {
+      "path": "data/features/ema_cloud/version=1.1.0/audit/environment.json",
+      "bytes": 678,
+      "sha256": "9273d3bf095ede16daccdf8605b6dd234ff83442214c78b942a1d4c288710273"
+    },
+    {
+      "path": "data/features/ema_cloud/version=1.1.0/audit/git-status.txt",
+      "bytes": 401061,
+      "sha256": "4db444cfcb443c74ea84e90132aaf78ba7ee584b4f328dfe38db86e927b53cc2"
+    },
+    {
+      "path": "data/features/ema_cloud/version=1.1.0/audit/input-prefix-parity.json",
+      "bytes": 17732,
+      "sha256": "c5cba1f4f81e0422aaa81170b28c2e6cd4c7b08c85bf038123650988cc8fc0ff"
+    },
+    {
+      "path": "data/features/ema_cloud/version=1.1.0/audit/inputs.lock.json",
+      "bytes": 67306,
+      "sha256": "dd2a12adb1095e5a62d4a92f053c0b335880320247c00b8c8a26da79f1ed4b84"
+    },
+    {
+      "path": "data/features/ema_cloud/version=1.1.0/audit/integer-aggregation-reconciliation.json",
+      "bytes": 25150,
+      "sha256": "b93159a686620aaa84d0df8e462b896de50b30d76d0979a4e76650d2b85f8cc1"
+    },
+    {
+      "path": "data/features/ema_cloud/version=1.1.0/audit/provenance-qualification.json",
+      "bytes": 1989,
+      "sha256": "838450a844d2df1da7e66c0386c9c9a018f1e00c6637c65ff11ec11c943fdf9c"
+    },
+    {
+      "path": "data/features/ema_cloud/version=1.1.0/audit/retained-5m-reconciliation.json",
+      "bytes": 20713,
+      "sha256": "19f28f6dc35b1d9f1028d8bb383cc121103fd58d927ec9925f63bfc80a816940"
+    },
+    {
+      "path": "data/features/ema_cloud/version=1.1.0/audit/seed-sensitivity.json",
+      "bytes": 2032,
+      "sha256": "827656e3910820d6798f99b013f5330e026e0bf3afb64ad92f5d500350393c45"
+    },
+    {
+      "path": "data/features/ema_cloud/version=1.1.0/audit/source-quality.csv",
+      "bytes": 2571,
+      "sha256": "804f0e26c2bd1452719d4546d909d6d35eabdebe8a40d1f736be9ac8a71e3a30"
+    },
+    {
+      "path": "data/features/ema_cloud/version=1.1.0/provenance/calendar.py",
+      "bytes": 3437,
+      "sha256": "94c89dfc03e36ad57819c4337da1f4b02a27dd18f49c92ae5a143582624da314"
+    },
+    {
+      "path": "data/features/ema_cloud/version=1.1.0/provenance/continuous_loader.py",
+      "bytes": 3349,
+      "sha256": "810ca34425a3f620850e8e576130065fb0824adabb21a5aff2019c2467cbec6c"
+    },
+    {
+      "path": "data/features/ema_cloud/version=1.1.0/provenance/ema_cloud.py",
+      "bytes": 12922,
+      "sha256": "3d091fce42f53fe1905c2037b1f983f8db6e1ee720cbbab8a89b289cb224d30d"
+    },
+    {
+      "path": "data/features/ema_cloud/version=1.1.0/provenance/ema_cloud_loader_v2.py",
+      "bytes": 2555,
+      "sha256": "e58042d7750fcaf0ae0efc2134780f5e1a4207033422228051350478b4731030"
+    },
+    {
+      "path": "data/features/ema_cloud/version=1.1.0/provenance/ema_cloud_release.py",
+      "bytes": 20040,
+      "sha256": "41cb48db5928b07e06bb79474baa626b8702466b6be19ec6ae770912ce5e90a1"
+    },
+    {
+      "path": "data/features/ema_cloud/version=1.1.0/provenance/ema_cloud_release_v2.py",
+      "bytes": 23548,
+      "sha256": "0809d460e422da265e2b7f01e532865f2733af2668ed7123828cca14d26ba519"
+    },
+    {
+      "path": "data/features/ema_cloud/version=1.1.0/provenance/manifest_selection.py",
+      "bytes": 6532,
+      "sha256": "bdbf8c2c65759c1e2b2cb82f74b04c7aa18920dbc638af525446d9d3ec5c550d"
+    },
+    {
+      "path": "data/features/ema_cloud/version=1.1.0/provenance/paths.py",
+      "bytes": 3554,
+      "sha256": "f3125bcff0953fcfc9845119c9ff9b3f006b2d1df77c3899e0d49609e93aac18"
+    },
+    {
+      "path": "data/features/ema_cloud/version=1.1.0/provenance/provenance.py",
+      "bytes": 4818,
+      "sha256": "34e75937186557e92d3e26feac8a4c576158e44f98ba4b67e3803a65517350d9"
+    },
+    {
+      "path": "data/features/ema_cloud/version=1.1.0/provenance/uv.lock",
+      "bytes": 335045,
+      "sha256": "b2c02f82320599b00cb3277479c660a9c56c37c6476bc423215c9cbb7ab0c645"
+    }
+  ]
+}

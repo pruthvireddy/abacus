@@ -1,0 +1,222 @@
+{
+  "git_revision": "cd11be3f8f7d27c9429b2ff03872f3b6485a6e27",
+  "git_status": " M .gitignore\n M AGENTS.md\n M README.md\n M config/paths.example.toml\n M data/README.md\n M docs/README.md\n M legacy/README.md\n T legacy/sahadeva/data/README.md\n T legacy/sahadeva/data/range_xv_exports_manifest.json\n M packages/bhishma/README.md\n M packages/bhishma/pyproject.toml\n M packages/bhishma/src/abacus_bhishma/feature_loader.py\n M packages/sahadeva/README.md\n M reports/index.html\n M reports/index.md\n M requests/README.md\n M runs/README.md\n M scripts/build-research-index.py\n M scripts/check-workspace\n M scripts/verify-migration.py\n M strategies/README.md\n M strategies/index.json\n M strategies/vwap_extreme_fade.md\n M strategies/vwap_first_retest_bounce.md\n M strategies/vwap_reentry_fade.md\n M strategies/vwap_return_after_departure.md\n M studies/05_session_vwap/README.md\n M studies/05_session_vwap/notes.md\n M studies/05_session_vwap/study.json\n M studies/05_session_vwap/study.yaml\n M studies/README.md\n M templates/README.md\n M work/README.md\n?? ARCHITECTURE.md\n?? apps/\n?? catalog/datasets/gc_ema_deviation_bands__1.0.0.json\n?? catalog/datasets/nq_causal_vp_hvn__1.0.0.json\n?? catalog/datasets/tradingview_daily_context__1.0.0.json\n?? catalog/indicators/gc_ema_deviation_bands__1.0.0.json\n?? catalog/indicators/gc_hac_levels_bands__20260925.pine\n?? catalog/indicators/hac_lpt_mtf__20260926.md\n?? catalog/indicators/hac_lpt_mtf__20260926.pine\n?? catalog/indicators/nq_causal_vp_hvn__1.0.0.json\n?? catalog/indicators/nq_causal_vp_hvn__1.0.0.source.pine\n?? catalog/indicators/nq_causal_vp_hvn__1.0.0.spec.json\n?? catalog/indicators/tradingview_daily_context__1.0.0.json\n?? catalog/indicators/tradingview_daily_context__1.0.0.pine\n?? catalog/schemas/nq_causal_vp_hvn__1.0.0.json\n?? catalog/schemas/tradingview_daily_context__1.0.0.json\n?? data/range_xv/\n?? docs/assets/\n?? docs/daily-context-20260924.md\n?? docs/data/\n?? docs/migration/nonbulk-audit-20260922.json\n?? docs/migration/range-xv-clock-normalization-20260924.json\n?? docs/migration/storage-acceptance-20260922.json\n?? docs/migration/storage-files-20260922.json\n?? docs/migration/storage-publication-verification-20260922.json\n?? docs/migration/storage-relocation-20260922.md\n?? docs/migration/storage-verification-20260922.json\n?? docs/migration/storage-workspace-check-20260922.log\n?? docs/narada-publication-plan.md\n?? docs/narada.md\n?? docs/range-xv-fx-20261001.md\n?? docs/range-xv-long-history-20260924.md\n?? packages/bhishma/AGENTS.md\n?? packages/bhishma/src/abacus_bhishma/daily_context.py\n?? packages/bhishma/src/abacus_bhishma/gc_ema_bands.py\n?? packages/bhishma/src/abacus_bhishma/range_xv.py\n?? packages/bhishma/src/abacus_bhishma/vp_hvn.py\n?? packages/bhishma/src/abacus_bhishma/vp_hvn_native.cpp\n?? packages/bhishma/src/abacus_bhishma/vp_hvn_release.py\n?? packages/bhishma/tests/test_daily_context.py\n?? packages/bhishma/tests/test_gc_ema_bands.py\n?? packages/bhishma/tests/test_range_xv.py\n?? packages/bhishma/tests/test_vp_hvn.py\n?? packages/sahadeva/AGENTS.md\n?? packages/sahadeva/src/abacus_sahadeva/cooldown.py\n?? packages/sahadeva/tests/test_cooldown.py\n?? reports/README.md\n?? reports/exports/\n?? reports/quality/gc_ema_deviation_bands__1.0.0.md\n?? reports/quality/nq_causal_vp_hvn__1.0.0.md\n?? reports/quality/tradingview_daily_context__1.0.0.md\n?? requests/fulfilled/gc_ema_deviation_bands__1.0.0.yaml\n?? requests/fulfilled/nq_causal_vp_hvn__1.0.0.yaml\n?? requests/fulfilled/tradingview_daily_context__1.0.0.yaml\n?? requests/inbox/\n?? runs/05_session_vwap/\n?? runs/06_vwap_state_dynamics/\n?? runs/07_range_xv_edge_candidates/\n?? runs/08_countertrend_bar_continuation/\n?? runs/09_range_xv_c2_confirmation/\n?? runs/10_range_xv_session_overlay/\n?? runs/11_vwap_conditional_probabilities/\n?? runs/12_gc_ema_band_excursions/\n?? runs/13_gc_ema_band_filter_validation/\n?? runs/14_asia_session_vp_levels/\n?? runs/15_vwap_excursion_response/\n?? runs/16_range_xv_reversal_paths/\n?? runs/17_nq_advanced_amd_video/\n?? runs/19_value_area_fade_tracker/\n?? scripts/check-agent-docs.py\n?? scripts/import-range-xv-20260924.py\n?? scripts/import-range-xv-20261001.py\n?? scripts/normalize-range-xv-clock.py\n?? scripts/tests/\n?? scripts/verify-storage.py\n?? strategies/gc_ema_outer_lower_long.md\n?? strategies/nq_prev_rth_poc_fade.md\n?? strategies/nq_prev_rth_va_breakout_retest.md\n?? strategies/value_area_first_touch_fade.md\n?? studies/01_reversal_follow_through/notes.md\n?? studies/01_reversal_follow_through/publish_web.py\n?? studies/02_followthrough_candle_adverse/notes.md\n?? studies/02_followthrough_candle_adverse/publish_web.py\n?? studies/03_multi_rxv_alignment/notes.md\n?? studies/03_multi_rxv_alignment/publish_web.py\n?? studies/04_reversal_candle_quality/notes.md\n?? studies/04_reversal_candle_quality/publish_web.py\n?? studies/05_session_vwap/audit.py\n?? studies/05_session_vwap/conditional_audit.py\n?? studies/05_session_vwap/conditional_run.py\n?? studies/05_session_vwap/conditional_seal.py\n?? studies/05_session_vwap/conditional_summarize.py\n?? studies/05_session_vwap/enrich.py\n?? studies/05_session_vwap/protocol-1.0.0.md\n?? studies/05_session_vwap/protocol-1.1.0.md\n?? studies/05_session_vwap/run.py\n?? studies/05_session_vwap/seal.py\n?? studies/05_session_vwap/src/\n?? studies/05_session_vwap/summarize.py\n?? studies/05_session_vwap/tests/\n?? studies/05_session_vwap/warmup_sensitivity.py\n?? studies/06_vwap_state_dynamics/\n?? studies/07_range_xv_edge_candidates/\n?? studies/08_countertrend_bar_continuation/\n?? studies/09_range_xv_c2_confirmation/\n?? studies/10_range_xv_session_overlay/\n?? studies/11_vwap_conditional_probabilities/\n?? studies/12_gc_ema_band_excursions/\n?? studies/13_gc_ema_band_filter_validation/\n?? studies/14_asia_session_vp_levels/\n?? studies/15_vwap_excursion_response/\n?? studies/16_range_xv_reversal_paths/\n?? studies/17_nq_advanced_amd_video/\n?? studies/18_fibonacci_memory/\n?? studies/19_value_area_fade_tracker/\n?? studies/20_camarilla_ema_cloud_reversals/\n?? studies/AGENTS.md\n?? templates/web-study-report.md\n",
+  "snapshot_files": [
+    {
+      "path": "studies/20_camarilla_ema_cloud_reversals/README.md",
+      "sha256": "34a9a3f1f1af44071397a0f765e0db1a1358fffbbd31203727a256f143953682"
+    },
+    {
+      "path": "studies/20_camarilla_ema_cloud_reversals/data-inventory.md",
+      "sha256": "e8b5ebdde53c1f1be2546786b03092f9248ea54520953dc85d3a9f8313e16ca0"
+    },
+    {
+      "path": "studies/20_camarilla_ema_cloud_reversals/examples.py",
+      "sha256": "011846c9201c646e637bc5623c7251b82fd39e961634b5541d0873a617671609"
+    },
+    {
+      "path": "studies/20_camarilla_ema_cloud_reversals/executed-protocol.md",
+      "sha256": "bce5543c14896b4c0d6645103bb6942e1b85d80350c32e462edd6e7f712bee5c"
+    },
+    {
+      "path": "studies/20_camarilla_ema_cloud_reversals/figures.py",
+      "sha256": "f595e8eb3eb1bbc9181ae766ab91da71fd38a551783999a650c126ffe040f29a"
+    },
+    {
+      "path": "studies/20_camarilla_ema_cloud_reversals/inputs.lock.json",
+      "sha256": "5f8a132f5728eef31d95ce49cc411190e4e9d199a12f95d78300aa55dad43986"
+    },
+    {
+      "path": "studies/20_camarilla_ema_cloud_reversals/notes.md",
+      "sha256": "9ca6fa04cb19793ab57c2bfae4cc36d7f498f315fd87e21b0a53708b4e67450b"
+    },
+    {
+      "path": "studies/20_camarilla_ema_cloud_reversals/pine/README.md",
+      "sha256": "f296c3b8c4456050fb0190da6c51a03baf3f11933fb403d64da532e6eb97a438"
+    },
+    {
+      "path": "studies/20_camarilla_ema_cloud_reversals/pine/camarilla_pivot_levels.pine",
+      "sha256": "929778ea1e5f600ea314c92565e25074a51e0375367f05bf62ce06de2534303d"
+    },
+    {
+      "path": "studies/20_camarilla_ema_cloud_reversals/plan.md",
+      "sha256": "a33b05c347dd76771fc4cf711821107f6884a2ed5419eb851d764152e2a3f363"
+    },
+    {
+      "path": "studies/20_camarilla_ema_cloud_reversals/reference/protocol_0.2.0.md",
+      "sha256": "76b34dd36c4dffaf8a9dfcab6c74ce9765545c809c36c22b7ec83e1fb584ce58"
+    },
+    {
+      "path": "studies/20_camarilla_ema_cloud_reversals/reference/settings_0.2.0.yaml",
+      "sha256": "f4150c2eb97799f00a8d9c075bce00e1440cf262bd50fbffaad13d1e4cd1c33c"
+    },
+    {
+      "path": "studies/20_camarilla_ema_cloud_reversals/reference/source_user_camarilla_optional_cpr.pine",
+      "sha256": "4f7970bb3575cd130070d6b840814d5db39b4c5463866091b2bfc8b9a2363716"
+    },
+    {
+      "path": "studies/20_camarilla_ema_cloud_reversals/report-proposal.md",
+      "sha256": "3bb695b39e31f51ece1dd52d5f6d0051c8f4a84eb9308061a54ec3d17300b37c"
+    },
+    {
+      "path": "studies/20_camarilla_ema_cloud_reversals/run.py",
+      "sha256": "021fa9f12eb72c423831c4185cb0d1047382a5f80a6e9e6f0946772681595f28"
+    },
+    {
+      "path": "studies/20_camarilla_ema_cloud_reversals/src/__init__.py",
+      "sha256": "f1c79aa18d1320c6b9b186a36cbc35462ec3bd12d407f9e12186834797fb018e"
+    },
+    {
+      "path": "studies/20_camarilla_ema_cloud_reversals/src/calendar.py",
+      "sha256": "ed0773b75f97cb5a1deec0ffce7cdda44aeba53cc125ee3941dd604fc2751e72"
+    },
+    {
+      "path": "studies/20_camarilla_ema_cloud_reversals/src/core.py",
+      "sha256": "040bcafd60561671c3d5fa5cb8b9329cbcd02b734e7cc58b81021557132b2c2b"
+    },
+    {
+      "path": "studies/20_camarilla_ema_cloud_reversals/src/delivery.py",
+      "sha256": "1ae4edc1ac9a527269974e541f6f30521cdf5b8ba2d502e15b7452a095d371dc"
+    },
+    {
+      "path": "studies/20_camarilla_ema_cloud_reversals/src/events.py",
+      "sha256": "89102fc53e33992e3cf7e5c9fe3351fce7a4d2dcbc9489d20838dd7e120009fd"
+    },
+    {
+      "path": "studies/20_camarilla_ema_cloud_reversals/src/execution.py",
+      "sha256": "af54a55b09fff4fb98d47518ba48f09688bebd3176f96d18da0d0a7af6eea2c2"
+    },
+    {
+      "path": "studies/20_camarilla_ema_cloud_reversals/src/inputs.py",
+      "sha256": "30d319968ce120e654e2118c4f3f622b4ad5e056cb44204c3676d554735b8c0f"
+    },
+    {
+      "path": "studies/20_camarilla_ema_cloud_reversals/src/replay.py",
+      "sha256": "af9ec3b78ac0b1c85c45674c8ebff902ae6dbb799a4a68c66a6059e4563906d5"
+    },
+    {
+      "path": "studies/20_camarilla_ema_cloud_reversals/src/reporting.py",
+      "sha256": "38840c5d2dcf16e2b13399336a9275f9a7f06738549f50a81093147f257e572a"
+    },
+    {
+      "path": "studies/20_camarilla_ema_cloud_reversals/src/spec.py",
+      "sha256": "c318682c8129ac0c8910a6d1082afb6167adc5a30397e7321f26fcc9b4789034"
+    },
+    {
+      "path": "studies/20_camarilla_ema_cloud_reversals/src/statistics.py",
+      "sha256": "57696ebe22529febf8cc7f270ef45c942cefb6374427ee095e317fa822686ba4"
+    },
+    {
+      "path": "studies/20_camarilla_ema_cloud_reversals/src/storage.py",
+      "sha256": "9adaf745d589d9793d61ad2bab26d8921b144c4908092ad176f42e1e8d4bc0c3"
+    },
+    {
+      "path": "studies/20_camarilla_ema_cloud_reversals/study.json",
+      "sha256": "6a9579f645d0f35f99108419b8755faf425f2871b97706612d121c92662e000c"
+    },
+    {
+      "path": "studies/20_camarilla_ema_cloud_reversals/study.yaml",
+      "sha256": "1f75ca2ef6cf2f06edeb8c77b68f5cd8ab2bd2eac31657d8d2c15872798c8d26"
+    },
+    {
+      "path": "studies/20_camarilla_ema_cloud_reversals/tests/test_historical.py",
+      "sha256": "117f23ddf8e8749f5ac8fb2c37ba1d80ceb047540a4fb2854f5a3e7024901ce1"
+    },
+    {
+      "path": "studies/20_camarilla_ema_cloud_reversals/tests/test_pine_statistics.py",
+      "sha256": "50f352120b6ebf1213b75784f61b5c625935c11ab420baf85e01806cde1db614"
+    },
+    {
+      "path": "packages/bhishma/src/abacus_bhishma/__init__.py",
+      "sha256": "bc9422e95edef049d00a7e97b0d3a8fd8ff6019e33cd0860051d0aaa6dd34f3c"
+    },
+    {
+      "path": "packages/bhishma/src/abacus_bhishma/continuous_loader.py",
+      "sha256": "90f51dbffe0c9a682396e3b13ec86f291e8f242f0dfca055f4219121560a04ae"
+    },
+    {
+      "path": "packages/bhishma/src/abacus_bhishma/continuous_phase1.py",
+      "sha256": "fc8a3c4a7a93b1e71a796de3f19d9a5d9d53aec67666e3d9b384f24a0b5c0b2c"
+    },
+    {
+      "path": "packages/bhishma/src/abacus_bhishma/continuous_phase2.py",
+      "sha256": "e39be7155341840fe1182421d82536ef51806d1e4b9ba25db31767bd77401f53"
+    },
+    {
+      "path": "packages/bhishma/src/abacus_bhishma/daily_context.py",
+      "sha256": "eb3ce7080466ecbbe5d0ad4dc4e2baf3b9e8b47291d77ac243b257b41c58bee8"
+    },
+    {
+      "path": "packages/bhishma/src/abacus_bhishma/databento_cli.py",
+      "sha256": "c2d2c307e1e483a3acec615e8f4cfb6b9fa2d4138eccdf6f06fe969c343b392f"
+    },
+    {
+      "path": "packages/bhishma/src/abacus_bhishma/databento_credentials.py",
+      "sha256": "5587ace0a274f5ba04f65c4a1993856cb04aea7ddf89fc415a554c185fdec1cd"
+    },
+    {
+      "path": "packages/bhishma/src/abacus_bhishma/derived_ohlcv_5m.py",
+      "sha256": "8b23e28e2021009d06aead0e04c8c191ccd1c660b79fb4a709b75165fcd43229"
+    },
+    {
+      "path": "packages/bhishma/src/abacus_bhishma/feature_loader.py",
+      "sha256": "ce7c24754411ebd0bbad33376b502f01e680c1cc4ad91ad23357eb73b61abcbe"
+    },
+    {
+      "path": "packages/bhishma/src/abacus_bhishma/gc_ema_bands.py",
+      "sha256": "863b0fd205c2bd4ecd44bbf744780f08fffb3c73154f120486533ef8957d46ef"
+    },
+    {
+      "path": "packages/bhishma/src/abacus_bhishma/paths.py",
+      "sha256": "f3125bcff0953fcfc9845119c9ff9b3f006b2d1df77c3899e0d49609e93aac18"
+    },
+    {
+      "path": "packages/bhishma/src/abacus_bhishma/range_xv.py",
+      "sha256": "1e855de79b9cc62c91a0df07cf3202a85593aba12d4fadfb39fef5fbbc430858"
+    },
+    {
+      "path": "packages/bhishma/src/abacus_bhishma/session_anchored_vwap.py",
+      "sha256": "d315a6471bb0ad9fadd3abcc64f464ceb978b891db4c8ea52419444a942c1524"
+    },
+    {
+      "path": "packages/bhishma/src/abacus_bhishma/vp_hvn.py",
+      "sha256": "292056e0ce213367e88071e4151219efc6ef2a8eeecf73688bb61f8b37293377"
+    },
+    {
+      "path": "packages/bhishma/src/abacus_bhishma/vp_hvn_release.py",
+      "sha256": "eaf09f69d117b27b2bc29702272b87da0402d3f14068338010c550fea4463830"
+    },
+    {
+      "path": "packages/sahadeva/src/abacus_sahadeva/__init__.py",
+      "sha256": "e641a3e22e76653a6651dd06da4ea27be01483d6d77ba9e0c580976b799295dc"
+    },
+    {
+      "path": "packages/sahadeva/src/abacus_sahadeva/cli.py",
+      "sha256": "48741bfda0454a68868340ffca5fdfc2643851c931677130e4131101e6011f8a"
+    },
+    {
+      "path": "packages/sahadeva/src/abacus_sahadeva/cooldown.py",
+      "sha256": "054250c80bd8828fd87dc577f082a5e35361ccd4451034c753eb262d875e6bfb"
+    },
+    {
+      "path": "packages/sahadeva/src/abacus_sahadeva/inputs.py",
+      "sha256": "c3c449d256dbd5f31b728473bed82a1699f559a9f6c3f8a39091eafceb700e9f"
+    },
+    {
+      "path": "uv.lock",
+      "sha256": "77f28c172dbbc5af07ce00d3b70f6b8f918086e6784bf2ec247803f960dbf64b"
+    },
+    {
+      "path": "pyproject.toml",
+      "sha256": "769b4dfbb4f436742820f0993897e60f3b0a1d76780e9d60c94e20dd25ad2a69"
+    },
+    {
+      "path": "scripts/uv",
+      "sha256": "0acb64bda1b97563231b6835f8f9551493e3296f015d526e2dd9fa32f2ab12ab"
+    },
+    {
+      "path": ".python-version",
+      "sha256": "49a506dd32096b010d75205acf3430c9ae6c40351888129499e5a5e487126c93"
+    }
+  ]
+}

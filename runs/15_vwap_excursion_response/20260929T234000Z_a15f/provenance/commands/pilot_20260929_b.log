@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "/Users/ppanati/Documents/projects/abacus/studies/15_vwap_excursion_response/pilot.py", line 6, in <module>
+    p=argparse.ArgumentParser();p.add_argument('--out',type=Path,required=True);a=p.parse_args();pilot(a.out)
+                                                                                                 ^^^^^^^^^^^^
+  File "/Users/ppanati/Documents/projects/abacus/studies/15_vwap_excursion_response/src/inputs.py", line 90, in pilot
+    assert (f.source_bar_count==2).all() and (~f.contains_roll).all() and (f.min_tick>0).all()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError

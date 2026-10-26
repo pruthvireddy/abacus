@@ -1,0 +1,2426 @@
+{
+  "schemaVersion": "1.1",
+  "id": "ema-cloud-slow-stage1-20261010t221954z-s1-8c6e-r3",
+  "title": "20/50 5minEMA Cloud: Stage 1 slow-touch opportunity paths",
+  "summary": "Fixed-width slow EMA touches in ES, GC and NQ on 3m and 5m candles; 2018–2020 development paths, censored counts and dependence-aware uncertainty. Path observations do not estimate profitability.",
+  "publishedAt": "2026-10-10T22:19:54Z",
+  "source": {
+    "producer": "Sahadeva",
+    "runId": "20261010T221954Z_s1_8c6e_r3"
+  },
+  "sections": [
+    {
+      "id": "findings",
+      "kind": "text",
+      "title": "Stage 1 development findings",
+      "body": "The pooled H15 signed terminal means do not establish positive continuation under the prespecified four-week uncertainty calculation. Mean adverse excursion exceeds mean favorable excursion in every pooled primary cell. Pooled intervals do not describe every side or session: negative subgroup findings and block-length sensitivities remain in the saved tables. Equal-active terminal contrasts are inconclusive; some excursion contrasts differ. Coverage improves markedly toward 2020, and early GC annual cohorts are sparse, so pooled evidence does not establish stability across years. Exact review references: provenance/reviews/interpretation-review.json; coverage S1-T00, primary and side scorecards S1-T02, annual/session S1-T04, uncertainty S1-bootstrap and contrasts S1-comparisons.\n\nES 3m H15: 1365 completed of 1366 accepted paths; 1 censored. Mean signed terminal movement -0.38772893772893874 points; 95% interval [-0.99268828771818951, 0.20639310771304745], includes zero. Mean MFE 7.4415750915750918, MAE 8.3190476190476197 points. Sparse support: False. Evidence row 1|ES|3|All|slow|fixed|15|points|development|all.\n\nES 5m H15: 1138 completed of 1143 accepted paths; 5 censored. Mean signed terminal movement 0.13224956063268772 points; 95% interval [-0.8444924298303319, 1.2556104470426404], includes zero. Mean MFE 10.286906854130052, MAE 10.82535149384886 points. Sparse support: False. Evidence row 1|ES|5|All|slow|fixed|15|points|development|all.\n\nGC 3m H15: 345 completed of 347 accepted paths; 2 censored. Mean signed terminal movement -0.70608695652173359 points; 95% interval [-1.270002602369616, 0.082877988963847279], includes zero. Mean MFE 3.7872463768115927, MAE 5.1118840579710181 points. Sparse support: False. Evidence row 1|GC|3|All|slow|fixed|15|points|development|all.\n\nGC 5m H15: 270 completed of 275 accepted paths; 5 censored. Mean signed terminal movement -0.72555555555554574 points; 95% interval [-1.4803223395775043, 0.32250856598985644], includes zero. Mean MFE 5.0607407407407443, MAE 6.5325925925925823 points. Sparse support: False. Evidence row 1|GC|5|All|slow|fixed|15|points|development|all.\n\nNQ 3m H15: 1164 completed of 1165 accepted paths; 1 censored. Mean signed terminal movement -1.0178264604810934 points; 95% interval [-2.8742024289703925, 0.88275490967849246], includes zero. Mean MFE 27.598367697594501, MAE 29.46284364261167 points. Sparse support: False. Evidence row 1|NQ|3|All|slow|fixed|15|points|development|all.\n\nNQ 5m H15: 956 completed of 961 accepted paths; 5 censored. Mean signed terminal movement -1.3559100418409975 points; 95% interval [-4.0505152214060569, 1.5173263912253574], includes zero. Mean MFE 36.697437238493727, MAE 38.839696652719653 points. Sparse support: False. Evidence row 1|NQ|5|All|slow|fixed|15|points|development|all.",
+      "referenceIds": [
+        "s1-t02"
+      ]
+    },
+    {
+      "id": "primary",
+      "kind": "table",
+      "title": "Primary H15 scorecard",
+      "columns": [
+        {
+          "key": "product",
+          "label": "Product"
+        },
+        {
+          "key": "interval_minutes",
+          "label": "Candle minutes",
+          "format": "number",
+          "precision": 3
+        },
+        {
+          "key": "accepted",
+          "label": "Accepted",
+          "format": "number",
+          "precision": 3
+        },
+        {
+          "key": "completed",
+          "label": "Completed",
+          "format": "number",
+          "precision": 3
+        },
+        {
+          "key": "censored",
+          "label": "Censored",
+          "format": "number",
+          "precision": 3
+        },
+        {
+          "key": "contributing_sessions",
+          "label": "Sessions",
+          "format": "number",
+          "precision": 3
+        },
+        {
+          "key": "mean_mfe",
+          "label": "Mean mfe",
+          "format": "number",
+          "precision": 3,
+          "unit": "points"
+        },
+        {
+          "key": "mean_mae",
+          "label": "Mean mae",
+          "format": "number",
+          "precision": 3,
+          "unit": "points"
+        },
+        {
+          "key": "mean_terminal_delta",
+          "label": "Mean signed close",
+          "format": "number",
+          "precision": 3,
+          "unit": "points"
+        },
+        {
+          "key": "favorable_share",
+          "label": "Favorable share",
+          "format": "percent",
+          "precision": 1
+        },
+        {
+          "key": "ci95_low",
+          "label": "95% low",
+          "format": "number",
+          "precision": 3
+        },
+        {
+          "key": "ci95_high",
+          "label": "95% high",
+          "format": "number",
+          "precision": 3
+        }
+      ],
+      "rows": [
+        {
+          "product": "ES",
+          "interval_minutes": 3.0,
+          "accepted": 1366.0,
+          "completed": 1365.0,
+          "censored": 1.0,
+          "contributing_sessions": 375.0,
+          "mean_mfe": 7.441575091575092,
+          "mean_mae": 8.31904761904762,
+          "mean_terminal_delta": -0.38772893772893874,
+          "favorable_share": 0.4945054945054945,
+          "ci95_low": -0.9926882877181895,
+          "ci95_high": 0.20639310771304745
+        },
+        {
+          "product": "ES",
+          "interval_minutes": 5.0,
+          "accepted": 1143.0,
+          "completed": 1138.0,
+          "censored": 5.0,
+          "contributing_sessions": 353.0,
+          "mean_mfe": 10.286906854130052,
+          "mean_mae": 10.82535149384886,
+          "mean_terminal_delta": 0.13224956063268772,
+          "favorable_share": 0.5052724077328646,
+          "ci95_low": -0.8444924298303319,
+          "ci95_high": 1.2556104470426404
+        },
+        {
+          "product": "GC",
+          "interval_minutes": 3.0,
+          "accepted": 347.0,
+          "completed": 345.0,
+          "censored": 2.0,
+          "contributing_sessions": 151.0,
+          "mean_mfe": 3.7872463768115927,
+          "mean_mae": 5.111884057971018,
+          "mean_terminal_delta": -0.7060869565217336,
+          "favorable_share": 0.4927536231884058,
+          "ci95_low": -1.270002602369616,
+          "ci95_high": 0.08287798896384728
+        },
+        {
+          "product": "GC",
+          "interval_minutes": 5.0,
+          "accepted": 275.0,
+          "completed": 270.0,
+          "censored": 5.0,
+          "contributing_sessions": 124.0,
+          "mean_mfe": 5.060740740740744,
+          "mean_mae": 6.532592592592582,
+          "mean_terminal_delta": -0.7255555555555457,
+          "favorable_share": 0.5148148148148148,
+          "ci95_low": -1.4803223395775043,
+          "ci95_high": 0.32250856598985644
+        },
+        {
+          "product": "NQ",
+          "interval_minutes": 3.0,
+          "accepted": 1165.0,
+          "completed": 1164.0,
+          "censored": 1.0,
+          "contributing_sessions": 377.0,
+          "mean_mfe": 27.5983676975945,
+          "mean_mae": 29.46284364261167,
+          "mean_terminal_delta": -1.0178264604810934,
+          "favorable_share": 0.5,
+          "ci95_low": -2.8742024289703925,
+          "ci95_high": 0.8827549096784925
+        },
+        {
+          "product": "NQ",
+          "interval_minutes": 5.0,
+          "accepted": 961.0,
+          "completed": 956.0,
+          "censored": 5.0,
+          "contributing_sessions": 336.0,
+          "mean_mfe": 36.69743723849373,
+          "mean_mae": 38.83969665271965,
+          "mean_terminal_delta": -1.3559100418409975,
+          "favorable_share": 0.4884937238493724,
+          "ci95_low": -4.050515221406057,
+          "ci95_high": 1.5173263912253574
+        }
+      ],
+      "description": "Pooled Buy/Sell; event-weighted raw points separately by product. H15 is 45 active minutes on 3m and 75 on 5m.",
+      "referenceIds": [
+        "s1-t02"
+      ],
+      "notes": [
+        "Blank numerical evidence remains Not available. Percent values are saved ratios.",
+        "Source table selectors and exact cells are reconciled in the private bindings."
+      ]
+    },
+    {
+      "id": "definitions",
+      "kind": "text",
+      "title": "Frozen definitions and uncertainty",
+      "body": "EMA20/EMA50 cloud stays on five-minute closes. Fixed inclusive widths: ES 2.4, GC 2.0, NQ 10 points. Slow touches only, both directions, one signal per pullback, zero cooldown. A five-minute signal uses its current completed close-derived cloud; a three-minute signal freezes the latest scheduled cloud completed at its open. Missing latest features clear state. Features reset on rolls/unknown gaps and require 250 consecutive usable five-minute observations; known scheduled closures preserve same-contract state. Overlapping observations are retained. H counts scheduled active chart slots. H15 means 45 active minutes on 3m and 75 on 5m. Equal-active comparisons are 3m H20 versus 5m H12 (60 minutes), and 3m H50 versus 5m H30 (150). Actual elapsed minutes and closure-crossing support remain separate. Quantiles interpolate at p(n−1); top-tail cutoffs are percentiles, not tail averages. Terminal signs use strict zero; MFE>MAE uses epsilon 1e−10×max(1,MFE,MAE), with ties retained. Pointwise 95% uncertainty uses paired contiguous New York calendar-week blocks, four-week primary, 10,000 resamples, seed 20261010; one/eight-week sensitivity remains descriptive. Event means and contributing-session balanced means have different denominators. Calendar labels use signal-open New York dates; weeks start Monday. Fixed time strata are Asia 18–03, Europe 03–09, US 09–16 and Late 16–18. Session balancing uses trading-session identity. No strategy selection or profitability estimate is implied."
+    },
+    {
+      "id": "limitations",
+      "kind": "text",
+      "title": "Coverage and interpretation limits",
+      "body": "2018–2020 development observations only; later-period outcomes remain reserved. Prior Abacus studies inspected some later market history, so this is not a pristine market holdout. Unadjusted same-contract prices; reference is confirmed signal close and the signal candle is excluded. MFE and MAE are path observations, not executable profits, stops or targets. Sparse cohorts have fewer than 100 completed events or 30 contributing sessions. Modeled completion is available_at; original vendor-receipt and mapping-arrival times are absent. Uncertified holiday/early-close sessions are excluded conservatively and reset feature history. Missing no-trade minutes cannot be distinguished reliably from source loss.\n\nVerified published partition bytes and retained release lineage support this descriptive analysis. Original raw source reconstruction could not be certified because retained mapping/definition prerequisites are unavailable; native TradingView equivalence and off-device backup verification were not executed. These qualifications are distinct from the passed consumed-input and scientific checks."
+    },
+    {
+      "id": "coverage",
+      "kind": "table",
+      "title": "Input coverage and quality",
+      "columns": [
+        {
+          "key": "product",
+          "label": "Product"
+        },
+        {
+          "key": "interval_minutes",
+          "label": "Interval minutes",
+          "format": "number",
+          "precision": 3
+        },
+        {
+          "key": "year",
+          "label": "Year",
+          "format": "number",
+          "precision": 3
+        },
+        {
+          "key": "scheduled_slots",
+          "label": "Scheduled slots",
+          "format": "number",
+          "precision": 3
+        },
+        {
+          "key": "usable_slots",
+          "label": "Usable slots",
+          "format": "number",
+          "precision": 3
+        },
+        {
+          "key": "feature_ready_slots",
+          "label": "Feature ready slots",
+          "format": "number",
+          "precision": 3
+        },
+        {
+          "key": "missing_slots",
+          "label": "Missing slots",
+          "format": "number",
+          "precision": 3
+        },
+        {
+          "key": "empty_slots",
+          "label": "Empty slots",
+          "format": "number",
+          "precision": 3
+        },
+        {
+          "key": "mixed_slots",
+          "label": "Mixed slots",
+          "format": "number",
+          "precision": 3
+        },
+        {
+          "key": "calendar_invalid_slots",
+          "label": "Calendar invalid slots",
+          "format": "number",
+          "precision": 3
+        },
+        {
+          "key": "expected_source_minutes",
+          "label": "Expected source minutes",
+          "format": "number",
+          "precision": 3
+        },
+        {
+          "key": "observed_source_minutes",
+          "label": "Observed source minutes",
+          "format": "number",
+          "precision": 3
+        }
+      ],
+      "rows": [
+        {
+          "product": "ES",
+          "interval_minutes": 3.0,
+          "year": 2018.0,
+          "scheduled_slots": 118755.0,
+          "usable_slots": 112052.0,
+          "feature_ready_slots": 45541.0,
+          "missing_slots": 806.0,
+          "empty_slots": 2178.0,
+          "mixed_slots": 0.0,
+          "calendar_invalid_slots": 5915.0,
+          "expected_source_minutes": 356265.0,
+          "observed_source_minutes": 348873.0
+        },
+        {
+          "product": "ES",
+          "interval_minutes": 3.0,
+          "year": 2019.0,
+          "scheduled_slots": 118755.0,
+          "usable_slots": 112817.0,
+          "feature_ready_slots": 55595.0,
+          "missing_slots": 464.0,
+          "empty_slots": 2086.0,
+          "mixed_slots": 0.0,
+          "calendar_invalid_slots": 5460.0,
+          "expected_source_minutes": 356265.0,
+          "observed_source_minutes": 349528.0
+        },
+        {
+          "product": "ES",
+          "interval_minutes": 3.0,
+          "year": 2020.0,
+          "scheduled_slots": 119210.0,
+          "usable_slots": 113501.0,
+          "feature_ready_slots": 98445.0,
+          "missing_slots": 489.0,
+          "empty_slots": 2191.0,
+          "mixed_slots": 0.0,
+          "calendar_invalid_slots": 5005.0,
+          "expected_source_minutes": 357630.0,
+          "observed_source_minutes": 350344.0
+        },
+        {
+          "product": "ES",
+          "interval_minutes": 5.0,
+          "year": 2018.0,
+          "scheduled_slots": 71253.0,
+          "usable_slots": 66958.0,
+          "feature_ready_slots": 27370.0,
+          "missing_slots": 767.0,
+          "empty_slots": 1306.0,
+          "mixed_slots": 0.0,
+          "calendar_invalid_slots": 3549.0,
+          "expected_source_minutes": 356265.0,
+          "observed_source_minutes": 348873.0
+        },
+        {
+          "product": "ES",
+          "interval_minutes": 5.0,
+          "year": 2019.0,
+          "scheduled_slots": 71253.0,
+          "usable_slots": 67540.0,
+          "feature_ready_slots": 33407.0,
+          "missing_slots": 446.0,
+          "empty_slots": 1251.0,
+          "mixed_slots": 0.0,
+          "calendar_invalid_slots": 3276.0,
+          "expected_source_minutes": 356265.0,
+          "observed_source_minutes": 349528.0
+        },
+        {
+          "product": "ES",
+          "interval_minutes": 5.0,
+          "year": 2020.0,
+          "scheduled_slots": 71526.0,
+          "usable_slots": 68041.0,
+          "feature_ready_slots": 59093.0,
+          "missing_slots": 410.0,
+          "empty_slots": 1265.0,
+          "mixed_slots": 0.0,
+          "calendar_invalid_slots": 3003.0,
+          "expected_source_minutes": 357630.0,
+          "observed_source_minutes": 350344.0
+        },
+        {
+          "product": "GC",
+          "interval_minutes": 3.0,
+          "year": 2018.0,
+          "scheduled_slots": 120060.0,
+          "usable_slots": 111191.0,
+          "feature_ready_slots": 32623.0,
+          "missing_slots": 2064.0,
+          "empty_slots": 3316.0,
+          "mixed_slots": 0.0,
+          "calendar_invalid_slots": 5520.0,
+          "expected_source_minutes": 360180.0,
+          "observed_source_minutes": 347466.0
+        },
+        {
+          "product": "GC",
+          "interval_minutes": 3.0,
+          "year": 2019.0,
+          "scheduled_slots": 120060.0,
+          "usable_slots": 112333.0,
+          "feature_ready_slots": 41299.0,
+          "missing_slots": 1956.0,
+          "empty_slots": 3058.0,
+          "mixed_slots": 0.0,
+          "calendar_invalid_slots": 5060.0,
+          "expected_source_minutes": 360180.0,
+          "observed_source_minutes": 348353.0
+        },
+        {
+          "product": "GC",
+          "interval_minutes": 3.0,
+          "year": 2020.0,
+          "scheduled_slots": 120520.0,
+          "usable_slots": 113306.0,
+          "feature_ready_slots": 68330.0,
+          "missing_slots": 1138.0,
+          "empty_slots": 3233.0,
+          "mixed_slots": 0.0,
+          "calendar_invalid_slots": 5060.0,
+          "expected_source_minutes": 361560.0,
+          "observed_source_minutes": 350272.0
+        },
+        {
+          "product": "GC",
+          "interval_minutes": 5.0,
+          "year": 2018.0,
+          "scheduled_slots": 72036.0,
+          "usable_slots": 66311.0,
+          "feature_ready_slots": 19639.0,
+          "missing_slots": 1828.0,
+          "empty_slots": 1818.0,
+          "mixed_slots": 0.0,
+          "calendar_invalid_slots": 3312.0,
+          "expected_source_minutes": 360180.0,
+          "observed_source_minutes": 347466.0
+        },
+        {
+          "product": "GC",
+          "interval_minutes": 5.0,
+          "year": 2019.0,
+          "scheduled_slots": 72036.0,
+          "usable_slots": 67053.0,
+          "feature_ready_slots": 24833.0,
+          "missing_slots": 1711.0,
+          "empty_slots": 1677.0,
+          "mixed_slots": 0.0,
+          "calendar_invalid_slots": 3036.0,
+          "expected_source_minutes": 360180.0,
+          "observed_source_minutes": 348353.0
+        },
+        {
+          "product": "GC",
+          "interval_minutes": 5.0,
+          "year": 2020.0,
+          "scheduled_slots": 72312.0,
+          "usable_slots": 67825.0,
+          "feature_ready_slots": 41057.0,
+          "missing_slots": 996.0,
+          "empty_slots": 1821.0,
+          "mixed_slots": 0.0,
+          "calendar_invalid_slots": 3036.0,
+          "expected_source_minutes": 361560.0,
+          "observed_source_minutes": 350272.0
+        },
+        {
+          "product": "NQ",
+          "interval_minutes": 3.0,
+          "year": 2018.0,
+          "scheduled_slots": 118755.0,
+          "usable_slots": 112283.0,
+          "feature_ready_slots": 52816.0,
+          "missing_slots": 594.0,
+          "empty_slots": 2182.0,
+          "mixed_slots": 0.0,
+          "calendar_invalid_slots": 5915.0,
+          "expected_source_minutes": 356265.0,
+          "observed_source_minutes": 349089.0
+        },
+        {
+          "product": "NQ",
+          "interval_minutes": 3.0,
+          "year": 2019.0,
+          "scheduled_slots": 118755.0,
+          "usable_slots": 113093.0,
+          "feature_ready_slots": 79780.0,
+          "missing_slots": 149.0,
+          "empty_slots": 2086.0,
+          "mixed_slots": 0.0,
+          "calendar_invalid_slots": 5460.0,
+          "expected_source_minutes": 356265.0,
+          "observed_source_minutes": 349855.0
+        },
+        {
+          "product": "NQ",
+          "interval_minutes": 3.0,
+          "year": 2020.0,
+          "scheduled_slots": 119210.0,
+          "usable_slots": 113300.0,
+          "feature_ready_slots": 99874.0,
+          "missing_slots": 454.0,
+          "empty_slots": 2413.0,
+          "mixed_slots": 0.0,
+          "calendar_invalid_slots": 5005.0,
+          "expected_source_minutes": 357630.0,
+          "observed_source_minutes": 349672.0
+        },
+        {
+          "product": "NQ",
+          "interval_minutes": 5.0,
+          "year": 2018.0,
+          "scheduled_slots": 71253.0,
+          "usable_slots": 67180.0,
+          "feature_ready_slots": 31741.0,
+          "missing_slots": 563.0,
+          "empty_slots": 1307.0,
+          "mixed_slots": 0.0,
+          "calendar_invalid_slots": 3549.0,
+          "expected_source_minutes": 356265.0,
+          "observed_source_minutes": 349089.0
+        },
+        {
+          "product": "NQ",
+          "interval_minutes": 5.0,
+          "year": 2019.0,
+          "scheduled_slots": 71253.0,
+          "usable_slots": 67800.0,
+          "feature_ready_slots": 47910.0,
+          "missing_slots": 149.0,
+          "empty_slots": 1251.0,
+          "mixed_slots": 0.0,
+          "calendar_invalid_slots": 3276.0,
+          "expected_source_minutes": 356265.0,
+          "observed_source_minutes": 349855.0
+        },
+        {
+          "product": "NQ",
+          "interval_minutes": 5.0,
+          "year": 2020.0,
+          "scheduled_slots": 71526.0,
+          "usable_slots": 67938.0,
+          "feature_ready_slots": 59949.0,
+          "missing_slots": 382.0,
+          "empty_slots": 1382.0,
+          "mixed_slots": 0.0,
+          "calendar_invalid_slots": 3003.0,
+          "expected_source_minutes": 357630.0,
+          "observed_source_minutes": 349672.0
+        }
+      ],
+      "description": "Primary buckets require every expected source minute and one contract. Development readiness counts usable signal slots with a valid mapped cloud for both intervals. Warmup-only native 5m readiness is retained; warmup-only 3m readiness is undefined. Unknown missingness is not compressed.",
+      "referenceIds": [
+        "s1-t00"
+      ],
+      "notes": [
+        "Blank numerical evidence remains Not available. Percent values are saved ratios.",
+        "Source table selectors and exact cells are reconciled in the private bindings."
+      ]
+    },
+    {
+      "id": "flow",
+      "kind": "table",
+      "title": "Signal flow before future exclusions",
+      "columns": [
+        {
+          "key": "product",
+          "label": "Product"
+        },
+        {
+          "key": "interval_minutes",
+          "label": "Interval minutes",
+          "format": "number",
+          "precision": 3
+        },
+        {
+          "key": "reason",
+          "label": "Reason"
+        },
+        {
+          "key": "count",
+          "label": "Count",
+          "format": "number",
+          "precision": 3
+        }
+      ],
+      "rows": [
+        {
+          "product": "ES",
+          "interval_minutes": 3.0,
+          "reason": "scheduled_slots",
+          "count": 356720.0
+        },
+        {
+          "product": "ES",
+          "interval_minutes": 3.0,
+          "reason": "usable_slots",
+          "count": 338370.0
+        },
+        {
+          "product": "ES",
+          "interval_minutes": 3.0,
+          "reason": "feature_valid_slots",
+          "count": 199772.0
+        },
+        {
+          "product": "ES",
+          "interval_minutes": 3.0,
+          "reason": "eligible_slots",
+          "count": 199581.0
+        },
+        {
+          "product": "ES",
+          "interval_minutes": 3.0,
+          "reason": "technical_candidates",
+          "count": 25287.0
+        },
+        {
+          "product": "ES",
+          "interval_minutes": 3.0,
+          "reason": "setup_candidates",
+          "count": 5550.0
+        },
+        {
+          "product": "ES",
+          "interval_minutes": 3.0,
+          "reason": "accepted",
+          "count": 1366.0
+        },
+        {
+          "product": "ES",
+          "interval_minutes": 5.0,
+          "reason": "scheduled_slots",
+          "count": 214032.0
+        },
+        {
+          "product": "ES",
+          "interval_minutes": 5.0,
+          "reason": "usable_slots",
+          "count": 202539.0
+        },
+        {
+          "product": "ES",
+          "interval_minutes": 5.0,
+          "reason": "feature_valid_slots",
+          "count": 119870.0
+        },
+        {
+          "product": "ES",
+          "interval_minutes": 5.0,
+          "reason": "eligible_slots",
+          "count": 119870.0
+        },
+        {
+          "product": "ES",
+          "interval_minutes": 5.0,
+          "reason": "technical_candidates",
+          "count": 20829.0
+        },
+        {
+          "product": "ES",
+          "interval_minutes": 5.0,
+          "reason": "setup_candidates",
+          "count": 4957.0
+        },
+        {
+          "product": "ES",
+          "interval_minutes": 5.0,
+          "reason": "accepted",
+          "count": 1143.0
+        },
+        {
+          "product": "GC",
+          "interval_minutes": 3.0,
+          "reason": "scheduled_slots",
+          "count": 360640.0
+        },
+        {
+          "product": "GC",
+          "interval_minutes": 3.0,
+          "reason": "usable_slots",
+          "count": 336830.0
+        },
+        {
+          "product": "GC",
+          "interval_minutes": 3.0,
+          "reason": "feature_valid_slots",
+          "count": 142555.0
+        },
+        {
+          "product": "GC",
+          "interval_minutes": 3.0,
+          "reason": "eligible_slots",
+          "count": 142252.0
+        },
+        {
+          "product": "GC",
+          "interval_minutes": 3.0,
+          "reason": "technical_candidates",
+          "count": 18614.0
+        },
+        {
+          "product": "GC",
+          "interval_minutes": 3.0,
+          "reason": "setup_candidates",
+          "count": 4215.0
+        },
+        {
+          "product": "GC",
+          "interval_minutes": 3.0,
+          "reason": "accepted",
+          "count": 347.0
+        },
+        {
+          "product": "GC",
+          "interval_minutes": 5.0,
+          "reason": "scheduled_slots",
+          "count": 216384.0
+        },
+        {
+          "product": "GC",
+          "interval_minutes": 5.0,
+          "reason": "usable_slots",
+          "count": 201189.0
+        },
+        {
+          "product": "GC",
+          "interval_minutes": 5.0,
+          "reason": "feature_valid_slots",
+          "count": 85529.0
+        },
+        {
+          "product": "GC",
+          "interval_minutes": 5.0,
+          "reason": "eligible_slots",
+          "count": 85529.0
+        },
+        {
+          "product": "GC",
+          "interval_minutes": 5.0,
+          "reason": "technical_candidates",
+          "count": 15431.0
+        },
+        {
+          "product": "GC",
+          "interval_minutes": 5.0,
+          "reason": "setup_candidates",
+          "count": 3702.0
+        },
+        {
+          "product": "GC",
+          "interval_minutes": 5.0,
+          "reason": "accepted",
+          "count": 275.0
+        },
+        {
+          "product": "NQ",
+          "interval_minutes": 3.0,
+          "reason": "scheduled_slots",
+          "count": 356720.0
+        },
+        {
+          "product": "NQ",
+          "interval_minutes": 3.0,
+          "reason": "usable_slots",
+          "count": 338676.0
+        },
+        {
+          "product": "NQ",
+          "interval_minutes": 3.0,
+          "reason": "feature_valid_slots",
+          "count": 232649.0
+        },
+        {
+          "product": "NQ",
+          "interval_minutes": 3.0,
+          "reason": "eligible_slots",
+          "count": 232470.0
+        },
+        {
+          "product": "NQ",
+          "interval_minutes": 3.0,
+          "reason": "technical_candidates",
+          "count": 28748.0
+        },
+        {
+          "product": "NQ",
+          "interval_minutes": 3.0,
+          "reason": "setup_candidates",
+          "count": 6454.0
+        },
+        {
+          "product": "NQ",
+          "interval_minutes": 3.0,
+          "reason": "accepted",
+          "count": 1165.0
+        },
+        {
+          "product": "NQ",
+          "interval_minutes": 5.0,
+          "reason": "scheduled_slots",
+          "count": 214032.0
+        },
+        {
+          "product": "NQ",
+          "interval_minutes": 5.0,
+          "reason": "usable_slots",
+          "count": 202918.0
+        },
+        {
+          "product": "NQ",
+          "interval_minutes": 5.0,
+          "reason": "feature_valid_slots",
+          "count": 139600.0
+        },
+        {
+          "product": "NQ",
+          "interval_minutes": 5.0,
+          "reason": "eligible_slots",
+          "count": 139600.0
+        },
+        {
+          "product": "NQ",
+          "interval_minutes": 5.0,
+          "reason": "technical_candidates",
+          "count": 23816.0
+        },
+        {
+          "product": "NQ",
+          "interval_minutes": 5.0,
+          "reason": "setup_candidates",
+          "count": 5785.0
+        },
+        {
+          "product": "NQ",
+          "interval_minutes": 5.0,
+          "reason": "accepted",
+          "count": 961.0
+        }
+      ],
+      "description": "Technical candidates, pre-armed setups and accepted signals are saved before any future-path exclusions. Missing-path results do not change pullback state.",
+      "referenceIds": [
+        "s1-t01"
+      ],
+      "notes": [
+        "Blank numerical evidence remains Not available. Percent values are saved ratios.",
+        "Source table selectors and exact cells are reconciled in the private bindings."
+      ]
+    },
+    {
+      "id": "stability",
+      "kind": "table",
+      "title": "Annual and fixed session-time stability",
+      "columns": [
+        {
+          "key": "product",
+          "label": "Product"
+        },
+        {
+          "key": "interval_minutes",
+          "label": "Interval minutes",
+          "format": "number",
+          "precision": 3
+        },
+        {
+          "key": "period_kind",
+          "label": "Period kind"
+        },
+        {
+          "key": "period",
+          "label": "Period"
+        },
+        {
+          "key": "accepted",
+          "label": "Accepted",
+          "format": "number",
+          "precision": 3
+        },
+        {
+          "key": "completed",
+          "label": "Completed",
+          "format": "number",
+          "precision": 3
+        },
+        {
+          "key": "censored",
+          "label": "Censored",
+          "format": "number",
+          "precision": 3
+        },
+        {
+          "key": "mean_terminal_delta",
+          "label": "Mean terminal delta",
+          "format": "number",
+          "precision": 3,
+          "unit": "points"
+        },
+        {
+          "key": "mean_mae",
+          "label": "Mean mae",
+          "format": "number",
+          "precision": 3,
+          "unit": "points"
+        },
+        {
+          "key": "favorable_share",
+          "label": "Favorable share",
+          "format": "percent",
+          "precision": 1
+        },
+        {
+          "key": "contributing_sessions",
+          "label": "Contributing sessions",
+          "format": "number",
+          "precision": 3
+        },
+        {
+          "key": "sparse_warning",
+          "label": "Sparse warning"
+        }
+      ],
+      "rows": [
+        {
+          "product": "ES",
+          "interval_minutes": 3.0,
+          "period_kind": "year",
+          "period": "2018",
+          "accepted": 278.0,
+          "completed": 278.0,
+          "censored": 0.0,
+          "mean_terminal_delta": -0.35881294964028776,
+          "mean_mae": 7.473021582733813,
+          "favorable_share": 0.49280575539568344,
+          "contributing_sessions": 83.0,
+          "sparse_warning": "False"
+        },
+        {
+          "product": "ES",
+          "interval_minutes": 3.0,
+          "period_kind": "year",
+          "period": "2019",
+          "accepted": 178.0,
+          "completed": 178.0,
+          "censored": 0.0,
+          "mean_terminal_delta": -0.5575842696629213,
+          "mean_mae": 5.859550561797753,
+          "favorable_share": 0.4943820224719101,
+          "contributing_sessions": 85.0,
+          "sparse_warning": "False"
+        },
+        {
+          "product": "ES",
+          "interval_minutes": 3.0,
+          "period_kind": "year",
+          "period": "2020",
+          "accepted": 910.0,
+          "completed": 909.0,
+          "censored": 1.0,
+          "mean_terminal_delta": -0.3633113311331148,
+          "mean_mae": 9.059405940594061,
+          "favorable_share": 0.49504950495049505,
+          "contributing_sessions": 207.0,
+          "sparse_warning": "False"
+        },
+        {
+          "product": "ES",
+          "interval_minutes": 3.0,
+          "period_kind": "time_stratum",
+          "period": "Asia",
+          "accepted": 370.0,
+          "completed": 370.0,
+          "censored": 0.0,
+          "mean_terminal_delta": -0.046621621621621624,
+          "mean_mae": 6.041216216216218,
+          "favorable_share": 0.4756756756756757,
+          "contributing_sessions": 223.0,
+          "sparse_warning": "False"
+        },
+        {
+          "product": "ES",
+          "interval_minutes": 3.0,
+          "period_kind": "time_stratum",
+          "period": "Europe",
+          "accepted": 311.0,
+          "completed": 311.0,
+          "censored": 0.0,
+          "mean_terminal_delta": -0.41077170418006576,
+          "mean_mae": 7.361736334405146,
+          "favorable_share": 0.5048231511254019,
+          "contributing_sessions": 199.0,
+          "sparse_warning": "False"
+        },
+        {
+          "product": "ES",
+          "interval_minutes": 3.0,
+          "period_kind": "time_stratum",
+          "period": "US",
+          "accepted": 668.0,
+          "completed": 668.0,
+          "censored": 0.0,
+          "mean_terminal_delta": -0.5812125748503008,
+          "mean_mae": 10.100299401197606,
+          "favorable_share": 0.5,
+          "contributing_sessions": 327.0,
+          "sparse_warning": "False"
+        },
+        {
+          "product": "ES",
+          "interval_minutes": 3.0,
+          "period_kind": "time_stratum",
+          "period": "Late",
+          "accepted": 17.0,
+          "completed": 16.0,
+          "censored": 1.0,
+          "mean_terminal_delta": 0.25,
+          "mean_mae": 5.234375,
+          "favorable_share": 0.5,
+          "contributing_sessions": 16.0,
+          "sparse_warning": "True"
+        },
+        {
+          "product": "ES",
+          "interval_minutes": 5.0,
+          "period_kind": "year",
+          "period": "2018",
+          "accepted": 233.0,
+          "completed": 232.0,
+          "censored": 1.0,
+          "mean_terminal_delta": -0.5495689655172413,
+          "mean_mae": 10.068965517241379,
+          "favorable_share": 0.46551724137931033,
+          "contributing_sessions": 80.0,
+          "sparse_warning": "False"
+        },
+        {
+          "product": "ES",
+          "interval_minutes": 5.0,
+          "period_kind": "year",
+          "period": "2019",
+          "accepted": 147.0,
+          "completed": 147.0,
+          "censored": 0.0,
+          "mean_terminal_delta": -0.13945578231292516,
+          "mean_mae": 7.387755102040816,
+          "favorable_share": 0.4897959183673469,
+          "contributing_sessions": 75.0,
+          "sparse_warning": "False"
+        },
+        {
+          "product": "ES",
+          "interval_minutes": 5.0,
+          "period_kind": "year",
+          "period": "2020",
+          "accepted": 763.0,
+          "completed": 759.0,
+          "censored": 4.0,
+          "mean_terminal_delta": 0.3932806324110654,
+          "mean_mae": 11.722332015810279,
+          "favorable_share": 0.5204216073781291,
+          "contributing_sessions": 198.0,
+          "sparse_warning": "False"
+        },
+        {
+          "product": "ES",
+          "interval_minutes": 5.0,
+          "period_kind": "time_stratum",
+          "period": "Asia",
+          "accepted": 294.0,
+          "completed": 294.0,
+          "censored": 0.0,
+          "mean_terminal_delta": 0.3681972789115646,
+          "mean_mae": 7.750850340136054,
+          "favorable_share": 0.4965986394557823,
+          "contributing_sessions": 198.0,
+          "sparse_warning": "False"
+        },
+        {
+          "product": "ES",
+          "interval_minutes": 5.0,
+          "period_kind": "time_stratum",
+          "period": "Europe",
+          "accepted": 252.0,
+          "completed": 252.0,
+          "censored": 0.0,
+          "mean_terminal_delta": 0.1974206349206331,
+          "mean_mae": 10.039682539682541,
+          "favorable_share": 0.5079365079365079,
+          "contributing_sessions": 175.0,
+          "sparse_warning": "False"
+        },
+        {
+          "product": "ES",
+          "interval_minutes": 5.0,
+          "period_kind": "time_stratum",
+          "period": "US",
+          "accepted": 581.0,
+          "completed": 577.0,
+          "censored": 4.0,
+          "mean_terminal_delta": 0.009532062391679533,
+          "mean_mae": 12.83145580589255,
+          "favorable_share": 0.5095320623916811,
+          "contributing_sessions": 302.0,
+          "sparse_warning": "False"
+        },
+        {
+          "product": "ES",
+          "interval_minutes": 5.0,
+          "period_kind": "time_stratum",
+          "period": "Late",
+          "accepted": 16.0,
+          "completed": 15.0,
+          "censored": 1.0,
+          "mean_terminal_delta": -0.8666666666666667,
+          "mean_mae": 7.116666666666666,
+          "favorable_share": 0.4666666666666667,
+          "contributing_sessions": 15.0,
+          "sparse_warning": "True"
+        },
+        {
+          "product": "GC",
+          "interval_minutes": 3.0,
+          "period_kind": "year",
+          "period": "2018",
+          "accepted": 10.0,
+          "completed": 10.0,
+          "censored": 0.0,
+          "mean_terminal_delta": 0.4300000000000182,
+          "mean_mae": 1.4299999999999726,
+          "favorable_share": 0.6,
+          "contributing_sessions": 10.0,
+          "sparse_warning": "True"
+        },
+        {
+          "product": "GC",
+          "interval_minutes": 3.0,
+          "period_kind": "year",
+          "period": "2019",
+          "accepted": 39.0,
+          "completed": 39.0,
+          "censored": 0.0,
+          "mean_terminal_delta": 0.3512820512820758,
+          "mean_mae": 2.6923076923076925,
+          "favorable_share": 0.5641025641025641,
+          "contributing_sessions": 27.0,
+          "sparse_warning": "True"
+        },
+        {
+          "product": "GC",
+          "interval_minutes": 3.0,
+          "period_kind": "year",
+          "period": "2020",
+          "accepted": 298.0,
+          "completed": 296.0,
+          "censored": 2.0,
+          "mean_terminal_delta": -0.8837837837837812,
+          "mean_mae": 5.555067567567573,
+          "favorable_share": 0.4797297297297297,
+          "contributing_sessions": 114.0,
+          "sparse_warning": "False"
+        },
+        {
+          "product": "GC",
+          "interval_minutes": 3.0,
+          "period_kind": "time_stratum",
+          "period": "Asia",
+          "accepted": 90.0,
+          "completed": 90.0,
+          "censored": 0.0,
+          "mean_terminal_delta": -1.2044444444444429,
+          "mean_mae": 5.252222222222228,
+          "favorable_share": 0.5111111111111111,
+          "contributing_sessions": 62.0,
+          "sparse_warning": "True"
+        },
+        {
+          "product": "GC",
+          "interval_minutes": 3.0,
+          "period_kind": "time_stratum",
+          "period": "Europe",
+          "accepted": 83.0,
+          "completed": 83.0,
+          "censored": 0.0,
+          "mean_terminal_delta": -0.875903614457821,
+          "mean_mae": 5.042168674698787,
+          "favorable_share": 0.42168674698795183,
+          "contributing_sessions": 64.0,
+          "sparse_warning": "True"
+        },
+        {
+          "product": "GC",
+          "interval_minutes": 3.0,
+          "period_kind": "time_stratum",
+          "period": "US",
+          "accepted": 159.0,
+          "completed": 158.0,
+          "censored": 1.0,
+          "mean_terminal_delta": -0.2424050632911332,
+          "mean_mae": 5.083544303797474,
+          "favorable_share": 0.5063291139240507,
+          "contributing_sessions": 116.0,
+          "sparse_warning": "False"
+        },
+        {
+          "product": "GC",
+          "interval_minutes": 3.0,
+          "period_kind": "time_stratum",
+          "period": "Late",
+          "accepted": 15.0,
+          "completed": 14.0,
+          "censored": 1.0,
+          "mean_terminal_delta": -1.7285714285714318,
+          "mean_mae": 4.942857142857179,
+          "favorable_share": 0.6428571428571429,
+          "contributing_sessions": 12.0,
+          "sparse_warning": "True"
+        },
+        {
+          "product": "GC",
+          "interval_minutes": 5.0,
+          "period_kind": "year",
+          "period": "2018",
+          "accepted": 5.0,
+          "completed": 5.0,
+          "censored": 0.0,
+          "mean_terminal_delta": 2.0799999999999725,
+          "mean_mae": 1.9399999999999635,
+          "favorable_share": 0.8,
+          "contributing_sessions": 5.0,
+          "sparse_warning": "True"
+        },
+        {
+          "product": "GC",
+          "interval_minutes": 5.0,
+          "period_kind": "year",
+          "period": "2019",
+          "accepted": 29.0,
+          "completed": 29.0,
+          "censored": 0.0,
+          "mean_terminal_delta": 1.0413793103448605,
+          "mean_mae": 2.85862068965516,
+          "favorable_share": 0.6551724137931034,
+          "contributing_sessions": 21.0,
+          "sparse_warning": "True"
+        },
+        {
+          "product": "GC",
+          "interval_minutes": 5.0,
+          "period_kind": "year",
+          "period": "2020",
+          "accepted": 241.0,
+          "completed": 236.0,
+          "censored": 5.0,
+          "mean_terminal_delta": -1.002118644067789,
+          "mean_mae": 7.0813559322033806,
+          "favorable_share": 0.4915254237288136,
+          "contributing_sessions": 98.0,
+          "sparse_warning": "False"
+        },
+        {
+          "product": "GC",
+          "interval_minutes": 5.0,
+          "period_kind": "time_stratum",
+          "period": "Asia",
+          "accepted": 69.0,
+          "completed": 67.0,
+          "censored": 2.0,
+          "mean_terminal_delta": -1.7985074626865605,
+          "mean_mae": 7.229850746268651,
+          "favorable_share": 0.47761194029850745,
+          "contributing_sessions": 49.0,
+          "sparse_warning": "True"
+        },
+        {
+          "product": "GC",
+          "interval_minutes": 5.0,
+          "period_kind": "time_stratum",
+          "period": "Europe",
+          "accepted": 64.0,
+          "completed": 64.0,
+          "censored": 0.0,
+          "mean_terminal_delta": -0.1203124999999936,
+          "mean_mae": 6.21718749999998,
+          "favorable_share": 0.484375,
+          "contributing_sessions": 51.0,
+          "sparse_warning": "True"
+        },
+        {
+          "product": "GC",
+          "interval_minutes": 5.0,
+          "period_kind": "time_stratum",
+          "period": "US",
+          "accepted": 130.0,
+          "completed": 128.0,
+          "censored": 2.0,
+          "mean_terminal_delta": -0.6757812499999876,
+          "mean_mae": 6.3179687499999915,
+          "favorable_share": 0.53125,
+          "contributing_sessions": 100.0,
+          "sparse_warning": "False"
+        },
+        {
+          "product": "GC",
+          "interval_minutes": 5.0,
+          "period_kind": "time_stratum",
+          "period": "Late",
+          "accepted": 12.0,
+          "completed": 11.0,
+          "censored": 1.0,
+          "mean_terminal_delta": 1.7090909090909256,
+          "mean_mae": 6.618181818181814,
+          "favorable_share": 0.7272727272727273,
+          "contributing_sessions": 10.0,
+          "sparse_warning": "True"
+        },
+        {
+          "product": "NQ",
+          "interval_minutes": 3.0,
+          "period_kind": "year",
+          "period": "2018",
+          "accepted": 216.0,
+          "completed": 216.0,
+          "censored": 0.0,
+          "mean_terminal_delta": 0.5034722222222222,
+          "mean_mae": 24.71643518518519,
+          "favorable_share": 0.5138888888888888,
+          "contributing_sessions": 85.0,
+          "sparse_warning": "False"
+        },
+        {
+          "product": "NQ",
+          "interval_minutes": 3.0,
+          "period_kind": "year",
+          "period": "2019",
+          "accepted": 133.0,
+          "completed": 133.0,
+          "censored": 0.0,
+          "mean_terminal_delta": -0.34398496240601506,
+          "mean_mae": 19.289473684210527,
+          "favorable_share": 0.49624060150375937,
+          "contributing_sessions": 88.0,
+          "sparse_warning": "False"
+        },
+        {
+          "product": "NQ",
+          "interval_minutes": 3.0,
+          "period_kind": "year",
+          "period": "2020",
+          "accepted": 816.0,
+          "completed": 815.0,
+          "censored": 1.0,
+          "mean_terminal_delta": -1.5309815950920156,
+          "mean_mae": 32.38098159509201,
+          "favorable_share": 0.49693251533742333,
+          "contributing_sessions": 204.0,
+          "sparse_warning": "False"
+        },
+        {
+          "product": "NQ",
+          "interval_minutes": 3.0,
+          "period_kind": "time_stratum",
+          "period": "Asia",
+          "accepted": 294.0,
+          "completed": 294.0,
+          "censored": 0.0,
+          "mean_terminal_delta": 1.227891156462588,
+          "mean_mae": 19.952380952380945,
+          "favorable_share": 0.47959183673469385,
+          "contributing_sessions": 183.0,
+          "sparse_warning": "False"
+        },
+        {
+          "product": "NQ",
+          "interval_minutes": 3.0,
+          "period_kind": "time_stratum",
+          "period": "Europe",
+          "accepted": 224.0,
+          "completed": 224.0,
+          "censored": 0.0,
+          "mean_terminal_delta": -3.6171874999999836,
+          "mean_mae": 26.642857142857128,
+          "favorable_share": 0.5267857142857143,
+          "contributing_sessions": 147.0,
+          "sparse_warning": "False"
+        },
+        {
+          "product": "NQ",
+          "interval_minutes": 3.0,
+          "period_kind": "time_stratum",
+          "period": "US",
+          "accepted": 625.0,
+          "completed": 625.0,
+          "censored": 0.0,
+          "mean_terminal_delta": -1.0431999999999957,
+          "mean_mae": 35.13239999999999,
+          "favorable_share": 0.5056,
+          "contributing_sessions": 334.0,
+          "sparse_warning": "False"
+        },
+        {
+          "product": "NQ",
+          "interval_minutes": 3.0,
+          "period_kind": "time_stratum",
+          "period": "Late",
+          "accepted": 22.0,
+          "completed": 21.0,
+          "censored": 1.0,
+          "mean_terminal_delta": -3.9761904761904763,
+          "mean_mae": 23.952380952380953,
+          "favorable_share": 0.3333333333333333,
+          "contributing_sessions": 21.0,
+          "sparse_warning": "True"
+        },
+        {
+          "product": "NQ",
+          "interval_minutes": 5.0,
+          "period_kind": "year",
+          "period": "2018",
+          "accepted": 166.0,
+          "completed": 165.0,
+          "censored": 1.0,
+          "mean_terminal_delta": -1.1712121212121211,
+          "mean_mae": 33.73333333333334,
+          "favorable_share": 0.47878787878787876,
+          "contributing_sessions": 71.0,
+          "sparse_warning": "False"
+        },
+        {
+          "product": "NQ",
+          "interval_minutes": 5.0,
+          "period_kind": "year",
+          "period": "2019",
+          "accepted": 102.0,
+          "completed": 102.0,
+          "censored": 0.0,
+          "mean_terminal_delta": 0.926470588235303,
+          "mean_mae": 23.458333333333332,
+          "favorable_share": 0.5098039215686274,
+          "contributing_sessions": 71.0,
+          "sparse_warning": "False"
+        },
+        {
+          "product": "NQ",
+          "interval_minutes": 5.0,
+          "period_kind": "year",
+          "period": "2020",
+          "accepted": 693.0,
+          "completed": 689.0,
+          "censored": 4.0,
+          "mean_terminal_delta": -1.7380261248185698,
+          "mean_mae": 42.339622641509415,
+          "favorable_share": 0.4876632801161103,
+          "contributing_sessions": 194.0,
+          "sparse_warning": "False"
+        },
+        {
+          "product": "NQ",
+          "interval_minutes": 5.0,
+          "period_kind": "time_stratum",
+          "period": "Asia",
+          "accepted": 233.0,
+          "completed": 232.0,
+          "censored": 1.0,
+          "mean_terminal_delta": 2.4094827586206935,
+          "mean_mae": 24.689655172413783,
+          "favorable_share": 0.49137931034482757,
+          "contributing_sessions": 157.0,
+          "sparse_warning": "False"
+        },
+        {
+          "product": "NQ",
+          "interval_minutes": 5.0,
+          "period_kind": "time_stratum",
+          "period": "Europe",
+          "accepted": 187.0,
+          "completed": 186.0,
+          "censored": 1.0,
+          "mean_terminal_delta": -5.594086021505362,
+          "mean_mae": 39.85215053763439,
+          "favorable_share": 0.44623655913978494,
+          "contributing_sessions": 124.0,
+          "sparse_warning": "False"
+        },
+        {
+          "product": "NQ",
+          "interval_minutes": 5.0,
+          "period_kind": "time_stratum",
+          "period": "US",
+          "accepted": 526.0,
+          "completed": 524.0,
+          "censored": 2.0,
+          "mean_terminal_delta": -1.6588740458015214,
+          "mean_mae": 45.14503816793893,
+          "favorable_share": 0.5038167938931297,
+          "contributing_sessions": 298.0,
+          "sparse_warning": "False"
+        },
+        {
+          "product": "NQ",
+          "interval_minutes": 5.0,
+          "period_kind": "time_stratum",
+          "period": "Late",
+          "accepted": 15.0,
+          "completed": 14.0,
+          "censored": 1.0,
+          "mean_terminal_delta": 3.892857142857143,
+          "mean_mae": 23.875,
+          "favorable_share": 0.42857142857142855,
+          "contributing_sessions": 14.0,
+          "sparse_warning": "True"
+        }
+      ],
+      "description": "All years and every prespecified time stratum retained. Individual trading-session and hour rows remain in the complete saved table; no favorable hour is selected.",
+      "referenceIds": [
+        "s1-t04"
+      ],
+      "notes": [
+        "Blank numerical evidence remains Not available. Percent values are saved ratios.",
+        "Source table selectors and exact cells are reconciled in the private bindings."
+      ]
+    },
+    {
+      "id": "sides",
+      "kind": "table",
+      "title": "All, Buy and Sell",
+      "columns": [
+        {
+          "key": "product",
+          "label": "Product"
+        },
+        {
+          "key": "interval_minutes",
+          "label": "Interval minutes",
+          "format": "number",
+          "precision": 3
+        },
+        {
+          "key": "direction",
+          "label": "Direction"
+        },
+        {
+          "key": "completed",
+          "label": "Completed",
+          "format": "number",
+          "precision": 3
+        },
+        {
+          "key": "mean_terminal_delta",
+          "label": "Mean terminal delta",
+          "format": "number",
+          "precision": 3,
+          "unit": "points"
+        },
+        {
+          "key": "mean_mfe",
+          "label": "Mean mfe",
+          "format": "number",
+          "precision": 3,
+          "unit": "points"
+        },
+        {
+          "key": "mean_mae",
+          "label": "Mean mae",
+          "format": "number",
+          "precision": 3,
+          "unit": "points"
+        },
+        {
+          "key": "favorable_share",
+          "label": "Favorable share",
+          "format": "percent",
+          "precision": 1
+        },
+        {
+          "key": "mfe_gt_mae_share",
+          "label": "Mfe gt mae share",
+          "format": "percent",
+          "precision": 1
+        },
+        {
+          "key": "session_mean_terminal_delta",
+          "label": "Session balanced close",
+          "format": "number",
+          "precision": 3
+        },
+        {
+          "key": "contributing_sessions",
+          "label": "Contributing sessions",
+          "format": "number",
+          "precision": 3
+        },
+        {
+          "key": "sparse_warning",
+          "label": "Sparse warning"
+        }
+      ],
+      "rows": [
+        {
+          "product": "ES",
+          "interval_minutes": 3.0,
+          "direction": "All",
+          "completed": 1365.0,
+          "mean_terminal_delta": -0.38772893772893874,
+          "mean_mfe": 7.441575091575092,
+          "mean_mae": 8.31904761904762,
+          "favorable_share": 0.4945054945054945,
+          "mfe_gt_mae_share": 0.4608058608058608,
+          "session_mean_terminal_delta": -0.29700890405890495,
+          "contributing_sessions": 375.0,
+          "sparse_warning": "False"
+        },
+        {
+          "product": "ES",
+          "interval_minutes": 3.0,
+          "direction": "Buy",
+          "completed": 663.0,
+          "mean_terminal_delta": -0.2526395173453997,
+          "mean_mfe": 6.83182503770739,
+          "mean_mae": 8.355580693815988,
+          "favorable_share": 0.5203619909502263,
+          "mfe_gt_mae_share": 0.4555052790346908,
+          "session_mean_terminal_delta": -0.7025860682110682,
+          "contributing_sessions": 296.0,
+          "sparse_warning": "False"
+        },
+        {
+          "product": "ES",
+          "interval_minutes": 3.0,
+          "direction": "Sell",
+          "completed": 702.0,
+          "mean_terminal_delta": -0.5153133903133923,
+          "mean_mfe": 8.017450142450143,
+          "mean_mae": 8.284544159544161,
+          "favorable_share": 0.4700854700854701,
+          "mfe_gt_mae_share": 0.4658119658119658,
+          "session_mean_terminal_delta": -1.3307023404599958,
+          "contributing_sessions": 294.0,
+          "sparse_warning": "False"
+        },
+        {
+          "product": "ES",
+          "interval_minutes": 5.0,
+          "direction": "All",
+          "completed": 1138.0,
+          "mean_terminal_delta": 0.13224956063268772,
+          "mean_mfe": 10.286906854130052,
+          "mean_mae": 10.82535149384886,
+          "favorable_share": 0.5052724077328646,
+          "mfe_gt_mae_share": 0.46836555360281196,
+          "session_mean_terminal_delta": 0.10450858749371392,
+          "contributing_sessions": 353.0,
+          "sparse_warning": "False"
+        },
+        {
+          "product": "ES",
+          "interval_minutes": 5.0,
+          "direction": "Buy",
+          "completed": 548.0,
+          "mean_terminal_delta": -0.04242700729927007,
+          "mean_mfe": 9.30109489051095,
+          "mean_mae": 10.626368613138686,
+          "favorable_share": 0.541970802919708,
+          "mfe_gt_mae_share": 0.4762773722627737,
+          "session_mean_terminal_delta": -0.9177429274292743,
+          "contributing_sessions": 271.0,
+          "sparse_warning": "False"
+        },
+        {
+          "product": "ES",
+          "interval_minutes": 5.0,
+          "direction": "Sell",
+          "completed": 590.0,
+          "mean_terminal_delta": 0.2944915254237265,
+          "mean_mfe": 11.202542372881355,
+          "mean_mae": 11.010169491525426,
+          "favorable_share": 0.4711864406779661,
+          "mfe_gt_mae_share": 0.4610169491525424,
+          "session_mean_terminal_delta": -0.8116464510332463,
+          "contributing_sessions": 265.0,
+          "sparse_warning": "False"
+        },
+        {
+          "product": "GC",
+          "interval_minutes": 3.0,
+          "direction": "All",
+          "completed": 345.0,
+          "mean_terminal_delta": -0.7060869565217336,
+          "mean_mfe": 3.7872463768115927,
+          "mean_mae": 5.111884057971018,
+          "favorable_share": 0.4927536231884058,
+          "mfe_gt_mae_share": 0.4492753623188406,
+          "session_mean_terminal_delta": -0.24875748975086137,
+          "contributing_sessions": 151.0,
+          "sparse_warning": "False"
+        },
+        {
+          "product": "GC",
+          "interval_minutes": 3.0,
+          "direction": "Buy",
+          "completed": 176.0,
+          "mean_terminal_delta": -0.4312500000000031,
+          "mean_mfe": 4.029545454545455,
+          "mean_mae": 5.306250000000008,
+          "favorable_share": 0.5056818181818182,
+          "mfe_gt_mae_share": 0.45454545454545453,
+          "session_mean_terminal_delta": -0.464150943396227,
+          "contributing_sessions": 106.0,
+          "sparse_warning": "False"
+        },
+        {
+          "product": "GC",
+          "interval_minutes": 3.0,
+          "direction": "Sell",
+          "completed": 169.0,
+          "mean_terminal_delta": -0.9923076923076778,
+          "mean_mfe": 3.5349112426035467,
+          "mean_mae": 4.909467455621301,
+          "favorable_share": 0.47928994082840237,
+          "mfe_gt_mae_share": 0.4437869822485207,
+          "session_mean_terminal_delta": -0.8244107744107613,
+          "contributing_sessions": 99.0,
+          "sparse_warning": "False"
+        },
+        {
+          "product": "GC",
+          "interval_minutes": 5.0,
+          "direction": "All",
+          "completed": 270.0,
+          "mean_terminal_delta": -0.7255555555555457,
+          "mean_mfe": 5.060740740740744,
+          "mean_mae": 6.532592592592582,
+          "favorable_share": 0.5148148148148148,
+          "mfe_gt_mae_share": 0.45925925925925926,
+          "session_mean_terminal_delta": -0.00920026881719493,
+          "contributing_sessions": 124.0,
+          "sparse_warning": "False"
+        },
+        {
+          "product": "GC",
+          "interval_minutes": 5.0,
+          "direction": "Buy",
+          "completed": 135.0,
+          "mean_terminal_delta": -0.7125925925925811,
+          "mean_mfe": 5.013333333333345,
+          "mean_mae": 6.822222222222212,
+          "favorable_share": 0.5333333333333333,
+          "mfe_gt_mae_share": 0.4666666666666667,
+          "session_mean_terminal_delta": -0.9001984126984075,
+          "contributing_sessions": 84.0,
+          "sparse_warning": "False"
+        },
+        {
+          "product": "GC",
+          "interval_minutes": 5.0,
+          "direction": "Sell",
+          "completed": 135.0,
+          "mean_terminal_delta": -0.7385185185185105,
+          "mean_mfe": 5.108148148148144,
+          "mean_mae": 6.242962962962952,
+          "favorable_share": 0.4962962962962963,
+          "mfe_gt_mae_share": 0.45185185185185184,
+          "session_mean_terminal_delta": -0.505200803212841,
+          "contributing_sessions": 83.0,
+          "sparse_warning": "False"
+        },
+        {
+          "product": "NQ",
+          "interval_minutes": 3.0,
+          "direction": "All",
+          "completed": 1164.0,
+          "mean_terminal_delta": -1.0178264604810934,
+          "mean_mfe": 27.5983676975945,
+          "mean_mae": 29.46284364261167,
+          "favorable_share": 0.5,
+          "mfe_gt_mae_share": 0.4853951890034364,
+          "session_mean_terminal_delta": -0.4984998717757308,
+          "contributing_sessions": 377.0,
+          "sparse_warning": "False"
+        },
+        {
+          "product": "NQ",
+          "interval_minutes": 3.0,
+          "direction": "Buy",
+          "completed": 558.0,
+          "mean_terminal_delta": -0.5398745519713164,
+          "mean_mfe": 26.267473118279575,
+          "mean_mae": 30.686379928315407,
+          "favorable_share": 0.4982078853046595,
+          "mfe_gt_mae_share": 0.45698924731182794,
+          "session_mean_terminal_delta": -3.3895768633540326,
+          "contributing_sessions": 276.0,
+          "sparse_warning": "False"
+        },
+        {
+          "product": "NQ",
+          "interval_minutes": 3.0,
+          "direction": "Sell",
+          "completed": 606.0,
+          "mean_terminal_delta": -1.457920792079205,
+          "mean_mfe": 28.823844884488445,
+          "mean_mae": 28.3362211221122,
+          "favorable_share": 0.5016501650165016,
+          "mfe_gt_mae_share": 0.5115511551155115,
+          "session_mean_terminal_delta": -3.0157255747126412,
+          "contributing_sessions": 290.0,
+          "sparse_warning": "False"
+        },
+        {
+          "product": "NQ",
+          "interval_minutes": 5.0,
+          "direction": "All",
+          "completed": 956.0,
+          "mean_terminal_delta": -1.3559100418409975,
+          "mean_mfe": 36.69743723849373,
+          "mean_mae": 38.83969665271965,
+          "favorable_share": 0.4884937238493724,
+          "mfe_gt_mae_share": 0.4780334728033473,
+          "session_mean_terminal_delta": -0.793630045136738,
+          "contributing_sessions": 336.0,
+          "sparse_warning": "False"
+        },
+        {
+          "product": "NQ",
+          "interval_minutes": 5.0,
+          "direction": "Buy",
+          "completed": 451.0,
+          "mean_terminal_delta": -0.3786031042128482,
+          "mean_mfe": 34.383037694013304,
+          "mean_mae": 39.89024390243902,
+          "favorable_share": 0.5232815964523282,
+          "mfe_gt_mae_share": 0.49445676274944567,
+          "session_mean_terminal_delta": -3.9401859504132175,
+          "contributing_sessions": 242.0,
+          "sparse_warning": "False"
+        },
+        {
+          "product": "NQ",
+          "interval_minutes": 5.0,
+          "direction": "Sell",
+          "completed": 505.0,
+          "mean_terminal_delta": -2.2287128712871267,
+          "mean_mfe": 38.764356435643556,
+          "mean_mae": 37.90148514851484,
+          "favorable_share": 0.45742574257425744,
+          "mfe_gt_mae_share": 0.4633663366336634,
+          "session_mean_terminal_delta": -4.5122939265796385,
+          "contributing_sessions": 259.0,
+          "sparse_warning": "False"
+        }
+      ],
+      "description": "Every fixed side view retained at H15; these strata do not choose a preferred side.",
+      "referenceIds": [
+        "s1-t02"
+      ],
+      "notes": [
+        "Blank numerical evidence remains Not available. Percent values are saved ratios.",
+        "Source table selectors and exact cells are reconciled in the private bindings."
+      ]
+    },
+    {
+      "id": "atr",
+      "kind": "table",
+      "title": "Entry-ATR-normalized H15 paths",
+      "columns": [
+        {
+          "key": "product",
+          "label": "Product"
+        },
+        {
+          "key": "interval_minutes",
+          "label": "Interval minutes",
+          "format": "number",
+          "precision": 3
+        },
+        {
+          "key": "completed",
+          "label": "Completed",
+          "format": "number",
+          "precision": 3
+        },
+        {
+          "key": "mean_mfe",
+          "label": "Mean mfe",
+          "format": "number",
+          "precision": 3,
+          "unit": "ATR"
+        },
+        {
+          "key": "mean_mae",
+          "label": "Mean mae",
+          "format": "number",
+          "precision": 3,
+          "unit": "ATR"
+        },
+        {
+          "key": "mean_terminal_delta",
+          "label": "Mean terminal delta",
+          "format": "number",
+          "precision": 3,
+          "unit": "ATR"
+        },
+        {
+          "key": "session_mean_terminal_delta",
+          "label": "Session mean terminal delta",
+          "format": "number",
+          "precision": 3,
+          "unit": "ATR"
+        },
+        {
+          "key": "sparse_warning",
+          "label": "Sparse warning"
+        }
+      ],
+      "rows": [
+        {
+          "product": "ES",
+          "interval_minutes": 3.0,
+          "completed": 1365.0,
+          "mean_mfe": 1.5888240512627012,
+          "mean_mae": 1.785296072545633,
+          "mean_terminal_delta": -0.0754524731463752,
+          "session_mean_terminal_delta": -0.04472415241978233,
+          "sparse_warning": "False"
+        },
+        {
+          "product": "ES",
+          "interval_minutes": 5.0,
+          "completed": 1138.0,
+          "mean_mfe": 1.992564193767007,
+          "mean_mae": 2.115359119360856,
+          "mean_terminal_delta": 0.011412594044425092,
+          "session_mean_terminal_delta": 0.05720236168934029,
+          "sparse_warning": "False"
+        },
+        {
+          "product": "GC",
+          "interval_minutes": 3.0,
+          "completed": 345.0,
+          "mean_mfe": 1.4524469338108663,
+          "mean_mae": 1.7851364523737883,
+          "mean_terminal_delta": -0.13676330880901152,
+          "session_mean_terminal_delta": 0.0030855162335647955,
+          "sparse_warning": "False"
+        },
+        {
+          "product": "GC",
+          "interval_minutes": 5.0,
+          "completed": 270.0,
+          "mean_mfe": 1.767596699987085,
+          "mean_mae": 2.061679181554504,
+          "mean_terminal_delta": -0.06980802861837475,
+          "session_mean_terminal_delta": 0.16177033578383324,
+          "sparse_warning": "False"
+        },
+        {
+          "product": "NQ",
+          "interval_minutes": 3.0,
+          "completed": 1164.0,
+          "mean_mfe": 1.644746961546916,
+          "mean_mae": 1.7804566835674593,
+          "mean_terminal_delta": -0.04952765381725045,
+          "session_mean_terminal_delta": -0.043774794347471994,
+          "sparse_warning": "False"
+        },
+        {
+          "product": "NQ",
+          "interval_minutes": 5.0,
+          "completed": 956.0,
+          "mean_mfe": 1.9944633957120272,
+          "mean_mae": 2.1160452762192694,
+          "mean_terminal_delta": -0.06438531543629089,
+          "session_mean_terminal_delta": -0.05083690153961234,
+          "sparse_warning": "False"
+        }
+      ],
+      "description": "Each path metric divided by its positive valid entry ATR14. No ratio of cohort averages.",
+      "referenceIds": [
+        "s1-t02"
+      ],
+      "notes": [
+        "Blank numerical evidence remains Not available. Percent values are saved ratios.",
+        "Source table selectors and exact cells are reconciled in the private bindings."
+      ]
+    },
+    {
+      "id": "equal-active",
+      "kind": "table",
+      "title": "Equal active durations",
+      "columns": [
+        {
+          "key": "product",
+          "label": "Product"
+        },
+        {
+          "key": "interval_minutes",
+          "label": "Interval minutes",
+          "format": "number",
+          "precision": 3
+        },
+        {
+          "key": "horizon",
+          "label": "Horizon",
+          "format": "number",
+          "precision": 3
+        },
+        {
+          "key": "horizon_minutes",
+          "label": "Horizon minutes",
+          "format": "number",
+          "precision": 3
+        },
+        {
+          "key": "completed",
+          "label": "Completed",
+          "format": "number",
+          "precision": 3
+        },
+        {
+          "key": "mean_mfe",
+          "label": "Mean mfe",
+          "format": "number",
+          "precision": 3,
+          "unit": "points"
+        },
+        {
+          "key": "mean_mae",
+          "label": "Mean mae",
+          "format": "number",
+          "precision": 3,
+          "unit": "points"
+        },
+        {
+          "key": "mean_terminal_delta",
+          "label": "Mean terminal delta",
+          "format": "number",
+          "precision": 3,
+          "unit": "points"
+        },
+        {
+          "key": "favorable_share",
+          "label": "Favorable share",
+          "format": "percent",
+          "precision": 1
+        }
+      ],
+      "rows": [
+        {
+          "product": "ES",
+          "interval_minutes": 3.0,
+          "horizon": 20.0,
+          "horizon_minutes": 60.0,
+          "completed": 1363.0,
+          "mean_mfe": 8.684886280264124,
+          "mean_mae": 9.624174614820252,
+          "mean_terminal_delta": -0.43690388848129225,
+          "favorable_share": 0.4900953778429934
+        },
+        {
+          "product": "ES",
+          "interval_minutes": 3.0,
+          "horizon": 50.0,
+          "horizon_minutes": 150.0,
+          "completed": 1347.0,
+          "mean_mfe": 13.74090571640683,
+          "mean_mae": 14.391610987379362,
+          "mean_terminal_delta": -0.03470675575352703,
+          "favorable_share": 0.4914625092798812
+        },
+        {
+          "product": "ES",
+          "interval_minutes": 5.0,
+          "horizon": 12.0,
+          "horizon_minutes": 60.0,
+          "completed": 1141.0,
+          "mean_mfe": 9.111305872042069,
+          "mean_mae": 9.846625766871167,
+          "mean_terminal_delta": -0.2914110429447865,
+          "favorable_share": 0.4802804557405784
+        },
+        {
+          "product": "ES",
+          "interval_minutes": 5.0,
+          "horizon": 30.0,
+          "horizon_minutes": 150.0,
+          "completed": 1127.0,
+          "mean_mfe": 14.233362910381544,
+          "mean_mae": 14.713176574977817,
+          "mean_terminal_delta": 0.03615794143744373,
+          "favorable_share": 0.4835847382431233
+        },
+        {
+          "product": "GC",
+          "interval_minutes": 3.0,
+          "horizon": 20.0,
+          "horizon_minutes": 60.0,
+          "completed": 343.0,
+          "mean_mfe": 4.270845481049562,
+          "mean_mae": 5.668513119533528,
+          "mean_terminal_delta": -0.5717201166180729,
+          "favorable_share": 0.5043731778425656
+        },
+        {
+          "product": "GC",
+          "interval_minutes": 3.0,
+          "horizon": 50.0,
+          "horizon_minutes": 150.0,
+          "completed": 338.0,
+          "mean_mfe": 7.358579881656802,
+          "mean_mae": 7.596745562130177,
+          "mean_terminal_delta": 0.521005917159759,
+          "favorable_share": 0.5266272189349113
+        },
+        {
+          "product": "GC",
+          "interval_minutes": 5.0,
+          "horizon": 12.0,
+          "horizon_minutes": 60.0,
+          "completed": 271.0,
+          "mean_mfe": 4.35904059040591,
+          "mean_mae": 6.0391143911439045,
+          "mean_terminal_delta": -0.752767527675281,
+          "favorable_share": 0.5018450184501845
+        },
+        {
+          "product": "GC",
+          "interval_minutes": 5.0,
+          "horizon": 30.0,
+          "horizon_minutes": 150.0,
+          "completed": 266.0,
+          "mean_mfe": 7.507142857142863,
+          "mean_mae": 8.21466165413533,
+          "mean_terminal_delta": 0.12631578947368816,
+          "favorable_share": 0.48120300751879697
+        },
+        {
+          "product": "NQ",
+          "interval_minutes": 3.0,
+          "horizon": 20.0,
+          "horizon_minutes": 60.0,
+          "completed": 1163.0,
+          "mean_mfe": 31.51440240756664,
+          "mean_mae": 34.35060189165949,
+          "mean_terminal_delta": -1.7613929492691245,
+          "favorable_share": 0.4926913155631986
+        },
+        {
+          "product": "NQ",
+          "interval_minutes": 3.0,
+          "horizon": 50.0,
+          "horizon_minutes": 150.0,
+          "completed": 1149.0,
+          "mean_mfe": 48.84334203655352,
+          "mean_mae": 51.19952132288945,
+          "mean_terminal_delta": 0.12510879025239893,
+          "favorable_share": 0.4926022628372498
+        },
+        {
+          "product": "NQ",
+          "interval_minutes": 5.0,
+          "horizon": 12.0,
+          "horizon_minutes": 60.0,
+          "completed": 959.0,
+          "mean_mfe": 32.58706986444212,
+          "mean_mae": 34.74165797705943,
+          "mean_terminal_delta": -0.9648070907194967,
+          "favorable_share": 0.48279457768508866
+        },
+        {
+          "product": "NQ",
+          "interval_minutes": 5.0,
+          "horizon": 30.0,
+          "horizon_minutes": 150.0,
+          "completed": 949.0,
+          "mean_mfe": 50.54241306638566,
+          "mean_mae": 52.386986301369845,
+          "mean_terminal_delta": 0.8403582718651269,
+          "favorable_share": 0.4857744994731296
+        }
+      ],
+      "description": "60 active minutes: 3m H20 and 5m H12; 150: 3m H50 and 5m H30. Closure-crossing paths can have longer clock elapsed time.",
+      "referenceIds": [
+        "s1-t02"
+      ],
+      "notes": [
+        "Blank numerical evidence remains Not available. Percent values are saved ratios.",
+        "Source table selectors and exact cells are reconciled in the private bindings."
+      ]
+    },
+    {
+      "id": "horizons",
+      "kind": "figure",
+      "title": "Horizon paths",
+      "path": "figures/horizons.png",
+      "alt": "Horizon paths; six product/candle panels.",
+      "caption": "Event-weighted means; 15 candles represents different active durations. Undefined paths are omitted from means, with counts retained in S1-T02."
+    },
+    {
+      "id": "distributions",
+      "kind": "figure",
+      "title": "Common-scale MAE and MFE cutoffs",
+      "path": "figures/distributions.png",
+      "alt": "Common-scale MAE and MFE cutoffs; six product/candle panels.",
+      "caption": "Exact p(n−1) interpolation. Both metrics and both candle intervals share a product-specific scale; raw points are never pooled across products."
+    },
+    {
+      "id": "annual-stability",
+      "kind": "figure",
+      "title": "Annual stability",
+      "path": "figures/annual_stability.png",
+      "alt": "Annual stability; six product/candle panels.",
+      "caption": "Every development year retained. These descriptive strata do not select a preferred year, side or session."
+    },
+    {
+      "id": "calendar-stability",
+      "kind": "figure",
+      "title": "Calendar stability",
+      "path": "figures/calendar_stability.png",
+      "alt": "Calendar stability; six product/candle panels.",
+      "caption": "All modeled months remain on the axis, including zero-event support. Undefined averages remain gaps rather than zero price outcomes. Weekly rows are retained in S1-T05."
+    },
+    {
+      "id": "examples-3m",
+      "kind": "figure",
+      "title": "Deterministic 3m event illustrations",
+      "path": "figures/examples_3m.png",
+      "alt": "Deterministic 3m event illustrations; fifteen product/example panels.",
+      "caption": "Typical, highest adverse, highest favorable, earliest rejected and earliest censored H15 cases. Ranking is frozen, ties use timestamp/event ID. OHLC does not establish intrabar ordering; unavailable cases are explicit."
+    },
+    {
+      "id": "examples-5m",
+      "kind": "figure",
+      "title": "Deterministic 5m event illustrations",
+      "path": "figures/examples_5m.png",
+      "alt": "Deterministic 5m event illustrations; fifteen product/example panels.",
+      "caption": "Typical, highest adverse, highest favorable, earliest rejected and earliest censored H15 cases. Ranking is frozen, ties use timestamp/event ID. OHLC does not establish intrabar ordering; unavailable cases are explicit."
+    }
+  ],
+  "notes": [
+    "Private Narada-ready source prepared before sealing; no public staging or deployment.",
+    "2018–2020 development observations only; later-period outcomes remain reserved. Prior Abacus studies inspected some later market history, so this is not a pristine market holdout. Unadjusted same-contract prices; reference is confirmed signal close and the signal candle is excluded. MFE and MAE are path observations, not executable profits, stops or targets. Sparse cohorts have fewer than 100 completed events or 30 contributing sessions. Modeled completion is available_at; original vendor-receipt and mapping-arrival times are absent. Uncertified holiday/early-close sessions are excluded conservatively and reset feature history. Missing no-trade minutes cannot be distinguished reliably from source loss.",
+    "Verified published partition bytes and retained release lineage support this descriptive analysis. Original raw source reconstruction could not be certified because retained mapping/definition prerequisites are unavailable; native TradingView equivalence and off-device backup verification were not executed. These qualifications are distinct from the passed consumed-input and scientific checks."
+  ],
+  "references": [
+    {
+      "id": "s1-t00",
+      "kind": "saved-artifact",
+      "label": "S1-T00",
+      "title": "S1-T00 coverage",
+      "runId": "20261010T221954Z_s1_8c6e_r3",
+      "artifact": "tables/S1-T00_coverage.csv",
+      "sha256": "b95d70bf8dc44080da7dac48c1bb7622494023b075ebdefc781678c46f3cd488"
+    },
+    {
+      "id": "s1-t01",
+      "kind": "saved-artifact",
+      "label": "S1-T01",
+      "title": "S1-T01 signal flow",
+      "runId": "20261010T221954Z_s1_8c6e_r3",
+      "artifact": "tables/S1-T01_signal_flow.csv",
+      "sha256": "a4f2b6e8a239c5533388e2431b210c54d314f71e449f88407820b8e5153b5c84"
+    },
+    {
+      "id": "s1-t02",
+      "kind": "saved-artifact",
+      "label": "S1-T02",
+      "title": "S1-T02 horizon scorecard",
+      "runId": "20261010T221954Z_s1_8c6e_r3",
+      "artifact": "tables/S1-T02_horizon_scorecard.csv",
+      "sha256": "3fc05c87aa1b9622a5713036d8cd7d52646136a4400e9ca4a71d0713c00f32d0"
+    },
+    {
+      "id": "s1-t03",
+      "kind": "saved-artifact",
+      "label": "S1-T03",
+      "title": "S1-T03 quantiles",
+      "runId": "20261010T221954Z_s1_8c6e_r3",
+      "artifact": "tables/S1-T03_quantiles.csv",
+      "sha256": "cfc60bf2ffa7d0e9784a011246837ed0dd23ba1e1f17274364a5ea3bc1b2f4ac"
+    },
+    {
+      "id": "s1-t04",
+      "kind": "saved-artifact",
+      "label": "S1-T04",
+      "title": "S1-T04 stability",
+      "runId": "20261010T221954Z_s1_8c6e_r3",
+      "artifact": "tables/S1-T04_stability.csv",
+      "sha256": "476224a4c10fbaf665a59cf20e5ffe5af406c0ba49a21be711044fee6fc9878d"
+    },
+    {
+      "id": "s1-t05",
+      "kind": "saved-artifact",
+      "label": "S1-T05",
+      "title": "S1-T05 calendar",
+      "runId": "20261010T221954Z_s1_8c6e_r3",
+      "artifact": "tables/S1-T05_calendar.csv",
+      "sha256": "84f7acaeb3bef239024aa22ef874ff2166bcadae64a747b9b97a1c5bd5f6e7b0"
+    },
+    {
+      "id": "s1-t06",
+      "kind": "saved-artifact",
+      "label": "S1-T06",
+      "title": "S1-T06 examples",
+      "runId": "20261010T221954Z_s1_8c6e_r3",
+      "artifact": "tables/S1-T06_examples.csv",
+      "sha256": "b0a5e5bba59d8c07dc573de239da800321723676564a810068197358a3d77f3d"
+    }
+  ],
+  "downloads": [
+    {
+      "id": "primary-csv",
+      "path": "downloads/primary.csv",
+      "label": "Primary H15 saved scorecard",
+      "description": "Exact saved summary strings selected before sealing.",
+      "population": "2018–2020 development, slow EMA touches under fixed gateways",
+      "units": "Raw points separately by product; shares remain ratios; blank cells are undefined.",
+      "scope": "Selector {\"direction\": [\"All\"], \"horizon\": [\"15\"], \"support\": [\"all\"], \"unit\": [\"points\"]}; ordered listed columns only.",
+      "mediaType": "text/csv",
+      "columns": [
+        "row_id",
+        "product",
+        "interval_minutes",
+        "direction",
+        "horizon",
+        "unit",
+        "accepted",
+        "completed",
+        "censored",
+        "contributing_sessions",
+        "contributing_weeks",
+        "mean_mfe",
+        "mean_mae",
+        "mean_terminal_delta",
+        "ci95_low",
+        "ci95_high",
+        "favorable_share",
+        "session_mean_terminal_delta",
+        "sparse_warning"
+      ],
+      "rowCount": 6,
+      "sha256": "621fd7880e3133a13be9a219ff920aa501a0ac43ef4edd48045106d1018b61c5",
+      "source": {
+        "runId": "20261010T221954Z_s1_8c6e_r3",
+        "artifact": "tables/S1-T02_horizon_scorecard.csv",
+        "sha256": "3fc05c87aa1b9622a5713036d8cd7d52646136a4400e9ca4a71d0713c00f32d0"
+      }
+    },
+    {
+      "id": "horizons-csv",
+      "path": "downloads/horizons.csv",
+      "label": "All fixed horizons in raw points",
+      "description": "Exact saved summary strings selected before sealing.",
+      "population": "2018–2020 development, slow EMA touches under fixed gateways",
+      "units": "Raw points separately by product; shares remain ratios; blank cells are undefined.",
+      "scope": "Selector {\"direction\": [\"All\"], \"support\": [\"all\"], \"unit\": [\"points\"]}; ordered listed columns only.",
+      "mediaType": "text/csv",
+      "columns": [
+        "row_id",
+        "product",
+        "interval_minutes",
+        "horizon",
+        "horizon_minutes",
+        "accepted",
+        "completed",
+        "censored",
+        "mean_mfe",
+        "mean_mae",
+        "mean_terminal_delta",
+        "ci95_low",
+        "ci95_high",
+        "favorable_share",
+        "mfe_gt_mae_share",
+        "sparse_warning"
+      ],
+      "rowCount": 45,
+      "sha256": "ef2b4c88bf038a76d7147125c0bc6beb172ef5203ca625efa73d1ac20f107ef3",
+      "source": {
+        "runId": "20261010T221954Z_s1_8c6e_r3",
+        "artifact": "tables/S1-T02_horizon_scorecard.csv",
+        "sha256": "3fc05c87aa1b9622a5713036d8cd7d52646136a4400e9ca4a71d0713c00f32d0"
+      }
+    },
+    {
+      "id": "quantiles-csv",
+      "path": "downloads/quantiles.csv",
+      "label": "H15 exact excursion and close quantiles",
+      "description": "Exact saved summary strings selected before sealing.",
+      "population": "2018–2020 development, slow EMA touches under fixed gateways",
+      "units": "Raw points separately by product; shares remain ratios; blank cells are undefined.",
+      "scope": "Selector {\"direction\": [\"All\"], \"horizon\": [\"15\"], \"support\": [\"all\"], \"unit\": [\"points\"]}; ordered listed columns only.",
+      "mediaType": "text/csv",
+      "columns": [
+        "row_id",
+        "product",
+        "interval_minutes",
+        "horizon",
+        "metric",
+        "quantile",
+        "value"
+      ],
+      "rowCount": 252,
+      "sha256": "dbbfb72c35eb389405c6de14405dd0268813b4b66f53640cb356ca62445df6ee",
+      "source": {
+        "runId": "20261010T221954Z_s1_8c6e_r3",
+        "artifact": "tables/S1-T03_quantiles.csv",
+        "sha256": "cfc60bf2ffa7d0e9784a011246837ed0dd23ba1e1f17274364a5ea3bc1b2f4ac"
+      }
+    },
+    {
+      "id": "months-csv",
+      "path": "downloads/months.csv",
+      "label": "All development months including zero-support rows",
+      "description": "Exact saved summary strings selected before sealing.",
+      "population": "2018–2020 development, slow EMA touches under fixed gateways",
+      "units": "Raw points separately by product; shares remain ratios; blank cells are undefined.",
+      "scope": "Selector {\"direction\": [\"All\"], \"horizon\": [\"15\"], \"period_kind\": [\"month\", \"monthly\"], \"support\": [\"all\"], \"unit\": [\"points\"]}; ordered listed columns only.",
+      "mediaType": "text/csv",
+      "columns": [
+        "row_id",
+        "product",
+        "interval_minutes",
+        "period_kind",
+        "period",
+        "accepted",
+        "completed",
+        "censored",
+        "mean_mfe",
+        "mean_mae",
+        "mean_terminal_delta",
+        "favorable_share",
+        "contributing_sessions",
+        "sparse_warning"
+      ],
+      "rowCount": 216,
+      "sha256": "2737be6b4be8150d7391d4a4e8ef27196123518a8dea0668c2f60de718a487e5",
+      "source": {
+        "runId": "20261010T221954Z_s1_8c6e_r3",
+        "artifact": "tables/S1-T05_calendar.csv",
+        "sha256": "84f7acaeb3bef239024aa22ef874ff2166bcadae64a747b9b97a1c5bd5f6e7b0"
+      }
+    }
+  ]
+}

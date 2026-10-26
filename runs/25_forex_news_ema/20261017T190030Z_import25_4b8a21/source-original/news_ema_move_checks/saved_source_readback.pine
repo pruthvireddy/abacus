@@ -1,0 +1,524 @@
+// This Pine Script™ code is subject to the terms of the Mozilla Public License 2.0 at https://mozilla.org/MPL/2.0/
+// News feed and decoding © toodegrees; statistics adapted from the local EMA Cloud Stats.
+//@version=6
+import toodegrees/forex_factory_utility/17 as ffUtil
+import toodegrees/forex_factory_decoding/46 as ffDec
+
+indicator("News EMA Move", shorttitle="News EMA Move", overlay=true, behind_chart=false, max_bars_back=1100, max_labels_count=500)
+
+// One setup only: take the 15-minute cloud's direction at the confirmed close
+// immediately before a selected scheduled release. This is a close-price study,
+// not an execution or fill simulation. The release candle begins the observation.
+if not chart.is_standard or timeframe.in_seconds() != 900
+    runtime.error("News EMA Move requires a standard, time-based 15-minute chart. Both the cloud and news-entry clock are fixed at 15 minutes.")
+
+int fastLength = input.int(20, "Fast EMA length", minval=1, group="15-minute EMA Cloud")
+int slowLength = input.int(50, "Slow EMA length", minval=2, group="15-minute EMA Cloud")
+bool showLines = input.bool(false, "Show EMA lines", group="Appearance")
+color bullishColor = input.color(#089981, "Bullish color", inline="colors", group="Appearance")
+color bearishColor = input.color(#F23645, "Bearish color", inline="colors", group="Appearance")
+int cloudTransparency = input.int(85, "Cloud transparency", minval=0, maxval=100, group="Appearance")
+bool showSignals = input.bool(true, "Show entry triangles with news tooltips", group="Appearance")
+bool showReleaseShading = input.bool(false, "Shade selected release candles", group="Appearance")
+color releaseColor = input.color(#EF5350, "Release shading color", group="Appearance")
+int releaseTransparency = input.int(90, "Release shading transparency", minval=0, maxval=100, group="Appearance")
+
+bool selectUSD = input.bool(true, "USD", inline="currencies", group="News Selection")
+bool selectEUR = input.bool(true, "EUR", inline="currencies", group="News Selection")
+bool selectHigh = input.bool(true, "High impact", inline="impact", group="News Selection")
+bool selectMedium = input.bool(true, "Medium impact", inline="impact", group="News Selection")
+bool selectNFP = input.bool(true, "U.S. NFP / unemployment / hourly earnings", group="News Selection")
+bool selectCPI = input.bool(true, "U.S. CPI / core CPI", group="News Selection")
+bool selectFOMC = input.bool(true, "FOMC decision / statement / projections", group="News Selection")
+bool selectFedConference = input.bool(true, "FOMC press conference", group="News Selection")
+bool selectFlashPMI = input.bool(true, "U.S. flash PMI", group="News Selection")
+bool selectISM = input.bool(true, "U.S. ISM manufacturing", group="News Selection")
+bool selectECB = input.bool(false, "ECB rate decision / statement", group="News Selection")
+bool selectECBConference = input.bool(false, "ECB press conference", group="News Selection",
+     tooltip="Decisions and press conferences have distinct scheduled timestamps and create separate observations. All selected releases at the exact same timestamp share ONE entry. Minutes, accounts, speeches, ADP, and other news types are excluded.")
+int lookbackDays = input.int(365, "Lookback at load (calendar days)", minval=1, maxval=730, group="News Selection",
+     tooltip="At script load, set the observation start this many days before the latest loaded chart candle (maximum 730 days). The start stays fixed while new events arrive. Reload the chart or change an input to advance the start. Historical releases use the audited TradingView archive from 2024-10-17 through 2026-10-16 UTC; later releases use the Forex Factory live feed. Historical dates include subsequent schedule corrections and do not reproduce announcements as known at the time. Loaded chart/feed history can be shorter; no unavailable bars or events are fabricated.")
+
+string statsSide = input.string("All", "Signals to measure", options=["All", "Buy", "Sell"], group="Statistics")
+string statsUnits = input.string("Auto", "Units", options=["Points", "Auto", "Pips", "Ticks"], group="Statistics",
+     tooltip="Choose Points (pts) for raw price distances, or Pips for FX-style distances. For 6E / M6E, 1 pip = 0.0001 price units, so 0.00100 pts = 10 pips. Auto uses pips for forex pairs and 6E / M6E futures, and points for other symbols. This changes both tables' display units only.")
+bool customPipEnabled = input.bool(false, "Use custom pip size", group="Statistics")
+float customPipSize = input.float(0.0001, "Custom pip size", minval=0.00000001, group="Statistics", active=customPipEnabled)
+
+bool showOverallStats = input.bool(true, "Show overall table (bottom right)", group="Overall Statistics")
+string overallTextSize = input.string("Small", "Text size", options=["Tiny", "Small", "Normal"], group="Overall Statistics")
+int horizon1 = input.int(5, "Bars 1", minval=1, maxval=1000, inline="h12", group="Overall Statistics")
+int horizon2 = input.int(10, "Bars 2", minval=1, maxval=1000, inline="h12", group="Overall Statistics")
+int horizon3 = input.int(15, "Bars 3", minval=1, maxval=1000, inline="h34", group="Overall Statistics")
+int horizon4 = input.int(50, "Bars 4", minval=1, maxval=1000, inline="h34", group="Overall Statistics")
+int horizon5 = input.int(100, "Bars 5", minval=1, maxval=1000, group="Overall Statistics",
+     tooltip="Each row independently observes the following H chart candles after every selected news entry. Entry is the signal close; its candle's earlier high/low are excluded. Opposite signals do not end these observations. Duplicate horizons are displayed once.")
+
+bool showPeriodStats = input.bool(true, "Show period table (bottom left)", group="Weekly / Monthly Statistics")
+string periodMode = input.string("Monthly", "Roll up by", options=["Weekly", "Monthly"], group="Weekly / Monthly Statistics")
+int periodCount = input.int(8, "Number of periods", minval=1, maxval=24, group="Weekly / Monthly Statistics")
+int periodBars = input.int(5, "Measurement horizon (chart bars)", minval=1, maxval=1000, group="Weekly / Monthly Statistics",
+     tooltip="Every news entry is an independent observation, closed after this many chart candles. Signals counts all entries; Closed and averages include only completed horizons. Results stay with the entry period, even when they finish in a later week/month.")
+bool includeCurrentPeriod = input.bool(true, "Include current period", group="Weekly / Monthly Statistics")
+string periodTimezone = input.string("Exchange", "Calendar timezone", options=["Exchange", "America/New_York", "UTC"], group="Weekly / Monthly Statistics",
+     tooltip="Weeks begin Monday at midnight; months begin on the 1st. The current period follows the latest chart candle, including Bar Replay.")
+string periodTextSize = input.string("Small", "Text size", options=["Tiny", "Small", "Normal"], group="Weekly / Monthly Statistics")
+
+if fastLength >= slowLength
+    runtime.error("Fast EMA length must be less than slow EMA length.")
+
+// No request.security() or developing higher-timeframe values: this chart IS 15m.
+float fastEma = ta.ema(close, fastLength)
+float slowEma = ta.ema(close, slowLength)
+bool ready = not na(fastEma) and not na(slowEma)
+int direction = not ready ? 0 : fastEma > slowEma ? 1 : fastEma < slowEma ? -1 : 0
+color trendColor = direction == 1 ? bullishColor : direction == -1 ? bearishColor : color.gray
+fastPlot = plot(fastEma, "Fast EMA (15m)", color=showLines ? trendColor : na, linewidth=1,
+     display=display.pane + display.data_window)
+slowPlot = plot(slowEma, "Slow EMA (15m)", color=showLines ? trendColor : na, linewidth=1,
+     display=display.pane + display.data_window)
+fill(fastPlot, slowPlot, color=color.new(trendColor, cloudTransparency), title="15-minute EMA Cloud", fillgaps=false)
+
+// Keep the existing nine-slot calendar source and weekly decoder handoff.
+// Feed timestamps are absolute. Chart timezone never shifts a release timestamp.
+requestData() =>
+    [request.seed("seed_toodegrees_toogit", "TOODEGREES_FOREX_FACTORY_SLOT_1", str.tostring(open) + "," + str.tostring(high) + "," + str.tostring(low) + "," + str.tostring(close) + "," + str.tostring(volume)),
+     request.seed("seed_toodegrees_toogit", "TOODEGREES_FOREX_FACTORY_SLOT_2", str.tostring(open) + "," + str.tostring(high) + "," + str.tostring(low) + "," + str.tostring(close) + "," + str.tostring(volume)),
+     request.seed("seed_toodegrees_toogit", "TOODEGREES_FOREX_FACTORY_SLOT_3", str.tostring(open) + "," + str.tostring(high) + "," + str.tostring(low) + "," + str.tostring(close) + "," + str.tostring(volume)),
+     request.seed("seed_toodegrees_toogit", "TOODEGREES_FOREX_FACTORY_SLOT_4", str.tostring(open) + "," + str.tostring(high) + "," + str.tostring(low) + "," + str.tostring(close) + "," + str.tostring(volume)),
+     request.seed("seed_toodegrees_toogit", "TOODEGREES_FOREX_FACTORY_SLOT_5", str.tostring(open) + "," + str.tostring(high) + "," + str.tostring(low) + "," + str.tostring(close) + "," + str.tostring(volume)),
+     request.seed("seed_toodegrees_toogit", "TOODEGREES_FOREX_FACTORY_SLOT_6", str.tostring(open) + "," + str.tostring(high) + "," + str.tostring(low) + "," + str.tostring(close) + "," + str.tostring(volume)),
+     request.seed("seed_toodegrees_toogit", "TOODEGREES_FOREX_FACTORY_SLOT_7", str.tostring(open) + "," + str.tostring(high) + "," + str.tostring(low) + "," + str.tostring(close) + "," + str.tostring(volume)),
+     request.seed("seed_toodegrees_toogit", "TOODEGREES_FOREX_FACTORY_SLOT_8", str.tostring(open) + "," + str.tostring(high) + "," + str.tostring(low) + "," + str.tostring(close) + "," + str.tostring(volume)),
+     request.seed("seed_toodegrees_toogit", "TOODEGREES_FOREX_FACTORY_SLOT_9", str.tostring(open) + "," + str.tostring(high) + "," + str.tostring(low) + "," + str.tostring(close) + "," + str.tostring(volume))]
+
+method processData(ffUtil.News[] news, string slot1, string slot2, string slot3, string slot4, string slot5, string slot6, string slot7, string slot8, string slot9) =>
+    ffDec.readNews(news, slot1), ffDec.readNews(news, slot2), ffDec.readNews(news, slot3)
+    ffDec.readNews(news, slot4), ffDec.readNews(news, slot5), ffDec.readNews(news, slot6)
+    ffDec.readNews(news, slot7), ffDec.readNews(news, slot8), ffDec.readNews(news, slot9)
+
+
+
+var color[] impactFilter = ffUtil.impFilter(false, false, selectMedium, selectHigh)
+
+selectedTitle(string currency, string title) =>
+    string titleLower = str.lower(title)
+    bool excluded = str.contains(titleLower, "minutes") or str.contains(titleLower, "accounts") or str.contains(titleLower, " speaks") or str.contains(titleLower, "speech") or str.contains(titleLower, "testif") or str.contains(titleLower, "testimony")
+    bool annualEmploymentRevision = str.contains(titleLower, "annual revision") or (str.contains(titleLower, "annual") and str.contains(titleLower, "benchmark"))
+    bool nfp = not str.contains(titleLower, "adp") and not annualEmploymentRevision and (str.contains(titleLower, "non-farm") or str.contains(titleLower, "nonfarm") or str.contains(titleLower, "payrolls") or str.contains(titleLower, "unemployment rate") or str.contains(titleLower, "average hourly earnings"))
+    bool cpi = str.contains(titleLower, "cpi") or str.contains(titleLower, "consumer price")
+    bool fedConference = str.contains(titleLower, "fomc press conference") or str.contains(titleLower, "fed press conference")
+    bool fedDecision = not fedConference and (str.contains(titleLower, "federal funds rate") or str.contains(titleLower, "fomc statement") or str.contains(titleLower, "fomc economic projections") or str.contains(titleLower, "fomc rate decision") or str.contains(titleLower, "fed interest rate decision") or str.contains(titleLower, "federal reserve interest rate decision"))
+    bool flashPMI = str.contains(titleLower, "flash") and str.contains(titleLower, "pmi")
+    bool ism = str.contains(titleLower, "ism manufacturing")
+    bool ecbConference = str.contains(titleLower, "ecb") and str.contains(titleLower, "press conference")
+    bool ecbDecision = not ecbConference and (str.contains(titleLower, "main refinancing rate") or str.contains(titleLower, "deposit facility rate") or str.contains(titleLower, "marginal lending") or str.contains(titleLower, "monetary policy statement") or (str.contains(titleLower, "ecb") and (str.contains(titleLower, "rate decision") or str.contains(titleLower, "monetary policy decision"))))
+    bool usdSelected = selectUSD and currency == "USD" and ((selectNFP and nfp) or (selectCPI and cpi) or (selectFOMC and fedDecision) or (selectFedConference and fedConference) or (selectFlashPMI and flashPMI) or (selectISM and ism))
+    bool eurSelected = selectEUR and currency == "EUR" and ((selectECB and ecbDecision) or (selectECBConference and ecbConference))
+    not excluded and (usdSelected or eurSelected)
+
+isTimedEvent(ffUtil.News newsEvent) =>
+    string eventTimeText = str.lower(newsEvent.tod)
+    not na(newsEvent.tmst) and not str.contains(eventTimeText, "all day") and not str.contains(eventTimeText, "tentative")
+
+type NewsRelease
+    int scheduled
+    int releases
+    string details
+
+// BEGIN GENERATED HISTORICAL CALENDAR ARCHIVE
+// Generated by news_ema_move_checks/build_archive.py from the audited TradingView
+// calendar. Coverage is [2024-10-17, 2026-10-17) UTC. Historical dates may include
+// subsequent schedule corrections: this is not an as-announced calendar replay.
+// Source SHA256: d6e51ae1e867561a82f67a78ae7859db307fc99f449c20942721c5fe8ea3ec1b
+int ARCHIVE_START = 1729123200000
+int ARCHIVE_END = 1792195200000
+
+archiveCategoryName(int category) =>
+    switch category
+        0 => "U.S. NFP / unemployment / earnings"
+        1 => "U.S. CPI / core CPI"
+        2 => "FOMC decision / projections"
+        3 => "FOMC press conference"
+        4 => "U.S. flash PMI"
+        5 => "U.S. ISM manufacturing"
+        6 => "ECB rate decision"
+        7 => "ECB press conference"
+        => "Unclassified"
+
+archiveCategoryEnabled(int category) =>
+    bool enabled = switch category
+        0 => selectNFP
+        1 => selectCPI
+        2 => selectFOMC
+        3 => selectFedConference
+        4 => selectFlashPMI
+        5 => selectISM
+        6 => selectECB
+        7 => selectECBConference
+        => false
+    enabled and (category <= 5 ? selectUSD : selectEUR)
+
+buildArchive() =>
+    array<NewsRelease> groups = array.new<NewsRelease>()
+    string packed = "1729167300000:6:1:2;1729169100000:7:1:1;1729777500000:4:0:3;1730464200000:0:0:3;1730464200000:0:1:2;1730469600000:5:0:1;1730469600000:5:1:1;1731006000000:2:1:1;1731007800000:3:1:1;1731504600000:1:0:2;1731504600000:1:1:4;1732286700000:4:0:3;1733151600000:5:0:1;1733151600000:5:1:1;1733491800000:0:0:3;1733491800000:0:1:2;1733923800000:1:0:2;1733923800000:1:1:4;1734009300000:6:1:2;1734011100000:7:1:1;1734360300000:4:0:3;1734548400000:2:1:2;1734550200000:3:1:1;1735916400000:5:0:1;1735916400000:5:1:1;1736515800000:0:0:3;1736515800000:0:1:2;1736947800000:1:0:2;1736947800000:1:1:4;1737729900000:4:0:3;1738177200000:2:1:1;1738179000000:3:1:1;1738242900000:6:1:2;1738244700000:7:1:1;1738594800000:5:0:1;1738594800000:5:1:1;1738935000000:0:0:3;1738935000000:0:1:2;1739367000000:1:0:2;1739367000000:1:1:4;1740149100000:4:0:3;1741014000000:5:0:1;1741014000000:5:1:1;1741266900000:6:1:2;1741268700000:7:1:1;1741354200000:0:0:3;1741354200000:0:1:2;1741782600000:1:0:2;1741782600000:1:1:4;1742407200000:2:1:2;1742409000000:3:1:1;1742823900000:4:0:3;1743516000000:5:0:1;1743516000000:5:1:1;1743769800000:0:0:3;1743769800000:0:1:2;1744288200000:1:0:2;1744288200000:1:1:4;1744892100000:6:1:2;1744893900000:7:1:1;1745415900000:4:0:3;1746108000000:5:0:1;1746108000000:5:1:1;1746189000000:0:0:3;1746189000000:0:1:2;1746640800000:2:1:1;1746642600000:3:1:1;1747139400000:1:0:2;1747139400000:1:1:4;1747921500000:4:0:3;1748872800000:5:0:1;1748872800000:5:1:1;1749125700000:6:1:2;1749127500000:7:1:1;1749213000000:0:0:3;1749213000000:0:1:2;1749645000000:1:0:2;1749645000000:1:1:4;1750269600000:2:1:2;1750271400000:3:1:1;1750686300000:4:0:3;1751378400000:5:0:1;1751378400000:5:1:1;1751545800000:0:0:3;1751545800000:0:1:2;1752582600000:1:0:2;1752582600000:1:1:4;1753359300000:6:1:2;1753361100000:7:1:1;1753364700000:4:0:3;1753898400000:2:1:1;1753900200000:3:1:1;1754051400000:0:0:3;1754051400000:0:1:2;1754056800000:5:0:1;1754056800000:5:1:1;1755001800000:1:0:2;1755001800000:1:1:4;1755783900000:4:0:3;1756821600000:5:0:1;1756821600000:5:1:1;1757075400000:0:0:3;1757075400000:0:1:2;1757592900000:6:1:2;1757593800000:1:0:2;1757593800000:1:1:4;1757594700000:7:1:1;1758132000000:2:1:2;1758133800000:3:1:1;1758635100000:4:0:3;1759327200000:5:0:1;1759327200000:5:1:1;1761309000000:1:0:2;1761309000000:1:1:4;1761313500000:4:0:3;1761760800000:2:1:1;1761762600000:3:1:1;1761830100000:6:1:2;1761831900000:7:1:1;1762182000000:5:0:1;1762182000000:5:1:1;1763645400000:0:0:3;1763645400000:0:1:2;1763736300000:4:0:3;1764601200000:5:0:1;1764601200000:5:1:1;1765393200000:2:1:2;1765395000000:3:1:1;1765891800000:0:0:3;1765891800000:0:1:2;1765896300000:4:0:3;1766063700000:6:1:2;1766064600000:1:0:2;1766064600000:1:1:4;1766065500000:7:1:1;1767625200000:5:0:1;1767625200000:5:1:1;1767965400000:0:0:3;1767965400000:0:1:2;1768311000000:1:0:2;1768311000000:1:1:4;1769179500000:4:0:3;1769626800000:2:1:1;1769628600000:3:1:1;1770044400000:5:0:1;1770044400000:5:1:1;1770297300000:6:1:2;1770299100000:7:1:1;1770816600000:0:0:3;1770816600000:0:1:2;1770989400000:1:0:2;1770989400000:1:1:4;1771598700000:4:0:3;1772463600000:5:0:1;1772463600000:5:1:1;1772803800000:0:0:3;1772803800000:0:1:2;1773232200000:1:0:2;1773232200000:1:1:4;1773856800000:2:1:2;1773858600000:3:1:1;1773926100000:6:1:2;1773927900000:7:1:1;1774359900000:4:0:3;1775052000000:5:0:1;1775052000000:5:1:1;1775219400000:0:0:3;1775219400000:0:1:2;1775824200000:1:0:2;1775824200000:1:1:4;1776951900000:4:0:3;1777485600000:2:1:1;1777487400000:3:1:1;1777551300000:6:1:2;1777553100000:7:1:1;1777644000000:5:0:1;1777644000000:5:1:1;1778243400000:0:0:3;1778243400000:0:1:2;1778589000000:1:0:2;1778589000000:1:1:4;1779371100000:4:0:3;1780322400000:5:0:1;1780322400000:5:1:1;1780662600000:0:0:3;1780662600000:0:1:2;1781094600000:1:0:2;1781094600000:1:1:4;1781180100000:6:1:2;1781181900000:7:1:1;1781719200000:2:1:2;1781721000000:3:1:1;1782222300000:4:0:3;1782914400000:5:0:1;1782914400000:5:1:1;1782995400000:0:0:3;1782995400000:0:1:2;1784032200000:1:0:2;1784032200000:1:1:4;1784808900000:6:1:2;1784810700000:7:1:1;1784900700000:4:0:3;1785348000000:2:1:1;1785349800000:3:1:1;1785765600000:5:0:1;1785765600000:5:1:1;1786105800000:0:0:3;1786105800000:0:1:2;1786537800000:1:0:2;1786537800000:1:1:4;1787319900000:4:0:3;1788271200000:5:0:1;1788271200000:5:1:1;1788525000000:0:0:3;1788525000000:0:1:2;1789042500000:6:1:2;1789044300000:7:1:1;1789129800000:1:0:2;1789129800000:1:1:4;1789581600000:2:1:2;1789583400000:3:1:1;1790171100000:4:0:3;1790863200000:5:0:1;1790863200000:5:1:1;1790944200000:0:0:3;1790944200000:0:1:2;1791981000000:1:0:2;1791981000000:1:1:4"
+    array<string> rows = str.split(packed, ";")
+    for rowIndex = 0 to rows.size() - 1
+        array<string> fields = str.split(rows.get(rowIndex), ":")
+        int scheduled = int(str.tonumber(fields.get(0)))
+        int category = int(str.tonumber(fields.get(1)))
+        int importance = int(str.tonumber(fields.get(2)))
+        int components = int(str.tonumber(fields.get(3)))
+        bool impactSelected = importance == 1 ? selectHigh : selectMedium
+        if archiveCategoryEnabled(category) and impactSelected
+            string detail = (category <= 5 ? "USD" : "EUR") + " · " + archiveCategoryName(category)
+            detail += " (" + str.tostring(components) + (importance == 1 ? " high" : " medium") + "-impact title components)"
+            if groups.size() > 0 and groups.last().scheduled == scheduled
+                NewsRelease existing = groups.last()
+                existing.releases += components
+                existing.details += "\n" + detail
+            else
+                groups.push(NewsRelease.new(scheduled, components, detail))
+    groups
+
+var array<NewsRelease> archiveGroups = buildArchive()
+var array<int> archiveTimes = array.new_int()
+if barstate.isfirst and archiveGroups.size() > 0
+    for archiveIndex = 0 to archiveGroups.size() - 1
+        archiveTimes.push(archiveGroups.get(archiveIndex).scheduled)
+// END GENERATED HISTORICAL CALENDAR ARCHIVE
+
+// Group simultaneous packages once, before the bar-by-bar entry engine. Dedup
+// source rows by timestamp/currency/title before counting distinct release titles.
+groupSelected(ffUtil.News[] source) =>
+    array<NewsRelease> groups = array.new<NewsRelease>()
+    array<string> uniqueKeys = array.new_string()
+    if source.size() > 0
+        for i = 0 to source.size() - 1
+            ffUtil.News candidate = source.get(i)
+            string uniqueKey = str.tostring(candidate.tmst) + "|" + candidate.cur + "|" + candidate.ttl
+            if isTimedEvent(candidate) and impactFilter.includes(candidate.imp) and selectedTitle(candidate.cur, candidate.ttl) and not uniqueKeys.includes(uniqueKey)
+                uniqueKeys.push(uniqueKey)
+                int found = -1
+                if groups.size() > 0
+                    for j = 0 to groups.size() - 1
+                        if groups.get(j).scheduled == candidate.tmst
+                            found := j
+                            break
+                string detail = candidate.cur + " · " + candidate.ttl
+                if found < 0
+                    groups.push(NewsRelease.new(candidate.tmst, 1, detail))
+                else
+                    NewsRelease existing = groups.get(found)
+                    existing.releases += 1
+                    existing.details += "\n" + detail
+    groups
+
+var ffUtil.News[] nextWeek = array.new<ffUtil.News>()
+var array<NewsRelease> selectedWeek = array.new<NewsRelease>()
+[slot1, slot2, slot3, slot4, slot5, slot6, slot7, slot8, slot9] = requestData()
+if timeframe.change("W")
+    nextWeek := ffUtil.bubbleSort_News(nextWeek)
+    selectedWeek := groupSelected(nextWeek)
+    nextWeek.clear()
+nextWeek.processData(slot1, slot2, slot3, slot4, slot5, slot6, slot7, slot8, slot9)
+
+// Anchor the start once per full calculation. Incoming realtime events remain
+// eligible; reload advances the start instead of implying rolling eviction.
+var int analysisAnchor = last_bar_time
+var int lookbackStart = analysisAnchor - lookbackDays * 86400000
+bool insideLookback = not na(time_close) and time_close >= lookbackStart
+var int firstLoadedTime = time
+var int firstObservedNews = na
+var int lastObservedNews = na
+var int scheduledPackages = 0
+var int underlyingReleases = 0
+var int skippedFlat = 0
+var int skippedOffGrid = 0
+bool buySignal = false
+bool sellSignal = false
+int signalReleaseCount = 0
+// The builder verifies every archived release lies exactly on the 15m grid.
+// Binary search selects one already-grouped archived package, avoiding a calendar
+// loop on every historical bar. The live weekly feed is eligible only after the
+// archive ends, so known historical calendar errors cannot re-enter the study.
+int archiveEntryIndex = archiveTimes.size() > 0 and not na(time_close) and time_close >= ARCHIVE_START and time_close < ARCHIVE_END ? array.binary_search(archiveTimes, time_close) : -1
+int archiveReleaseIndex = archiveTimes.size() > 0 and time >= ARCHIVE_START and time < ARCHIVE_END ? array.binary_search(archiveTimes, time) : -1
+bool releaseBar = archiveReleaseIndex >= 0
+bool archiveEntry = archiveEntryIndex >= 0
+int candidateCount = archiveEntry ? 1 : not na(time_close) and time_close >= ARCHIVE_END ? selectedWeek.size() : 0
+var label[] entryLabels = array.new<label>()
+
+if candidateCount > 0 and not na(time_close)
+    for i = 0 to candidateCount - 1
+        NewsRelease release = archiveEntry ? archiveGroups.get(archiveEntryIndex) : selectedWeek.get(i)
+        bool eligibleSource = archiveEntry or release.scheduled >= ARCHIVE_END
+        if eligibleSource
+            releaseBar := releaseBar or (release.scheduled >= time and release.scheduled < time_close)
+        if eligibleSource and barstate.isconfirmed and release.scheduled >= lookbackStart
+            bool alignedEntry = release.scheduled == time_close
+            bool offGridRelease = release.scheduled > time and release.scheduled < time_close
+            if alignedEntry or offGridRelease
+                scheduledPackages += 1
+                underlyingReleases += release.releases
+                firstObservedNews := na(firstObservedNews) ? release.scheduled : math.min(firstObservedNews, release.scheduled)
+                lastObservedNews := na(lastObservedNews) ? release.scheduled : math.max(lastObservedNews, release.scheduled)
+                if offGridRelease
+                    skippedOffGrid += 1
+                else if direction == 0
+                    skippedFlat += 1
+                else
+                    buySignal := direction == 1
+                    sellSignal := direction == -1
+                    signalReleaseCount := release.releases
+                    if showSignals
+                        if entryLabels.size() >= 450
+                            label.delete(entryLabels.shift())
+                        string sideLabel = direction == 1 ? "BUY" : "SELL"
+                        string tooltip = "News EMA Move · " + sideLabel + "\n" + str.format_time(release.scheduled, "yyyy-MM-dd HH:mm", "America/New_York") + " America/New_York"
+                        tooltip += "\n" + release.details
+                        tooltip += archiveEntry ? "\nCalendar: audited TradingView historical archive (corrected schedule; not an as-announced replay)." : "\nCalendar: Forex Factory live weekly feed."
+                        tooltip += "\nEntry: confirmed prior 15m candle close = " + str.tostring(close, format.mintick)
+                        tooltip += "\n15m EMA " + str.tostring(fastLength) + " / " + str.tostring(slowLength) + ": " + (direction == 1 ? "bullish" : "bearish")
+                        tooltip += "\nNext H candles begin with the release candle. Entry candle high/low excluded."
+                        label marker = label.new(bar_index, na, "", yloc=direction == 1 ? yloc.belowbar : yloc.abovebar, style=direction == 1 ? label.style_triangleup : label.style_triangledown, color=direction == 1 ? bullishColor : bearishColor, size=size.tiny, tooltip=tooltip)
+                        entryLabels.push(marker)
+
+bgcolor(showReleaseShading and insideLookback and releaseBar ? color.new(releaseColor, releaseTransparency) : na, title="Selected news release candle")
+alertcondition(buySignal, "News EMA Move Buy", "News EMA Move: bullish 15-minute EMA cloud at the confirmed close immediately before selected news on {{ticker}}. Study entry = {{close}}. The scheduled release is now due; an alert does not guarantee a pre-release fill.")
+alertcondition(sellSignal, "News EMA Move Sell", "News EMA Move: bearish 15-minute EMA cloud at the confirmed close immediately before selected news on {{ticker}}. Study entry = {{close}}. The scheduled release is now due; an alert does not guarantee a pre-release fill.")
+
+bool euroFxFuture = syminfo.type == "futures" and (syminfo.root == "6E" or syminfo.root == "M6E")
+// STATISTICS: independent scheduled-news observations, with no orders or assumed fills.
+// All internal distances stay in raw price units; convert only for display.
+type CloudStats
+    int closed = 0
+    float mfe = 0.0
+    float mae = 0.0
+    float closeDelta = 0.0
+    int candles = 0
+    int favorable = 0
+    int mfeAboveMae = 0
+
+method record(CloudStats result, float mfe, float mae, float closeDelta, int candles) =>
+    result.closed += 1
+    result.mfe += mfe
+    result.mae += mae
+    result.closeDelta += closeDelta
+    result.candles += candles
+    result.favorable += closeDelta > 0 ? 1 : 0
+    float epsilon = 1e-10 * math.max(1.0, math.max(mfe, mae))
+    result.mfeAboveMae += mfe - mae > epsilon ? 1 : 0
+
+excursions(int side, float entry, float highest, float lowest, float lastClose) =>
+    float mfe = math.max(0.0, side == 1 ? highest - entry : entry - lowest)
+    float mae = math.max(0.0, side == 1 ? entry - lowest : highest - entry)
+    [mfe, mae, side * (lastClose - entry)]
+
+// Every call site runs on every bar and owns an independent rolling history.
+// At age H, the last H candles are exactly entry+1 through entry+H.
+observeHorizon(int horizon, int signalSide, float sourceHigh, float sourceLow, float sourceClose) =>
+    var CloudStats result = CloudStats.new()
+    float highest = ta.highest(sourceHigh, horizon)
+    float lowest = ta.lowest(sourceLow, horizon)
+    int entrySide = signalSide[horizon]
+    if barstate.isconfirmed and not na(entrySide) and entrySide != 0
+        [mfe, mae, closeDelta] = excursions(entrySide, sourceClose[horizon], highest, lowest, sourceClose)
+        result.record(mfe, mae, closeDelta, horizon)
+    result
+
+int signalDirection = buySignal ? 1 : sellSignal ? -1 : 0
+int measuredDirection = statsSide == "All" or (statsSide == "Buy" and signalDirection == 1) or (statsSide == "Sell" and signalDirection == -1) ? signalDirection : 0
+// Data-window plots also expose the accepted native signals in chart CSV exports.
+plot(signalDirection, "News entry side", display=display.data_window)
+plot(measuredDirection, "News measured side", display=display.data_window)
+plot(signalDirection != 0 ? time_close : na, "News event timestamp", display=display.data_window)
+plot(signalDirection != 0 ? signalReleaseCount : na, "News release components", display=display.data_window)
+var int totalSignals = 0
+if barstate.isconfirmed and measuredDirection != 0
+    totalSignals += 1
+
+CloudStats result1 = observeHorizon(horizon1, measuredDirection, high, low, close)
+CloudStats result2 = observeHorizon(horizon2, measuredDirection, high, low, close)
+CloudStats result3 = observeHorizon(horizon3, measuredDirection, high, low, close)
+CloudStats result4 = observeHorizon(horizon4, measuredDirection, high, low, close)
+CloudStats result5 = observeHorizon(horizon5, measuredDirection, high, low, close)
+array<CloudStats> overallResults = array.from(result1, result2, result3, result4, result5)
+var array<int> inputHorizons = array.from(horizon1, horizon2, horizon3, horizon4, horizon5)
+var array<int> displayHorizons = array.new_int()
+if barstate.isfirst
+    displayHorizons := array.copy(inputHorizons)
+    array.sort(displayHorizons)
+    int index = array.size(displayHorizons) - 1
+    while index > 0
+        if array.get(displayHorizons, index) == array.get(displayHorizons, index - 1)
+            array.remove(displayHorizons, index)
+        index -= 1
+
+// Calendar buckets are bounded to the visible periods plus one predecessor.
+string calendarZone = periodTimezone == "Exchange" ? syminfo.timezone : periodTimezone
+periodStart(int eventTime, string mode, string zone) =>
+    int y = year(eventTime, zone)
+    int m = month(eventTime, zone)
+    int d = dayofmonth(eventTime, zone)
+    int mondayOffset = (dayofweek(eventTime, zone) + 5) % 7
+    timestamp(zone, y, m, mode == "Monthly" ? 1 : d - mondayOffset, 0, 0)
+
+shiftPeriod(int startTime, int offset, string mode, string zone) =>
+    int y = year(startTime, zone)
+    int m = month(startTime, zone)
+    int d = dayofmonth(startTime, zone)
+    // Calendar fields, rather than elapsed milliseconds, preserve DST dates.
+    mode == "Monthly" ? timestamp(zone, y, m + offset, 1, 0, 0) : timestamp(zone, y, m, d + 7 * offset, 0, 0)
+
+type CloudPeriod
+    int startTime
+    int signals
+    CloudStats result
+
+findPeriod(array<CloudPeriod> periods, int key) =>
+    int found = -1
+    if array.size(periods) > 0
+        for index = 0 to array.size(periods) - 1
+            if array.get(periods, index).startTime == key
+                found := index
+                break
+    found
+
+var array<CloudPeriod> periods = array.new<CloudPeriod>()
+var int latestPeriodKey = na
+// Calendar ownership uses the confirmed entry close, including boundary bars.
+int eventTime = barstate.isconfirmed and not na(time_close) ? time_close : time
+int currentPeriodKey = periodStart(eventTime, periodMode, calendarZone)
+if na(latestPeriodKey) or currentPeriodKey != latestPeriodKey
+    array<CloudPeriod> retained = array.new<CloudPeriod>()
+    for offset = 0 to periodCount
+        int key = shiftPeriod(currentPeriodKey, -offset, periodMode, calendarZone)
+        int oldIndex = findPeriod(periods, key)
+        CloudPeriod bucket = oldIndex >= 0 ? array.get(periods, oldIndex) : CloudPeriod.new(key, 0, CloudStats.new())
+        array.push(retained, bucket)
+    periods := retained
+    latestPeriodKey := currentPeriodKey
+
+float periodHighest = ta.highest(high, periodBars)
+float periodLowest = ta.lowest(low, periodBars)
+int maturedDirection = measuredDirection[periodBars]
+if barstate.isconfirmed
+    if not na(maturedDirection) and maturedDirection != 0
+        int entryTime = na(time_close[periodBars]) ? time[periodBars] : time_close[periodBars]
+        int entryKey = periodStart(entryTime, periodMode, calendarZone)
+        int entryIndex = findPeriod(periods, entryKey)
+        if entryIndex >= 0
+            CloudPeriod entryBucket = array.get(periods, entryIndex)
+            [mfe, mae, closeDelta] = excursions(maturedDirection, close[periodBars], periodHighest, periodLowest, close)
+            entryBucket.result.record(mfe, mae, closeDelta, periodBars)
+    if measuredDirection != 0
+        CloudPeriod currentBucket = array.get(periods, 0)
+        currentBucket.signals += 1
+
+string resolvedUnits = statsUnits == "Auto" ? (syminfo.type == "forex" or euroFxFuture ? "Pips" : "Points") : statsUnits
+float pipSize = customPipEnabled ? customPipSize : syminfo.currency == "JPY" ? 0.01 : 0.0001
+float unitDivisor = resolvedUnits == "Pips" ? pipSize : resolvedUnits == "Ticks" ? syminfo.mintick : 1.0
+string unitLabel = resolvedUnits == "Pips" ? "pips" : resolvedUnits == "Ticks" ? "ticks" : "pts"
+// Preserve quote precision plus two decimals for averages of fractional ticks.
+string tickFormatText = str.tostring(syminfo.mintick, format.mintick)
+int decimalMark = str.pos(tickFormatText, ".")
+int pointDecimals = math.min(8, math.max(2, na(decimalMark) ? 2 : str.length(tickFormatText) - decimalMark + 1))
+string distanceFormat = resolvedUnits == "Points" ? "0." + str.repeat("0", pointDecimals) : "0.00"
+textSize(string choice) =>
+    choice == "Tiny" ? size.tiny : choice == "Normal" ? size.normal : size.small
+
+formatAverage(float total, int count, float divisor, string numberFormat="0.00") =>
+    count > 0 ? str.tostring(total / count / divisor, numberFormat) : "—"
+
+formatDistance(float total, int count) =>
+    formatAverage(total, count, unitDivisor, distanceFormat)
+
+formatPercent(int favorable, int count) =>
+    count > 0 ? str.tostring(100.0 * favorable / count, "0.0") + "%" : "—"
+
+formatRatio(CloudStats result) =>
+    result.closed > 0 and result.mae > 0 ? str.tostring(result.mfe / result.mae, "0.000") + "x" : "—"
+
+color favorableColor = #089981
+color adverseColor = #F23645
+color headerBg = color.new(chart.fg_color, 90)
+int horizonCount = array.size(displayHorizons)
+var table overallTable = table.new(position.bottom_right, 8, horizonCount + 4, bgcolor=chart.bg_color,
+     frame_color=color.new(chart.fg_color, 65), frame_width=1, border_color=color.new(chart.fg_color, 85), border_width=1)
+var table periodTable = table.new(position.bottom_left, 9, periodCount + 4, bgcolor=chart.bg_color,
+     frame_color=color.new(chart.fg_color, 65), frame_width=1, border_color=color.new(chart.fg_color, 85), border_width=1)
+if barstate.isfirst
+    table.merge_cells(overallTable, 0, 0, 7, 0)
+    table.merge_cells(overallTable, 0, horizonCount + 2, 7, horizonCount + 2)
+    table.merge_cells(overallTable, 0, horizonCount + 3, 7, horizonCount + 3)
+    table.merge_cells(periodTable, 0, 0, 8, 0)
+    table.merge_cells(periodTable, 0, periodCount + 2, 8, periodCount + 2)
+    table.merge_cells(periodTable, 0, periodCount + 3, 8, periodCount + 3)
+
+if barstate.islast
+    string overallSize = textSize(overallTextSize)
+    string periodSize = textSize(periodTextSize)
+    string context = "Selected packages " + str.tostring(scheduledPackages) + " (" + str.tostring(underlyingReleases) + " releases) | Skipped flat " + str.tostring(skippedFlat) + " / off-grid " + str.tostring(skippedOffGrid)
+    if showOverallStats
+        table.cell(overallTable, 0, 0, "NEWS EMA MOVE | 15m EMA " + str.tostring(fastLength) + "/" + str.tostring(slowLength) + " | " + statsSide + " | " + resolvedUnits + " | TV archive + FF live", text_color=chart.fg_color, bgcolor=headerBg, text_size=overallSize)
+        array<string> headers = array.from("Bars", "N", "AVG MFE (" + unitLabel + ")", "AVG MAE (" + unitLabel + ")", "AVG CLOSE Δ (" + unitLabel + ")", "FAVORABLE CLOSE", "MFE > MAE", "MFE / MAE")
+        for column = 0 to 7
+            color headingColor = column == 2 ? favorableColor : column == 3 ? adverseColor : chart.fg_color
+            string tip = column == 0 ? "Following H chart candles, excluding the signal candle. Shaded row matches the calendar table's measurement horizon." : column == 1 ? "Completed observations only. Separate news timestamps can overlap; later events do not truncate earlier observations." : column == 4 ? "Buy: horizon close minus entry close. Sell: entry close minus horizon close." : column == 5 ? "Completed observations with strictly positive directional close delta. Breakeven is excluded." : column == 6 ? "Completed observations where MFE strictly exceeded MAE. Ties are excluded." : column == 7 ? "Average MFE divided by average MAE. Higher means more favorable excursion per unit of adverse excursion. Not a profit factor or an executable reward/risk ratio; no costs are deducted." : "Average maximum excursion from the signal close; magnitude is nonnegative."
+            table.cell(overallTable, column, 1, array.get(headers, column), text_color=headingColor, bgcolor=headerBg, text_size=overallSize, tooltip=tip)
+        for index = 0 to horizonCount - 1
+            int horizon = array.get(displayHorizons, index)
+            CloudStats result = array.get(overallResults, array.indexof(inputHorizons, horizon))
+            int row = index + 2
+            color rowBg = horizon == periodBars ? color.new(favorableColor, 90) : index % 2 == 0 ? chart.bg_color : color.new(chart.fg_color, 96)
+            color deltaColor = result.closeDelta > 0 ? favorableColor : result.closeDelta < 0 ? adverseColor : chart.fg_color
+            table.cell(overallTable, 0, row, str.tostring(horizon), text_color=chart.fg_color, bgcolor=rowBg, text_size=overallSize)
+            table.cell(overallTable, 1, row, str.tostring(result.closed), text_color=chart.fg_color, bgcolor=rowBg, text_size=overallSize)
+            table.cell(overallTable, 2, row, formatDistance(result.mfe, result.closed), text_color=favorableColor, bgcolor=rowBg, text_size=overallSize)
+            table.cell(overallTable, 3, row, formatDistance(result.mae, result.closed), text_color=adverseColor, bgcolor=rowBg, text_size=overallSize)
+            table.cell(overallTable, 4, row, formatDistance(result.closeDelta, result.closed), text_color=deltaColor, bgcolor=rowBg, text_size=overallSize)
+            table.cell(overallTable, 5, row, formatPercent(result.favorable, result.closed), text_color=chart.fg_color, bgcolor=rowBg, text_size=overallSize)
+            table.cell(overallTable, 6, row, formatPercent(result.mfeAboveMae, result.closed), text_color=chart.fg_color, bgcolor=rowBg, text_size=overallSize)
+            table.cell(overallTable, 7, row, formatRatio(result), text_color=chart.fg_color, bgcolor=rowBg, text_size=overallSize)
+        int maxHorizon = array.last(displayHorizons)
+        CloudStats longestResult = array.get(overallResults, array.indexof(inputHorizons, maxHorizon))
+        table.cell(overallTable, 0, horizonCount + 2, "Pre-news close | Entry bar excluded | Open at " + str.tostring(maxHorizon) + " bars: " + str.tostring(totalSignals - longestResult.closed), text_color=chart.fg_color, bgcolor=headerBg, text_size=overallSize)
+        table.cell(overallTable, 0, horizonCount + 3, context, text_color=chart.fg_color, bgcolor=headerBg, text_size=overallSize)
+    else
+        table.clear(overallTable, 0, 0, 7, horizonCount + 3)
+    if showPeriodStats
+        string periodTitle = "NEWS EMA MOVE • " + str.upper(periodMode) + " • LAST " + str.tostring(periodCount) + " | " + statsSide + " | H=" + str.tostring(periodBars)
+        table.cell(periodTable, 0, 0, periodTitle, text_color=chart.fg_color, bgcolor=headerBg, text_size=periodSize)
+        array<string> headers = array.from(periodMode == "Monthly" ? "Month" : "Week of (Mon)", "Signals", "Closed", "Avg MAE (" + unitLabel + ")", "Avg MFE (" + unitLabel + ")", "Avg Δ (MFE−MAE)", "Avg Candles", "Favorable Close %", "MFE / MAE")
+        for column = 0 to 8
+            color headingColor = column == 3 ? adverseColor : column == 4 or column == 7 ? favorableColor : chart.fg_color
+            string tip = column == 0 ? "Entry-close calendar period in " + calendarZone + ". * current period; † partial window/history. — means before observed calendar/chart coverage. Calendar coverage can have gaps; no events is not proof of complete history." : column == 1 ? "All selected news entries, including unfinished observations. Simultaneous selected releases share one entry." : column == 2 ? "Entries whose full measurement horizon has completed." : column == 5 ? "Average MFE minus average MAE, matching the reference period table. This differs from the overall table's directional close delta." : column == 6 ? "Chart candles measured per completed observation. Fixed-horizon mode equals H." : column == 7 ? "Positive directional horizon closes / completed observations. Breakeven and unfinished entries are excluded." : column == 8 ? "Average MFE divided by average MAE for this entry period. Higher is better. This describes excursions, not trade profitability." : "Completed observations only. Entry candle excluded; last horizon candle included."
+            table.cell(periodTable, column, 1, array.get(headers, column), text_color=headingColor, bgcolor=headerBg, text_size=periodSize, tooltip=tip)
+        for offset = 0 to periodCount - 1
+            CloudPeriod bucket = array.get(periods, offset + (includeCurrentPeriod ? 0 : 1))
+            CloudStats result = bucket.result
+            int endTime = shiftPeriod(bucket.startTime, 1, periodMode, calendarZone)
+            int coverageStart = math.max(ARCHIVE_START, math.max(firstLoadedTime, lookbackStart))
+            coverageStart := na(firstObservedNews) ? coverageStart : math.max(coverageStart, firstObservedNews)
+            bool hasHistory = not na(firstObservedNews) and endTime > coverageStart
+            bool partial = hasHistory and bucket.startTime < coverageStart
+            bool isCurrent = bucket.startTime == currentPeriodKey
+            string label = str.format_time(bucket.startTime, periodMode == "Monthly" ? "yyyy-MM" : "yyyy-MM-dd", calendarZone) + (isCurrent ? " *" : "") + (partial ? " †" : "")
+            int row = offset + 2
+            color rowBg = isCurrent ? color.new(chart.fg_color, 93) : offset % 2 == 0 ? chart.bg_color : color.new(chart.fg_color, 97)
+            float spread = result.mfe - result.mae
+            color deltaColor = spread > 0 ? favorableColor : spread < 0 ? adverseColor : chart.fg_color
+            table.cell(periodTable, 0, row, label, text_color=chart.fg_color, bgcolor=rowBg, text_size=periodSize)
+            table.cell(periodTable, 1, row, hasHistory ? str.tostring(bucket.signals) : "—", text_color=chart.fg_color, bgcolor=rowBg, text_size=periodSize)
+            table.cell(periodTable, 2, row, hasHistory ? str.tostring(result.closed) : "—", text_color=chart.fg_color, bgcolor=rowBg, text_size=periodSize)
+            table.cell(periodTable, 3, row, formatDistance(result.mae, result.closed), text_color=adverseColor, bgcolor=rowBg, text_size=periodSize)
+            table.cell(periodTable, 4, row, formatDistance(result.mfe, result.closed), text_color=favorableColor, bgcolor=rowBg, text_size=periodSize)
+            table.cell(periodTable, 5, row, formatDistance(spread, result.closed), text_color=deltaColor, bgcolor=rowBg, text_size=periodSize)
+            table.cell(periodTable, 6, row, formatAverage(float(result.candles), result.closed, 1.0), text_color=chart.fg_color, bgcolor=rowBg, text_size=periodSize)
+            table.cell(periodTable, 7, row, formatPercent(result.favorable, result.closed), text_color=favorableColor, bgcolor=rowBg, text_size=periodSize)
+            table.cell(periodTable, 8, row, formatRatio(result), text_color=chart.fg_color, bgcolor=rowBg, text_size=periodSize)
+        table.cell(periodTable, 0, periodCount + 2, "Window starts " + str.format_time(lookbackStart, "yyyy-MM-dd HH:mm", calendarZone) + " | Reload advances start", text_color=chart.fg_color, bgcolor=headerBg, text_size=periodSize)
+        table.cell(periodTable, 0, periodCount + 3, "TV archive 2024-10-17–2026-10-16 UTC + FF live | Chart from " + str.format_time(firstLoadedTime, "yyyy-MM-dd", calendarZone), text_color=chart.fg_color, bgcolor=headerBg, text_size=periodSize)
+    else
+        table.clear(periodTable, 0, 0, 8, periodCount + 3)

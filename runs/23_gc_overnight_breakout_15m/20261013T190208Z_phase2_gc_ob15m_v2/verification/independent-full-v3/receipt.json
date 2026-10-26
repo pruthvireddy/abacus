@@ -1,0 +1,507 @@
+{
+  "schema_version": "study23-phase2-independent-verification/v1",
+  "attempt": "full-v3",
+  "phase": "all",
+  "command": [
+    "studies/23_gc_overnight_breakout_15m/phase2_verify.py",
+    "--stage",
+    "work/23_gc_overnight_breakout_15m/20261013T190208Z_phase2_gc_ob15m_v2",
+    "--phase",
+    "all",
+    "--attempt",
+    "full-v3"
+  ],
+  "source_snapshots": [
+    {
+      "path": "verification/independent-full-v3/phase2_verify.py",
+      "bytes": 111044,
+      "sha256": "f91d5c7f8a4c7c85638771d8d307212e4a6c87f87b9c2242571bc4d624fa0886"
+    },
+    {
+      "path": "verification/independent-full-v3/test_phase2_independent.py",
+      "bytes": 22962,
+      "sha256": "185904a6c203fa9ec285d703df693fc115a3fb2cd833c5358ca36d9c65a90b74"
+    }
+  ],
+  "started_at": "2026-10-13T19:45:56.089551Z",
+  "runtime_freeze": {
+    "status": "passed",
+    "hash_checks": 20,
+    "phase3_uncomputed_by_scope": true
+  },
+  "later_gate": {
+    "status": "passed",
+    "selection_sha256": "d7a6aafcbda07574b6abdccaabf727cc5ed48b164392249da74572ecb59d88f0",
+    "development_receipt_sha256": "63614517e0e5906d6107baa3c4b241365aa36b89ff141ddff2585fd09a0d24be",
+    "later_started_at": "2026-10-13T19:09:09.613021+00:00",
+    "source": "phase-starts.json"
+  },
+  "phases": [
+    {
+      "phase": "dev-validation",
+      "episodes": 550,
+      "policy_rows": 5500,
+      "comparisons": 1298384,
+      "status": "passed"
+    },
+    {
+      "phase": "later",
+      "episodes": 330,
+      "policy_rows": 3300,
+      "comparisons": 741231,
+      "status": "passed"
+    }
+  ],
+  "selection": {
+    "status": "passed",
+    "selected_policy": null,
+    "validation_episodes": 213,
+    "common_complete_pairs": 207,
+    "comparisons": 34,
+    "chronology": "saved settings \u2192 development/validation \u2192 hashed selection \u2192 later completion",
+    "prior_baseline_exposure": true
+  },
+  "metrics": {
+    "status": "passed",
+    "comparisons": 708825,
+    "verified_tables": [
+      "trade-cohorts",
+      "timing",
+      "equity",
+      "trades",
+      "paired",
+      "interval-sensitivities",
+      "occurrence",
+      "recovery",
+      "level-opportunities"
+    ],
+    "csv_projection_omissions": {
+      "artifact": "tables/trades.csv",
+      "omitted_optional_canonical_fields": {
+        "observed_holding_minutes": 23
+      },
+      "canonical_sources": [
+        "phases/dev-validation/policies.jsonl.gz",
+        "phases/later/policies.jsonl.gz"
+      ],
+      "qualification": "Every declared CSV column is reconciled. Optional fields omitted by first-row CSV projection remain independently replayed and retained in canonical raw ledgers."
+    },
+    "all_table_hashes": {
+      "trade-cohorts": {
+        "path": "tables/trade-cohorts.csv",
+        "bytes": 849492,
+        "sha256": "ba1b9e1caed269b25875cd1bdc3d7357c524426e4029ee932640bb99ce7d3553",
+        "rows": 1500
+      },
+      "paired": {
+        "path": "tables/paired.csv",
+        "bytes": 415828,
+        "sha256": "526e24f6a30d7c12fe98030a45590297d865f6aa3e171689392e46f87c082b6a",
+        "rows": 1500
+      },
+      "timing": {
+        "path": "tables/timing.csv",
+        "bytes": 376248,
+        "sha256": "012fd5479082ad9d9d8a51ba3375546b53c1515be2c48a422ff5cfa4929752cd",
+        "rows": 930
+      },
+      "equity": {
+        "path": "tables/equity.csv",
+        "bytes": 611091,
+        "sha256": "b345647a2d5ec1058fe5e2d52762ed0035a83d4289092228f1cd951869c587ad",
+        "rows": 3718
+      },
+      "occurrence": {
+        "path": "tables/occurrence.csv",
+        "bytes": 201850,
+        "sha256": "f7b30e9eb5a25905f6578ded49c482e17a27f3f1d10cb3e31e168318b1bdd7f5",
+        "rows": 1200
+      },
+      "recovery": {
+        "path": "tables/recovery.csv",
+        "bytes": 426460,
+        "sha256": "9984f570d3ffed4bb15e2076e48a6b46fc62d7d7fa06f3e765bc0d1d46342e3f",
+        "rows": 1800
+      },
+      "level-opportunities": {
+        "path": "tables/level-opportunities.csv",
+        "bytes": 872384,
+        "sha256": "8c706804f0927b8c3a4ad3ddf35fcca12d3003fc8d01dadbea8b95fbe508310e",
+        "rows": 1800
+      },
+      "transitions": {
+        "path": "tables/transitions.csv",
+        "bytes": 2177387,
+        "sha256": "e55e056aeaa20853cf28fad8bd3b0db60684a11c676c07d459d35de012889a74",
+        "rows": 16500
+      },
+      "event-distribution": {
+        "path": "tables/event-distribution.csv",
+        "bytes": 151394,
+        "sha256": "9aa8743df54bb7c18d3746d83aed063cd55d4320ee3bb3feccfcab44b365bb97",
+        "rows": 1584
+      },
+      "interval-sensitivities": {
+        "path": "tables/interval-sensitivities.csv",
+        "bytes": 45831,
+        "sha256": "3cf756920db8ca6fb278d5d87a6496a287aa8bb37a31022567145458ea29944b",
+        "rows": 315
+      },
+      "scenarios": {
+        "path": "tables/scenarios.csv",
+        "bytes": 12022,
+        "sha256": "4a988a16b60caab49ee9102dc091aab0c3a0da70c15be66d28a622702a9ead75",
+        "rows": 73
+      },
+      "ordering-bounds": {
+        "path": "tables/ordering-bounds.csv",
+        "bytes": 1204010,
+        "sha256": "caea1e4f3a6883be30adfe410f1f54940e0750fbdf04dc0f3cc6ca9fd053c1ab",
+        "rows": 8800
+      },
+      "account": {
+        "path": "tables/account.csv",
+        "bytes": 388228,
+        "sha256": "957573c09818028b3e1e51945001f8aa0d5d9a80c3b29c243509b6dbc347602e",
+        "rows": 2400
+      },
+      "account-capacity": {
+        "path": "tables/account-capacity.csv",
+        "bytes": 440055,
+        "sha256": "ef79717792ca529b342fb1ab2c339a26360760ad6e66a6190edd0599f9f17b23",
+        "rows": 1988
+      },
+      "trades": {
+        "path": "tables/trades.csv",
+        "bytes": 4316203,
+        "sha256": "ac3fb9d9dad68d262891e27f8126365b0aef43deea3141550e546b9e36d4d3e7",
+        "rows": 3741
+      },
+      "selected-example-bars": {
+        "path": "tables/selected-example-bars.csv",
+        "bytes": 8345718,
+        "sha256": "4676767cd485a1753057583bedd9b7ea23f8ddb4135300ead0efbf26eca17f64",
+        "rows": 45347
+      }
+    }
+  },
+  "transitions": {
+    "status": "passed",
+    "comparisons": 188288,
+    "edges": 5056,
+    "transition_rows": 16500,
+    "event_distribution_rows": 1584
+  },
+  "accounts": {
+    "status": "passed",
+    "scope": "separate actual whole-contract historical accounts, causal unknown capital/fill/loss propagation, zero observed executable sizes and 994-day capacity audit",
+    "comparisons": 914339,
+    "account_rows": 14080,
+    "capacity_rows": 1988,
+    "known_original_fills": 0,
+    "known_second_fills": 0,
+    "unknown_original_fill_rows": 865,
+    "unknown_second_fill_rows": 788,
+    "nonzero_two_leg_accounting": "independent executed synthetic fixture only; no substituted standardized historical profits"
+  },
+  "sensitivities": {
+    "status": "passed",
+    "comparisons": 4971003,
+    "sensitivity_scenarios": 7,
+    "summary_rows": 73,
+    "ordering_bound_rows": 8800
+  },
+  "examples": {
+    "status": "passed",
+    "examples": 80,
+    "pinned_minute_rows": 45347,
+    "comparisons": 363456
+  },
+  "assessment": {
+    "status": "passed",
+    "comparisons": 3,
+    "selected_policy": null,
+    "decision": "baseline_retained_no_primary_qualifier"
+  },
+  "artifacts": [
+    {
+      "path": "account-ledger.jsonl.gz",
+      "bytes": 1064688,
+      "sha256": "730075aa565c35864a5092e2b49158835d9aef4efae142d94802587c429f2734"
+    },
+    {
+      "path": "account-settings.json",
+      "bytes": 169,
+      "sha256": "b56d979d70172fae354a79fc35bfc2a6554fc408e35895a09270443074dde669"
+    },
+    {
+      "path": "assessment.json",
+      "bytes": 121,
+      "sha256": "10d02e697593e2a1a0f901f367e65b817bd62193fb00da8a71558e83bce19148"
+    },
+    {
+      "path": "config.json",
+      "bytes": 8289,
+      "sha256": "b17581173b66da111094674a083d786aafb4bca7825351ab3661d8b86d9e65b0"
+    },
+    {
+      "path": "environment.lock",
+      "bytes": 335045,
+      "sha256": "b2c02f82320599b00cb3277479c660a9c56c37c6476bc423215c9cbb7ab0c645"
+    },
+    {
+      "path": "example-selection.json",
+      "bytes": 583880,
+      "sha256": "ccace4e7dd7733fee134690124fcaa422f80bc4c787e385b27f65963e5566813"
+    },
+    {
+      "path": "exclusions.json",
+      "bytes": 363,
+      "sha256": "790d8005ce41d78819d844636894b2b29fb919a10c9b6633eef823a4d9306fd1"
+    },
+    {
+      "path": "execution-completion.json",
+      "bytes": 629,
+      "sha256": "2b652da0c017c7e3cc23b0328b50b04f8bd1b97a126ed0b29fb824ba93a6adbf"
+    },
+    {
+      "path": "execution-freeze.json",
+      "bytes": 3813,
+      "sha256": "8cd869f0cdec3ef13e781c9856fa203782f07f73398791c24e1ae6508dbe5f29"
+    },
+    {
+      "path": "inputs.lock.json",
+      "bytes": 1627,
+      "sha256": "bb671e1a4d509aa21080a66fd267f9c61e2f31289b3252aec584bac61e14a80f"
+    },
+    {
+      "path": "metrics.json",
+      "bytes": 2492,
+      "sha256": "5d64081cea757ec3978512f92680efb0c9c02b666a7007d070ed4200447d69d5"
+    },
+    {
+      "path": "phase-starts.json",
+      "bytes": 729,
+      "sha256": "334fb89bd6edfb925a0708976d2f57471b8f647866c1a34cb1fff1cfdd60d791"
+    },
+    {
+      "path": "phase2-baseline-pin.json",
+      "bytes": 127943,
+      "sha256": "af2e9541a663b4b87f024621736c771d8ed33487955a5574e62dbb2fdb27b225"
+    },
+    {
+      "path": "phases/dev-validation/boundary-events.jsonl.gz",
+      "bytes": 49838,
+      "sha256": "f6942a6a821c59a0112f79c430c0611b4145025658b48e21952ee846342f4702"
+    },
+    {
+      "path": "phases/dev-validation/completion.json",
+      "bytes": 1745,
+      "sha256": "d9efee5aafdc63d7bf8385a50978a481200da7ceddf03bf392a4d4494200c153"
+    },
+    {
+      "path": "phases/dev-validation/level-opportunities.jsonl.gz",
+      "bytes": 302025,
+      "sha256": "c22ce8c285528eb7da208ea4d82be71b83bd1bbfca5911b45e951da1963d2960"
+    },
+    {
+      "path": "phases/dev-validation/occurrence.jsonl.gz",
+      "bytes": 117603,
+      "sha256": "46ffc09049d080813b4efd62622cb2c801476895e7f8ce5f94ae25041ba2761e"
+    },
+    {
+      "path": "phases/dev-validation/policies.jsonl.gz",
+      "bytes": 1126300,
+      "sha256": "cfe15e3872e0ce9521257b577da5586ed465b9b177034b687f8d815549de2273"
+    },
+    {
+      "path": "phases/dev-validation/recovery.jsonl.gz",
+      "bytes": 145291,
+      "sha256": "c111fd502edf97037879eb9557f9a896cc58f17f34b4266a11841788e5c476b4"
+    },
+    {
+      "path": "phases/later/boundary-events.jsonl.gz",
+      "bytes": 20151,
+      "sha256": "960c0338876724fdc6fa66874ce1af7e65d8b898dd5d66da23c7965e69e4c347"
+    },
+    {
+      "path": "phases/later/completion.json",
+      "bytes": 1661,
+      "sha256": "5d62dca05136c5d81e49d425123b784e04991df618a9e39a1a6b28dfb064d688"
+    },
+    {
+      "path": "phases/later/level-opportunities.jsonl.gz",
+      "bytes": 174247,
+      "sha256": "0f9330d3d4285d2afd3dfc38157a0f5d3ca36d0a68a51ae7881ff30a9bd8fb79"
+    },
+    {
+      "path": "phases/later/occurrence.jsonl.gz",
+      "bytes": 62701,
+      "sha256": "6d7fb5f8941e77d1e8363d7400367aeeb7d4808a666b73a3f9420bd081f59d73"
+    },
+    {
+      "path": "phases/later/policies.jsonl.gz",
+      "bytes": 604549,
+      "sha256": "f484a38284eb8016732d9e56ce906e7b87331a3e8d4ebd1e099b524cae3e49b9"
+    },
+    {
+      "path": "phases/later/recovery.jsonl.gz",
+      "bytes": 78020,
+      "sha256": "796d82120a1d0bcb99c10f97ebc731ef466968367bfbb3bf9922c1ec84c0902e"
+    },
+    {
+      "path": "protocol.md",
+      "bytes": 12804,
+      "sha256": "31f093d96447e4dc10451b7d5dafa97cedb9432f5972a5a52cfe797f2bfe9af1"
+    },
+    {
+      "path": "selection-freeze.json",
+      "bytes": 560,
+      "sha256": "f1c58a92315fc2166b5f56797f9cdb18118385b090c48e531c3692f0caaf45d9"
+    },
+    {
+      "path": "selection.json",
+      "bytes": 1524,
+      "sha256": "d7a6aafcbda07574b6abdccaabf727cc5ed48b164392249da74572ecb59d88f0"
+    },
+    {
+      "path": "sensitivities/gross-zero-cost.jsonl.gz",
+      "bytes": 1273614,
+      "sha256": "17ab720391826dd1e9082d03e2578808c65e8c5ed2a5f8607aced0b73ddee298"
+    },
+    {
+      "path": "sensitivities/high-first-one-tick.jsonl.gz",
+      "bytes": 1353629,
+      "sha256": "66ba9fb96c3a656fa15bcbca97a06b46845b9aa5ede5dc2ae39434845bcce35b"
+    },
+    {
+      "path": "sensitivities/low-first-one-tick.jsonl.gz",
+      "bytes": 1352653,
+      "sha256": "06b43747021344a2281a5c17e2bc32b7929261ec5e132686ef937f326af1ac5f"
+    },
+    {
+      "path": "sensitivities/net-two-ticks.jsonl.gz",
+      "bytes": 1355020,
+      "sha256": "dad8e258456cbbbfe448087e7c350a6c2238529e5c97e19e1255eff556e17bcf"
+    },
+    {
+      "path": "sensitivities/net-zero-ticks.jsonl.gz",
+      "bytes": 1312577,
+      "sha256": "31eaf7b060d3be4a5e79849fc33c4f60b8948ef95173a84ce708b7c47cd8323a"
+    },
+    {
+      "path": "sensitivities/passive-touch.jsonl.gz",
+      "bytes": 562821,
+      "sha256": "aa81a55ab9430cf8d12edf4a7f7ffb1124b861f5faa98a5389923d10c69b5ece"
+    },
+    {
+      "path": "sensitivities/source-fifteen-minute-ohlc.jsonl.gz",
+      "bytes": 1340012,
+      "sha256": "32c25d3429607d77fa0c9781b66c60e97342455cd7aa101c3d0bb4030c62b0d8"
+    },
+    {
+      "path": "sensitivity-completion.json",
+      "bytes": 1828,
+      "sha256": "2c43e635ca93aa17ca1683c559b02a9e48808dff9509305e12a7217a7013811c"
+    },
+    {
+      "path": "tables/account-capacity.csv",
+      "bytes": 440055,
+      "sha256": "ef79717792ca529b342fb1ab2c339a26360760ad6e66a6190edd0599f9f17b23"
+    },
+    {
+      "path": "tables/account.csv",
+      "bytes": 388228,
+      "sha256": "957573c09818028b3e1e51945001f8aa0d5d9a80c3b29c243509b6dbc347602e"
+    },
+    {
+      "path": "tables/equity.csv",
+      "bytes": 611091,
+      "sha256": "b345647a2d5ec1058fe5e2d52762ed0035a83d4289092228f1cd951869c587ad"
+    },
+    {
+      "path": "tables/event-distribution.csv",
+      "bytes": 151394,
+      "sha256": "9aa8743df54bb7c18d3746d83aed063cd55d4320ee3bb3feccfcab44b365bb97"
+    },
+    {
+      "path": "tables/interval-sensitivities.csv",
+      "bytes": 45831,
+      "sha256": "3cf756920db8ca6fb278d5d87a6496a287aa8bb37a31022567145458ea29944b"
+    },
+    {
+      "path": "tables/level-opportunities.csv",
+      "bytes": 872384,
+      "sha256": "8c706804f0927b8c3a4ad3ddf35fcca12d3003fc8d01dadbea8b95fbe508310e"
+    },
+    {
+      "path": "tables/occurrence.csv",
+      "bytes": 201850,
+      "sha256": "f7b30e9eb5a25905f6578ded49c482e17a27f3f1d10cb3e31e168318b1bdd7f5"
+    },
+    {
+      "path": "tables/ordering-bounds.csv",
+      "bytes": 1204010,
+      "sha256": "caea1e4f3a6883be30adfe410f1f54940e0750fbdf04dc0f3cc6ca9fd053c1ab"
+    },
+    {
+      "path": "tables/paired.csv",
+      "bytes": 415828,
+      "sha256": "526e24f6a30d7c12fe98030a45590297d865f6aa3e171689392e46f87c082b6a"
+    },
+    {
+      "path": "tables/recovery.csv",
+      "bytes": 426460,
+      "sha256": "9984f570d3ffed4bb15e2076e48a6b46fc62d7d7fa06f3e765bc0d1d46342e3f"
+    },
+    {
+      "path": "tables/scenarios.csv",
+      "bytes": 12022,
+      "sha256": "4a988a16b60caab49ee9102dc091aab0c3a0da70c15be66d28a622702a9ead75"
+    },
+    {
+      "path": "tables/selected-example-bars.csv",
+      "bytes": 8345718,
+      "sha256": "4676767cd485a1753057583bedd9b7ea23f8ddb4135300ead0efbf26eca17f64"
+    },
+    {
+      "path": "tables/timing.csv",
+      "bytes": 376248,
+      "sha256": "012fd5479082ad9d9d8a51ba3375546b53c1515be2c48a422ff5cfa4929752cd"
+    },
+    {
+      "path": "tables/trade-cohorts.csv",
+      "bytes": 849492,
+      "sha256": "ba1b9e1caed269b25875cd1bdc3d7357c524426e4029ee932640bb99ce7d3553"
+    },
+    {
+      "path": "tables/trades.csv",
+      "bytes": 4316203,
+      "sha256": "ac3fb9d9dad68d262891e27f8126365b0aef43deea3141550e546b9e36d4d3e7"
+    },
+    {
+      "path": "tables/transitions.csv",
+      "bytes": 2177387,
+      "sha256": "e55e056aeaa20853cf28fad8bd3b0db60684a11c676c07d459d35de012889a74"
+    },
+    {
+      "path": "transition-ledger.jsonl.gz",
+      "bytes": 45578,
+      "sha256": "1007afb336d65546f3d511e70cbb472b64fea71c1b320d7dfed622767c47421b"
+    },
+    {
+      "path": "verification/independent-dev-v1/receipt.json",
+      "bytes": 1823,
+      "sha256": "63614517e0e5906d6107baa3c4b241365aa36b89ff141ddff2585fd09a0d24be"
+    }
+  ],
+  "status": "passed",
+  "finished_at": "2026-10-13T19:57:23.351164Z",
+  "baseline_accepted_episodes": 880,
+  "eligible_calendar_days": 994,
+  "limits": [
+    "Historical OHLC replay checks the frozen modeled path, not native tick ordering or TradingView execution.",
+    "Annual holiday certification and live mapping receipt remain unresolved.",
+    "Published Phase1 baseline years were previously exposed; later outcomes are not pristine holdouts."
+  ]
+}

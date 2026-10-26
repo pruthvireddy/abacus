@@ -1,0 +1,65 @@
+{
+  "schema_version": 1,
+  "workspace": "/Users/ppanati/Documents/projects/abacus",
+  "commands": [
+    {
+      "stage": "pilot",
+      "command": "UV_CACHE_DIR=/tmp/abacus-uv-cache OPENBLAS_NUM_THREADS=1 VECLIB_MAXIMUM_THREADS=1 ./scripts/uv run --locked --no-sync python studies/15_vwap_excursion_response/pilot.py --out work/15_vwap_excursion_response/pilot_20260929_c"
+    },
+    {
+      "stage": "synthetic_tests",
+      "command": "UV_CACHE_DIR=/tmp/abacus-uv-cache OPENBLAS_NUM_THREADS=1 VECLIB_MAXIMUM_THREADS=1 ./scripts/uv run --locked --no-sync python -m unittest discover -s studies/15_vwap_excursion_response/tests -v"
+    },
+    {
+      "stage": "execute",
+      "command": "UV_CACHE_DIR=/tmp/abacus-uv-cache OPENBLAS_NUM_THREADS=1 VECLIB_MAXIMUM_THREADS=1 ./scripts/uv run --locked --no-sync python studies/15_vwap_excursion_response/run.py --out work/15_vwap_excursion_response/20260929T234000Z_a15f --pilot work/15_vwap_excursion_response/pilot_20260929_c"
+    },
+    {
+      "stage": "summarize",
+      "command": "UV_CACHE_DIR=/tmp/abacus-uv-cache OPENBLAS_NUM_THREADS=1 VECLIB_MAXIMUM_THREADS=1 ./scripts/uv run --locked --no-sync python studies/15_vwap_excursion_response/summarize.py --out work/15_vwap_excursion_response/20260929T234000Z_a15f"
+    },
+    {
+      "stage": "audit",
+      "command": "UV_CACHE_DIR=/tmp/abacus-uv-cache OPENBLAS_NUM_THREADS=1 VECLIB_MAXIMUM_THREADS=1 ./scripts/uv run --locked --no-sync python studies/15_vwap_excursion_response/verify.py --out work/15_vwap_excursion_response/20260929T234000Z_a15f"
+    },
+    {
+      "stage": "uncertainty",
+      "command": "UV_CACHE_DIR=/tmp/abacus-uv-cache OPENBLAS_NUM_THREADS=1 VECLIB_MAXIMUM_THREADS=1 ./scripts/uv run --locked --no-sync python studies/15_vwap_excursion_response/verify_uncertainty.py --out work/15_vwap_excursion_response/20260929T234000Z_a15f"
+    },
+    {
+      "stage": "render",
+      "command": "UV_CACHE_DIR=/tmp/abacus-uv-cache OPENBLAS_NUM_THREADS=1 VECLIB_MAXIMUM_THREADS=1 ./scripts/uv run --locked --no-sync python studies/15_vwap_excursion_response/render.py --out work/15_vwap_excursion_response/20260929T234000Z_a15f"
+    },
+    {
+      "stage": "report_structure",
+      "command": "UV_CACHE_DIR=/tmp/abacus-uv-cache OPENBLAS_NUM_THREADS=1 VECLIB_MAXIMUM_THREADS=1 ./scripts/uv run --locked --no-sync python studies/15_vwap_excursion_response/verify_reports.py --out work/15_vwap_excursion_response/20260929T234000Z_a15f"
+    },
+    {
+      "stage": "seal",
+      "command": "UV_CACHE_DIR=/tmp/abacus-uv-cache OPENBLAS_NUM_THREADS=1 VECLIB_MAXIMUM_THREADS=1 ./scripts/uv run --locked --no-sync python studies/15_vwap_excursion_response/seal.py --out work/15_vwap_excursion_response/20260929T234000Z_a15f"
+    },
+    {
+      "stage": "static_figure_raster",
+      "command": "NODE_PATH=/Users/ppanati/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules node studies/15_vwap_excursion_response/qa_figures.cjs work/15_vwap_excursion_response/20260929T234000Z_a15f"
+    },
+    {
+      "stage": "documentation",
+      "command": "python3 scripts/check-agent-docs.py"
+    },
+    {
+      "stage": "navigation_after_seal",
+      "command": "python3 scripts/build-research-index.py"
+    },
+    {
+      "stage": "navigation_check_after_seal",
+      "command": "python3 scripts/build-research-index.py --check"
+    }
+  ],
+  "freeze": "freeze.json records pre-outcome time and hashes; pre-freeze-tests.txt records the test command results",
+  "logs": "provenance/commands/ includes executed stage output; presentation was iterated without recomputing outcomes.",
+  "failed_preoutcome_attempts": [
+    "uv synchronization required an unavailable network build; existing workspace environment used with --no-sync",
+    "pilot a/b rejected a session-open contains_roll marker; identity-based continuity clarified before final pilot/freeze"
+  ],
+  "runtime_notes": "UV_CACHE_DIR redirects cache writes into permitted temporary storage. No dependencies, packages, published releases or old studies were changed."
+}

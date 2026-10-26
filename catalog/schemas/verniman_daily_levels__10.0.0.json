@@ -1,0 +1,473 @@
+{
+  "dataset_id": "verniman_daily_levels__10.0.0",
+  "version": "10.0.0",
+  "tables": {
+    "outlooks": [
+      {
+        "name": "outlook_id",
+        "arrow_type": "string",
+        "nullable": false
+      },
+      {
+        "name": "source_post_id",
+        "arrow_type": "string",
+        "nullable": false
+      },
+      {
+        "name": "content_sha256",
+        "arrow_type": "string",
+        "nullable": false
+      },
+      {
+        "name": "source_url",
+        "arrow_type": "string",
+        "nullable": false
+      },
+      {
+        "name": "title",
+        "arrow_type": "string",
+        "nullable": false
+      },
+      {
+        "name": "session_date_method",
+        "arrow_type": "string",
+        "nullable": false
+      },
+      {
+        "name": "timing_status",
+        "arrow_type": "string",
+        "nullable": false
+      },
+      {
+        "name": "extraction_version",
+        "arrow_type": "string",
+        "nullable": false
+      },
+      {
+        "name": "extraction_status",
+        "arrow_type": "string",
+        "nullable": false
+      },
+      {
+        "name": "content_kind",
+        "arrow_type": "string",
+        "nullable": false
+      },
+      {
+        "name": "source_agreement_status",
+        "arrow_type": "string",
+        "nullable": false
+      },
+      {
+        "name": "source_year_status",
+        "arrow_type": "string",
+        "nullable": false
+      },
+      {
+        "name": "crawl_date_warnings_json",
+        "arrow_type": "string",
+        "nullable": false
+      },
+      {
+        "name": "ledger_id",
+        "arrow_type": "string",
+        "nullable": false
+      },
+      {
+        "name": "body_text",
+        "arrow_type": "string",
+        "nullable": false
+      },
+      {
+        "name": "raw_html_path",
+        "arrow_type": "string",
+        "nullable": false
+      },
+      {
+        "name": "raw_html_sha256",
+        "arrow_type": "string",
+        "nullable": false
+      },
+      {
+        "name": "product",
+        "arrow_type": "string",
+        "nullable": true
+      },
+      {
+        "name": "contract",
+        "arrow_type": "string",
+        "nullable": true
+      },
+      {
+        "name": "session_date_source_text",
+        "arrow_type": "string",
+        "nullable": true
+      },
+      {
+        "name": "bullish_scenario_text",
+        "arrow_type": "string",
+        "nullable": true
+      },
+      {
+        "name": "bearish_scenario_text",
+        "arrow_type": "string",
+        "nullable": true
+      },
+      {
+        "name": "bullish_conditions",
+        "arrow_type": "string",
+        "nullable": true
+      },
+      {
+        "name": "bearish_conditions",
+        "arrow_type": "string",
+        "nullable": true
+      },
+      {
+        "name": "raw_atom_path",
+        "arrow_type": "string",
+        "nullable": true
+      },
+      {
+        "name": "raw_atom_sha256",
+        "arrow_type": "string",
+        "nullable": true
+      },
+      {
+        "name": "source_claimed_published",
+        "arrow_type": "string",
+        "nullable": true
+      },
+      {
+        "name": "source_claimed_updated",
+        "arrow_type": "string",
+        "nullable": true
+      },
+      {
+        "name": "source_claimed_published_eastern",
+        "arrow_type": "string",
+        "nullable": true
+      },
+      {
+        "name": "source_claimed_updated_eastern",
+        "arrow_type": "string",
+        "nullable": true
+      },
+      {
+        "name": "session_date",
+        "arrow_type": "date32[day]",
+        "nullable": true
+      },
+      {
+        "name": "body_contract_year",
+        "arrow_type": "int16",
+        "nullable": true
+      },
+      {
+        "name": "captured_at",
+        "arrow_type": "timestamp[us, tz=UTC]",
+        "nullable": false
+      },
+      {
+        "name": "raw_html_captured_at",
+        "arrow_type": "timestamp[us, tz=UTC]",
+        "nullable": false
+      },
+      {
+        "name": "raw_atom_captured_at",
+        "arrow_type": "timestamp[us, tz=UTC]",
+        "nullable": true
+      },
+      {
+        "name": "available_at",
+        "arrow_type": "timestamp[us, tz=UTC]",
+        "nullable": true
+      },
+      {
+        "name": "source_claimed_published_at",
+        "arrow_type": "timestamp[us, tz=UTC]",
+        "nullable": true
+      },
+      {
+        "name": "source_claimed_updated_at",
+        "arrow_type": "timestamp[us, tz=UTC]",
+        "nullable": true
+      },
+      {
+        "name": "parsed_branch_count",
+        "arrow_type": "int16",
+        "nullable": false
+      },
+      {
+        "name": "level_count",
+        "arrow_type": "int32",
+        "nullable": false
+      },
+      {
+        "name": "issue_count",
+        "arrow_type": "int32",
+        "nullable": false
+      },
+      {
+        "name": "source_plan_a_text",
+        "arrow_type": "string",
+        "nullable": true
+      },
+      {
+        "name": "source_plan_b_text",
+        "arrow_type": "string",
+        "nullable": true
+      },
+      {
+        "name": "source_plan_c_text",
+        "arrow_type": "string",
+        "nullable": true
+      },
+      {
+        "name": "bullish_source_plan_branch",
+        "arrow_type": "string",
+        "nullable": true
+      },
+      {
+        "name": "bearish_source_plan_branch",
+        "arrow_type": "string",
+        "nullable": true
+      }
+    ],
+    "levels": [
+      {
+        "name": "outlook_id",
+        "arrow_type": "string",
+        "nullable": false
+      },
+      {
+        "name": "product",
+        "arrow_type": "string",
+        "nullable": false
+      },
+      {
+        "name": "contract",
+        "arrow_type": "string",
+        "nullable": true
+      },
+      {
+        "name": "side",
+        "arrow_type": "string",
+        "nullable": false
+      },
+      {
+        "name": "role",
+        "arrow_type": "string",
+        "nullable": false
+      },
+      {
+        "name": "source_label",
+        "arrow_type": "string",
+        "nullable": true
+      },
+      {
+        "name": "source_text",
+        "arrow_type": "string",
+        "nullable": false
+      },
+      {
+        "name": "notation",
+        "arrow_type": "string",
+        "nullable": false
+      },
+      {
+        "name": "scenario_text",
+        "arrow_type": "string",
+        "nullable": false
+      },
+      {
+        "name": "timing_status",
+        "arrow_type": "string",
+        "nullable": false
+      },
+      {
+        "name": "conditions",
+        "arrow_type": "string",
+        "nullable": true
+      },
+      {
+        "name": "session_date",
+        "arrow_type": "date32[day]",
+        "nullable": false
+      },
+      {
+        "name": "ordinal",
+        "arrow_type": "int32",
+        "nullable": false
+      },
+      {
+        "name": "price_low",
+        "arrow_type": "decimal128(12, 2)",
+        "nullable": false
+      },
+      {
+        "name": "price_high",
+        "arrow_type": "decimal128(12, 2)",
+        "nullable": false
+      },
+      {
+        "name": "available_at",
+        "arrow_type": "timestamp[us, tz=UTC]",
+        "nullable": true
+      },
+      {
+        "name": "source_plan_branch",
+        "arrow_type": "string",
+        "nullable": false
+      }
+    ],
+    "issues": [
+      {
+        "name": "issue_id",
+        "arrow_type": "string",
+        "nullable": false
+      },
+      {
+        "name": "severity",
+        "arrow_type": "string",
+        "nullable": false
+      },
+      {
+        "name": "scope",
+        "arrow_type": "string",
+        "nullable": false
+      },
+      {
+        "name": "code",
+        "arrow_type": "string",
+        "nullable": false
+      },
+      {
+        "name": "description",
+        "arrow_type": "string",
+        "nullable": false
+      },
+      {
+        "name": "outlook_id",
+        "arrow_type": "string",
+        "nullable": true
+      },
+      {
+        "name": "source_url",
+        "arrow_type": "string",
+        "nullable": true
+      },
+      {
+        "name": "side",
+        "arrow_type": "string",
+        "nullable": true
+      },
+      {
+        "name": "source_text",
+        "arrow_type": "string",
+        "nullable": true
+      },
+      {
+        "name": "session_date",
+        "arrow_type": "date32[day]",
+        "nullable": true
+      }
+    ],
+    "coverage": [
+      {
+        "name": "session_date",
+        "arrow_type": "date32[day]",
+        "nullable": false
+      },
+      {
+        "name": "status",
+        "arrow_type": "string",
+        "nullable": false
+      },
+      {
+        "name": "reason",
+        "arrow_type": "string",
+        "nullable": true
+      },
+      {
+        "name": "post_count",
+        "arrow_type": "int32",
+        "nullable": false
+      },
+      {
+        "name": "complete_post_count",
+        "arrow_type": "int32",
+        "nullable": false
+      },
+      {
+        "name": "partial_post_count",
+        "arrow_type": "int32",
+        "nullable": false
+      },
+      {
+        "name": "failed_post_count",
+        "arrow_type": "int32",
+        "nullable": false
+      },
+      {
+        "name": "non_outlook_post_count",
+        "arrow_type": "int32",
+        "nullable": false
+      },
+      {
+        "name": "level_count",
+        "arrow_type": "int32",
+        "nullable": false
+      },
+      {
+        "name": "issue_count",
+        "arrow_type": "int32",
+        "nullable": false
+      },
+      {
+        "name": "post_urls_json",
+        "arrow_type": "string",
+        "nullable": false
+      },
+      {
+        "name": "outlook_ids_json",
+        "arrow_type": "string",
+        "nullable": false
+      },
+      {
+        "name": "ledger_json",
+        "arrow_type": "string",
+        "nullable": false
+      }
+    ]
+  },
+  "available_at": "Always null; source claims and capture chronology do not prove historical availability.",
+  "session_date": "Dated crawl ledger, anchored to December 31, 2018; body M/D is cross-checked. Delivery-contract year never determines session year.",
+  "revision_identity": "SHA256(source_post_id + newline + SHA256(extracted visible source body UTF-8)).",
+  "extraction": "Only A/B plan branches; each ambiguous branch yields no numeric rows, with raw text and issues retained. Other valid branches remain.",
+  "ranges": "Singular labels with two endpoints denote zones; low/high are numeric bounds even when source endpoints descend. Lowercase-plural labels, e.g. PBTs and GAPs, denote ordered point sequences. A singular label followed by three or more full prices (each at least three digits) is an explicit point sequence with a warning; abbreviated singular multi-price sequences are refused. Abbreviated two-endpoint suffixes retain the leading digits of the preceding full price.",
+  "price_outlier_warning": "A source point more than max(500 points, 10% of the post median) from the median is flagged, never corrected.",
+  "missingness": "No interpolation. Zero extracted levels does not mean zero source targets. Missing date coverage means no post was observed, not proof that none was ever published.",
+  "source_certainty": "HTML/Atom agreement, metadata claims, parse success and historical availability are separate qualifications.",
+  "source_plan_branch": "Plan letters A/B/C are source labels, not fixed economic sides: A can be bearish and B bullish. A uniquely labelled source branch maps to bullish from exactly one above direction paired with explicit buy, be a buyer or become a buyer (optionally preceded by try to), or bearish from exactly one below direction paired with corresponding sell/seller wording. The separately qualified lean-on scenario also maps to bearish only from one below direction, explicit bearish internals, exact try to lean on plus one full numeric reference and a towards labelled-target clause; it does not assert an explicit sell order; contradictory explicit bullish/bearish confirmation wording also causes refusal. Duplicated letters, missing or inconsistent direction/action and multiple branches describing one side remain text/issues without invented numeric assignments. levels.source_plan_branch retains A/B/C; outlooks and daily_summary retain source_plan_a_text/source_plan_b_text/source_plan_c_text and bullish_source_plan_branch/bearish_source_plan_branch. The bounded below/bearish-internals/try-to-lean-on policy is separately documented and qualified without asserting an explicit sell order. Side-specific scenario and target columns follow the economic direction, not alphabetical position.",
+  "label_formats": "The exact observed mixed-case labels PrevATH and YVAl are retained with explicit source-spelling warnings; no generic case normalization is performed. Original source labels are retained. Exact Edge, edge, Edge-LIS, Edge-LVN, HGap and Trump_XiSoC spellings retain source case with explicit warnings. Supported syntax includes mixed-case Soc/SoC compounds (including FOMC Soc and YPOC-FOMC Soc), Roll-GAP, HVE-1yrPOC, HVE_PBT, nonstandard ONl and explicit postfix support/resistance/magnet labels. A full price immediately followed by HVE and an explicit price can delimit two labelled levels, retaining its source spelling with a warning. Explicit plural labels can introduce full point prices joined by and. Only the separately documented exact bare trigger point may omit its source label; unlabelled target prices and singular-labelled conjunctions remain unsupported.",
+  "lis_label_modifier": "The observed LIS modifier followed by one of HVE, YVAH, YVAL, YPOC, YHOD, YLOD, ATH, LVN, POC, HVE YVAH, HVE YVAL, YVAL HVE, YLOD HVE, YPOC-HVE, YVAL-HVE, HVE-YPOC, HVE-YVAL, ON-HVE, ON-POC, ON-VAH, ON-VAL, YHOD-HVE, YHOD-YVAH, YVAH-HVE, HVE-YVAH, YLOD-HVE, YHOD HVE, YPOC HVE or LVN YVAH and one explicit price or supported zone is retained as one compound source label; no extra unpriced level is inferred. The observed reversed modifier HVE LIS also shares one explicit price and remains one source label. Bare LIS followed by a price is itself an explicit source label. Parenthesized (VAR) remains a nonnumeric annotation to the priced source level. A standalone SOC: definition paragraph terminates plan branch extraction; full body text stays retained.",
+  "source_market_limit_labels": "The exact source labels RTH Limit Down and RTH limit followed by explicit prices are retained as labelled source-level targets with source_market_limit_claim warnings. These are source observations; no exchange limit calculation, validity, availability or execution eligibility is independently established.",
+  "space_point_lists": "An explicit plural label such as HVEs may introduce full numeric point prices separated by spaces, optionally followed by and plus another full point. Each price retains source order and original group text with space_separated_plural_points warning. Singular-labelled space lists and abbreviated space prices remain refused.",
+  "slash_point_lists": "Explicit plural labels may introduce slash-separated full numeric prices, e.g. PBTs 4448/4454. Each price is a separate ordered point, with the original group text and slash_separated_plural_points warning. Singular slash lists and abbreviated slash prices remain unsupported. Any otherwise unassigned uppercase source level label causes branch refusal rather than silently omitting a level with no numeric price.",
+  "branch_boundaries": "A/B/C branches end at the next labelled branch, Note/Reminder/Tips/Basics/Quotes/Notice headings, Rollover week/note/starts, Expiration Week, When VIX climbs above or FOMC days are paragraph opening, Today's Economic Calendar, Disclaimer, Questions, Glossary of terms, Market Movers or Follow heading. The full source body remains retained.",
+  "operative_contract_policy": "An explicit present-tense or affirmative-today statement quoting another contract conflicts with the header; preserve the post and both branches as text but refuse numeric extraction.",
+  "ambiguous_contract_policy": "A future-tense quote of another contract justified by an affirmative present-volume-is-greater statement, without a conditional future term or explicit today, leaves the plan's operative contract ambiguous. Preserve the heading, quote and both branches but refuse numeric extraction with operative_contract_assignment_ambiguous; do not label the future-tense statement as a verified today claim.",
+  "intraday_contract_switch_policy": "A past-tense I started quoting another contract after NYSE Opening Bell contradicts the retained source heading: both branches stay as text, with numeric extraction refused as past_contract_switch_header_conflict. An explicit future opening-bell switch (including preposed after the bell, future-tense since NYSE opening bell, and new /ESH20 after the Opening Bell) does not establish that contract as active in the captured plan: retain heading-based numeric extraction and future_intraday_contract_switch warning. Present I start quoting another contract, either as its month increases to equal volume or without a conditional future qualifier, leaves the transition phase ambiguous: refuse numeric extraction as operative_contract_assignment_ambiguous. None of these statements verifies pre-open availability or an execution timestamp.",
+  "target_clause_spelling": "The observed joined delimiter towardsHVE followed by an explicit HVE price is recognized without changing source branch text; nonstandard_target_delimiter records the source spelling. Other joined target delimiters receive no inferred whitespace repair.",
+  "decimal_zone_suffix": "A singular two-endpoint zone with a full integer anchor and a two-digit decimal suffix retains the anchor's leading digits: 4187-86.50 becomes bounds 4186.50 and 4187.00, with an abbreviated_decimal_zone warning. Decimal anchors, one-digit decimal suffixes and plural/multi-price decimal abbreviations remain unsupported.",
+  "generic_contract_policy": "Exact generic /ES Value headings with no explicit contract anywhere retain ES prices with contract null and source_contract_unspecified warning. No delivery month/year is inferred from dates, images or adjacent posts. An explicit present source quoting claim may supply the exact contract with source_contract_from_explicit_quoting warning. Other mentioned contracts without a uniquely operative present claim cause numeric refusal; the first source token is never silently selected. Only a disposable compatibility projection receives a marker for the frozen validator; saved tables remain null.",
+  "source_plan_c_text": "This release additionally retains original source Plan C text. C participates in the same explicit economic-direction mapping as A/B. Neutral or ambiguous letters remain text with issues; the source letter never determines side. levels.source_plan_branch may be A, B or C.",
+  "source_lean_on_wording": "The exact try to lean on plus one full price and towards labelled targets can describe a bearish scenario only when its conditional prefix has one below direction and explicit bearish internals. This is a source scenario classification, not an inferred explicit sell order. The conditional threshold and auxiliary leaning reference remain separate. Missing, contradictory or non-bearish conditions, leaning zones/lists and malformed target clauses are refused. A source_lean_on_wording issue retains the exact action/target clause; trailing failed-auction commentary does not replace the conditional scenario direction.",
+  "source_execution_reference": "After an explicit action, the source may state leaning on/above/below/around plus one point or two-endpoint zone before towards. This ancillary execution reference stays verbatim in the scenario and source_execution_reference issue; it neither replaces the initial conditional threshold nor becomes a target. Contradictory ancillary above/below directions are refused.",
+  "source_branch_annotation": "Exact Look above/below and fail or Failure to take out/breakdown explanatory tails terminate the numeric target list. Their full text remains in the scenario and source_branch_annotation issue, including referenced labels/prices/timing; no additional target or changed economic direction is inferred.",
+  "single_digit_contract_policy": "The exact ES futures contract suffix 8 is supported only within the separately anchored 2018 collection. Its delivery year is 2018 while the source contract (for example ESM8) remains literal, with single_digit_source_contract warning. A parenthesized full delivery year must agree modulo ten; the ordinary full two-digit contract policy is unchanged. No session year is inferred from the contract, and generic /ES Value headings without an explicit delivery contract follow the separately qualified nullable-contract policy.",
+  "2018_source_annotations": "The exact mixed-case source label HVE Tariffs SoC followed by an explicit price remains one source label, with a nonstandard_source_label warning. The exact parenthesized ETH/ON annotation between a label and explicit price stays in source_text with a source_level_session_qualifier warning; no independent session eligibility is inferred. A trigger consisting of exactly one full numeric price is retained as a point with source_label null and an unlabelled_trigger_price warning. Bare numeric ranges/lists, unpriced source labels and singular-labelled target conjunctions remain unsupported. No label or price is borrowed from the opposite branch.",
+  "unlabelled_trigger_price": "Only a trigger consisting of exactly one full 3\u20136-digit numeric point with an optional one- or two-digit decimal part may have source_label null. source_text is the exact source point, notation is point, and price_low equals price_high equals that literal price. The corresponding explicit unlabelled_trigger_price issue is required. Numeric target rows still require a source label; bare trigger zones/lists or other unassigned numeric text are refused. Validation cross-checks the null-label trigger against the parent scenario and exact bounds, and only a separate compatibility projection receives a temporary marker for the frozen relationship validator. Saved tables and summaries retain the null label without an inferred source label.",
+  "contract_year_policy": "January\u2013October dated 2018 requires delivery year 2018; November\u2013December may use 2018 or 2019, preserving the stated contract. Conflicts remain raw with numeric extraction refused."
+}

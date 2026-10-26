@@ -1,0 +1,357 @@
+{
+  "symbols": [
+    "6E",
+    "6B",
+    "6J",
+    "6S",
+    "6C",
+    "6A"
+  ],
+  "calendar_audit": {
+    "path": "/Users/ppanati/Documents/projects/tv-indicators/forex_news/news_ema_move_checks/news_ema_calendar_archive.json",
+    "sha256": "e9c16aa60559651961c470e999049777b6eb8682b8e0cf6e93c2dae8c4d17f6f",
+    "selected_categories": [
+      "us_cpi",
+      "us_employment_report",
+      "us_fomc_decision",
+      "us_fomc_press_conference",
+      "us_ism_manufacturing",
+      "us_sp_pmi_flash"
+    ],
+    "coverage_start_inclusive": "2024-10-17T00:00:00Z",
+    "coverage_end_exclusive": "2026-10-17T00:00:00Z",
+    "schedule_caveat": "Audited corrected historical schedule, not a point-in-time record of what was announced before each release."
+  },
+  "reconstructions": [
+    {
+      "symbol": "6E",
+      "sources": [
+        {
+          "path": "/Users/ppanati/Documents/projects/tv-indicators/forex_news/news_ema_move_checks/native_news_ema_move_archive.csv",
+          "sha256": "493bd9973bcc671a6d6d6c15409da2cb1ecece093bc2647dac5c02895a91f463",
+          "bars": 20908,
+          "first_bar_utc": "2025-11-30T23:00:00+00:00",
+          "last_bar_utc": "2026-10-16T20:45:00+00:00",
+          "native_fast_recurrence": {
+            "pairs": 20888,
+            "max_abs_error": 0.0
+          },
+          "native_slow_recurrence": {
+            "pairs": 20858,
+            "max_abs_error": 0.0
+          },
+          "role": "current_price_anchor",
+          "offset_to_current_prices": 0.0
+        },
+        {
+          "path": "/Users/ppanati/Documents/projects/tv-indicators/forex_news/6e_news_study/prices_replay_2025-12-01_native.csv",
+          "sha256": "8285e8b9cf656055897d6ec070f2f5541bec9245be7662a50527d024eaf421aa",
+          "bars": 3190,
+          "first_bar_utc": "2025-10-12T22:45:00+00:00",
+          "last_bar_utc": "2025-12-01T04:45:00+00:00",
+          "native_fast_recurrence": {
+            "pairs": 3189,
+            "max_abs_error": 2.220446049250313e-16
+          },
+          "native_slow_recurrence": {
+            "pairs": 3189,
+            "max_abs_error": 2.220446049250313e-16
+          },
+          "role": "older_native_seed_and_prices",
+          "overlap_bars": 24,
+          "offset_to_current_prices": -2.220446049250313e-16,
+          "max_abs_overlap_residual": 2.220446049250313e-16
+        }
+      ],
+      "merged_bars": 24074,
+      "study_start_inclusive_utc": "2025-10-16T20:45:00+00:00",
+      "end_last_bar_utc": "2026-10-16T20:45:00+00:00",
+      "continuous_EMA_seed_utc": "2025-10-12T22:45:00+00:00",
+      "seed_source": "/Users/ppanati/Documents/projects/tv-indicators/forex_news/6e_news_study/prices_replay_2025-12-01_native.csv",
+      "seed_fast20": 1.1830926779860937,
+      "seed_slow50": 1.1822657486408177,
+      "native_selected_entry_checks": 57,
+      "all_native_selected_directions_match": true,
+      "max_abs_reconstructed_vs_native_EMA_at_selected_entries": 0.00014696825237248134,
+      "signals": 64,
+      "output": "/Users/ppanati/Documents/projects/tv-indicators/forex_news/cross_currency_news_study/extended_year/reconstructed_6E.csv",
+      "output_sha256": "0d53e497e314fe8d1199195fcd911f2c883bd2a93740e1bfaec40dbfb561b332",
+      "method": "Native older EMA20/50 seed recursively continued through merged OHLC; current prices anchor all constant adjustment offsets. Calendar signals regenerated only inside latest-primary 365-day window."
+    },
+    {
+      "symbol": "6B",
+      "sources": [
+        {
+          "path": "/Users/ppanati/Documents/projects/tv-indicators/forex_news/cross_currency_news_study/native_6B.csv",
+          "sha256": "2c64f27ba2609f3092ac6c99f51ae2f8f23505b75d0620d75eab50a70d06005e",
+          "bars": 20907,
+          "first_bar_utc": "2025-11-30T23:00:00+00:00",
+          "last_bar_utc": "2026-10-16T20:45:00+00:00",
+          "native_fast_recurrence": {
+            "pairs": 20887,
+            "max_abs_error": 0.0
+          },
+          "native_slow_recurrence": {
+            "pairs": 20857,
+            "max_abs_error": 0.0
+          },
+          "role": "current_price_anchor",
+          "offset_to_current_prices": 0.0
+        },
+        {
+          "path": "/Users/ppanati/Documents/projects/tv-indicators/forex_news/cross_currency_news_study/native_6B_older.csv",
+          "sha256": "a91a4bcc98219b929b90a6decf6daeaf1745a655b3bd395b00ddbb4953a0808c",
+          "bars": 3002,
+          "first_bar_utc": "2025-10-14T23:45:00+00:00",
+          "last_bar_utc": "2025-12-01T04:45:00+00:00",
+          "native_fast_recurrence": {
+            "pairs": 3001,
+            "max_abs_error": 2.220446049250313e-16
+          },
+          "native_slow_recurrence": {
+            "pairs": 3001,
+            "max_abs_error": 2.220446049250313e-16
+          },
+          "role": "older_native_seed_and_prices",
+          "overlap_bars": 24,
+          "offset_to_current_prices": 0.0,
+          "max_abs_overlap_residual": 2.220446049250313e-16
+        }
+      ],
+      "merged_bars": 23885,
+      "study_start_inclusive_utc": "2025-10-16T20:45:00+00:00",
+      "end_last_bar_utc": "2026-10-16T20:45:00+00:00",
+      "continuous_EMA_seed_utc": "2025-10-14T23:45:00+00:00",
+      "seed_source": "/Users/ppanati/Documents/projects/tv-indicators/forex_news/cross_currency_news_study/native_6B_older.csv",
+      "seed_fast20": 1.3313460212919512,
+      "seed_slow50": 1.330618035845058,
+      "native_selected_entry_checks": 64,
+      "all_native_selected_directions_match": true,
+      "max_abs_reconstructed_vs_native_EMA_at_selected_entries": 7.555592040442427e-05,
+      "signals": 64,
+      "output": "/Users/ppanati/Documents/projects/tv-indicators/forex_news/cross_currency_news_study/extended_year/reconstructed_6B.csv",
+      "output_sha256": "44eee8795bafb40d71ba30fe416a96f64fe09f08fb8f9fda002d7e729bee701c",
+      "method": "Native older EMA20/50 seed recursively continued through merged OHLC; current prices anchor all constant adjustment offsets. Calendar signals regenerated only inside latest-primary 365-day window."
+    },
+    {
+      "symbol": "6J",
+      "sources": [
+        {
+          "path": "/Users/ppanati/Documents/projects/tv-indicators/forex_news/cross_currency_news_study/native_6J.csv",
+          "sha256": "74c0442344fce5b34d301018029f468ab96250dc2ad2e5a279ccca0a76252d73",
+          "bars": 20908,
+          "first_bar_utc": "2025-11-30T23:00:00+00:00",
+          "last_bar_utc": "2026-10-16T20:45:00+00:00",
+          "native_fast_recurrence": {
+            "pairs": 20888,
+            "max_abs_error": 0.0
+          },
+          "native_slow_recurrence": {
+            "pairs": 20858,
+            "max_abs_error": 0.0
+          },
+          "role": "current_price_anchor",
+          "offset_to_current_prices": 0.0
+        },
+        {
+          "path": "/Users/ppanati/Documents/projects/tv-indicators/forex_news/cross_currency_news_study/native_6J_older.csv",
+          "sha256": "5d5c374d7c1732204b000346662c31a5c8bf236675f225d45cdc2f7d748bf18e",
+          "bars": 2999,
+          "first_bar_utc": "2025-10-15T00:30:00+00:00",
+          "last_bar_utc": "2025-12-01T04:45:00+00:00",
+          "native_fast_recurrence": {
+            "pairs": 2998,
+            "max_abs_error": 0.0
+          },
+          "native_slow_recurrence": {
+            "pairs": 2998,
+            "max_abs_error": 0.0
+          },
+          "role": "older_native_seed_and_prices",
+          "overlap_bars": 24,
+          "offset_to_current_prices": 0.0,
+          "max_abs_overlap_residual": 0.0
+        }
+      ],
+      "merged_bars": 23883,
+      "study_start_inclusive_utc": "2025-10-16T20:45:00+00:00",
+      "end_last_bar_utc": "2026-10-16T20:45:00+00:00",
+      "continuous_EMA_seed_utc": "2025-10-15T00:30:00+00:00",
+      "seed_source": "/Users/ppanati/Documents/projects/tv-indicators/forex_news/cross_currency_news_study/native_6J_older.csv",
+      "seed_fast20": 0.006823782773419234,
+      "seed_slow50": 0.006820780961314308,
+      "native_selected_entry_checks": 64,
+      "all_native_selected_directions_match": true,
+      "max_abs_reconstructed_vs_native_EMA_at_selected_entries": 2.753056027862341e-07,
+      "signals": 64,
+      "output": "/Users/ppanati/Documents/projects/tv-indicators/forex_news/cross_currency_news_study/extended_year/reconstructed_6J.csv",
+      "output_sha256": "cad96c18e969756f495d0856ae3d46f822e99613434a90e1c12d1cc39353f5b1",
+      "method": "Native older EMA20/50 seed recursively continued through merged OHLC; current prices anchor all constant adjustment offsets. Calendar signals regenerated only inside latest-primary 365-day window."
+    },
+    {
+      "symbol": "6S",
+      "sources": [
+        {
+          "path": "/Users/ppanati/Documents/projects/tv-indicators/forex_news/cross_currency_news_study/native_6S.csv",
+          "sha256": "85aed66ec829fe37b18eb72602277f89890ccfb97462fb46aebf113cac2930a7",
+          "bars": 20904,
+          "first_bar_utc": "2025-11-30T23:00:00+00:00",
+          "last_bar_utc": "2026-10-16T20:45:00+00:00",
+          "native_fast_recurrence": {
+            "pairs": 20884,
+            "max_abs_error": 0.0
+          },
+          "native_slow_recurrence": {
+            "pairs": 20854,
+            "max_abs_error": 0.0
+          },
+          "role": "current_price_anchor",
+          "offset_to_current_prices": 0.0
+        },
+        {
+          "path": "/Users/ppanati/Documents/projects/tv-indicators/forex_news/cross_currency_news_study/native_6S_older.csv",
+          "sha256": "02fb530d3efef205a3e6c6363a0ee817b175bdb5ef802499b9a0bfd59a90c90e",
+          "bars": 2999,
+          "first_bar_utc": "2025-10-15T00:00:00+00:00",
+          "last_bar_utc": "2025-12-01T04:45:00+00:00",
+          "native_fast_recurrence": {
+            "pairs": 2998,
+            "max_abs_error": 2.220446049250313e-16
+          },
+          "native_slow_recurrence": {
+            "pairs": 2998,
+            "max_abs_error": 2.220446049250313e-16
+          },
+          "role": "older_native_seed_and_prices",
+          "overlap_bars": 24,
+          "offset_to_current_prices": 0.0,
+          "max_abs_overlap_residual": 2.220446049250313e-16
+        }
+      ],
+      "merged_bars": 23879,
+      "study_start_inclusive_utc": "2025-10-16T20:45:00+00:00",
+      "end_last_bar_utc": "2026-10-16T20:45:00+00:00",
+      "continuous_EMA_seed_utc": "2025-10-15T00:00:00+00:00",
+      "seed_source": "/Users/ppanati/Documents/projects/tv-indicators/forex_news/cross_currency_news_study/native_6S_older.csv",
+      "seed_fast20": 1.307772496620949,
+      "seed_slow50": 1.306963121749314,
+      "native_selected_entry_checks": 64,
+      "all_native_selected_directions_match": true,
+      "max_abs_reconstructed_vs_native_EMA_at_selected_entries": 4.884931921655955e-05,
+      "signals": 64,
+      "output": "/Users/ppanati/Documents/projects/tv-indicators/forex_news/cross_currency_news_study/extended_year/reconstructed_6S.csv",
+      "output_sha256": "7edd30b3a58425be91782b214f7b60c93a89a258b859b3b7841ba29793340f9e",
+      "method": "Native older EMA20/50 seed recursively continued through merged OHLC; current prices anchor all constant adjustment offsets. Calendar signals regenerated only inside latest-primary 365-day window."
+    },
+    {
+      "symbol": "6C",
+      "sources": [
+        {
+          "path": "/Users/ppanati/Documents/projects/tv-indicators/forex_news/cross_currency_news_study/native_6C.csv",
+          "sha256": "8b25389ac6f79160ca32652cac48c9fd44d87cde0122a71dcdf180e00b2a3cb1",
+          "bars": 20907,
+          "first_bar_utc": "2025-11-30T23:00:00+00:00",
+          "last_bar_utc": "2026-10-16T20:45:00+00:00",
+          "native_fast_recurrence": {
+            "pairs": 20887,
+            "max_abs_error": 0.0
+          },
+          "native_slow_recurrence": {
+            "pairs": 20857,
+            "max_abs_error": 0.0
+          },
+          "role": "current_price_anchor",
+          "offset_to_current_prices": 0.0
+        },
+        {
+          "path": "/Users/ppanati/Documents/projects/tv-indicators/forex_news/cross_currency_news_study/native_6C_older.csv",
+          "sha256": "3c52d4cc39703458446571b232e00242d6b93e7dcec96334fa44c2048ffa22b5",
+          "bars": 3001,
+          "first_bar_utc": "2025-10-15T00:00:00+00:00",
+          "last_bar_utc": "2025-12-01T04:45:00+00:00",
+          "native_fast_recurrence": {
+            "pairs": 3000,
+            "max_abs_error": 1.1102230246251565e-16
+          },
+          "native_slow_recurrence": {
+            "pairs": 3000,
+            "max_abs_error": 1.1102230246251565e-16
+          },
+          "role": "older_native_seed_and_prices",
+          "overlap_bars": 24,
+          "offset_to_current_prices": 0.0,
+          "max_abs_overlap_residual": 1.1102230246251565e-16
+        }
+      ],
+      "merged_bars": 23884,
+      "study_start_inclusive_utc": "2025-10-16T20:45:00+00:00",
+      "end_last_bar_utc": "2026-10-16T20:45:00+00:00",
+      "continuous_EMA_seed_utc": "2025-10-15T00:00:00+00:00",
+      "seed_source": "/Users/ppanati/Documents/projects/tv-indicators/forex_news/cross_currency_news_study/native_6C_older.csv",
+      "seed_fast20": 0.7255682097649702,
+      "seed_slow50": 0.725458954294484,
+      "native_selected_entry_checks": 64,
+      "all_native_selected_directions_match": true,
+      "max_abs_reconstructed_vs_native_EMA_at_selected_entries": 0.00010703165295478101,
+      "signals": 64,
+      "output": "/Users/ppanati/Documents/projects/tv-indicators/forex_news/cross_currency_news_study/extended_year/reconstructed_6C.csv",
+      "output_sha256": "2b581f3fbfe5022cc5da95cbc8a292533c24809506fa02a72302b286bc9483f0",
+      "method": "Native older EMA20/50 seed recursively continued through merged OHLC; current prices anchor all constant adjustment offsets. Calendar signals regenerated only inside latest-primary 365-day window."
+    },
+    {
+      "symbol": "6A",
+      "sources": [
+        {
+          "path": "/Users/ppanati/Documents/projects/tv-indicators/forex_news/cross_currency_news_study/native_6A.csv",
+          "sha256": "a0e53d456df3da9ed0dc29753353d3961173522aac78e5b71a07758ec25b5f55",
+          "bars": 20908,
+          "first_bar_utc": "2025-11-30T23:00:00+00:00",
+          "last_bar_utc": "2026-10-16T20:45:00+00:00",
+          "native_fast_recurrence": {
+            "pairs": 20888,
+            "max_abs_error": 0.0
+          },
+          "native_slow_recurrence": {
+            "pairs": 20858,
+            "max_abs_error": 0.0
+          },
+          "role": "current_price_anchor",
+          "offset_to_current_prices": 0.0
+        },
+        {
+          "path": "/Users/ppanati/Documents/projects/tv-indicators/forex_news/cross_currency_news_study/native_6A_older.csv",
+          "sha256": "ddf7d8a3d69d144e0344398ebe395b6a5cefd12d9cb00be692043013e2e75367",
+          "bars": 3001,
+          "first_bar_utc": "2025-10-15T00:00:00+00:00",
+          "last_bar_utc": "2025-12-01T04:45:00+00:00",
+          "native_fast_recurrence": {
+            "pairs": 3000,
+            "max_abs_error": 1.1102230246251565e-16
+          },
+          "native_slow_recurrence": {
+            "pairs": 3000,
+            "max_abs_error": 1.1102230246251565e-16
+          },
+          "role": "older_native_seed_and_prices",
+          "overlap_bars": 24,
+          "offset_to_current_prices": 0.0,
+          "max_abs_overlap_residual": 1.1102230246251565e-16
+        }
+      ],
+      "merged_bars": 23885,
+      "study_start_inclusive_utc": "2025-10-16T20:45:00+00:00",
+      "end_last_bar_utc": "2026-10-16T20:45:00+00:00",
+      "continuous_EMA_seed_utc": "2025-10-15T00:00:00+00:00",
+      "seed_source": "/Users/ppanati/Documents/projects/tv-indicators/forex_news/cross_currency_news_study/native_6A_older.csv",
+      "seed_fast20": 0.6463665972855371,
+      "seed_slow50": 0.6458954398827783,
+      "native_selected_entry_checks": 64,
+      "all_native_selected_directions_match": true,
+      "max_abs_reconstructed_vs_native_EMA_at_selected_entries": 9.345486639111833e-06,
+      "signals": 64,
+      "output": "/Users/ppanati/Documents/projects/tv-indicators/forex_news/cross_currency_news_study/extended_year/reconstructed_6A.csv",
+      "output_sha256": "0749814f84911ca12a595bd5f80d23b181231c67150a362b877cc7c7d2d86246",
+      "method": "Native older EMA20/50 seed recursively continued through merged OHLC; current prices anchor all constant adjustment offsets. Calendar signals regenerated only inside latest-primary 365-day window."
+    }
+  ]
+}

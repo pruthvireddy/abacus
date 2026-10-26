@@ -1,0 +1,87 @@
+request:
+  id: verniman_daily_levels__2.0.0
+  purpose: >-
+    Extend Verniman's source-supplied ES outlook thresholds and bullish/bearish
+    targets to available 2026 year-to-date posts, with a chronological source
+    ledger and explicit dates, gaps and extraction issues for inspection.
+  requester: workspace user
+  requested_on: '2026-10-20'
+inputs:
+  source: https://verniman.blogspot.com/
+  date_range: {start: '2026-01-01', end: '2026-10-20', end_is_inclusive: true}
+  product: ES
+  source_contracts: retain exact source-stated contracts, including ESH26, ESM26, ESU26 and ESZ26
+  source_material: [desktop_html, per_post_atom, linked_images, chronological_link_ledger]
+  raw_copies: data/raw/blogspot/verniman/html/<new-capture-id>/
+  staging: data/staging/verniman/<new-capture-id>/
+  retained_prior_inputs: existing immutable captures may be reused with explicit locators and hashes
+  retain: exact response bytes, requested/final URLs, source links, capture timestamps, metadata and SHA256 hashes
+  underlying_market_bars: none
+  indicator_calculation: none
+collection:
+  direction: follow chronological older-post links from the October 20, 2026 outlook
+  ledger: record every visited post, link transition, date assignment, capture status and issue
+  boundary: retain the first out-of-range older post when needed to establish the January 1 boundary
+  boundary_qualification: a December 2025 post may be retained raw; it is excluded from 2026 outlook tables
+  date_assignment: >-
+    Infer the year from descending chronological Outlook month/day values
+    anchored to 2026, with source contract and updated-metadata corroboration.
+    Retain the inference method and disagreements; do not silently substitute
+    an old permalink or original published year.
+  uncertain_dates: retain as issues with source references; do not invent a date or level
+  future_dates: outside scope; no future-date collection or inferred future outlooks
+output:
+  dataset: verniman_daily_levels
+  version: 2.0.0
+  destination: data/curated/external_levels/source=verniman/version=2.0.0/
+  tables:
+    outlooks: Parquet and CSV; captured revision, inferred date, exact contract, source metadata, raw references and original plan text
+    levels: Parquet and CSV; per-branch trigger/target role, ordinal, numeric bounds, source labels and text qualifiers
+    coverage: Parquet and CSV; every calendar date in scope, observed posts/outlooks, extraction outcomes and absence classification
+    issues: Parquet and CSV; unparseable, ambiguous, discrepant, non-outlook or failed posts with source references and explanations
+  viewing_only: daily_summary.csv
+  manifest: catalog/datasets/verniman_daily_levels__2.0.0.json
+  schema: catalog/schemas/verniman_daily_levels__2.0.0.json
+  quality_report: reports/quality/verniman_daily_levels__2.0.0.md
+  overwrite_existing_version: false
+extraction:
+  scope: source-stated /ES Plan A and Plan B text; source images retained without inferring chart-only levels
+  sides: [bullish, bearish]
+  roles: [trigger, target]
+  shared_threshold: summary pivot shorthand only; preserve distinct branch thresholds and source labels
+  price_units: exact source contract points; no roll adjustment or bar-derived reconstruction
+  ranges: preserve lower/upper bounds and original abbreviated text
+  qualifiers: preserve VIX/CVD confirmation conditions, source wording and discrepancies
+  unsupported_posts: record as issues; never silently drop an encountered post
+  missing_values: preserve null; no interpolation, invented sessions or invented targets
+coverage:
+  calendar: complete inclusive calendar-date ledger for January 1 through October 20, 2026
+  gaps: distinguish weekend absence, weekday absence, capture failure and unparseable or uncertain posts
+  absence_meaning: no captured usable outlook for a date is not proof that no post ever existed
+  completeness_proof: retained chronological link sequence, boundary evidence, post outcomes and coverage ledger
+  not_claimed: proof of deleted or inaccessible historical content, exchange-session eligibility or numerical research validity
+timing:
+  timezone: America/New_York
+  available_at: null
+  status: historical_availability_unverified
+  source_metadata: original published and updated timestamps remain source claims, separate from source capture timestamps
+  qualification: >-
+    Reused posts can retain 2009 original publication metadata while their
+    captured bodies describe 2026 outlooks. Chronological year assignment,
+    source update claims, image filenames and assumed posting hours do not
+    establish when the captured levels became available before the open.
+  causal_use: no verified pre-open or point-in-time use in this release
+validation:
+  require_raw_and_output_hashes: true
+  require_exact_source_traceability: true
+  require_unique_revision_branch_role_ordinal: true
+  require_ordered_numeric_bounds: true
+  require_only_in_scope_2026_outlooks: true
+  require_complete_calendar_and_encountered_post_accounting: true
+  require_null_available_at: true
+  checks_meaning: source capture, extraction structure, coverage accounting and integrity; no independent indicator or trading-outcome validation
+retention:
+  preserve: existing 1.0.0 request, code, catalog records and all published bytes
+  new_capture: unique batch ID; never overwrite earlier captures or failed-attempt evidence
+  revised_source: retain new captured revisions and publish with a new release identity when delivered
+  backups: ignored bulk raw, staging and curated bytes need separate retained storage

@@ -1,0 +1,126 @@
+ M .gitignore
+ M AGENTS.md
+ M README.md
+ M config/paths.example.toml
+ M data/README.md
+ M docs/README.md
+ M legacy/README.md
+ T legacy/sahadeva/data/README.md
+ T legacy/sahadeva/data/range_xv_exports_manifest.json
+ M packages/bhishma/README.md
+ M packages/bhishma/pyproject.toml
+ M packages/bhishma/src/abacus_bhishma/feature_loader.py
+ M packages/sahadeva/README.md
+ M reports/index.html
+ M reports/index.md
+ M requests/README.md
+ M runs/README.md
+ M scripts/build-research-index.py
+ M scripts/check-workspace
+ M scripts/verify-migration.py
+ M strategies/README.md
+ M strategies/index.json
+ M strategies/vwap_extreme_fade.md
+ M strategies/vwap_first_retest_bounce.md
+ M strategies/vwap_reentry_fade.md
+ M strategies/vwap_return_after_departure.md
+ M studies/05_session_vwap/README.md
+ M studies/05_session_vwap/notes.md
+ M studies/05_session_vwap/study.json
+ M studies/05_session_vwap/study.yaml
+ M studies/README.md
+ M templates/README.md
+ M work/README.md
+?? ARCHITECTURE.md
+?? apps/
+?? catalog/datasets/gc_ema_deviation_bands__1.0.0.json
+?? catalog/datasets/nq_causal_vp_hvn__1.0.0.json
+?? catalog/datasets/tradingview_daily_context__1.0.0.json
+?? catalog/indicators/gc_ema_deviation_bands__1.0.0.json
+?? catalog/indicators/gc_hac_levels_bands__20260925.pine
+?? catalog/indicators/hac_lpt_mtf__20260926.md
+?? catalog/indicators/hac_lpt_mtf__20260926.pine
+?? catalog/indicators/nq_causal_vp_hvn__1.0.0.json
+?? catalog/indicators/nq_causal_vp_hvn__1.0.0.source.pine
+?? catalog/indicators/nq_causal_vp_hvn__1.0.0.spec.json
+?? catalog/indicators/tradingview_daily_context__1.0.0.json
+?? catalog/indicators/tradingview_daily_context__1.0.0.pine
+?? catalog/schemas/nq_causal_vp_hvn__1.0.0.json
+?? catalog/schemas/tradingview_daily_context__1.0.0.json
+?? data/range_xv/
+?? docs/daily-context-20260924.md
+?? docs/data/
+?? docs/migration/nonbulk-audit-20260922.json
+?? docs/migration/range-xv-clock-normalization-20260924.json
+?? docs/migration/storage-acceptance-20260922.json
+?? docs/migration/storage-files-20260922.json
+?? docs/migration/storage-publication-verification-20260922.json
+?? docs/migration/storage-relocation-20260922.md
+?? docs/migration/storage-verification-20260922.json
+?? docs/migration/storage-workspace-check-20260922.log
+?? docs/narada.md
+?? docs/range-xv-long-history-20260924.md
+?? packages/bhishma/AGENTS.md
+?? packages/bhishma/src/abacus_bhishma/daily_context.py
+?? packages/bhishma/src/abacus_bhishma/gc_ema_bands.py
+?? packages/bhishma/src/abacus_bhishma/vp_hvn.py
+?? packages/bhishma/src/abacus_bhishma/vp_hvn_native.cpp
+?? packages/bhishma/src/abacus_bhishma/vp_hvn_release.py
+?? packages/bhishma/tests/test_daily_context.py
+?? packages/bhishma/tests/test_gc_ema_bands.py
+?? packages/bhishma/tests/test_vp_hvn.py
+?? packages/sahadeva/AGENTS.md
+?? packages/sahadeva/src/abacus_sahadeva/cooldown.py
+?? packages/sahadeva/tests/test_cooldown.py
+?? reports/README.md
+?? reports/exports/
+?? reports/quality/gc_ema_deviation_bands__1.0.0.md
+?? reports/quality/nq_causal_vp_hvn__1.0.0.md
+?? reports/quality/tradingview_daily_context__1.0.0.md
+?? requests/fulfilled/gc_ema_deviation_bands__1.0.0.yaml
+?? requests/fulfilled/nq_causal_vp_hvn__1.0.0.yaml
+?? requests/fulfilled/tradingview_daily_context__1.0.0.yaml
+?? requests/inbox/
+?? runs/05_session_vwap/
+?? runs/06_vwap_state_dynamics/
+?? runs/07_range_xv_edge_candidates/
+?? runs/08_countertrend_bar_continuation/
+?? runs/09_range_xv_c2_confirmation/
+?? runs/10_range_xv_session_overlay/
+?? runs/11_vwap_conditional_probabilities/
+?? runs/12_gc_ema_band_excursions/
+?? runs/13_gc_ema_band_filter_validation/
+?? runs/14_asia_session_vp_levels/
+?? scripts/check-agent-docs.py
+?? scripts/import-range-xv-20260924.py
+?? scripts/normalize-range-xv-clock.py
+?? scripts/tests/
+?? scripts/verify-storage.py
+?? strategies/gc_ema_outer_lower_long.md
+?? strategies/nq_prev_rth_poc_fade.md
+?? strategies/nq_prev_rth_va_breakout_retest.md
+?? studies/05_session_vwap/audit.py
+?? studies/05_session_vwap/conditional_audit.py
+?? studies/05_session_vwap/conditional_run.py
+?? studies/05_session_vwap/conditional_seal.py
+?? studies/05_session_vwap/conditional_summarize.py
+?? studies/05_session_vwap/enrich.py
+?? studies/05_session_vwap/protocol-1.0.0.md
+?? studies/05_session_vwap/protocol-1.1.0.md
+?? studies/05_session_vwap/run.py
+?? studies/05_session_vwap/seal.py
+?? studies/05_session_vwap/src/
+?? studies/05_session_vwap/summarize.py
+?? studies/05_session_vwap/tests/
+?? studies/05_session_vwap/warmup_sensitivity.py
+?? studies/06_vwap_state_dynamics/
+?? studies/07_range_xv_edge_candidates/
+?? studies/08_countertrend_bar_continuation/
+?? studies/09_range_xv_c2_confirmation/
+?? studies/10_range_xv_session_overlay/
+?? studies/11_vwap_conditional_probabilities/
+?? studies/12_gc_ema_band_excursions/
+?? studies/13_gc_ema_band_filter_validation/
+?? studies/14_asia_session_vp_levels/
+?? studies/15_vwap_excursion_response/
+?? studies/AGENTS.md

@@ -1,0 +1,1578 @@
+{
+  "provenance": {
+    "assets": [
+      {
+        "path": "downloads/fx-colour-continuation.csv",
+        "sha256": "94b965f6f7ec60070538de7e645689367f72f53a4e24ec75fd07bf977f1d07f2"
+      },
+      {
+        "path": "downloads/fx-later-primary-prediction.csv",
+        "sha256": "b64ac3480bd2e029ffbee780ced2bacc20aefcf4a62283a50d40e68d6b5b8c5d"
+      },
+      {
+        "path": "downloads/fx-strict-three-bar-paths.csv",
+        "sha256": "576956b6b55afb314b9381302b151f900e059a89369d795d9642149e29063e46"
+      },
+      {
+        "path": "figures/6j4-bearish-l2-f0.png",
+        "sha256": "4cdab6eaf179ed12f222a846a2e6732740820824bf1f26573ea290c4eb48ab4a"
+      },
+      {
+        "path": "figures/6j4-bearish-l3-f4.png",
+        "sha256": "4a2435930754a80158da14551453cf7a118eb571964412fc2be5b63447707f9b"
+      }
+    ],
+    "sourceSha256": "c774cf7e3667fa250a994ba45ce774e7039744ecf099edeb370dbf60c03fc6ec"
+  },
+  "report": {
+    "downloads": [
+      {
+        "columns": [
+          "chart",
+          "direction",
+          "p3_known_success",
+          "p3_n",
+          "p3_dates",
+          "p3",
+          "p3_low",
+          "p3_high",
+          "p3_unresolved",
+          "p3_bounds_low",
+          "p3_bounds_high"
+        ],
+        "description": "Matches the on-page continuation with extra saved unresolved counts and all-candidate bounds; no event ledger.",
+        "id": "fx-colour-continuation",
+        "label": "FX order-3 continuation",
+        "mediaType": "text/csv",
+        "path": "downloads/fx-colour-continuation.csv",
+        "population": "All-history, known prior starts, separate eight charts and two reversal directions.",
+        "rowCount": 16,
+        "scope": "Sixteen main chart/direction rows. Complete-window rate and all-candidate censor bounds are distinct.",
+        "sha256": "94b965f6f7ec60070538de7e645689367f72f53a4e24ec75fd07bf977f1d07f2",
+        "source": {
+          "artifact": "tables/continuation.csv",
+          "runId": "20261002T010500Z_ohlc200_161001",
+          "sha256": "87a224e6b801e96e77934cf38a3adf94ab39e945c9b874d44a3befe6d5d9ce2b"
+        },
+        "units": "Rates/bounds: ratios; successes/n/dates/unresolved: counts."
+      },
+      {
+        "columns": [
+          "chart",
+          "direction",
+          "target",
+          "model",
+          "baseline",
+          "metric",
+          "improvement",
+          "low",
+          "high",
+          "block5_low",
+          "block5_high",
+          "n",
+          "dates"
+        ],
+        "description": "Same two later comparison tables as the page; saved pointwise and five-session bounds remain unmodified.",
+        "id": "fx-later-primary-prediction",
+        "label": "Later primary model comparisons",
+        "mediaType": "text/csv",
+        "path": "downloads/fx-later-primary-prediction.csv",
+        "population": "2023–2026 later target-eligible F≥3 events, separated by chart/direction.",
+        "rowCount": 32,
+        "scope": "M1 and M2 versus B1, primary log_loss only; 32 saved rows.",
+        "sha256": "b64ac3480bd2e029ffbee780ced2bacc20aefcf4a62283a50d40e68d6b5b8c5d",
+        "source": {
+          "artifact": "tables/model-paired-improvements.csv",
+          "runId": "20261002T010500Z_ohlc200_161001",
+          "sha256": "1d7719c56e77758e41bbee788e3efa770113cc78e156e0cc051e2525ff200f77"
+        },
+        "units": "Log-loss improvements and endpoints: absolute loss differences; positive means lower loss. n/dates: counts."
+      },
+      {
+        "columns": [
+          "chart",
+          "direction",
+          "panel",
+          "level",
+          "cohort",
+          "horizon",
+          "n",
+          "dates",
+          "sparse",
+          "D_q_mean",
+          "D_q_low",
+          "D_q_high",
+          "MAE_q_mean",
+          "MAE_q_low",
+          "MAE_q_high",
+          "MFE_q_mean",
+          "MFE_q_low",
+          "MFE_q_high",
+          "favourable",
+          "flat",
+          "adverse"
+        ],
+        "description": "Matches the main and 6S tables; adds saved excursion mean bounds and support counts.",
+        "id": "fx-strict-three-bar-paths",
+        "label": "Strict three-bar price paths and 6S eras",
+        "mediaType": "text/csv",
+        "path": "downloads/fx-strict-three-bar-paths.csv",
+        "population": "Separate strict positive-duration chart/direction paths and saved 6S pre/post panels.",
+        "rowCount": 24,
+        "scope": "Sixteen main plus eight 6S era rows. No pooling or same-second sensitivity.",
+        "sha256": "576956b6b55afb314b9381302b151f900e059a89369d795d9642149e29063e46",
+        "source": {
+          "artifact": "tables/price-paths.csv",
+          "runId": "20261002T010500Z_ohlc200_161001",
+          "sha256": "a103050c0b0fbe4a52220a942d21c437168a13068ffd3c09344ffc5c01490287"
+        },
+        "units": "D/MAE/MFE and bounds: constant product q. Landing shares: ratios. Horizon: physical bars."
+      }
+    ],
+    "id": "16-range-xv-reversal-paths-20261007-evidence",
+    "publishedAt": "2026-10-07T00:29:32Z",
+    "references": [
+      {
+        "artifact": "tables/continuation.csv",
+        "id": "continuation-source",
+        "kind": "saved-artifact",
+        "label": "continuation.csv",
+        "runId": "20261002T010500Z_ohlc200_161001",
+        "sha256": "87a224e6b801e96e77934cf38a3adf94ab39e945c9b874d44a3befe6d5d9ce2b",
+        "title": "Saved order and censoring continuation summaries"
+      },
+      {
+        "artifact": "tables/model-paired-improvements.csv",
+        "id": "prediction-source",
+        "kind": "saved-artifact",
+        "label": "model-paired-improvements.csv",
+        "runId": "20261002T010500Z_ohlc200_161001",
+        "sha256": "1d7719c56e77758e41bbee788e3efa770113cc78e156e0cc051e2525ff200f77",
+        "title": "Frozen later primary model score comparisons"
+      },
+      {
+        "artifact": "tables/price-paths.csv",
+        "id": "price-source",
+        "kind": "saved-artifact",
+        "label": "price-paths.csv",
+        "runId": "20261002T010500Z_ohlc200_161001",
+        "sha256": "a103050c0b0fbe4a52220a942d21c437168a13068ffd3c09344ffc5c01490287",
+        "title": "Saved strict price/time populations and unit-era panels"
+      },
+      {
+        "artifact": "tables/unit-definitions.csv",
+        "id": "unit-source",
+        "kind": "saved-artifact",
+        "label": "unit-definitions.csv",
+        "runId": "20261002T010500Z_ohlc200_161001",
+        "sha256": "e109cdade08f64a89afba00d222608db9cd43512484d04a30f0a87965115b6b9",
+        "title": "Frozen constant quote-equivalent and historical unit definitions"
+      }
+    ],
+    "schemaVersion": "1.1",
+    "sections": [
+      {
+        "body": "Completed protocol 2.0.0 asks about reversal follow-through, three-bar landing and incremental prediction in 6B, 6E, 6J and 6S Range XV 4/5 charts. These are OHLC-only exports, July 2017–October 2026. Chart/direction populations remain separate.",
+        "id": "question",
+        "kind": "text",
+        "title": "Question and scope"
+      },
+      {
+        "body": "The primary later F≥3 prediction result is negative: adding prior length or richer history gives no supported log-loss improvement beyond reversal geometry/context. Later length-two versus length-three contrasts remain inconclusive. A nominated colour-persistence association has a negative gross price mean; the other is inconclusive. A predicate with collapsed efficiency cutpoints adds no independent efficient-versus-choppy evidence.",
+        "id": "findings",
+        "kind": "text",
+        "title": "Supported findings"
+      },
+      {
+        "columns": [
+          {
+            "key": "chart",
+            "label": "chart"
+          },
+          {
+            "key": "direction",
+            "label": "Direction (1 bullish, −1 bearish)"
+          },
+          {
+            "format": "number",
+            "key": "p3_known_success",
+            "label": "F≥3 successes",
+            "precision": 0
+          },
+          {
+            "format": "number",
+            "key": "p3_n",
+            "label": "Complete order-3 n",
+            "precision": 0
+          },
+          {
+            "format": "number",
+            "key": "p3_dates",
+            "label": "Dates",
+            "precision": 0
+          },
+          {
+            "format": "percent",
+            "key": "p3",
+            "label": "F≥3 rate",
+            "precision": 1
+          },
+          {
+            "format": "percent",
+            "key": "p3_low",
+            "label": "95% low",
+            "precision": 1
+          },
+          {
+            "format": "percent",
+            "key": "p3_high",
+            "label": "95% high",
+            "precision": 1
+          }
+        ],
+        "description": "All-history chart/direction order-3 cohorts. R is already completed; F counts only subsequent same-direction completed followers.",
+        "id": "baseline",
+        "kind": "table",
+        "notes": [
+          "Colour persistence is a behavioural property of the exported bars; it is not an entry win rate. Inferred completion and same-second order remain execution limits.",
+          "Saved pointwise 95% synchronized-session bounds are not sixteen independent confirmations."
+        ],
+        "referenceIds": [
+          "continuation-source"
+        ],
+        "rows": [
+          {
+            "chart": "6B_4",
+            "direction": "-1",
+            "p3": 0.329556837415,
+            "p3_dates": 2367,
+            "p3_high": 0.335097014936,
+            "p3_known_success": 9541,
+            "p3_low": 0.323963329075,
+            "p3_n": 28951
+          },
+          {
+            "chart": "6B_4",
+            "direction": "1",
+            "p3": 0.324782788581,
+            "p3_dates": 2372,
+            "p3_high": 0.330054394546,
+            "p3_known_success": 9420,
+            "p3_low": 0.319231609171,
+            "p3_n": 29004
+          },
+          {
+            "chart": "6B_5",
+            "direction": "-1",
+            "p3": 0.329006801308,
+            "p3_dates": 2345,
+            "p3_high": 0.336070924437,
+            "p3_known_success": 6337,
+            "p3_low": 0.321661830795,
+            "p3_n": 19261
+          },
+          {
+            "chart": "6B_5",
+            "direction": "1",
+            "p3": 0.331968911917,
+            "p3_dates": 2347,
+            "p3_high": 0.338561756319,
+            "p3_known_success": 6407,
+            "p3_low": 0.32525869032,
+            "p3_n": 19300
+          },
+          {
+            "chart": "6E_4",
+            "direction": "-1",
+            "p3": 0.325098242301,
+            "p3_dates": 2375,
+            "p3_high": 0.328553884048,
+            "p3_known_success": 21344,
+            "p3_low": 0.321584259648,
+            "p3_n": 65654
+          },
+          {
+            "chart": "6E_4",
+            "direction": "1",
+            "p3": 0.32140196153,
+            "p3_dates": 2375,
+            "p3_high": 0.324999323194,
+            "p3_known_success": 21137,
+            "p3_low": 0.317868833656,
+            "p3_n": 65765
+          },
+          {
+            "chart": "6E_5",
+            "direction": "-1",
+            "p3": 0.326820762731,
+            "p3_dates": 2374,
+            "p3_high": 0.331142267001,
+            "p3_known_success": 14620,
+            "p3_low": 0.322358354314,
+            "p3_n": 44734
+          },
+          {
+            "chart": "6E_5",
+            "direction": "1",
+            "p3": 0.322321607816,
+            "p3_dates": 2375,
+            "p3_high": 0.326480320283,
+            "p3_known_success": 14450,
+            "p3_low": 0.317999890592,
+            "p3_n": 44831
+          },
+          {
+            "chart": "6J_4",
+            "direction": "-1",
+            "p3": 0.332369469147,
+            "p3_dates": 2333,
+            "p3_high": 0.337282836396,
+            "p3_known_success": 12184,
+            "p3_low": 0.327735516991,
+            "p3_n": 36658
+          },
+          {
+            "chart": "6J_4",
+            "direction": "1",
+            "p3": 0.328193167787,
+            "p3_dates": 2322,
+            "p3_high": 0.333290792772,
+            "p3_known_success": 11961,
+            "p3_low": 0.323020092839,
+            "p3_n": 36445
+          },
+          {
+            "chart": "6J_5",
+            "direction": "-1",
+            "p3": 0.335892979833,
+            "p3_dates": 2261,
+            "p3_high": 0.341814077343,
+            "p3_known_success": 8311,
+            "p3_low": 0.330026816895,
+            "p3_n": 24743
+          },
+          {
+            "chart": "6J_5",
+            "direction": "1",
+            "p3": 0.332587378443,
+            "p3_dates": 2238,
+            "p3_high": 0.338542103756,
+            "p3_known_success": 8174,
+            "p3_low": 0.326509898946,
+            "p3_n": 24577
+          },
+          {
+            "chart": "6S_4",
+            "direction": "-1",
+            "p3": 0.342087025395,
+            "p3_dates": 2328,
+            "p3_high": 0.346418790222,
+            "p3_known_success": 13821,
+            "p3_low": 0.337647080354,
+            "p3_n": 40402
+          },
+          {
+            "chart": "6S_4",
+            "direction": "1",
+            "p3": 0.340041190045,
+            "p3_dates": 2322,
+            "p3_high": 0.344679393184,
+            "p3_known_success": 13704,
+            "p3_low": 0.335014138871,
+            "p3_n": 40301
+          },
+          {
+            "chart": "6S_5",
+            "direction": "-1",
+            "p3": 0.344995931652,
+            "p3_dates": 2242,
+            "p3_high": 0.350501644585,
+            "p3_known_success": 9752,
+            "p3_low": 0.339783677382,
+            "p3_n": 28267
+          },
+          {
+            "chart": "6S_5",
+            "direction": "1",
+            "p3": 0.339293316305,
+            "p3_dates": 2214,
+            "p3_high": 0.345327142283,
+            "p3_known_success": 9564,
+            "p3_low": 0.333109827567,
+            "p3_n": 28188
+          }
+        ],
+        "title": "All-history follow-through: separate chart/direction cohorts"
+      },
+      {
+        "columns": [
+          {
+            "key": "chart",
+            "label": "chart"
+          },
+          {
+            "key": "direction",
+            "label": "Direction (1 bullish, −1 bearish)"
+          },
+          {
+            "format": "number",
+            "key": "n",
+            "label": "Later evaluated n",
+            "precision": 0
+          },
+          {
+            "format": "number",
+            "key": "dates",
+            "label": "dates",
+            "precision": 0
+          },
+          {
+            "format": "number",
+            "key": "improvement",
+            "label": "Log-loss improvement",
+            "precision": 6
+          },
+          {
+            "format": "number",
+            "key": "low",
+            "label": "95% low",
+            "precision": 6
+          },
+          {
+            "format": "number",
+            "key": "high",
+            "label": "95% high",
+            "precision": 6
+          },
+          {
+            "format": "number",
+            "key": "block5_low",
+            "label": "Five-session low",
+            "precision": 6
+          },
+          {
+            "format": "number",
+            "key": "block5_high",
+            "label": "Five-session high",
+            "precision": 6
+          }
+        ],
+        "description": "Later 2023–2026 F≥3 log-loss comparison against B1 (reversal geometry/context). Positive improvement means lower loss; negative means worse.",
+        "id": "prediction-m1",
+        "kind": "table",
+        "notes": [
+          "M1 adds prior length; M2 adds richer lead-up to that model family. Both are compared separately with B1 on identical later target-eligible events.",
+          "Pointwise 95% paired-session and five-consecutive-session bounds are copied. No supported primary improvement; intervals spanning zero are inconclusive. Prior inspection prevents a pristine holdout claim."
+        ],
+        "referenceIds": [
+          "prediction-source"
+        ],
+        "rows": [
+          {
+            "block5_high": 0.000525683226185,
+            "block5_low": -0.0000656499839842,
+            "chart": "6B_4",
+            "dates": 962,
+            "direction": "-1",
+            "high": 0.000555885325859,
+            "improvement": 0.000233666329895,
+            "low": -0.000115509995322,
+            "n": 8352
+          },
+          {
+            "block5_high": 0.000523174445433,
+            "block5_low": -0.000294115923542,
+            "chart": "6B_4",
+            "dates": 966,
+            "direction": "1",
+            "high": 0.000525341216024,
+            "improvement": 0.000106026410856,
+            "low": -0.000292560544296,
+            "n": 8358
+          },
+          {
+            "block5_high": 0.000492639821591,
+            "block5_low": -0.000351870605583,
+            "chart": "6B_5",
+            "dates": 945,
+            "direction": "-1",
+            "high": 0.000504386665134,
+            "improvement": 0.0000628611160775,
+            "low": -0.000381253398629,
+            "n": 5545
+          },
+          {
+            "block5_high": 0.000259147662341,
+            "block5_low": -0.000779580576298,
+            "chart": "6B_5",
+            "dates": 944,
+            "direction": "1",
+            "high": 0.000218891527963,
+            "improvement": -0.000258353925394,
+            "low": -0.000741082020078,
+            "n": 5525
+          },
+          {
+            "block5_high": 0.0000677744456029,
+            "block5_low": -0.00025054354618,
+            "chart": "6E_4",
+            "dates": 968,
+            "direction": "-1",
+            "high": 0.0000557834238,
+            "improvement": -0.000090465611525,
+            "low": -0.000245727530641,
+            "n": 23669
+          },
+          {
+            "block5_high": 0.00014828812792,
+            "block5_low": -0.0000595703406352,
+            "chart": "6E_4",
+            "dates": 968,
+            "direction": "1",
+            "high": 0.000151059800562,
+            "improvement": 0.0000466674222649,
+            "low": -0.0000564278595465,
+            "n": 23700
+          },
+          {
+            "block5_high": 0.000113337060108,
+            "block5_low": -0.000495733503809,
+            "chart": "6E_5",
+            "dates": 968,
+            "direction": "-1",
+            "high": 0.000111378165286,
+            "improvement": -0.000181915103748,
+            "low": -0.000467092906115,
+            "n": 16174
+          },
+          {
+            "block5_high": 0.000227407061138,
+            "block5_low": -0.000528031588063,
+            "chart": "6E_5",
+            "dates": 968,
+            "direction": "1",
+            "high": 0.00021679996748,
+            "improvement": -0.000155830153302,
+            "low": -0.000533569233578,
+            "n": 16172
+          },
+          {
+            "block5_high": 0.000618166399481,
+            "block5_low": -0.000544016481656,
+            "chart": "6J_4",
+            "dates": 959,
+            "direction": "-1",
+            "high": 0.000683405976225,
+            "improvement": 0.0000226900627427,
+            "low": -0.000618468876338,
+            "n": 17279
+          },
+          {
+            "block5_high": 0.000024254542396,
+            "block5_low": -0.000584527661631,
+            "chart": "6J_4",
+            "dates": 953,
+            "direction": "1",
+            "high": 0.0000150013689589,
+            "improvement": -0.000275873555419,
+            "low": -0.000563736534559,
+            "n": 17156
+          },
+          {
+            "block5_high": 0.000527830320517,
+            "block5_low": -0.000401780326365,
+            "chart": "6J_5",
+            "dates": 937,
+            "direction": "-1",
+            "high": 0.000517182848578,
+            "improvement": 0.0000665414461469,
+            "low": -0.000390531729295,
+            "n": 11731
+          },
+          {
+            "block5_high": -0.0000909326950753,
+            "block5_low": -0.000920006185337,
+            "chart": "6J_5",
+            "dates": 924,
+            "direction": "1",
+            "high": -0.0000665281449574,
+            "improvement": -0.000490436241876,
+            "low": -0.000908509520446,
+            "n": 11618
+          },
+          {
+            "block5_high": -0.0000728866051473,
+            "block5_low": -0.00062167680275,
+            "chart": "6S_4",
+            "dates": 968,
+            "direction": "-1",
+            "high": -0.0000437336241455,
+            "improvement": -0.000342088296661,
+            "low": -0.000639876184039,
+            "n": 27824
+          },
+          {
+            "block5_high": 0.000141609980339,
+            "block5_low": -0.0000703984381422,
+            "chart": "6S_4",
+            "dates": 968,
+            "direction": "1",
+            "high": 0.000140362383911,
+            "improvement": 0.0000357809316677,
+            "low": -0.0000719423618625,
+            "n": 27774
+          },
+          {
+            "block5_high": -0.0000245686735013,
+            "block5_low": -0.000796112020825,
+            "chart": "6S_5",
+            "dates": 968,
+            "direction": "-1",
+            "high": -0.000036521513963,
+            "improvement": -0.000401897763829,
+            "low": -0.000792046262828,
+            "n": 19617
+          },
+          {
+            "block5_high": 0.0000472964703409,
+            "block5_low": -0.000819200678436,
+            "chart": "6S_5",
+            "dates": 968,
+            "direction": "1",
+            "high": 0.0000535326451218,
+            "improvement": -0.00038740424217,
+            "low": -0.000845718492308,
+            "n": 19580
+          }
+        ],
+        "title": "Later primary prediction: adding prior length"
+      },
+      {
+        "columns": [
+          {
+            "key": "chart",
+            "label": "chart"
+          },
+          {
+            "key": "direction",
+            "label": "Direction (1 bullish, −1 bearish)"
+          },
+          {
+            "format": "number",
+            "key": "n",
+            "label": "Later evaluated n",
+            "precision": 0
+          },
+          {
+            "format": "number",
+            "key": "dates",
+            "label": "dates",
+            "precision": 0
+          },
+          {
+            "format": "number",
+            "key": "improvement",
+            "label": "Log-loss improvement",
+            "precision": 6
+          },
+          {
+            "format": "number",
+            "key": "low",
+            "label": "95% low",
+            "precision": 6
+          },
+          {
+            "format": "number",
+            "key": "high",
+            "label": "95% high",
+            "precision": 6
+          },
+          {
+            "format": "number",
+            "key": "block5_low",
+            "label": "Five-session low",
+            "precision": 6
+          },
+          {
+            "format": "number",
+            "key": "block5_high",
+            "label": "Five-session high",
+            "precision": 6
+          }
+        ],
+        "description": "Later 2023–2026 F≥3 log-loss comparison against B1 (reversal geometry/context). Positive improvement means lower loss; negative means worse.",
+        "id": "prediction-m2",
+        "kind": "table",
+        "notes": [
+          "M1 adds prior length; M2 adds richer lead-up to that model family. Both are compared separately with B1 on identical later target-eligible events.",
+          "Pointwise 95% paired-session and five-consecutive-session bounds are copied. No supported primary improvement; intervals spanning zero are inconclusive. Prior inspection prevents a pristine holdout claim."
+        ],
+        "referenceIds": [
+          "prediction-source"
+        ],
+        "rows": [
+          {
+            "block5_high": 0.000750998861815,
+            "block5_low": -0.00136812044624,
+            "chart": "6B_4",
+            "dates": 962,
+            "direction": "-1",
+            "high": 0.000715173052171,
+            "improvement": -0.000332773321708,
+            "low": -0.00148526156557,
+            "n": 8352
+          },
+          {
+            "block5_high": 0.000732057021158,
+            "block5_low": -0.00123201633354,
+            "chart": "6B_4",
+            "dates": 966,
+            "direction": "1",
+            "high": 0.000851668162439,
+            "improvement": -0.000262981024225,
+            "low": -0.00140846453758,
+            "n": 8358
+          },
+          {
+            "block5_high": 0.000317841127465,
+            "block5_low": -0.00292917010396,
+            "chart": "6B_5",
+            "dates": 945,
+            "direction": "-1",
+            "high": 0.000392249519366,
+            "improvement": -0.00124793336058,
+            "low": -0.00280526869434,
+            "n": 5545
+          },
+          {
+            "block5_high": 0.000272068820865,
+            "block5_low": -0.00193071328756,
+            "chart": "6B_5",
+            "dates": 944,
+            "direction": "1",
+            "high": 0.000286759864119,
+            "improvement": -0.000825818444736,
+            "low": -0.00193021204362,
+            "n": 5525
+          },
+          {
+            "block5_high": 0.000417449490292,
+            "block5_low": -0.00049842621713,
+            "chart": "6E_4",
+            "dates": 968,
+            "direction": "-1",
+            "high": 0.000387894551953,
+            "improvement": -0.0000455002117263,
+            "low": -0.000500611892753,
+            "n": 23669
+          },
+          {
+            "block5_high": 0.000193308254688,
+            "block5_low": -0.000599213313515,
+            "chart": "6E_4",
+            "dates": 968,
+            "direction": "1",
+            "high": 0.000186125183652,
+            "improvement": -0.000180566502681,
+            "low": -0.000550000201155,
+            "n": 23700
+          },
+          {
+            "block5_high": -0.000454067823337,
+            "block5_low": -0.00200842783382,
+            "chart": "6E_5",
+            "dates": 968,
+            "direction": "-1",
+            "high": -0.000436088805909,
+            "improvement": -0.00120255316737,
+            "low": -0.00199992841424,
+            "n": 16174
+          },
+          {
+            "block5_high": 0.000303577095812,
+            "block5_low": -0.00133880249369,
+            "chart": "6E_5",
+            "dates": 968,
+            "direction": "1",
+            "high": 0.000344657585895,
+            "improvement": -0.0004575292556,
+            "low": -0.00126839360097,
+            "n": 16172
+          },
+          {
+            "block5_high": 0.0000554224590657,
+            "block5_low": -0.00186667174675,
+            "chart": "6J_4",
+            "dates": 959,
+            "direction": "-1",
+            "high": 0.000110606937329,
+            "improvement": -0.000915041186955,
+            "low": -0.00192119875236,
+            "n": 17279
+          },
+          {
+            "block5_high": 0.000427707617131,
+            "block5_low": -0.00121340441406,
+            "chart": "6J_4",
+            "dates": 953,
+            "direction": "1",
+            "high": 0.000393433190023,
+            "improvement": -0.000417941043783,
+            "low": -0.0012658815259,
+            "n": 17156
+          },
+          {
+            "block5_high": -0.000660094066162,
+            "block5_low": -0.00320684841129,
+            "chart": "6J_5",
+            "dates": 937,
+            "direction": "-1",
+            "high": -0.00061684978657,
+            "improvement": -0.00185809185408,
+            "low": -0.00302537937848,
+            "n": 11731
+          },
+          {
+            "block5_high": -0.00131403240793,
+            "block5_low": -0.00462616418158,
+            "chart": "6J_5",
+            "dates": 924,
+            "direction": "1",
+            "high": -0.00131306807068,
+            "improvement": -0.00282399535086,
+            "low": -0.00444728944021,
+            "n": 11618
+          },
+          {
+            "block5_high": -0.00153509100818,
+            "block5_low": -0.00308793981088,
+            "chart": "6S_4",
+            "dates": 968,
+            "direction": "-1",
+            "high": -0.00151983391298,
+            "improvement": -0.00228351166925,
+            "low": -0.00306230666877,
+            "n": 27824
+          },
+          {
+            "block5_high": 0.0000677928819077,
+            "block5_low": -0.000935543609575,
+            "chart": "6S_4",
+            "dates": 968,
+            "direction": "1",
+            "high": 0.0000483676267457,
+            "improvement": -0.000426595678435,
+            "low": -0.00090903169282,
+            "n": 27774
+          },
+          {
+            "block5_high": -0.00131835668415,
+            "block5_low": -0.00354347156213,
+            "chart": "6S_5",
+            "dates": 968,
+            "direction": "-1",
+            "high": -0.00134985472556,
+            "improvement": -0.00235632722296,
+            "low": -0.00348352640859,
+            "n": 19617
+          },
+          {
+            "block5_high": -0.000466061639915,
+            "block5_low": -0.002114091437,
+            "chart": "6S_5",
+            "dates": 968,
+            "direction": "1",
+            "high": -0.000459829347691,
+            "improvement": -0.0012969482736,
+            "low": -0.00210129442877,
+            "n": 19580
+          }
+        ],
+        "title": "Later primary prediction: adding richer lead-up"
+      },
+      {
+        "columns": [
+          {
+            "key": "chart",
+            "label": "Chart"
+          },
+          {
+            "key": "direction",
+            "label": "Direction (+1 bullish, −1 bearish)"
+          },
+          {
+            "format": "number",
+            "key": "n",
+            "label": "Strict paths",
+            "precision": 0
+          },
+          {
+            "format": "number",
+            "key": "D_q_mean",
+            "label": "Mean signed D3",
+            "precision": 2,
+            "unit": "q"
+          },
+          {
+            "format": "number",
+            "key": "D_q_low",
+            "label": "D3 95% low",
+            "precision": 2,
+            "unit": "q"
+          },
+          {
+            "format": "number",
+            "key": "D_q_high",
+            "label": "D3 95% high",
+            "precision": 2,
+            "unit": "q"
+          },
+          {
+            "format": "number",
+            "key": "MAE_q_mean",
+            "label": "Mean MAE",
+            "precision": 2,
+            "unit": "q"
+          },
+          {
+            "format": "number",
+            "key": "MFE_q_mean",
+            "label": "Mean MFE",
+            "precision": 2,
+            "unit": "q"
+          },
+          {
+            "format": "percent",
+            "key": "favourable",
+            "label": "Favorable landing",
+            "precision": 1
+          },
+          {
+            "format": "percent",
+            "key": "flat",
+            "label": "Flat landing",
+            "precision": 1
+          },
+          {
+            "format": "percent",
+            "key": "adverse",
+            "label": "Adverse landing",
+            "precision": 1
+          }
+        ],
+        "description": "B1-open entry reference through B4-open mark after B1–B3, regardless of colour. Strict positive durations and same-session marks give a different population from the order cohort.",
+        "id": "price-paths",
+        "kind": "table",
+        "notes": [
+          "q is a constant 2026 quote-tick equivalent, not historical exchange ticks or dollar P&L. Product quanta are listed below.",
+          "MAE and MFE include future extremes and the exit gap, exclude R, and have unknown intrabar ordering. Mean D3 is gross before unverified execution and costs."
+        ],
+        "referenceIds": [
+          "price-source"
+        ],
+        "rows": [
+          {
+            "D_q_high": 0.0768198994563,
+            "D_q_low": -0.282723133574,
+            "D_q_mean": -0.10509671251,
+            "MAE_q_mean": 10.3756343311,
+            "MFE_q_mean": 9.73814076635,
+            "adverse": 0.393469147606,
+            "chart": "6B_4",
+            "direction": "-1",
+            "favourable": 0.438001029639,
+            "flat": 0.168529822755,
+            "n": 27194
+          },
+          {
+            "D_q_high": -0.041831700167,
+            "D_q_low": -0.399644831276,
+            "D_q_mean": -0.215075894006,
+            "MAE_q_mean": 10.4542247051,
+            "MFE_q_mean": 9.69473336029,
+            "adverse": 0.396265941416,
+            "chart": "6B_4",
+            "direction": "1",
+            "favourable": 0.434378330699,
+            "flat": 0.169355727884,
+            "n": 27209
+          },
+          {
+            "D_q_high": 0.185565610107,
+            "D_q_low": -0.336871590056,
+            "D_q_mean": -0.0791022608504,
+            "MAE_q_mean": 12.3206997085,
+            "MFE_q_mean": 11.731393366,
+            "adverse": 0.394246108147,
+            "chart": "6B_5",
+            "direction": "-1",
+            "favourable": 0.432752076572,
+            "flat": 0.173001815281,
+            "n": 18179
+          },
+          {
+            "D_q_high": 0.163209959581,
+            "D_q_low": -0.326160913793,
+            "D_q_mean": -0.0716324514217,
+            "MAE_q_mean": 12.4291909101,
+            "MFE_q_mean": 11.7399275442,
+            "adverse": 0.396970029641,
+            "chart": "6B_5",
+            "direction": "1",
+            "favourable": 0.436162037545,
+            "flat": 0.166867932814,
+            "n": 18218
+          },
+          {
+            "D_q_high": -0.0870134176206,
+            "D_q_low": -0.301878545713,
+            "D_q_mean": -0.198117928107,
+            "MAE_q_mean": 10.4327474053,
+            "MFE_q_mean": 9.7071328265,
+            "adverse": 0.397575581489,
+            "chart": "6E_4",
+            "direction": "-1",
+            "favourable": 0.432505286265,
+            "flat": 0.169919132245,
+            "n": 61953
+          },
+          {
+            "D_q_high": -0.241589167652,
+            "D_q_low": -0.463818250611,
+            "D_q_mean": -0.347487546549,
+            "MAE_q_mean": 10.4922055101,
+            "MFE_q_mean": 9.66000870532,
+            "adverse": 0.402137640857,
+            "chart": "6E_4",
+            "direction": "1",
+            "favourable": 0.427415324596,
+            "flat": 0.170447034547,
+            "n": 62031
+          },
+          {
+            "D_q_high": 0.0363099585951,
+            "D_q_low": -0.290313007303,
+            "D_q_mean": -0.130113716793,
+            "MAE_q_mean": 12.4732694758,
+            "MFE_q_mean": 11.7225498986,
+            "adverse": 0.393125088473,
+            "chart": "6E_5",
+            "direction": "-1",
+            "favourable": 0.435426791865,
+            "flat": 0.171448119662,
+            "n": 42386
+          },
+          {
+            "D_q_high": -0.222041793332,
+            "D_q_low": -0.547015888556,
+            "D_q_mean": -0.380884115532,
+            "MAE_q_mean": 12.6160842283,
+            "MFE_q_mean": 11.6474113417,
+            "adverse": 0.401165660031,
+            "chart": "6E_5",
+            "direction": "1",
+            "favourable": 0.428944090621,
+            "flat": 0.169890249348,
+            "n": 42551
+          },
+          {
+            "D_q_high": 0.158587094067,
+            "D_q_low": -0.163932861355,
+            "D_q_mean": 0.00020908004779,
+            "MAE_q_mean": 10.7192054958,
+            "MFE_q_mean": 10.1371565114,
+            "adverse": 0.391039426523,
+            "chart": "6J_4",
+            "direction": "-1",
+            "favourable": 0.441666666667,
+            "flat": 0.16729390681,
+            "n": 33480
+          },
+          {
+            "D_q_high": -0.165279608929,
+            "D_q_low": -0.504270872843,
+            "D_q_mean": -0.337353757086,
+            "MAE_q_mean": 10.8721203715,
+            "MFE_q_mean": 10.0357315161,
+            "adverse": 0.402364009167,
+            "chart": "6J_4",
+            "direction": "1",
+            "favourable": 0.431582438789,
+            "flat": 0.166053552044,
+            "n": 33164
+          },
+          {
+            "D_q_high": 0.288034254042,
+            "D_q_low": -0.207938406226,
+            "D_q_mean": 0.033072389832,
+            "MAE_q_mean": 12.8389919958,
+            "MFE_q_mean": 12.18387721,
+            "adverse": 0.390843521858,
+            "chart": "6J_5",
+            "direction": "-1",
+            "favourable": 0.444762072302,
+            "flat": 0.16439440584,
+            "n": 22738
+          },
+          {
+            "D_q_high": -0.141690991372,
+            "D_q_low": -0.628649558253,
+            "D_q_mean": -0.387447327567,
+            "MAE_q_mean": 12.9202927478,
+            "MFE_q_mean": 12.1037480594,
+            "adverse": 0.400221778665,
+            "chart": "6J_5",
+            "direction": "1",
+            "favourable": 0.431226436017,
+            "flat": 0.168551785318,
+            "n": 22545
+          },
+          {
+            "D_q_high": 0.299023915128,
+            "D_q_low": -0.057078291557,
+            "D_q_mean": 0.121734354978,
+            "MAE_q_mean": 11.8678051204,
+            "MFE_q_mean": 11.5962237506,
+            "adverse": 0.416930359058,
+            "chart": "6S_4",
+            "direction": "-1",
+            "favourable": 0.469442192526,
+            "flat": 0.113627448417,
+            "n": 38239
+          },
+          {
+            "D_q_high": 0.249865917043,
+            "D_q_low": -0.126200603252,
+            "D_q_mean": 0.0731194108364,
+            "MAE_q_mean": 11.8932930037,
+            "MFE_q_mean": 11.5551025776,
+            "adverse": 0.417727511836,
+            "chart": "6S_4",
+            "direction": "1",
+            "favourable": 0.467490794319,
+            "flat": 0.114781693845,
+            "n": 38020
+          },
+          {
+            "D_q_high": 0.530326250393,
+            "D_q_low": 0.0443773165382,
+            "D_q_mean": 0.288454376164,
+            "MAE_q_mean": 13.8623091248,
+            "MFE_q_mean": 13.7425325885,
+            "adverse": 0.412551210428,
+            "chart": "6S_5",
+            "direction": "-1",
+            "favourable": 0.469422718808,
+            "flat": 0.118026070764,
+            "n": 26850
+          },
+          {
+            "D_q_high": 0.318056978964,
+            "D_q_low": -0.195200688167,
+            "D_q_mean": 0.0654915609446,
+            "MAE_q_mean": 13.924516298,
+            "MFE_q_mean": 13.6974664122,
+            "adverse": 0.418472362561,
+            "chart": "6S_5",
+            "direction": "1",
+            "favourable": 0.464653268964,
+            "flat": 0.116874368474,
+            "n": 26721
+          }
+        ],
+        "title": "Strict three-physical-bar price paths"
+      },
+      {
+        "columns": [
+          {
+            "key": "product",
+            "label": "Product"
+          },
+          {
+            "key": "constant_q_price",
+            "label": "One q in native price"
+          },
+          {
+            "key": "historical_pre_20220502_tick_price",
+            "label": "Historical pre-change tick"
+          },
+          {
+            "key": "units_policy",
+            "label": "Saved policy"
+          }
+        ],
+        "description": "Native price divided by constant q gives the displayed equivalent. Historical event-date ticks are a separate diagnostic.",
+        "id": "units",
+        "kind": "table",
+        "notes": [
+          "6S changed units at trade date 2022-05-02; the saved pre/post rows below retain that context. Off-grid raw prices are not rounded."
+        ],
+        "referenceIds": [
+          "unit-source"
+        ],
+        "rows": [
+          {
+            "constant_q_price": "0.0001",
+            "historical_pre_20220502_tick_price": "0.0001",
+            "product": "6B",
+            "units_policy": "raw and constant q are primary; 6S historical units separately within each era"
+          },
+          {
+            "constant_q_price": "5e-05",
+            "historical_pre_20220502_tick_price": "5e-05",
+            "product": "6E",
+            "units_policy": "raw and constant q are primary; 6S historical units separately within each era"
+          },
+          {
+            "constant_q_price": "5e-07",
+            "historical_pre_20220502_tick_price": "5e-07",
+            "product": "6J",
+            "units_policy": "raw and constant q are primary; 6S historical units separately within each era"
+          },
+          {
+            "constant_q_price": "5e-05",
+            "historical_pre_20220502_tick_price": "0.0001",
+            "product": "6S",
+            "units_policy": "raw and constant q are primary; 6S historical units separately within each era"
+          }
+        ],
+        "title": "Constant quote units"
+      },
+      {
+        "columns": [
+          {
+            "key": "chart",
+            "label": "Chart"
+          },
+          {
+            "key": "direction",
+            "label": "Direction"
+          },
+          {
+            "key": "level",
+            "label": "Era"
+          },
+          {
+            "format": "number",
+            "key": "n",
+            "label": "Strict paths",
+            "precision": 0
+          },
+          {
+            "format": "number",
+            "key": "D_q_mean",
+            "label": "Mean D3",
+            "precision": 2,
+            "unit": "constant q"
+          },
+          {
+            "format": "number",
+            "key": "D_q_low",
+            "label": "95% low",
+            "precision": 2,
+            "unit": "constant q"
+          },
+          {
+            "format": "number",
+            "key": "D_q_high",
+            "label": "95% high",
+            "precision": 2,
+            "unit": "constant q"
+          },
+          {
+            "format": "number",
+            "key": "MAE_q_mean",
+            "label": "Mean MAE",
+            "precision": 2,
+            "unit": "constant q"
+          },
+          {
+            "format": "number",
+            "key": "MFE_q_mean",
+            "label": "Mean MFE",
+            "precision": 2,
+            "unit": "constant q"
+          }
+        ],
+        "description": "Pre is before trade date 2022-05-02; post is on/after it. These panels use constant q throughout rather than averaging changing historical tick units.",
+        "id": "six-s-eras",
+        "kind": "table",
+        "notes": [
+          "Unknown historical rebuild/roll settings and off-grid 6S observations remain provenance limitations."
+        ],
+        "referenceIds": [
+          "price-source"
+        ],
+        "rows": [
+          {
+            "D_q_high": 0.0768198994563,
+            "D_q_low": -0.282723133574,
+            "D_q_mean": -0.10509671251,
+            "MAE_q_mean": 10.3756343311,
+            "MFE_q_mean": 9.73814076635,
+            "chart": "6B_4",
+            "direction": "-1",
+            "level": "constant",
+            "n": 27194
+          },
+          {
+            "D_q_high": -0.041831700167,
+            "D_q_low": -0.399644831276,
+            "D_q_mean": -0.215075894006,
+            "MAE_q_mean": 10.4542247051,
+            "MFE_q_mean": 9.69473336029,
+            "chart": "6B_4",
+            "direction": "1",
+            "level": "constant",
+            "n": 27209
+          },
+          {
+            "D_q_high": 0.185565610107,
+            "D_q_low": -0.336871590056,
+            "D_q_mean": -0.0791022608504,
+            "MAE_q_mean": 12.3206997085,
+            "MFE_q_mean": 11.731393366,
+            "chart": "6B_5",
+            "direction": "-1",
+            "level": "constant",
+            "n": 18179
+          },
+          {
+            "D_q_high": 0.163209959581,
+            "D_q_low": -0.326160913793,
+            "D_q_mean": -0.0716324514217,
+            "MAE_q_mean": 12.4291909101,
+            "MFE_q_mean": 11.7399275442,
+            "chart": "6B_5",
+            "direction": "1",
+            "level": "constant",
+            "n": 18218
+          },
+          {
+            "D_q_high": -0.0870134176206,
+            "D_q_low": -0.301878545713,
+            "D_q_mean": -0.198117928107,
+            "MAE_q_mean": 10.4327474053,
+            "MFE_q_mean": 9.7071328265,
+            "chart": "6E_4",
+            "direction": "-1",
+            "level": "constant",
+            "n": 61953
+          },
+          {
+            "D_q_high": -0.241589167652,
+            "D_q_low": -0.463818250611,
+            "D_q_mean": -0.347487546549,
+            "MAE_q_mean": 10.4922055101,
+            "MFE_q_mean": 9.66000870532,
+            "chart": "6E_4",
+            "direction": "1",
+            "level": "constant",
+            "n": 62031
+          },
+          {
+            "D_q_high": 0.0363099585951,
+            "D_q_low": -0.290313007303,
+            "D_q_mean": -0.130113716793,
+            "MAE_q_mean": 12.4732694758,
+            "MFE_q_mean": 11.7225498986,
+            "chart": "6E_5",
+            "direction": "-1",
+            "level": "constant",
+            "n": 42386
+          },
+          {
+            "D_q_high": -0.222041793332,
+            "D_q_low": -0.547015888556,
+            "D_q_mean": -0.380884115532,
+            "MAE_q_mean": 12.6160842283,
+            "MFE_q_mean": 11.6474113417,
+            "chart": "6E_5",
+            "direction": "1",
+            "level": "constant",
+            "n": 42551
+          },
+          {
+            "D_q_high": 0.158587094067,
+            "D_q_low": -0.163932861355,
+            "D_q_mean": 0.00020908004779,
+            "MAE_q_mean": 10.7192054958,
+            "MFE_q_mean": 10.1371565114,
+            "chart": "6J_4",
+            "direction": "-1",
+            "level": "constant",
+            "n": 33480
+          },
+          {
+            "D_q_high": -0.165279608929,
+            "D_q_low": -0.504270872843,
+            "D_q_mean": -0.337353757086,
+            "MAE_q_mean": 10.8721203715,
+            "MFE_q_mean": 10.0357315161,
+            "chart": "6J_4",
+            "direction": "1",
+            "level": "constant",
+            "n": 33164
+          },
+          {
+            "D_q_high": 0.288034254042,
+            "D_q_low": -0.207938406226,
+            "D_q_mean": 0.033072389832,
+            "MAE_q_mean": 12.8389919958,
+            "MFE_q_mean": 12.18387721,
+            "chart": "6J_5",
+            "direction": "-1",
+            "level": "constant",
+            "n": 22738
+          },
+          {
+            "D_q_high": -0.141690991372,
+            "D_q_low": -0.628649558253,
+            "D_q_mean": -0.387447327567,
+            "MAE_q_mean": 12.9202927478,
+            "MFE_q_mean": 12.1037480594,
+            "chart": "6J_5",
+            "direction": "1",
+            "level": "constant",
+            "n": 22545
+          },
+          {
+            "D_q_high": 0.223534123445,
+            "D_q_low": -0.104286717094,
+            "D_q_mean": 0.0641742442861,
+            "MAE_q_mean": 10.6504362251,
+            "MFE_q_mean": 10.3010567707,
+            "chart": "6S_4",
+            "direction": "-1",
+            "level": "post",
+            "n": 32552
+          },
+          {
+            "D_q_high": 1.18701224619,
+            "D_q_low": -0.245483624576,
+            "D_q_mean": 0.451204501495,
+            "MAE_q_mean": 18.8359416212,
+            "MFE_q_mean": 19.0096711799,
+            "chart": "6S_4",
+            "direction": "-1",
+            "level": "pre",
+            "n": 5687
+          },
+          {
+            "D_q_high": 0.232458967408,
+            "D_q_low": -0.112154798858,
+            "D_q_mean": 0.064078029508,
+            "MAE_q_mean": 10.6604420026,
+            "MFE_q_mean": 10.2817149207,
+            "chart": "6S_4",
+            "direction": "1",
+            "level": "post",
+            "n": 32398
+          },
+          {
+            "D_q_high": 0.850858814099,
+            "D_q_low": -0.654033890963,
+            "D_q_mean": 0.125222340804,
+            "MAE_q_mean": 18.9978655283,
+            "MFE_q_mean": 18.8932764141,
+            "chart": "6S_4",
+            "direction": "1",
+            "level": "pre",
+            "n": 5622
+          },
+          {
+            "D_q_high": 0.38791639917,
+            "D_q_low": -0.0870763081723,
+            "D_q_mean": 0.154423895112,
+            "MAE_q_mean": 12.5600850916,
+            "MFE_q_mean": 12.3562993835,
+            "chart": "6S_5",
+            "direction": "-1",
+            "level": "post",
+            "n": 23034
+          },
+          {
+            "D_q_high": 2.0982893647,
+            "D_q_low": 0.0666203041016,
+            "D_q_mean": 1.09748427673,
+            "MAE_q_mean": 21.7227463312,
+            "MFE_q_mean": 22.1100628931,
+            "chart": "6S_5",
+            "direction": "-1",
+            "level": "pre",
+            "n": 3816
+          },
+          {
+            "D_q_high": 0.327803926866,
+            "D_q_low": -0.162734702387,
+            "D_q_mean": 0.078629647387,
+            "MAE_q_mean": 12.6317831147,
+            "MFE_q_mean": 12.336921937,
+            "chart": "6S_5",
+            "direction": "1",
+            "level": "post",
+            "n": 22943
+          },
+          {
+            "D_q_high": 1.07043895327,
+            "D_q_low": -1.11692465475,
+            "D_q_mean": -0.0142932768661,
+            "MAE_q_mean": 21.7750132345,
+            "MFE_q_mean": 21.9597670725,
+            "chart": "6S_5",
+            "direction": "1",
+            "level": "pre",
+            "n": 3778
+          }
+        ],
+        "title": "6S: saved pre/post unit-era panels"
+      },
+      {
+        "alt": "Computed saved OHLC example with prior leg, R and physical future bars labelled; L2 and F0.",
+        "caption": "Saved source-row audit illustration: L2; F0. L excludes R and F counts only consecutive followers. Raw 6J prices and source rows are preserved. Chosen failure and longer-follow-through examples illustrate definitions, not independent confirmations or executable entries.",
+        "id": "example-l2-f0",
+        "kind": "figure",
+        "path": "figures/6j4-bearish-l2-f0.png",
+        "referenceIds": [
+          "continuation-source"
+        ],
+        "title": "6J setting 4 bearish: L2, F0"
+      },
+      {
+        "alt": "Computed saved OHLC example with prior leg, R and physical future bars labelled; L3 and F4.",
+        "caption": "Saved source-row audit illustration: L3; F4. L excludes R and F counts only consecutive followers. Raw 6J prices and source rows are preserved. Chosen failure and longer-follow-through examples illustrate definitions, not independent confirmations or executable entries.",
+        "id": "example-l3-f4",
+        "kind": "figure",
+        "path": "figures/6j4-bearish-l3-f4.png",
+        "referenceIds": [
+          "continuation-source"
+        ],
+        "title": "6J setting 4 bearish: L3, F4"
+      },
+      {
+        "body": "R is a completed first opposite-colour bar after a known prior leg L; L and future F exclude R. A doji breaks the leg. Continuation F≥3 requires three physical followers completed through the next observed start, with its own denominator. The price reference enters at B1 open and marks at B4 open, including gaps and all B1–B3 colours; strict paths require positive durations. Baseline B1 uses reversal geometry and context, M1 adds L, M2 richer lead-up. Positive saved log-loss improvement means lower loss than B1. Saved 95% paired session-bootstrap bounds and five-session moving-block sensitivity are pointwise. Model selection used development/validation before later metrics, but earlier inspection prevents a pristine holdout claim. Candidate C0576 is bearish 6J 4, prior length one; C0592 additionally uses the frozen efficiency predicate. q for these 6J candidate price means is constant 0.0000005 native price units.",
+        "id": "methods",
+        "kind": "text",
+        "title": "Definitions and methods"
+      },
+      {
+        "body": "Colour persistence is not execution or profitability. Clocks/completion, roll/adjustment history, spreads, fills and intrabar ordering are unverified. Correlated FX settings are not independent confirmations. 6S historical tick units change at trade date May 2, 2022; cross-era price comparisons must use constant q or raw price, never pooled historical ticks. Off-grid raw prices are retained. The selected baseline table uses bar order, not an execution cohort. Censoring and sparse support are explicit in full evidence; retained event backups are local and off-device backup was not verified.",
+        "id": "limitations",
+        "kind": "text",
+        "title": "Limitations and uncertainty"
+      },
+      {
+        "body": "Study 16_range_xv_reversal_paths. Source run 20261002T010500Z_ohlc200_161001; executed protocol 2.0.0. Presentation 20261007T002932Z_evidence16. Saved summary artifacts and selected figure bytes retain their recorded identities. Research evidence and qualifications are unchanged.",
+        "id": "sources-provenance",
+        "kind": "text",
+        "title": "Source-run and presentation provenance"
+      }
+    ],
+    "source": {
+      "producer": "sahadeva",
+      "runId": "20261002T010500Z_ohlc200_161001"
+    },
+    "summary": "Bar-colour continuation is common in the saved FX exports, but added lead-up does not show supported primary prediction improvement. Strict three-bar price paths and uncertainty have separate denominators and units.",
+    "title": "Range XV reversals: persistence, prediction and price are separate"
+  }
+}

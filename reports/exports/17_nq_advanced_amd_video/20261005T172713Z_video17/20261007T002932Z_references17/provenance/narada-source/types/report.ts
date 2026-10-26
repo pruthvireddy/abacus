@@ -1,0 +1,14 @@
+export type NumberFormat = "number" | "percent";
+export type ReportSource = { producer: string; runId: string };
+export type TextSection = { id: string; kind: "text"; title: string; body: string };
+export type MetricsSection = { id: string; kind: "metrics"; title: string; items: Array<{ label: string; value: number | null; format: NumberFormat; unit?: string; precision?: number; note?: string }> };
+export type TableSection = { id: string; kind: "table"; title: string; description?: string; notes?: string[]; columns: Array<{ key: string; label: string; format?: NumberFormat; unit?: string; precision?: number }>; rows: Array<Record<string, string | number | boolean | null>> };
+export type FigureSection = { id: string; kind: "figure"; title: string; path: string; alt: string; caption?: string };
+export type ReportSection = (TextSection | MetricsSection | TableSection | FigureSection) & { referenceIds?: string[] };
+type ReferenceIdentity = { id: string; label: string; title: string };
+export type SourceReference = ReferenceIdentity & ({ kind: "external"; creator: string; url: string; publishedOn?: string; accessedOn?: string; startSeconds?: number; endSeconds?: number } | { kind: "saved-artifact"; runId: string; artifact: string; sha256: string });
+export type EvidenceDownload = { id: string; path: string; label: string; description: string; population: string; units: string; scope: string; mediaType: "text/csv"; sha256: string; rowCount: number; columns: string[]; source: { runId: string; artifact: string; sha256: string } };
+export type SourceReport = { schemaVersion: "1.0" | "1.1"; id: string; title: string; summary: string; publishedAt: string; source: ReportSource; sections: ReportSection[]; notes?: string[]; references?: SourceReference[]; downloads?: EvidenceDownload[] };
+export type PublicationBundle = { report: SourceReport; provenance: { sourceSha256: string; assets: Array<{ path: string; sha256: string }> } };
+export type PublicationIndexEntry = Pick<SourceReport, "id" | "title" | "summary" | "publishedAt" | "source"> & { href: string; sourceSha256: string };
+export type PublicationIndex = { schemaVersion: "1.0"; reports: PublicationIndexEntry[] };

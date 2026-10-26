@@ -1,0 +1,29 @@
+study_id: 13_gc_ema_band_filter_validation
+protocol_version: 1.0.0
+product: GC
+signal_years: [2025, 2026]
+development_year: 2025
+chronological_check_year: 2026
+primary_cooldown_bars: 10
+primary_horizon_bars: 20
+candidate_filters:
+  - first_outer_close
+  - bullish_signal_body
+  - upper_half_close
+  - shallow_penetration_025
+  - less_falling_ema_050
+  - nonexpanding_sigma_110
+  - ny_morning_08_13
+  - first_outer_and_upper_half
+  - shallow_and_upper_half
+score: mean_clipped_mfe_minus_mae_over_signal_sigma
+score_excursion_cap_sigma: 10
+min_train_valid: 45
+min_train_sessions: 20
+min_train_weeks: 10
+min_check_valid: 30
+min_check_sessions: 15
+min_check_weeks: 8
+min_mfe_retention_ratio: 0.9
+bootstrap_seed: 1313
+bootstrap_replicates: 2000

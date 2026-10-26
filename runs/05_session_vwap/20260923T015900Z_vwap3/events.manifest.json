@@ -1,0 +1,356 @@
+{
+  "location": "events/",
+  "format": "Parquet",
+  "retention": "included_in_sealed_run",
+  "row_count": 704698,
+  "window_row_count": 42546,
+  "event_schema": {
+    "event_id": "object",
+    "strategy": "object",
+    "product": "object",
+    "session_date": "object",
+    "year": "int64",
+    "split": "object",
+    "timeframe": "object",
+    "anchor": "object",
+    "window": "object",
+    "feature_index": "int64",
+    "signal_ts": "object",
+    "signal_bar_open": "object",
+    "instrument_id": "int64",
+    "raw_symbol": "object",
+    "adjustment": "float64",
+    "tick": "float64",
+    "vwap": "float64",
+    "sigma": "float64",
+    "side": "int64",
+    "direction": "int64",
+    "distance_sigma": "float64",
+    "distance_ticks": "float64",
+    "anchor_age_minutes": "int64",
+    "departure_class": "object",
+    "reference_available": "bool",
+    "followup_minutes": "int64",
+    "window_minutes_remaining": "int64",
+    "source_contiguous": "bool",
+    "contract_constant": "bool",
+    "reference_price": "float64",
+    "exclusion": "object",
+    "window_evaluable": "object",
+    "already_at_frozen_target": "object",
+    "frozen_contact_minute": "float64",
+    "frozen_gap_through_minute": "float64",
+    "evolving_contact_minute": "float64",
+    "vwap_motion_to_end_points": "float64",
+    "price_retracement_to_end_points": "float64",
+    "remaining_frozen_distance_end_ticks": "float64",
+    "max_extension_before_frozen_return_ticks": "float64",
+    "h10_evaluable": "object",
+    "h10_frozen_contact": "object",
+    "h10_evolving_contact": "object",
+    "h10_signed_ticks": "float64",
+    "h10_signed_points": "float64",
+    "h10_mfe_ticks": "float64",
+    "h10_mae_ticks": "float64",
+    "h30_evaluable": "object",
+    "h30_frozen_contact": "object",
+    "h30_evolving_contact": "object",
+    "h30_signed_ticks": "float64",
+    "h30_signed_points": "float64",
+    "h30_mfe_ticks": "float64",
+    "h30_mae_ticks": "float64",
+    "h60_evaluable": "object",
+    "h60_frozen_contact": "object",
+    "h60_evolving_contact": "object",
+    "h60_signed_ticks": "float64",
+    "h60_signed_points": "float64",
+    "h60_mfe_ticks": "float64",
+    "h60_mae_ticks": "float64",
+    "window_frozen_contact": "object",
+    "window_evolving_contact": "object",
+    "departure_feature_index": "float64",
+    "known_touch_vwap": "float64",
+    "confirmation": "object",
+    "touch_close_class": "object",
+    "h10_barrier_0p25": "object",
+    "h10_barrier_0p25_minute": "float64",
+    "h10_barrier_0p25_ticks": "float64",
+    "h10_barrier_0p5": "object",
+    "h10_barrier_0p5_minute": "float64",
+    "h10_barrier_0p5_ticks": "float64",
+    "h10_barrier_1p0": "object",
+    "h10_barrier_1p0_minute": "float64",
+    "h10_barrier_1p0_ticks": "float64",
+    "h10_barrier_4ticks": "object",
+    "h10_barrier_8ticks": "object",
+    "h10_barrier_16ticks": "object",
+    "h10_barrier_32ticks": "object",
+    "h30_barrier_0p25": "object",
+    "h30_barrier_0p25_minute": "float64",
+    "h30_barrier_0p25_ticks": "float64",
+    "h30_barrier_0p5": "object",
+    "h30_barrier_0p5_minute": "float64",
+    "h30_barrier_0p5_ticks": "float64",
+    "h30_barrier_1p0": "object",
+    "h30_barrier_1p0_minute": "float64",
+    "h30_barrier_1p0_ticks": "float64",
+    "h30_barrier_4ticks": "object",
+    "h30_barrier_8ticks": "object",
+    "h30_barrier_16ticks": "object",
+    "h30_barrier_32ticks": "object",
+    "h60_barrier_0p25": "object",
+    "h60_barrier_0p25_minute": "float64",
+    "h60_barrier_0p25_ticks": "float64",
+    "h60_barrier_0p5": "object",
+    "h60_barrier_0p5_minute": "float64",
+    "h60_barrier_0p5_ticks": "float64",
+    "h60_barrier_1p0": "object",
+    "h60_barrier_1p0_minute": "float64",
+    "h60_barrier_1p0_ticks": "float64",
+    "h60_barrier_4ticks": "object",
+    "h60_barrier_8ticks": "object",
+    "h60_barrier_16ticks": "object",
+    "h60_barrier_32ticks": "object",
+    "already_passed_3sigma": "object",
+    "hit_3sigma_before_return": "object",
+    "h60_exclusion": "object",
+    "h30_exclusion": "object",
+    "h10_exclusion": "object",
+    "h10_pre_barrier_mfe_ticks": "float64",
+    "h10_pre_barrier_mae_ticks": "float64",
+    "h30_pre_barrier_mfe_ticks": "float64",
+    "h30_pre_barrier_mae_ticks": "float64",
+    "h60_pre_barrier_mfe_ticks": "float64",
+    "h60_pre_barrier_mae_ticks": "float64",
+    "window_barrier_0p5": "object",
+    "window_barrier_minute": "float64",
+    "window_mfe_ticks": "float64",
+    "window_mae_ticks": "float64",
+    "source_reference_audited": "object",
+    "favorable_4ticks_first_minute": "float64",
+    "favorable_8ticks_first_minute": "float64",
+    "favorable_16ticks_first_minute": "float64",
+    "favorable_32ticks_first_minute": "float64",
+    "strategy_id": "object",
+    "event_role": "object",
+    "episode_id": "object",
+    "market_bar_key": "object",
+    "market_minute_key": "object",
+    "feature_partition": "object",
+    "source_partition": "object",
+    "h10_barrier_open_gap": "object",
+    "h30_barrier_open_gap": "object",
+    "h60_barrier_open_gap": "object",
+    "window_barrier_open_gap": "object",
+    "h30_half_retracement": "object",
+    "h30_half_retracement_minute": "float64",
+    "pre_return_extension_lower_ticks": "float64",
+    "pre_return_extension_upper_ticks": "float64",
+    "hit_3sigma_pre_return_lower": "object",
+    "hit_3sigma_pre_return_upper": "object",
+    "ordinal": "int64",
+    "direction_label": "object"
+  },
+  "window_schema": {
+    "product": "object",
+    "session_date": "object",
+    "timeframe": "object",
+    "anchor": "object",
+    "window": "object",
+    "eligible_window": "bool",
+    "mature_valid": "bool",
+    "departure": "bool",
+    "first_departure_class": "object",
+    "already_outside_at_start": "bool",
+    "unqualified_first_touches": "int64",
+    "gap_throughs": "int64",
+    "frozen_cycles": "int64",
+    "evolving_cycles": "int64"
+  },
+  "partitions": [
+    {
+      "path": "events/events_ES_2021.parquet",
+      "sha256": "a224a46b3f30b52678804a529af33984f90b2dd2bf008b5b14e7afbf4ad6f4aa"
+    },
+    {
+      "path": "events/events_ES_2022.parquet",
+      "sha256": "74f349a1575ba5c50a4ac0120796dfc00be47e7ac34d31b0849b6388d449893f"
+    },
+    {
+      "path": "events/events_ES_2023.parquet",
+      "sha256": "7d491fd60d67d243881749bf81e390c619a67d6806ed24de0b14e419c529a053"
+    },
+    {
+      "path": "events/events_ES_2024.parquet",
+      "sha256": "0b67f6831ac25aebdb30b405370e2e07ae46a6d7ad88ac601bba5bce5da7df98"
+    },
+    {
+      "path": "events/events_ES_2025.parquet",
+      "sha256": "de4df76445bac076c31c2276fc4cb24fd126e51d67e52f7ff4efcc757cf1dc0d"
+    },
+    {
+      "path": "events/events_ES_2026.parquet",
+      "sha256": "2db95fa24bdb4db19407020d744cbf4202c155e7666e95601f27b4e00f144905"
+    },
+    {
+      "path": "events/events_GC_2016.parquet",
+      "sha256": "910352eb360f135f613a4f89ae692996b8cff159f175225058d92efdf247c298"
+    },
+    {
+      "path": "events/events_GC_2017.parquet",
+      "sha256": "1a135dbca3bd1bd85200c6e5145564c222aa0b7c79a05f76ed8b7ca7be2fac48"
+    },
+    {
+      "path": "events/events_GC_2018.parquet",
+      "sha256": "e143ffce556145740ff052259a91d83af595e0795d6de4542c33c9c90a525bc7"
+    },
+    {
+      "path": "events/events_GC_2019.parquet",
+      "sha256": "65f7f1c7989438ad887edd73795d5061bfc1a4584690e320660912e9ad7c08db"
+    },
+    {
+      "path": "events/events_GC_2020.parquet",
+      "sha256": "38c6caca148194174c26283a360eb700ed397bd3bf40da342eede43d127454ca"
+    },
+    {
+      "path": "events/events_GC_2021.parquet",
+      "sha256": "7ad4dcaad22be5b1d012790e5b1a62c5ca006eff4b0567d1a87938658d1f2d67"
+    },
+    {
+      "path": "events/events_GC_2022.parquet",
+      "sha256": "70986941f2ffe08dd0c49ad83094c1bbbe4c70dd7d6ab547d2358e7510f67c49"
+    },
+    {
+      "path": "events/events_GC_2023.parquet",
+      "sha256": "47fd835035756b0d941b34051989f2219c4575261c85174796734d3fffb4c8cd"
+    },
+    {
+      "path": "events/events_GC_2024.parquet",
+      "sha256": "93934c01bf7f07f3c38cce4ae592f2ebcdc1c71b76155833e5e8bdb2822d6974"
+    },
+    {
+      "path": "events/events_GC_2025.parquet",
+      "sha256": "29d7d21926312f34d247eddb395a72f6c33b5afbbcd6ba9daef2fd9d29ea7c63"
+    },
+    {
+      "path": "events/events_GC_2026.parquet",
+      "sha256": "c1bfb1ec85c910ef21b92df50a58aef89f89304145d0e16d265b1b307ae705ab"
+    },
+    {
+      "path": "events/events_NQ_2021.parquet",
+      "sha256": "fea42d1a9a8a4595954607281bbcc25c4839493a005fff4c4cb078181563dc88"
+    },
+    {
+      "path": "events/events_NQ_2022.parquet",
+      "sha256": "a54d73fbc98d2ba95595e07432e5b8843eb83ca06f63603b070c97a19856b442"
+    },
+    {
+      "path": "events/events_NQ_2023.parquet",
+      "sha256": "c272540e85857b803cf5a9459aa8aadf5736d42cfc03f6f004024d349b5bfb91"
+    },
+    {
+      "path": "events/events_NQ_2024.parquet",
+      "sha256": "e7829ddda04875817430e6440800af32bfb43e748b39d8239a84a968f4fb68a6"
+    },
+    {
+      "path": "events/events_NQ_2025.parquet",
+      "sha256": "8a93d5826e943c3cd5dc97821e36c4decc3e5d1aeffb888c7d8d3abb22e228f1"
+    },
+    {
+      "path": "events/events_NQ_2026.parquet",
+      "sha256": "58991e2cc083dc620594b326946ac07baf68532343d53085e0452ff82d93b243"
+    },
+    {
+      "path": "events/windows_ES_2021.parquet",
+      "sha256": "d81864d6b1018156954e6c1f2656afe21c179bab606a8ecdf73238ea146178db"
+    },
+    {
+      "path": "events/windows_ES_2022.parquet",
+      "sha256": "fda95eab53bcdffeb5b60038a8161482aa980dcc72624e4a36dd7340114268a6"
+    },
+    {
+      "path": "events/windows_ES_2023.parquet",
+      "sha256": "3d318192ffba84ee41148e87acbceb1ae1c5ae66d3b0b360a4b3b980bca86d10"
+    },
+    {
+      "path": "events/windows_ES_2024.parquet",
+      "sha256": "2d90887e4c337a15626efcbe07c3828b491b1d58b42adf32357fe41e8a716764"
+    },
+    {
+      "path": "events/windows_ES_2025.parquet",
+      "sha256": "da68e7d0330fd171d7e58068cc833e8394ce11ad70e72429fe758d632a0a6597"
+    },
+    {
+      "path": "events/windows_ES_2026.parquet",
+      "sha256": "7173a5a5facd1fa4c59499e9b13565af7773b28c2e47f7b7d1529bb6fa17d221"
+    },
+    {
+      "path": "events/windows_GC_2016.parquet",
+      "sha256": "00cb46b362bb3e70d7a9f6c1412da8a2200551d356cf65b32a0c9032f2c0bbb3"
+    },
+    {
+      "path": "events/windows_GC_2017.parquet",
+      "sha256": "bbc24016b06edb7913074752b7270634dfe8107d9d3e912594d850a82d6a5069"
+    },
+    {
+      "path": "events/windows_GC_2018.parquet",
+      "sha256": "ddd0d1b754b19afe0e2cdd91e8b11ae5c833b1396c2acff0c6de8f05e9f9da23"
+    },
+    {
+      "path": "events/windows_GC_2019.parquet",
+      "sha256": "e843512d9d334d6466f2cd842261fa0b4f6f876ac979942a17ee3deb7f0c327c"
+    },
+    {
+      "path": "events/windows_GC_2020.parquet",
+      "sha256": "d2e5a02c81579bb0d423c491a52e661a4db7144fab00daddd3ab17e892661375"
+    },
+    {
+      "path": "events/windows_GC_2021.parquet",
+      "sha256": "3e47c3ceccd7fbab6c0938926d017d55b80fb67b4f4baac2e9f2d1a8a59108d3"
+    },
+    {
+      "path": "events/windows_GC_2022.parquet",
+      "sha256": "cb5aea83b9c96c14c78a2e09b627c11d1e0bad88cbe78d4e357bb7ab543b5f6b"
+    },
+    {
+      "path": "events/windows_GC_2023.parquet",
+      "sha256": "d93650f1095769a379778b1c17144c9758170d4ab152019945c66c175f536746"
+    },
+    {
+      "path": "events/windows_GC_2024.parquet",
+      "sha256": "322e31653eac6c59871c7469a3265ac2d1f9c624369d225639313c875482dea3"
+    },
+    {
+      "path": "events/windows_GC_2025.parquet",
+      "sha256": "07fb42d791119db0aff554f950ec0b63a9a2225d5b1cd132fc296e2592f7ab09"
+    },
+    {
+      "path": "events/windows_GC_2026.parquet",
+      "sha256": "f94ad4064fc6245cddaaaad0eafefe64f1659e4d529223cdd80fb3cee7afeace"
+    },
+    {
+      "path": "events/windows_NQ_2021.parquet",
+      "sha256": "ea9f705ec054169a05c02ea17c9670c44cfa23bc2c89000ccbc73342153c8abe"
+    },
+    {
+      "path": "events/windows_NQ_2022.parquet",
+      "sha256": "bab836e463b4c4bac10e4230882b0e3675b94aa9ff804fd7e93533be5b5496b9"
+    },
+    {
+      "path": "events/windows_NQ_2023.parquet",
+      "sha256": "fd31ead83332529840d577fa1775110eff72122100afff285bcfaa1a3638eaa7"
+    },
+    {
+      "path": "events/windows_NQ_2024.parquet",
+      "sha256": "88ef1aab959a5881433a2c5001725d7a2d00bb63fad273d09a366f54f923fa05"
+    },
+    {
+      "path": "events/windows_NQ_2025.parquet",
+      "sha256": "450c46fcbb2a943848c80c18f414adbc7169f513d117f9de6ccea4b91e0216b1"
+    },
+    {
+      "path": "events/windows_NQ_2026.parquet",
+      "sha256": "be4a12942e601b9e2ab6e69b1333512646a7985dbec1703a6e39fe9398f72f90"
+    }
+  ]
+}

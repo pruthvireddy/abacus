@@ -1,0 +1,103 @@
+{
+  "dataset_id": "nq_causal_vp_hvn__1.0.0",
+  "version": "1.0.0",
+  "owner": "Bhishma",
+  "input_manifests": [
+    {
+      "dataset_id": "volume_lead_unadjusted_v1",
+      "role": "primary contract-price bars and execution",
+      "manifest_path": "catalog/datasets/volume_lead_unadjusted_v1.json",
+      "sha256": "00757f5fc8278e75744d7adfaddc688be588d619d82b1dc1811aa60f21b7e5d4"
+    },
+    {
+      "dataset_id": "volume_lead_back_adjusted_v1",
+      "role": "adjusted-snapshot comparison and lineage",
+      "manifest_path": "catalog/datasets/volume_lead_back_adjusted_v1.json",
+      "sha256": "5500ac1e472c48b0f31b11c6586354dc700e4ba2ef526ebef5fa05582b228ce8"
+    },
+    {
+      "dataset_id": "cme_fixed_clock_session_v1",
+      "role": "calendar context, not inherited whole-day eligibility",
+      "manifest_path": "catalog/calendars/cme_fixed_clock_session_v1.json",
+      "sha256": "d5e9d7895f02c5c66a2231e3f79e6bfbc21cd7ce7aa2f42974cfa50492186bcf"
+    }
+  ],
+  "indicator_source": {
+    "path": "catalog/indicators/nq_causal_vp_hvn__1.0.0.source.pine",
+    "sha256": "6fb8254d661c41e8a867953e608886bf367ee3a759a110eab41f2469d373e8ee"
+  },
+  "vp": {
+    "row_ticks": 16,
+    "value_area_percent": 70,
+    "allocation": "Sequential uniform volume to all touched absolute rows, including high boundary",
+    "poc": "First maximum, lower coordinate",
+    "value_area": "Single adjacent-row expansion, upper ties; lower coordinates",
+    "zero_volume": "Retain Pine reported levels across init until positive mass"
+  },
+  "sessions": {
+    "timezone": "America/New_York",
+    "futures": "18:00-17:00",
+    "rth": "09:30-16:00",
+    "overnight": "18:00-09:30",
+    "weekly_boundary": "Monday trading date; normal Sunday 18:00 NY, exchange-session inference not independent TradingView-feed certification",
+    "weekly_scope": "All observed chart minutes, including out-of-futures observations",
+    "pdh_pdl_and_hvn_scope": "Futures minutes only; do not create a session on dates with none",
+    "developing_rth": "Hidden at new futures session"
+  },
+  "hvn": {
+    "completed_sessions": 10,
+    "developing_session": true,
+    "row_ticks": 4,
+    "row_cap": 3000,
+    "entry_cap": 90000,
+    "smoothing_rows": 3,
+    "peak_height_percent": 20,
+    "peak_window_rows": 5,
+    "prominence_percent": 10,
+    "expansion_percent": 60,
+    "max_zone_ticks": 8,
+    "merge_ticks": 8,
+    "reference_clearance_ticks": 8,
+    "zone_clearance_ticks": 8,
+    "per_side_quota": 2,
+    "selection_order": [
+      "price/reference filtering",
+      "eligible-strength suppression",
+      "midpoint distance and strength",
+      "side quota/zone clearance"
+    ],
+    "equal_strength_rule": "Deterministic lower candidate order; external Pine sort stability not certified"
+  },
+  "availability": {
+    "timestamp_label": "bar open UTC nanoseconds",
+    "snapshot": "Before each evening minute, completed prior bars only",
+    "historical_gate": "First futures minute close, then first close >=15 elapsed minutes later; replace last-bar gate",
+    "selection_price": "Prior observed close",
+    "export_window": "18:00-00:00 NY; reconstruct references from all source bars",
+    "post_bar": "Separate post_on and post_selected observations"
+  },
+  "quality": {
+    "no_forward_fill": true,
+    "expected_futures_minutes": 1380,
+    "before_2021_06_28_minutes": 1365,
+    "prior_week_complete": "Five complete normal futures sessions",
+    "separate_flags": [
+      "overnight completeness",
+      "reference completeness",
+      "HVN completeness",
+      "contract cleanliness",
+      "degraded source histories"
+    ],
+    "holidays": "Labels only, no inherited whole-day exclusion"
+  },
+  "coordinates": {
+    "primary": "Unadjusted selected contract",
+    "adjusted": "Final retrospective adjusted snapshot, converted to current raw coordinates for comparison; execution always raw",
+    "price_grid": "Validate fixed-point quarter alignment, recover exact binary quarter points"
+  },
+  "node_identity": {
+    "match": "Overlapping bands and centers within 2 points",
+    "split_merge": "Ambiguous flag, retain lineage; must not manufacture first touches"
+  },
+  "research_labels": []
+}

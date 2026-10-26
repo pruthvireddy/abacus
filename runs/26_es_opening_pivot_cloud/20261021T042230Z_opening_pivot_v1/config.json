@@ -1,0 +1,111 @@
+{
+  "protocol_version": "1.0.0",
+  "settings_file": "study.yaml",
+  "study_settings": {
+    "study_id": "26_es_opening_pivot_cloud",
+    "protocol_version": "1.0.0",
+    "title": "ES Opening Pivot\u2013Cloud Rejection/Support",
+    "product": "ES",
+    "timezone": "America/New_York",
+    "requested_start": "2022-01-01",
+    "end": "latest_common_complete_pinned_date",
+    "signal_minutes": 5,
+    "execution_minutes": 1,
+    "entry_cutoff": "10:00",
+    "flatten_at": "11:00",
+    "completeness_window": [
+      "09:30",
+      "10:59"
+    ],
+    "readiness_bars": 250,
+    "proximity_atr_multiplier": 0.1,
+    "proximity_min_points": 1,
+    "stop_buffer_points": 1,
+    "formation_bars": 3,
+    "confirmation_subsequent_bars": 3,
+    "tick_points": 0.25,
+    "point_dollars": 50,
+    "fees_round_trip_dollars": 5,
+    "market_stop_slippage_ticks": 1,
+    "target_trade_through_ticks": 1,
+    "entry_policies": [
+      "early",
+      "confirmed"
+    ],
+    "ema_masks": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "exit_policies": [
+      "fixed_2r",
+      "verne"
+    ],
+    "portfolio": "first_candidate_before_filters_one_contract_one_trade_per_day",
+    "primary": "early_minus_confirmed_A_fixed_2r_net_dollars_per_eligible_session",
+    "development": [
+      2022,
+      2023,
+      2024
+    ],
+    "validation": [
+      2025
+    ],
+    "temporal_test": [
+      2026
+    ],
+    "inspiration_date": "2026-09-15",
+    "inspiration_date_specific_exclusion": false,
+    "historical_available_at": null,
+    "bootstrap_seed": 26021,
+    "bootstrap_resamples": 4000,
+    "sensitivities": {
+      "slippage_ticks": [
+        2,
+        4
+      ],
+      "stop_buffer_points": [
+        0.5,
+        1.5
+      ],
+      "proximity_atr_multiplier": [
+        0.05,
+        0.15
+      ]
+    },
+    "cvd": "excluded",
+    "hosted_deployment": false
+  },
+  "bootstrap_seed": 26021,
+  "bootstrap_resamples": 4000,
+  "inspiration_date": "2026-09-15",
+  "inspiration_included": true,
+  "baseline_variants": 16,
+  "sensitivities": [
+    {
+      "name": "slippage_2",
+      "slippage": 2
+    },
+    {
+      "name": "slippage_4",
+      "slippage": 4
+    },
+    {
+      "name": "stop_buffer_0.5",
+      "stop_buffer": 0.5
+    },
+    {
+      "name": "stop_buffer_1.5",
+      "stop_buffer": 1.5
+    },
+    {
+      "name": "proximity_0.05",
+      "proximity": 0.05
+    },
+    {
+      "name": "proximity_0.15",
+      "proximity": 0.15
+    }
+  ]
+}

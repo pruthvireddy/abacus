@@ -1,0 +1,159 @@
+{
+  "study_id": "22_es_range_xv_focused",
+  "protocol_version": "0.2.0",
+  "status": "implementation_and_execution_authorized",
+  "scope": {
+    "product": "ES",
+    "available_settings_ticks": [
+      4,
+      5,
+      6
+    ],
+    "selected_analysis_settings_ticks": [
+      4,
+      5,
+      6
+    ],
+    "pool_settings": false,
+    "first_research_question": "How many consecutive same-direction completed candles occur in each bullish and bearish ES Range XV trend?",
+    "metrics": [
+      "trend_length_candles",
+      "trend_length_distribution",
+      "trend_length_survival"
+    ]
+  },
+  "reporting": {
+    "timezone": "America/New_York",
+    "input_timestamp_basis": "already_normalized_inferred_new_york_wall_time",
+    "interval_bounds": "start_inclusive_end_exclusive",
+    "year_basis": "session_date_proxy",
+    "session_rollover": "18:00",
+    "bar_membership_timestamp": "bar_start_timestamp",
+    "event_membership_timestamp": "declare_per_metric_before_execution",
+    "required_sections": [
+      "overall",
+      "yearly",
+      "timeframes",
+      "yearly_by_timeframe"
+    ],
+    "timeframe_membership": "independent_overlapping_filters",
+    "outside_timeframes": "retain_in_all_hours_and_yearly_totals",
+    "empty_cells": {
+      "count": 0,
+      "estimate": null
+    },
+    "partial_coverage_years": [
+      2019,
+      2026
+    ],
+    "timeframes": [
+      {
+        "id": "asia",
+        "label": "Asia",
+        "group": "sessions",
+        "start": "20:00",
+        "end": "02:00"
+      },
+      {
+        "id": "london",
+        "label": "London",
+        "group": "sessions",
+        "start": "02:00",
+        "end": "09:00"
+      },
+      {
+        "id": "ny",
+        "label": "NY",
+        "group": "sessions",
+        "start": "09:30",
+        "end": "16:00"
+      },
+      {
+        "id": "asia_open",
+        "label": "Asia Open",
+        "group": "subwindows",
+        "start": "19:30",
+        "end": "21:30"
+      },
+      {
+        "id": "ny_open",
+        "label": "NY Open",
+        "group": "subwindows",
+        "start": "09:30",
+        "end": "10:30"
+      },
+      {
+        "id": "ny_am",
+        "label": "NY AM",
+        "group": "subwindows",
+        "start": "10:30",
+        "end": "12:30"
+      },
+      {
+        "id": "ny_pm",
+        "label": "NY PM",
+        "group": "subwindows",
+        "start": "12:30",
+        "end": "16:00"
+      }
+    ],
+    "trend_membership_timestamp": "first_candle_bar_start_timestamp"
+  },
+  "data": {
+    "inputs_lock": "inputs.lock.json",
+    "columns": [
+      "open",
+      "high",
+      "low",
+      "close"
+    ],
+    "volume_available": false,
+    "availability": "completion_proxy_only",
+    "terminal_session": "exclude_entire_partial_final_session_from_primary",
+    "excluded_session_dates": [
+      "2026-09-24"
+    ]
+  },
+  "execution": {
+    "statistics_implemented": true,
+    "staging_directory": "work/22_es_range_xv_focused",
+    "completed_directory": "runs/22_es_range_xv_focused"
+  },
+  "trend_definition": {
+    "direction": "exact_decimal_sign_close_minus_open",
+    "doji": "breaks_run_and_is_not_a_directional_candle",
+    "primary_completed_statuses": [
+      "next_bar_start_proxy",
+      "next_bar_start_same_second"
+    ],
+    "session_boundary": "break_segment_without_treating_unobserved_end_as_exact",
+    "left_censored": "first_directional_leg_of_a_segment_without_an_observed_completed_predecessor",
+    "right_censored": "no_observed_completed_opposite_or_doji_breaker",
+    "exact_population": "neither_left_nor_right_censored",
+    "identical_rows": "retain_original_rows_and_flag_only",
+    "same_second_rows": "retain_source_row_order",
+    "timeframe_boundary": "do_not_truncate_trend",
+    "grouping": "first_candle_start_time_and_its_inferred_session_date",
+    "summary_quantiles": "linear_interpolation_at_(n-1)*q",
+    "mode": "smallest_tied_mode_with_all_ties_recorded",
+    "histogram_bins": [
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6-7",
+      "8-9",
+      "10-14",
+      "15-19",
+      "20+"
+    ],
+    "survival_thresholds": [
+      2,
+      3,
+      5,
+      10,
+      20
+    ]
+  }
+}

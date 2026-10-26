@@ -1,0 +1,701 @@
+{
+  "provenance": {
+    "assets": [],
+    "sourceSha256": "97eca10adb56b62d74bad7c53fd27460189af7b8fb7ada046ba41111cf34472f"
+  },
+  "report": {
+    "id": "11-vwap-conditional-probabilities-20261006-web",
+    "publishedAt": "2026-10-06T23:09:36Z",
+    "schemaVersion": "1.0",
+    "sections": [
+      {
+        "body": "The saved run asks A: whether a mature departure returns to checkpoint-frozen VWAP within thirty minutes; B: whether frozen VWAP return occurs before a half-sigma extension; C: which of frozen day and session VWAP is reached first after a session failure. ES, NQ and GC remain separate.",
+        "id": "question",
+        "kind": "text",
+        "title": "Question and scope"
+      },
+      {
+        "body": "Checkpoint rates depend on the selected population. Return-first and extension-first compete with neither and same-bar ambiguous outcomes. Destination events retain both day-first and session-first outcomes. Added geometry improves context prediction only modestly and without an executable strategy claim.",
+        "id": "findings",
+        "kind": "text",
+        "title": "Supported findings"
+      },
+      {
+        "columns": [
+          {
+            "key": "question",
+            "label": "question"
+          },
+          {
+            "key": "product",
+            "label": "product"
+          },
+          {
+            "key": "population",
+            "label": "population"
+          },
+          {
+            "key": "future_event",
+            "label": "Event"
+          },
+          {
+            "format": "number",
+            "key": "numerator",
+            "label": "numerator",
+            "precision": 0
+          },
+          {
+            "format": "number",
+            "key": "denominator",
+            "label": "denominator",
+            "precision": 0
+          },
+          {
+            "format": "percent",
+            "key": "probability",
+            "label": "probability",
+            "precision": 1
+          },
+          {
+            "format": "percent",
+            "key": "ci_low",
+            "label": "95% low",
+            "precision": 1
+          },
+          {
+            "format": "percent",
+            "key": "ci_high",
+            "label": "95% high",
+            "precision": 1
+          },
+          {
+            "format": "number",
+            "key": "episodes",
+            "label": "episodes",
+            "precision": 0
+          }
+        ],
+        "id": "atlas",
+        "kind": "table",
+        "rows": [
+          {
+            "ci_high": 0.22529776508650845,
+            "ci_low": 0.21548258223616118,
+            "denominator": 165983,
+            "episodes": 19882,
+            "future_event": "frozen VWAP contact within 30 minutes",
+            "numerator": 36501,
+            "population": "at-risk departure checkpoints",
+            "probability": 0.21990806287390877,
+            "product": "ES",
+            "question": "A"
+          },
+          {
+            "ci_high": 0.17546771105526116,
+            "ci_low": 0.16776449407519323,
+            "denominator": 165983,
+            "episodes": 19882,
+            "future_event": "frozen VWAP before 0.5-sigma extension",
+            "numerator": 28438,
+            "population": "same at-risk checkpoints",
+            "probability": 0.17133079893724057,
+            "product": "ES",
+            "question": "B"
+          },
+          {
+            "ci_high": 0.22621520429528288,
+            "ci_low": 0.19959129193012518,
+            "denominator": 3918,
+            "episodes": 3918,
+            "future_event": "frozen day VWAP before session reclaim",
+            "numerator": 832,
+            "population": "mature corridor failures",
+            "probability": 0.21235324144971923,
+            "product": "ES",
+            "question": "C"
+          },
+          {
+            "ci_high": 0.20969049287592834,
+            "ci_low": 0.20010298908749466,
+            "denominator": 192155,
+            "episodes": 21205,
+            "future_event": "frozen VWAP contact within 30 minutes",
+            "numerator": 39411,
+            "population": "at-risk departure checkpoints",
+            "probability": 0.20510004943925478,
+            "product": "NQ",
+            "question": "A"
+          },
+          {
+            "ci_high": 0.16331829767810158,
+            "ci_low": 0.1556989203598857,
+            "denominator": 192155,
+            "episodes": 21205,
+            "future_event": "frozen VWAP before 0.5-sigma extension",
+            "numerator": 30576,
+            "population": "same at-risk checkpoints",
+            "probability": 0.15912154250474878,
+            "product": "NQ",
+            "question": "B"
+          },
+          {
+            "ci_high": 0.21875548290094884,
+            "ci_low": 0.19955604976853158,
+            "denominator": 6993,
+            "episodes": 6993,
+            "future_event": "frozen day VWAP before session reclaim",
+            "numerator": 1461,
+            "population": "mature corridor failures",
+            "probability": 0.20892320892320893,
+            "product": "NQ",
+            "question": "C"
+          },
+          {
+            "ci_high": 0.20256620895409871,
+            "ci_low": 0.19296698183614175,
+            "denominator": 131697,
+            "episodes": 14536,
+            "future_event": "frozen VWAP contact within 30 minutes",
+            "numerator": 26015,
+            "population": "at-risk departure checkpoints",
+            "probability": 0.19753677000994707,
+            "product": "GC",
+            "question": "A"
+          },
+          {
+            "ci_high": 0.15800956573764657,
+            "ci_low": 0.14963075828998434,
+            "denominator": 131697,
+            "episodes": 14536,
+            "future_event": "frozen VWAP before 0.5-sigma extension",
+            "numerator": 20220,
+            "population": "same at-risk checkpoints",
+            "probability": 0.15353424907173285,
+            "product": "GC",
+            "question": "B"
+          },
+          {
+            "ci_high": 0.15259110701280643,
+            "ci_low": 0.1295632055089364,
+            "denominator": 4167,
+            "episodes": 4167,
+            "future_event": "frozen day VWAP before session reclaim",
+            "numerator": 587,
+            "population": "mature corridor failures",
+            "probability": 0.14086873050155987,
+            "product": "GC",
+            "question": "C"
+          }
+        ],
+        "title": "Primary all-history probabilities by product"
+      },
+      {
+        "columns": [
+          {
+            "key": "product",
+            "label": "product"
+          },
+          {
+            "key": "outcome_class",
+            "label": "Outcome"
+          },
+          {
+            "format": "number",
+            "key": "numerator",
+            "label": "numerator",
+            "precision": 0
+          },
+          {
+            "format": "number",
+            "key": "denominator",
+            "label": "denominator",
+            "precision": 0
+          },
+          {
+            "format": "percent",
+            "key": "probability",
+            "label": "probability",
+            "precision": 1
+          },
+          {
+            "format": "percent",
+            "key": "ci_low",
+            "label": "95% low",
+            "precision": 1
+          },
+          {
+            "format": "percent",
+            "key": "ci_high",
+            "label": "95% high",
+            "precision": 1
+          }
+        ],
+        "id": "competition",
+        "kind": "table",
+        "rows": [
+          {
+            "ci_high": 0.17546771105526116,
+            "ci_low": 0.16776449407519323,
+            "denominator": 165983,
+            "numerator": 28438,
+            "outcome_class": "return first",
+            "probability": 0.17133079893724057,
+            "product": "ES"
+          },
+          {
+            "ci_high": 0.46261991304179073,
+            "ci_low": 0.4520008520530152,
+            "denominator": 165983,
+            "numerator": 75903,
+            "outcome_class": "extension first",
+            "probability": 0.4572938192465493,
+            "product": "ES"
+          },
+          {
+            "ci_high": 0.3770856787082645,
+            "ci_low": 0.36244934285685865,
+            "denominator": 165983,
+            "numerator": 61380,
+            "outcome_class": "neither",
+            "probability": 0.36979690691215367,
+            "product": "ES"
+          },
+          {
+            "ci_high": 0.0018601926200826433,
+            "ci_low": 0.001292583452735693,
+            "denominator": 165983,
+            "numerator": 262,
+            "outcome_class": "ambiguous",
+            "probability": 0.0015784749040564396,
+            "product": "ES"
+          },
+          {
+            "ci_high": 0.16331829767810158,
+            "ci_low": 0.1556989203598857,
+            "denominator": 192155,
+            "numerator": 30576,
+            "outcome_class": "return first",
+            "probability": 0.15912154250474878,
+            "product": "NQ"
+          },
+          {
+            "ci_high": 0.46328236242035925,
+            "ci_low": 0.4542469758633842,
+            "denominator": 192155,
+            "numerator": 88109,
+            "outcome_class": "extension first",
+            "probability": 0.45853087351356975,
+            "product": "NQ"
+          },
+          {
+            "ci_high": 0.38749238037778244,
+            "ci_low": 0.3747882627872065,
+            "denominator": 192155,
+            "numerator": 73233,
+            "outcome_class": "neither",
+            "probability": 0.38111420467851476,
+            "product": "NQ"
+          },
+          {
+            "ci_high": 0.001513684322507234,
+            "ci_low": 0.0010423046835675324,
+            "denominator": 192155,
+            "numerator": 237,
+            "outcome_class": "ambiguous",
+            "probability": 0.0012333793031667143,
+            "product": "NQ"
+          },
+          {
+            "ci_high": 0.15800956573764657,
+            "ci_low": 0.14963075828998434,
+            "denominator": 131697,
+            "numerator": 20220,
+            "outcome_class": "return first",
+            "probability": 0.15353424907173285,
+            "product": "GC"
+          },
+          {
+            "ci_high": 0.4288858054956413,
+            "ci_low": 0.41930268484070776,
+            "denominator": 131697,
+            "numerator": 55835,
+            "outcome_class": "extension first",
+            "probability": 0.4239656180474878,
+            "product": "GC"
+          },
+          {
+            "ci_high": 0.4282183544285642,
+            "ci_low": 0.4155049417424836,
+            "denominator": 131697,
+            "numerator": 55495,
+            "outcome_class": "neither",
+            "probability": 0.4213839343341154,
+            "product": "GC"
+          },
+          {
+            "ci_high": 0.0013825528669426336,
+            "ci_low": 0.0009034526780164096,
+            "denominator": 131697,
+            "numerator": 147,
+            "outcome_class": "ambiguous",
+            "probability": 0.0011161985466639332,
+            "product": "GC"
+          }
+        ],
+        "title": "B: return versus extension, including unresolved outcomes"
+      },
+      {
+        "columns": [
+          {
+            "key": "product",
+            "label": "product"
+          },
+          {
+            "key": "outcome_class",
+            "label": "Outcome"
+          },
+          {
+            "format": "number",
+            "key": "numerator",
+            "label": "numerator",
+            "precision": 0
+          },
+          {
+            "format": "number",
+            "key": "denominator",
+            "label": "denominator",
+            "precision": 0
+          },
+          {
+            "format": "percent",
+            "key": "probability",
+            "label": "probability",
+            "precision": 1
+          },
+          {
+            "format": "percent",
+            "key": "ci_low",
+            "label": "95% low",
+            "precision": 1
+          },
+          {
+            "format": "percent",
+            "key": "ci_high",
+            "label": "95% high",
+            "precision": 1
+          }
+        ],
+        "id": "destinations",
+        "kind": "table",
+        "rows": [
+          {
+            "ci_high": 0.22621520429528288,
+            "ci_low": 0.19959129193012518,
+            "denominator": 3918,
+            "numerator": 832,
+            "outcome_class": "day first",
+            "probability": 0.21235324144971923,
+            "product": "ES"
+          },
+          {
+            "ci_high": 0.7576080054504138,
+            "ci_low": 0.7276431652658922,
+            "denominator": 3918,
+            "numerator": 2912,
+            "outcome_class": "session first",
+            "probability": 0.7432363450740174,
+            "product": "ES"
+          },
+          {
+            "ci_high": 0.021766470830942918,
+            "ci_low": 0.013838417624671402,
+            "denominator": 3918,
+            "numerator": 69,
+            "outcome_class": "neither",
+            "probability": 0.01761102603369066,
+            "product": "ES"
+          },
+          {
+            "ci_high": 0.03159090156033776,
+            "ci_low": 0.022358232175323196,
+            "denominator": 3918,
+            "numerator": 105,
+            "outcome_class": "ambiguous",
+            "probability": 0.02679938744257274,
+            "product": "ES"
+          },
+          {
+            "ci_high": 0.21875548290094884,
+            "ci_low": 0.19955604976853158,
+            "denominator": 6993,
+            "numerator": 1461,
+            "outcome_class": "day first",
+            "probability": 0.20892320892320893,
+            "product": "NQ"
+          },
+          {
+            "ci_high": 0.7590658310499978,
+            "ci_low": 0.7399173039444684,
+            "denominator": 6993,
+            "numerator": 5248,
+            "outcome_class": "session first",
+            "probability": 0.7504647504647505,
+            "product": "NQ"
+          },
+          {
+            "ci_high": 0.02291223041401253,
+            "ci_low": 0.016090439175520214,
+            "denominator": 6993,
+            "numerator": 136,
+            "outcome_class": "neither",
+            "probability": 0.01944801944801945,
+            "product": "NQ"
+          },
+          {
+            "ci_high": 0.025150511807112724,
+            "ci_low": 0.017667019989628125,
+            "denominator": 6993,
+            "numerator": 148,
+            "outcome_class": "ambiguous",
+            "probability": 0.021164021164021163,
+            "product": "NQ"
+          },
+          {
+            "ci_high": 0.15259110701280643,
+            "ci_low": 0.1295632055089364,
+            "denominator": 4167,
+            "numerator": 587,
+            "outcome_class": "day first",
+            "probability": 0.14086873050155987,
+            "product": "GC"
+          },
+          {
+            "ci_high": 0.8146277795265124,
+            "ci_low": 0.7923391649090257,
+            "denominator": 4167,
+            "numerator": 3347,
+            "outcome_class": "session first",
+            "probability": 0.8032157427405807,
+            "product": "GC"
+          },
+          {
+            "ci_high": 0.051431212052035415,
+            "ci_low": 0.03897819685560125,
+            "denominator": 4167,
+            "numerator": 189,
+            "outcome_class": "neither",
+            "probability": 0.04535637149028078,
+            "product": "GC"
+          },
+          {
+            "ci_high": 0.013435194727555414,
+            "ci_low": 0.007401349949290558,
+            "denominator": 4167,
+            "numerator": 44,
+            "outcome_class": "ambiguous",
+            "probability": 0.010559155267578594,
+            "product": "GC"
+          }
+        ],
+        "title": "C: day versus session destination"
+      },
+      {
+        "columns": [
+          {
+            "key": "question",
+            "label": "question"
+          },
+          {
+            "key": "product",
+            "label": "product"
+          },
+          {
+            "format": "number",
+            "key": "rows",
+            "label": "Evaluated rows",
+            "precision": 0
+          },
+          {
+            "format": "percent",
+            "key": "specific_augmented_coverage",
+            "label": "Specific-cell coverage",
+            "precision": 1
+          },
+          {
+            "format": "number",
+            "key": "baseline_brier",
+            "label": "Baseline Brier",
+            "precision": 4
+          },
+          {
+            "format": "number",
+            "key": "augmented_brier",
+            "label": "Augmented Brier",
+            "precision": 4
+          },
+          {
+            "format": "number",
+            "key": "brier_difference",
+            "label": "Difference",
+            "precision": 4
+          },
+          {
+            "format": "number",
+            "key": "difference_ci_low",
+            "label": "95% difference low",
+            "precision": 4
+          },
+          {
+            "format": "number",
+            "key": "difference_ci_high",
+            "label": "95% difference high",
+            "precision": 4
+          },
+          {
+            "format": "percent",
+            "key": "relative_error_reduction",
+            "label": "Relative Brier change",
+            "precision": 1
+          }
+        ],
+        "id": "models",
+        "kind": "table",
+        "rows": [
+          {
+            "augmented_brier": 0.14146118993764617,
+            "baseline_brier": 0.14193555379760792,
+            "brier_difference": -0.0004743638599617461,
+            "difference_ci_high": -0.0003169518249756365,
+            "difference_ci_low": -0.0006295866376207819,
+            "product": "ES",
+            "question": "A",
+            "relative_error_reduction": 0.0033421073668276394,
+            "rows": 86958,
+            "specific_augmented_coverage": 0.07561121460935163
+          },
+          {
+            "augmented_brier": 0.12995694506337874,
+            "baseline_brier": 0.13082352715268147,
+            "brier_difference": -0.0008665820893027365,
+            "difference_ci_high": -0.0006450135387936104,
+            "difference_ci_low": -0.0010938135348070768,
+            "product": "NQ",
+            "question": "A",
+            "relative_error_reduction": 0.0066240538545590975,
+            "rows": 99878,
+            "specific_augmented_coverage": 0.13168065039348004
+          },
+          {
+            "augmented_brier": 0.12492976466679066,
+            "baseline_brier": 0.1255361671993274,
+            "brier_difference": -0.0006064025325367289,
+            "difference_ci_high": -0.0004020507812043942,
+            "difference_ci_low": -0.0008572232324786169,
+            "product": "GC",
+            "question": "A",
+            "relative_error_reduction": 0.004830500612416164,
+            "rows": 51042,
+            "specific_augmented_coverage": 0.11380823635437483
+          },
+          {
+            "augmented_brier": 0.28464491108614653,
+            "baseline_brier": 0.28621437775038727,
+            "brier_difference": -0.0015694666642407373,
+            "difference_ci_high": -0.0010394301904802063,
+            "difference_ci_low": -0.0020246477767025387,
+            "product": "ES",
+            "question": "B",
+            "relative_error_reduction": 0.005483535371551102,
+            "rows": 86958,
+            "specific_augmented_coverage": 0.08896248763771016
+          },
+          {
+            "augmented_brier": 0.2766543629508855,
+            "baseline_brier": 0.27970140877179317,
+            "brier_difference": -0.0030470458209076456,
+            "difference_ci_high": -0.0024467426864935556,
+            "difference_ci_low": -0.003739753929366042,
+            "product": "NQ",
+            "question": "B",
+            "relative_error_reduction": 0.010893923753504271,
+            "rows": 99878,
+            "specific_augmented_coverage": 0.1804201125372955
+          },
+          {
+            "augmented_brier": 0.2613272008312684,
+            "baseline_brier": 0.26560708003724837,
+            "brier_difference": -0.004279879205979942,
+            "difference_ci_high": -0.0032663391388684654,
+            "difference_ci_low": -0.005228915822099059,
+            "product": "GC",
+            "question": "B",
+            "relative_error_reduction": 0.016113573498792794,
+            "rows": 51042,
+            "specific_augmented_coverage": 0.17734414795658476
+          },
+          {
+            "augmented_brier": 0.19955808038915931,
+            "baseline_brier": 0.19955808038915931,
+            "brier_difference": 0,
+            "difference_ci_high": 0,
+            "difference_ci_low": 0,
+            "product": "ES",
+            "question": "C",
+            "relative_error_reduction": 0,
+            "rows": 2177,
+            "specific_augmented_coverage": 0
+          },
+          {
+            "augmented_brier": 0.18574033286260977,
+            "baseline_brier": 0.18574033286260977,
+            "brier_difference": 0,
+            "difference_ci_high": 0,
+            "difference_ci_low": 0,
+            "product": "NQ",
+            "question": "C",
+            "relative_error_reduction": 0,
+            "rows": 3688,
+            "specific_augmented_coverage": 0
+          },
+          {
+            "augmented_brier": 0.16605253907232087,
+            "baseline_brier": 0.16605253907232087,
+            "brier_difference": 0,
+            "difference_ci_high": 0,
+            "difference_ci_low": 0,
+            "product": "GC",
+            "question": "C",
+            "relative_error_reduction": 0,
+            "rows": 2022,
+            "specific_augmented_coverage": 0
+          }
+        ],
+        "title": "Later evaluation: context versus added geometry"
+      },
+      {
+        "body": "Fresh departure closes at least max(one sigma, four ticks) from VWAP. Episodes mature after thirty minutes; checkpoint clock minute is divisible by ten and a full thirty-minute path must remain. A contact is future range intersection with checkpoint-frozen VWAP ±one tick; checkpoints already inside the zone are null. B freezes both barriers at the checkpoint and their unequal distances make fifty percent an inappropriate baseline. C requires a qualifying session-VWAP failure between mature day/session destinations, separated by at least eight ticks and a quarter day sigma, with thirty-minute lockout. Table outcomes use eligible checkpoint/event denominators, not independent trades. Saved 95% intervals use shared ISO-week clusters. Context-only models use frozen development cells and support fallbacks; negative relative Brier change means lower prediction error.",
+        "id": "methods",
+        "kind": "text",
+        "title": "Definitions and methods"
+      },
+      {
+        "body": "Previously viewed all-history evidence is exploratory. Episodes, repeated checkpoints and two-/five-minute sensitivities are dependent. OHLC cannot order two destinations touched in one candle; ambiguous is retained. Conditional probabilities and small model improvements do not prove causality, fills, net profitability or a pristine holdout.",
+        "id": "limitations",
+        "kind": "text",
+        "title": "Limitations and uncertainty"
+      },
+      {
+        "body": "Study 11_vwap_conditional_probabilities; source run 20260924T155331Z_vwap11. Registered reference: Explicit registered reference; retain its executed scope and saved qualifications.\n\nPresentation revision 20261006T230936Z_web11, web-study-report-1.0. Saved numerical tables are the authority; only selected rows and columns are presented. No new statistics or research execution. The publication record identifies this JSON and its selected assets.",
+        "id": "sources-provenance",
+        "kind": "text",
+        "title": "Source and presentation provenance"
+      }
+    ],
+    "source": {
+      "producer": "sahadeva",
+      "runId": "20260924T155331Z_vwap11"
+    },
+    "summary": "Conditional checkpoint and destination probabilities describe mature VWAP episodes. Geometry adds only small context-model improvements; these are exploratory associations, not trading probabilities.",
+    "title": "VWAP checkpoints: return, extension and destination probabilities"
+  }
+}

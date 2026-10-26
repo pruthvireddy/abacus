@@ -1,0 +1,830 @@
+//@version=6
+indicator("VP-HVN Levels Dev", overlay=true, max_lines_count=500, max_labels_count=500, max_boxes_count=100, max_polylines_count=6)
+
+// ─────────────────────────────────────────────────────────────────────────────
+// INPUTS
+// ─────────────────────────────────────────────────────────────────────────────
+grp_pd = "Previous Day Levels"
+pdh_pdl_on = input.bool(true, "PDH/PDL", inline="pd", group=grp_pd)
+pd_col     = input.color(color.blue, "", inline="pd", group=grp_pd)
+pd_style   = input.string("Solid", "Line Style", inline="pd_style", group=grp_pd, options=["Solid", "Dashed", "Dotted"])
+pd_width   = input.int(1, "Thickness", inline="pd_style", group=grp_pd, minval=1, maxval=5)
+anchor_time = input.session("1800-1801", "Line Anchor Start", group=grp_pd, tooltip="Lines will start drawing from the beginning of this time period each day")
+
+grp_vp = "Volume Profile Levels"
+vp_on_inp  = input.bool(true, "Enable", inline="vp1", group=grp_vp)
+vp_va_pct  = input.float(70.0, "VA%", inline="vp1", group=grp_vp)
+vp_row_tck = input.int(16, "Row(ticks)", inline="vp1", group=grp_vp, minval=1)
+
+vp_bar_offset = input.int(40, "Line Offset (Bars)", group=grp_vp, minval=0, maxval=500, tooltip="How many bars ahead of the current bar to extend the lines")
+
+// Current Week
+grp_cw   = "Current Week"
+cw_on    = input.bool(true, "Enable", inline="cw1", group=grp_cw)
+cw_vah_c = input.color(#d121c2, "VAH", inline="cw1", group=grp_cw)
+cw_poc_c = input.color(#000000, "POC", inline="cw1", group=grp_cw)
+cw_val_c = input.color(#d121c2, "VAL", inline="cw1", group=grp_cw)
+cw_style = input.string("Solid", "Line Style", inline="cw_style", group=grp_cw, options=["Solid", "Dashed", "Dotted"])
+cw_width = input.int(1, "Thickness", inline="cw_style", group=grp_cw, minval=1, maxval=5)
+
+// Previous Week
+grp_pw   = "Previous Week"
+pw_on    = input.bool(true, "Enable", inline="pw1", group=grp_pw)
+pw_vah_c = input.color(color.blue, "PW: VAH", inline="pw1", group=grp_pw)
+pw_poc_c = input.color(#000000, "PW: POC", inline="pw1", group=grp_pw)
+pw_val_c = input.color(color.blue, "PW: VAL", inline="pw1", group=grp_pw)
+pw_style = input.string("Solid", "Line Style", inline="pw_style", group=grp_pw, options=["Solid", "Dashed", "Dotted"])
+pw_width = input.int(1, "Thickness", inline="pw_style", group=grp_pw, minval=1, maxval=5)
+
+// Previous Day RTH
+grp_pd_rth = "Previous Day RTH"
+pd_rth_sess  = input.session("0930-1600", "Duration", group=grp_pd_rth)
+rth_on    = input.bool(true, "Enable", inline="rth1", group=grp_pd_rth)
+rth_vah_c = input.color(color.green, "RTH: VAH", inline="rth1", group=grp_pd_rth)
+rth_poc_c = input.color(color.black, "RTH: POC", inline="rth1", group=grp_pd_rth)
+rth_val_c = input.color(color.green, "RTH: VAL", inline="rth1", group=grp_pd_rth)
+rth_style = input.string("Solid", "Line Style", inline="rth_style", group=grp_pd_rth, options=["Solid", "Dashed", "Dotted"])
+rth_width = input.int(1, "Thickness", inline="rth_style", group=grp_pd_rth, minval=1, maxval=5)
+
+// Developing RTH
+grp_dev_rth = "Developing RTH"
+dev_rth_sess  = input.session("0930-1600", "Duration", group=grp_dev_rth)
+dev_rth_on    = input.bool(true, "Enable", inline="dev1", group=grp_dev_rth)
+dev_rth_vah_c = input.color(color.red, "RTH: VAH", inline="dev1", group=grp_dev_rth)
+dev_rth_poc_c = input.color(color.black, "RTH: POC", inline="dev1", group=grp_dev_rth)
+dev_rth_val_c = input.color(color.red, "RTH: VAL", inline="dev1", group=grp_dev_rth)
+dev_rth_dev_style = input.string("Dotted", "Developing Style", group=grp_dev_rth, options=["Solid", "Dashed", "Dotted"])
+dev_rth_final_style = input.string("Solid", "Completed Style", group=grp_dev_rth, options=["Solid", "Dashed", "Dotted"])
+dev_rth_width = input.int(1, "Thickness", group=grp_dev_rth, minval=1, maxval=5)
+
+// Overnight
+grp_on   = "Overnight"
+on_sess  = input.session("1800-0930", "Duration", group=grp_on)
+on_on    = input.bool(true, "Enable", inline="on1", group=grp_on)
+on_vah_c = input.color(color.orange, "ON: VAH", inline="on1", group=grp_on)
+on_poc_c = input.color(color.black, "ON: POC", inline="on1", group=grp_on)
+on_val_c = input.color(color.orange, "ON: VAL", inline="on1", group=grp_on)
+on_dev_style = input.string("Dotted", "Developing Style", group=grp_on, options=["Solid", "Dashed", "Dotted"])
+on_final_style = input.string("Solid", "Completed Style", group=grp_on, options=["Solid", "Dashed", "Dotted"])
+on_width = input.int(1, "Thickness", group=grp_on, minval=1, maxval=5)
+
+// Smart HVN Zones
+grp_hvn = "Smart HVN Zones"
+hvn_on = input.bool(true, "Enable", inline="hvn1", group=grp_hvn)
+hvn_sessions = input.int(10, "Sessions", inline="hvn1", group=grp_hvn, minval=2, maxval=60,
+     tooltip="Completed 18:00-17:00 futures sessions plus the developing session used to build one composite profile.")
+hvn_use_1m = input.bool(true, "Use 1-minute intrabars", group=grp_hvn,
+     tooltip="Uses 1-minute bars inside higher-timeframe chart bars for a sharper profile. Disable to use chart bars.")
+hvn_row_tck = input.int(4, "Row (ticks)", inline="hvn2", group=grp_hvn, minval=1)
+hvn_smooth = input.int(3, "Smooth", inline="hvn2", group=grp_hvn, minval=1, maxval=15,
+     tooltip="Centered moving-average width in profile rows. 1 disables smoothing.")
+hvn_peak_pct = input.float(20.0, "Peak min %", inline="hvn3", group=grp_hvn, minval=1, maxval=100,
+     tooltip="A local peak must be at least this percentage of the composite profile's tallest row.")
+hvn_peak_win = input.int(5, "Peak window", inline="hvn3", group=grp_hvn, minval=1, maxval=50)
+hvn_min_prom = input.float(10.0, "Min prominence %", inline="hvn4", group=grp_hvn, minval=0, maxval=100,
+     tooltip="Rejects shallow shoulders that do not separate cleanly from neighboring nodes.")
+hvn_zone_pct = input.float(60.0, "Width %", inline="hvn4", group=grp_hvn, minval=10, maxval=100,
+     tooltip="Expands from each peak until volume falls this share of the way toward the surrounding trough.")
+hvn_max_zone_tck = input.int(8, "Max zone (ticks)", inline="hvn5", group=grp_hvn, minval=1,
+     tooltip="Caps each HVN band so it stays visually thin.")
+hvn_merge_tck = input.int(8, "Merge gap", inline="hvn5", group=grp_hvn, minval=0,
+     tooltip="Nearby nodes within this many ticks compete; only the stronger node survives.")
+hvn_vp_gap_tck = input.int(8, "VP clearance (ticks)", inline="hvn6", group=grp_hvn, minval=0,
+     tooltip="Rejects an HVN zone when it overlaps or sits within this distance of any enabled VP, PDH, or PDL level.")
+hvn_zone_gap_tck = input.int(8, "Zone clearance", inline="hvn6", group=grp_hvn, minval=0,
+     tooltip="Minimum separation between the selected HVN zones.")
+hvn_recalc_min = input.int(15, "Rebuild profile every (minutes)", group=grp_hvn, minval=1, maxval=240,
+     tooltip="Rebuilds on the first chart-bar close at or after this interval, and at a new futures session's first bar close. Selection around current price updates on every tick.")
+hvn_above_c = input.color(#42A5F5, "Above", inline="hvn7", group=grp_hvn)
+hvn_below_c = input.color(#42A5F5, "Below", inline="hvn7", group=grp_hvn)
+hvn_fill_transp = input.int(86, "Fill transparency", inline="hvn8", group=grp_hvn, minval=0, maxval=100)
+hvn_show_mid = input.bool(false, "Center line", inline="hvn8", group=grp_hvn)
+hvn_show_labels = input.bool(false, "Labels", group=grp_hvn)
+hvn_mid_style = input.string("Dotted", "Center Line Style", inline="hvn_mid", group=grp_hvn, options=["Solid", "Dashed", "Dotted"])
+hvn_mid_width = input.int(1, "Thickness", inline="hvn_mid", group=grp_hvn, minval=1, maxval=5)
+
+f_line_style(string selection) =>
+    switch selection
+        "Dashed" => line.style_dashed
+        "Dotted" => line.style_dotted
+        => line.style_solid
+
+// ─────────────────────────────────────────────────────────────────────────────
+// SESSIONS AND TIME
+// ─────────────────────────────────────────────────────────────────────────────
+SESSION_TZ = "America/New_York"
+fut_sess = "1800-1700"
+
+in_sess(sess) => timeframe.isintraday and not na(time(timeframe.period, sess, SESSION_TZ))
+
+pd_rth_in = in_sess(pd_rth_sess)
+dev_rth_in = in_sess(dev_rth_sess)
+on_in = in_sess(on_sess)
+fut_in = in_sess(fut_sess)
+
+// Calendar boundaries remain valid when the chart has no 18:00 bar. Build both
+// endpoints in New York time so month/year rollovers and DST are handled alike.
+int fut_day = dayofmonth(time, SESSION_TZ) - (hour(time, SESSION_TZ) < 18 ? 1 : 0)
+int fut_start = timestamp(SESSION_TZ, year(time, SESSION_TZ), month(time, SESSION_TZ), fut_day, 18, 0)
+int fut_end = timestamp(SESSION_TZ, year(fut_start, SESSION_TZ), month(fut_start, SESSION_TZ), dayofmonth(fut_start, SESSION_TZ) + 1, 17, 0)
+var int fut_active_start = na
+bool isNewFut = fut_in and (na(fut_active_start) or fut_start != fut_active_start)
+if fut_in
+    fut_active_start := fut_start
+
+anchor_in = in_sess(anchor_time)
+isNewAnchor = anchor_in and not anchor_in[1]
+
+// Store a timestamp instead of a bar index so replay cannot exhaust a
+// historical time buffer when the anchor becomes many bars old.
+var int anchor_time_start = na
+if isNewAnchor
+    anchor_time_start := time
+
+// Logic to show dev RTH profile until 18:00
+var bool show_dev_rth = false
+if isNewFut
+    show_dev_rth := false
+if dev_rth_in and not dev_rth_in[1]
+    show_dev_rth := true
+
+// ─────────────────────────────────────────────────────────────────────────────
+// VP HELPERS
+// ─────────────────────────────────────────────────────────────────────────────
+type VPData
+    float[] bins
+    int minKey
+    int maxKey
+    float totVol
+    float vah
+    float poc
+    float val
+    float prev_vah
+    float prev_poc
+    float prev_val
+
+method init(VPData vp) =>
+    if na(vp.bins)
+        vp.bins := array.new_float()
+    else
+        array.clear(vp.bins)
+    vp.minKey := na
+    vp.maxKey := na
+    vp.totVol := 0.0
+
+method update_levels(VPData vp, float rowSize, float vaPct) =>
+    int n = array.size(vp.bins)
+    if n > 0 and vp.totVol > 0 and not na(vp.minKey)
+        float maxV = array.get(vp.bins, 0)
+        int pocIdx = 0
+        if n > 1
+            for i = 1 to n - 1
+                float v = array.get(vp.bins, i)
+                if v > maxV
+                    maxV := v
+                    pocIdx := i
+        vp.poc := (vp.minKey + pocIdx) * rowSize
+        float target = vp.totVol * (vaPct / 100.0)
+        float cum = maxV
+        int lo = pocIdx
+        int hi = pocIdx
+        while cum < target and (lo > 0 or hi < n - 1)
+            float vBelow = lo > 0 ? array.get(vp.bins, lo - 1) : -1.0
+            float vAbove = hi < n - 1 ? array.get(vp.bins, hi + 1) : -1.0
+            if vAbove >= vBelow
+                if hi < n - 1
+                    hi += 1
+                    cum += array.get(vp.bins, hi)
+            else
+                if lo > 0
+                    lo -= 1
+                    cum += array.get(vp.bins, lo)
+        vp.val := (vp.minKey + lo) * rowSize
+        vp.vah := (vp.minKey + hi) * rowSize
+
+method add_vol(VPData vp, float vBar, float pHigh, float pLow, float rowSize) =>
+    int lowKey = int(math.floor(pLow / rowSize))
+    int highKey = int(math.floor(pHigh / rowSize))
+    if lowKey > highKey
+        int tmp = lowKey
+        lowKey := highKey
+        highKey := tmp
+    if na(vp.minKey)
+        vp.minKey := lowKey
+        vp.maxKey := highKey
+        int diff = vp.maxKey - vp.minKey
+        for _ = 0 to diff
+            array.push(vp.bins, 0.0)
+    else
+        if lowKey < vp.minKey
+            int diff = vp.minKey - lowKey
+            for _ = 1 to diff
+                array.unshift(vp.bins, 0.0)
+            vp.minKey := lowKey
+        if highKey > vp.maxKey
+            int diff = highKey - vp.maxKey
+            for _ = 1 to diff
+                array.push(vp.bins, 0.0)
+            vp.maxKey := highKey
+    int span = highKey - lowKey + 1
+    float perBinVol = span > 0 ? vBar / span : 0.0
+    for k = lowKey to highKey
+        int idx = k - vp.minKey
+        if idx >= 0 and idx < array.size(vp.bins)
+            array.set(vp.bins, idx, array.get(vp.bins, idx) + perBinVol)
+    vp.totVol += vBar
+
+// Store only level changes. Each pair makes a horizontal run followed by a
+// vertical step, so earlier prices stay where they developed during the session.
+// Leave one point free for the current-bar endpoint in the rendered polyline.
+const int VP_STEP_MAX_POINTS = 9999
+type VPSteps
+    array<chart.point> points
+    polyline path
+
+method reset(VPSteps steps) =>
+    array.clear(steps.points)
+    steps
+
+method record(VPSteps steps, float price) =>
+    if not na(price)
+        int count = array.size(steps.points)
+        if count == 0
+            array.push(steps.points, chart.point.from_time(time, price))
+        else
+            chart.point last = array.get(steps.points, count - 1)
+            if price != last.price
+                // On very dense charts, retain the newest complete steps.
+                if count >= VP_STEP_MAX_POINTS
+                    array.shift(steps.points)
+                    array.shift(steps.points)
+                array.push(steps.points, chart.point.from_time(time, last.price))
+                array.push(steps.points, chart.point.from_time(time, price))
+    steps
+
+method draw(VPSteps steps, bool show, color col, string style, int width) =>
+    if not na(steps.path)
+        polyline.delete(steps.path)
+    steps.path := na
+    if show and array.size(steps.points) > 0
+        // This endpoint extends an unchanged level through the current bar.
+        // Use a copy so the stored history contains only actual level changes.
+        array<chart.point> draw_points = array.copy(steps.points)
+        chart.point last = array.get(draw_points, array.size(draw_points) - 1)
+        if last.time < time
+            array.push(draw_points, chart.point.from_time(time, last.price))
+        if array.size(draw_points) > 1
+            steps.path := polyline.new(draw_points, curved=false, closed=false,
+                 xloc=xloc.bar_time, line_color=col, line_style=style, line_width=width)
+    steps
+
+// ─────────────────────────────────────────────────────────────────────────────
+// STATE & UPDATES
+// ─────────────────────────────────────────────────────────────────────────────
+var VPData vp_week = VPData.new()
+var VPData vp_pd_rth = VPData.new()
+var VPData vp_dev_rth = VPData.new()
+var VPData on_vp = VPData.new()
+var VPSteps on_vah_steps = VPSteps.new(array.new<chart.point>())
+var VPSteps on_poc_steps = VPSteps.new(array.new<chart.point>())
+var VPSteps on_val_steps = VPSteps.new(array.new<chart.point>())
+var VPSteps dev_vah_steps = VPSteps.new(array.new<chart.point>())
+var VPSteps dev_poc_steps = VPSteps.new(array.new<chart.point>())
+var VPSteps dev_val_steps = VPSteps.new(array.new<chart.point>())
+
+if barstate.isfirst
+    vp_week.init()
+    vp_pd_rth.init()
+    vp_dev_rth.init()
+    on_vp.init()
+
+float rowSize = syminfo.mintick * vp_row_tck
+
+isNewWeek = ta.change(time("W")) != 0
+if isNewWeek
+    vp_week.prev_vah := vp_week.vah
+    vp_week.prev_poc := vp_week.poc
+    vp_week.prev_val := vp_week.val
+    vp_week.init()
+
+isNewPDRTH = pd_rth_in and not pd_rth_in[1]
+if isNewPDRTH
+    vp_pd_rth.prev_vah := vp_pd_rth.vah
+    vp_pd_rth.prev_poc := vp_pd_rth.poc
+    vp_pd_rth.prev_val := vp_pd_rth.val
+    vp_pd_rth.init()
+
+isNewDevRTH = dev_rth_in and not dev_rth_in[1]
+if isNewDevRTH
+    vp_dev_rth.prev_vah := vp_dev_rth.vah
+    vp_dev_rth.prev_poc := vp_dev_rth.poc
+    vp_dev_rth.prev_val := vp_dev_rth.val
+    vp_dev_rth.init()
+
+isNewON = on_in and not on_in[1]
+if isNewON
+    on_vp.prev_vah := on_vp.vah
+    on_vp.prev_poc := on_vp.poc
+    on_vp.prev_val := on_vp.val
+    on_vp.init()
+
+float vBar = na(volume) ? 0.0 : volume
+if vp_on_inp
+    vp_week.add_vol(vBar, high, low, rowSize)
+    vp_week.update_levels(rowSize, vp_va_pct)
+
+    if pd_rth_in
+        vp_pd_rth.add_vol(vBar, high, low, rowSize)
+        vp_pd_rth.update_levels(rowSize, vp_va_pct)
+
+    if dev_rth_in
+        vp_dev_rth.add_vol(vBar, high, low, rowSize)
+        vp_dev_rth.update_levels(rowSize, vp_va_pct)
+
+    if on_in
+        on_vp.add_vol(vBar, high, low, rowSize)
+        on_vp.update_levels(rowSize, vp_va_pct)
+
+// Collect on every chart bar, including historical bars and replay. Normal
+// rollback replaces the live bar's provisional step on each realtime update.
+if isNewON or not on_in
+    on_vah_steps.reset()
+    on_poc_steps.reset()
+    on_val_steps.reset()
+if vp_on_inp and on_on and on_in and on_vp.totVol > 0
+    on_vah_steps.record(on_vp.vah)
+    on_poc_steps.record(on_vp.poc)
+    on_val_steps.record(on_vp.val)
+
+if isNewDevRTH or not dev_rth_in
+    dev_vah_steps.reset()
+    dev_poc_steps.reset()
+    dev_val_steps.reset()
+if vp_on_inp and dev_rth_on and dev_rth_in and vp_dev_rth.totVol > 0
+    dev_vah_steps.record(vp_dev_rth.vah)
+    dev_poc_steps.record(vp_dev_rth.poc)
+    dev_val_steps.record(vp_dev_rth.val)
+
+// PDH / PDL
+var float pdh_c = na
+var float pdl_c = na
+var float pdh_p = na
+var float pdl_p = na
+
+if isNewFut
+    pdh_p := pdh_c
+    pdl_p := pdl_c
+    pdh_c := high
+    pdl_c := low
+
+if fut_in
+    pdh_c := math.max(nz(pdh_c, high), high)
+    pdl_c := math.min(nz(pdl_c, low), low)
+
+// Displayed RTH values are also used by the HVN collision filter.
+float draw_rth_vah = pd_rth_in ? vp_pd_rth.prev_vah : vp_pd_rth.vah
+float draw_rth_poc = pd_rth_in ? vp_pd_rth.prev_poc : vp_pd_rth.poc
+float draw_rth_val = pd_rth_in ? vp_pd_rth.prev_val : vp_pd_rth.val
+
+// ─────────────────────────────────────────────────────────────────────────────
+// SMART MULTI-SESSION HVN ZONES
+// ─────────────────────────────────────────────────────────────────────────────
+// Session starts are absolute entry offsets, not an unbounded per-chart-bar map.
+// Capacity is enforced before appending; unusually dense charts can retain a
+// partial oldest session. Batch eviction avoids copying the store on every bar.
+const int HVN_MAX_ENTRIES = 90000
+var float[] hvn_ent_hi = array.new<float>()
+var float[] hvn_ent_lo = array.new<float>()
+var float[] hvn_ent_vol = array.new<float>()
+var int[] hvn_sess_start = array.new<int>()
+var int hvn_base = 0
+
+float hvn_tf_seconds = nz(timeframe.in_seconds(), 60.0)
+bool hvn_use_intrabar = hvn_use_1m and timeframe.isintraday and hvn_tf_seconds > 60
+string hvn_ltf = hvn_tf_seconds < 60 ? timeframe.period : "1"
+[hvn_ltf_hi, hvn_ltf_lo, hvn_ltf_vol] = request.security_lower_tf(syminfo.tickerid, hvn_ltf, [high, low, volume])
+
+if hvn_on and fut_in
+    int hvn_n_intra = array.size(hvn_ltf_hi)
+    int hvn_incoming = hvn_use_intrabar and hvn_n_intra > 0 ? hvn_n_intra : 1
+    int hvn_store_size = array.size(hvn_ent_hi)
+    if isNewFut or array.size(hvn_sess_start) == 0
+        array.push(hvn_sess_start, hvn_base + hvn_store_size)
+    while array.size(hvn_sess_start) > hvn_sessions + 1
+        array.shift(hvn_sess_start)
+
+    int hvn_drop_abs = array.get(hvn_sess_start, 0)
+    if hvn_store_size + hvn_incoming > HVN_MAX_ENTRIES
+        hvn_drop_abs := math.max(hvn_drop_abs, hvn_base + math.max(10000, hvn_store_size + hvn_incoming - HVN_MAX_ENTRIES))
+    int hvn_drop_entries = hvn_drop_abs - hvn_base
+    if hvn_drop_entries > 0
+        if hvn_drop_entries < hvn_store_size
+            hvn_ent_hi := array.copy(array.slice(hvn_ent_hi, hvn_drop_entries, hvn_store_size))
+            hvn_ent_lo := array.copy(array.slice(hvn_ent_lo, hvn_drop_entries, hvn_store_size))
+            hvn_ent_vol := array.copy(array.slice(hvn_ent_vol, hvn_drop_entries, hvn_store_size))
+        else
+            array.clear(hvn_ent_hi)
+            array.clear(hvn_ent_lo)
+            array.clear(hvn_ent_vol)
+        hvn_base := hvn_drop_abs
+        while array.size(hvn_sess_start) > 1 and array.get(hvn_sess_start, 1) <= hvn_base
+            array.shift(hvn_sess_start)
+        array.set(hvn_sess_start, 0, math.max(array.get(hvn_sess_start, 0), hvn_base))
+
+    if hvn_use_intrabar and hvn_n_intra > 0
+        for i = 0 to hvn_n_intra - 1
+            array.push(hvn_ent_hi, array.get(hvn_ltf_hi, i))
+            array.push(hvn_ent_lo, array.get(hvn_ltf_lo, i))
+            array.push(hvn_ent_vol, nz(array.get(hvn_ltf_vol, i)))
+    else
+        array.push(hvn_ent_hi, high)
+        array.push(hvn_ent_lo, low)
+        array.push(hvn_ent_vol, vBar)
+
+// Qualified candidate zones survive between profile rebuilds. Their relationship
+// to current price and the enabled VP levels is evaluated on every last-bar tick.
+var float[] hvn_candidate_lo = array.new<float>()
+var float[] hvn_candidate_hi = array.new<float>()
+var float[] hvn_candidate_mid = array.new<float>()
+var float[] hvn_candidate_strength = array.new<float>()
+var int hvn_last_computed_time = na
+var int hvn_last_computed_session = na
+
+f_hvn_clear_of_levels(float _lo, float _hi, float _gap, array<float> _levels) =>
+    bool _clear = true
+    int _count = array.size(_levels)
+    if _count > 0
+        for _i = 0 to _count - 1
+            float _level = array.get(_levels, _i)
+            if not na(_level) and _level >= _lo - _gap and _level <= _hi + _gap
+                _clear := false
+                break
+    _clear
+
+f_hvn_sort_nearest(array<int> _order, array<float> _mids, array<float> _strengths, float _price) =>
+    int _count = array.size(_order)
+    if _count > 1
+        for _i = 1 to _count - 1
+            int _j = _i
+            while _j > 0
+                int _a = array.get(_order, _j - 1)
+                int _b = array.get(_order, _j)
+                float _da = math.abs(array.get(_mids, _a) - _price)
+                float _db = math.abs(array.get(_mids, _b) - _price)
+                float _va = array.get(_strengths, _a)
+                float _vb = array.get(_strengths, _b)
+                if _da < _db or (_da == _db and _va >= _vb)
+                    break
+                array.set(_order, _j - 1, _b)
+                array.set(_order, _j, _a)
+                _j -= 1
+    _order
+
+f_hvn_clear_of_zones(int _candidate, array<int> _picked, array<float> _los, array<float> _his, float _gap) =>
+    bool _clear = true
+    for _selected in _picked
+        if array.get(_los, _candidate) <= array.get(_his, _selected) + _gap and
+             array.get(_his, _candidate) >= array.get(_los, _selected) - _gap
+            _clear := false
+            break
+    _clear
+
+f_hvn_select(array<int> _order, array<float> _los, array<float> _his, float _gap, float _price) =>
+    array<int> _picked = array.new<int>()
+    array<int> _above = array.new<int>()
+    array<int> _below = array.new<int>()
+    for _candidate in _order
+        bool _is_above = array.get(_los, _candidate) > _price
+        bool _is_below = array.get(_his, _candidate) < _price
+        bool _room = (_is_above and array.size(_above) < 2) or (_is_below and array.size(_below) < 2)
+        if _room and f_hvn_clear_of_zones(_candidate, _picked, _los, _his, _gap)
+            array.push(_picked, _candidate)
+            if _is_above
+                array.push(_above, _candidate)
+            else
+                array.push(_below, _candidate)
+            if array.size(_picked) == 4
+                break
+    [_above, _below]
+
+// Seed from the last confirmed history bar; thereafter rebuild only at a bar
+// close. The cache and timestamp commit together, so rollback cannot repeat it.
+bool hvn_do_compute = hvn_on and timeframe.isintraday and barstate.isconfirmed and
+     (barstate.islast or barstate.islastconfirmedhistory) and
+     (na(hvn_last_computed_time) or time_close - hvn_last_computed_time >= hvn_recalc_min * 60000 or
+     fut_start != hvn_last_computed_session)
+
+if hvn_do_compute
+    hvn_last_computed_time := time_close
+    hvn_last_computed_session := fut_start
+    array.clear(hvn_candidate_lo)
+    array.clear(hvn_candidate_hi)
+    array.clear(hvn_candidate_mid)
+    array.clear(hvn_candidate_strength)
+
+    int hvn_session_count = array.size(hvn_sess_start)
+    if hvn_session_count > 0
+        int hvn_first_entry = array.get(hvn_sess_start, 0) - hvn_base
+        int hvn_last_entry = array.size(hvn_ent_hi) - 1
+
+        if hvn_first_entry >= 0 and hvn_last_entry >= hvn_first_entry and hvn_last_entry < array.size(hvn_ent_hi)
+            float hvn_profile_low = na
+            float hvn_profile_high = na
+            for i = hvn_first_entry to hvn_last_entry
+                float _lo = array.get(hvn_ent_lo, i)
+                float _hi = array.get(hvn_ent_hi, i)
+                hvn_profile_low := na(hvn_profile_low) ? _lo : math.min(hvn_profile_low, _lo)
+                hvn_profile_high := na(hvn_profile_high) ? _hi : math.max(hvn_profile_high, _hi)
+
+            float hvn_step = syminfo.mintick * hvn_row_tck
+            int hvn_rows = int(math.ceil((hvn_profile_high - hvn_profile_low) / hvn_step)) + 1
+            if hvn_rows > 3000
+                hvn_step := math.ceil(((hvn_profile_high - hvn_profile_low) / 2999.0) / syminfo.mintick) * syminfo.mintick
+                hvn_rows := int(math.ceil((hvn_profile_high - hvn_profile_low) / hvn_step)) + 1
+
+            array<float> hvn_volume = array.new<float>(hvn_rows, 0.0)
+            for i = hvn_first_entry to hvn_last_entry
+                float _hi = array.get(hvn_ent_hi, i)
+                float _lo = array.get(hvn_ent_lo, i)
+                float _vol = array.get(hvn_ent_vol, i)
+                int _r0 = int(math.floor((_lo - hvn_profile_low) / hvn_step))
+                int _r1 = int(math.min(hvn_rows - 1, math.floor((_hi - hvn_profile_low) / hvn_step)))
+                float _share = _vol / (_r1 - _r0 + 1)
+                for _r = _r0 to _r1
+                    array.set(hvn_volume, _r, array.get(hvn_volume, _r) + _share)
+
+            array<float> hvn_smoothed = array.new<float>(hvn_rows, 0.0)
+            int hvn_half_smooth = int(math.floor(hvn_smooth / 2.0))
+            for _r = 0 to hvn_rows - 1
+                int _lo_row = math.max(0, _r - hvn_half_smooth)
+                int _hi_row = math.min(hvn_rows - 1, _r + hvn_half_smooth)
+                float _sum = 0.0
+                for _q = _lo_row to _hi_row
+                    _sum += array.get(hvn_volume, _q)
+                array.set(hvn_smoothed, _r, _sum / (_hi_row - _lo_row + 1))
+
+            float hvn_vmax = array.max(hvn_smoothed)
+            array<int> hvn_peaks = array.new<int>()
+            if hvn_vmax > 0
+                for _r = 0 to hvn_rows - 1
+                    float _value = array.get(hvn_smoothed, _r)
+                    if _value >= hvn_vmax * hvn_peak_pct / 100.0
+                        bool _is_peak = true
+                        int _lo_row = math.max(0, _r - hvn_peak_win)
+                        int _hi_row = math.min(hvn_rows - 1, _r + hvn_peak_win)
+                        for _q = _lo_row to _hi_row
+                            if _q != _r
+                                float _other = array.get(hvn_smoothed, _q)
+                                if _other > _value or (_other == _value and _q < _r)
+                                    _is_peak := false
+                                    break
+                        if _is_peak
+                            array.push(hvn_peaks, _r)
+
+            int hvn_peak_count = array.size(hvn_peaks)
+            if hvn_peak_count > 0
+                for _i = 0 to hvn_peak_count - 1
+                    int _peak_row = array.get(hvn_peaks, _i)
+                    float _peak_volume = array.get(hvn_smoothed, _peak_row)
+                    float _left_trough = _peak_volume
+                    int _q = _peak_row - 1
+                    while _q >= 0
+                        float _value = array.get(hvn_smoothed, _q)
+                        if _value > _peak_volume
+                            break
+                        _left_trough := math.min(_left_trough, _value)
+                        _q -= 1
+                    float _right_trough = _peak_volume
+                    _q := _peak_row + 1
+                    while _q < hvn_rows
+                        float _value = array.get(hvn_smoothed, _q)
+                        if _value > _peak_volume
+                            break
+                        _right_trough := math.min(_right_trough, _value)
+                        _q += 1
+
+                    float _base_volume = math.max(_left_trough, _right_trough)
+                    float _prominence = _peak_volume - _base_volume
+                    if _prominence >= _peak_volume * hvn_min_prom / 100.0
+                        float _floor = _peak_volume - _prominence * hvn_zone_pct / 100.0
+                        int _zone_lo = _peak_row
+                        while _zone_lo > 0 and array.get(hvn_smoothed, _zone_lo - 1) >= _floor
+                            _zone_lo -= 1
+                        int _zone_hi = _peak_row
+                        while _zone_hi < hvn_rows - 1 and array.get(hvn_smoothed, _zone_hi + 1) >= _floor
+                            _zone_hi += 1
+
+                        // Cap in price units, even when one histogram row is
+                        // wider than the requested band. Keep every candidate
+                        // until the live price/VP filters have run.
+                        float _mid = hvn_profile_low + (_peak_row + 0.5) * hvn_step
+                        float _half_cap = hvn_max_zone_tck * syminfo.mintick / 2.0
+                        float _lo_price = math.max(hvn_profile_low + _zone_lo * hvn_step, _mid - _half_cap)
+                        float _hi_price = math.min(hvn_profile_low + (_zone_hi + 1) * hvn_step, _mid + _half_cap)
+                        array.push(hvn_candidate_lo, _lo_price)
+                        array.push(hvn_candidate_hi, _hi_price)
+                        array.push(hvn_candidate_mid, _mid)
+                        array.push(hvn_candidate_strength, _peak_volume)
+
+var box[] hvn_boxes = array.new<box>()
+var line[] hvn_lines = array.new<line>()
+var label[] hvn_labels = array.new<label>()
+
+if barstate.islast
+    while array.size(hvn_boxes) > 0
+        box.delete(array.pop(hvn_boxes))
+    while array.size(hvn_lines) > 0
+        line.delete(array.pop(hvn_lines))
+    while array.size(hvn_labels) > 0
+        label.delete(array.pop(hvn_labels))
+
+    if hvn_on and timeframe.isintraday and array.size(hvn_candidate_lo) > 0
+        array<float> hvn_reference_levels = array.new<float>()
+        if pdh_pdl_on
+            array.push(hvn_reference_levels, pdh_p)
+            array.push(hvn_reference_levels, pdl_p)
+        if vp_on_inp and cw_on
+            array.push(hvn_reference_levels, vp_week.vah)
+            array.push(hvn_reference_levels, vp_week.poc)
+            array.push(hvn_reference_levels, vp_week.val)
+        if vp_on_inp and pw_on
+            array.push(hvn_reference_levels, vp_week.prev_vah)
+            array.push(hvn_reference_levels, vp_week.prev_poc)
+            array.push(hvn_reference_levels, vp_week.prev_val)
+        if vp_on_inp and rth_on
+            array.push(hvn_reference_levels, draw_rth_vah)
+            array.push(hvn_reference_levels, draw_rth_poc)
+            array.push(hvn_reference_levels, draw_rth_val)
+        if vp_on_inp and on_on
+            array.push(hvn_reference_levels, on_vp.vah)
+            array.push(hvn_reference_levels, on_vp.poc)
+            array.push(hvn_reference_levels, on_vp.val)
+        if vp_on_inp and dev_rth_on and show_dev_rth
+            array.push(hvn_reference_levels, vp_dev_rth.vah)
+            array.push(hvn_reference_levels, vp_dev_rth.poc)
+            array.push(hvn_reference_levels, vp_dev_rth.val)
+
+        array<int> hvn_eligible = array.new<int>()
+        array<float> hvn_eligible_strength = array.new<float>()
+        float hvn_vp_gap = hvn_vp_gap_tck * syminfo.mintick
+        int hvn_candidate_count = array.size(hvn_candidate_lo)
+        for _i = 0 to hvn_candidate_count - 1
+            float _lo = array.get(hvn_candidate_lo, _i)
+            float _hi = array.get(hvn_candidate_hi, _i)
+            if (_lo > close or _hi < close) and f_hvn_clear_of_levels(_lo, _hi, hvn_vp_gap, hvn_reference_levels)
+                array.push(hvn_eligible, _i)
+                array.push(hvn_eligible_strength, array.get(hvn_candidate_strength, _i))
+
+        // Only eligible nodes compete. Suppression is recomputed each tick, so
+        // a weaker neighbor returns as soon as the stronger node is excluded.
+        array<int> hvn_strength_order = array.sort_indices(hvn_eligible_strength, order.descending)
+        array<int> hvn_order = array.new<int>()
+        float hvn_merge_gap = hvn_merge_tck * syminfo.mintick
+        for _rank in hvn_strength_order
+            int _idx = array.get(hvn_eligible, _rank)
+            if f_hvn_clear_of_zones(_idx, hvn_order, hvn_candidate_lo, hvn_candidate_hi, hvn_merge_gap)
+                array.push(hvn_order, _idx)
+
+        hvn_order := f_hvn_sort_nearest(hvn_order, hvn_candidate_mid, hvn_candidate_strength, close)
+        float hvn_zone_gap = hvn_zone_gap_tck * syminfo.mintick
+        [hvn_above_selected, hvn_below_selected] = f_hvn_select(hvn_order, hvn_candidate_lo, hvn_candidate_hi, hvn_zone_gap, close)
+
+        int hvn_x1 = fut_start
+        int hvn_x2 = fut_end
+        int hvn_above_count = array.size(hvn_above_selected)
+        if hvn_above_count > 0
+            for _rank = 0 to hvn_above_count - 1
+                int _idx = array.get(hvn_above_selected, _rank)
+                float _lo = array.get(hvn_candidate_lo, _idx)
+                float _hi = array.get(hvn_candidate_hi, _idx)
+                float _mid = array.get(hvn_candidate_mid, _idx)
+                color _border = color.new(hvn_above_c, math.max(0, hvn_fill_transp - 35))
+                array.push(hvn_boxes, box.new(left=hvn_x1, top=_hi, right=hvn_x2, bottom=_lo,
+                     xloc=xloc.bar_time, border_color=_border, border_width=1,
+                     bgcolor=color.new(hvn_above_c, hvn_fill_transp)))
+                if hvn_show_mid
+                    array.push(hvn_lines, line.new(hvn_x1, _mid, hvn_x2, _mid, xloc=xloc.bar_time,
+                         color=_border, width=hvn_mid_width, style=f_line_style(hvn_mid_style)))
+                if hvn_show_labels
+                    array.push(hvn_labels, label.new(hvn_x2, _mid, "HVN R" + str.tostring(_rank + 1),
+                         xloc=xloc.bar_time, yloc=yloc.price, style=label.style_none,
+                         textcolor=hvn_above_c, size=size.tiny))
+
+        int hvn_below_count = array.size(hvn_below_selected)
+        if hvn_below_count > 0
+            for _rank = 0 to hvn_below_count - 1
+                int _idx = array.get(hvn_below_selected, _rank)
+                float _lo = array.get(hvn_candidate_lo, _idx)
+                float _hi = array.get(hvn_candidate_hi, _idx)
+                float _mid = array.get(hvn_candidate_mid, _idx)
+                color _border = color.new(hvn_below_c, math.max(0, hvn_fill_transp - 35))
+                array.push(hvn_boxes, box.new(left=hvn_x1, top=_hi, right=hvn_x2, bottom=_lo,
+                     xloc=xloc.bar_time, border_color=_border, border_width=1,
+                     bgcolor=color.new(hvn_below_c, hvn_fill_transp)))
+                if hvn_show_mid
+                    array.push(hvn_lines, line.new(hvn_x1, _mid, hvn_x2, _mid, xloc=xloc.bar_time,
+                         color=_border, width=hvn_mid_width, style=f_line_style(hvn_mid_style)))
+                if hvn_show_labels
+                    array.push(hvn_labels, label.new(hvn_x2, _mid, "HVN S" + str.tostring(_rank + 1),
+                         xloc=xloc.bar_time, yloc=yloc.price, style=label.style_none,
+                         textcolor=hvn_below_c, size=size.tiny))
+
+// ─────────────────────────────────────────────────────────────────────────────
+// DRAWING
+// ─────────────────────────────────────────────────────────────────────────────
+f_draw_vp_level(_show, _price, _x1, _x2, _col, _text, _yOff, _line_in, _lab_in, _style, _width) =>
+    line  _ln = _line_in
+    label _lb = _lab_in
+    if not _show or na(_price) or na(_x1) or na(_x2)
+        if not na(_ln)
+            line.delete(_ln)
+        if not na(_lb)
+            label.delete(_lb)
+        [line(na), label(na)]
+    else
+        if na(_ln)
+            _ln := line.new(_x1, _price, _x2, _price, xloc=xloc.bar_time, color=_col, width=_width, style=_style)
+        else
+            line.set_xy1(_ln, _x1, _price)
+            line.set_xy2(_ln, _x2, _price)
+            line.set_color(_ln, _col)
+            line.set_width(_ln, _width)
+            line.set_style(_ln, _style)
+        if na(_lb)
+            _lb := label.new(_x2, _price, _text, xloc=xloc.bar_time, yloc=yloc.price, style=label.style_none, textcolor=_col, size=size.small)
+        else
+            label.set_xy(_lb, _x2, _price)
+            label.set_text(_lb, _text)
+            label.set_textcolor(_lb, _col)
+        [_ln, _lb]
+
+var line[] lines = array.new_line(23, na)
+var label[] labels = array.new_label(23, na)
+
+if barstate.islast
+    int x1 = na(anchor_time_start) ? time : anchor_time_start
+    int x2 = time("", bars_back=-vp_bar_offset)
+
+    // PDH/PDL
+    [l0, b0] = f_draw_vp_level(pdh_pdl_on, pdh_p, x1, x2, pd_col, "PDH", 0, lines.get(0), labels.get(0), f_line_style(pd_style), pd_width)
+    [l1, b1] = f_draw_vp_level(pdh_pdl_on, pdl_p, x1, x2, pd_col, "PDL", 0, lines.get(1), labels.get(1), f_line_style(pd_style), pd_width)
+    lines.set(0, l0), labels.set(0, b0)
+    lines.set(1, l1), labels.set(1, b1)
+
+    // Current Week
+    [l2, b2] = f_draw_vp_level(vp_on_inp and cw_on, vp_week.vah, x1, x2, cw_vah_c, "CW VAH", 0, lines.get(2), labels.get(2), f_line_style(cw_style), cw_width)
+    [l3, b3] = f_draw_vp_level(vp_on_inp and cw_on, vp_week.poc, x1, x2, cw_poc_c, "CW POC", 0, lines.get(3), labels.get(3), f_line_style(cw_style), cw_width)
+    [l4, b4] = f_draw_vp_level(vp_on_inp and cw_on, vp_week.val, x1, x2, cw_val_c, "CW VAL", 0, lines.get(4), labels.get(4), f_line_style(cw_style), cw_width)
+    lines.set(2, l2), labels.set(2, b2)
+    lines.set(3, l3), labels.set(3, b3)
+    lines.set(4, l4), labels.set(4, b4)
+
+    // Previous Week
+    [l5, b5] = f_draw_vp_level(vp_on_inp and pw_on, vp_week.prev_vah, x1, x2, pw_vah_c, "PW VAH", 0, lines.get(5), labels.get(5), f_line_style(pw_style), pw_width)
+    [l6, b6] = f_draw_vp_level(vp_on_inp and pw_on, vp_week.prev_poc, x1, x2, pw_poc_c, "PW POC", 0, lines.get(6), labels.get(6), f_line_style(pw_style), pw_width)
+    [l7, b7] = f_draw_vp_level(vp_on_inp and pw_on, vp_week.prev_val, x1, x2, pw_val_c, "PW VAL", 0, lines.get(7), labels.get(7), f_line_style(pw_style), pw_width)
+    lines.set(5, l5), labels.set(5, b5)
+    lines.set(6, l6), labels.set(6, b6)
+    lines.set(7, l7), labels.set(7, b7)
+
+    // Prev Day RTH
+    [l8, b8] = f_draw_vp_level(vp_on_inp and rth_on, draw_rth_vah, x1, x2, rth_vah_c, "PD RTH VAH", 0, lines.get(8), labels.get(8), f_line_style(rth_style), rth_width)
+    [l9, b9] = f_draw_vp_level(vp_on_inp and rth_on, draw_rth_poc, x1, x2, rth_poc_c, "PD RTH POC", 0, lines.get(9), labels.get(9), f_line_style(rth_style), rth_width)
+    [l10, b10] = f_draw_vp_level(vp_on_inp and rth_on, draw_rth_val, x1, x2, rth_val_c, "PD RTH VAL", 0, lines.get(10), labels.get(10), f_line_style(rth_style), rth_width)
+    lines.set(8, l8), labels.set(8, b8)
+    lines.set(9, l9), labels.set(9, b9)
+    lines.set(10, l10), labels.set(10, b10)
+
+    // ON Session
+    bool show_on = vp_on_inp and on_on
+    string on_style = f_line_style(on_in ? on_dev_style : on_final_style)
+    // While developing, only the latest step extends into the line offset.
+    // Once the session ends, restore full-width levels in the completed style.
+    int on_x1 = on_in ? time : x1
+    on_vah_steps.draw(show_on and on_in, on_vah_c, on_style, on_width)
+    on_poc_steps.draw(show_on and on_in, on_poc_c, on_style, on_width)
+    on_val_steps.draw(show_on and on_in, on_val_c, on_style, on_width)
+    float on_vah = on_vp.vah
+    float on_poc = on_vp.poc
+    float on_val = on_vp.val
+    [l11, b11] = f_draw_vp_level(show_on, on_vah, on_x1, x2, on_vah_c, "ON VAH", 0, lines.get(11), labels.get(11), on_style, on_width)
+    [l12, b12] = f_draw_vp_level(show_on, on_poc, on_x1, x2, on_poc_c, "ON POC", 0, lines.get(12), labels.get(12), on_style, on_width)
+    [l13, b13] = f_draw_vp_level(show_on, on_val, on_x1, x2, on_val_c, "ON VAL", 0, lines.get(13), labels.get(13), on_style, on_width)
+    lines.set(11, l11), labels.set(11, b11)
+    lines.set(12, l12), labels.set(12, b12)
+    lines.set(13, l13), labels.set(13, b13)
+
+    // Developing RTH Session
+    string dev_rth_style = f_line_style(dev_rth_in ? dev_rth_dev_style : dev_rth_final_style)
+    bool show_dev = vp_on_inp and dev_rth_on and show_dev_rth
+    int dev_x1 = dev_rth_in ? time : x1
+    dev_vah_steps.draw(show_dev and dev_rth_in, dev_rth_vah_c, dev_rth_style, dev_rth_width)
+    dev_poc_steps.draw(show_dev and dev_rth_in, dev_rth_poc_c, dev_rth_style, dev_rth_width)
+    dev_val_steps.draw(show_dev and dev_rth_in, dev_rth_val_c, dev_rth_style, dev_rth_width)
+
+    [l14, b14] = f_draw_vp_level(show_dev, vp_dev_rth.vah, dev_x1, x2, dev_rth_vah_c, "Dev RTH VAH", 0, lines.get(14), labels.get(14), dev_rth_style, dev_rth_width)
+    [l15, b15] = f_draw_vp_level(show_dev, vp_dev_rth.poc, dev_x1, x2, dev_rth_poc_c, "Dev RTH POC", 0, lines.get(15), labels.get(15), dev_rth_style, dev_rth_width)
+    [l16, b16] = f_draw_vp_level(show_dev, vp_dev_rth.val, dev_x1, x2, dev_rth_val_c, "Dev RTH VAL", 0, lines.get(16), labels.get(16), dev_rth_style, dev_rth_width)
+    lines.set(14, l14), labels.set(14, b14)
+    lines.set(15, l15), labels.set(15, b15)
+    lines.set(16, l16), labels.set(16, b16)

@@ -1,5 +1,14 @@
 # Working storage
 
-New disposable scratch/cache output belongs here and is ignored by Git. Retained event-level research evidence should have an artifact manifest in its run bundle and a deliberate backup/retention policy.
+New disposable scratch/cache output and staged executions belong here and are
+ignored by Git. Seal completed evidence under a unique run ID following the
+[run guide](../runs/README.md); retain large event-level files with artifact
+locators, checksums, and a deliberate backup policy.
 
-The existing 3.6 GB of Sahadeva work remains in its original directory and is not declared disposable by this migration. Its path is recorded in the migration storage inventory.
+The original Sahadeva working tree has been copied into
+`data/research/sahadeva/`, preserving all study/run directories and file bytes.
+It is retained historical evidence and is not disposable scratch.
+`legacy/sahadeva/work` is an internal compatibility link to that location.
+The original project folder remains preserved but is no longer needed for
+active storage access. See the [data layer guide](../data/README.md) and
+[storage relocation record](../docs/migration/storage-relocation-20260922.md).

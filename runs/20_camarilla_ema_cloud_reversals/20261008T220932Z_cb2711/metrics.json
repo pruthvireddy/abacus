@@ -1,0 +1,89 @@
+{
+  "schema": "study20-metrics-1",
+  "generated_at": "2026-10-08T22:36:51.016581Z",
+  "tables": {
+    "T01": {
+      "artifact": "tables/horizons.csv",
+      "sha256": "fc6c056fad5c5361bd657fd6bb1fe9d9dc8698523ff262dba1a97ab4e21fba88",
+      "rows": 3240
+    },
+    "T02": {
+      "artifact": "tables/extensions.csv",
+      "sha256": "ff174c012faab3262172d18ea04fd7a400cd34be252c6ece9c04f3dcd5083db2",
+      "rows": 240
+    },
+    "T03": {
+      "artifact": "tables/policy.csv",
+      "sha256": "fc6a9397cbb11f162e83fdb1c961db33993b2c664375d6c458f94bd2416759ca",
+      "rows": 2160
+    },
+    "T04": {
+      "artifact": "tables/annual.csv",
+      "sha256": "77631cfa5abc8bf7932579d6003446ba3b4b4c442435f4455244da6cca9ef2e2",
+      "rows": 1836
+    },
+    "T05": {
+      "artifact": "tables/annual_policy.csv",
+      "sha256": "e1f93adc1bc4b13641316546af6fff2b2eb199f0befeba3732dc987c6e8c42ec",
+      "rows": 102
+    },
+    "T06": {
+      "artifact": "tables/weekly.csv",
+      "sha256": "ae01d7a4b977387f1be64b6d6909239f6192a95d6f5281abc0256de7f3c7e9e5",
+      "rows": 3740
+    },
+    "T07": {
+      "artifact": "tables/cloud_comparisons.csv",
+      "sha256": "a5cc2b5831ddff3fc7b217f602dc50d499e1505c767036824a461b653502932d",
+      "rows": 60
+    },
+    "T08": {
+      "artifact": "tables/primary_contrasts.csv",
+      "sha256": "0257938481f4590ff3feba6fc5cadebd5b8f9b0d6bb38d5d631af58973d1f06c",
+      "rows": 135
+    },
+    "T09": {
+      "artifact": "tables/threshold_ordering.csv",
+      "sha256": "b0f977f7cc736066d8d05164e680ee425fcd4a7b6c9524031c7e73ce2b563131",
+      "rows": 2700
+    },
+    "T10": {
+      "artifact": "tables/stability.csv",
+      "sha256": "e47df8cd8a946ed7091470b722e573b469f2021edce3aad7dd02d904fad38bef",
+      "rows": 159
+    },
+    "T11": {
+      "artifact": "tables/tail_diagnostics.csv",
+      "sha256": "4611f281bc35f45690c9c05dc0a3d91d4d5be0936cfe40bcc8a2cac1f20377f4",
+      "rows": 15
+    },
+    "T12": {
+      "artifact": "tables/joint_excursions.csv",
+      "sha256": "7108b59bc8fdf70d508bdf4ec390341bdeb0149318cc30f404812f1bfa150359",
+      "rows": 108
+    },
+    "T13": {
+      "artifact": "tables/daily_reference.csv",
+      "sha256": "0a95e64770ee2c03edbe9a15f2f663a686e57413f096794a55fe2460235bf71a",
+      "rows": 28956
+    },
+    "T14": {
+      "artifact": "tables/monthly.csv",
+      "sha256": "8f8545fd8856021d1bd5c33e38f87c907613d44b341f8e7ac82b29536f1c87ae",
+      "rows": 968
+    },
+    "T00": {
+      "artifact": "tables/coverage_summary.csv",
+      "sha256": "e9552d4c3cfc7983d119bbcb1c6375fec0517f8732f1538c1d103f86e845b025",
+      "rows": 51
+    }
+  },
+  "metric_definitions": {
+    "path": "ATR-normalized per-event observations; delta signed, MAE/MFE nonnegative; completed-case means; frozen confirmation ATR14",
+    "policy": "assumed-fill one-contract replay; net R divided by entry-fill-to-stop risk; completed-case scorable session mean includes observed valid no-trade zeros",
+    "uncertainty": "10000 paired fixed calendar-block percentile draws; 4 weeks main, 1/8 weeks sensitivity; 6 primary Bonferroni intervals",
+    "missing": "CSV empty is undefined; measured zero is 0; missing unbounded prices have no invented continuous bounds",
+    "horizon0": "separate terminal close at 16:00; variable elapsed time",
+    "drawdown": "observed cumulative scorable-session net R drawdown; unresolved days omitted, no full-history bound"
+  }
+}

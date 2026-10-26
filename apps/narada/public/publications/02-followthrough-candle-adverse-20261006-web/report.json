@@ -1,0 +1,373 @@
+{
+  "provenance": {
+    "assets": [],
+    "sourceSha256": "a06252c3de1e0f8322c7fa2f993fec3ca063dfdc2dc64b1faf4620897592a727"
+  },
+  "report": {
+    "id": "02-followthrough-candle-adverse-20261006-web",
+    "publishedAt": "2026-10-06T23:09:36Z",
+    "schemaVersion": "1.0",
+    "sections": [
+      {
+        "body": "For a reversal whose immediately following candle eventually closes in its direction, how far does that second candle move adversely from its own open? The retained full_v7 import also contains the corrected duration of complete reversal legs including the reversal.",
+        "id": "question",
+        "kind": "text",
+        "title": "Question and scope"
+      },
+      {
+        "body": "Larger range settings generally allow larger adverse movement in the successful second candle. Duration summaries condition on complete legs with at least three candles and retain tied-clock zero duration. These are conditional descriptions of geometry and completed paths, not causal filters or trading performance.",
+        "id": "findings",
+        "kind": "text",
+        "title": "Supported findings"
+      },
+      {
+        "columns": [
+          {
+            "key": "asset",
+            "label": "asset"
+          },
+          {
+            "format": "number",
+            "key": "range_setting",
+            "label": "Range XV setting",
+            "precision": 0
+          },
+          {
+            "format": "number",
+            "key": "eligible_next_bar",
+            "label": "Eligible next bars",
+            "precision": 0
+          },
+          {
+            "format": "number",
+            "key": "same_direction_next_bar",
+            "label": "Same-direction closes",
+            "precision": 0
+          },
+          {
+            "format": "percent",
+            "key": "same_direction_probability",
+            "label": "Success rate",
+            "precision": 1
+          },
+          {
+            "format": "number",
+            "key": "denominator",
+            "label": "Conditioned geometry n",
+            "precision": 0
+          },
+          {
+            "format": "number",
+            "key": "mean_adverse_ticks",
+            "label": "Mean adverse",
+            "precision": 2,
+            "unit": "ticks"
+          },
+          {
+            "format": "number",
+            "key": "mean_adverse_ci_low_ticks",
+            "label": "95% mean low",
+            "precision": 2,
+            "unit": "ticks"
+          },
+          {
+            "format": "number",
+            "key": "mean_adverse_ci_high_ticks",
+            "label": "95% mean high",
+            "precision": 2,
+            "unit": "ticks"
+          },
+          {
+            "format": "number",
+            "key": "median_adverse_ticks",
+            "label": "Median adverse",
+            "precision": 2,
+            "unit": "ticks"
+          },
+          {
+            "format": "number",
+            "key": "p90_adverse_ticks",
+            "label": "90th percentile",
+            "precision": 2,
+            "unit": "ticks"
+          }
+        ],
+        "id": "geometry",
+        "kind": "table",
+        "rows": [
+          {
+            "asset": "ES",
+            "denominator": 12624,
+            "eligible_next_bar": 16730,
+            "mean_adverse_ci_high_ticks": 4.567015239375542,
+            "mean_adverse_ci_low_ticks": 4.415013926944768,
+            "mean_adverse_ticks": 4.492633079847908,
+            "median_adverse_ticks": 3,
+            "p90_adverse_ticks": 11,
+            "range_setting": 4,
+            "same_direction_next_bar": 12624,
+            "same_direction_probability": 0.754572624028691
+          },
+          {
+            "asset": "ES",
+            "denominator": 8689,
+            "eligible_next_bar": 11505,
+            "mean_adverse_ci_high_ticks": 5.549641563282721,
+            "mean_adverse_ci_low_ticks": 5.310287074301028,
+            "mean_adverse_ticks": 5.4246748762803545,
+            "median_adverse_ticks": 4,
+            "p90_adverse_ticks": 13,
+            "range_setting": 5,
+            "same_direction_next_bar": 8689,
+            "same_direction_probability": 0.7552368535419383
+          },
+          {
+            "asset": "ES",
+            "denominator": 6239,
+            "eligible_next_bar": 8397,
+            "mean_adverse_ci_high_ticks": 6.50179671803167,
+            "mean_adverse_ci_low_ticks": 6.232953857051597,
+            "mean_adverse_ticks": 6.373136720628306,
+            "median_adverse_ticks": 4,
+            "p90_adverse_ticks": 16,
+            "range_setting": 6,
+            "same_direction_next_bar": 6239,
+            "same_direction_probability": 0.7430034536143861
+          },
+          {
+            "asset": "GC",
+            "denominator": 35666,
+            "eligible_next_bar": 46984,
+            "mean_adverse_ci_high_ticks": 6.011531537269767,
+            "mean_adverse_ci_low_ticks": 5.769105323261309,
+            "mean_adverse_ticks": 5.889082038916615,
+            "median_adverse_ticks": 4,
+            "p90_adverse_ticks": 16,
+            "range_setting": 6,
+            "same_direction_next_bar": 35666,
+            "same_direction_probability": 0.7591094840796867
+          },
+          {
+            "asset": "GC",
+            "denominator": 15627,
+            "eligible_next_bar": 20569,
+            "mean_adverse_ci_high_ticks": 9.827681245613975,
+            "mean_adverse_ci_low_ticks": 9.401588236546921,
+            "mean_adverse_ticks": 9.606962308824471,
+            "median_adverse_ticks": 6,
+            "p90_adverse_ticks": 25,
+            "range_setting": 10,
+            "same_direction_next_bar": 15627,
+            "same_direction_probability": 0.7597355243327337
+          },
+          {
+            "asset": "NQ",
+            "denominator": 97350,
+            "eligible_next_bar": 128384,
+            "mean_adverse_ci_high_ticks": 9.498647805248705,
+            "mean_adverse_ci_low_ticks": 9.319882167941973,
+            "mean_adverse_ticks": 9.404406779661016,
+            "median_adverse_ticks": 6,
+            "p90_adverse_ticks": 25,
+            "range_setting": 10,
+            "same_direction_next_bar": 97350,
+            "same_direction_probability": 0.7582720588235294
+          },
+          {
+            "asset": "NQ",
+            "denominator": 29416,
+            "eligible_next_bar": 38874,
+            "mean_adverse_ci_high_ticks": 18.925738346012697,
+            "mean_adverse_ci_low_ticks": 18.4380202979534,
+            "mean_adverse_ticks": 18.69095050312755,
+            "median_adverse_ticks": 12,
+            "p90_adverse_ticks": 48,
+            "range_setting": 20,
+            "same_direction_next_bar": 29416,
+            "same_direction_probability": 0.7567011370067397
+          }
+        ],
+        "title": "Conditional second-candle geometry, all charts"
+      },
+      {
+        "columns": [
+          {
+            "key": "asset",
+            "label": "asset"
+          },
+          {
+            "format": "number",
+            "key": "range_setting",
+            "label": "range setting",
+            "precision": 0
+          },
+          {
+            "format": "number",
+            "key": "completed_legs",
+            "label": "Complete legs",
+            "precision": 0
+          },
+          {
+            "format": "number",
+            "key": "censored_legs",
+            "label": "Censored legs",
+            "precision": 0
+          },
+          {
+            "format": "number",
+            "key": "legs_at_least_three",
+            "label": "Qualified complete legs",
+            "precision": 0
+          },
+          {
+            "format": "number",
+            "key": "mean_duration_proxy_minutes",
+            "label": "Mean duration",
+            "precision": 2,
+            "unit": "minutes"
+          },
+          {
+            "format": "number",
+            "key": "mean_duration_ci_low_minutes",
+            "label": "95% low",
+            "precision": 2,
+            "unit": "minutes"
+          },
+          {
+            "format": "number",
+            "key": "mean_duration_ci_high_minutes",
+            "label": "95% high",
+            "precision": 2,
+            "unit": "minutes"
+          },
+          {
+            "format": "number",
+            "key": "median_duration_proxy_minutes",
+            "label": "Median",
+            "precision": 2,
+            "unit": "minutes"
+          },
+          {
+            "format": "number",
+            "key": "zero_duration_count",
+            "label": "Tied-clock zeros",
+            "precision": 0
+          }
+        ],
+        "id": "duration",
+        "kind": "table",
+        "rows": [
+          {
+            "asset": "ES",
+            "censored_legs": 71,
+            "completed_legs": 16700,
+            "legs_at_least_three": 8095,
+            "mean_duration_ci_high_minutes": 6.289637581166476,
+            "mean_duration_ci_low_minutes": 4.8053830667887665,
+            "mean_duration_proxy_minutes": 5.465108091414454,
+            "median_duration_proxy_minutes": 2.15,
+            "range_setting": 4,
+            "zero_duration_count": 77
+          },
+          {
+            "asset": "ES",
+            "censored_legs": 71,
+            "completed_legs": 11469,
+            "legs_at_least_three": 5558,
+            "mean_duration_ci_high_minutes": 9.027344806940727,
+            "mean_duration_ci_low_minutes": 6.932011333657775,
+            "mean_duration_proxy_minutes": 7.833012474511214,
+            "median_duration_proxy_minutes": 3.25,
+            "range_setting": 5,
+            "zero_duration_count": 37
+          },
+          {
+            "asset": "ES",
+            "censored_legs": 72,
+            "completed_legs": 8353,
+            "legs_at_least_three": 3957,
+            "mean_duration_ci_high_minutes": 12.29737751159906,
+            "mean_duration_ci_low_minutes": 9.459295944556285,
+            "mean_duration_proxy_minutes": 10.716114901861681,
+            "median_duration_proxy_minutes": 4.516666666666667,
+            "range_setting": 6,
+            "zero_duration_count": 20
+          },
+          {
+            "asset": "GC",
+            "censored_legs": 71,
+            "completed_legs": 46948,
+            "legs_at_least_three": 23430,
+            "mean_duration_ci_high_minutes": 2.2829000368155383,
+            "mean_duration_ci_low_minutes": 1.9241847244247388,
+            "mean_duration_proxy_minutes": 2.097079243135581,
+            "median_duration_proxy_minutes": 1.1333333333333333,
+            "range_setting": 6,
+            "zero_duration_count": 347
+          },
+          {
+            "asset": "GC",
+            "censored_legs": 72,
+            "completed_legs": 20531,
+            "legs_at_least_three": 10281,
+            "mean_duration_ci_high_minutes": 5.176210265512519,
+            "mean_duration_ci_low_minutes": 4.306378082330511,
+            "mean_duration_proxy_minutes": 4.737883798592874,
+            "median_duration_proxy_minutes": 2.6166666666666667,
+            "range_setting": 10,
+            "zero_duration_count": 107
+          },
+          {
+            "asset": "NQ",
+            "censored_legs": 72,
+            "completed_legs": 128349,
+            "legs_at_least_three": 64583,
+            "mean_duration_ci_high_minutes": 0.8719483049642212,
+            "mean_duration_ci_low_minutes": 0.6874745674481506,
+            "mean_duration_proxy_minutes": 0.7725570196491337,
+            "median_duration_proxy_minutes": 0.3,
+            "range_setting": 10,
+            "zero_duration_count": 1160
+          },
+          {
+            "asset": "NQ",
+            "censored_legs": 70,
+            "completed_legs": 38839,
+            "legs_at_least_three": 19501,
+            "mean_duration_ci_high_minutes": 2.855830981017984,
+            "mean_duration_ci_low_minutes": 2.219219882956776,
+            "mean_duration_proxy_minutes": 2.494971198058219,
+            "median_duration_proxy_minutes": 0.9666666666666667,
+            "range_setting": 20,
+            "zero_duration_count": 96
+          }
+        ],
+        "title": "Corrected full-leg duration proxy"
+      },
+      {
+        "body": "Second-candle adverse movement is own-open minus low for a bullish reversal, high minus own-open for bearish. The geometry denominator includes only eventual same-direction second candles; the eligible-next-bar count and success rate expose selection. Complete leg duration includes the reversal and all same-colour successors through the last one, excluding right-censored legs. Its clock difference is a proxy; zero is observed tied timestamps and missing remains null. Saved 95% intervals use export-date cluster draws. Native units are product ticks for movement and minutes for duration; GC 6 is included as labelled and does not substitute for missing GC 20.",
+        "id": "methods",
+        "kind": "text",
+        "title": "Definitions and methods"
+      },
+      {
+        "body": "Historical import was not newly revalidated; original short-export inputs are missing. Bar open/close timing, timezone, session boundaries and provisional chart identity remain unverified. Conditioning on the future candle close is not an observable real-time entry rule. Window rankings and same-sample selections are excluded here; no stop ordering, fills, costs or profitability are established.",
+        "id": "limitations",
+        "kind": "text",
+        "title": "Limitations and uncertainty"
+      },
+      {
+        "body": "Study 02_followthrough_candle_adverse; source run 20260906T_full_v7. Publication-only choice: full_v7 contains the explicitly corrected complete-leg duration alongside original second-candle geometry. The corrected definition, not timestamp recency, determines this publication selection.\n\nPresentation revision 20261006T230936Z_web02, web-study-report-1.0. Saved numerical tables are the authority; only selected rows and columns are presented. No new statistics or research execution. The publication record identifies this JSON and its selected assets.",
+        "id": "sources-provenance",
+        "kind": "text",
+        "title": "Source and presentation provenance"
+      }
+    ],
+    "source": {
+      "producer": "sahadeva",
+      "runId": "20260906T_full_v7"
+    },
+    "summary": "Saved candle geometry estimates condition on eventual same-direction closes. Corrected complete-leg duration is a raw clock proxy; neither result is a live entry filter.",
+    "title": "Follow-through candle: conditional adverse movement"
+  }
+}

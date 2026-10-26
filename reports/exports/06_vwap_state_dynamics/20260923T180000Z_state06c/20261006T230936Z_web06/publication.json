@@ -1,0 +1,404 @@
+{
+  "schemaVersion": "1.0",
+  "id": "06-vwap-state-dynamics-20261006-web",
+  "title": "VWAP states: persistence, slope conflict and fair-price error",
+  "summary": "Persistent states retain more future residence, while opposing slopes predict more crossing. Coarse matching shrinks both gaps; local-anchor checks reverse the pooled VWAP–TWAP conclusion.",
+  "publishedAt": "2026-10-06T23:09:36Z",
+  "source": {
+    "producer": "sahadeva",
+    "runId": "20260923T180000Z_state06c"
+  },
+  "sections": [
+    {
+      "kind": "text",
+      "id": "question",
+      "title": "Question and scope",
+      "body": "Three descriptive questions use ES, NQ and GC two-minute bars: whether persistent versus rotational VWAP states retain the next thirty-minute residence; whether opposing price/VWAP slopes predict crossing; and whether frozen VWAP or TWAP better locates the median of future thirty-minute one-minute closes. The atlas pools products only as specified in the saved run; errors below keep products separate."
+    },
+    {
+      "kind": "text",
+      "id": "findings",
+      "title": "Supported findings",
+      "body": "The raw state and slope gaps shrink after matching shared context. The pooled primary fair-price comparison favors VWAP, but Asia and New York local-anchor checks favor TWAP. Last-known price has smaller absolute error than either reference. Barrier follow-ups do not establish a trading rule."
+    },
+    {
+      "kind": "table",
+      "id": "atlas",
+      "title": "All-history primary probability atlas",
+      "columns": [
+        {
+          "key": "question",
+          "label": "question"
+        },
+        {
+          "key": "condition",
+          "label": "condition"
+        },
+        {
+          "key": "landmarks",
+          "label": "landmarks",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "outcome_missing",
+          "label": "Missing outcome",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "numerator",
+          "label": "numerator",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "denominator",
+          "label": "denominator",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "probability",
+          "label": "Probability",
+          "format": "percent",
+          "precision": 1
+        },
+        {
+          "key": "ci_low",
+          "label": "95% low",
+          "format": "percent",
+          "precision": 1
+        },
+        {
+          "key": "ci_high",
+          "label": "95% high",
+          "format": "percent",
+          "precision": 1
+        },
+        {
+          "key": "baseline",
+          "label": "baseline"
+        }
+      ],
+      "rows": [
+        {
+          "question": "Q1",
+          "condition": "persistent",
+          "landmarks": 104577.0,
+          "outcome_missing": 0.0,
+          "numerator": 87122.0,
+          "denominator": 104577.0,
+          "probability": 0.833089493865764,
+          "ci_low": 0.8299149722618512,
+          "ci_high": 0.8371140373216746,
+          "baseline": "rotational"
+        },
+        {
+          "question": "Q1",
+          "condition": "rotational",
+          "landmarks": 4236.0,
+          "outcome_missing": 0.0,
+          "numerator": 1662.0,
+          "denominator": 4236.0,
+          "probability": 0.3923512747875354,
+          "ci_low": 0.3765531475159982,
+          "ci_high": 0.40726135946883457,
+          "baseline": "rotational"
+        },
+        {
+          "question": "Q1",
+          "condition": "other",
+          "landmarks": 24903.0,
+          "outcome_missing": 0.0,
+          "numerator": 11265.0,
+          "denominator": 24903.0,
+          "probability": 0.45235513793518856,
+          "ci_low": 0.44574304334683534,
+          "ci_high": 0.4580945664631158,
+          "baseline": "rotational"
+        },
+        {
+          "question": "Q2",
+          "condition": "opposing",
+          "landmarks": 28602.0,
+          "outcome_missing": 0.0,
+          "numerator": 8411.0,
+          "denominator": 28602.0,
+          "probability": 0.2940703447311377,
+          "ci_low": 0.28665755887653266,
+          "ci_high": 0.30124384612991734,
+          "baseline": "aligned"
+        },
+        {
+          "question": "Q2",
+          "condition": "aligned",
+          "landmarks": 50676.0,
+          "outcome_missing": 0.0,
+          "numerator": 6265.0,
+          "denominator": 50676.0,
+          "probability": 0.12362854211066382,
+          "ci_low": 0.11952503546763554,
+          "ci_high": 0.12753826877078858,
+          "baseline": "aligned"
+        },
+        {
+          "question": "Q2",
+          "condition": "flat or unavailable",
+          "landmarks": 54438.0,
+          "outcome_missing": 0.0,
+          "numerator": 18991.0,
+          "denominator": 54438.0,
+          "probability": 0.34885557882361584,
+          "ci_low": 0.3422516478579812,
+          "ci_high": 0.3548120702622838,
+          "baseline": "aligned"
+        },
+        {
+          "question": "Q3",
+          "condition": "all",
+          "landmarks": 133716.0,
+          "outcome_missing": 0.0,
+          "numerator": 89056.0,
+          "denominator": 133716.0,
+          "probability": 0.6660085554458703,
+          "ci_low": 0.6592139749339193,
+          "ci_high": 0.6724958241250422,
+          "baseline": "TWAP wins, ties explicit"
+        },
+        {
+          "question": "Q3",
+          "condition": "material",
+          "landmarks": 100406.0,
+          "outcome_missing": 0.0,
+          "numerator": 71941.0,
+          "denominator": 100406.0,
+          "probability": 0.7165010059159811,
+          "ci_low": 0.7076326555437478,
+          "ci_high": 0.7250645275723306,
+          "baseline": "TWAP wins, ties explicit"
+        },
+        {
+          "question": "Q3",
+          "condition": "near identical",
+          "landmarks": 33310.0,
+          "outcome_missing": 0.0,
+          "numerator": 17115.0,
+          "denominator": 33310.0,
+          "probability": 0.5138096667667367,
+          "ci_low": 0.5054299976126654,
+          "ci_high": 0.521061286705908,
+          "baseline": "TWAP wins, ties explicit"
+        }
+      ]
+    },
+    {
+      "kind": "table",
+      "id": "matched",
+      "title": "State and slope differences: raw versus matched",
+      "columns": [
+        {
+          "key": "question",
+          "label": "question"
+        },
+        {
+          "key": "condition",
+          "label": "condition"
+        },
+        {
+          "key": "baseline",
+          "label": "baseline"
+        },
+        {
+          "key": "treated_n",
+          "label": "Raw candidate n",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "baseline_n",
+          "label": "Raw baseline n",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "matched_treated",
+          "label": "Matched candidate n",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "matched_baseline",
+          "label": "Matched baseline n",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "raw_difference",
+          "label": "Raw difference",
+          "format": "number",
+          "precision": 1,
+          "unit": "pp"
+        },
+        {
+          "key": "matched_difference",
+          "label": "Matched difference",
+          "format": "number",
+          "precision": 1,
+          "unit": "pp"
+        },
+        {
+          "key": "matched_ci_low",
+          "label": "95% matched low",
+          "format": "number",
+          "precision": 1,
+          "unit": "pp"
+        },
+        {
+          "key": "matched_ci_high",
+          "label": "95% matched high",
+          "format": "number",
+          "precision": 1,
+          "unit": "pp"
+        }
+      ],
+      "rows": [
+        {
+          "question": "Q1",
+          "condition": "persistent",
+          "baseline": "rotational",
+          "treated_n": 104577.0,
+          "baseline_n": 4236.0,
+          "matched_treated": 96078.0,
+          "matched_baseline": 4173.0,
+          "raw_difference": 44.07382190782286,
+          "matched_difference": 18.67172601878012,
+          "matched_ci_low": 15.529573941702443,
+          "matched_ci_high": 22.025099279157402
+        },
+        {
+          "question": "Q2",
+          "condition": "opposing",
+          "baseline": "aligned",
+          "treated_n": 28602.0,
+          "baseline_n": 50676.0,
+          "matched_treated": 28420.0,
+          "matched_baseline": 50137.0,
+          "raw_difference": 17.044180262047387,
+          "matched_difference": 2.051244113313544,
+          "matched_ci_low": 0.9946212304282349,
+          "matched_ci_high": 3.151843897035382
+        }
+      ]
+    },
+    {
+      "kind": "table",
+      "id": "errors",
+      "title": "Fair-price error by product",
+      "columns": [
+        {
+          "key": "product",
+          "label": "product"
+        },
+        {
+          "key": "denominator",
+          "label": "Eligible pairs",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "vwap_mae",
+          "label": "VWAP mean absolute error",
+          "format": "number",
+          "precision": 2,
+          "unit": "points"
+        },
+        {
+          "key": "twap_mae",
+          "label": "TWAP mean absolute error",
+          "format": "number",
+          "precision": 2,
+          "unit": "points"
+        },
+        {
+          "key": "last_price_mae",
+          "label": "Last-price mean absolute error",
+          "format": "number",
+          "precision": 2,
+          "unit": "points"
+        },
+        {
+          "key": "mean_error_difference",
+          "label": "VWAP minus TWAP",
+          "format": "number",
+          "precision": 2,
+          "unit": "points"
+        },
+        {
+          "key": "mean_error_ci_low",
+          "label": "95% difference low",
+          "format": "number",
+          "precision": 2,
+          "unit": "points"
+        },
+        {
+          "key": "mean_error_ci_high",
+          "label": "95% difference high",
+          "format": "number",
+          "precision": 2,
+          "unit": "points"
+        }
+      ],
+      "rows": [
+        {
+          "product": "ES",
+          "denominator": 45628.0,
+          "vwap_mae": 10.681701727199618,
+          "twap_mae": 14.03409969476418,
+          "last_price_mae": 3.250589002366971,
+          "mean_error_difference": -3.352397967564562,
+          "mean_error_ci_low": -3.6043411821158062,
+          "mean_error_ci_high": -3.124114644821296
+        },
+        {
+          "product": "NQ",
+          "denominator": 51788.0,
+          "vwap_mae": 49.865016031910706,
+          "twap_mae": 63.96224048183561,
+          "last_price_mae": 14.544947671275205,
+          "mean_error_difference": -14.097224449924889,
+          "mean_error_ci_low": -14.95311570222057,
+          "mean_error_ci_high": -13.137670633260772
+        },
+        {
+          "product": "GC",
+          "denominator": 36300.0,
+          "vwap_mae": 8.109990584752932,
+          "twap_mae": 9.700596489000022,
+          "last_price_mae": 2.0425096418732815,
+          "mean_error_difference": -1.5906059042470913,
+          "mean_error_ci_low": -1.790576526262899,
+          "mean_error_ci_high": -1.3985371031888483
+        }
+      ]
+    },
+    {
+      "kind": "text",
+      "id": "methods",
+      "title": "Definitions and methods",
+      "body": "Persistent means at least twelve of fifteen closes on one side and at most one cross; rotational means six to nine above with at least three crosses. Future residence uses evolving causal VWAP. Prior thirty-minute price and VWAP slopes use the frozen ATR-scaled cutpoints. Matching uses coarse shared context strata and leaves unmatched observations explicit. Fair-price errors compare frozen current references against the same future median close; ties and missing outcomes remain separate. Saved probability and difference intervals are shared-date cluster 95%, unadjusted for the three-question family; paired error is in native product points."
+    },
+    {
+      "kind": "text",
+      "id": "limitations",
+      "title": "Limitations and uncertainty",
+      "body": "All history is exploratory and outcomes had been viewed before the protocol. Landmarks and products are correlated; matching is not a causal adjustment. Primary Globex and local-anchor replications disagree, so their estimates cannot be pooled into a universal reference preference. No fill, spread, cost, execution or profitability result follows from residence or prediction accuracy."
+    },
+    {
+      "kind": "text",
+      "id": "sources-provenance",
+      "title": "Source and presentation provenance",
+      "body": "Study 06_vwap_state_dynamics; source run 20260923T180000Z_state06c. Registered reference: Explicit registered reference; retain its executed scope and saved qualifications.\n\nPresentation revision 20261006T230936Z_web06, web-study-report-1.0. Saved numerical tables are the authority; only selected rows and columns are presented. No new statistics or research execution. The publication record identifies this JSON and its selected assets."
+    }
+  ]
+}

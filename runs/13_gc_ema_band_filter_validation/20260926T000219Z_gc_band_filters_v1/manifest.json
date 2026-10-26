@@ -1,0 +1,166 @@
+{
+  "study_id": "13_gc_ema_band_filter_validation",
+  "run_id": "20260926T000219Z_gc_band_filters_v1",
+  "sealed_at_utc": "2026-09-26T00:08:19.224787+00:00",
+  "git_revision": "cd11be3f8f7d27c9429b2ff03872f3b6485a6e27",
+  "working_tree_dirty": true,
+  "source_snapshot": [
+    {
+      "path": "studies/13_gc_ema_band_filter_validation/plan.md",
+      "sha256": "b0f3463a8e6f75cea36b7be92bd7adea0383571da22c3ffde5178483f8997fd8"
+    },
+    {
+      "path": "studies/13_gc_ema_band_filter_validation/study.yaml",
+      "sha256": "b75e7230eeb30da6f513187d8ba6de9b094d82cb70a6c7dea9109bf0f8f5675c"
+    },
+    {
+      "path": "studies/13_gc_ema_band_filter_validation/inputs.lock.json",
+      "sha256": "f398f6e25f6958cb6d25102276db5329fabd9ec16f4214374feb3b901f2896c7"
+    },
+    {
+      "path": "studies/13_gc_ema_band_filter_validation/run.py",
+      "sha256": "fae7079eeb812b0a979d219589ff5a18458c38bef6a1ed59783f87428ed7e12b"
+    },
+    {
+      "path": "studies/13_gc_ema_band_filter_validation/render.py",
+      "sha256": "918e21f5a8013a9abe1bbe429edfd7c0e87cea85f150fc88e8db4714c428cb87"
+    },
+    {
+      "path": "studies/13_gc_ema_band_filter_validation/verify.py",
+      "sha256": "3a5b8e53050ac4f85bdd7abc1fde9c4c3daa5037f7ae97648fb434c824df7865"
+    },
+    {
+      "path": "studies/13_gc_ema_band_filter_validation/seal.py",
+      "sha256": "248197dabd1e1eebdd17fcb8a5e1ee9e50a1e8979ac0f3ac1a0a6918e9e75540"
+    },
+    {
+      "path": "studies/13_gc_ema_band_filter_validation/src/engine.py",
+      "sha256": "44b461972cdafb94ef156758d32d247db352f6559bfdbb2aa400b1a7640b3421"
+    },
+    {
+      "path": "studies/13_gc_ema_band_filter_validation/src/__init__.py",
+      "sha256": "944329fb19cf2ad0cbca3e03256ee87286545ffebb8e218254b42d5cb2506613"
+    },
+    {
+      "path": "studies/13_gc_ema_band_filter_validation/tests/test_engine.py",
+      "sha256": "f64763e9450eece023bc29d781a007cbdfe8bdc148dfcbbeeb931ac49ad0f2d0"
+    },
+    {
+      "path": "packages/sahadeva/src/abacus_sahadeva/cooldown.py",
+      "sha256": "054250c80bd8828fd87dc577f082a5e35361ccd4451034c753eb262d875e6bfb"
+    },
+    {
+      "path": "packages/sahadeva/tests/test_cooldown.py",
+      "sha256": "d5dc83d861a4276d2cf4583a824a7b6687d6b17812541d93ca832d1b2c0a5669"
+    },
+    {
+      "path": "packages/bhishma/src/abacus_bhishma/feature_loader.py",
+      "sha256": "ce7c24754411ebd0bbad33376b502f01e680c1cc4ad91ad23357eb73b61abcbe"
+    }
+  ],
+  "python_version": "3.11.16",
+  "environment_lock": {
+    "path": "uv.lock",
+    "sha256": "77f28c172dbbc5af07ce00d3b70f6b8f918086e6784bf2ec247803f960dbf64b"
+  },
+  "inputs_lock_sha256": "f398f6e25f6958cb6d25102276db5329fabd9ec16f4214374feb3b901f2896c7",
+  "config_sha256": "82da33fb3a1f5e03711d2f8633e541cf0ae56c234be88b7a79e2207185c1a936",
+  "execution_commands": [
+    ".venv/bin/python studies/13_gc_ema_band_filter_validation/run.py --stage work/13_gc_ema_band_filter_validation/20260926T000219Z_gc_band_filters_v1",
+    ".venv/bin/python studies/13_gc_ema_band_filter_validation/render.py --stage work/13_gc_ema_band_filter_validation/20260926T000219Z_gc_band_filters_v1",
+    ".venv/bin/python studies/13_gc_ema_band_filter_validation/verify.py --stage work/13_gc_ema_band_filter_validation/20260926T000219Z_gc_band_filters_v1"
+  ],
+  "checks": {
+    "status": "pass",
+    "primary_cells": 20,
+    "sensitivity_cells": 140,
+    "recounted_primary_cells": 20,
+    "baseline_cells_matching_sealed_study_12": 70,
+    "selected_rule": "upper_half_close",
+    "checks": [
+      "pinned manifest and ledger hashes",
+      "complete two-year candidate grid",
+      "event-level scores and counts",
+      "2025-only selection reproduction",
+      "70 unfiltered cooldown/horizon cells equal sealed study 12",
+      "static HTML contains saved results"
+    ]
+  },
+  "verification_commands_passed": [
+    ".venv/bin/python -m unittest discover -s packages/bhishma/tests",
+    ".venv/bin/python -m unittest discover -s packages/sahadeva/tests",
+    ".venv/bin/python -m unittest discover -s studies/13_gc_ema_band_filter_validation/tests",
+    "python3 scripts/check-agent-docs.py",
+    ".venv/bin/abacus-research doctor --workspace-root . --read-sample",
+    "PYTHONPATH=legacy/sahadeva/analysis/01_reversal_follow_through/src .venv/bin/python -m unittest discover -s legacy/sahadeva/analysis/01_reversal_follow_through/tests",
+    "PYTHONPATH=legacy/sahadeva/analysis/02_followthrough_candle_adverse/src .venv/bin/python -m unittest discover -s legacy/sahadeva/analysis/02_followthrough_candle_adverse/tests"
+  ],
+  "workspace_gate_note": "scripts/check-workspace attempted, but uv tried to fetch setuptools and network DNS was unavailable; direct installed-environment equivalent checks passed.",
+  "artifacts": [
+    {
+      "path": "advice.md",
+      "sha256": "ead67c24067d31412c1315cab7c689a8dfff1125741f5868c93018712b4dbe6a",
+      "bytes": 641
+    },
+    {
+      "path": "checks.json",
+      "sha256": "220d85a0217468b144c02ea5d704cab21c11801d6d2e38b9cad4c3e229a0fe2a",
+      "bytes": 479
+    },
+    {
+      "path": "config.json",
+      "sha256": "82da33fb3a1f5e03711d2f8633e541cf0ae56c234be88b7a79e2207185c1a936",
+      "bytes": 1037
+    },
+    {
+      "path": "decision.json",
+      "sha256": "a7126902f30045f3fc67be3ae4a1cfc87838fa0e0657b5b6ac2dc36ea31c426c",
+      "bytes": 390
+    },
+    {
+      "path": "events.manifest.json",
+      "sha256": "603ce371b60bbce4f70ab269f685e7b22c73ddb407862b160759cd2e9a3c4c60",
+      "bytes": 488
+    },
+    {
+      "path": "inputs.lock.json",
+      "sha256": "f398f6e25f6958cb6d25102276db5329fabd9ec16f4214374feb3b901f2896c7",
+      "bytes": 1181
+    },
+    {
+      "path": "metrics.json",
+      "sha256": "215dd15c5f6f9f9c0f05ab7283d7add40d5a275e735352d2fba7b7c0d91ddaed",
+      "bytes": 336
+    },
+    {
+      "path": "report.html",
+      "sha256": "adbc1dcd2010c6527c0fd779fa2b567bf8739d8a7c0a7cf6bc39f0213df1eac7",
+      "bytes": 23623
+    },
+    {
+      "path": "report.md",
+      "sha256": "ce3afc67d178b306262b5e43cad39af30c2b9e9ec90e9a0b5ca56f0ec3e4078b",
+      "bytes": 1835
+    },
+    {
+      "path": "tables/candidate_context.parquet",
+      "sha256": "9464e736ce2606291f73f2a71b4f6eff69a1a81159f9e9fa253fe772da6fe950",
+      "bytes": 202420
+    },
+    {
+      "path": "tables/candidate_outcomes.parquet",
+      "sha256": "1a35a9663c6f0ce50cde06d15c3af8d02bce09e0c1347e746af359781687a399",
+      "bytes": 455981
+    },
+    {
+      "path": "tables/primary.csv",
+      "sha256": "86c72f35167727daac4e4709ff9d6231d1d19eec776196c52f3de23c1f88982d",
+      "bytes": 6494
+    },
+    {
+      "path": "tables/sensitivity.csv",
+      "sha256": "83a7d0ea7ea3c6c2a47847b6391da061e4baa02d7a625a55cb2e3a41b192fc6e",
+      "bytes": 40582
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "kind": "browser-production",
+  "result": "passed",
+  "origin": "https://abacus-narada.vercel.app",
+  "at": "2026-10-13T00:02:07.077480+00:00",
+  "artifactSha256": "b0d0a5b1bc85b8498041d3550e581e4ddbde4d591d0b518037f59044bdc4a24b",
+  "findings": [
+    "Live study selects one-candle pullback continuation with all six analyses and 4/5/6 chart tabs.",
+    "Live source references identify sealed run 20261012T230640Z_pullbacks22_4f3a92.",
+    "Public payoff report shows six overall rows; actual CSV link was clicked and the downloaded file SHA matches the immutable publication."
+  ],
+  "download": {
+    "result": "passed",
+    "trigger": "actual browser download-link click on public production",
+    "files": [
+      {
+        "path": "/Users/ppanati/Downloads/gross-ohlc-payoff.csv",
+        "bytes": 819638,
+        "sha256": "f40371cc36120c82440cda462228e5266996eab555da095cf1a56a305fe219a8",
+        "modified": "2026-10-12T23:52:41.744227+00:00",
+        "matches_public_4t": true
+      }
+    ],
+    "expected_sha256": "f40371cc36120c82440cda462228e5266996eab555da095cf1a56a305fe219a8"
+  },
+  "qualification": "The protected preview download helper timed out; the public production native download completed and exact bytes were verified."
+}

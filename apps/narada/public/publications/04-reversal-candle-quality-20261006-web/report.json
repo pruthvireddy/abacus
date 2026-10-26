@@ -1,0 +1,475 @@
+{
+  "provenance": {
+    "assets": [],
+    "sourceSha256": "951d94c40c718dfcddab3d8c5ced1e93ee975317f55ba3478b0b2f3345ac4a38"
+  },
+  "report": {
+    "id": "04-reversal-candle-quality-20261006-web",
+    "publishedAt": "2026-10-06T23:09:36Z",
+    "schemaVersion": "1.0",
+    "sections": [
+      {
+        "body": "Does reversal candle quality add to strictly prior larger-chart alignment? The retained historical run compares quality-stack candles and one-bar failed pullbacks across ES 5→6, GC 6→10, NQ 10→20 and secondary GC 10→20.",
+        "id": "question",
+        "kind": "text",
+        "title": "Question and scope"
+      },
+      {
+        "body": "Quality-stack alignment improves next-bar colour persistence more consistently than longer runs. A break of the full prior run largely identifies the one-bar pullback structure rather than an independent candle factor. The saved price means are negative before fees and slippage: larger failures outweigh frequent small colour successes.",
+        "id": "findings",
+        "kind": "text",
+        "title": "Supported findings"
+      },
+      {
+        "columns": [
+          {
+            "key": "pair_id",
+            "label": "pair id"
+          },
+          {
+            "key": "outcome",
+            "label": "outcome"
+          },
+          {
+            "format": "number",
+            "key": "feature_n",
+            "label": "Quality eligible n",
+            "precision": 0
+          },
+          {
+            "format": "number",
+            "key": "nonfeature_n",
+            "label": "Other eligible n",
+            "precision": 0
+          },
+          {
+            "format": "percent",
+            "key": "feature_rate",
+            "label": "Quality rate",
+            "precision": 1
+          },
+          {
+            "format": "percent",
+            "key": "nonfeature_rate",
+            "label": "Other rate",
+            "precision": 1
+          },
+          {
+            "format": "number",
+            "key": "feature_minus_nonfeature",
+            "label": "Rate difference",
+            "precision": 1,
+            "unit": "pp"
+          },
+          {
+            "format": "number",
+            "key": "cluster_bootstrap_ci_low",
+            "label": "95% difference low",
+            "precision": 1,
+            "unit": "pp"
+          },
+          {
+            "format": "number",
+            "key": "cluster_bootstrap_ci_high",
+            "label": "95% difference high",
+            "precision": 1,
+            "unit": "pp"
+          },
+          {
+            "format": "number",
+            "key": "feature_mean_forward_return_ticks",
+            "label": "Quality mean next-bar return",
+            "precision": 2,
+            "unit": "ticks"
+          },
+          {
+            "format": "number",
+            "key": "nonfeature_mean_forward_return_ticks",
+            "label": "Other mean next-bar return",
+            "precision": 2,
+            "unit": "ticks"
+          }
+        ],
+        "id": "quality",
+        "kind": "table",
+        "rows": [
+          {
+            "cluster_bootstrap_ci_high": 7.14279233784096,
+            "cluster_bootstrap_ci_low": 2.052785328320334,
+            "feature_mean_forward_return_ticks": -0.48480700793868053,
+            "feature_minus_nonfeature": 4.634179634179636,
+            "feature_n": 3663,
+            "feature_rate": 0.7963417963417964,
+            "nonfeature_mean_forward_return_ticks": -0.402377972465582,
+            "nonfeature_n": 1604,
+            "nonfeature_rate": 0.75,
+            "outcome": "P(L>=1)",
+            "pair_id": "ES 5 6"
+          },
+          {
+            "cluster_bootstrap_ci_high": 2.1590336859253005,
+            "cluster_bootstrap_ci_low": -2.8265453861901277,
+            "feature_mean_forward_return_ticks": -0.2657496561210454,
+            "feature_minus_nonfeature": -0.3754268070947697,
+            "feature_n": 3662,
+            "feature_rate": 0.3216821409066084,
+            "nonfeature_mean_forward_return_ticks": 0.03957286432160804,
+            "nonfeature_n": 1604,
+            "nonfeature_rate": 0.3254364089775561,
+            "outcome": "P(L>=3)",
+            "pair_id": "ES 5 6"
+          },
+          {
+            "cluster_bootstrap_ci_high": 0.10096949208362452,
+            "cluster_bootstrap_ci_low": -3.5738013287084147,
+            "feature_mean_forward_return_ticks": -0.2917471708528844,
+            "feature_minus_nonfeature": -1.7000485674641574,
+            "feature_n": 3661,
+            "feature_rate": 0.12701447691887463,
+            "nonfeature_mean_forward_return_ticks": 0.14996849401386264,
+            "nonfeature_n": 1604,
+            "nonfeature_rate": 0.1440149625935162,
+            "outcome": "P(L>=5)",
+            "pair_id": "ES 5 6"
+          },
+          {
+            "cluster_bootstrap_ci_high": 4.4311396656222986,
+            "cluster_bootstrap_ci_low": 2.310348444669045,
+            "feature_mean_forward_return_ticks": -1.0591158407948853,
+            "feature_minus_nonfeature": 3.368244945479393,
+            "feature_n": 21353,
+            "feature_rate": 0.7857443918887276,
+            "nonfeature_mean_forward_return_ticks": -1.063636363636266,
+            "nonfeature_n": 5941,
+            "nonfeature_rate": 0.7520619424339337,
+            "outcome": "P(L>=1)",
+            "pair_id": "GC 6 10"
+          },
+          {
+            "cluster_bootstrap_ci_high": 3.075149813316113,
+            "cluster_bootstrap_ci_low": 0.1975206065991145,
+            "feature_mean_forward_return_ticks": -0.24869809992949982,
+            "feature_minus_nonfeature": 1.624197253221421,
+            "feature_n": 21347,
+            "feature_rate": 0.3491825549257507,
+            "nonfeature_mean_forward_return_ticks": -0.06319514661259837,
+            "nonfeature_n": 5941,
+            "nonfeature_rate": 0.33294058239353647,
+            "outcome": "P(L>=3)",
+            "pair_id": "GC 6 10"
+          },
+          {
+            "cluster_bootstrap_ci_high": 0.8091536335870678,
+            "cluster_bootstrap_ci_low": -1.1588872880783716,
+            "feature_mean_forward_return_ticks": -0.42376860590680926,
+            "feature_minus_nonfeature": -0.1812893780313546,
+            "feature_n": 21346,
+            "feature_rate": 0.14967675442705894,
+            "nonfeature_mean_forward_return_ticks": -0.2029352226720206,
+            "nonfeature_n": 5941,
+            "nonfeature_rate": 0.15148964820737248,
+            "outcome": "P(L>=5)",
+            "pair_id": "GC 6 10"
+          },
+          {
+            "cluster_bootstrap_ci_high": 4.375800193644406,
+            "cluster_bootstrap_ci_low": 1.3919742521628018,
+            "feature_mean_forward_return_ticks": -0.8949304620906164,
+            "feature_minus_nonfeature": 2.8880461489157128,
+            "feature_n": 11165,
+            "feature_rate": 0.7818181818181819,
+            "nonfeature_mean_forward_return_ticks": -0.8097618347544843,
+            "nonfeature_n": 3404,
+            "nonfeature_rate": 0.7529377203290247,
+            "outcome": "P(L>=1)",
+            "pair_id": "GC 10 20"
+          },
+          {
+            "cluster_bootstrap_ci_high": 3.3798954906713794,
+            "cluster_bootstrap_ci_low": -0.24436518795844073,
+            "feature_mean_forward_return_ticks": 0.0708187292172077,
+            "feature_minus_nonfeature": 1.5279280679859952,
+            "feature_n": 11163,
+            "feature_rate": 0.3480247245364149,
+            "nonfeature_mean_forward_return_ticks": 0.30168092008260555,
+            "nonfeature_n": 3402,
+            "nonfeature_rate": 0.33274544385655497,
+            "outcome": "P(L>=3)",
+            "pair_id": "GC 10 20"
+          },
+          {
+            "cluster_bootstrap_ci_high": 2.3819310610148516,
+            "cluster_bootstrap_ci_low": -0.0368376226774849,
+            "feature_mean_forward_return_ticks": 0.057006484149800786,
+            "feature_minus_nonfeature": 1.1484731490648463,
+            "feature_n": 11163,
+            "feature_rate": 0.15085550479261847,
+            "nonfeature_mean_forward_return_ticks": 0.15214180206795758,
+            "nonfeature_n": 3401,
+            "nonfeature_rate": 0.13937077330197,
+            "outcome": "P(L>=5)",
+            "pair_id": "GC 10 20"
+          },
+          {
+            "cluster_bootstrap_ci_high": 3.875013482919956,
+            "cluster_bootstrap_ci_low": 2.4712270575126523,
+            "feature_mean_forward_return_ticks": -1.0415775377037984,
+            "feature_minus_nonfeature": 3.1259545373253594,
+            "feature_n": 55649,
+            "feature_rate": 0.7812000215637298,
+            "nonfeature_mean_forward_return_ticks": -1.150672699130849,
+            "nonfeature_n": 16800,
+            "nonfeature_rate": 0.7499404761904762,
+            "outcome": "P(L>=1)",
+            "pair_id": "NQ 10 20"
+          },
+          {
+            "cluster_bootstrap_ci_high": 1.0419252563437909,
+            "cluster_bootstrap_ci_low": -0.5952427741158705,
+            "feature_mean_forward_return_ticks": -0.2331403085997914,
+            "feature_minus_nonfeature": 0.2180112249014876,
+            "feature_n": 55641,
+            "feature_rate": 0.34497942164950307,
+            "nonfeature_mean_forward_return_ticks": 0.1301732864884178,
+            "nonfeature_n": 16797,
+            "nonfeature_rate": 0.3427993094004882,
+            "outcome": "P(L>=3)",
+            "pair_id": "NQ 10 20"
+          },
+          {
+            "cluster_bootstrap_ci_high": 0.5996360700701711,
+            "cluster_bootstrap_ci_low": -0.6113829281881861,
+            "feature_mean_forward_return_ticks": -0.2621399399075224,
+            "feature_minus_nonfeature": 0.001977490605681309,
+            "feature_n": 55639,
+            "feature_rate": 0.15320189076007837,
+            "nonfeature_mean_forward_return_ticks": -0.0681398534754899,
+            "nonfeature_n": 16797,
+            "nonfeature_rate": 0.15318211585402156,
+            "outcome": "P(L>=5)",
+            "pair_id": "NQ 10 20"
+          }
+        ],
+        "title": "Aligned quality stack: colour and next-bar price"
+      },
+      {
+        "columns": [
+          {
+            "key": "pair_id",
+            "label": "pair id"
+          },
+          {
+            "key": "outcome",
+            "label": "outcome"
+          },
+          {
+            "format": "number",
+            "key": "one_bar_n",
+            "label": "one bar n",
+            "precision": 0
+          },
+          {
+            "format": "number",
+            "key": "longer_n",
+            "label": "longer n",
+            "precision": 0
+          },
+          {
+            "format": "percent",
+            "key": "one_bar_prior_run_rate",
+            "label": "one bar prior run rate",
+            "precision": 1
+          },
+          {
+            "format": "percent",
+            "key": "longer_prior_run_rate",
+            "label": "longer prior run rate",
+            "precision": 1
+          },
+          {
+            "format": "number",
+            "key": "one_bar_minus_longer",
+            "label": "Rate difference",
+            "precision": 1,
+            "unit": "pp"
+          },
+          {
+            "format": "number",
+            "key": "cluster_bootstrap_ci_low",
+            "label": "95% low",
+            "precision": 1,
+            "unit": "pp"
+          },
+          {
+            "format": "number",
+            "key": "cluster_bootstrap_ci_high",
+            "label": "95% high",
+            "precision": 1,
+            "unit": "pp"
+          }
+        ],
+        "id": "snapback",
+        "kind": "table",
+        "rows": [
+          {
+            "cluster_bootstrap_ci_high": 10.513832525577078,
+            "cluster_bootstrap_ci_low": 5.560184178293123,
+            "longer_n": 2281,
+            "longer_prior_run_rate": 0.7360806663743972,
+            "one_bar_minus_longer": 8.140091433558272,
+            "one_bar_n": 2986,
+            "one_bar_prior_run_rate": 0.8174815807099799,
+            "outcome": "P(L>=1)",
+            "pair_id": "ES 5 6"
+          },
+          {
+            "cluster_bootstrap_ci_high": 4.828970421325411,
+            "cluster_bootstrap_ci_low": -0.34437083733743296,
+            "longer_n": 2281,
+            "longer_prior_run_rate": 0.31082858395440593,
+            "one_bar_minus_longer": 2.116471587808988,
+            "one_bar_n": 2985,
+            "one_bar_prior_run_rate": 0.3319932998324958,
+            "outcome": "P(L>=3)",
+            "pair_id": "ES 5 6"
+          },
+          {
+            "cluster_bootstrap_ci_high": 0.9193097806678019,
+            "cluster_bootstrap_ci_low": -2.5187432292835337,
+            "longer_n": 2281,
+            "longer_prior_run_rate": 0.13634370889960543,
+            "one_bar_minus_longer": -0.7322261178425798,
+            "one_bar_n": 2984,
+            "one_bar_prior_run_rate": 0.12902144772117963,
+            "outcome": "P(L>=5)",
+            "pair_id": "ES 5 6"
+          },
+          {
+            "cluster_bootstrap_ci_high": 7.130274248175655,
+            "cluster_bootstrap_ci_low": 5.411414915489749,
+            "longer_n": 11533,
+            "longer_prior_run_rate": 0.7423046908870199,
+            "one_bar_minus_longer": 6.2530027722205395,
+            "one_bar_n": 15761,
+            "one_bar_prior_run_rate": 0.8048347186092253,
+            "outcome": "P(L>=1)",
+            "pair_id": "GC 6 10"
+          },
+          {
+            "cluster_bootstrap_ci_high": 2.8561713487736435,
+            "cluster_bootstrap_ci_low": 0.5557495170288945,
+            "longer_n": 11532,
+            "longer_prior_run_rate": 0.3355879292403746,
+            "one_bar_minus_longer": 1.7420448520478415,
+            "one_bar_n": 15756,
+            "one_bar_prior_run_rate": 0.35300837776085303,
+            "outcome": "P(L>=3)",
+            "pair_id": "GC 6 10"
+          },
+          {
+            "cluster_bootstrap_ci_high": 0.7421210261677038,
+            "cluster_bootstrap_ci_low": -0.8762430761962852,
+            "longer_n": 11532,
+            "longer_prior_run_rate": 0.15062434963579605,
+            "one_bar_minus_longer": -0.09575771826065838,
+            "one_bar_n": 15755,
+            "one_bar_prior_run_rate": 0.14966677245318946,
+            "outcome": "P(L>=5)",
+            "pair_id": "GC 6 10"
+          },
+          {
+            "cluster_bootstrap_ci_high": 5.932489011133764,
+            "cluster_bootstrap_ci_low": 3.341435025396919,
+            "longer_n": 8087,
+            "longer_prior_run_rate": 0.7544206751576604,
+            "one_bar_minus_longer": 4.641240105338551,
+            "one_bar_n": 6482,
+            "one_bar_prior_run_rate": 0.8008330762110459,
+            "outcome": "P(L>=1)",
+            "pair_id": "GC 10 20"
+          },
+          {
+            "cluster_bootstrap_ci_high": 2.8126185147297953,
+            "cluster_bootstrap_ci_low": -0.17240118338392438,
+            "longer_n": 8085,
+            "longer_prior_run_rate": 0.33828076685219544,
+            "one_bar_minus_longer": 1.3879726974965034,
+            "one_bar_n": 6480,
+            "one_bar_prior_run_rate": 0.35216049382716047,
+            "outcome": "P(L>=3)",
+            "pair_id": "GC 10 20"
+          },
+          {
+            "cluster_bootstrap_ci_high": 1.8381955642611434,
+            "cluster_bootstrap_ci_low": -0.39489503227382167,
+            "longer_n": 8084,
+            "longer_prior_run_rate": 0.14497773379515091,
+            "one_bar_minus_longer": 0.7182760032009572,
+            "one_bar_n": 6480,
+            "one_bar_prior_run_rate": 0.1521604938271605,
+            "outcome": "P(L>=5)",
+            "pair_id": "GC 10 20"
+          },
+          {
+            "cluster_bootstrap_ci_high": 6.129453384350371,
+            "cluster_bootstrap_ci_low": 5.074820131556414,
+            "longer_n": 39263,
+            "longer_prior_run_rate": 0.7483635993174236,
+            "one_bar_minus_longer": 5.586107373747906,
+            "one_bar_n": 33186,
+            "one_bar_prior_run_rate": 0.8042246730549026,
+            "outcome": "P(L>=1)",
+            "pair_id": "NQ 10 20"
+          },
+          {
+            "cluster_bootstrap_ci_high": 2.548246371134705,
+            "cluster_bootstrap_ci_low": 1.0360009098410214,
+            "longer_n": 39256,
+            "longer_prior_run_rate": 0.3363052781740371,
+            "one_bar_minus_longer": 1.7832507372343487,
+            "one_bar_n": 33182,
+            "one_bar_prior_run_rate": 0.3541377855463806,
+            "outcome": "P(L>=3)",
+            "pair_id": "NQ 10 20"
+          },
+          {
+            "cluster_bootstrap_ci_high": 0.4488614892256295,
+            "cluster_bootstrap_ci_low": -0.5684762513477201,
+            "longer_n": 39256,
+            "longer_prior_run_rate": 0.15350519665783574,
+            "one_bar_minus_longer": -0.06721647108797468,
+            "one_bar_n": 33180,
+            "one_bar_prior_run_rate": 0.152833031946956,
+            "outcome": "P(L>=5)",
+            "pair_id": "NQ 10 20"
+          }
+        ],
+        "title": "Aligned one-bar pullback versus longer prior runs"
+      },
+      {
+        "body": "Quality stack requires body at least seventy percent of high-low range, favorable close within the final twenty percent, and a break of the previous bar directional extreme. The larger state must complete strictly before the small signal; same-second ambiguity is excluded. L excludes the reversal. The test-labelled April–September 2026 contrasts use saved 95% session-cluster pointwise intervals and do not correct a feature search. The next-bar-close price diagnostic is measured in small-chart product ticks; it is not the colour probability. One-bar snapback compares exactly one opposing prior bar with longer prior runs.",
+        "id": "methods",
+        "kind": "text",
+        "title": "Definitions and methods"
+      },
+      {
+        "body": "Historical import is not newly validated execution evidence. Inputs and modern code/environment provenance are incomplete; chart clocks, completion and fills remain unverified. Longer-horizon and exhaustion interactions are weak or unstable. Shared chart settings and earlier study inspection limit independence. OHLC cannot establish stop/target order, and hypothetical stops must not be inferred to repair the negative payoff.",
+        "id": "limitations",
+        "kind": "text",
+        "title": "Limitations and uncertainty"
+      },
+      {
+        "body": "Study 04_reversal_candle_quality; source run 20260908T_reversal_quality_v1. Publication-only choice: Sole retained candle-quality follow-up directly covers the question and preserves the negative price diagnostic. Historical and provenance limitations remain explicit; no research reference is created.\n\nPresentation revision 20261006T230936Z_web04, web-study-report-1.0. Saved numerical tables are the authority; only selected rows and columns are presented. No new statistics or research execution. The publication record identifies this JSON and its selected assets.",
+        "id": "sources-provenance",
+        "kind": "text",
+        "title": "Source and presentation provenance"
+      }
+    ],
+    "source": {
+      "producer": "sahadeva",
+      "runId": "20260908T_reversal_quality_v1"
+    },
+    "summary": "Aligned strong candles show a next-bar colour advantage that weakens over longer runs. Saved mean next-bar returns remain negative before costs, despite high continuation rates.",
+    "title": "Reversal quality: colour advantage, negative payoff"
+  }
+}

@@ -1,0 +1,20 @@
+schema_version: 1
+study_id: 11_vwap_conditional_probabilities
+status: completed
+reference_run: 20260924T155331Z_vwap11
+protocol_version: 1.0.0
+protocol: protocol-1.0.0.json
+inputs_lock: inputs.lock.json
+products: [ES, NQ, GC]
+primary_timeframe: 2m
+sensitivity_timeframe: 5m
+timezone: America/New_York
+checkpoint_clock_minutes: 10
+anchor_warmup_minutes: 30
+state_lookback_minutes: 30
+primary_horizon_minutes: 30
+touch_zone_ticks: 1
+day_vwap_anchor: globex
+session_vwap_anchors: [asia, london, ny]
+uncertainty_unit: shared_iso_week
+previously_unseen_outcomes_confirmed: false

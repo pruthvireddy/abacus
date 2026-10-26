@@ -1,0 +1,20 @@
+request:
+  id: tradingview_daily_context__1.0.0
+  purpose: >-
+    Reusable daily market and volatility context for lower-timeframe Abacus
+    studies, including VIX/VXN/GVZ levels and source-supplied ATR values.
+  requester: workspace user
+inputs:
+  source: nine TradingView chart CSV exports downloaded 2026-09-24
+  assets: [XAUUSD, SI, CL, GC, ES, NQ, GVZ, VIX, VXN]
+  timeframe: 1d
+output:
+  feature_set: tradingview_daily_context
+  version: 1.0.0
+  format: parquet
+  raw_copies: exact bytes, retained under data/raw/tradingview/
+  completed_bars_only: true
+  available_at: exported bar_close_unix_s
+  missing_values: preserve null, no interpolation
+  indicator_formulas: source supplied, not independently verified
+  overwrite_existing_version: false

@@ -1,0 +1,1827 @@
+{
+  "title": "VWAP excursions: separate sessions, horizons and first-move outcomes",
+  "summary": "Saved two-sigma departure and first-touch evidence at 20 and 100 minutes, separated by product and anchor. Each horizon has its own complete-path denominator; return, endpoint and barrier-first outcomes answer different questions.",
+  "source": {
+    "producer": "sahadeva",
+    "runId": "20260929T234000Z_a15f"
+  },
+  "sections": [
+    {
+      "id": "question",
+      "kind": "text",
+      "title": "Question and selected scope",
+      "body": "Fresh two-sigma departures and first evolving-VWAP touches are shown separately for ES, NQ and GC, with mirrored sides and four overlapping anchor populations. Ten two-minute candles means 20 minutes; fifty means 100 minutes. These values come from the full saved summary, whose longer-horizon rows were omitted from the earlier concise findings CSV."
+    },
+    {
+      "id": "findings",
+      "kind": "text",
+      "title": "Supported findings",
+      "body": "Return probability depends strongly on the anchor population. Signed continuation endpoint means are mixed, with several uncertain intervals. First-touch bounce endpoint rates can sit near one half while payoff distributions differ. No optimization or trading edge is inferred from selected rates."
+    },
+    {
+      "id": "asia-return",
+      "kind": "table",
+      "title": "Asia: departure return and signed continuation",
+      "description": "Asia uses the inferred New York 20:00–03:00 window. Return is one-minute range contact with the lagged evolving VWAP ±1-tick zone; a gap or reference overtake alone is not contact.",
+      "notes": [
+        "Intervals are marginal 95% shared-ISO-week cluster percentile bounds. Horizons have different eligible populations; use common-50 evidence for paired horizon curves.",
+        "Signed continuation is the next-open-to-terminal-close move in the departure direction; no fill, cost, stop or net profitability model is implied."
+      ],
+      "referenceIds": [
+        "summary-source"
+      ],
+      "columns": [
+        {
+          "key": "product",
+          "label": "Product"
+        },
+        {
+          "key": "horizon_bars",
+          "label": "Two-minute bars",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "n",
+          "label": "Complete departures",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "unavailable",
+          "label": "Unavailable",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "evolving_touch_mean",
+          "label": "Evolving return",
+          "format": "percent",
+          "precision": 1
+        },
+        {
+          "key": "evolving_touch_ci_low",
+          "label": "Return 95% low",
+          "format": "percent",
+          "precision": 1
+        },
+        {
+          "key": "evolving_touch_ci_high",
+          "label": "Return 95% high",
+          "format": "percent",
+          "precision": 1
+        },
+        {
+          "key": "directional_delta_mean",
+          "label": "Signed continuation",
+          "format": "number",
+          "precision": 2,
+          "unit": "native points"
+        },
+        {
+          "key": "directional_delta_ci_low",
+          "label": "95% low",
+          "format": "number",
+          "precision": 2,
+          "unit": "native points"
+        },
+        {
+          "key": "directional_delta_ci_high",
+          "label": "95% high",
+          "format": "number",
+          "precision": 2,
+          "unit": "native points"
+        }
+      ],
+      "rows": [
+        {
+          "product": "ES",
+          "horizon_bars": 10.0,
+          "n": 3124.0,
+          "unavailable": 55.0,
+          "evolving_touch_mean": 0.44238156209987195,
+          "evolving_touch_ci_low": 0.4247371024014084,
+          "evolving_touch_ci_high": 0.4597715749937035,
+          "directional_delta_mean": 0.03905249679897567,
+          "directional_delta_ci_low": -0.0917080787258583,
+          "directional_delta_ci_high": 0.17329113445170527
+        },
+        {
+          "product": "ES",
+          "horizon_bars": 50.0,
+          "n": 2810.0,
+          "unavailable": 369.0,
+          "evolving_touch_mean": 0.7765124555160142,
+          "evolving_touch_ci_low": 0.7629518625129713,
+          "evolving_touch_ci_high": 0.7893892599558471,
+          "directional_delta_mean": 0.02090747330960854,
+          "directional_delta_ci_low": -0.2755276482815451,
+          "directional_delta_ci_high": 0.3465735901047842
+        },
+        {
+          "product": "NQ",
+          "horizon_bars": 10.0,
+          "n": 3300.0,
+          "unavailable": 64.0,
+          "evolving_touch_mean": 0.38303030303030305,
+          "evolving_touch_ci_low": 0.3661123521351129,
+          "evolving_touch_ci_high": 0.3992262108501932,
+          "directional_delta_mean": 0.513560606060606,
+          "directional_delta_ci_low": -0.09070302319428439,
+          "directional_delta_ci_high": 1.150615704502766
+        },
+        {
+          "product": "NQ",
+          "horizon_bars": 50.0,
+          "n": 2937.0,
+          "unavailable": 427.0,
+          "evolving_touch_mean": 0.7477017364657814,
+          "evolving_touch_ci_low": 0.7341628820537202,
+          "evolving_touch_ci_high": 0.7607524608887387,
+          "directional_delta_mean": 0.5191521961184883,
+          "directional_delta_ci_low": -0.7392861331135993,
+          "directional_delta_ci_high": 1.8572922660087643
+        },
+        {
+          "product": "GC",
+          "horizon_bars": 10.0,
+          "n": 2401.0,
+          "unavailable": 38.0,
+          "evolving_touch_mean": 0.42982090795501876,
+          "evolving_touch_ci_low": 0.41063416923979307,
+          "evolving_touch_ci_high": 0.4495307979992073,
+          "directional_delta_mean": 0.3379008746355686,
+          "directional_delta_ci_low": 0.1108801976440978,
+          "directional_delta_ci_high": 0.5834419275123555
+        },
+        {
+          "product": "GC",
+          "horizon_bars": 50.0,
+          "n": 2168.0,
+          "unavailable": 271.0,
+          "evolving_touch_mean": 0.7712177121771218,
+          "evolving_touch_ci_low": 0.7544986759915246,
+          "evolving_touch_ci_high": 0.7866116549320376,
+          "directional_delta_mean": 0.1298431734317343,
+          "directional_delta_ci_low": -0.2422160320037555,
+          "directional_delta_ci_high": 0.519075880161609
+        }
+      ]
+    },
+    {
+      "id": "asia-response",
+      "kind": "table",
+      "title": "Asia: first-touch endpoint response",
+      "description": "Response entry is the next two-minute open after the touch candle closes. Endpoint bounce means terminal movement in the original excursion-side direction, not which barrier was hit first.",
+      "notes": [
+        "The touch cohort differs from departure eligibility. Zero/all-success degenerate bounds leave boundary uncertainty unresolved; sparse flags use events/dates/weeks.",
+        "Marginal 95% shared-week bounds retain original uncertainty. Empty support flags mean no saved sparse flag, rather than independent confirmation."
+      ],
+      "referenceIds": [
+        "summary-source"
+      ],
+      "columns": [
+        {
+          "key": "product",
+          "label": "Product"
+        },
+        {
+          "key": "horizon_bars",
+          "label": "Two-minute bars",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "n",
+          "label": "Complete touch paths",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "unavailable",
+          "label": "Unavailable",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "directional_positive_mean",
+          "label": "Bounce endpoint",
+          "format": "percent",
+          "precision": 1
+        },
+        {
+          "key": "directional_positive_ci_low",
+          "label": "95% low",
+          "format": "percent",
+          "precision": 1
+        },
+        {
+          "key": "directional_positive_ci_high",
+          "label": "95% high",
+          "format": "percent",
+          "precision": 1
+        },
+        {
+          "key": "days",
+          "label": "Dates",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "weeks",
+          "label": "ISO weeks",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "support_flag",
+          "label": "Support flag"
+        },
+        {
+          "key": "directional_positive_boundary_uncertainty_unresolved",
+          "label": "Boundary unresolved"
+        }
+      ],
+      "rows": [
+        {
+          "product": "ES",
+          "horizon_bars": 10.0,
+          "n": 2589.0,
+          "unavailable": 53.0,
+          "directional_positive_mean": 0.5071456160679799,
+          "directional_positive_ci_low": 0.48850211549821504,
+          "directional_positive_ci_high": 0.5254855558728346,
+          "days": 986.0,
+          "weeks": 267.0,
+          "support_flag": null,
+          "directional_positive_boundary_uncertainty_unresolved": false
+        },
+        {
+          "product": "ES",
+          "horizon_bars": 50.0,
+          "n": 2317.0,
+          "unavailable": 325.0,
+          "directional_positive_mean": 0.49331031506258094,
+          "directional_positive_ci_low": 0.4722646238857843,
+          "directional_positive_ci_high": 0.5151263379426992,
+          "days": 969.0,
+          "weeks": 267.0,
+          "support_flag": null,
+          "directional_positive_boundary_uncertainty_unresolved": false
+        },
+        {
+          "product": "NQ",
+          "horizon_bars": 10.0,
+          "n": 2660.0,
+          "unavailable": 63.0,
+          "directional_positive_mean": 0.5210526315789473,
+          "directional_positive_ci_low": 0.5025103873983342,
+          "directional_positive_ci_high": 0.5393436525116148,
+          "days": 1101.0,
+          "weeks": 272.0,
+          "support_flag": null,
+          "directional_positive_boundary_uncertainty_unresolved": false
+        },
+        {
+          "product": "NQ",
+          "horizon_bars": 50.0,
+          "n": 2370.0,
+          "unavailable": 353.0,
+          "directional_positive_mean": 0.4907172995780591,
+          "directional_positive_ci_low": 0.4707963452974041,
+          "directional_positive_ci_high": 0.5108960007901532,
+          "days": 1070.0,
+          "weeks": 272.0,
+          "support_flag": null,
+          "directional_positive_boundary_uncertainty_unresolved": false
+        },
+        {
+          "product": "GC",
+          "horizon_bars": 10.0,
+          "n": 1998.0,
+          "unavailable": 40.0,
+          "directional_positive_mean": 0.517017017017017,
+          "directional_positive_ci_low": 0.49624094079037334,
+          "directional_positive_ci_high": 0.5391594303282049,
+          "days": 779.0,
+          "weeks": 348.0,
+          "support_flag": null,
+          "directional_positive_boundary_uncertainty_unresolved": false
+        },
+        {
+          "product": "GC",
+          "horizon_bars": 50.0,
+          "n": 1789.0,
+          "unavailable": 249.0,
+          "directional_positive_mean": 0.4958077138065959,
+          "directional_positive_ci_low": 0.4713055931308936,
+          "directional_positive_ci_high": 0.5203425237667664,
+          "days": 760.0,
+          "weeks": 345.0,
+          "support_flag": null,
+          "directional_positive_boundary_uncertainty_unresolved": false
+        }
+      ]
+    },
+    {
+      "id": "asia-first-move",
+      "kind": "table",
+      "title": "Asia: first move, including ambiguity and neither",
+      "description": "Saved class counts for symmetric 0.5-touch-sigma barriers around the response entry. The barrier-evaluable denominator can differ from otherwise valid point-response paths.",
+      "notes": [
+        "A same-minute double touch has unknown order unless the source opening crossing resolves it. Neither is an observed horizon outcome, not missing evidence.",
+        "These ordered barrier classes are separate from MAE/MFE extrema and from terminal endpoint direction."
+      ],
+      "referenceIds": [
+        "summary-source"
+      ],
+      "columns": [
+        {
+          "key": "product",
+          "label": "Product"
+        },
+        {
+          "key": "horizon_bars",
+          "label": "Two-minute bars",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "first_bounce_denominator",
+          "label": "Barrier-evaluable n",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "first_bounce_count",
+          "label": "Bounce first",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "first_through_count",
+          "label": "Through first",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "first_neither_count",
+          "label": "Neither",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "first_ambiguous_count",
+          "label": "Same-minute ambiguous",
+          "format": "number",
+          "precision": 0
+        }
+      ],
+      "rows": [
+        {
+          "product": "ES",
+          "horizon_bars": 10.0,
+          "first_bounce_denominator": 2589.0,
+          "first_bounce_count": 1194.0,
+          "first_through_count": 1085.0,
+          "first_neither_count": 140.0,
+          "first_ambiguous_count": 170.0
+        },
+        {
+          "product": "ES",
+          "horizon_bars": 50.0,
+          "first_bounce_denominator": 2317.0,
+          "first_bounce_count": 1122.0,
+          "first_through_count": 1023.0,
+          "first_neither_count": 3.0,
+          "first_ambiguous_count": 169.0
+        },
+        {
+          "product": "NQ",
+          "horizon_bars": 10.0,
+          "first_bounce_denominator": 2660.0,
+          "first_bounce_count": 1182.0,
+          "first_through_count": 1154.0,
+          "first_neither_count": 167.0,
+          "first_ambiguous_count": 157.0
+        },
+        {
+          "product": "NQ",
+          "horizon_bars": 50.0,
+          "first_bounce_denominator": 2370.0,
+          "first_bounce_count": 1122.0,
+          "first_through_count": 1090.0,
+          "first_neither_count": 3.0,
+          "first_ambiguous_count": 155.0
+        },
+        {
+          "product": "GC",
+          "horizon_bars": 10.0,
+          "first_bounce_denominator": 1998.0,
+          "first_bounce_count": 881.0,
+          "first_through_count": 860.0,
+          "first_neither_count": 142.0,
+          "first_ambiguous_count": 115.0
+        },
+        {
+          "product": "GC",
+          "horizon_bars": 50.0,
+          "first_bounce_denominator": 1789.0,
+          "first_bounce_count": 846.0,
+          "first_through_count": 824.0,
+          "first_neither_count": 4.0,
+          "first_ambiguous_count": 115.0
+        }
+      ]
+    },
+    {
+      "id": "london-return",
+      "kind": "table",
+      "title": "London: departure return and signed continuation",
+      "description": "London uses the inferred New York 03:00–09:00 window. Return is one-minute range contact with the lagged evolving VWAP ±1-tick zone; a gap or reference overtake alone is not contact.",
+      "notes": [
+        "Intervals are marginal 95% shared-ISO-week cluster percentile bounds. Horizons have different eligible populations; use common-50 evidence for paired horizon curves.",
+        "Signed continuation is the next-open-to-terminal-close move in the departure direction; no fill, cost, stop or net profitability model is implied."
+      ],
+      "referenceIds": [
+        "summary-source"
+      ],
+      "columns": [
+        {
+          "key": "product",
+          "label": "Product"
+        },
+        {
+          "key": "horizon_bars",
+          "label": "Two-minute bars",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "n",
+          "label": "Complete departures",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "unavailable",
+          "label": "Unavailable",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "evolving_touch_mean",
+          "label": "Evolving return",
+          "format": "percent",
+          "precision": 1
+        },
+        {
+          "key": "evolving_touch_ci_low",
+          "label": "Return 95% low",
+          "format": "percent",
+          "precision": 1
+        },
+        {
+          "key": "evolving_touch_ci_high",
+          "label": "Return 95% high",
+          "format": "percent",
+          "precision": 1
+        },
+        {
+          "key": "directional_delta_mean",
+          "label": "Signed continuation",
+          "format": "number",
+          "precision": 2,
+          "unit": "native points"
+        },
+        {
+          "key": "directional_delta_ci_low",
+          "label": "95% low",
+          "format": "number",
+          "precision": 2,
+          "unit": "native points"
+        },
+        {
+          "key": "directional_delta_ci_high",
+          "label": "95% high",
+          "format": "number",
+          "precision": 2,
+          "unit": "native points"
+        }
+      ],
+      "rows": [
+        {
+          "product": "ES",
+          "horizon_bars": 10.0,
+          "n": 3293.0,
+          "unavailable": 82.0,
+          "evolving_touch_mean": 0.4682660188278166,
+          "evolving_touch_ci_low": 0.4517186362312509,
+          "evolving_touch_ci_high": 0.4844893391688386,
+          "directional_delta_mean": 0.10621014272699666,
+          "directional_delta_ci_low": -0.10048182830321353,
+          "directional_delta_ci_high": 0.32333355955804
+        },
+        {
+          "product": "ES",
+          "horizon_bars": 50.0,
+          "n": 2919.0,
+          "unavailable": 456.0,
+          "evolving_touch_mean": 0.8194587187392943,
+          "evolving_touch_ci_low": 0.8073236399555129,
+          "evolving_touch_ci_high": 0.8309070888324919,
+          "directional_delta_mean": -0.11861939020212402,
+          "directional_delta_ci_low": -0.5216102261014447,
+          "directional_delta_ci_high": 0.31772075071520167
+        },
+        {
+          "product": "NQ",
+          "horizon_bars": 10.0,
+          "n": 3482.0,
+          "unavailable": 85.0,
+          "evolving_touch_mean": 0.4224583572659391,
+          "evolving_touch_ci_low": 0.4065718910319766,
+          "evolving_touch_ci_high": 0.4372262322050933,
+          "directional_delta_mean": 0.4484491671453188,
+          "directional_delta_ci_low": -0.3265229737105026,
+          "directional_delta_ci_high": 1.3134025854778435
+        },
+        {
+          "product": "NQ",
+          "horizon_bars": 50.0,
+          "n": 3042.0,
+          "unavailable": 525.0,
+          "evolving_touch_mean": 0.794543063773833,
+          "evolving_touch_ci_low": 0.7810329536796119,
+          "evolving_touch_ci_high": 0.8077586452944796,
+          "directional_delta_mean": 0.05473372781065089,
+          "directional_delta_ci_low": -1.610603796795454,
+          "directional_delta_ci_high": 1.7769772818002085
+        },
+        {
+          "product": "GC",
+          "horizon_bars": 10.0,
+          "n": 2526.0,
+          "unavailable": 73.0,
+          "evolving_touch_mean": 0.447347585114806,
+          "evolving_touch_ci_low": 0.429741259566565,
+          "evolving_touch_ci_high": 0.46573997201045836,
+          "directional_delta_mean": 0.026840855106888366,
+          "directional_delta_ci_low": -0.16207541082401455,
+          "directional_delta_ci_high": 0.21072690544423395
+        },
+        {
+          "product": "GC",
+          "horizon_bars": 50.0,
+          "n": 2132.0,
+          "unavailable": 467.0,
+          "evolving_touch_mean": 0.8320825515947468,
+          "evolving_touch_ci_low": 0.8166832025335988,
+          "evolving_touch_ci_high": 0.8474209947034191,
+          "directional_delta_mean": 0.06477485928705437,
+          "directional_delta_ci_low": -0.37948532361549003,
+          "directional_delta_ci_high": 0.5318695669259245
+        }
+      ]
+    },
+    {
+      "id": "london-response",
+      "kind": "table",
+      "title": "London: first-touch endpoint response",
+      "description": "Response entry is the next two-minute open after the touch candle closes. Endpoint bounce means terminal movement in the original excursion-side direction, not which barrier was hit first.",
+      "notes": [
+        "The touch cohort differs from departure eligibility. Zero/all-success degenerate bounds leave boundary uncertainty unresolved; sparse flags use events/dates/weeks.",
+        "Marginal 95% shared-week bounds retain original uncertainty. Empty support flags mean no saved sparse flag, rather than independent confirmation."
+      ],
+      "referenceIds": [
+        "summary-source"
+      ],
+      "columns": [
+        {
+          "key": "product",
+          "label": "Product"
+        },
+        {
+          "key": "horizon_bars",
+          "label": "Two-minute bars",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "n",
+          "label": "Complete touch paths",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "unavailable",
+          "label": "Unavailable",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "directional_positive_mean",
+          "label": "Bounce endpoint",
+          "format": "percent",
+          "precision": 1
+        },
+        {
+          "key": "directional_positive_ci_low",
+          "label": "95% low",
+          "format": "percent",
+          "precision": 1
+        },
+        {
+          "key": "directional_positive_ci_high",
+          "label": "95% high",
+          "format": "percent",
+          "precision": 1
+        },
+        {
+          "key": "days",
+          "label": "Dates",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "weeks",
+          "label": "ISO weeks",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "support_flag",
+          "label": "Support flag"
+        },
+        {
+          "key": "directional_positive_boundary_uncertainty_unresolved",
+          "label": "Boundary unresolved"
+        }
+      ],
+      "rows": [
+        {
+          "product": "ES",
+          "horizon_bars": 10.0,
+          "n": 2821.0,
+          "unavailable": 80.0,
+          "directional_positive_mean": 0.4902516838000709,
+          "directional_positive_ci_low": 0.4739703389761336,
+          "directional_positive_ci_high": 0.507404065567745,
+          "days": 1004.0,
+          "weeks": 267.0,
+          "support_flag": null,
+          "directional_positive_boundary_uncertainty_unresolved": false
+        },
+        {
+          "product": "ES",
+          "horizon_bars": 50.0,
+          "n": 2436.0,
+          "unavailable": 465.0,
+          "directional_positive_mean": 0.4987684729064039,
+          "directional_positive_ci_low": 0.4791496235279195,
+          "directional_positive_ci_high": 0.5200019120458891,
+          "days": 978.0,
+          "weeks": 267.0,
+          "support_flag": null,
+          "directional_positive_boundary_uncertainty_unresolved": false
+        },
+        {
+          "product": "NQ",
+          "horizon_bars": 10.0,
+          "n": 2892.0,
+          "unavailable": 82.0,
+          "directional_positive_mean": 0.4955048409405256,
+          "directional_positive_ci_low": 0.4786584832477086,
+          "directional_positive_ci_high": 0.5122134825327905,
+          "days": 1117.0,
+          "weeks": 273.0,
+          "support_flag": null,
+          "directional_positive_boundary_uncertainty_unresolved": false
+        },
+        {
+          "product": "NQ",
+          "horizon_bars": 50.0,
+          "n": 2474.0,
+          "unavailable": 500.0,
+          "directional_positive_mean": 0.5004042037186742,
+          "directional_positive_ci_low": 0.48130165122327223,
+          "directional_positive_ci_high": 0.5198077567979846,
+          "days": 1074.0,
+          "weeks": 273.0,
+          "support_flag": null,
+          "directional_positive_boundary_uncertainty_unresolved": false
+        },
+        {
+          "product": "GC",
+          "horizon_bars": 10.0,
+          "n": 2128.0,
+          "unavailable": 62.0,
+          "directional_positive_mean": 0.4934210526315789,
+          "directional_positive_ci_low": 0.47080828659663904,
+          "directional_positive_ci_high": 0.5155746436556291,
+          "days": 792.0,
+          "weeks": 350.0,
+          "support_flag": null,
+          "directional_positive_boundary_uncertainty_unresolved": false
+        },
+        {
+          "product": "GC",
+          "horizon_bars": 50.0,
+          "n": 1777.0,
+          "unavailable": 413.0,
+          "directional_positive_mean": 0.4974676420934159,
+          "directional_positive_ci_low": 0.4734806113697623,
+          "directional_positive_ci_high": 0.5219471116184337,
+          "days": 769.0,
+          "weeks": 343.0,
+          "support_flag": null,
+          "directional_positive_boundary_uncertainty_unresolved": false
+        }
+      ]
+    },
+    {
+      "id": "london-first-move",
+      "kind": "table",
+      "title": "London: first move, including ambiguity and neither",
+      "description": "Saved class counts for symmetric 0.5-touch-sigma barriers around the response entry. The barrier-evaluable denominator can differ from otherwise valid point-response paths.",
+      "notes": [
+        "A same-minute double touch has unknown order unless the source opening crossing resolves it. Neither is an observed horizon outcome, not missing evidence.",
+        "These ordered barrier classes are separate from MAE/MFE extrema and from terminal endpoint direction."
+      ],
+      "referenceIds": [
+        "summary-source"
+      ],
+      "columns": [
+        {
+          "key": "product",
+          "label": "Product"
+        },
+        {
+          "key": "horizon_bars",
+          "label": "Two-minute bars",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "first_bounce_denominator",
+          "label": "Barrier-evaluable n",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "first_bounce_count",
+          "label": "Bounce first",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "first_through_count",
+          "label": "Through first",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "first_neither_count",
+          "label": "Neither",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "first_ambiguous_count",
+          "label": "Same-minute ambiguous",
+          "format": "number",
+          "precision": 0
+        }
+      ],
+      "rows": [
+        {
+          "product": "ES",
+          "horizon_bars": 10.0,
+          "first_bounce_denominator": 2821.0,
+          "first_bounce_count": 1226.0,
+          "first_through_count": 1254.0,
+          "first_neither_count": 125.0,
+          "first_ambiguous_count": 216.0
+        },
+        {
+          "product": "ES",
+          "horizon_bars": 50.0,
+          "first_bounce_denominator": 2436.0,
+          "first_bounce_count": 1092.0,
+          "first_through_count": 1138.0,
+          "first_neither_count": 1.0,
+          "first_ambiguous_count": 205.0
+        },
+        {
+          "product": "NQ",
+          "horizon_bars": 10.0,
+          "first_bounce_denominator": 2892.0,
+          "first_bounce_count": 1233.0,
+          "first_through_count": 1315.0,
+          "first_neither_count": 131.0,
+          "first_ambiguous_count": 213.0
+        },
+        {
+          "product": "NQ",
+          "horizon_bars": 50.0,
+          "first_bounce_denominator": 2474.0,
+          "first_bounce_count": 1101.0,
+          "first_through_count": 1178.0,
+          "first_neither_count": 1.0,
+          "first_ambiguous_count": 194.0
+        },
+        {
+          "product": "GC",
+          "horizon_bars": 10.0,
+          "first_bounce_denominator": 2128.0,
+          "first_bounce_count": 968.0,
+          "first_through_count": 948.0,
+          "first_neither_count": 80.0,
+          "first_ambiguous_count": 132.0
+        },
+        {
+          "product": "GC",
+          "horizon_bars": 50.0,
+          "first_bounce_denominator": 1777.0,
+          "first_bounce_count": 838.0,
+          "first_through_count": 812.0,
+          "first_neither_count": 0.0,
+          "first_ambiguous_count": 127.0
+        }
+      ]
+    },
+    {
+      "id": "ny-return",
+      "kind": "table",
+      "title": "New York: departure return and signed continuation",
+      "description": "New York uses the inferred New York 09:30–16:00 window. Return is one-minute range contact with the lagged evolving VWAP ±1-tick zone; a gap or reference overtake alone is not contact.",
+      "notes": [
+        "Intervals are marginal 95% shared-ISO-week cluster percentile bounds. Horizons have different eligible populations; use common-50 evidence for paired horizon curves.",
+        "Signed continuation is the next-open-to-terminal-close move in the departure direction; no fill, cost, stop or net profitability model is implied."
+      ],
+      "referenceIds": [
+        "summary-source"
+      ],
+      "columns": [
+        {
+          "key": "product",
+          "label": "Product"
+        },
+        {
+          "key": "horizon_bars",
+          "label": "Two-minute bars",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "n",
+          "label": "Complete departures",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "unavailable",
+          "label": "Unavailable",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "evolving_touch_mean",
+          "label": "Evolving return",
+          "format": "percent",
+          "precision": 1
+        },
+        {
+          "key": "evolving_touch_ci_low",
+          "label": "Return 95% low",
+          "format": "percent",
+          "precision": 1
+        },
+        {
+          "key": "evolving_touch_ci_high",
+          "label": "Return 95% high",
+          "format": "percent",
+          "precision": 1
+        },
+        {
+          "key": "directional_delta_mean",
+          "label": "Signed continuation",
+          "format": "number",
+          "precision": 2,
+          "unit": "native points"
+        },
+        {
+          "key": "directional_delta_ci_low",
+          "label": "95% low",
+          "format": "number",
+          "precision": 2,
+          "unit": "native points"
+        },
+        {
+          "key": "directional_delta_ci_high",
+          "label": "95% high",
+          "format": "number",
+          "precision": 2,
+          "unit": "native points"
+        }
+      ],
+      "rows": [
+        {
+          "product": "ES",
+          "horizon_bars": 10.0,
+          "n": 2936.0,
+          "unavailable": 52.0,
+          "evolving_touch_mean": 0.44107629427792916,
+          "evolving_touch_ci_low": 0.4248262892363342,
+          "evolving_touch_ci_high": 0.4570449881257979,
+          "directional_delta_mean": 0.339066757493188,
+          "directional_delta_ci_low": -0.11298812749137332,
+          "directional_delta_ci_high": 0.7756484181319686
+        },
+        {
+          "product": "ES",
+          "horizon_bars": 50.0,
+          "n": 2748.0,
+          "unavailable": 240.0,
+          "evolving_touch_mean": 0.7419941775836972,
+          "evolving_touch_ci_low": 0.7282072176457378,
+          "evolving_touch_ci_high": 0.7558061499532427,
+          "directional_delta_mean": 0.7188864628820961,
+          "directional_delta_ci_low": -0.19401308231213557,
+          "directional_delta_ci_high": 1.7282343672409115
+        },
+        {
+          "product": "NQ",
+          "horizon_bars": 10.0,
+          "n": 2974.0,
+          "unavailable": 54.0,
+          "evolving_touch_mean": 0.41425689307330194,
+          "evolving_touch_ci_low": 0.39887247314064755,
+          "evolving_touch_ci_high": 0.4294375658483903,
+          "directional_delta_mean": 0.5606086079354405,
+          "directional_delta_ci_low": -1.4403408264892874,
+          "directional_delta_ci_high": 2.5274190457350003
+        },
+        {
+          "product": "NQ",
+          "horizon_bars": 50.0,
+          "n": 2795.0,
+          "unavailable": 233.0,
+          "evolving_touch_mean": 0.7245080500894454,
+          "evolving_touch_ci_low": 0.7107377358696086,
+          "evolving_touch_ci_high": 0.7376197290104266,
+          "directional_delta_mean": 2.632289803220036,
+          "directional_delta_ci_low": -1.498895311121207,
+          "directional_delta_ci_high": 6.7068261851451405
+        },
+        {
+          "product": "GC",
+          "horizon_bars": 10.0,
+          "n": 2023.0,
+          "unavailable": 27.0,
+          "evolving_touch_mean": 0.45625308947108256,
+          "evolving_touch_ci_low": 0.4347820481198287,
+          "evolving_touch_ci_high": 0.47600290758047764,
+          "directional_delta_mean": 0.254078101828967,
+          "directional_delta_ci_low": 0.026682315701103933,
+          "directional_delta_ci_high": 0.5098086442217504
+        },
+        {
+          "product": "GC",
+          "horizon_bars": 50.0,
+          "n": 1927.0,
+          "unavailable": 123.0,
+          "evolving_touch_mean": 0.7529839128178516,
+          "evolving_touch_ci_low": 0.7379864453241567,
+          "evolving_touch_ci_high": 0.767773204365629,
+          "directional_delta_mean": -0.06315516346652825,
+          "directional_delta_ci_low": -0.6104795244891306,
+          "directional_delta_ci_high": 0.5062834453088163
+        }
+      ]
+    },
+    {
+      "id": "ny-response",
+      "kind": "table",
+      "title": "New York: first-touch endpoint response",
+      "description": "Response entry is the next two-minute open after the touch candle closes. Endpoint bounce means terminal movement in the original excursion-side direction, not which barrier was hit first.",
+      "notes": [
+        "The touch cohort differs from departure eligibility. Zero/all-success degenerate bounds leave boundary uncertainty unresolved; sparse flags use events/dates/weeks.",
+        "Marginal 95% shared-week bounds retain original uncertainty. Empty support flags mean no saved sparse flag, rather than independent confirmation."
+      ],
+      "referenceIds": [
+        "summary-source"
+      ],
+      "columns": [
+        {
+          "key": "product",
+          "label": "Product"
+        },
+        {
+          "key": "horizon_bars",
+          "label": "Two-minute bars",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "n",
+          "label": "Complete touch paths",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "unavailable",
+          "label": "Unavailable",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "directional_positive_mean",
+          "label": "Bounce endpoint",
+          "format": "percent",
+          "precision": 1
+        },
+        {
+          "key": "directional_positive_ci_low",
+          "label": "95% low",
+          "format": "percent",
+          "precision": 1
+        },
+        {
+          "key": "directional_positive_ci_high",
+          "label": "95% high",
+          "format": "percent",
+          "precision": 1
+        },
+        {
+          "key": "days",
+          "label": "Dates",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "weeks",
+          "label": "ISO weeks",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "support_flag",
+          "label": "Support flag"
+        },
+        {
+          "key": "directional_positive_boundary_uncertainty_unresolved",
+          "label": "Boundary unresolved"
+        }
+      ],
+      "rows": [
+        {
+          "product": "ES",
+          "horizon_bars": 10.0,
+          "n": 2379.0,
+          "unavailable": 72.0,
+          "directional_positive_mean": 0.49600672551492225,
+          "directional_positive_ci_low": 0.4744609093760682,
+          "directional_positive_ci_high": 0.5165625969484164,
+          "days": 964.0,
+          "weeks": 267.0,
+          "support_flag": null,
+          "directional_positive_boundary_uncertainty_unresolved": false
+        },
+        {
+          "product": "ES",
+          "horizon_bars": 50.0,
+          "n": 2195.0,
+          "unavailable": 256.0,
+          "directional_positive_mean": 0.5025056947608201,
+          "directional_positive_ci_low": 0.4824667766096338,
+          "directional_positive_ci_high": 0.5225569266216836,
+          "days": 949.0,
+          "weeks": 267.0,
+          "support_flag": null,
+          "directional_positive_boundary_uncertainty_unresolved": false
+        },
+        {
+          "product": "NQ",
+          "horizon_bars": 10.0,
+          "n": 2353.0,
+          "unavailable": 65.0,
+          "directional_positive_mean": 0.5036124096897577,
+          "directional_positive_ci_low": 0.4830212083212985,
+          "directional_positive_ci_high": 0.5241873938899998,
+          "days": 1054.0,
+          "weeks": 273.0,
+          "support_flag": null,
+          "directional_positive_boundary_uncertainty_unresolved": false
+        },
+        {
+          "product": "NQ",
+          "horizon_bars": 50.0,
+          "n": 2188.0,
+          "unavailable": 230.0,
+          "directional_positive_mean": 0.5260511882998172,
+          "directional_positive_ci_low": 0.5067028759729715,
+          "directional_positive_ci_high": 0.5450061978407089,
+          "days": 1037.0,
+          "weeks": 273.0,
+          "support_flag": null,
+          "directional_positive_boundary_uncertainty_unresolved": false
+        },
+        {
+          "product": "GC",
+          "horizon_bars": 10.0,
+          "n": 1623.0,
+          "unavailable": 22.0,
+          "directional_positive_mean": 0.4959950708564387,
+          "directional_positive_ci_low": 0.46913896320807197,
+          "directional_positive_ci_high": 0.522234876903441,
+          "days": 755.0,
+          "weeks": 345.0,
+          "support_flag": null,
+          "directional_positive_boundary_uncertainty_unresolved": false
+        },
+        {
+          "product": "GC",
+          "horizon_bars": 50.0,
+          "n": 1558.0,
+          "unavailable": 87.0,
+          "directional_positive_mean": 0.5070603337612324,
+          "directional_positive_ci_low": 0.48293784223989766,
+          "directional_positive_ci_high": 0.5326677792447492,
+          "days": 746.0,
+          "weeks": 345.0,
+          "support_flag": null,
+          "directional_positive_boundary_uncertainty_unresolved": false
+        }
+      ]
+    },
+    {
+      "id": "ny-first-move",
+      "kind": "table",
+      "title": "New York: first move, including ambiguity and neither",
+      "description": "Saved class counts for symmetric 0.5-touch-sigma barriers around the response entry. The barrier-evaluable denominator can differ from otherwise valid point-response paths.",
+      "notes": [
+        "A same-minute double touch has unknown order unless the source opening crossing resolves it. Neither is an observed horizon outcome, not missing evidence.",
+        "These ordered barrier classes are separate from MAE/MFE extrema and from terminal endpoint direction."
+      ],
+      "referenceIds": [
+        "summary-source"
+      ],
+      "columns": [
+        {
+          "key": "product",
+          "label": "Product"
+        },
+        {
+          "key": "horizon_bars",
+          "label": "Two-minute bars",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "first_bounce_denominator",
+          "label": "Barrier-evaluable n",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "first_bounce_count",
+          "label": "Bounce first",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "first_through_count",
+          "label": "Through first",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "first_neither_count",
+          "label": "Neither",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "first_ambiguous_count",
+          "label": "Same-minute ambiguous",
+          "format": "number",
+          "precision": 0
+        }
+      ],
+      "rows": [
+        {
+          "product": "ES",
+          "horizon_bars": 10.0,
+          "first_bounce_denominator": 2379.0,
+          "first_bounce_count": 1000.0,
+          "first_through_count": 1011.0,
+          "first_neither_count": 126.0,
+          "first_ambiguous_count": 242.0
+        },
+        {
+          "product": "ES",
+          "horizon_bars": 50.0,
+          "first_bounce_denominator": 2195.0,
+          "first_bounce_count": 965.0,
+          "first_through_count": 985.0,
+          "first_neither_count": 2.0,
+          "first_ambiguous_count": 243.0
+        },
+        {
+          "product": "NQ",
+          "horizon_bars": 10.0,
+          "first_bounce_denominator": 2353.0,
+          "first_bounce_count": 974.0,
+          "first_through_count": 979.0,
+          "first_neither_count": 155.0,
+          "first_ambiguous_count": 245.0
+        },
+        {
+          "product": "NQ",
+          "horizon_bars": 50.0,
+          "first_bounce_denominator": 2188.0,
+          "first_bounce_count": 969.0,
+          "first_through_count": 975.0,
+          "first_neither_count": 2.0,
+          "first_ambiguous_count": 242.0
+        },
+        {
+          "product": "GC",
+          "horizon_bars": 10.0,
+          "first_bounce_denominator": 1623.0,
+          "first_bounce_count": 692.0,
+          "first_through_count": 705.0,
+          "first_neither_count": 110.0,
+          "first_ambiguous_count": 116.0
+        },
+        {
+          "product": "GC",
+          "horizon_bars": 50.0,
+          "first_bounce_denominator": 1558.0,
+          "first_bounce_count": 716.0,
+          "first_through_count": 715.0,
+          "first_neither_count": 11.0,
+          "first_ambiguous_count": 116.0
+        }
+      ]
+    },
+    {
+      "id": "globex-return",
+      "kind": "table",
+      "title": "Globex: departure return and signed continuation",
+      "description": "Globex uses the inferred New York 18:00–17:00 window. Return is one-minute range contact with the lagged evolving VWAP ±1-tick zone; a gap or reference overtake alone is not contact.",
+      "notes": [
+        "Intervals are marginal 95% shared-ISO-week cluster percentile bounds. Horizons have different eligible populations; use common-50 evidence for paired horizon curves.",
+        "Signed continuation is the next-open-to-terminal-close move in the departure direction; no fill, cost, stop or net profitability model is implied."
+      ],
+      "referenceIds": [
+        "summary-source"
+      ],
+      "columns": [
+        {
+          "key": "product",
+          "label": "Product"
+        },
+        {
+          "key": "horizon_bars",
+          "label": "Two-minute bars",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "n",
+          "label": "Complete departures",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "unavailable",
+          "label": "Unavailable",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "evolving_touch_mean",
+          "label": "Evolving return",
+          "format": "percent",
+          "precision": 1
+        },
+        {
+          "key": "evolving_touch_ci_low",
+          "label": "Return 95% low",
+          "format": "percent",
+          "precision": 1
+        },
+        {
+          "key": "evolving_touch_ci_high",
+          "label": "Return 95% high",
+          "format": "percent",
+          "precision": 1
+        },
+        {
+          "key": "directional_delta_mean",
+          "label": "Signed continuation",
+          "format": "number",
+          "precision": 2,
+          "unit": "native points"
+        },
+        {
+          "key": "directional_delta_ci_low",
+          "label": "95% low",
+          "format": "number",
+          "precision": 2,
+          "unit": "native points"
+        },
+        {
+          "key": "directional_delta_ci_high",
+          "label": "95% high",
+          "format": "number",
+          "precision": 2,
+          "unit": "native points"
+        }
+      ],
+      "rows": [
+        {
+          "product": "ES",
+          "horizon_bars": 10.0,
+          "n": 5645.0,
+          "unavailable": 2.0,
+          "evolving_touch_mean": 0.295837023914969,
+          "evolving_touch_ci_low": 0.28387090985917124,
+          "evolving_touch_ci_high": 0.3090546296015797,
+          "directional_delta_mean": -0.0025243578387953943,
+          "directional_delta_ci_low": -0.20392877314190888,
+          "directional_delta_ci_high": 0.19776621137828673
+        },
+        {
+          "product": "ES",
+          "horizon_bars": 50.0,
+          "n": 5546.0,
+          "unavailable": 101.0,
+          "evolving_touch_mean": 0.6307248467363866,
+          "evolving_touch_ci_low": 0.6180702991717336,
+          "evolving_touch_ci_high": 0.6436258944250942,
+          "directional_delta_mean": -0.04386043995672557,
+          "directional_delta_ci_low": -0.3916966007790318,
+          "directional_delta_ci_high": 0.3052379918981479
+        },
+        {
+          "product": "NQ",
+          "horizon_bars": 10.0,
+          "n": 6060.0,
+          "unavailable": 5.0,
+          "evolving_touch_mean": 0.24191419141914192,
+          "evolving_touch_ci_low": 0.23041254359725566,
+          "evolving_touch_ci_high": 0.2538323814099142,
+          "directional_delta_mean": 0.6853547854785479,
+          "directional_delta_ci_low": -0.13201760288805847,
+          "directional_delta_ci_high": 1.527250836753771
+        },
+        {
+          "product": "NQ",
+          "horizon_bars": 50.0,
+          "n": 5945.0,
+          "unavailable": 120.0,
+          "evolving_touch_mean": 0.5978132884777123,
+          "evolving_touch_ci_low": 0.5857136914666033,
+          "evolving_touch_ci_high": 0.609727130649719,
+          "directional_delta_mean": 0.339529015979815,
+          "directional_delta_ci_low": -1.1751152438746786,
+          "directional_delta_ci_high": 1.8739781461523244
+        },
+        {
+          "product": "GC",
+          "horizon_bars": 10.0,
+          "n": 3793.0,
+          "unavailable": 2.0,
+          "evolving_touch_mean": 0.30978117585025045,
+          "evolving_touch_ci_low": 0.2928281101460548,
+          "evolving_touch_ci_high": 0.3259713392749778,
+          "directional_delta_mean": 0.1837068283680464,
+          "directional_delta_ci_low": 0.04085671944911219,
+          "directional_delta_ci_high": 0.327472446565385
+        },
+        {
+          "product": "GC",
+          "horizon_bars": 50.0,
+          "n": 3763.0,
+          "unavailable": 32.0,
+          "evolving_touch_mean": 0.6213127823545044,
+          "evolving_touch_ci_low": 0.6066988846309007,
+          "evolving_touch_ci_high": 0.6351551970771292,
+          "directional_delta_mean": 0.41371246346000523,
+          "directional_delta_ci_low": 0.10688764382944875,
+          "directional_delta_ci_high": 0.7603611374798314
+        }
+      ]
+    },
+    {
+      "id": "globex-response",
+      "kind": "table",
+      "title": "Globex: first-touch endpoint response",
+      "description": "Response entry is the next two-minute open after the touch candle closes. Endpoint bounce means terminal movement in the original excursion-side direction, not which barrier was hit first.",
+      "notes": [
+        "The touch cohort differs from departure eligibility. Zero/all-success degenerate bounds leave boundary uncertainty unresolved; sparse flags use events/dates/weeks.",
+        "Marginal 95% shared-week bounds retain original uncertainty. Empty support flags mean no saved sparse flag, rather than independent confirmation."
+      ],
+      "referenceIds": [
+        "summary-source"
+      ],
+      "columns": [
+        {
+          "key": "product",
+          "label": "Product"
+        },
+        {
+          "key": "horizon_bars",
+          "label": "Two-minute bars",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "n",
+          "label": "Complete touch paths",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "unavailable",
+          "label": "Unavailable",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "directional_positive_mean",
+          "label": "Bounce endpoint",
+          "format": "percent",
+          "precision": 1
+        },
+        {
+          "key": "directional_positive_ci_low",
+          "label": "95% low",
+          "format": "percent",
+          "precision": 1
+        },
+        {
+          "key": "directional_positive_ci_high",
+          "label": "95% high",
+          "format": "percent",
+          "precision": 1
+        },
+        {
+          "key": "days",
+          "label": "Dates",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "weeks",
+          "label": "ISO weeks",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "support_flag",
+          "label": "Support flag"
+        },
+        {
+          "key": "directional_positive_boundary_uncertainty_unresolved",
+          "label": "Boundary unresolved"
+        }
+      ],
+      "rows": [
+        {
+          "product": "ES",
+          "horizon_bars": 10.0,
+          "n": 5108.0,
+          "unavailable": 6.0,
+          "directional_positive_mean": 0.4788566953797964,
+          "directional_positive_ci_low": 0.46509372998759296,
+          "directional_positive_ci_high": 0.49248959586086155,
+          "days": 1034.0,
+          "weeks": 267.0,
+          "support_flag": null,
+          "directional_positive_boundary_uncertainty_unresolved": false
+        },
+        {
+          "product": "ES",
+          "horizon_bars": 50.0,
+          "n": 5000.0,
+          "unavailable": 114.0,
+          "directional_positive_mean": 0.4894,
+          "directional_positive_ci_low": 0.474801751147303,
+          "directional_positive_ci_high": 0.5032924290691395,
+          "days": 1034.0,
+          "weeks": 267.0,
+          "support_flag": null,
+          "directional_positive_boundary_uncertainty_unresolved": false
+        },
+        {
+          "product": "NQ",
+          "horizon_bars": 10.0,
+          "n": 5426.0,
+          "unavailable": 4.0,
+          "directional_positive_mean": 0.4928123848138592,
+          "directional_positive_ci_low": 0.4801889725168454,
+          "directional_positive_ci_high": 0.506355644235435,
+          "days": 1173.0,
+          "weeks": 273.0,
+          "support_flag": null,
+          "directional_positive_boundary_uncertainty_unresolved": false
+        },
+        {
+          "product": "NQ",
+          "horizon_bars": 50.0,
+          "n": 5333.0,
+          "unavailable": 97.0,
+          "directional_positive_mean": 0.49390586911681983,
+          "directional_positive_ci_low": 0.47981174560743184,
+          "directional_positive_ci_high": 0.5079464259117713,
+          "days": 1173.0,
+          "weeks": 273.0,
+          "support_flag": null,
+          "directional_positive_boundary_uncertainty_unresolved": false
+        },
+        {
+          "product": "GC",
+          "horizon_bars": 10.0,
+          "n": 3314.0,
+          "unavailable": 3.0,
+          "directional_positive_mean": 0.5,
+          "directional_positive_ci_low": 0.48207513965545873,
+          "directional_positive_ci_high": 0.517253068060771,
+          "days": 814.0,
+          "weeks": 355.0,
+          "support_flag": null,
+          "directional_positive_boundary_uncertainty_unresolved": false
+        },
+        {
+          "product": "GC",
+          "horizon_bars": 50.0,
+          "n": 3285.0,
+          "unavailable": 32.0,
+          "directional_positive_mean": 0.5171993911719939,
+          "directional_positive_ci_low": 0.5003052814057914,
+          "directional_positive_ci_high": 0.5344805349449312,
+          "days": 814.0,
+          "weeks": 355.0,
+          "support_flag": null,
+          "directional_positive_boundary_uncertainty_unresolved": false
+        }
+      ]
+    },
+    {
+      "id": "globex-first-move",
+      "kind": "table",
+      "title": "Globex: first move, including ambiguity and neither",
+      "description": "Saved class counts for symmetric 0.5-touch-sigma barriers around the response entry. The barrier-evaluable denominator can differ from otherwise valid point-response paths.",
+      "notes": [
+        "A same-minute double touch has unknown order unless the source opening crossing resolves it. Neither is an observed horizon outcome, not missing evidence.",
+        "These ordered barrier classes are separate from MAE/MFE extrema and from terminal endpoint direction."
+      ],
+      "referenceIds": [
+        "summary-source"
+      ],
+      "columns": [
+        {
+          "key": "product",
+          "label": "Product"
+        },
+        {
+          "key": "horizon_bars",
+          "label": "Two-minute bars",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "first_bounce_denominator",
+          "label": "Barrier-evaluable n",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "first_bounce_count",
+          "label": "Bounce first",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "first_through_count",
+          "label": "Through first",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "first_neither_count",
+          "label": "Neither",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "first_ambiguous_count",
+          "label": "Same-minute ambiguous",
+          "format": "number",
+          "precision": 0
+        }
+      ],
+      "rows": [
+        {
+          "product": "ES",
+          "horizon_bars": 10.0,
+          "first_bounce_denominator": 5108.0,
+          "first_bounce_count": 2111.0,
+          "first_through_count": 2249.0,
+          "first_neither_count": 569.0,
+          "first_ambiguous_count": 179.0
+        },
+        {
+          "product": "ES",
+          "horizon_bars": 50.0,
+          "first_bounce_denominator": 5000.0,
+          "first_bounce_count": 2341.0,
+          "first_through_count": 2454.0,
+          "first_neither_count": 25.0,
+          "first_ambiguous_count": 180.0
+        },
+        {
+          "product": "NQ",
+          "horizon_bars": 10.0,
+          "first_bounce_denominator": 5426.0,
+          "first_bounce_count": 2268.0,
+          "first_through_count": 2348.0,
+          "first_neither_count": 656.0,
+          "first_ambiguous_count": 154.0
+        },
+        {
+          "product": "NQ",
+          "horizon_bars": 50.0,
+          "first_bounce_denominator": 5333.0,
+          "first_bounce_count": 2542.0,
+          "first_through_count": 2604.0,
+          "first_neither_count": 34.0,
+          "first_ambiguous_count": 153.0
+        },
+        {
+          "product": "GC",
+          "horizon_bars": 10.0,
+          "first_bounce_denominator": 3314.0,
+          "first_bounce_count": 1335.0,
+          "first_through_count": 1440.0,
+          "first_neither_count": 451.0,
+          "first_ambiguous_count": 88.0
+        },
+        {
+          "product": "GC",
+          "horizon_bars": 50.0,
+          "first_bounce_denominator": 3285.0,
+          "first_bounce_count": 1543.0,
+          "first_through_count": 1610.0,
+          "first_neither_count": 45.0,
+          "first_ambiguous_count": 87.0
+        }
+      ]
+    },
+    {
+      "id": "example-return",
+      "kind": "figure",
+      "title": "ES Asia: return",
+      "path": "figures/es-asia-return.png",
+      "alt": "Saved ES Asia return path with price and VWAP reference lines.",
+      "caption": "Saved deterministic ES Asia return example: one-minute price range and lagged evolving/frozen VWAP references. The signal candle is excluded; contact is observed range overlap, not an assumed fill.",
+      "referenceIds": [
+        "summary-source"
+      ]
+    },
+    {
+      "id": "example-non-return",
+      "kind": "figure",
+      "title": "ES Asia: non return",
+      "path": "figures/es-asia-non-return.png",
+      "alt": "Saved ES Asia non return path with price and VWAP reference lines.",
+      "caption": "Saved deterministic ES Asia non-return example: the complete 20-minute departure horizon has no qualifying evolving contact. An illustrative path cannot establish a population rate.",
+      "referenceIds": [
+        "summary-source"
+      ]
+    },
+    {
+      "id": "methods",
+      "kind": "text",
+      "title": "Definitions and methods",
+      "body": "Completed two-minute HLC3 is weighted by bar volume; population sigma is volume weighted. A first fresh strict close beyond two sigma is selected within a causal parent excursion. Entry is the next two-minute open. Primary touch is source one-minute range overlap with the tick-rounded ±one-tick evolving VWAP zone known at minute open; gap or reference overtake alone is not touch. Touch response begins after its containing two-minute candle closes. Upper departure continuation and upper-arrival bounce are long; lower counterparts are short. Continuation delta is departure-side sign multiplied by terminal close minus next-open entry, in native product points; fade is its negative, not a separately estimated difference. Bounce endpoint probability tests the signed terminal response, not a first-barrier winner or a trading win rate. Unavailable horizons are excluded from eligible outcome denominators. Saved marginal 95% intervals use shared ISO-week cluster draws."
+    },
+    {
+      "id": "limitations",
+      "kind": "text",
+      "title": "Limitations and uncertainty",
+      "body": "Previously viewed, retrospectively complete history is exploratory: ES/NQ eligible dates begin in 2021 and GC in 2016, ending September 18, 2026. Anchors and thresholds are dependent. Bootstrap zero/all-success cells have unresolved boundary uncertainty, not certainty. Sparse support and exclusions remain in the saved coverage table. No order-flow delta, fills, costs, intraminute barrier order or realized profitability was tested. The optional Pine companion has not been independently compiled in its native environment."
+    },
+    {
+      "id": "sources-provenance",
+      "kind": "text",
+      "title": "Source-run and presentation provenance",
+      "body": "Study 15_vwap_excursion_response. Source run 20260929T234000Z_a15f; executed protocol 1.0.0. Presentation 20261007T002932Z_evidence15. Saved summary artifacts and selected figure bytes retain their recorded identities. Research evidence and qualifications are unchanged."
+    }
+  ],
+  "schemaVersion": "1.1",
+  "id": "15-vwap-excursion-response-20261007-evidence",
+  "publishedAt": "2026-10-07T00:29:32Z",
+  "references": [
+    {
+      "id": "summary-source",
+      "kind": "saved-artifact",
+      "label": "summary.csv",
+      "title": "Saved horizon-specific outcomes, intervals, support and exclusion summary",
+      "runId": "20260929T234000Z_a15f",
+      "artifact": "tables/summary.csv",
+      "sha256": "0c14ccb668b19a189d9ea22f1e285db9cfaf7cc6574847f9a5a4db0b19f67cff"
+    },
+    {
+      "id": "executed-protocol",
+      "kind": "saved-artifact",
+      "label": "protocol-1.0.0.md",
+      "title": "Frozen response, touch, ambiguity and uncertainty definitions",
+      "runId": "20260929T234000Z_a15f",
+      "artifact": "protocol-1.0.0.md",
+      "sha256": "231721d996389fb1b259671238b83c61976e727f276dc7c0d60f6aa8bc9294a9"
+    }
+  ],
+  "downloads": [
+    {
+      "id": "vwap-departure-20-100-minutes",
+      "label": "Departure return and continuation",
+      "description": "Same departure rows as the page, with counts, support and boundary flags; no pooled horizon estimate.",
+      "population": "Primary two-sigma fresh departures; mirrored sides; ES/NQ/GC and four anchors.",
+      "units": "Rates/bounds: ratios. Signed delta/bounds: native product points. Horizon: two-minute bars. Counts: events/dates/weeks.",
+      "scope": "Per-horizon eligible scope all, h10 and h50 only; 24 separate rows.",
+      "columns": [
+        "metric_id",
+        "product",
+        "session",
+        "horizon_bars",
+        "candidate_events",
+        "n",
+        "unavailable",
+        "days",
+        "weeks",
+        "support_flag",
+        "evolving_touch_count",
+        "evolving_touch_mean",
+        "evolving_touch_ci_low",
+        "evolving_touch_ci_high",
+        "evolving_touch_boundary_uncertainty_unresolved",
+        "directional_delta_mean",
+        "directional_delta_ci_low",
+        "directional_delta_ci_high"
+      ],
+      "path": "downloads/vwap-departure-20-100-minutes.csv",
+      "mediaType": "text/csv",
+      "rowCount": 24,
+      "sha256": "4d975d79582880f6538749eb3504feec2a194c312f09cfc14c30fb5188fc5c59",
+      "source": {
+        "runId": "20260929T234000Z_a15f",
+        "artifact": "tables/summary.csv",
+        "sha256": "0c14ccb668b19a189d9ea22f1e285db9cfaf7cc6574847f9a5a4db0b19f67cff"
+      }
+    },
+    {
+      "id": "vwap-touch-endpoint-20-100-minutes",
+      "label": "First-touch endpoint and barrier counts",
+      "description": "Same endpoint and first-move rows as the page. Barrier-evaluable n remains distinct; counts retain ambiguity and neither.",
+      "population": "First genuine evolving-VWAP touches of primary two-sigma parents; response starts after confirmation.",
+      "units": "Endpoint rates/bounds: ratios. Barrier classes: counts. Horizon: two-minute bars. Counts: events/dates/weeks.",
+      "scope": "Scope all, mirrored sides, h10/h50; 24 separate rows.",
+      "columns": [
+        "metric_id",
+        "product",
+        "session",
+        "horizon_bars",
+        "candidate_events",
+        "n",
+        "unavailable",
+        "days",
+        "weeks",
+        "support_flag",
+        "directional_positive_count",
+        "directional_positive_mean",
+        "directional_positive_ci_low",
+        "directional_positive_ci_high",
+        "directional_positive_boundary_uncertainty_unresolved",
+        "first_bounce_denominator",
+        "first_bounce_count",
+        "first_through_count",
+        "first_neither_count",
+        "first_ambiguous_count"
+      ],
+      "path": "downloads/vwap-touch-endpoint-20-100-minutes.csv",
+      "mediaType": "text/csv",
+      "rowCount": 24,
+      "sha256": "99174e8ed160dc32196cd668b65b2d1a64184f2d0d89175b6bee9a2129232d23",
+      "source": {
+        "runId": "20260929T234000Z_a15f",
+        "artifact": "tables/summary.csv",
+        "sha256": "0c14ccb668b19a189d9ea22f1e285db9cfaf7cc6574847f9a5a4db0b19f67cff"
+      }
+    }
+  ]
+}

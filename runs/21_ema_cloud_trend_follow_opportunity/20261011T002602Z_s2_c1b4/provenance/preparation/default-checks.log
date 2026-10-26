@@ -1,0 +1,43 @@
+[agent-docs] ["/Users/ppanati/Documents/projects/abacus/scripts/uv", "run", "--locked", "--no-sync", "python", "scripts/check-agent-docs.py"]
+Checked 68 active navigation guides: 0 error(s).
+[agent-docs] passed
+[bhishma] ["/Users/ppanati/Documents/projects/abacus/scripts/uv", "run", "--locked", "--no-sync", "python", "-B", "/Users/ppanati/Documents/projects/abacus/scripts/unittest_child.py", "--spec", "{\"optimize\": false, \"pattern\": \"test*.py\", \"start_dir\": \"/Users/ppanati/Documents/projects/abacus/packages/bhishma/tests\"}", "--result", "/var/folders/8m/7y_qdqcn1fn6gkf6ggc_39bc0000gn/T/abacus-check-y210eieg/unittest-result.json"]
+...........E.......E..........................................................................................................................................................................................................
+======================================================================
+ERROR: setUpClass (test_continuous_phase1.MappingTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ppanati/Documents/projects/abacus/packages/bhishma/tests/test_continuous_phase1.py", line 65, in setUpClass
+    cls.mappings = load_roll_intervals(cls.paths, cls.calendar)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ppanati/Documents/projects/abacus/packages/bhishma/src/abacus_bhishma/continuous_phase1.py", line 339, in load_roll_intervals
+    payload = json.loads(paths.roll_map.read_text(encoding="utf-8"))
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ppanati/.local/share/uv/python/cpython-3.11.16-macos-aarch64-none/lib/python3.11/pathlib.py", line 1058, in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ppanati/.local/share/uv/python/cpython-3.11.16-macos-aarch64-none/lib/python3.11/pathlib.py", line 1044, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/Users/ppanati/Documents/projects/abacus/data/raw/databento/GLBX.MDP3/symbology/continuous/volume-rank-0/2010-06-06_2026-09-20.json'
+
+======================================================================
+ERROR: setUpClass (test_continuous_phase2.RealRollIntegrationTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ppanati/Documents/projects/abacus/packages/bhishma/tests/test_continuous_phase2.py", line 159, in setUpClass
+    cls.schedule, cls.factors, cls.factor_arrays = resolve_adjustments(
+                                                   ^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ppanati/Documents/projects/abacus/packages/bhishma/src/abacus_bhishma/continuous_phase2.py", line 486, in resolve_adjustments
+    candidates = _reference_candidates(paths, transitions)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ppanati/Documents/projects/abacus/packages/bhishma/src/abacus_bhishma/continuous_phase2.py", line 378, in _reference_candidates
+    raise Phase2Error(
+abacus_bhishma.continuous_phase2.Phase2Error: ES roll 1: no point-in-time definition pair in the 10-day search window
+
+----------------------------------------------------------------------
+Ran 220 tests in 3.263s
+
+FAILED (errors=2)
+[bhishma] failed
+Selected checks: failed (6 selected)

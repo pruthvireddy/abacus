@@ -1,0 +1,22 @@
+{
+  "schema_version": "1.0.0",
+  "evidence_table": "tables/summary.parquet",
+  "metric_id_column": "metric_id",
+  "rows": 9260,
+  "primary_threshold_sigma": 2,
+  "uncertainty": {
+    "method": "shared ISO-week cluster percentile bootstrap",
+    "replicates": 2000,
+    "seed": 1501,
+    "confidence": 0.95,
+    "week_universe": "all feature-eligible session-date ISO weeks across products",
+    "weeks": 447,
+    "paired_contrast": "evolving_minus_frozen is the paired probability difference with identical week draws"
+  },
+  "unit_convention": "unsuffixed prices: points; _ticks: product minimum ticks; _sigma: event signal or touch-close sigma",
+  "cohorts": "touch thresholds are nested reached-before-touch cohorts; departure thresholds have different clocks",
+  "no_eligible_cases": "unavailable (null); zero successes with n>0 are 0/n",
+  "boundary_uncertainty": "zero/all-success bootstrap intervals flagged unresolved",
+  "history_status": "previously inspected exploratory history; not holdout",
+  "profitability_tested": false
+}

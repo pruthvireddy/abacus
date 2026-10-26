@@ -1,0 +1,237 @@
+{
+  "schemaVersion": "1.0",
+  "id": "03-multi-rxv-alignment-20261006-web",
+  "title": "Chart alignment: stronger next-bar persistence",
+  "summary": "Strictly prior larger-chart alignment improves next-bar colour continuation most consistently in ES and GC. Longer runs are less stable; shared price streams limit independence.",
+  "publishedAt": "2026-10-06T23:09:36Z",
+  "source": {
+    "producer": "sahadeva",
+    "runId": "20260908T_multi_rxv_v1"
+  },
+  "sections": [
+    {
+      "kind": "text",
+      "id": "question",
+      "title": "Question and scope",
+      "body": "Does a small Range XV reversal aligned with the latest strictly prior completed larger bar persist more than one opposing it? Primary pairs are ES 5→6, GC 6→10 and NQ 10→20; GC 10→20 is secondary. Requested ES 4 pairing is absent."
+    },
+    {
+      "kind": "text",
+      "id": "findings",
+      "title": "Supported findings",
+      "body": "Alignment has clearer next-bar differences than sustained three-/five-bar continuation. Confirmation examples reuse the same trades and are not independent early-versus-late execution comparisons. The selected table retains adverse and inconclusive contrasts rather than only positive pairs."
+    },
+    {
+      "kind": "table",
+      "id": "alignment",
+      "title": "Test-labelled strict alignment contrasts",
+      "columns": [
+        {
+          "key": "pair_id",
+          "label": "Small → large chart pair"
+        },
+        {
+          "key": "outcome",
+          "label": "outcome"
+        },
+        {
+          "key": "aligned_n",
+          "label": "Aligned eligible n",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "countertrend_n",
+          "label": "Opposing eligible n",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "aligned_rate",
+          "label": "aligned rate",
+          "format": "percent",
+          "precision": 1
+        },
+        {
+          "key": "countertrend_rate",
+          "label": "Opposing rate",
+          "format": "percent",
+          "precision": 1
+        },
+        {
+          "key": "aligned_minus_countertrend",
+          "label": "Aligned minus opposing",
+          "format": "number",
+          "precision": 1,
+          "unit": "pp"
+        },
+        {
+          "key": "cluster_bootstrap_ci_low",
+          "label": "95% difference low",
+          "format": "number",
+          "precision": 1,
+          "unit": "pp"
+        },
+        {
+          "key": "cluster_bootstrap_ci_high",
+          "label": "95% difference high",
+          "format": "number",
+          "precision": 1,
+          "unit": "pp"
+        }
+      ],
+      "rows": [
+        {
+          "pair_id": "ES 5 6",
+          "outcome": "P(L>=1)",
+          "aligned_n": 4212.0,
+          "countertrend_n": 6705.0,
+          "aligned_rate": 0.7934472934472935,
+          "countertrend_rate": 0.7615212527964206,
+          "aligned_minus_countertrend": 3.19260406508729,
+          "cluster_bootstrap_ci_low": 1.620197213791114,
+          "cluster_bootstrap_ci_high": 4.701410363762134
+        },
+        {
+          "pair_id": "ES 5 6",
+          "outcome": "P(L>=3)",
+          "aligned_n": 4211.0,
+          "countertrend_n": 6702.0,
+          "aligned_rate": 0.32652576585134174,
+          "countertrend_rate": 0.31632348552670847,
+          "aligned_minus_countertrend": 1.0202280324633273,
+          "cluster_bootstrap_ci_low": -0.6598770318159214,
+          "cluster_bootstrap_ci_high": 2.7348055199136487
+        },
+        {
+          "pair_id": "ES 5 6",
+          "outcome": "P(L>=5)",
+          "aligned_n": 4210.0,
+          "countertrend_n": 6701.0,
+          "aligned_rate": 0.1358669833729216,
+          "countertrend_rate": 0.13445754365020146,
+          "aligned_minus_countertrend": 0.1409439722720146,
+          "cluster_bootstrap_ci_low": -1.2564610721475309,
+          "cluster_bootstrap_ci_high": 1.5039245380645412
+        },
+        {
+          "pair_id": "GC 6 10",
+          "outcome": "P(L>=1)",
+          "aligned_n": 23871.0,
+          "countertrend_n": 19136.0,
+          "aligned_rate": 0.7830840769134095,
+          "countertrend_rate": 0.764684364548495,
+          "aligned_minus_countertrend": 1.8399712364914556,
+          "cluster_bootstrap_ci_low": 1.1527550268410827,
+          "cluster_bootstrap_ci_high": 2.5444109686363814
+        },
+        {
+          "pair_id": "GC 6 10",
+          "outcome": "P(L>=3)",
+          "aligned_n": 23865.0,
+          "countertrend_n": 19135.0,
+          "aligned_rate": 0.34934003771213074,
+          "countertrend_rate": 0.33948262346485497,
+          "aligned_minus_countertrend": 0.9857414247275764,
+          "cluster_bootstrap_ci_low": -0.023027243431729957,
+          "cluster_bootstrap_ci_high": 1.9098136207223528
+        },
+        {
+          "pair_id": "GC 6 10",
+          "outcome": "P(L>=5)",
+          "aligned_n": 23864.0,
+          "countertrend_n": 19135.0,
+          "aligned_rate": 0.15165102246061013,
+          "countertrend_rate": 0.153436111836948,
+          "aligned_minus_countertrend": -0.17850893763378672,
+          "cluster_bootstrap_ci_low": -0.7836981811960143,
+          "cluster_bootstrap_ci_high": 0.4089848107621504
+        },
+        {
+          "pair_id": "GC 10 20",
+          "outcome": "P(L>=1)",
+          "aligned_n": 11562.0,
+          "countertrend_n": 7869.0,
+          "aligned_rate": 0.7791039612523785,
+          "countertrend_rate": 0.7687126699707714,
+          "aligned_minus_countertrend": 1.0391291281607096,
+          "cluster_bootstrap_ci_low": -0.0705956079073694,
+          "cluster_bootstrap_ci_high": 2.2198077783170915
+        },
+        {
+          "pair_id": "GC 10 20",
+          "outcome": "P(L>=3)",
+          "aligned_n": 11559.0,
+          "countertrend_n": 7867.0,
+          "aligned_rate": 0.34414741759667794,
+          "countertrend_rate": 0.3355790008897928,
+          "aligned_minus_countertrend": 0.8568416706885129,
+          "cluster_bootstrap_ci_low": -0.4707148249866532,
+          "cluster_bootstrap_ci_high": 2.12511735346248
+        },
+        {
+          "pair_id": "GC 10 20",
+          "outcome": "P(L>=5)",
+          "aligned_n": 11558.0,
+          "countertrend_n": 7866.0,
+          "aligned_rate": 0.1466516698390725,
+          "countertrend_rate": 0.14200355962369693,
+          "aligned_minus_countertrend": 0.46481102153755616,
+          "cluster_bootstrap_ci_low": -0.4164179843069632,
+          "cluster_bootstrap_ci_high": 1.438694791939888
+        },
+        {
+          "pair_id": "NQ 10 20",
+          "outcome": "P(L>=1)",
+          "aligned_n": 57765.0,
+          "countertrend_n": 40577.0,
+          "aligned_rate": 0.7824288063706396,
+          "countertrend_rate": 0.7759075338245804,
+          "aligned_minus_countertrend": 0.6521272546059165,
+          "cluster_bootstrap_ci_low": 0.0996403803273943,
+          "cluster_bootstrap_ci_high": 1.1842198469964977
+        },
+        {
+          "pair_id": "NQ 10 20",
+          "outcome": "P(L>=3)",
+          "aligned_n": 57759.0,
+          "countertrend_n": 40574.0,
+          "aligned_rate": 0.3473917484720996,
+          "countertrend_rate": 0.34820328289052105,
+          "aligned_minus_countertrend": -0.08115344184214668,
+          "cluster_bootstrap_ci_low": -0.6534253674323182,
+          "cluster_bootstrap_ci_high": 0.47524502083374454
+        },
+        {
+          "pair_id": "NQ 10 20",
+          "outcome": "P(L>=5)",
+          "aligned_n": 57757.0,
+          "countertrend_n": 40571.0,
+          "aligned_rate": 0.15253562338764132,
+          "countertrend_rate": 0.1553572749007912,
+          "aligned_minus_countertrend": -0.2821651513149892,
+          "cluster_bootstrap_ci_low": -0.7209780790286879,
+          "cluster_bootstrap_ci_high": 0.16951075459012602
+        }
+      ]
+    },
+    {
+      "kind": "text",
+      "id": "methods",
+      "title": "Definitions and methods",
+      "body": "L counts additional same-colour followers after the small reversal. Larger state must complete strictly before the small signal next-bar-start proxy in the same inferred session; equal-second joins are excluded. Test-labelled rows cover April 13–September 8, 2026, following development August 2024–November 2025 and validation through April 10, 2026. Both directions are the saved combined descriptive cohort. Saved 95% intervals cluster by inferred session; rate differences and their interval bounds are converted from ratios to percentage points without recalculation."
+    },
+    {
+      "kind": "text",
+      "id": "limitations",
+      "title": "Limitations and uncertainty",
+      "body": "This historical import is unreviewed during consolidation; saved provenance lacks a modern code/environment seal; original input locators are recorded separately from the presented artifact hashes. Timezone and 18:00 session interpretation are inferred. Paired settings share underlying trades. Test labels do not establish pristine confirmation or verified completion. No costs, fills or deployable trading edge are shown."
+    },
+    {
+      "kind": "text",
+      "id": "sources-provenance",
+      "title": "Source and presentation provenance",
+      "body": "Study 03_multi_rxv_alignment; source run 20260908T_multi_rxv_v1. Publication-only choice: Sole retained direct-question run; strict-timing evidence and explicit limitations make it usable for a qualified historical presentation, without registering a research reference.\n\nPresentation revision 20261006T230936Z_web03, web-study-report-1.0. Saved numerical tables are the authority; only selected rows and columns are presented. No new statistics or research execution. The publication record identifies this JSON and its selected assets."
+    }
+  ]
+}

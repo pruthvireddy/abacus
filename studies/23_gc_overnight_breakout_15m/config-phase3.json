@@ -1,0 +1,381 @@
+{
+  "protocol_version": "3.0.0",
+  "study_id": "23_gc_overnight_breakout_15m",
+  "run_id": "20261013T233403Z_phase3_gc_ema5m_v3",
+  "authorization": "2026-10-13 user explicitly authorizes Phase3 backtests, input integration, verification, sealing, publication and existing-site production deployment",
+  "primary_parent": {
+    "run_id": "20261013T142537Z_phase1_gc_ob15m_v1",
+    "manifest_sha256": "d2f93832610ca6e6284838ce22ca9547b8c848a1b0f06a740a345df39d94c027",
+    "protocol_version": "1.0.0",
+    "scenario": "primary-one-tick",
+    "model": "validated_native",
+    "ordering": "source_ohlc",
+    "quantity": "one_contract"
+  },
+  "phase2_context": {
+    "run_id": "20261013T190208Z_phase2_gc_ob15m_v2",
+    "manifest_sha256": "ffe43f2403520d9ba058720908ad711b88e665b0d8d3928bdaa5342ad7cb3c4a",
+    "selected_policy": null,
+    "replication_parent": null,
+    "role": "descriptive frozen midpoint/protected-boundary event context only; no trading cross-product"
+  },
+  "feature_release": {
+    "dataset_id": "same_contract_ema_cloud",
+    "version": "1.1.0",
+    "manifest": "catalog/datasets/same_contract_ema_cloud__1.1.0.json",
+    "manifest_sha256": "444043918c9b30a0d909e88328094b52936f6b379ce288b85afb6740aed0f838",
+    "source_minute_manifest_sha256": "00757f5fc8278e75744d7adfaddc688be588d619d82b1dc1811aa60f21b7e5d4",
+    "selected_gc_5m_sha256": "72baba948e357a89f0f68c76d9fa66b579193b89ab5aff7defce980103e834d8",
+    "timeframe_minutes": 5,
+    "ema_lengths": [
+      20,
+      50
+    ],
+    "atr_length": 14,
+    "seed": "first_close",
+    "warmup_usable_observations": 250,
+    "equal_emas": "neutral",
+    "optional_source_touch_threshold_inherited": false,
+    "study21_threshold_or_findings_inherited": false,
+    "native_display_parity": "unverified",
+    "actual_feed_latency": "unknown; modeled exclusive-completion availability only"
+  },
+  "timing": {
+    "parent_decisions_minutes": 15,
+    "management_decisions_minutes": 5,
+    "parent_clock": "fixed GMT+3",
+    "range_hours": [
+      0,
+      7
+    ],
+    "trading_hours": [
+      7,
+      20
+    ],
+    "latest_cloud": "latest expected completed same-contract usable slot; missing latest slot is unknown, never older-row forward-fill",
+    "order_decision_snapshot": "actual first submission plus inferred original-source 15m recalculation/update closes while flat/unconsumed before fixed first shadow event",
+    "entry_snapshot": "available at original execution minute opening/lower bound; separately labeled and never used retrospectively for entry gates",
+    "full_post_fill_monitoring": "5m opening >= conservative original fill upper time bound",
+    "contact_level": "prior valid completed cloud available at contact opening",
+    "signal": "contact/comparison full candle completion",
+    "execution": "next scheduled eligible observed opening within original broker window; unavailable expected execution is censored",
+    "unknown_entry_cloud": "known declared abstention, separately counted feature-unknown",
+    "unknown_open_cloud": "no new EMA action; original protection remains active; confirmation chains reset",
+    "unknown_support_prefix": "any unknown full post-fill expected prior/current cloud or usable state before/during arming can hide the first setup; consume unknown attempt and abstain for episode, retain original protection"
+  },
+  "slopes": {
+    "lag_observations": 3,
+    "required_adjacent_expected_usable_observations": 4,
+    "definition": "EMA[k]-EMA[k-3]; strict directional sign; no slope requirement in cloud definition"
+  },
+  "core_policies": [
+    "G1",
+    "G2",
+    "A20",
+    "A50",
+    "X1",
+    "X2"
+  ],
+  "exploratory_policies": [
+    "T50"
+  ],
+  "combined_policy": null,
+  "entry_gates": {
+    "G1": "direction ordering and last completed close strictly beyond favorable cloud edge",
+    "G2": "G1 plus both three-change slopes with original direction",
+    "updates": "original complete usable 15m source order-decision closes; gate held until next such update",
+    "shadow_monitor": "causal virtual unfiltered boundary OCA event on inherited 1m authored path; first event consumes original day and cancels other side even if blocked",
+    "cancellation_latency": "first submission tied to original opening inherits parent ordering; later update tied to shadow-minute opening with changed admission preserves unknown fill/cancel branches; unchanged admission unaffected; native latency unverified",
+    "five_minute_refresh_variant": "not executed"
+  },
+  "support_adds": {
+    "parent_required_open": true,
+    "liquidation_requirement": "strictly positive estimated net liquidation after inherited entry/exit commissions and adverse exit slippage",
+    "arming": "full post-fill candle wholly beyond prior available entire cloud; strict low>upper for long or high<lower for short",
+    "contact": "first separate later penetration of chosen prior available EMA consumes entire episode add attempt",
+    "confirmation": "strict close back on original trade side of frozen contact level and current EMA ordering aligned",
+    "attempts_per_episode_per_independent_policy": 1,
+    "fast_only_consumes_slow_attempt": false,
+    "pending_add_priority": "parent queued opening exit or opening gap-stop before contingent add release; cancel if flat; retain already-filled add after later parent exit",
+    "unresolved_competition": "retain ambiguity and unresolved outcome bounds, never retrospectively delete executed add",
+    "initial_stop": "1% of signal close with inherited tick rounding",
+    "add_reset": "actual slipped fill at close of surviving full 5m add entry candle",
+    "parent_reset": "unchanged surviving original 15m entry candle reset",
+    "exit": "own protection or common inherited evening opening; no profit target"
+  },
+  "early_exits": {
+    "X1": "first full post-fill close beyond prior adverse edge freezes that edge; second adjacent expected usable close strictly beyond SAME edge queues next-opening exit; recovery/equality/unknown resets",
+    "X2": "adjacent expected usable full post-fill observations aligned or neutral -> strictly opposed; initial opposition is not a fresh cross",
+    "opening_priority": "inherited queued market exit before opening stop, with competing orders recorded",
+    "original_protection_until_fill": true,
+    "eventual_parent_loss_used_as_trigger": false
+  },
+  "monotone_ema50": {
+    "long_rounding": "floor(rawEMA50/0.1)*0.1 minus one tick",
+    "short_rounding": "ceil(rawEMA50/0.1)*0.1 plus one tick",
+    "activation": "future next opening only",
+    "ratchet": "tighten only; preserve tighter original protection and never loosen at original reset",
+    "already_breached_at_decision": "next-opening market exit; never historical stop fill"
+  },
+  "costs": {
+    "tick_size": 0.1,
+    "point_value_dollars": 100,
+    "commission_per_contract_side_dollars": 2.5,
+    "adverse_slippage_ticks_per_fill": 1,
+    "kind": "inherited assumed scenarios, not actual broker charges"
+  },
+  "sensitivities": {
+    "adverse_ticks": [
+      0,
+      1,
+      2
+    ],
+    "zero_cost_execution": true,
+    "ordering": [
+      "source_ohlc",
+      "high_first",
+      "low_first"
+    ],
+    "five_minute_gate_refresh": false
+  },
+  "accounts": {
+    "capital_dollars": 10000,
+    "start_of_day_equity_total_risk_fraction": 0.01,
+    "parent_reserved_fraction": 0.5,
+    "add_reserved_fraction": 0.5,
+    "max_leverage": 10,
+    "margin_fraction": 0.05,
+    "quantity_step": 1,
+    "minimum_quantity": 1,
+    "spent_risk_replenished": false,
+    "max_legs": 2,
+    "controls": [
+      "full_budget_parent",
+      "half_budget_parent_alone",
+      "half_parent_half_add_overlay"
+    ],
+    "diagnostic": "explicitly unfunded one-original-plus-one-added whole-GC diagnostic versus one- and two-contract parent; extra exposure, not equal-risk improvement; no assumed increase in source capital",
+    "unknown_equity_execution": "null, not zero",
+    "quantity_risk_reference": "inherit raw submitted boundary-to-stop distance for original; analogous raw signal-close-to-stop distance for add; commissions, slippage and gaps reported as risk overshoots rather than silently changing parent sizing"
+  },
+  "core_estimands": {
+    "G1": "net one-GC gate policy minus unchanged one-GC Phase1 parent per original accepted episode",
+    "G2": "net one-GC gate policy minus unchanged one-GC Phase1 parent per original accepted episode",
+    "A20": "net financed half-parent/half-add overlay minus financed half-budget parent alone per original accepted episode; source $10000 account",
+    "A50": "net financed half-parent/half-add overlay minus financed half-budget parent alone per original accepted episode; source $10000 account",
+    "X1": "net one-GC exit policy minus unchanged one-GC Phase1 parent per original accepted episode",
+    "X2": "net one-GC exit policy minus unchanged one-GC Phase1 parent per original accepted episode",
+    "shared_mask": "all six declared contrasts known on original episode; separately show individual complete-pair masks and incomparable units/exposure",
+    "true_known_no_fill": 0,
+    "unknown_execution": null
+  },
+  "evaluation": {
+    "development_years": [
+      2018,
+      2019,
+      2020
+    ],
+    "validation_years": [
+      2021,
+      2022,
+      2023
+    ],
+    "later_years": [
+      2024,
+      2025
+    ],
+    "replication_year": 2026,
+    "coverage": "exact inherited parent available coverage; 2026 partial",
+    "prior_exposure": [
+      "Phase1 all annual results",
+      "Phase2 all annual results",
+      "Study21 cloud source and historical studies"
+    ],
+    "pristine_holdout": false,
+    "selection": "standalone only; validation mean effect>0 and 99.166667% adjusted lower>0 and >=100 completed executable policy trades across >=2 validation years; adds additionally require >=100 actually financed adds across >=2 years",
+    "maximum_gate_selected": 1,
+    "maximum_exit_selected": 1,
+    "tie_preference": [
+      "G1",
+      "X1",
+      "A20"
+    ],
+    "combined_strategy_selected": false,
+    "later_retesting": "all fixed policies assessed without retuning; selection hashes and independent dev/validation verification precede later execution"
+  },
+  "uncertainty": {
+    "block_weeks": 4,
+    "sensitivity_block_weeks": [
+      1,
+      8
+    ],
+    "replications": 10000,
+    "seed": 230015,
+    "pointwise_confidence": 0.95,
+    "six_core_marginal_confidence": 0.9916666666666667,
+    "family": "six declared core policy/control contrasts within each reported cohort; not simultaneous over all profile/year/session/side combinations",
+    "within_episode_events_and_legs": "kept aligned in calendar block resampling"
+  },
+  "profiles": {
+    "anchors": [
+      "original_order_decision",
+      "original_entry",
+      "eligible_open_position_landmark",
+      "phase2_saved_event_context"
+    ],
+    "fields": [
+      "ordering_alignment",
+      "price_above_inside_below",
+      "both_three_change_slopes",
+      "aligned_ordering_duration",
+      "width_points",
+      "width_atr14",
+      "favorable_edge_distance_atr14",
+      "width_three_change",
+      "range_confluence"
+    ],
+    "width_atr_bins": [
+      0,
+      0.25,
+      0.5,
+      1,
+      2
+    ],
+    "distance_atr_bins": [
+      0,
+      0.5,
+      1,
+      2
+    ],
+    "duration_bars_bins": [
+      1,
+      4,
+      13,
+      37
+    ],
+    "duration_unknown_start": "left-censored category, retain lower bound rather than invented exact duration",
+    "width_change": "current width minus width three completed expected usable observations earlier; strict expanding/contracting/equal",
+    "confluence": "each EMA within inclusive0.10*positiveATR14 of frozenH/L/M",
+    "probability_model": "not fitted; empirical conditional support only"
+  },
+  "retest_diagnostics": {
+    "ema_levels": [
+      20,
+      50
+    ],
+    "rearming": "new separate later full departure wholly beyond prior cloud after consumed contact; independent eachEMA; repeated contact only diagnostic, never another add",
+    "touch": "first later selectedEMA penetration after departure",
+    "one_tick_breach": "full raw EMA adverse one-tick displacement; executable long threshold floor(frozenEMA/0.1)*0.1-0.1, short ceil(frozenEMA/0.1)*0.1+0.1; touch and strict close use unrounded frozen raw EMA",
+    "close_break": "strict close beyond adverse side of frozen contact level",
+    "hold": "strict close back on trade side of frozen contact level",
+    "reclaim": "separate later valid close back on trade side of same frozen breached contact level, through broker cutoff; price diagnostic may occur after parent exit",
+    "contact_number_groups": [
+      "first",
+      "second",
+      "third_or_more"
+    ],
+    "forward_minutes": [
+      5,
+      15,
+      30,
+      60
+    ],
+    "forward_definition": "from confirmed event close; source candle excluded, next exact wall-clock minutes; signed close movement/MFE/MAE; missing or cutoff-crossing horizon censored, not trade returns"
+  },
+  "reporting": {
+    "timezone": "America/New_York",
+    "sessions": {
+      "Asia": [
+        "20:00",
+        "02:00"
+      ],
+      "London": [
+        "02:00",
+        "09:00"
+      ],
+      "New York": [
+        "09:30",
+        "16:00"
+      ],
+      "Outside": "all remaining times"
+    },
+    "cohorts": [
+      "overall",
+      "year",
+      "session",
+      "year_by_session",
+      "long_short"
+    ],
+    "anchors": [
+      "original_actual_entry_for_pairing",
+      "EMA_decision_event_for_cloud_support",
+      "actual_add_fill_for_added_leg"
+    ],
+    "whole_trade_entry_assignment": true,
+    "truncate_at_reporting_boundary": false,
+    "transitions": "original_entry -> cloud_event -> actual_add_entry; no invented unfilled add session"
+  },
+  "publication": {
+    "destination": "existing Narada/Vercel same GC study",
+    "stable_url": "https://abacus-narada.vercel.app/studies/gc-overnight-breakout-15m/",
+    "phase_label": "EMA Cloud Phase 3",
+    "conditions": [
+      "Trend context",
+      "Entry gates",
+      "EMA20 support adds",
+      "EMA50 support adds",
+      "Earlier exits",
+      "Other cloud uses",
+      "Methods and risk controls"
+    ],
+    "views": [
+      "Summary",
+      "Year-wise",
+      "Sessions"
+    ],
+    "saved_rows_only": true,
+    "all_parent_publications_preserved": true
+  },
+  "contact_context": {
+    "ordering_flip": "contact prior aligned/neutral -> contact-close strictly opposed, both expected cloud snapshots valid; unknown remains null; descriptive not X2 signal",
+    "range_confluence": "selected frozen prior EMA within inclusive0.10 positive ATR14 of H/L/M; yes/no/unknown",
+    "event_family": [
+      "hold",
+      "tick_breach",
+      "close_break",
+      "reclaimed",
+      "cloud_flip"
+    ],
+    "reclaim_denominator": "known tick-breached contacts only",
+    "cohorts": "EMA event year/session and original side; conditional open-position contacts"
+  },
+  "extra_exposure_diagnostic_comparison": {
+    "alternative": "one original plus at most one added GC, independently A20/A50",
+    "controls": [
+      "one-GC parent",
+      "two-GC parent"
+    ],
+    "common_mask": "alternative plus both known controls per original episode",
+    "observed_pair_sensitivity": true,
+    "equal_risk_claim": false,
+    "core_selection": false
+  },
+  "risk_metadata_tick_identity": {
+    "tolerance_in_ticks": 1e-08,
+    "scope": "Canonical tick identity for signed protective-risk/R metadata only; every raw/slipped price, order/fill path and raw sizing distance preserved",
+    "parent_saved_numbers": "unchanged Phase1 control rows retain their executed statistics"
+  },
+  "entry_context_paths": {
+    "anchors": [
+      "original_order_decision",
+      "original_entry"
+    ],
+    "fields": [
+      "mean_parent_mfe_points",
+      "mean_parent_mae_points",
+      "mean_parent_holding_minutes"
+    ],
+    "source": "known completed pinned Phase1 rows; exact frozen-parent conditional means",
+    "later_ema_anchors": "unavailable to avoid claiming whole-parent pre-event excursions as post-event paths"
+  }
+}

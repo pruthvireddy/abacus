@@ -1,0 +1,206 @@
+//@version=6
+indicator("HAC LPT - Configurable MTF Levels", shorttitle = "HAC LPT MTF", overlay = true, max_lines_count = 20, max_labels_count = 20)
+
+// Standalone extension of the user's Phase 1 formula. Each named source set
+// uses its own fixed calculation interval, independent of the chart interval.
+// 15 * 150 = 2250 minutes is invalid in Pine; 2D is an editable approximation.
+// Top 4 and top 6 coincide; one line/label represents both when both are enabled.
+
+const string CALC_GROUP = "Range calculation"
+int rangeLookback = input.int(300, "Range lookback (calculation bars)", minval = 1, maxval = 5000, group = CALC_GROUP)
+float rangeUnit = input.float(0.20, "Range unit", minval = 0.0, step = 0.01, group = CALC_GROUP)
+float innerFactor = input.float(0.59, "Inner factor", minval = 0.0, step = 0.01, group = CALC_GROUP)
+float outerFactor = input.float(1.32, "Outer factor", minval = 0.0, step = 0.01, group = CALC_GROUP)
+
+const string DISPLAY_GROUP = "Display"
+bool closestOnly = input.bool(false, "Show only closest enabled level per timeframe", group = DISPLAY_GROUP)
+bool showLabels = input.bool(true, "Show labels", group = DISPLAY_GROUP)
+bool showLabelPrices = input.bool(false, "Include price in labels", group = DISPLAY_GROUP)
+int labelSize = input.int(12, "Label font size", minval = 7, maxval = 24, group = DISPLAY_GROUP)
+string lineExtent = input.string("Left to label", "Line extent", options = ["Left to label", "Both directions", "Recent segment"], group = DISPLAY_GROUP)
+int segmentBars = input.int(300, "Recent segment length (chart bars)", minval = 1, maxval = 9999, group = DISPLAY_GROUP)
+bool scaleAnchors = input.bool(true, "Include displayed levels in chart scale", tooltip = "Also shows current level prices in the Data Window and price scale. TradingView's 'Scale price chart only' setting can override auto-scale.", group = DISPLAY_GROUP)
+
+const string GROUP_1 = "1 min levels"
+bool enabled1 = input.bool(true, "Show 1 min set", group = GROUP_1, inline = "1color")
+color color1 = input.color(#FF9800, "Color", group = GROUP_1, inline = "1color")
+string calcTf1 = input.timeframe("150", "Calculation timeframe", tooltip = "Original 1 min source mapping: 1 * 150 = 150 minutes. Changing this overrides the named set's calculation interval.", group = GROUP_1)
+int width1 = input.int(1, "Line width", minval = 1, maxval = 5, group = GROUP_1, inline = "1style")
+string style1 = input.string("Solid", "Style", options = ["Solid", "Dashed", "Dotted"], group = GROUP_1, inline = "1style")
+bool labels1 = input.bool(true, "Labels", group = GROUP_1, inline = "1label")
+int offset1 = input.int(80, "Offset (chart bars)", minval = 1, maxval = 500, group = GROUP_1, inline = "1label")
+bool top1_1 = input.bool(true, "Top 1", group = GROUP_1, inline = "1levelsA")
+bool top3_1 = input.bool(true, "Top 3", group = GROUP_1, inline = "1levelsA")
+bool bottom4_1 = input.bool(true, "Bottom 4", group = GROUP_1, inline = "1levelsA")
+bool top4_1 = input.bool(true, "Top 4", group = GROUP_1, inline = "1levelsB")
+bool top6_1 = input.bool(true, "top 6", group = GROUP_1, inline = "1levelsB")
+bool top5_1 = input.bool(true, "top 5", group = GROUP_1, inline = "1levelsB")
+
+const string GROUP_3 = "3 min levels"
+bool enabled3 = input.bool(true, "Show 3 min set", group = GROUP_3, inline = "3color")
+color color3 = input.color(#2962FF, "Color", group = GROUP_3, inline = "3color")
+string calcTf3 = input.timeframe("450", "Calculation timeframe", tooltip = "Original 3 min source mapping: 3 * 150 = 450 minutes. Changing this overrides the named set's calculation interval.", group = GROUP_3)
+int width3 = input.int(1, "Line width", minval = 1, maxval = 5, group = GROUP_3, inline = "3style")
+string style3 = input.string("Solid", "Style", options = ["Solid", "Dashed", "Dotted"], group = GROUP_3, inline = "3style")
+bool labels3 = input.bool(true, "Labels", group = GROUP_3, inline = "3label")
+int offset3 = input.int(100, "Offset (chart bars)", minval = 1, maxval = 500, group = GROUP_3, inline = "3label")
+bool top1_3 = input.bool(true, "Top 1", group = GROUP_3, inline = "3levelsA")
+bool top3_3 = input.bool(true, "Top 3", group = GROUP_3, inline = "3levelsA")
+bool bottom4_3 = input.bool(true, "Bottom 4", group = GROUP_3, inline = "3levelsA")
+bool top4_3 = input.bool(true, "Top 4", group = GROUP_3, inline = "3levelsB")
+bool top6_3 = input.bool(true, "top 6", group = GROUP_3, inline = "3levelsB")
+bool top5_3 = input.bool(true, "top 5", group = GROUP_3, inline = "3levelsB")
+
+const string GROUP_5 = "5 min levels"
+bool enabled5 = input.bool(true, "Show 5 min set", group = GROUP_5, inline = "5color")
+color color5 = input.color(#00BFA5, "Color", group = GROUP_5, inline = "5color")
+string calcTf5 = input.timeframe("750", "Calculation timeframe", tooltip = "Original 5 min source mapping: 5 * 150 = 750 minutes. Changing this overrides the named set's calculation interval.", group = GROUP_5)
+int width5 = input.int(1, "Line width", minval = 1, maxval = 5, group = GROUP_5, inline = "5style")
+string style5 = input.string("Solid", "Style", options = ["Solid", "Dashed", "Dotted"], group = GROUP_5, inline = "5style")
+bool labels5 = input.bool(true, "Labels", group = GROUP_5, inline = "5label")
+int offset5 = input.int(120, "Offset (chart bars)", minval = 1, maxval = 500, group = GROUP_5, inline = "5label")
+bool top1_5 = input.bool(true, "Top 1", group = GROUP_5, inline = "5levelsA")
+bool top3_5 = input.bool(true, "Top 3", group = GROUP_5, inline = "5levelsA")
+bool bottom4_5 = input.bool(true, "Bottom 4", group = GROUP_5, inline = "5levelsA")
+bool top4_5 = input.bool(true, "Top 4", group = GROUP_5, inline = "5levelsB")
+bool top6_5 = input.bool(true, "top 6", group = GROUP_5, inline = "5levelsB")
+bool top5_5 = input.bool(true, "top 5", group = GROUP_5, inline = "5levelsB")
+
+const string GROUP_15 = "15 min levels"
+bool enabled15 = input.bool(true, "Show 15 min set", group = GROUP_15, inline = "15color")
+color color15 = input.color(#E040FB, "Color", group = GROUP_15, inline = "15color")
+string calcTf15 = input.timeframe("2D", "Calculation timeframe", tooltip = "2250-minute intervals are invalid in Pine. 2D matches the existing Abacus indicator's approximation; it is not an exact 2250-minute reconstruction. Change this to your preferred valid interval.", group = GROUP_15)
+int width15 = input.int(1, "Line width", minval = 1, maxval = 5, group = GROUP_15, inline = "15style")
+string style15 = input.string("Solid", "Style", options = ["Solid", "Dashed", "Dotted"], group = GROUP_15, inline = "15style")
+bool labels15 = input.bool(true, "Labels", group = GROUP_15, inline = "15label")
+int offset15 = input.int(140, "Offset (chart bars)", minval = 1, maxval = 500, group = GROUP_15, inline = "15label")
+bool top1_15 = input.bool(true, "Top 1", group = GROUP_15, inline = "15levelsA")
+bool top3_15 = input.bool(true, "Top 3", group = GROUP_15, inline = "15levelsA")
+bool bottom4_15 = input.bool(true, "Bottom 4", group = GROUP_15, inline = "15levelsA")
+bool top4_15 = input.bool(true, "Top 4", group = GROUP_15, inline = "15levelsB")
+bool top6_15 = input.bool(true, "top 6", group = GROUP_15, inline = "15levelsB")
+bool top5_15 = input.bool(true, "top 5", group = GROUP_15, inline = "15levelsB")
+
+// Request the whole range calculation in its own context, not chart bars.
+// Keep the original developing-bar / lookahead_off behavior. When the chart
+// is larger than a calculation interval, security selects its last intrabar.
+// Standard OHLC keeps the source independent of Heikin Ashi chart transforms.
+f_levels() =>
+    float rangeHigh = ta.highest(high, rangeLookback)
+    float rangeLow = ta.lowest(low, rangeLookback)
+    float center = (rangeHigh + rangeLow) * 0.5
+    float unit = (rangeHigh - rangeLow) * rangeUnit
+    [center + unit * outerFactor, center + unit * innerFactor, center, center - unit * innerFactor, center - unit * outerFactor]
+
+string sourceTicker = ticker.standard(syminfo.tickerid)
+[outer1, upper1, center1, lower1, bottom1] = request.security(sourceTicker, calcTf1, f_levels(), gaps = barmerge.gaps_off, lookahead = barmerge.lookahead_off)
+[outer3, upper3, center3, lower3, bottom3] = request.security(sourceTicker, calcTf3, f_levels(), gaps = barmerge.gaps_off, lookahead = barmerge.lookahead_off)
+[outer5, upper5, center5, lower5, bottom5] = request.security(sourceTicker, calcTf5, f_levels(), gaps = barmerge.gaps_off, lookahead = barmerge.lookahead_off)
+[outer15, upper15, center15, lower15, bottom15] = request.security(sourceTicker, calcTf15, f_levels(), gaps = barmerge.gaps_off, lookahead = barmerge.lookahead_off)
+
+// Reuse at most 20 drawing pairs instead of accumulating objects each bar.
+var array<line> levelLines = array.new<line>(20, na)
+var array<label> levelLabels = array.new<label>(20, na)
+
+f_style(string setting) =>
+    switch setting
+        "Dashed" => line.style_dashed
+        "Dotted" => line.style_dotted
+        => line.style_solid
+
+f_extent() =>
+    switch lineExtent
+        "Both directions" => extend.both
+        "Recent segment" => extend.none
+        => extend.left
+
+f_update_level(int slot, bool visible, float value, string caption, color tfColor, int width, string style, bool labelsEnabled, int offset) =>
+    line currentLine = array.get(levelLines, slot)
+    label currentLabel = array.get(levelLabels, slot)
+    if visible and not na(value)
+        int startBar = math.max(0, bar_index - segmentBars)
+        int endBar = bar_index + offset
+        if na(currentLine)
+            currentLine := line.new(startBar, value, endBar, value, xloc = xloc.bar_index, extend = f_extent(), color = tfColor, style = f_style(style), width = width)
+            array.set(levelLines, slot, currentLine)
+        else
+            line.set_xy1(currentLine, startBar, value)
+            line.set_xy2(currentLine, endBar, value)
+            line.set_extend(currentLine, f_extent())
+            line.set_color(currentLine, tfColor)
+            line.set_width(currentLine, width)
+            line.set_style(currentLine, f_style(style))
+        if showLabels and labelsEnabled
+            string labelText = caption + (showLabelPrices ? "  " + str.tostring(value, format.mintick) : "")
+            if na(currentLabel)
+                currentLabel := label.new(endBar, value, labelText, xloc = xloc.bar_index, yloc = yloc.price, style = label.style_label_lower_left, color = color.new(tfColor, 100), textcolor = tfColor, size = labelSize)
+                array.set(levelLabels, slot, currentLabel)
+            else
+                label.set_xy(currentLabel, endBar, value)
+                label.set_text(currentLabel, labelText)
+                label.set_textcolor(currentLabel, tfColor)
+                label.set_size(currentLabel, labelSize)
+        else if not na(currentLabel)
+            label.delete(currentLabel)
+            array.set(levelLabels, slot, na)
+    else
+        if not na(currentLine)
+            line.delete(currentLine)
+            array.set(levelLines, slot, na)
+        if not na(currentLabel)
+            label.delete(currentLabel)
+            array.set(levelLabels, slot, na)
+
+// Stable ordering resolves equal-distance ties to the first enabled level.
+// Duplicate lower-inner names share a price and an object, but have independent
+// checkboxes so either original name can be displayed on its own.
+f_render_set(int firstSlot, string tfName, bool setEnabled, color tfColor, int width, string style, bool labelsEnabled, int offset, float outer, float upper, float center, float lower, float bottom, bool useTop1, bool useBottom4, bool useTop3, bool useTop4, bool useTop6, bool useTop5) =>
+    array<float> values = array.from(outer, upper, center, lower, bottom)
+    array<bool> enabled = array.from(useTop1, useBottom4, useTop3, useTop4 or useTop6, useTop5)
+    string innerName = useTop4 and useTop6 ? "Top 4 / top 6" : useTop4 ? "Top 4" : "top 6"
+    array<string> names = array.from("Top 1", "Bottom 4", "Top 3", innerName, "Top 5")
+    int closestIndex = -1
+    float closestDistance = na
+    for i = 0 to 4
+        float value = array.get(values, i)
+        if array.get(enabled, i) and not na(value)
+            float distance = math.abs(close - value)
+            if na(closestDistance) or distance < closestDistance
+                closestDistance := distance
+                closestIndex := i
+    array<bool> visible = array.new<bool>(5, false)
+    for i = 0 to 4
+        bool drawLevel = setEnabled and array.get(enabled, i) and (not closestOnly or i == closestIndex)
+        array.set(visible, i, drawLevel)
+        if barstate.islast
+            f_update_level(firstSlot + i, drawLevel, array.get(values, i), "[" + tfName + " min] HTF " + array.get(names, i), tfColor, width, style, labelsEnabled, offset)
+    visible
+
+array<bool> visible1 = f_render_set(0, "1", enabled1, color1, width1, style1, labels1, offset1, outer1, upper1, center1, lower1, bottom1, top1_1, bottom4_1, top3_1, top4_1, top6_1, top5_1)
+array<bool> visible3 = f_render_set(5, "3", enabled3, color3, width3, style3, labels3, offset3, outer3, upper3, center3, lower3, bottom3, top1_3, bottom4_3, top3_3, top4_3, top6_3, top5_3)
+array<bool> visible5 = f_render_set(10, "5", enabled5, color5, width5, style5, labels5, offset5, outer5, upper5, center5, lower5, bottom5, top1_5, bottom4_5, top3_5, top4_5, top6_5, top5_5)
+array<bool> visible15 = f_render_set(15, "15", enabled15, color15, width15, style15, labels15, offset15, outer15, upper15, center15, lower15, bottom15, top1_15, bottom4_15, top3_15, top4_15, top6_15, top5_15)
+
+// Nearly transparent last-bar plots make the displayed true prices available
+// for auto-scale and price-scale tags without tracing historical level paths.
+bool anchorNow = barstate.islast and scaleAnchors
+plot(anchorNow and array.get(visible1, 0) ? outer1 : na, "[1 min] HTF Top 1", color = color.new(color1, 99), editable = false)
+plot(anchorNow and array.get(visible1, 1) ? upper1 : na, "[1 min] HTF Bottom 4", color = color.new(color1, 99), editable = false)
+plot(anchorNow and array.get(visible1, 2) ? center1 : na, "[1 min] HTF Top 3", color = color.new(color1, 99), editable = false)
+plot(anchorNow and array.get(visible1, 3) ? lower1 : na, "[1 min] HTF Top 4 / top 6", color = color.new(color1, 99), editable = false)
+plot(anchorNow and array.get(visible1, 4) ? bottom1 : na, "[1 min] HTF Top 5", color = color.new(color1, 99), editable = false)
+plot(anchorNow and array.get(visible3, 0) ? outer3 : na, "[3 min] HTF Top 1", color = color.new(color3, 99), editable = false)
+plot(anchorNow and array.get(visible3, 1) ? upper3 : na, "[3 min] HTF Bottom 4", color = color.new(color3, 99), editable = false)
+plot(anchorNow and array.get(visible3, 2) ? center3 : na, "[3 min] HTF Top 3", color = color.new(color3, 99), editable = false)
+plot(anchorNow and array.get(visible3, 3) ? lower3 : na, "[3 min] HTF Top 4 / top 6", color = color.new(color3, 99), editable = false)
+plot(anchorNow and array.get(visible3, 4) ? bottom3 : na, "[3 min] HTF Top 5", color = color.new(color3, 99), editable = false)
+plot(anchorNow and array.get(visible5, 0) ? outer5 : na, "[5 min] HTF Top 1", color = color.new(color5, 99), editable = false)
+plot(anchorNow and array.get(visible5, 1) ? upper5 : na, "[5 min] HTF Bottom 4", color = color.new(color5, 99), editable = false)
+plot(anchorNow and array.get(visible5, 2) ? center5 : na, "[5 min] HTF Top 3", color = color.new(color5, 99), editable = false)
+plot(anchorNow and array.get(visible5, 3) ? lower5 : na, "[5 min] HTF Top 4 / top 6", color = color.new(color5, 99), editable = false)
+plot(anchorNow and array.get(visible5, 4) ? bottom5 : na, "[5 min] HTF Top 5", color = color.new(color5, 99), editable = false)
+plot(anchorNow and array.get(visible15, 0) ? outer15 : na, "[15 min] HTF Top 1", color = color.new(color15, 99), editable = false)
+plot(anchorNow and array.get(visible15, 1) ? upper15 : na, "[15 min] HTF Bottom 4", color = color.new(color15, 99), editable = false)
+plot(anchorNow and array.get(visible15, 2) ? center15 : na, "[15 min] HTF Top 3", color = color.new(color15, 99), editable = false)
+plot(anchorNow and array.get(visible15, 3) ? lower15 : na, "[15 min] HTF Top 4 / top 6", color = color.new(color15, 99), editable = false)
+plot(anchorNow and array.get(visible15, 4) ? bottom15 : na, "[15 min] HTF Top 5", color = color.new(color15, 99), editable = false)

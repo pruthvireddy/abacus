@@ -1,0 +1,79 @@
+{
+  "schema_version": "abacus.forex25-independent-source-review/v1",
+  "created_at": "2026-10-17T19:06:19.569487+00:00",
+  "reviewer": "independent forex_source_audit agent",
+  "status": "passed",
+  "bundle_path": "work/25_forex_news_ema/20261017T190030Z_import25_4b8a21",
+  "study_id": "25_forex_news_ema",
+  "run_id": "20261017T190030Z_import25_4b8a21",
+  "publication_id": "forex-news-ema-20261017-v1",
+  "publication_sha256": "f628e7f351d092315709f6a3e8a65cd8a67b43f06905f7a0d5e21a3674dabdda",
+  "source_map_sha256": "29050e6de142c8a7fa9194af3b42e09999930b71528013ff1d4f60c8407f4b63",
+  "manifest_sha256": "91c4d99e96f5a2ecbb3672321feaf6c15a6bce91156e745d5699573c7a45321d",
+  "original_final_summary_sha256": "78bd10120513ff3292412a7fc32f7b9d388f5847ccac5712fb4e696b2aa6b375",
+  "counts": {
+    "checks": 46755,
+    "original_file_hashes": 104,
+    "retained_byte_copies": 77,
+    "manifest_artifact_hashes": 123,
+    "canonical_byte_copies": 10,
+    "mapped_cells": 22098,
+    "whole_publication_tables": 4,
+    "whole_download_projections": 4,
+    "figure_input_values": 78,
+    "sample_metrics": 4
+  },
+  "mapped_cells_by_target": {
+    "h5-overview": 60,
+    "horizon-detail": 300,
+    "category-detail": 1980,
+    "monthly-detail": 4290,
+    "downloads/overall-summary.csv": 690,
+    "downloads/category-summary.csv": 4320,
+    "downloads/monthly-summary.csv": 9360,
+    "downloads/native57-summary.csv": 690,
+    "chart-overall": 300,
+    "chart-category": 108
+  },
+  "findings": [],
+  "interpretation_review": {
+    "method_matches_retained_source_code": true,
+    "release_bar_open_follows_entry_bar_close": true,
+    "common64_and_native57_separate": true,
+    "source_validation_receipts_distinguished_from_new_checks": true,
+    "negative_currency_category_horizon_results_preserved": true,
+    "corrected_calendar_back_adjusted_reconstruction_cost_and_dependence_limits_visible": true,
+    "no_strategy_or_profitability_claim": true
+  },
+  "scope": "Independent read-only comparisons of original saved evidence, retained byte copies, complete publication table and CSV projections, every mapped cell, figure input arrays, sample metrics and authored interpretation. No EMA reconstruction, event outcome calculation, numerical market analysis, native TradingView verification or original research script executed. All three PNGs independently viewed and readable.",
+  "reviewed_code": [
+    "studies/25_forex_news_ema/import_report.py",
+    "studies/25_forex_news_ema/render_figures.py"
+  ],
+  "figure_bytes": [
+    {
+      "path": "figures/h5-excursions.png",
+      "bytes": 93097,
+      "sha256": "2cab5882deddcdd3fdf8a5f89b627a2f74b926b158cf1399b94f1b96e7ce762b"
+    },
+    {
+      "path": "figures/h5-news-categories.png",
+      "bytes": 171211,
+      "sha256": "3afe8b294b5eead03bccbfb37a655df8b87814e2b0750aff0722d1034d924555"
+    },
+    {
+      "path": "figures/signed-close-horizons.png",
+      "bytes": 141003,
+      "sha256": "6f91a658e7111669a45041801f280953fb77643ef32e6dcc65517cf78eb994fe"
+    }
+  ],
+  "visual_review": {
+    "status": "passed",
+    "figures": [
+      "signed-close-horizons.png",
+      "h5-excursions.png",
+      "h5-news-categories.png"
+    ],
+    "observations": "All labels, axes, legends and annotations readable; negative paths visible; percent axes use original source percentage-point values; own-tick excursion axis is explicitly qualified. Figure values independently matched saved original CSV input cells."
+  }
+}

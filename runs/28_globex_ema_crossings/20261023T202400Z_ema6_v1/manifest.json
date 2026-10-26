@@ -1,0 +1,596 @@
+{
+  "contract": "abacus.evidence/v1",
+  "bundle_kind": "research",
+  "study_id": "28_globex_ema_crossings",
+  "run_id": "20261023T202400Z_ema6_v1",
+  "inventory_scope": "declared_artifacts",
+  "results": {
+    "kind": "quantitative",
+    "state": "computed",
+    "artifacts": [
+      "metrics.json",
+      "tables/summary.csv",
+      "report.md",
+      "findings.md"
+    ]
+  },
+  "provenance": {
+    "settings": "config.json",
+    "input_lock": "inputs.lock.json",
+    "exclusions": "input_audit.csv",
+    "commands": "commands.json",
+    "checks": "checks.json",
+    "environment_lock": "provenance/source/uv.lock",
+    "code": {
+      "revision": "cd11be3f8f7d27c9429b2ff03872f3b6485a6e27",
+      "dirty": true,
+      "status": "provenance/git-status.txt",
+      "source_snapshot": {
+        "paths": [
+          "provenance/source/.python-version",
+          "provenance/source/packages/bhishma/pyproject.toml",
+          "provenance/source/packages/bhishma/src/abacus_bhishma/__init__.py",
+          "provenance/source/packages/bhishma/src/abacus_bhishma/calendar.py",
+          "provenance/source/packages/bhishma/src/abacus_bhishma/continuous_loader.py",
+          "provenance/source/packages/bhishma/src/abacus_bhishma/continuous_phase1.py",
+          "provenance/source/packages/bhishma/src/abacus_bhishma/continuous_phase2.py",
+          "provenance/source/packages/bhishma/src/abacus_bhishma/daily_context.py",
+          "provenance/source/packages/bhishma/src/abacus_bhishma/databento_cli.py",
+          "provenance/source/packages/bhishma/src/abacus_bhishma/databento_credentials.py",
+          "provenance/source/packages/bhishma/src/abacus_bhishma/derived_ohlcv_5m.py",
+          "provenance/source/packages/bhishma/src/abacus_bhishma/ema_cloud.py",
+          "provenance/source/packages/bhishma/src/abacus_bhishma/ema_cloud_loader_v2.py",
+          "provenance/source/packages/bhishma/src/abacus_bhishma/ema_cloud_release.py",
+          "provenance/source/packages/bhishma/src/abacus_bhishma/ema_cloud_release_v2.py",
+          "provenance/source/packages/bhishma/src/abacus_bhishma/feature_loader.py",
+          "provenance/source/packages/bhishma/src/abacus_bhishma/gc_ema_bands.py",
+          "provenance/source/packages/bhishma/src/abacus_bhishma/manifest_selection.py",
+          "provenance/source/packages/bhishma/src/abacus_bhishma/paths.py",
+          "provenance/source/packages/bhishma/src/abacus_bhishma/provenance.py",
+          "provenance/source/packages/bhishma/src/abacus_bhishma/publication_safety.py",
+          "provenance/source/packages/bhishma/src/abacus_bhishma/range_xv.py",
+          "provenance/source/packages/bhishma/src/abacus_bhishma/session_anchored_vwap.py",
+          "provenance/source/packages/bhishma/src/abacus_bhishma/verniman_backfill.py",
+          "provenance/source/packages/bhishma/src/abacus_bhishma/verniman_capture.py",
+          "provenance/source/packages/bhishma/src/abacus_bhishma/verniman_history.py",
+          "provenance/source/packages/bhishma/src/abacus_bhishma/verniman_history_2016.py",
+          "provenance/source/packages/bhishma/src/abacus_bhishma/verniman_history_2017.py",
+          "provenance/source/packages/bhishma/src/abacus_bhishma/verniman_history_2018.py",
+          "provenance/source/packages/bhishma/src/abacus_bhishma/verniman_history_2019.py",
+          "provenance/source/packages/bhishma/src/abacus_bhishma/verniman_history_2020.py",
+          "provenance/source/packages/bhishma/src/abacus_bhishma/verniman_history_2021.py",
+          "provenance/source/packages/bhishma/src/abacus_bhishma/verniman_history_2022.py",
+          "provenance/source/packages/bhishma/src/abacus_bhishma/verniman_history_2023.py",
+          "provenance/source/packages/bhishma/src/abacus_bhishma/verniman_history_2024.py",
+          "provenance/source/packages/bhishma/src/abacus_bhishma/verniman_history_2025.py",
+          "provenance/source/packages/bhishma/src/abacus_bhishma/verniman_levels.py",
+          "provenance/source/packages/bhishma/src/abacus_bhishma/vp_hvn.py",
+          "provenance/source/packages/bhishma/src/abacus_bhishma/vp_hvn_loader.py",
+          "provenance/source/packages/bhishma/src/abacus_bhishma/vp_hvn_release.py",
+          "provenance/source/packages/sahadeva/pyproject.toml",
+          "provenance/source/pyproject.toml",
+          "provenance/source/studies/28_globex_ema_crossings/README.md",
+          "provenance/source/studies/28_globex_ema_crossings/inputs.lock.json",
+          "provenance/source/studies/28_globex_ema_crossings/notes.md",
+          "provenance/source/studies/28_globex_ema_crossings/plan.md",
+          "provenance/source/studies/28_globex_ema_crossings/protocol-1.0.0.md",
+          "provenance/source/studies/28_globex_ema_crossings/render_figures.py",
+          "provenance/source/studies/28_globex_ema_crossings/run.py",
+          "provenance/source/studies/28_globex_ema_crossings/src/engine.py",
+          "provenance/source/studies/28_globex_ema_crossings/src/inputs.py",
+          "provenance/source/studies/28_globex_ema_crossings/src/reporting.py",
+          "provenance/source/studies/28_globex_ema_crossings/study.json",
+          "provenance/source/studies/28_globex_ema_crossings/study.yaml",
+          "provenance/source/studies/28_globex_ema_crossings/tests/test_engine.py",
+          "provenance/source/studies/28_globex_ema_crossings/verify_saved.py",
+          "provenance/source/uv.lock",
+          "provenance/finalization/seal.py",
+          "provenance/finalization/verify_saved_v2.py"
+        ],
+        "scope": "Declared study producers/tests/docs, Bhishma package sources and exact separate verification/finalization scripts. Not dependency closure."
+      }
+    }
+  },
+  "artifacts": [
+    {
+      "path": "advice.md",
+      "bytes": 465,
+      "sha256": "4c9976cea3968da44f6d29bd1fda71dc93204deef5584c4066d41cf12fdb4768"
+    },
+    {
+      "path": "bar_evidence.parquet",
+      "bytes": 151795407,
+      "sha256": "33911577b9b587aa3f44a7927a1bdd2123722b92d0605184fded0770a746a736"
+    },
+    {
+      "path": "checks/owned-suite-harness.json",
+      "bytes": 2571,
+      "sha256": "4c9dff1083f5efbf7c46de2f9deaaf29fc05959e9ea6fc8b3ed5c5dd29a9414e"
+    },
+    {
+      "path": "checks/workspace-default.json",
+      "bytes": 10688,
+      "sha256": "880410179e2a3128ee33c23db730221195ea9b36ec5314f6abf4617f09ebd950"
+    },
+    {
+      "path": "checks/workspace-remaining.json",
+      "bytes": 8152,
+      "sha256": "bbec393141db41cb1a549944cb56aa57898c2de682ea98305352df2764901621"
+    },
+    {
+      "path": "checks.json",
+      "bytes": 688,
+      "sha256": "f41b7c1baebcae52948fe31bcafafe3837f71a2daf241eb91b8f23a21023ef72"
+    },
+    {
+      "path": "commands.json",
+      "bytes": 1680,
+      "sha256": "2bcbbd78056b9c9dde27e1d097b9b64d334a4a7813267987883f2027c21a1d6e"
+    },
+    {
+      "path": "config.json",
+      "bytes": 703,
+      "sha256": "a7ddc9a51bcd320b59ddbcd83fbdcbf4d1477c4fd3a7fb20de664f0e210b1fc2"
+    },
+    {
+      "path": "crossings.csv",
+      "bytes": 9963585,
+      "sha256": "7141c02a834a3d82b18c57e034a5046fcb5dc36cc70120e58dcddd3533e9ad1d"
+    },
+    {
+      "path": "daily_panel.csv",
+      "bytes": 8704714,
+      "sha256": "86f0a3c40d0917ceb2fdc512b14126d66a8246c407e7ad10bd858fa162a8d726"
+    },
+    {
+      "path": "events.manifest.json",
+      "bytes": 1134,
+      "sha256": "8fca6e52448cf063ebc91312c19125d0181b53e40f97ff60a58906e6f914a59c"
+    },
+    {
+      "path": "execution-complete.json",
+      "bytes": 600,
+      "sha256": "d3715c7676978a79a83aaca62487326f754b36b1b599eed796fae90e103833c2"
+    },
+    {
+      "path": "figure-environment.json",
+      "bytes": 495,
+      "sha256": "823f47f84b4cf158e4b775d16c8687887b1bc18be2dae4f6be09ff1b3fe0b56f"
+    },
+    {
+      "path": "figure-rendering.log",
+      "bytes": 63,
+      "sha256": "cace1071573ef725e762e8856427937617c8c67e5d0784c45c0e854e56a803a8"
+    },
+    {
+      "path": "figures/monthly.png",
+      "bytes": 261797,
+      "sha256": "0d9829f35e4464012d671b993be103c6d7dc140bd7a77a0fdbbef81313ab3f76"
+    },
+    {
+      "path": "figures/volatility.png",
+      "bytes": 79332,
+      "sha256": "0da3bb4d286b2b916a69b2bcc5c4ab2e050563700e072f934ce15f39207f0b2c"
+    },
+    {
+      "path": "finalization.json",
+      "bytes": 661,
+      "sha256": "5073404aa5bc939dd57b6138c2118a1b517a6ab02c32b37e94d8608dc33fd7f8"
+    },
+    {
+      "path": "findings.md",
+      "bytes": 1941,
+      "sha256": "ac73870754e6499fd83b3a714f633b5074bb50d22f21582f53409cb273dd47bc"
+    },
+    {
+      "path": "input-verification.json",
+      "bytes": 31876,
+      "sha256": "91b9ad5673bf3fc7c668f4c2314fa3011437f12173f480904fa61d948cf4d9c7"
+    },
+    {
+      "path": "input_audit.csv",
+      "bytes": 4490897,
+      "sha256": "7564867a115de0181e7d1d874989e8087291233686bc1d58dae4189e808de481"
+    },
+    {
+      "path": "inputs.lock.json",
+      "bytes": 1462,
+      "sha256": "34f502757c37649fb5bb7e446f150483aae4f28b2dcc396a37173c2c3ac760ef"
+    },
+    {
+      "path": "metrics.json",
+      "bytes": 2506,
+      "sha256": "95641139887dd66a231b1f0e69b8c066636146399dfbd969cc1a8eacf911e6a1"
+    },
+    {
+      "path": "numerical-tests.log",
+      "bytes": 115,
+      "sha256": "4c6693945a8c1575a1a02813e25f0cd69a59dedc42e6410531a1365889149cbf"
+    },
+    {
+      "path": "protocol-1.0.0.md",
+      "bytes": 5897,
+      "sha256": "83a34716d9fa12762186d0d6464d9e5e3a7103e0ba01b64917e58d8aa81fa80a"
+    },
+    {
+      "path": "provenance/environment.json",
+      "bytes": 1128,
+      "sha256": "17dffae10bdf5219570d02d24972234440eb15ad3d661a07965fb895536cf62d"
+    },
+    {
+      "path": "provenance/execution.json",
+      "bytes": 629,
+      "sha256": "fb1c0f3d969c493d39a7223de1e88088ba7585103044c7756eee4a573be8ad0e"
+    },
+    {
+      "path": "provenance/finalization/seal.py",
+      "bytes": 10709,
+      "sha256": "7bd74666fbca3ba80a7266af0576288b6385753bfbc7857c2d650fc9ca1a1078"
+    },
+    {
+      "path": "provenance/finalization/verify_saved_v2.py",
+      "bytes": 25677,
+      "sha256": "55724af1860dfc8bd10b57098e0d0ede148aed6456348b2de7a1111d97853811"
+    },
+    {
+      "path": "provenance/git-diff.patch",
+      "bytes": 630024,
+      "sha256": "684fb5b6a0236c5929e23a32d177eecaf96189631c24831648259085e316b538"
+    },
+    {
+      "path": "provenance/git-status.txt",
+      "bytes": 13946,
+      "sha256": "803f682559dd93131fc664037a4e47a471a9f53f7e0f476f42868be1e73f792a"
+    },
+    {
+      "path": "provenance/reviewer/execution.json",
+      "bytes": 1014,
+      "sha256": "0f65b0eb3f052332a3c1df2edd7fe4d2b57cb1d4f8d1f2775617d2c77175eae8"
+    },
+    {
+      "path": "provenance/reviewer/verify_saved_v2.py",
+      "bytes": 25677,
+      "sha256": "55724af1860dfc8bd10b57098e0d0ede148aed6456348b2de7a1111d97853811"
+    },
+    {
+      "path": "provenance/source/.python-version",
+      "bytes": 5,
+      "sha256": "49a506dd32096b010d75205acf3430c9ae6c40351888129499e5a5e487126c93"
+    },
+    {
+      "path": "provenance/source/packages/bhishma/pyproject.toml",
+      "bytes": 887,
+      "sha256": "709d2d52f2620b0016507b1d5ac9cc95d590b2ec2b73bf2d31f970f9e9045ddd"
+    },
+    {
+      "path": "provenance/source/packages/bhishma/src/abacus_bhishma/__init__.py",
+      "bytes": 95,
+      "sha256": "bc9422e95edef049d00a7e97b0d3a8fd8ff6019e33cd0860051d0aaa6dd34f3c"
+    },
+    {
+      "path": "provenance/source/packages/bhishma/src/abacus_bhishma/calendar.py",
+      "bytes": 3437,
+      "sha256": "94c89dfc03e36ad57819c4337da1f4b02a27dd18f49c92ae5a143582624da314"
+    },
+    {
+      "path": "provenance/source/packages/bhishma/src/abacus_bhishma/continuous_loader.py",
+      "bytes": 3349,
+      "sha256": "810ca34425a3f620850e8e576130065fb0824adabb21a5aff2019c2467cbec6c"
+    },
+    {
+      "path": "provenance/source/packages/bhishma/src/abacus_bhishma/continuous_phase1.py",
+      "bytes": 61327,
+      "sha256": "9de6f2093d5d2fa914598fbef620cea494d6274b0dac2924605c087972e37592"
+    },
+    {
+      "path": "provenance/source/packages/bhishma/src/abacus_bhishma/continuous_phase2.py",
+      "bytes": 59569,
+      "sha256": "cab8698389d12067e35b7d91512a27b35b3b824fb603d2d1ab284481afc96fc3"
+    },
+    {
+      "path": "provenance/source/packages/bhishma/src/abacus_bhishma/daily_context.py",
+      "bytes": 19563,
+      "sha256": "17d96d5013f50170bfe89c2dc82843690fba2d4bab43d5cc8fde7f6c0f03424f"
+    },
+    {
+      "path": "provenance/source/packages/bhishma/src/abacus_bhishma/databento_cli.py",
+      "bytes": 9019,
+      "sha256": "c2d2c307e1e483a3acec615e8f4cfb6b9fa2d4138eccdf6f06fe969c343b392f"
+    },
+    {
+      "path": "provenance/source/packages/bhishma/src/abacus_bhishma/databento_credentials.py",
+      "bytes": 2282,
+      "sha256": "5587ace0a274f5ba04f65c4a1993856cb04aea7ddf89fc415a554c185fdec1cd"
+    },
+    {
+      "path": "provenance/source/packages/bhishma/src/abacus_bhishma/derived_ohlcv_5m.py",
+      "bytes": 58342,
+      "sha256": "b221b88643833fecabb3c56f25c11ac040c1e19554a227bbc6e1ce1ebf843651"
+    },
+    {
+      "path": "provenance/source/packages/bhishma/src/abacus_bhishma/ema_cloud.py",
+      "bytes": 12922,
+      "sha256": "3d091fce42f53fe1905c2037b1f983f8db6e1ee720cbbab8a89b289cb224d30d"
+    },
+    {
+      "path": "provenance/source/packages/bhishma/src/abacus_bhishma/ema_cloud_loader_v2.py",
+      "bytes": 2555,
+      "sha256": "e58042d7750fcaf0ae0efc2134780f5e1a4207033422228051350478b4731030"
+    },
+    {
+      "path": "provenance/source/packages/bhishma/src/abacus_bhishma/ema_cloud_release.py",
+      "bytes": 20040,
+      "sha256": "41cb48db5928b07e06bb79474baa626b8702466b6be19ec6ae770912ce5e90a1"
+    },
+    {
+      "path": "provenance/source/packages/bhishma/src/abacus_bhishma/ema_cloud_release_v2.py",
+      "bytes": 23548,
+      "sha256": "0809d460e422da265e2b7f01e532865f2733af2668ed7123828cca14d26ba519"
+    },
+    {
+      "path": "provenance/source/packages/bhishma/src/abacus_bhishma/feature_loader.py",
+      "bytes": 6521,
+      "sha256": "cbcac1b0c901385d4bf6b409a43f7d8baa2762527ddc8f29f27d262f09f7b6bf"
+    },
+    {
+      "path": "provenance/source/packages/bhishma/src/abacus_bhishma/gc_ema_bands.py",
+      "bytes": 7842,
+      "sha256": "b81aa52832e5a0fff4f0fbfa29e824ead2357056f5ed9e65f30ea005eef7bc8e"
+    },
+    {
+      "path": "provenance/source/packages/bhishma/src/abacus_bhishma/manifest_selection.py",
+      "bytes": 6532,
+      "sha256": "bdbf8c2c65759c1e2b2cb82f74b04c7aa18920dbc638af525446d9d3ec5c550d"
+    },
+    {
+      "path": "provenance/source/packages/bhishma/src/abacus_bhishma/paths.py",
+      "bytes": 3554,
+      "sha256": "f3125bcff0953fcfc9845119c9ff9b3f006b2d1df77c3899e0d49609e93aac18"
+    },
+    {
+      "path": "provenance/source/packages/bhishma/src/abacus_bhishma/provenance.py",
+      "bytes": 4818,
+      "sha256": "34e75937186557e92d3e26feac8a4c576158e44f98ba4b67e3803a65517350d9"
+    },
+    {
+      "path": "provenance/source/packages/bhishma/src/abacus_bhishma/publication_safety.py",
+      "bytes": 3007,
+      "sha256": "5177b296e9df2f7062885be0e719fc4d63a72a0aa9ec6601e55c9a02c3532d24"
+    },
+    {
+      "path": "provenance/source/packages/bhishma/src/abacus_bhishma/range_xv.py",
+      "bytes": 10965,
+      "sha256": "1e855de79b9cc62c91a0df07cf3202a85593aba12d4fadfb39fef5fbbc430858"
+    },
+    {
+      "path": "provenance/source/packages/bhishma/src/abacus_bhishma/session_anchored_vwap.py",
+      "bytes": 61992,
+      "sha256": "d9bed6ea8f8c671e0a4272a8cbfd6285ec771d6874372c2b77a25030a2490d83"
+    },
+    {
+      "path": "provenance/source/packages/bhishma/src/abacus_bhishma/verniman_backfill.py",
+      "bytes": 12636,
+      "sha256": "dcf5b890ef9145cb4819d8a8dcb750bc491aae7d5e224be5ba1a6b15cc008a62"
+    },
+    {
+      "path": "provenance/source/packages/bhishma/src/abacus_bhishma/verniman_capture.py",
+      "bytes": 7777,
+      "sha256": "8b372156b8828d37ac7a74e396279607c32b095e2419100776183a094797bd7c"
+    },
+    {
+      "path": "provenance/source/packages/bhishma/src/abacus_bhishma/verniman_history.py",
+      "bytes": 49422,
+      "sha256": "155b1dddb6fe4b2e51cb40faf65a69a12352f18bea5da72517e74c9479adea0e"
+    },
+    {
+      "path": "provenance/source/packages/bhishma/src/abacus_bhishma/verniman_history_2016.py",
+      "bytes": 166513,
+      "sha256": "02c2fb33de5c0031aeb180f54e01d96dd5233dce3fd3b0fd5736afbd341417a3"
+    },
+    {
+      "path": "provenance/source/packages/bhishma/src/abacus_bhishma/verniman_history_2017.py",
+      "bytes": 112862,
+      "sha256": "b0cc037a34110cd0565c7bedfbb94ddfbee96eb622b1af5dd6266585cce02b51"
+    },
+    {
+      "path": "provenance/source/packages/bhishma/src/abacus_bhishma/verniman_history_2018.py",
+      "bytes": 99844,
+      "sha256": "ebb3f8162c27baab7470273004902ccf89c15cee00d6ffcf6c27dae4172aa276"
+    },
+    {
+      "path": "provenance/source/packages/bhishma/src/abacus_bhishma/verniman_history_2019.py",
+      "bytes": 83607,
+      "sha256": "712ec49319bf23fddd8d430ebf8e9b76f0ddec2164ccf8c95931eafe71aa24ef"
+    },
+    {
+      "path": "provenance/source/packages/bhishma/src/abacus_bhishma/verniman_history_2020.py",
+      "bytes": 75643,
+      "sha256": "f959d683a0fb45800b2ec86f9b797a39532259599475763190a1a66846b23ad7"
+    },
+    {
+      "path": "provenance/source/packages/bhishma/src/abacus_bhishma/verniman_history_2021.py",
+      "bytes": 65264,
+      "sha256": "1e1a7db16e68a295d0c152bca00e5453e1af21759a359e790dec2378aca2963e"
+    },
+    {
+      "path": "provenance/source/packages/bhishma/src/abacus_bhishma/verniman_history_2022.py",
+      "bytes": 58078,
+      "sha256": "62936f4e012ab51822ad9f8984bc25bd2109b58097b130dfb9b3b396ce96bfe4"
+    },
+    {
+      "path": "provenance/source/packages/bhishma/src/abacus_bhishma/verniman_history_2023.py",
+      "bytes": 53540,
+      "sha256": "d5d7aa4f2e4c8d45dcad301e884c0a3a119adb6e77699dadf38ffb1e228cd959"
+    },
+    {
+      "path": "provenance/source/packages/bhishma/src/abacus_bhishma/verniman_history_2024.py",
+      "bytes": 46341,
+      "sha256": "fd860a314f0309e34919eeb67897651b47f2205a33695d432312013316672474"
+    },
+    {
+      "path": "provenance/source/packages/bhishma/src/abacus_bhishma/verniman_history_2025.py",
+      "bytes": 45308,
+      "sha256": "706a1ae4a2b0a5b921a74d860627f6f384227b82ae1380bc996261fc8540c9dc"
+    },
+    {
+      "path": "provenance/source/packages/bhishma/src/abacus_bhishma/verniman_levels.py",
+      "bytes": 32398,
+      "sha256": "d8038dd55333744b660809aaff3b42fba24eea2a9c28f0912bc806c9cb7a9e55"
+    },
+    {
+      "path": "provenance/source/packages/bhishma/src/abacus_bhishma/vp_hvn.py",
+      "bytes": 9793,
+      "sha256": "9a3b0465047c4036e24edb4287e852c8e16f0cb8a57d467d49a2e6b613f3ae01"
+    },
+    {
+      "path": "provenance/source/packages/bhishma/src/abacus_bhishma/vp_hvn_loader.py",
+      "bytes": 1270,
+      "sha256": "6e4c50973d32ee56f1a5e07f465959673ec39c14e07c7677fbd2dae50c27a245"
+    },
+    {
+      "path": "provenance/source/packages/bhishma/src/abacus_bhishma/vp_hvn_release.py",
+      "bytes": 36409,
+      "sha256": "7f40399ef0a16ba575fd8209527221677f6eb79e75c13c45465f361a31f91fa8"
+    },
+    {
+      "path": "provenance/source/packages/sahadeva/pyproject.toml",
+      "bytes": 511,
+      "sha256": "d9484c5b790dd955b20b46e8335378ba24793340c5aa8b3c8e5ff67911b06b98"
+    },
+    {
+      "path": "provenance/source/pyproject.toml",
+      "bytes": 544,
+      "sha256": "769b4dfbb4f436742820f0993897e60f3b0a1d76780e9d60c94e20dd25ad2a69"
+    },
+    {
+      "path": "provenance/source/studies/28_globex_ema_crossings/README.md",
+      "bytes": 1481,
+      "sha256": "23019b65eb6710d2f662c058eaa6cfb445465a487fa4477083ae0a191c19c079"
+    },
+    {
+      "path": "provenance/source/studies/28_globex_ema_crossings/inputs.lock.json",
+      "bytes": 1462,
+      "sha256": "34f502757c37649fb5bb7e446f150483aae4f28b2dcc396a37173c2c3ac760ef"
+    },
+    {
+      "path": "provenance/source/studies/28_globex_ema_crossings/notes.md",
+      "bytes": 705,
+      "sha256": "34d74947d2908f5175e03e7501a5e951e099dcbc8137b143c650fdee0c4c5537"
+    },
+    {
+      "path": "provenance/source/studies/28_globex_ema_crossings/plan.md",
+      "bytes": 1248,
+      "sha256": "5e42a942571c4d10e2f0e82ee6f66a44ce7713ec19fdf8dde115ffc5dc8ff7da"
+    },
+    {
+      "path": "provenance/source/studies/28_globex_ema_crossings/protocol-1.0.0.md",
+      "bytes": 5897,
+      "sha256": "83a34716d9fa12762186d0d6464d9e5e3a7103e0ba01b64917e58d8aa81fa80a"
+    },
+    {
+      "path": "provenance/source/studies/28_globex_ema_crossings/render_figures.py",
+      "bytes": 3430,
+      "sha256": "4941630d95b3f9468faa52b40243895a8f7ad0c3c01ac6acbe78cd7b284dd20f"
+    },
+    {
+      "path": "provenance/source/studies/28_globex_ema_crossings/run.py",
+      "bytes": 8031,
+      "sha256": "6204145ff2d42fbb20ca480dd4c7004558b5c04b38d8e1c60e53f6a232dce8bd"
+    },
+    {
+      "path": "provenance/source/studies/28_globex_ema_crossings/src/engine.py",
+      "bytes": 7238,
+      "sha256": "c99bb5fe52d4f61efeb5957aa40c2b4cd15fe656b5b03e35261e94a8ff7b860f"
+    },
+    {
+      "path": "provenance/source/studies/28_globex_ema_crossings/src/inputs.py",
+      "bytes": 6984,
+      "sha256": "2b12096e29c04680d22d0f00789c3682d945533234d70255205a94c0474c8167"
+    },
+    {
+      "path": "provenance/source/studies/28_globex_ema_crossings/src/reporting.py",
+      "bytes": 10087,
+      "sha256": "82feee0366fae080c205c9943ec30c4c08cc597fe2d4b1f1eac8c7826a592828"
+    },
+    {
+      "path": "provenance/source/studies/28_globex_ema_crossings/study.json",
+      "bytes": 654,
+      "sha256": "971097a203f05d6e061a300b7915c17caab8f55bded3711c8a7eb35524de0817"
+    },
+    {
+      "path": "provenance/source/studies/28_globex_ema_crossings/study.yaml",
+      "bytes": 540,
+      "sha256": "e0254781f5af412ed6c3539f73f829c6db3ef3e584961d8acd24e6a0cdae5afe"
+    },
+    {
+      "path": "provenance/source/studies/28_globex_ema_crossings/tests/test_engine.py",
+      "bytes": 5611,
+      "sha256": "844969739ea6e24ccbb243eeb3638af7d04609d6ecaf613197a001733f6d2c7a"
+    },
+    {
+      "path": "provenance/source/studies/28_globex_ema_crossings/verify_saved.py",
+      "bytes": 21057,
+      "sha256": "ef1b755079bff18c89f6e3cd947410b3eb5ddbba8bff85e3575a246ce37728bf"
+    },
+    {
+      "path": "provenance/source/uv.lock",
+      "bytes": 335045,
+      "sha256": "b2c02f82320599b00cb3277479c660a9c56c37c6476bc423215c9cbb7ab0c645"
+    },
+    {
+      "path": "provenance/source-inventory.json",
+      "bytes": 13839,
+      "sha256": "24fddd147819ce9c14c2b30ede6a363a2a6797e478e6615cff8f86cbc5e17289"
+    },
+    {
+      "path": "report.html",
+      "bytes": 13490,
+      "sha256": "a17d5c61f608e0f7a8a419809de1190c4897a10e100f82e2c3c42fa2162d9082"
+    },
+    {
+      "path": "report.md",
+      "bytes": 9947,
+      "sha256": "aad5bdea9d2d3899e1ecbbe3ac12aef9af2b581ad6e93a7a07fef95b2bc7fb52"
+    },
+    {
+      "path": "saved-evidence-verification.json",
+      "bytes": 7930,
+      "sha256": "2e4268ed9687ca5ed127f635a12a6d2b26a8faf5404aee33248f336d2207ba52"
+    },
+    {
+      "path": "study.yaml",
+      "bytes": 540,
+      "sha256": "e0254781f5af412ed6c3539f73f829c6db3ef3e584961d8acd24e6a0cdae5afe"
+    },
+    {
+      "path": "tables/coverage.csv",
+      "bytes": 25951,
+      "sha256": "5eebe2e0e0ff58ec2b29ec9ed688f7e7d72f4e5649e17812e616f6213b39c80d"
+    },
+    {
+      "path": "tables/distribution.csv",
+      "bytes": 591311,
+      "sha256": "5952e36b73159f30b2428ced73f6d753123341a1076e4c9b9b017105e980c882"
+    },
+    {
+      "path": "tables/month_of_year.csv",
+      "bytes": 739167,
+      "sha256": "c1d9ddac270045959f328068404bad43f5d6939a4c2817b57c3b84257d517174"
+    },
+    {
+      "path": "tables/monthly.csv",
+      "bytes": 2863038,
+      "sha256": "3b4dd7b9a83566f8218807ea27ea2991c6e7d87294d44afc015791ee0a0ce100"
+    },
+    {
+      "path": "tables/summary.csv",
+      "bytes": 80934,
+      "sha256": "814367e2585c36e74a5f305e0516736a18d0fc53af06430fc12ab4a25adad3ce"
+    },
+    {
+      "path": "tables/yearly.csv",
+      "bytes": 414941,
+      "sha256": "98a0a5ab511a966363aff23603ff0448b03b1b161e7081df322a170bf0df83fe"
+    }
+  ]
+}

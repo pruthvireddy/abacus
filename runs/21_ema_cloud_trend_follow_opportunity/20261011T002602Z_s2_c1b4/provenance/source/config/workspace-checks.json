@@ -1,0 +1,2782 @@
+{
+  "schema_version": 1,
+  "default_profile": "default",
+  "profiles": {
+    "default": {
+      "description": "Compatibility six-step fail-fast gate; bounded package, legacy and configured-input checks.",
+      "checks": [
+        "agent-docs",
+        "bhishma",
+        "sahadeva",
+        "legacy-01",
+        "legacy-02",
+        "vwap-doctor"
+      ]
+    },
+    "documentation": {
+      "description": "Standard-library maintained Markdown links and anchors only.",
+      "checks": [
+        "documentation"
+      ]
+    },
+    "tooling": {
+      "description": "Genuine standard-library workspace utility and harness tests on temporary fixtures.",
+      "checks": [
+        "workspace-utilities"
+      ]
+    },
+    "packages": {
+      "description": "Full package discovery, including actual tools and configured Bhishma integration.",
+      "checks": [
+        "bhishma",
+        "sahadeva"
+      ]
+    },
+    "bhishma-loaders": {
+      "description": "Explicit synthetic loader, manifest-selection and consumer-import suites; each owner runs in its own locked Python process.",
+      "checks": [
+        "bhishma-feature-loaders",
+        "bhishma-vp-hvn-loader",
+        "bhishma-loader-imports",
+        "bhishma-manifest-loaders",
+        "study-14-consumer-imports"
+      ]
+    },
+    "bhishma-safety": {
+      "description": "Explicit ordinary/optimized publication guards plus declared provenance and calendar fixtures; no configured publication, Ruby or compiler execution.",
+      "checks": [
+        "bhishma-continuous-safety",
+        "bhishma-feature-safety",
+        "bhishma-continuous-safety-optimized",
+        "bhishma-feature-safety-optimized",
+        "bhishma-provenance",
+        "bhishma-publication-provenance",
+        "bhishma-calendar"
+      ]
+    },
+    "legacy": {
+      "description": "Separate archived numerical fixture processes with local child PYTHONPATH.",
+      "checks": [
+        "legacy-01",
+        "legacy-02"
+      ]
+    },
+    "studies": {
+      "description": "All 15 active local study test directories, isolated processes; studies 06/11 require retained inputs/evidence.",
+      "checks": [
+        "study-05",
+        "study-06",
+        "study-07",
+        "study-08",
+        "study-09",
+        "study-10",
+        "study-11",
+        "study-12",
+        "study-13",
+        "study-14",
+        "study-15",
+        "study-16",
+        "study-18",
+        "study-20",
+        "study-21"
+      ]
+    },
+    "guards": {
+      "description": "Ordinary/optimized synthetic exporter, study15 sealing, structured numerical-record and study12/13 provenance guards.",
+      "checks": [
+        "export-guards",
+        "export-guards-optimized",
+        "sealing-15",
+        "sealing-15-optimized",
+        "numerical-record-guards",
+        "numerical-record-guards-optimized",
+        "study-execution-guards",
+        "study-execution-guards-optimized"
+      ]
+    },
+    "help": {
+      "description": "Command-help parser smoke checks only; each check declares its runtime.",
+      "checks": [
+        "help-research",
+        "help-doctor",
+        "help-continuous-phase1",
+        "help-continuous-phase2",
+        "help-derived-ohlcv-5m",
+        "help-session-anchored-vwap",
+        "evidence-contract-help"
+      ]
+    },
+    "inputs": {
+      "description": "Configured pinned VWAP identity and bounded sample diagnostic.",
+      "checks": [
+        "vwap-doctor"
+      ]
+    },
+    "navigation": {
+      "description": "Read-only research navigation freshness; never regeneration.",
+      "checks": [
+        "research-index"
+      ]
+    },
+    "metadata": {
+      "description": "Navigation input shapes, associations and declared local target existence; no artifact hashes or CSV reads.",
+      "checks": [
+        "navigation-metadata"
+      ]
+    },
+    "evidence-references": {
+      "description": "Only explicitly adopted strategy CSV artifacts, hashes and exact saved-string row selections.",
+      "checks": [
+        "strategy-evidence-references"
+      ]
+    },
+    "narada": {
+      "description": "Explicit local verify/test/lint/build with installed Node 24/npm app dependencies.",
+      "checks": [
+        "narada-verify",
+        "narada-test",
+        "narada-lint",
+        "narada-build"
+      ]
+    },
+    "retained-evidence": {
+      "description": "Full study 11 saved-Pine/evidence suite and private Narada source audit, separately requested.",
+      "checks": [
+        "study-11",
+        "narada-audit-sources"
+      ]
+    },
+    "live-preview": {
+      "description": "HTTP smoke against an explicitly supplied running loopback preview; no launch.",
+      "checks": [
+        "narada-smoke-preview"
+      ]
+    },
+    "study-evidence": {
+      "description": "Exact ordinary/optimized stage provenance and numerical-record guards in separate locked processes; no research or sealing actions.",
+      "checks": [
+        "numerical-record-guards",
+        "numerical-record-guards-optimized",
+        "study-execution-guards",
+        "study-execution-guards-optimized"
+      ]
+    }
+  },
+  "owners": {
+    "workspace": {
+      "kind": "workspace",
+      "path": ".",
+      "description": "Workspace setup, harness, maintained guidance and navigation",
+      "guides": [
+        "AGENTS.md",
+        "ARCHITECTURE.md",
+        "README.md",
+        "docs/README.md",
+        "studies/AGENTS.md",
+        "studies/README.md",
+        "runs/README.md",
+        "strategies/README.md",
+        "templates/README.md",
+        "requests/README.md",
+        "data/README.md",
+        "work/README.md",
+        "reports/README.md",
+        "docs/range-xv-fx-20261001.md",
+        "docs/evidence-contract.md"
+      ],
+      "read_first": [
+        "AGENTS.md",
+        "README.md",
+        "ARCHITECTURE.md",
+        "docs/evidence-contract.md"
+      ],
+      "entry_points": [
+        "scripts/check-workspace",
+        "config/workspace-checks.json",
+        "scripts/check-navigation-metadata.py",
+        "scripts/check-evidence-references.py",
+        "scripts/check-evidence-bundle.py",
+        "scripts/build-research-index.py",
+        "scripts/numerical_test_record.py",
+        "scripts/record-numerical-tests.py",
+        "scripts/tests/test_numerical_test_record.py",
+        "scripts/study_provenance.py",
+        "scripts/check-study-provenance.py",
+        "scripts/tests/study_provenance_guards.py"
+      ],
+      "related_checks": [
+        "strategy-evidence-references",
+        "evidence-contract-help",
+        "numerical-record-guards",
+        "numerical-record-guards-optimized",
+        "study-execution-guards",
+        "study-execution-guards-optimized"
+      ],
+      "preservation": [
+        "Checks are an explicit allowlist; do not execute research, migration, publication or release creation.",
+        "Keep existing data, catalog snapshots, completed runs and export revisions unchanged."
+      ]
+    },
+    "bhishma": {
+      "kind": "package",
+      "path": "packages/bhishma",
+      "description": "Bhishma data, features, public loaders and immutable publication contracts",
+      "guides": [
+        "packages/bhishma/AGENTS.md",
+        "packages/bhishma/README.md"
+      ],
+      "read_first": [
+        "packages/bhishma/AGENTS.md",
+        "packages/bhishma/README.md",
+        "data/README.md",
+        "requests/README.md",
+        "config/paths.example.toml"
+      ],
+      "entry_points": [
+        "packages/bhishma/src/abacus_bhishma",
+        "packages/bhishma/tests",
+        "packages/bhishma/src/abacus_bhishma/publication_safety.py",
+        "packages/bhishma/src/abacus_bhishma/continuous_phase1.py",
+        "packages/bhishma/src/abacus_bhishma/continuous_phase2.py",
+        "packages/bhishma/src/abacus_bhishma/vp_hvn_release.py",
+        "packages/bhishma/src/abacus_bhishma/daily_context.py",
+        "packages/bhishma/src/abacus_bhishma/gc_ema_bands.py",
+        "packages/bhishma/src/abacus_bhishma/derived_ohlcv_5m.py",
+        "packages/bhishma/src/abacus_bhishma/session_anchored_vwap.py",
+        "packages/bhishma/src/abacus_bhishma/provenance.py",
+        "packages/bhishma/src/abacus_bhishma/calendar.py",
+        "packages/bhishma/src/abacus_bhishma/paths.py",
+        "packages/bhishma/src/abacus_bhishma/feature_loader.py",
+        "packages/bhishma/src/abacus_bhishma/continuous_loader.py",
+        "packages/bhishma/src/abacus_bhishma/vp_hvn_loader.py",
+        "packages/bhishma/src/abacus_bhishma/manifest_selection.py",
+        "packages/bhishma/src/abacus_bhishma/vp_hvn.py",
+        "packages/bhishma/src/abacus_bhishma/vp_hvn_native.cpp",
+        "packages/bhishma/tests/test_continuous_publication_safety.py",
+        "packages/bhishma/tests/test_feature_publication_safety.py",
+        "packages/bhishma/tests/test_provenance.py",
+        "packages/bhishma/tests/test_publication_provenance.py",
+        "packages/bhishma/tests/test_calendar.py",
+        "packages/bhishma/tests/test_feature_loaders.py",
+        "packages/bhishma/tests/test_vp_hvn_loader.py",
+        "packages/bhishma/tests/test_loader_import_boundaries.py",
+        "packages/bhishma/tests/test_manifest_selected_loaders.py",
+        "packages/bhishma/tests/test_vp_hvn.py",
+        "packages/bhishma/tests/test_runtime_prerequisites.py"
+      ],
+      "related_checks": [
+        "study-14-consumer-imports"
+      ],
+      "preservation": [
+        "Published datasets and pinned catalog identities are immutable.",
+        "Focused loader/safety checks use disposable synthetic fixtures; they neither publish data nor certify historical execution or complete dependency discovery.",
+        "Publication inventories separate required inputs from owned outputs; inspect partial final/staging/recovery artifacts without deleting shared parents.",
+        "Pinned loader identity/membership and optional selected-byte verification do not certify absence of unlisted files; legacy loading remains separately supported.",
+        "Full discovery includes configured-publication integration plus actual clang++ native parity and Ruby parsing; do not claim no data or tools."
+      ]
+    },
+    "sahadeva": {
+      "kind": "package",
+      "path": "packages/sahadeva",
+      "description": "Sahadeva shared research integration and saved-evidence projection",
+      "guides": [
+        "packages/sahadeva/AGENTS.md",
+        "packages/sahadeva/README.md"
+      ],
+      "read_first": [
+        "packages/sahadeva/AGENTS.md",
+        "packages/sahadeva/README.md",
+        "studies/AGENTS.md",
+        "docs/evidence-contract.md"
+      ],
+      "entry_points": [
+        "packages/sahadeva/src/abacus_sahadeva",
+        "packages/sahadeva/tests",
+        "scripts/check-evidence-references.py",
+        "scripts/check-evidence-bundle.py",
+        "scripts/numerical_test_record.py",
+        "scripts/record-numerical-tests.py",
+        "scripts/tests/test_numerical_test_record.py",
+        "scripts/study_provenance.py",
+        "scripts/check-study-provenance.py",
+        "scripts/tests/study_provenance_guards.py",
+        "packages/sahadeva/src/abacus_sahadeva/presentation_revision.py",
+        "packages/sahadeva/tests/test_export_projection.py",
+        "packages/sahadeva/tests/test_export_guards.py"
+      ],
+      "related_checks": [
+        "navigation-metadata",
+        "numerical-record-guards",
+        "numerical-record-guards-optimized",
+        "study-execution-guards",
+        "study-execution-guards-optimized"
+      ],
+      "preservation": [
+        "Tests use disposable fixtures; preserve saved research definitions and retained evidence.",
+        "Saved-output checks and exporter tests do not rerun or revalidate historical research."
+      ]
+    },
+    "narada": {
+      "kind": "app",
+      "path": "apps/narada",
+      "description": "Narada selected report validation, rendering and local publication checks",
+      "guides": [
+        "apps/narada/AGENTS.md",
+        "apps/narada/README.md",
+        "apps/narada/releases/README.md",
+        "docs/narada.md",
+        "docs/narada-publication-plan.md",
+        "templates/web-study-report.md"
+      ],
+      "read_first": [
+        "apps/narada/AGENTS.md",
+        "apps/narada/README.md",
+        "docs/narada.md"
+      ],
+      "entry_points": [
+        "apps/narada/scripts/verify.mjs",
+        "apps/narada/scripts/lib/publication.mjs",
+        "apps/narada/src",
+        "apps/narada/tests"
+      ],
+      "preservation": [
+        "Use the independent Node 24/npm environment; no npm ci, publication or deployment is implicit.",
+        "Local gates use app-owned inputs; private audit and a running loopback preview are separate selections."
+      ]
+    },
+    "study-01": {
+      "kind": "study",
+      "path": "studies/01_reversal_follow_through",
+      "study_id": "01_reversal_follow_through",
+      "description": "Study 01 - reversal follow through",
+      "guides": [
+        "studies/01_reversal_follow_through/README.md"
+      ],
+      "read_first": [
+        "studies/01_reversal_follow_through/README.md",
+        "studies/AGENTS.md",
+        "packages/sahadeva/AGENTS.md"
+      ],
+      "entry_points": [
+        "studies/01_reversal_follow_through/publish_web.py"
+      ],
+      "preservation": [
+        "Keep numerical definitions, settings, input locks and completed run/export evidence unchanged.",
+        "Run independently owned suites in fresh processes; tests do not establish historical research validity."
+      ],
+      "plan_absence_reason": "Historical adapter; no current plan.md exists.",
+      "no_suite_reason": "No active local Python suite; applicable archived numerical suite is separately registered.",
+      "related_checks": [
+        "export-guards",
+        "export-guards-optimized"
+      ]
+    },
+    "study-02": {
+      "kind": "study",
+      "path": "studies/02_followthrough_candle_adverse",
+      "study_id": "02_followthrough_candle_adverse",
+      "description": "Study 02 - followthrough candle adverse",
+      "guides": [
+        "studies/02_followthrough_candle_adverse/README.md"
+      ],
+      "read_first": [
+        "studies/02_followthrough_candle_adverse/README.md",
+        "studies/AGENTS.md",
+        "packages/sahadeva/AGENTS.md"
+      ],
+      "entry_points": [
+        "studies/02_followthrough_candle_adverse/publish_web.py"
+      ],
+      "preservation": [
+        "Keep numerical definitions, settings, input locks and completed run/export evidence unchanged.",
+        "Run independently owned suites in fresh processes; tests do not establish historical research validity."
+      ],
+      "plan_absence_reason": "Historical adapter; no current plan.md exists.",
+      "no_suite_reason": "No active local Python suite; applicable archived numerical suite is separately registered.",
+      "related_checks": [
+        "export-guards",
+        "export-guards-optimized"
+      ]
+    },
+    "study-03": {
+      "kind": "study",
+      "path": "studies/03_multi_rxv_alignment",
+      "study_id": "03_multi_rxv_alignment",
+      "description": "Study 03 - multi rxv alignment",
+      "guides": [
+        "studies/03_multi_rxv_alignment/README.md"
+      ],
+      "read_first": [
+        "studies/03_multi_rxv_alignment/README.md",
+        "studies/AGENTS.md",
+        "packages/sahadeva/AGENTS.md"
+      ],
+      "entry_points": [
+        "studies/03_multi_rxv_alignment/publish_web.py"
+      ],
+      "preservation": [
+        "Keep numerical definitions, settings, input locks and completed run/export evidence unchanged.",
+        "Run independently owned suites in fresh processes; tests do not establish historical research validity."
+      ],
+      "plan_absence_reason": "Historical adapter; no current plan.md exists.",
+      "no_suite_reason": "Historical presentation adapter with no standalone current or archived Python test suite; shared exporter guard checks cover its adapter boundary only.",
+      "related_checks": [
+        "export-guards",
+        "export-guards-optimized"
+      ]
+    },
+    "study-04": {
+      "kind": "study",
+      "path": "studies/04_reversal_candle_quality",
+      "study_id": "04_reversal_candle_quality",
+      "description": "Study 04 - reversal candle quality",
+      "guides": [
+        "studies/04_reversal_candle_quality/README.md"
+      ],
+      "read_first": [
+        "studies/04_reversal_candle_quality/README.md",
+        "studies/AGENTS.md",
+        "packages/sahadeva/AGENTS.md"
+      ],
+      "entry_points": [
+        "studies/04_reversal_candle_quality/publish_web.py"
+      ],
+      "preservation": [
+        "Keep numerical definitions, settings, input locks and completed run/export evidence unchanged.",
+        "Run independently owned suites in fresh processes; tests do not establish historical research validity."
+      ],
+      "plan_absence_reason": "Historical adapter; no current plan.md exists.",
+      "no_suite_reason": "Historical presentation adapter with no standalone current or archived Python test suite; shared exporter guard checks cover its adapter boundary only.",
+      "related_checks": [
+        "export-guards",
+        "export-guards-optimized"
+      ]
+    },
+    "study-05": {
+      "kind": "study",
+      "path": "studies/05_session_vwap",
+      "study_id": "05_session_vwap",
+      "description": "Study 05 - session vwap",
+      "guides": [
+        "studies/05_session_vwap/README.md",
+        "studies/05_session_vwap/plan.md"
+      ],
+      "read_first": [
+        "studies/05_session_vwap/README.md",
+        "studies/05_session_vwap/plan.md",
+        "studies/AGENTS.md",
+        "packages/sahadeva/AGENTS.md"
+      ],
+      "entry_points": [
+        "studies/05_session_vwap/src",
+        "studies/05_session_vwap/tests"
+      ],
+      "preservation": [
+        "Keep numerical definitions, settings, input locks and completed run/export evidence unchanged.",
+        "Run independently owned suites in fresh processes; tests do not establish historical research validity."
+      ]
+    },
+    "study-06": {
+      "kind": "study",
+      "path": "studies/06_vwap_state_dynamics",
+      "study_id": "06_vwap_state_dynamics",
+      "description": "Study 06 - vwap state dynamics",
+      "guides": [
+        "studies/06_vwap_state_dynamics/README.md",
+        "studies/06_vwap_state_dynamics/plan.md"
+      ],
+      "read_first": [
+        "studies/06_vwap_state_dynamics/README.md",
+        "studies/06_vwap_state_dynamics/plan.md",
+        "studies/AGENTS.md",
+        "packages/sahadeva/AGENTS.md"
+      ],
+      "entry_points": [
+        "studies/06_vwap_state_dynamics/src",
+        "studies/06_vwap_state_dynamics/tests"
+      ],
+      "preservation": [
+        "Keep numerical definitions, settings, input locks and completed run/export evidence unchanged.",
+        "Run independently owned suites in fresh processes; tests do not establish historical research validity."
+      ]
+    },
+    "study-07": {
+      "kind": "study",
+      "path": "studies/07_range_xv_edge_candidates",
+      "study_id": "07_range_xv_edge_candidates",
+      "description": "Study 07 - range xv edge candidates",
+      "guides": [
+        "studies/07_range_xv_edge_candidates/README.md",
+        "studies/07_range_xv_edge_candidates/plan.md"
+      ],
+      "read_first": [
+        "studies/07_range_xv_edge_candidates/README.md",
+        "studies/07_range_xv_edge_candidates/plan.md",
+        "studies/AGENTS.md",
+        "packages/sahadeva/AGENTS.md"
+      ],
+      "entry_points": [
+        "studies/07_range_xv_edge_candidates/src",
+        "studies/07_range_xv_edge_candidates/tests"
+      ],
+      "preservation": [
+        "Keep numerical definitions, settings, input locks and completed run/export evidence unchanged.",
+        "Run independently owned suites in fresh processes; tests do not establish historical research validity."
+      ]
+    },
+    "study-08": {
+      "kind": "study",
+      "path": "studies/08_countertrend_bar_continuation",
+      "study_id": "08_countertrend_bar_continuation",
+      "description": "Study 08 - countertrend bar continuation",
+      "guides": [
+        "studies/08_countertrend_bar_continuation/README.md",
+        "studies/08_countertrend_bar_continuation/plan.md"
+      ],
+      "read_first": [
+        "studies/08_countertrend_bar_continuation/README.md",
+        "studies/08_countertrend_bar_continuation/plan.md",
+        "studies/AGENTS.md",
+        "packages/sahadeva/AGENTS.md"
+      ],
+      "entry_points": [
+        "studies/08_countertrend_bar_continuation/src",
+        "studies/08_countertrend_bar_continuation/tests",
+        "scripts/numerical_test_record.py",
+        "scripts/record-numerical-tests.py",
+        "scripts/tests/test_numerical_test_record.py",
+        "studies/08_countertrend_bar_continuation/seal.py",
+        "studies/08_countertrend_bar_continuation/publish_web.py",
+        "packages/sahadeva/src/abacus_sahadeva/presentation_revision.py"
+      ],
+      "preservation": [
+        "Keep numerical definitions, settings, input locks and completed run/export evidence unchanged.",
+        "Run independently owned suites in fresh processes; tests do not establish historical research validity.",
+        "Future stages require explicit stage-bound numerical records; historical8/6 log counts are available only with explicit legacy option before structured workflow adoption."
+      ],
+      "related_checks": [
+        "numerical-record-guards",
+        "numerical-record-guards-optimized",
+        "export-guards",
+        "export-guards-optimized"
+      ]
+    },
+    "study-09": {
+      "kind": "study",
+      "path": "studies/09_range_xv_c2_confirmation",
+      "study_id": "09_range_xv_c2_confirmation",
+      "description": "Study 09 - range xv c2 confirmation",
+      "guides": [
+        "studies/09_range_xv_c2_confirmation/README.md",
+        "studies/09_range_xv_c2_confirmation/plan.md"
+      ],
+      "read_first": [
+        "studies/09_range_xv_c2_confirmation/README.md",
+        "studies/09_range_xv_c2_confirmation/plan.md",
+        "studies/AGENTS.md",
+        "packages/sahadeva/AGENTS.md"
+      ],
+      "entry_points": [
+        "studies/09_range_xv_c2_confirmation/src",
+        "studies/09_range_xv_c2_confirmation/tests",
+        "scripts/numerical_test_record.py",
+        "scripts/record-numerical-tests.py",
+        "scripts/tests/test_numerical_test_record.py",
+        "studies/09_range_xv_c2_confirmation/seal.py",
+        "studies/09_range_xv_c2_confirmation/publish_web.py",
+        "packages/sahadeva/src/abacus_sahadeva/presentation_revision.py"
+      ],
+      "preservation": [
+        "Keep numerical definitions, settings, input locks and completed run/export evidence unchanged.",
+        "Run independently owned suites in fresh processes; tests do not establish historical research validity.",
+        "Future stages require explicit stage-bound numerical records; historical8/6 log counts are available only with explicit legacy option before structured workflow adoption."
+      ],
+      "related_checks": [
+        "numerical-record-guards",
+        "numerical-record-guards-optimized",
+        "export-guards",
+        "export-guards-optimized"
+      ]
+    },
+    "study-10": {
+      "kind": "study",
+      "path": "studies/10_range_xv_session_overlay",
+      "study_id": "10_range_xv_session_overlay",
+      "description": "Study 10 - range xv session overlay",
+      "guides": [
+        "studies/10_range_xv_session_overlay/README.md",
+        "studies/10_range_xv_session_overlay/plan.md"
+      ],
+      "read_first": [
+        "studies/10_range_xv_session_overlay/README.md",
+        "studies/10_range_xv_session_overlay/plan.md",
+        "studies/AGENTS.md",
+        "packages/sahadeva/AGENTS.md"
+      ],
+      "entry_points": [
+        "studies/10_range_xv_session_overlay/src",
+        "studies/10_range_xv_session_overlay/tests",
+        "scripts/numerical_test_record.py",
+        "scripts/record-numerical-tests.py",
+        "scripts/tests/test_numerical_test_record.py",
+        "studies/10_range_xv_session_overlay/seal.py"
+      ],
+      "preservation": [
+        "Keep numerical definitions, settings, input locks and completed run/export evidence unchanged.",
+        "Run independently owned suites in fresh processes; tests do not establish historical research validity.",
+        "Future stages require explicit stage-bound numerical records; historical8/6 log counts are available only with explicit legacy option before structured workflow adoption."
+      ],
+      "related_checks": [
+        "numerical-record-guards",
+        "numerical-record-guards-optimized"
+      ]
+    },
+    "study-11": {
+      "kind": "study",
+      "path": "studies/11_vwap_conditional_probabilities",
+      "study_id": "11_vwap_conditional_probabilities",
+      "description": "Study 11 - vwap conditional probabilities",
+      "guides": [
+        "studies/11_vwap_conditional_probabilities/README.md",
+        "studies/11_vwap_conditional_probabilities/plan.md"
+      ],
+      "read_first": [
+        "studies/11_vwap_conditional_probabilities/README.md",
+        "studies/11_vwap_conditional_probabilities/plan.md",
+        "studies/AGENTS.md",
+        "packages/sahadeva/AGENTS.md"
+      ],
+      "entry_points": [
+        "studies/11_vwap_conditional_probabilities/src",
+        "studies/11_vwap_conditional_probabilities/tests"
+      ],
+      "preservation": [
+        "Keep numerical definitions, settings, input locks and completed run/export evidence unchanged.",
+        "Run independently owned suites in fresh processes; tests do not establish historical research validity."
+      ]
+    },
+    "study-12": {
+      "kind": "study",
+      "path": "studies/12_gc_ema_band_excursions",
+      "study_id": "12_gc_ema_band_excursions",
+      "description": "Study 12 - gc ema band excursions",
+      "guides": [
+        "studies/12_gc_ema_band_excursions/README.md",
+        "studies/12_gc_ema_band_excursions/plan.md"
+      ],
+      "read_first": [
+        "studies/12_gc_ema_band_excursions/README.md",
+        "studies/12_gc_ema_band_excursions/plan.md",
+        "studies/AGENTS.md",
+        "packages/sahadeva/AGENTS.md"
+      ],
+      "entry_points": [
+        "studies/12_gc_ema_band_excursions/src",
+        "studies/12_gc_ema_band_excursions/tests",
+        "scripts/numerical_test_record.py",
+        "scripts/record-numerical-tests.py",
+        "scripts/tests/test_numerical_test_record.py",
+        "scripts/study_provenance.py",
+        "scripts/check-study-provenance.py",
+        "scripts/tests/study_provenance_guards.py",
+        "studies/12_gc_ema_band_excursions/seal.py",
+        "studies/12_gc_ema_band_excursions/run.py",
+        "studies/12_gc_ema_band_excursions/render.py",
+        "studies/12_gc_ema_band_excursions/verify.py"
+      ],
+      "preservation": [
+        "Keep numerical definitions, settings, input locks and completed run/export evidence unchanged.",
+        "Run independently owned suites in fresh processes; tests do not establish historical research validity.",
+        "Future sealing requires completed retained execution/rendering provenance, artifact-bound scientific verification and actual owned numerical-test evidence; historical stages are not reconstructed."
+      ],
+      "related_checks": [
+        "numerical-record-guards",
+        "numerical-record-guards-optimized",
+        "study-execution-guards",
+        "study-execution-guards-optimized"
+      ]
+    },
+    "study-13": {
+      "kind": "study",
+      "path": "studies/13_gc_ema_band_filter_validation",
+      "study_id": "13_gc_ema_band_filter_validation",
+      "description": "Study 13 - gc ema band filter validation",
+      "guides": [
+        "studies/13_gc_ema_band_filter_validation/README.md",
+        "studies/13_gc_ema_band_filter_validation/plan.md",
+        "studies/13_gc_ema_band_filter_validation/pine/README.md"
+      ],
+      "read_first": [
+        "studies/13_gc_ema_band_filter_validation/README.md",
+        "studies/13_gc_ema_band_filter_validation/plan.md",
+        "studies/13_gc_ema_band_filter_validation/pine/README.md",
+        "studies/AGENTS.md",
+        "packages/sahadeva/AGENTS.md"
+      ],
+      "entry_points": [
+        "studies/13_gc_ema_band_filter_validation/src",
+        "studies/13_gc_ema_band_filter_validation/tests",
+        "scripts/numerical_test_record.py",
+        "scripts/record-numerical-tests.py",
+        "scripts/tests/test_numerical_test_record.py",
+        "scripts/study_provenance.py",
+        "scripts/check-study-provenance.py",
+        "scripts/tests/study_provenance_guards.py",
+        "studies/13_gc_ema_band_filter_validation/seal.py",
+        "studies/13_gc_ema_band_filter_validation/run.py",
+        "studies/13_gc_ema_band_filter_validation/render.py",
+        "studies/13_gc_ema_band_filter_validation/verify.py"
+      ],
+      "preservation": [
+        "Keep numerical definitions, settings, input locks and completed run/export evidence unchanged.",
+        "Run independently owned suites in fresh processes; tests do not establish historical research validity.",
+        "Pine scalar/kernel adapters test selected semantics; they do not prove native TradingView compilation, chart replay or layout.",
+        "Future sealing requires completed retained execution/rendering provenance, artifact-bound scientific verification and actual owned numerical-test evidence; historical stages are not reconstructed."
+      ],
+      "related_checks": [
+        "numerical-record-guards",
+        "numerical-record-guards-optimized",
+        "study-execution-guards",
+        "study-execution-guards-optimized"
+      ]
+    },
+    "study-14": {
+      "kind": "study",
+      "path": "studies/14_asia_session_vp_levels",
+      "study_id": "14_asia_session_vp_levels",
+      "description": "Study 14 - asia session vp levels",
+      "guides": [
+        "studies/14_asia_session_vp_levels/README.md",
+        "studies/14_asia_session_vp_levels/plan.md"
+      ],
+      "read_first": [
+        "studies/14_asia_session_vp_levels/README.md",
+        "studies/14_asia_session_vp_levels/plan.md",
+        "studies/AGENTS.md",
+        "packages/sahadeva/AGENTS.md"
+      ],
+      "entry_points": [
+        "studies/14_asia_session_vp_levels/src",
+        "studies/14_asia_session_vp_levels/tests",
+        "studies/14_asia_session_vp_levels/src/preparation.py",
+        "studies/14_asia_session_vp_levels/src/study_run.py",
+        "studies/14_asia_session_vp_levels/src/previous_day_run.py",
+        "studies/14_asia_session_vp_levels/seal.py",
+        "studies/14_asia_session_vp_levels/verify_previous_day_run.py",
+        "studies/14_asia_session_vp_levels/feature_audit.py",
+        "studies/14_asia_session_vp_levels/src/evidence.py",
+        "studies/14_asia_session_vp_levels/tests/test_consumer_imports.py",
+        "studies/14_asia_session_vp_levels/tests/test_events.py",
+        "studies/14_asia_session_vp_levels/tests/test_execution.py",
+        "studies/14_asia_session_vp_levels/tests/test_outcomes.py",
+        "studies/14_asia_session_vp_levels/tests/test_previous_day.py",
+        "studies/14_asia_session_vp_levels/tests/test_statistics.py",
+        "packages/bhishma/src/abacus_bhishma/vp_hvn_loader.py",
+        "packages/bhishma/src/abacus_bhishma/provenance.py"
+      ],
+      "preservation": [
+        "Keep numerical definitions, settings, input locks and completed run/export evidence unchanged.",
+        "Consumer import guards import all six consumers in fresh processes without executing preparation, research, auditing, export or sealing functions or activating native code.",
+        "Run independently owned suites in fresh processes; tests do not establish historical research validity."
+      ]
+    },
+    "study-15": {
+      "kind": "study",
+      "path": "studies/15_vwap_excursion_response",
+      "study_id": "15_vwap_excursion_response",
+      "description": "Study 15 - vwap excursion response",
+      "guides": [
+        "studies/15_vwap_excursion_response/README.md",
+        "studies/15_vwap_excursion_response/plan.md",
+        "studies/15_vwap_excursion_response/pine/README.md"
+      ],
+      "read_first": [
+        "studies/15_vwap_excursion_response/README.md",
+        "studies/15_vwap_excursion_response/plan.md",
+        "studies/15_vwap_excursion_response/pine/README.md",
+        "studies/AGENTS.md",
+        "packages/sahadeva/AGENTS.md"
+      ],
+      "entry_points": [
+        "studies/15_vwap_excursion_response/src",
+        "studies/15_vwap_excursion_response/tests"
+      ],
+      "preservation": [
+        "Keep numerical definitions, settings, input locks and completed run/export evidence unchanged.",
+        "Run independently owned suites in fresh processes; tests do not establish historical research validity.",
+        "Pine scalar/kernel adapters test selected semantics; they do not prove native TradingView compilation, chart replay or layout."
+      ]
+    },
+    "study-16": {
+      "kind": "study",
+      "path": "studies/16_range_xv_reversal_paths",
+      "study_id": "16_range_xv_reversal_paths",
+      "description": "Study 16 - range xv reversal paths",
+      "guides": [
+        "studies/16_range_xv_reversal_paths/README.md",
+        "studies/16_range_xv_reversal_paths/plan.md"
+      ],
+      "read_first": [
+        "studies/16_range_xv_reversal_paths/README.md",
+        "studies/16_range_xv_reversal_paths/plan.md",
+        "studies/AGENTS.md",
+        "packages/sahadeva/AGENTS.md"
+      ],
+      "entry_points": [
+        "studies/16_range_xv_reversal_paths/src",
+        "studies/16_range_xv_reversal_paths/tests"
+      ],
+      "preservation": [
+        "Keep numerical definitions, settings, input locks and completed run/export evidence unchanged.",
+        "Run independently owned suites in fresh processes; tests do not establish historical research validity."
+      ]
+    },
+    "study-17": {
+      "kind": "study",
+      "path": "studies/17_nq_advanced_amd_video",
+      "study_id": "17_nq_advanced_amd_video",
+      "description": "Study 17 - nq advanced amd video",
+      "guides": [
+        "studies/17_nq_advanced_amd_video/README.md",
+        "studies/17_nq_advanced_amd_video/plan.md"
+      ],
+      "read_first": [
+        "studies/17_nq_advanced_amd_video/README.md",
+        "studies/17_nq_advanced_amd_video/plan.md",
+        "studies/AGENTS.md",
+        "packages/sahadeva/AGENTS.md"
+      ],
+      "entry_points": [
+        "studies/17_nq_advanced_amd_video/run.py"
+      ],
+      "preservation": [
+        "Keep numerical definitions, settings, input locks and completed run/export evidence unchanged.",
+        "Run independently owned suites in fresh processes; tests do not establish historical research validity."
+      ],
+      "no_suite_reason": "Source-review/documentation owner with no local Python test suite; research preparation and sealing commands are not maintenance tests."
+    },
+    "study-18": {
+      "kind": "study",
+      "path": "studies/18_fibonacci_memory",
+      "study_id": "18_fibonacci_memory",
+      "description": "Study 18 - fibonacci memory",
+      "guides": [
+        "studies/18_fibonacci_memory/README.md",
+        "studies/18_fibonacci_memory/plan.md"
+      ],
+      "read_first": [
+        "studies/18_fibonacci_memory/README.md",
+        "studies/18_fibonacci_memory/plan.md",
+        "studies/AGENTS.md",
+        "packages/sahadeva/AGENTS.md"
+      ],
+      "entry_points": [
+        "studies/18_fibonacci_memory/pine/fibonacci_memory_v1.pine",
+        "studies/18_fibonacci_memory/tests/pine_kernel.py"
+      ],
+      "preservation": [
+        "Keep numerical definitions, settings, input locks and completed run/export evidence unchanged.",
+        "Run independently owned suites in fresh processes; tests do not establish historical research validity.",
+        "Pine scalar/kernel adapters test selected semantics; they do not prove native TradingView compilation, chart replay or layout."
+      ]
+    },
+    "study-19": {
+      "kind": "study",
+      "path": "studies/19_value_area_fade_tracker",
+      "study_id": "19_value_area_fade_tracker",
+      "description": "Study 19 - value area fade tracker",
+      "guides": [
+        "studies/19_value_area_fade_tracker/README.md",
+        "studies/19_value_area_fade_tracker/plan.md"
+      ],
+      "read_first": [
+        "studies/19_value_area_fade_tracker/README.md",
+        "studies/19_value_area_fade_tracker/plan.md",
+        "studies/AGENTS.md",
+        "packages/sahadeva/AGENTS.md"
+      ],
+      "entry_points": [
+        "studies/19_value_area_fade_tracker/document.py"
+      ],
+      "preservation": [
+        "Keep numerical definitions, settings, input locks and completed run/export evidence unchanged.",
+        "Run independently owned suites in fresh processes; tests do not establish historical research validity."
+      ],
+      "no_suite_reason": "Source-review/documentation owner with no local Python test suite; research preparation and sealing commands are not maintenance tests."
+    },
+    "study-20": {
+      "kind": "study",
+      "path": "studies/20_camarilla_ema_cloud_reversals",
+      "study_id": "20_camarilla_ema_cloud_reversals",
+      "description": "Study 20 - camarilla ema cloud reversals",
+      "guides": [
+        "studies/20_camarilla_ema_cloud_reversals/README.md",
+        "studies/20_camarilla_ema_cloud_reversals/plan.md",
+        "studies/20_camarilla_ema_cloud_reversals/pine/README.md"
+      ],
+      "read_first": [
+        "studies/20_camarilla_ema_cloud_reversals/README.md",
+        "studies/20_camarilla_ema_cloud_reversals/plan.md",
+        "studies/20_camarilla_ema_cloud_reversals/pine/README.md",
+        "studies/AGENTS.md",
+        "packages/sahadeva/AGENTS.md"
+      ],
+      "entry_points": [
+        "studies/20_camarilla_ema_cloud_reversals/src",
+        "studies/20_camarilla_ema_cloud_reversals/tests"
+      ],
+      "preservation": [
+        "Keep numerical definitions, settings, input locks and completed run/export evidence unchanged.",
+        "Run independently owned suites in fresh processes; tests do not establish historical research validity.",
+        "Pine scalar/kernel adapters test selected semantics; they do not prove native TradingView compilation, chart replay or layout."
+      ]
+    },
+    "study-21": {
+      "kind": "study",
+      "path": "studies/21_ema_cloud_trend_follow_opportunity",
+      "study_id": "21_ema_cloud_trend_follow_opportunity",
+      "description": "Study 21 - fixed-width independent fast/slow EMA cloud Stage 1/2 price paths",
+      "guides": [
+        "studies/21_ema_cloud_trend_follow_opportunity/README.md",
+        "studies/21_ema_cloud_trend_follow_opportunity/plan.md",
+        "studies/21_ema_cloud_trend_follow_opportunity/protocol-stage1.md",
+        "studies/21_ema_cloud_trend_follow_opportunity/protocol-stage2.md"
+      ],
+      "read_first": [
+        "studies/21_ema_cloud_trend_follow_opportunity/README.md",
+        "studies/21_ema_cloud_trend_follow_opportunity/plan.md",
+        "studies/21_ema_cloud_trend_follow_opportunity/protocol-stage1.md",
+        "studies/AGENTS.md",
+        "packages/sahadeva/AGENTS.md",
+        "packages/bhishma/AGENTS.md",
+        "data/README.md",
+        "runs/README.md",
+        "templates/README.md",
+        "apps/narada/AGENTS.md",
+        "docs/narada.md",
+        "docs/evidence-contract.md",
+        "studies/21_ema_cloud_trend_follow_opportunity/protocol-stage2.md"
+      ],
+      "entry_points": [
+        "studies/21_ema_cloud_trend_follow_opportunity/run.py",
+        "studies/21_ema_cloud_trend_follow_opportunity/run_stage2.py",
+        "studies/21_ema_cloud_trend_follow_opportunity/src",
+        "studies/21_ema_cloud_trend_follow_opportunity/tests"
+      ],
+      "preservation": [
+        "Stage 1/2 development execution is authorized; Stage 3, reserved outcomes and public staging/deployment require separate scope. Stage 2 must reproduce the sealed Stage 1 slow branch exactly.",
+        "Preserve published datasets, completed runs and historical evidence; execute frozen source/settings into fresh staged identities.",
+        "Numerical fixtures, scientific reconciliation and artifact integrity are separate gates; the general numerical-test recorder does not support study 21."
+      ]
+    }
+  },
+  "checks": [
+    {
+      "id": "agent-docs",
+      "owner": "workspace",
+      "kind": "command",
+      "description": "Compatibility documentation gate through the locked environment",
+      "cwd": ".",
+      "argv": [
+        "{root}/scripts/uv",
+        "run",
+        "--locked",
+        "--no-sync",
+        "python",
+        "scripts/check-agent-docs.py"
+      ],
+      "env": {},
+      "prerequisites": [
+        {
+          "kind": "executable",
+          "name": "uv",
+          "description": "Existing scripts/uv resolution: ignored .tools/uv/bin/uv or uv on PATH; no bootstrap."
+        },
+        {
+          "kind": "directory",
+          "path": ".venv",
+          "description": "Existing locked Python environment; --no-sync never installs dependencies."
+        }
+      ],
+      "scope": [
+        "Maintained local Markdown links and anchors only."
+      ]
+    },
+    {
+      "id": "bhishma",
+      "owner": "bhishma",
+      "kind": "unittest",
+      "description": "Full Bhishma package discovery",
+      "cwd": ".",
+      "runtime": "locked-python",
+      "unittest": {
+        "start_dir": "packages/bhishma/tests",
+        "pattern": "test*.py",
+        "optimize": false
+      },
+      "env": {},
+      "prerequisites": [
+        {
+          "kind": "executable",
+          "name": "uv",
+          "description": "Existing scripts/uv resolution: ignored .tools/uv/bin/uv or uv on PATH; no bootstrap."
+        },
+        {
+          "kind": "directory",
+          "path": ".venv",
+          "description": "Existing locked Python environment; --no-sync never installs dependencies."
+        },
+        {
+          "kind": "executable",
+          "name": "clang++",
+          "description": "Native VP parity actually invokes clang++."
+        },
+        {
+          "kind": "executable",
+          "name": "ruby",
+          "description": "Runtime-prerequisite fixtures actually execute the Ruby YAML parser."
+        },
+        {
+          "kind": "note",
+          "description": "Phase 1/2 integration resolves publication storage; retain existing unittest skips when no root is configured, and report their reasons."
+        }
+      ],
+      "scope": [
+        "Synthetic fixtures, actual native/Ruby tools and configured-publication integration; not a no-data suite."
+      ]
+    },
+    {
+      "id": "bhishma-feature-loaders",
+      "owner": "bhishma",
+      "kind": "unittest",
+      "description": "Legacy GC/VWAP loader behavior",
+      "cwd": ".",
+      "runtime": "locked-python",
+      "unittest": {
+        "start_dir": "packages/bhishma/tests",
+        "pattern": "test_feature_loaders.py",
+        "optimize": false
+      },
+      "env": {},
+      "prerequisites": [
+        {
+          "kind": "executable",
+          "name": "uv",
+          "description": "Existing scripts/uv resolution: ignored .tools/uv/bin/uv or uv on PATH; no bootstrap."
+        },
+        {
+          "kind": "directory",
+          "path": ".venv",
+          "description": "Existing locked Python environment; --no-sync never installs dependencies."
+        }
+      ],
+      "scope": [
+        "Synthetic temporary Parquet and projected session-date fixtures; no release discovery against configured storage."
+      ]
+    },
+    {
+      "id": "bhishma-vp-hvn-loader",
+      "owner": "bhishma",
+      "kind": "unittest",
+      "description": "VP/HVN selected-file loader compatibility",
+      "cwd": ".",
+      "runtime": "locked-python",
+      "unittest": {
+        "start_dir": "packages/bhishma/tests",
+        "pattern": "test_vp_hvn_loader.py",
+        "optimize": false
+      },
+      "env": {},
+      "prerequisites": [
+        {
+          "kind": "executable",
+          "name": "uv",
+          "description": "Existing scripts/uv resolution: ignored .tools/uv/bin/uv or uv on PATH; no bootstrap."
+        },
+        {
+          "kind": "directory",
+          "path": ".venv",
+          "description": "Existing locked Python environment; --no-sync never installs dependencies."
+        }
+      ],
+      "scope": [
+        "Synthetic explicit manifest/file-order fixtures and independent consumer imports; no native activation."
+      ]
+    },
+    {
+      "id": "bhishma-loader-imports",
+      "owner": "bhishma",
+      "kind": "unittest",
+      "description": "Consumer loader import boundaries",
+      "cwd": ".",
+      "runtime": "locked-python",
+      "unittest": {
+        "start_dir": "packages/bhishma/tests",
+        "pattern": "test_loader_import_boundaries.py",
+        "optimize": false
+      },
+      "env": {},
+      "prerequisites": [
+        {
+          "kind": "executable",
+          "name": "uv",
+          "description": "Existing scripts/uv resolution: ignored .tools/uv/bin/uv or uv on PATH; no bootstrap."
+        },
+        {
+          "kind": "directory",
+          "path": ".venv",
+          "description": "Existing locked Python environment; --no-sync never installs dependencies."
+        }
+      ],
+      "scope": [
+        "Fresh subprocess imports of canonical loaders; no publisher, compiler or Ruby execution."
+      ]
+    },
+    {
+      "id": "bhishma-manifest-loaders",
+      "owner": "bhishma",
+      "kind": "unittest",
+      "description": "Pinned-manifest GC/VWAP/continuous loader fixtures",
+      "cwd": ".",
+      "runtime": "locked-python",
+      "unittest": {
+        "start_dir": "packages/bhishma/tests",
+        "pattern": "test_manifest_selected_loaders.py",
+        "optimize": false
+      },
+      "env": {},
+      "prerequisites": [
+        {
+          "kind": "executable",
+          "name": "uv",
+          "description": "Existing scripts/uv resolution: ignored .tools/uv/bin/uv or uv on PATH; no bootstrap."
+        },
+        {
+          "kind": "directory",
+          "path": ".venv",
+          "description": "Existing locked Python environment; --no-sync never installs dependencies."
+        }
+      ],
+      "scope": [
+        "Synthetic temporary manifests/Parquet only: identity, membership, optional selected-byte checks, projection/order/Hive parity and lazy continuous datasets."
+      ]
+    },
+    {
+      "id": "study-14-consumer-imports",
+      "owner": "study-14",
+      "kind": "unittest",
+      "description": "Study 14 consumer import boundaries",
+      "cwd": ".",
+      "runtime": "locked-python",
+      "unittest": {
+        "start_dir": "studies/14_asia_session_vp_levels/tests",
+        "pattern": "test_consumer_imports.py",
+        "optimize": false
+      },
+      "env": {},
+      "prerequisites": [
+        {
+          "kind": "executable",
+          "name": "uv",
+          "description": "Existing scripts/uv resolution: ignored .tools/uv/bin/uv or uv on PATH; no bootstrap."
+        },
+        {
+          "kind": "directory",
+          "path": ".venv",
+          "description": "Existing locked Python environment; --no-sync never installs dependencies."
+        }
+      ],
+      "scope": [
+        "Study-owned fresh subprocess imports only plus exact local JSON behavior; no research function, data read, sealing, native activation or subprocess invocation by imported consumers."
+      ]
+    },
+    {
+      "id": "bhishma-continuous-safety",
+      "owner": "bhishma",
+      "kind": "unittest",
+      "description": "Continuous publication refusal and recovery fixtures",
+      "cwd": ".",
+      "runtime": "locked-python",
+      "unittest": {
+        "start_dir": "packages/bhishma/tests",
+        "pattern": "test_continuous_publication_safety.py",
+        "optimize": false
+      },
+      "env": {},
+      "prerequisites": [
+        {
+          "kind": "executable",
+          "name": "uv",
+          "description": "Existing scripts/uv resolution: ignored .tools/uv/bin/uv or uv on PATH; no bootstrap."
+        },
+        {
+          "kind": "directory",
+          "path": ".venv",
+          "description": "Existing locked Python environment; --no-sync never installs dependencies."
+        }
+      ],
+      "scope": [
+        "Synthetic temporary destinations/staging only; heavy input processing patched before it executes."
+      ]
+    },
+    {
+      "id": "bhishma-feature-safety",
+      "owner": "bhishma",
+      "kind": "unittest",
+      "description": "Feature publication refusal and failure fixtures",
+      "cwd": ".",
+      "runtime": "locked-python",
+      "unittest": {
+        "start_dir": "packages/bhishma/tests",
+        "pattern": "test_feature_publication_safety.py",
+        "optimize": false
+      },
+      "env": {},
+      "prerequisites": [
+        {
+          "kind": "executable",
+          "name": "uv",
+          "description": "Existing scripts/uv resolution: ignored .tools/uv/bin/uv or uv on PATH; no bootstrap."
+        },
+        {
+          "kind": "directory",
+          "path": ".venv",
+          "description": "Existing locked Python environment; --no-sync never installs dependencies."
+        }
+      ],
+      "scope": [
+        "Synthetic temporary publication/workspace roots only; explicit output conflicts, path guards, staging and preservation failures with heavy processing patched."
+      ]
+    },
+    {
+      "id": "bhishma-continuous-safety-optimized",
+      "owner": "bhishma",
+      "kind": "unittest",
+      "description": "Optimized continuous publication guard fixtures",
+      "cwd": ".",
+      "runtime": "locked-python",
+      "unittest": {
+        "start_dir": "packages/bhishma/tests",
+        "pattern": "test_continuous_publication_safety.py",
+        "optimize": true
+      },
+      "env": {},
+      "prerequisites": [
+        {
+          "kind": "executable",
+          "name": "uv",
+          "description": "Existing scripts/uv resolution: ignored .tools/uv/bin/uv or uv on PATH; no bootstrap."
+        },
+        {
+          "kind": "directory",
+          "path": ".venv",
+          "description": "Existing locked Python environment; --no-sync never installs dependencies."
+        }
+      ],
+      "scope": [
+        "Same explicit synthetic continuous safety selection under python -O; no configured publication writes."
+      ]
+    },
+    {
+      "id": "bhishma-feature-safety-optimized",
+      "owner": "bhishma",
+      "kind": "unittest",
+      "description": "Optimized feature publication guard fixtures",
+      "cwd": ".",
+      "runtime": "locked-python",
+      "unittest": {
+        "start_dir": "packages/bhishma/tests",
+        "pattern": "test_feature_publication_safety.py",
+        "optimize": true
+      },
+      "env": {},
+      "prerequisites": [
+        {
+          "kind": "executable",
+          "name": "uv",
+          "description": "Existing scripts/uv resolution: ignored .tools/uv/bin/uv or uv on PATH; no bootstrap."
+        },
+        {
+          "kind": "directory",
+          "path": ".venv",
+          "description": "Existing locked Python environment; --no-sync never installs dependencies."
+        }
+      ],
+      "scope": [
+        "Same explicit synthetic feature safety selection under python -O; unsafe state must raise explicit exceptions."
+      ]
+    },
+    {
+      "id": "bhishma-provenance",
+      "owner": "bhishma",
+      "kind": "unittest",
+      "description": "Shared file hashing and Git provenance fixtures",
+      "cwd": ".",
+      "runtime": "locked-python",
+      "unittest": {
+        "start_dir": "packages/bhishma/tests",
+        "pattern": "test_provenance.py",
+        "optimize": false
+      },
+      "env": {},
+      "prerequisites": [
+        {
+          "kind": "executable",
+          "name": "uv",
+          "description": "Existing scripts/uv resolution: ignored .tools/uv/bin/uv or uv on PATH; no bootstrap."
+        },
+        {
+          "kind": "directory",
+          "path": ".venv",
+          "description": "Existing locked Python environment; --no-sync never installs dependencies."
+        }
+      ],
+      "scope": [
+        "Declared helper hashing and compatibility on temporary files; Git, where used, runs only against disposable roots."
+      ]
+    },
+    {
+      "id": "bhishma-publication-provenance",
+      "owner": "bhishma",
+      "kind": "unittest",
+      "description": "Future declared retained-source provenance fixtures",
+      "cwd": ".",
+      "runtime": "locked-python",
+      "unittest": {
+        "start_dir": "packages/bhishma/tests",
+        "pattern": "test_publication_provenance.py",
+        "optimize": false
+      },
+      "env": {},
+      "prerequisites": [
+        {
+          "kind": "executable",
+          "name": "uv",
+          "description": "Existing scripts/uv resolution: ignored .tools/uv/bin/uv or uv on PATH; no bootstrap."
+        },
+        {
+          "kind": "directory",
+          "path": ".venv",
+          "description": "Existing locked Python environment; --no-sync never installs dependencies."
+        }
+      ],
+      "scope": [
+        "Synthetic retained source/lock copies and recorded hash verification; no historical snapshots or publications rewritten."
+      ]
+    },
+    {
+      "id": "bhishma-calendar",
+      "owner": "bhishma",
+      "kind": "unittest",
+      "description": "Shared calendar numerical regression fixtures",
+      "cwd": ".",
+      "runtime": "locked-python",
+      "unittest": {
+        "start_dir": "packages/bhishma/tests",
+        "pattern": "test_calendar.py",
+        "optimize": false
+      },
+      "env": {},
+      "prerequisites": [
+        {
+          "kind": "executable",
+          "name": "uv",
+          "description": "Existing scripts/uv resolution: ignored .tools/uv/bin/uv or uv on PATH; no bootstrap."
+        },
+        {
+          "kind": "directory",
+          "path": ".venv",
+          "description": "Existing locked Python environment; --no-sync never installs dependencies."
+        }
+      ],
+      "scope": [
+        "Existing deterministic holiday/session-date rules; no market-data research or publication."
+      ]
+    },
+    {
+      "id": "sahadeva",
+      "owner": "sahadeva",
+      "kind": "unittest",
+      "description": "Full Sahadeva package discovery",
+      "cwd": ".",
+      "runtime": "locked-python",
+      "unittest": {
+        "start_dir": "packages/sahadeva/tests",
+        "pattern": "test*.py",
+        "optimize": false
+      },
+      "env": {},
+      "prerequisites": [
+        {
+          "kind": "executable",
+          "name": "uv",
+          "description": "Existing scripts/uv resolution: ignored .tools/uv/bin/uv or uv on PATH; no bootstrap."
+        },
+        {
+          "kind": "directory",
+          "path": ".venv",
+          "description": "Existing locked Python environment; --no-sync never installs dependencies."
+        }
+      ],
+      "scope": [
+        "Shared numerical/input-pin and synthetic exporter/projection checks; no research run."
+      ]
+    },
+    {
+      "id": "legacy-01",
+      "owner": "study-01",
+      "kind": "unittest",
+      "description": "Archived study 01 numerical fixtures",
+      "cwd": ".",
+      "runtime": "locked-python",
+      "unittest": {
+        "start_dir": "legacy/sahadeva/analysis/01_reversal_follow_through/tests",
+        "pattern": "test*.py",
+        "optimize": false
+      },
+      "env": {
+        "PYTHONPATH": "{root}/legacy/sahadeva/analysis/01_reversal_follow_through/src"
+      },
+      "prerequisites": [
+        {
+          "kind": "executable",
+          "name": "uv",
+          "description": "Existing scripts/uv resolution: ignored .tools/uv/bin/uv or uv on PATH; no bootstrap."
+        },
+        {
+          "kind": "directory",
+          "path": ".venv",
+          "description": "Existing locked Python environment; --no-sync never installs dependencies."
+        }
+      ],
+      "scope": [
+        "Archived numerical tests, not execution or revalidation of imported runs."
+      ]
+    },
+    {
+      "id": "legacy-02",
+      "owner": "study-02",
+      "kind": "unittest",
+      "description": "Archived study 02 numerical fixtures",
+      "cwd": ".",
+      "runtime": "locked-python",
+      "unittest": {
+        "start_dir": "legacy/sahadeva/analysis/02_followthrough_candle_adverse/tests",
+        "pattern": "test*.py",
+        "optimize": false
+      },
+      "env": {
+        "PYTHONPATH": "{root}/legacy/sahadeva/analysis/02_followthrough_candle_adverse/src"
+      },
+      "prerequisites": [
+        {
+          "kind": "executable",
+          "name": "uv",
+          "description": "Existing scripts/uv resolution: ignored .tools/uv/bin/uv or uv on PATH; no bootstrap."
+        },
+        {
+          "kind": "directory",
+          "path": ".venv",
+          "description": "Existing locked Python environment; --no-sync never installs dependencies."
+        }
+      ],
+      "scope": [
+        "Archived numerical tests, not execution or revalidation of imported runs."
+      ]
+    },
+    {
+      "id": "vwap-doctor",
+      "owner": "sahadeva",
+      "kind": "command",
+      "description": "Bounded configured VWAP input diagnostic",
+      "cwd": ".",
+      "argv": [
+        "{root}/scripts/uv",
+        "run",
+        "--locked",
+        "--no-sync",
+        "abacus-research",
+        "doctor",
+        "--workspace-root",
+        "{root}",
+        "--read-sample"
+      ],
+      "env": {},
+      "prerequisites": [
+        {
+          "kind": "executable",
+          "name": "uv",
+          "description": "Existing scripts/uv resolution: ignored .tools/uv/bin/uv or uv on PATH; no bootstrap."
+        },
+        {
+          "kind": "directory",
+          "path": ".venv",
+          "description": "Existing locked Python environment; --no-sync never installs dependencies."
+        },
+        {
+          "kind": "note",
+          "description": "Requires the configured publication root and pinned VWAP release; the owning doctor resolves inputs without harness inspection of private configuration."
+        }
+      ],
+      "scope": [
+        "Pins and one sampled partition/session per selected product/timeframe; not all partitions or feature reproduction."
+      ]
+    },
+    {
+      "id": "documentation",
+      "owner": "workspace",
+      "kind": "command",
+      "description": "Standard-library maintained documentation check",
+      "cwd": ".",
+      "argv": [
+        "{python}",
+        "scripts/check-agent-docs.py"
+      ],
+      "env": {},
+      "prerequisites": [],
+      "scope": [
+        "Maintained local Markdown links and anchors only; no study imports, tools or network."
+      ]
+    },
+    {
+      "id": "workspace-utilities",
+      "owner": "workspace",
+      "kind": "unittest",
+      "description": "Standard-library workspace utility and harness tests",
+      "cwd": ".",
+      "runtime": "standard-library",
+      "unittest": {
+        "start_dir": "scripts/tests",
+        "pattern": "test*.py",
+        "optimize": false
+      },
+      "env": {},
+      "prerequisites": [],
+      "scope": [
+        "Temporary miniature repositories and injected execution; never recursively run the real workspace suites."
+      ]
+    },
+    {
+      "id": "study-05",
+      "owner": "study-05",
+      "kind": "unittest",
+      "description": "Study 05 local unittest discovery",
+      "cwd": ".",
+      "runtime": "locked-python",
+      "unittest": {
+        "start_dir": "studies/05_session_vwap/tests",
+        "pattern": "test*.py",
+        "optimize": false
+      },
+      "env": {},
+      "prerequisites": [
+        {
+          "kind": "executable",
+          "name": "uv",
+          "description": "Existing scripts/uv resolution: ignored .tools/uv/bin/uv or uv on PATH; no bootstrap."
+        },
+        {
+          "kind": "directory",
+          "path": ".venv",
+          "description": "Existing locked Python environment; --no-sync never installs dependencies."
+        }
+      ],
+      "scope": [
+        "Independently owned local suite in a fresh locked Python process.",
+        "Synthetic/local-source fixtures use existing locked dependencies; no market-data research run."
+      ]
+    },
+    {
+      "id": "study-06",
+      "owner": "study-06",
+      "kind": "unittest",
+      "description": "Study 06 local unittest discovery",
+      "cwd": ".",
+      "runtime": "locked-python",
+      "unittest": {
+        "start_dir": "studies/06_vwap_state_dynamics/tests",
+        "pattern": "test*.py",
+        "optimize": false
+      },
+      "env": {},
+      "prerequisites": [
+        {
+          "kind": "executable",
+          "name": "uv",
+          "description": "Existing scripts/uv resolution: ignored .tools/uv/bin/uv or uv on PATH; no bootstrap."
+        },
+        {
+          "kind": "directory",
+          "path": ".venv",
+          "description": "Existing locked Python environment; --no-sync never installs dependencies."
+        },
+        {
+          "kind": "note",
+          "description": "DynamicsTest.test_real_product_sessions_manual_identity_and_path reads real ES/NQ/GC 2023 2m VWAP features and unadjusted 1m continuous data from the workspace publication root. Missing files fail the owned test; no data is synthesized."
+        }
+      ],
+      "scope": [
+        "Independently owned local suite in a fresh locked Python process.",
+        "Includes retained/configured 2023 product-data checks; not a no-data suite."
+      ]
+    },
+    {
+      "id": "study-07",
+      "owner": "study-07",
+      "kind": "unittest",
+      "description": "Study 07 local unittest discovery",
+      "cwd": ".",
+      "runtime": "locked-python",
+      "unittest": {
+        "start_dir": "studies/07_range_xv_edge_candidates/tests",
+        "pattern": "test*.py",
+        "optimize": false
+      },
+      "env": {},
+      "prerequisites": [
+        {
+          "kind": "executable",
+          "name": "uv",
+          "description": "Existing scripts/uv resolution: ignored .tools/uv/bin/uv or uv on PATH; no bootstrap."
+        },
+        {
+          "kind": "directory",
+          "path": ".venv",
+          "description": "Existing locked Python environment; --no-sync never installs dependencies."
+        }
+      ],
+      "scope": [
+        "Independently owned local suite in a fresh locked Python process.",
+        "Synthetic/local-source fixtures use existing locked dependencies; no market-data research run."
+      ]
+    },
+    {
+      "id": "study-08",
+      "owner": "study-08",
+      "kind": "unittest",
+      "description": "Study 08 local unittest discovery",
+      "cwd": ".",
+      "runtime": "locked-python",
+      "unittest": {
+        "start_dir": "studies/08_countertrend_bar_continuation/tests",
+        "pattern": "test*.py",
+        "optimize": false
+      },
+      "env": {},
+      "prerequisites": [
+        {
+          "kind": "executable",
+          "name": "uv",
+          "description": "Existing scripts/uv resolution: ignored .tools/uv/bin/uv or uv on PATH; no bootstrap."
+        },
+        {
+          "kind": "directory",
+          "path": ".venv",
+          "description": "Existing locked Python environment; --no-sync never installs dependencies."
+        }
+      ],
+      "scope": [
+        "Independently owned local suite in a fresh locked Python process.",
+        "Synthetic/local-source fixtures use existing locked dependencies; no market-data research run."
+      ]
+    },
+    {
+      "id": "study-09",
+      "owner": "study-09",
+      "kind": "unittest",
+      "description": "Study 09 local unittest discovery",
+      "cwd": ".",
+      "runtime": "locked-python",
+      "unittest": {
+        "start_dir": "studies/09_range_xv_c2_confirmation/tests",
+        "pattern": "test*.py",
+        "optimize": false
+      },
+      "env": {},
+      "prerequisites": [
+        {
+          "kind": "executable",
+          "name": "uv",
+          "description": "Existing scripts/uv resolution: ignored .tools/uv/bin/uv or uv on PATH; no bootstrap."
+        },
+        {
+          "kind": "directory",
+          "path": ".venv",
+          "description": "Existing locked Python environment; --no-sync never installs dependencies."
+        }
+      ],
+      "scope": [
+        "Independently owned local suite in a fresh locked Python process.",
+        "Synthetic/local-source fixtures use existing locked dependencies; no market-data research run."
+      ]
+    },
+    {
+      "id": "study-10",
+      "owner": "study-10",
+      "kind": "unittest",
+      "description": "Study 10 local unittest discovery",
+      "cwd": ".",
+      "runtime": "locked-python",
+      "unittest": {
+        "start_dir": "studies/10_range_xv_session_overlay/tests",
+        "pattern": "test*.py",
+        "optimize": false
+      },
+      "env": {},
+      "prerequisites": [
+        {
+          "kind": "executable",
+          "name": "uv",
+          "description": "Existing scripts/uv resolution: ignored .tools/uv/bin/uv or uv on PATH; no bootstrap."
+        },
+        {
+          "kind": "directory",
+          "path": ".venv",
+          "description": "Existing locked Python environment; --no-sync never installs dependencies."
+        }
+      ],
+      "scope": [
+        "Independently owned local suite in a fresh locked Python process.",
+        "Synthetic/local-source fixtures use existing locked dependencies; no market-data research run."
+      ]
+    },
+    {
+      "id": "study-11",
+      "owner": "study-11",
+      "kind": "unittest",
+      "description": "Study 11 local unittest discovery",
+      "cwd": ".",
+      "runtime": "locked-python",
+      "unittest": {
+        "start_dir": "studies/11_vwap_conditional_probabilities/tests",
+        "pattern": "test*.py",
+        "optimize": false
+      },
+      "env": {},
+      "prerequisites": [
+        {
+          "kind": "executable",
+          "name": "uv",
+          "description": "Existing scripts/uv resolution: ignored .tools/uv/bin/uv or uv on PATH; no bootstrap."
+        },
+        {
+          "kind": "directory",
+          "path": ".venv",
+          "description": "Existing locked Python environment; --no-sync never installs dependencies."
+        },
+        {
+          "kind": "file",
+          "path": "reports/exports/11_vwap_conditional_probabilities/20260924T155331Z_vwap11/20260925T033700Z_conditional_pine_v3/generate.py",
+          "description": "Frozen presentation exporter imported by test_pine_export.py."
+        },
+        {
+          "kind": "file",
+          "path": "reports/exports/11_vwap_conditional_probabilities/20260924T155331Z_vwap11/20260925T034500Z_stats_only_v4/generate.py",
+          "description": "Frozen presentation exporter imported by test_pine_export.py."
+        },
+        {
+          "kind": "file",
+          "path": "reports/exports/11_vwap_conditional_probabilities/20260924T155331Z_vwap11/20260925T034500Z_stats_only_v4/source-indicator.pine",
+          "description": "Saved Pine source/output read without regeneration."
+        },
+        {
+          "kind": "file",
+          "path": "reports/exports/11_vwap_conditional_probabilities/20260924T155331Z_vwap11/20260925T034500Z_stats_only_v4/session_vwap_conditional_stats.pine",
+          "description": "Saved Pine source/output read without regeneration."
+        },
+        {
+          "kind": "file",
+          "path": "runs/11_vwap_conditional_probabilities/20260924T155331Z_vwap11/tables/question_a_rates.csv",
+          "description": "Saved evidence table read by frozen exporters."
+        },
+        {
+          "kind": "file",
+          "path": "runs/11_vwap_conditional_probabilities/20260924T155331Z_vwap11/tables/question_b_outcomes.csv",
+          "description": "Saved evidence table read by frozen exporters."
+        },
+        {
+          "kind": "file",
+          "path": "runs/11_vwap_conditional_probabilities/20260924T155331Z_vwap11/tables/question_c_outcomes.csv",
+          "description": "Saved evidence table read by frozen exporters."
+        },
+        {
+          "kind": "file",
+          "path": "runs/11_vwap_conditional_probabilities/20260924T155331Z_vwap11/tables/updated_corridor.csv",
+          "description": "Saved evidence table read by frozen exporters."
+        }
+      ],
+      "scope": [
+        "Independently owned local suite in a fresh locked Python process.",
+        "test_core.py is synthetic; full discovery also imports frozen exporters and reads saved Pine/evidence. No files are regenerated."
+      ]
+    },
+    {
+      "id": "study-12",
+      "owner": "study-12",
+      "kind": "unittest",
+      "description": "Study 12 local unittest discovery",
+      "cwd": ".",
+      "runtime": "locked-python",
+      "unittest": {
+        "start_dir": "studies/12_gc_ema_band_excursions/tests",
+        "pattern": "test*.py",
+        "optimize": false
+      },
+      "env": {},
+      "prerequisites": [
+        {
+          "kind": "executable",
+          "name": "uv",
+          "description": "Existing scripts/uv resolution: ignored .tools/uv/bin/uv or uv on PATH; no bootstrap."
+        },
+        {
+          "kind": "directory",
+          "path": ".venv",
+          "description": "Existing locked Python environment; --no-sync never installs dependencies."
+        }
+      ],
+      "scope": [
+        "Independently owned local suite in a fresh locked Python process.",
+        "Synthetic/local-source fixtures use existing locked dependencies; no market-data research run."
+      ]
+    },
+    {
+      "id": "study-13",
+      "owner": "study-13",
+      "kind": "unittest",
+      "description": "Study 13 local unittest discovery",
+      "cwd": ".",
+      "runtime": "locked-python",
+      "unittest": {
+        "start_dir": "studies/13_gc_ema_band_filter_validation/tests",
+        "pattern": "test*.py",
+        "optimize": false
+      },
+      "env": {},
+      "prerequisites": [
+        {
+          "kind": "executable",
+          "name": "uv",
+          "description": "Existing scripts/uv resolution: ignored .tools/uv/bin/uv or uv on PATH; no bootstrap."
+        },
+        {
+          "kind": "directory",
+          "path": ".venv",
+          "description": "Existing locked Python environment; --no-sync never installs dependencies."
+        }
+      ],
+      "scope": [
+        "Independently owned local suite in a fresh locked Python process.",
+        "Synthetic/local-source fixtures use existing locked dependencies; no market-data research run.",
+        "Pine selected semantics only; native TradingView compilation/replay remains outside this check."
+      ]
+    },
+    {
+      "id": "study-14",
+      "owner": "study-14",
+      "kind": "unittest",
+      "description": "Study 14 local unittest discovery",
+      "cwd": ".",
+      "runtime": "locked-python",
+      "unittest": {
+        "start_dir": "studies/14_asia_session_vp_levels/tests",
+        "pattern": "test*.py",
+        "optimize": false
+      },
+      "env": {},
+      "prerequisites": [
+        {
+          "kind": "executable",
+          "name": "uv",
+          "description": "Existing scripts/uv resolution: ignored .tools/uv/bin/uv or uv on PATH; no bootstrap."
+        },
+        {
+          "kind": "directory",
+          "path": ".venv",
+          "description": "Existing locked Python environment; --no-sync never installs dependencies."
+        }
+      ],
+      "scope": [
+        "Independently owned local suite in a fresh locked Python process.",
+        "Synthetic/local-source fixtures use existing locked dependencies; no market-data research run."
+      ]
+    },
+    {
+      "id": "study-15",
+      "owner": "study-15",
+      "kind": "unittest",
+      "description": "Study 15 local unittest discovery",
+      "cwd": ".",
+      "runtime": "locked-python",
+      "unittest": {
+        "start_dir": "studies/15_vwap_excursion_response/tests",
+        "pattern": "test*.py",
+        "optimize": false
+      },
+      "env": {},
+      "prerequisites": [
+        {
+          "kind": "executable",
+          "name": "uv",
+          "description": "Existing scripts/uv resolution: ignored .tools/uv/bin/uv or uv on PATH; no bootstrap."
+        },
+        {
+          "kind": "directory",
+          "path": ".venv",
+          "description": "Existing locked Python environment; --no-sync never installs dependencies."
+        }
+      ],
+      "scope": [
+        "Independently owned local suite in a fresh locked Python process.",
+        "Synthetic/local-source fixtures use existing locked dependencies; no market-data research run.",
+        "Pine selected semantics only; native TradingView compilation/replay remains outside this check."
+      ]
+    },
+    {
+      "id": "study-16",
+      "owner": "study-16",
+      "kind": "unittest",
+      "description": "Study 16 local unittest discovery",
+      "cwd": ".",
+      "runtime": "locked-python",
+      "unittest": {
+        "start_dir": "studies/16_range_xv_reversal_paths/tests",
+        "pattern": "test*.py",
+        "optimize": false
+      },
+      "env": {},
+      "prerequisites": [
+        {
+          "kind": "executable",
+          "name": "uv",
+          "description": "Existing scripts/uv resolution: ignored .tools/uv/bin/uv or uv on PATH; no bootstrap."
+        },
+        {
+          "kind": "directory",
+          "path": ".venv",
+          "description": "Existing locked Python environment; --no-sync never installs dependencies."
+        }
+      ],
+      "scope": [
+        "Independently owned local suite in a fresh locked Python process.",
+        "Synthetic/local-source fixtures use existing locked dependencies; no market-data research run."
+      ]
+    },
+    {
+      "id": "study-18",
+      "owner": "study-18",
+      "kind": "unittest",
+      "description": "Study 18 local unittest discovery",
+      "cwd": ".",
+      "runtime": "locked-python",
+      "unittest": {
+        "start_dir": "studies/18_fibonacci_memory/tests",
+        "pattern": "test*.py",
+        "optimize": false
+      },
+      "env": {},
+      "prerequisites": [
+        {
+          "kind": "executable",
+          "name": "uv",
+          "description": "Existing scripts/uv resolution: ignored .tools/uv/bin/uv or uv on PATH; no bootstrap."
+        },
+        {
+          "kind": "directory",
+          "path": ".venv",
+          "description": "Existing locked Python environment; --no-sync never installs dependencies."
+        }
+      ],
+      "scope": [
+        "Independently owned local suite in a fresh locked Python process.",
+        "Synthetic/local-source fixtures use existing locked dependencies; no market-data research run.",
+        "Pine selected semantics only; native TradingView compilation/replay remains outside this check."
+      ]
+    },
+    {
+      "id": "study-20",
+      "owner": "study-20",
+      "kind": "unittest",
+      "description": "Study 20 local unittest discovery",
+      "cwd": ".",
+      "runtime": "locked-python",
+      "unittest": {
+        "start_dir": "studies/20_camarilla_ema_cloud_reversals/tests",
+        "pattern": "test*.py",
+        "optimize": false
+      },
+      "env": {},
+      "prerequisites": [
+        {
+          "kind": "executable",
+          "name": "uv",
+          "description": "Existing scripts/uv resolution: ignored .tools/uv/bin/uv or uv on PATH; no bootstrap."
+        },
+        {
+          "kind": "directory",
+          "path": ".venv",
+          "description": "Existing locked Python environment; --no-sync never installs dependencies."
+        }
+      ],
+      "scope": [
+        "Independently owned local suite in a fresh locked Python process.",
+        "Synthetic/local-source fixtures use existing locked dependencies; no market-data research run.",
+        "Pine selected semantics only; native TradingView compilation/replay remains outside this check."
+      ]
+    },
+    {
+      "id": "study-21",
+      "owner": "study-21",
+      "kind": "unittest",
+      "description": "Study 21 Stage 1/2 numerical, independent-stream, comparison, saved-evidence and orchestration fixtures",
+      "cwd": ".",
+      "runtime": "locked-python",
+      "unittest": {
+        "start_dir": "studies/21_ema_cloud_trend_follow_opportunity/tests",
+        "pattern": "test*.py",
+        "optimize": false
+      },
+      "env": {},
+      "prerequisites": [
+        {
+          "kind": "executable",
+          "name": "uv",
+          "description": "Existing scripts/uv resolution: ignored .tools/uv/bin/uv or uv on PATH; no bootstrap."
+        },
+        {
+          "kind": "directory",
+          "path": ".venv",
+          "description": "Existing locked Python environment; --no-sync never installs dependencies."
+        }
+      ],
+      "scope": [
+        "Independently owned synthetic numerical and saved-evidence tests in a fresh locked Python process; no historical outcome scoring or sealing.",
+        "Figure rendering uses separately inventoried existing plotting packages when selected; numerical execution uses the unchanged locked environment."
+      ]
+    },
+    {
+      "id": "export-guards",
+      "owner": "sahadeva",
+      "kind": "unittest",
+      "description": "Ordinary exporter projection and integrity guards",
+      "cwd": ".",
+      "runtime": "locked-python",
+      "unittest": {
+        "start_dir": "packages/sahadeva/tests",
+        "pattern": "test_*export*.py",
+        "optimize": false
+      },
+      "env": {},
+      "prerequisites": [
+        {
+          "kind": "executable",
+          "name": "uv",
+          "description": "Existing scripts/uv resolution: ignored .tools/uv/bin/uv or uv on PATH; no bootstrap."
+        },
+        {
+          "kind": "directory",
+          "path": ".venv",
+          "description": "Existing locked Python environment; --no-sync never installs dependencies."
+        }
+      ],
+      "scope": [
+        "Synthetic temporary exporter fixtures; source preservation and refusal before output creation."
+      ]
+    },
+    {
+      "id": "export-guards-optimized",
+      "owner": "sahadeva",
+      "kind": "unittest",
+      "description": "Optimized Python exporter projection and integrity guards",
+      "cwd": ".",
+      "runtime": "locked-python",
+      "unittest": {
+        "start_dir": "packages/sahadeva/tests",
+        "pattern": "test_*export*.py",
+        "optimize": true
+      },
+      "env": {},
+      "prerequisites": [
+        {
+          "kind": "executable",
+          "name": "uv",
+          "description": "Existing scripts/uv resolution: ignored .tools/uv/bin/uv or uv on PATH; no bootstrap."
+        },
+        {
+          "kind": "directory",
+          "path": ".venv",
+          "description": "Existing locked Python environment; --no-sync never installs dependencies."
+        }
+      ],
+      "scope": [
+        "Same explicit exporter selection under python -O; no frozen evidence writes."
+      ]
+    },
+    {
+      "id": "sealing-15",
+      "owner": "study-15",
+      "kind": "unittest",
+      "description": "Ordinary study 15 pre-seal guard fixtures",
+      "cwd": ".",
+      "runtime": "locked-python",
+      "unittest": {
+        "start_dir": "studies/15_vwap_excursion_response/tests",
+        "pattern": "test_sealing.py",
+        "optimize": false
+      },
+      "env": {},
+      "prerequisites": [
+        {
+          "kind": "executable",
+          "name": "uv",
+          "description": "Existing scripts/uv resolution: ignored .tools/uv/bin/uv or uv on PATH; no bootstrap."
+        },
+        {
+          "kind": "directory",
+          "path": ".venv",
+          "description": "Existing locked Python environment; --no-sync never installs dependencies."
+        }
+      ],
+      "scope": [
+        "Disposable synthetic staging/retained fixtures; no actual research sealing."
+      ]
+    },
+    {
+      "id": "sealing-15-optimized",
+      "owner": "study-15",
+      "kind": "unittest",
+      "description": "Optimized Python study 15 pre-seal guard fixtures",
+      "cwd": ".",
+      "runtime": "locked-python",
+      "unittest": {
+        "start_dir": "studies/15_vwap_excursion_response/tests",
+        "pattern": "test_sealing.py",
+        "optimize": true
+      },
+      "env": {},
+      "prerequisites": [
+        {
+          "kind": "executable",
+          "name": "uv",
+          "description": "Existing scripts/uv resolution: ignored .tools/uv/bin/uv or uv on PATH; no bootstrap."
+        },
+        {
+          "kind": "directory",
+          "path": ".venv",
+          "description": "Existing locked Python environment; --no-sync never installs dependencies."
+        }
+      ],
+      "scope": [
+        "Same explicit guard selection under python -O; no actual research sealing."
+      ]
+    },
+    {
+      "id": "help-research",
+      "owner": "sahadeva",
+      "kind": "command",
+      "description": "Command-help smoke: abacus-research",
+      "cwd": ".",
+      "argv": [
+        "{root}/scripts/uv",
+        "run",
+        "--locked",
+        "--no-sync",
+        "abacus-research",
+        "--help"
+      ],
+      "env": {},
+      "prerequisites": [
+        {
+          "kind": "executable",
+          "name": "uv",
+          "description": "Existing scripts/uv resolution: ignored .tools/uv/bin/uv or uv on PATH; no bootstrap."
+        },
+        {
+          "kind": "directory",
+          "path": ".venv",
+          "description": "Existing locked Python environment; --no-sync never installs dependencies."
+        }
+      ],
+      "scope": [
+        "Argument-parser help only; no data publication, research execution or output regeneration."
+      ]
+    },
+    {
+      "id": "help-doctor",
+      "owner": "sahadeva",
+      "kind": "command",
+      "description": "Command-help smoke: abacus-researchdoctor",
+      "cwd": ".",
+      "argv": [
+        "{root}/scripts/uv",
+        "run",
+        "--locked",
+        "--no-sync",
+        "abacus-research",
+        "doctor",
+        "--help"
+      ],
+      "env": {},
+      "prerequisites": [
+        {
+          "kind": "executable",
+          "name": "uv",
+          "description": "Existing scripts/uv resolution: ignored .tools/uv/bin/uv or uv on PATH; no bootstrap."
+        },
+        {
+          "kind": "directory",
+          "path": ".venv",
+          "description": "Existing locked Python environment; --no-sync never installs dependencies."
+        }
+      ],
+      "scope": [
+        "Argument-parser help only; no data publication, research execution or output regeneration."
+      ]
+    },
+    {
+      "id": "help-continuous-phase1",
+      "owner": "bhishma",
+      "kind": "command",
+      "description": "Command-help smoke: abacus-continuous-phase1",
+      "cwd": ".",
+      "argv": [
+        "{root}/scripts/uv",
+        "run",
+        "--locked",
+        "--no-sync",
+        "abacus-continuous-phase1",
+        "--help"
+      ],
+      "env": {},
+      "prerequisites": [
+        {
+          "kind": "executable",
+          "name": "uv",
+          "description": "Existing scripts/uv resolution: ignored .tools/uv/bin/uv or uv on PATH; no bootstrap."
+        },
+        {
+          "kind": "directory",
+          "path": ".venv",
+          "description": "Existing locked Python environment; --no-sync never installs dependencies."
+        }
+      ],
+      "scope": [
+        "Argument-parser help only; no data publication, research execution or output regeneration."
+      ]
+    },
+    {
+      "id": "help-continuous-phase2",
+      "owner": "bhishma",
+      "kind": "command",
+      "description": "Command-help smoke: abacus-continuous-phase2",
+      "cwd": ".",
+      "argv": [
+        "{root}/scripts/uv",
+        "run",
+        "--locked",
+        "--no-sync",
+        "abacus-continuous-phase2",
+        "--help"
+      ],
+      "env": {},
+      "prerequisites": [
+        {
+          "kind": "executable",
+          "name": "uv",
+          "description": "Existing scripts/uv resolution: ignored .tools/uv/bin/uv or uv on PATH; no bootstrap."
+        },
+        {
+          "kind": "directory",
+          "path": ".venv",
+          "description": "Existing locked Python environment; --no-sync never installs dependencies."
+        }
+      ],
+      "scope": [
+        "Argument-parser help only; no data publication, research execution or output regeneration."
+      ]
+    },
+    {
+      "id": "help-derived-ohlcv-5m",
+      "owner": "bhishma",
+      "kind": "command",
+      "description": "Command-help smoke: abacus-derived-ohlcv-5m",
+      "cwd": ".",
+      "argv": [
+        "{root}/scripts/uv",
+        "run",
+        "--locked",
+        "--no-sync",
+        "abacus-derived-ohlcv-5m",
+        "--help"
+      ],
+      "env": {},
+      "prerequisites": [
+        {
+          "kind": "executable",
+          "name": "uv",
+          "description": "Existing scripts/uv resolution: ignored .tools/uv/bin/uv or uv on PATH; no bootstrap."
+        },
+        {
+          "kind": "directory",
+          "path": ".venv",
+          "description": "Existing locked Python environment; --no-sync never installs dependencies."
+        }
+      ],
+      "scope": [
+        "Argument-parser help only; no data publication, research execution or output regeneration."
+      ]
+    },
+    {
+      "id": "help-session-anchored-vwap",
+      "owner": "bhishma",
+      "kind": "command",
+      "description": "Command-help smoke: abacus-session-anchored-vwap",
+      "cwd": ".",
+      "argv": [
+        "{root}/scripts/uv",
+        "run",
+        "--locked",
+        "--no-sync",
+        "abacus-session-anchored-vwap",
+        "--help"
+      ],
+      "env": {},
+      "prerequisites": [
+        {
+          "kind": "executable",
+          "name": "uv",
+          "description": "Existing scripts/uv resolution: ignored .tools/uv/bin/uv or uv on PATH; no bootstrap."
+        },
+        {
+          "kind": "directory",
+          "path": ".venv",
+          "description": "Existing locked Python environment; --no-sync never installs dependencies."
+        }
+      ],
+      "scope": [
+        "Argument-parser help only; no data publication, research execution or output regeneration."
+      ]
+    },
+    {
+      "id": "navigation-metadata",
+      "owner": "workspace",
+      "kind": "command",
+      "description": "Validate navigation metadata and declared local targets independently of evidence bytes and freshness",
+      "cwd": ".",
+      "argv": [
+        "{python}",
+        "scripts/check-navigation-metadata.py"
+      ],
+      "env": {},
+      "prerequisites": [
+        {
+          "kind": "file",
+          "path": "strategies/index.json",
+          "description": "Explicit mutable strategy metadata; only study navigation JSON and declared target existence are inspected."
+        }
+      ],
+      "scope": [
+        "Metadata validity only; no saved CSV reads, hash verification, status promotion or index writes."
+      ]
+    },
+    {
+      "id": "strategy-evidence-references",
+      "owner": "sahadeva",
+      "kind": "command",
+      "description": "Verify explicitly adopted strategy saved-artifact hashes and exact CSV rows",
+      "cwd": ".",
+      "argv": [
+        "{python}",
+        "scripts/check-evidence-references.py"
+      ],
+      "env": {},
+      "prerequisites": [
+        {
+          "kind": "file",
+          "path": "strategies/index.json",
+          "description": "Explicit adopted references in mutable strategy metadata."
+        },
+        {
+          "kind": "note",
+          "description": "Requires only saved run/artifact files explicitly declared by evidence_refs; the validator fails if missing or changed."
+        }
+      ],
+      "scope": [
+        "Local artifact/row integrity for adopted references only; no complete claim coverage, inferred run, research reproduction or conclusion changes."
+      ]
+    },
+    {
+      "id": "evidence-contract-help",
+      "owner": "sahadeva",
+      "kind": "command",
+      "description": "Future-bundle validator interface help; actual assessment always requires a separate explicit target",
+      "cwd": ".",
+      "argv": [
+        "{python}",
+        "scripts/check-evidence-bundle.py",
+        "--help"
+      ],
+      "env": {},
+      "prerequisites": [],
+      "scope": [
+        "Help only; no implicit scan or assessment of historical/future bundles. Invoke the documented CLI with one explicit target for validation."
+      ]
+    },
+    {
+      "id": "research-index",
+      "owner": "workspace",
+      "kind": "command",
+      "description": "Read-only generated research navigation freshness",
+      "cwd": ".",
+      "argv": [
+        "{python}",
+        "scripts/build-research-index.py",
+        "--check"
+      ],
+      "env": {},
+      "prerequisites": [],
+      "scope": [
+        "Check current index bytes; never regenerate the index."
+      ]
+    },
+    {
+      "id": "narada-verify",
+      "owner": "narada",
+      "kind": "command",
+      "description": "Narada local verify",
+      "cwd": "apps/narada",
+      "argv": [
+        "npm",
+        "run",
+        "verify"
+      ],
+      "env": {},
+      "prerequisites": [
+        {
+          "kind": "node-major",
+          "major": 24,
+          "description": "Node 24 selected on PATH, independent of the Python workspace."
+        },
+        {
+          "kind": "executable",
+          "name": "npm",
+          "description": "npm available on PATH; dependencies are never installed by the harness."
+        },
+        {
+          "kind": "directory",
+          "path": "apps/narada/node_modules",
+          "description": "Existing app dependencies from its unchanged npm lockfile."
+        }
+      ],
+      "scope": [
+        "App-owned content/code and independent Node environment; build may update ignored .next/out only."
+      ]
+    },
+    {
+      "id": "narada-test",
+      "owner": "narada",
+      "kind": "command",
+      "description": "Narada local test",
+      "cwd": "apps/narada",
+      "argv": [
+        "npm",
+        "test"
+      ],
+      "env": {},
+      "prerequisites": [
+        {
+          "kind": "node-major",
+          "major": 24,
+          "description": "Node 24 selected on PATH, independent of the Python workspace."
+        },
+        {
+          "kind": "executable",
+          "name": "npm",
+          "description": "npm available on PATH; dependencies are never installed by the harness."
+        },
+        {
+          "kind": "directory",
+          "path": "apps/narada/node_modules",
+          "description": "Existing app dependencies from its unchanged npm lockfile."
+        }
+      ],
+      "scope": [
+        "App-owned content/code and independent Node environment; build may update ignored .next/out only."
+      ]
+    },
+    {
+      "id": "narada-lint",
+      "owner": "narada",
+      "kind": "command",
+      "description": "Narada local lint",
+      "cwd": "apps/narada",
+      "argv": [
+        "npm",
+        "run",
+        "lint"
+      ],
+      "env": {},
+      "prerequisites": [
+        {
+          "kind": "node-major",
+          "major": 24,
+          "description": "Node 24 selected on PATH, independent of the Python workspace."
+        },
+        {
+          "kind": "executable",
+          "name": "npm",
+          "description": "npm available on PATH; dependencies are never installed by the harness."
+        },
+        {
+          "kind": "directory",
+          "path": "apps/narada/node_modules",
+          "description": "Existing app dependencies from its unchanged npm lockfile."
+        }
+      ],
+      "scope": [
+        "App-owned content/code and independent Node environment; build may update ignored .next/out only."
+      ]
+    },
+    {
+      "id": "narada-build",
+      "owner": "narada",
+      "kind": "command",
+      "description": "Narada local build",
+      "cwd": "apps/narada",
+      "argv": [
+        "npm",
+        "run",
+        "build"
+      ],
+      "env": {},
+      "prerequisites": [
+        {
+          "kind": "node-major",
+          "major": 24,
+          "description": "Node 24 selected on PATH, independent of the Python workspace."
+        },
+        {
+          "kind": "executable",
+          "name": "npm",
+          "description": "npm available on PATH; dependencies are never installed by the harness."
+        },
+        {
+          "kind": "directory",
+          "path": "apps/narada/node_modules",
+          "description": "Existing app dependencies from its unchanged npm lockfile."
+        }
+      ],
+      "scope": [
+        "App-owned content/code and independent Node environment; build may update ignored .next/out only."
+      ]
+    },
+    {
+      "id": "narada-audit-sources",
+      "owner": "narada",
+      "kind": "command",
+      "description": "Explicit retained private presentation/source integrity audit",
+      "cwd": "apps/narada",
+      "argv": [
+        "npm",
+        "run",
+        "audit:sources"
+      ],
+      "env": {},
+      "prerequisites": [
+        {
+          "kind": "node-major",
+          "major": 24,
+          "description": "Node 24 selected on PATH, independent of the Python workspace."
+        },
+        {
+          "kind": "executable",
+          "name": "npm",
+          "description": "npm available on PATH; dependencies are never installed by the harness."
+        },
+        {
+          "kind": "directory",
+          "path": "apps/narada/node_modules",
+          "description": "Existing app dependencies from its unchanged npm lockfile."
+        },
+        {
+          "kind": "file",
+          "path": "apps/narada/content/release-sources.json",
+          "description": "Explicit saved presentation-source locator mapping."
+        },
+        {
+          "kind": "note",
+          "description": "Requires all retained private source/presentation files declared by the mapping; the owning audit fails if unavailable."
+        }
+      ],
+      "scope": [
+        "Read-only selected private locators and pins; does not rerun research or prove browser behavior."
+      ]
+    },
+    {
+      "id": "narada-smoke-preview",
+      "owner": "narada",
+      "kind": "command",
+      "description": "Explicit running loopback preview HTTP smoke",
+      "cwd": "apps/narada",
+      "argv": [
+        "npm",
+        "run",
+        "smoke:preview",
+        "--",
+        "--origin",
+        "{preview_origin}"
+      ],
+      "env": {},
+      "prerequisites": [
+        {
+          "kind": "node-major",
+          "major": 24,
+          "description": "Node 24 selected on PATH, independent of the Python workspace."
+        },
+        {
+          "kind": "executable",
+          "name": "npm",
+          "description": "npm available on PATH; dependencies are never installed by the harness."
+        },
+        {
+          "kind": "directory",
+          "path": "apps/narada/node_modules",
+          "description": "Existing app dependencies from its unchanged npm lockfile."
+        },
+        {
+          "kind": "argument",
+          "name": "preview_origin",
+          "description": "Explicit --preview-origin clean loopback HTTP origin with an already running local preview."
+        },
+        {
+          "kind": "directory",
+          "path": "apps/narada/out",
+          "description": "Existing static export from a separately selected local build."
+        }
+      ],
+      "scope": [
+        "GET/HEAD exact app-owned export bytes/headers and real 404s; no server is launched."
+      ]
+    },
+    {
+      "id": "numerical-record-guards",
+      "owner": "workspace",
+      "kind": "unittest",
+      "description": "Stage-bound numerical-test records and explicit legacy sealing gates",
+      "cwd": ".",
+      "runtime": "locked-python",
+      "unittest": {
+        "start_dir": "scripts/tests",
+        "pattern": "test_numerical_test_record.py",
+        "optimize": false
+      },
+      "env": {},
+      "prerequisites": [
+        {
+          "kind": "executable",
+          "name": "uv",
+          "description": "Existing UV resolution only; no install or sync."
+        },
+        {
+          "kind": "directory",
+          "path": ".venv",
+          "description": "Prepared locked Python environment."
+        }
+      ],
+      "scope": [
+        "Disposable synthetic stage/record/orchestration fixtures only; no retained market data, real research, sealing or presentation revisions.",
+        "Optimized guards enforce operational refusal only; they do not certify optimized analytical validity."
+      ]
+    },
+    {
+      "id": "numerical-record-guards-optimized",
+      "owner": "workspace",
+      "kind": "unittest",
+      "description": "Stage-bound numerical-test records and explicit legacy sealing gates under optimized Python",
+      "cwd": ".",
+      "runtime": "locked-python",
+      "unittest": {
+        "start_dir": "scripts/tests",
+        "pattern": "test_numerical_test_record.py",
+        "optimize": true
+      },
+      "env": {},
+      "prerequisites": [
+        {
+          "kind": "executable",
+          "name": "uv",
+          "description": "Existing UV resolution only; no install or sync."
+        },
+        {
+          "kind": "directory",
+          "path": ".venv",
+          "description": "Prepared locked Python environment."
+        }
+      ],
+      "scope": [
+        "Disposable synthetic stage/record/orchestration fixtures only; no retained market data, real research, sealing or presentation revisions.",
+        "Optimized guards enforce operational refusal only; they do not certify optimized analytical validity."
+      ]
+    },
+    {
+      "id": "study-execution-guards",
+      "owner": "workspace",
+      "kind": "unittest",
+      "description": "Study12/13 execution, rendering, verification and sealing provenance guards",
+      "cwd": ".",
+      "runtime": "locked-python",
+      "unittest": {
+        "start_dir": "scripts/tests",
+        "pattern": "study_provenance_guards.py",
+        "optimize": false
+      },
+      "env": {},
+      "prerequisites": [
+        {
+          "kind": "executable",
+          "name": "uv",
+          "description": "Existing UV resolution only; no install or sync."
+        },
+        {
+          "kind": "directory",
+          "path": ".venv",
+          "description": "Prepared locked Python environment."
+        }
+      ],
+      "scope": [
+        "Disposable synthetic stage/record/orchestration fixtures only; no retained market data, real research, sealing or presentation revisions.",
+        "Optimized guards enforce operational refusal only; they do not certify optimized analytical validity."
+      ]
+    },
+    {
+      "id": "study-execution-guards-optimized",
+      "owner": "workspace",
+      "kind": "unittest",
+      "description": "Study12/13 execution, rendering, verification and sealing provenance guards under optimized Python",
+      "cwd": ".",
+      "runtime": "locked-python",
+      "unittest": {
+        "start_dir": "scripts/tests",
+        "pattern": "study_provenance_guards.py",
+        "optimize": true
+      },
+      "env": {},
+      "prerequisites": [
+        {
+          "kind": "executable",
+          "name": "uv",
+          "description": "Existing UV resolution only; no install or sync."
+        },
+        {
+          "kind": "directory",
+          "path": ".venv",
+          "description": "Prepared locked Python environment."
+        }
+      ],
+      "scope": [
+        "Disposable synthetic stage/record/orchestration fixtures only; no retained market data, real research, sealing or presentation revisions.",
+        "Optimized guards enforce operational refusal only; they do not certify optimized analytical validity."
+      ]
+    }
+  ]
+}

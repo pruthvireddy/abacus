@@ -1,0 +1,255 @@
+{
+  "schema_version": 1,
+  "requested": {
+    "profiles": [],
+    "checks": [
+      "sahadeva",
+      "legacy-01",
+      "legacy-02",
+      "vwap-doctor"
+    ]
+  },
+  "selection": [
+    "sahadeva",
+    "legacy-01",
+    "legacy-02",
+    "vwap-doctor"
+  ],
+  "checks": [
+    {
+      "id": "sahadeva",
+      "owner": "sahadeva",
+      "kind": "unittest",
+      "argv": [
+        "/Users/ppanati/Documents/projects/abacus/scripts/uv",
+        "run",
+        "--locked",
+        "--no-sync",
+        "python",
+        "-B",
+        "/Users/ppanati/Documents/projects/abacus/scripts/unittest_child.py",
+        "--spec",
+        "{\"optimize\": false, \"pattern\": \"test*.py\", \"start_dir\": \"/Users/ppanati/Documents/projects/abacus/packages/sahadeva/tests\"}",
+        "--result",
+        "/var/folders/8m/7y_qdqcn1fn6gkf6ggc_39bc0000gn/T/abacus-check-g83evp6z/unittest-result.json"
+      ],
+      "cwd": "/Users/ppanati/Documents/projects/abacus",
+      "scope": [
+        "Shared numerical/input-pin and synthetic exporter/projection checks; no research run."
+      ],
+      "environment_overrides": {},
+      "prerequisites": [
+        {
+          "kind": "executable",
+          "name": "uv",
+          "description": "Existing scripts/uv resolution: ignored .tools/uv/bin/uv or uv on PATH; no bootstrap."
+        },
+        {
+          "kind": "directory",
+          "path": ".venv",
+          "description": "Existing locked Python environment; --no-sync never installs dependencies."
+        },
+        {
+          "kind": "file",
+          "path": ".venv/bin/python",
+          "description": "Prepared locked Python interpreter (.venv/bin/python)"
+        }
+      ],
+      "outcome": "passed",
+      "exit_code": 0,
+      "duration_seconds": 31.939577,
+      "missing_prerequisites": [],
+      "unittest": {
+        "counts": {
+          "discovered": 41,
+          "errors": 0,
+          "expected_failures": 0,
+          "failures": 0,
+          "skipped": 0,
+          "tests_run": 41,
+          "unexpected_successes": 0
+        },
+        "outcome": "passed",
+        "schema_version": 1,
+        "skips": [],
+        "successful_callbacks": 560
+      }
+    },
+    {
+      "id": "legacy-01",
+      "owner": "study-01",
+      "kind": "unittest",
+      "argv": [
+        "/Users/ppanati/Documents/projects/abacus/scripts/uv",
+        "run",
+        "--locked",
+        "--no-sync",
+        "python",
+        "-B",
+        "/Users/ppanati/Documents/projects/abacus/scripts/unittest_child.py",
+        "--spec",
+        "{\"optimize\": false, \"pattern\": \"test*.py\", \"start_dir\": \"/Users/ppanati/Documents/projects/abacus/legacy/sahadeva/analysis/01_reversal_follow_through/tests\"}",
+        "--result",
+        "/var/folders/8m/7y_qdqcn1fn6gkf6ggc_39bc0000gn/T/abacus-check-jk2ivs87/unittest-result.json"
+      ],
+      "cwd": "/Users/ppanati/Documents/projects/abacus",
+      "scope": [
+        "Archived numerical tests, not execution or revalidation of imported runs."
+      ],
+      "environment_overrides": {
+        "PYTHONPATH": "/Users/ppanati/Documents/projects/abacus/legacy/sahadeva/analysis/01_reversal_follow_through/src"
+      },
+      "prerequisites": [
+        {
+          "kind": "executable",
+          "name": "uv",
+          "description": "Existing scripts/uv resolution: ignored .tools/uv/bin/uv or uv on PATH; no bootstrap."
+        },
+        {
+          "kind": "directory",
+          "path": ".venv",
+          "description": "Existing locked Python environment; --no-sync never installs dependencies."
+        },
+        {
+          "kind": "file",
+          "path": ".venv/bin/python",
+          "description": "Prepared locked Python interpreter (.venv/bin/python)"
+        }
+      ],
+      "outcome": "passed",
+      "exit_code": 0,
+      "duration_seconds": 0.426448,
+      "missing_prerequisites": [],
+      "unittest": {
+        "counts": {
+          "discovered": 13,
+          "errors": 0,
+          "expected_failures": 0,
+          "failures": 0,
+          "skipped": 0,
+          "tests_run": 13,
+          "unexpected_successes": 0
+        },
+        "outcome": "passed",
+        "schema_version": 1,
+        "skips": [],
+        "successful_callbacks": 13
+      }
+    },
+    {
+      "id": "legacy-02",
+      "owner": "study-02",
+      "kind": "unittest",
+      "argv": [
+        "/Users/ppanati/Documents/projects/abacus/scripts/uv",
+        "run",
+        "--locked",
+        "--no-sync",
+        "python",
+        "-B",
+        "/Users/ppanati/Documents/projects/abacus/scripts/unittest_child.py",
+        "--spec",
+        "{\"optimize\": false, \"pattern\": \"test*.py\", \"start_dir\": \"/Users/ppanati/Documents/projects/abacus/legacy/sahadeva/analysis/02_followthrough_candle_adverse/tests\"}",
+        "--result",
+        "/var/folders/8m/7y_qdqcn1fn6gkf6ggc_39bc0000gn/T/abacus-check-ezm54tlb/unittest-result.json"
+      ],
+      "cwd": "/Users/ppanati/Documents/projects/abacus",
+      "scope": [
+        "Archived numerical tests, not execution or revalidation of imported runs."
+      ],
+      "environment_overrides": {
+        "PYTHONPATH": "/Users/ppanati/Documents/projects/abacus/legacy/sahadeva/analysis/02_followthrough_candle_adverse/src"
+      },
+      "prerequisites": [
+        {
+          "kind": "executable",
+          "name": "uv",
+          "description": "Existing scripts/uv resolution: ignored .tools/uv/bin/uv or uv on PATH; no bootstrap."
+        },
+        {
+          "kind": "directory",
+          "path": ".venv",
+          "description": "Existing locked Python environment; --no-sync never installs dependencies."
+        },
+        {
+          "kind": "file",
+          "path": ".venv/bin/python",
+          "description": "Prepared locked Python interpreter (.venv/bin/python)"
+        }
+      ],
+      "outcome": "passed",
+      "exit_code": 0,
+      "duration_seconds": 0.425715,
+      "missing_prerequisites": [],
+      "unittest": {
+        "counts": {
+          "discovered": 24,
+          "errors": 0,
+          "expected_failures": 0,
+          "failures": 0,
+          "skipped": 0,
+          "tests_run": 24,
+          "unexpected_successes": 0
+        },
+        "outcome": "passed",
+        "schema_version": 1,
+        "skips": [],
+        "successful_callbacks": 24
+      }
+    },
+    {
+      "id": "vwap-doctor",
+      "owner": "sahadeva",
+      "kind": "command",
+      "argv": [
+        "/Users/ppanati/Documents/projects/abacus/scripts/uv",
+        "run",
+        "--locked",
+        "--no-sync",
+        "abacus-research",
+        "doctor",
+        "--workspace-root",
+        "/Users/ppanati/Documents/projects/abacus",
+        "--read-sample"
+      ],
+      "cwd": "/Users/ppanati/Documents/projects/abacus",
+      "scope": [
+        "Pins and one sampled partition/session per selected product/timeframe; not all partitions or feature reproduction."
+      ],
+      "environment_overrides": {},
+      "prerequisites": [
+        {
+          "kind": "executable",
+          "name": "uv",
+          "description": "Existing scripts/uv resolution: ignored .tools/uv/bin/uv or uv on PATH; no bootstrap."
+        },
+        {
+          "kind": "directory",
+          "path": ".venv",
+          "description": "Existing locked Python environment; --no-sync never installs dependencies."
+        },
+        {
+          "kind": "note",
+          "description": "Requires the configured publication root and pinned VWAP release; the owning doctor resolves inputs without harness inspection of private configuration."
+        },
+        {
+          "kind": "file",
+          "path": ".venv/bin/python",
+          "description": "Prepared locked Python interpreter (.venv/bin/python)"
+        }
+      ],
+      "outcome": "passed",
+      "exit_code": 0,
+      "duration_seconds": 0.323901,
+      "missing_prerequisites": [],
+      "unittest": null
+    }
+  ],
+  "outcome": "passed",
+  "exit_code": 0,
+  "limitations": [
+    "Only selected checks were executed.",
+    "Unittest counts come from the child TestResult; command checks have no test counts.",
+    "Configured-input diagnostics do not verify every partition or reproduce research."
+  ]
+}

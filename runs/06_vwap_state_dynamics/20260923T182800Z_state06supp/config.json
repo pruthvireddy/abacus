@@ -1,0 +1,75 @@
+{
+  "schema_version": 1,
+  "study_id": "06_vwap_state_dynamics",
+  "version": "1.1.0",
+  "status": "frozen_exploratory_supplement",
+  "frozen_utc": "2026-09-23T18:28:00Z",
+  "parent_run_id": "20260923T180000Z_state06c",
+  "parent_protocol": "1.0.0",
+  "new_event_extraction": false,
+  "prior_outcome_exposure": true,
+  "clock_bins_new_york": [
+    {
+      "label": "pre_asia_gap",
+      "start": "18:00",
+      "end_exclusive": "20:00"
+    },
+    {
+      "label": "asia",
+      "start": "20:00",
+      "end_exclusive": "03:00"
+    },
+    {
+      "label": "london",
+      "start": "03:00",
+      "end_exclusive": "09:00"
+    },
+    {
+      "label": "pre_ny_gap",
+      "start": "09:00",
+      "end_exclusive": "09:30"
+    },
+    {
+      "label": "ny",
+      "start": "09:30",
+      "end_exclusive": "16:00"
+    },
+    {
+      "label": "post_ny_gap",
+      "start": "16:00",
+      "end_exclusive": "17:00"
+    }
+  ],
+  "first_cross_time": {
+    "population": "primary 2m Globex landmarks with Y2 crossing",
+    "unit": "elapsed completed-close minutes after landmark",
+    "summary": [
+      "crossers",
+      "all_landmarks",
+      "median",
+      "quartiles"
+    ],
+    "noncross": "right-censored at 30m, not assigned a 30m event time"
+  },
+  "secondary_paired_targets": [
+    "future_30m_volume_weighted_one_minute_close",
+    "horizon_end_unadjusted_one_minute_close"
+  ],
+  "reference_error_comparison": "frozen VWAP and equal-weighted anchored TWAP translated to unadjusted contract coordinates; strict absolute-error win, 1e-8 tie tolerance",
+  "descriptives": [
+    "prior-ATR-normalized adjusted price and VWAP slopes",
+    "VWAP acceleration",
+    "anchor cumulative volume",
+    "recent-volume share"
+  ],
+  "uncertainty": {
+    "method": "shared-calendar-date percentile bootstrap",
+    "repetitions": 400,
+    "seed": 607
+  },
+  "claims": "all supplemental clock and secondary-target summaries exploratory after prior outcome exposure; no new primary test or threshold selected",
+  "run_id": "20260923T182800Z_state06supp",
+  "started_at_utc": "2026-09-23T18:30:21.075916+00:00",
+  "parent_manifest_sha256": "d4be745fb40fb57e0bf24e332a1474844e7882e34e7e8f0edecb76eacca25d0b",
+  "parent_events_manifest_sha256": "2f6d8f7afd26ef7cd1f135837397cc2547d503505fb1f896479feb4a570c7786"
+}

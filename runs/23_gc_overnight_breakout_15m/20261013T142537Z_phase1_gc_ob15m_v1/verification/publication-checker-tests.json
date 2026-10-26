@@ -1,0 +1,31 @@
+{
+  "result": "passed",
+  "tests": 11,
+  "scope": "Synthetic independent publication transfer/claim/download/SVG geometry guards only; no market backtest rerun.",
+  "verified_at": "2026-10-13T15:33:32.739143+00:00",
+  "log": {
+    "path": "verification/publication-checker-tests.log",
+    "sha256": "404e3ede6372af82c4c59ae50e7e0200973613bf5443cee8bc04b33de393cdcc"
+  },
+  "test_source": {
+    "path": "verification/test_publication_verification.py",
+    "sha256": "e26df7365f18deae3e04c7ae8c7a37ad3dccd7818dd8bf0aed316f085e8d3915"
+  },
+  "argv": [
+    "./scripts/uv",
+    "run",
+    "--locked",
+    "--no-sync",
+    "python",
+    "-m",
+    "unittest",
+    "discover",
+    "-s",
+    "studies/23_gc_overnight_breakout_15m/tests",
+    "-p",
+    "test_publication_verification.py"
+  ],
+  "environment": {
+    "UV_CACHE_DIR": "/private/tmp/abacus-study23-uv-cache"
+  }
+}

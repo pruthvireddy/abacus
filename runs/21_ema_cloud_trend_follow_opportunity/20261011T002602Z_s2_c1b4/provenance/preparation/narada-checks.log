@@ -1,0 +1,140 @@
+[narada-verify] ["npm", "run", "verify"]
+
+> @abacus/narada@0.1.0 verify
+> node scripts/verify.mjs
+
+Verified 19 studies, 25 publications, 29 raster assets and 14 selected CSVs.
+[narada-verify] passed
+[narada-test] ["npm", "test"]
+
+> @abacus/narada@0.1.0 test
+> node --test tests/*.test.mjs
+
+✔ ordinary passed records preserve exact inventory order, attribution and qualifications (64.146417ms)
+▶ source mappings require exact selected-index coverage and supported version
+  ✔ missing (22.350708ms)
+  ✔ extra (13.643167ms)
+  ✔ duplicate (22.732958ms)
+  ✔ version (13.974375ms)
+✔ source mappings require exact selected-index coverage and supported version (73.610958ms)
+✔ revision locators reject absolute, traversal, dot, separator and wrong-depth forms (110.560333ms)
+▶ every declared source, output and asset locator is checked before reading
+  ✔ source (50.527166ms)
+  ✔ output (54.989042ms)
+  ✔ asset (51.17575ms)
+✔ every declared source, output and asset locator is checked before reading (157.083167ms)
+✔ source publication must equal staged content (4.260917ms)
+▶ publication, source-run and study attribution must agree
+  ✔ publication_id (3.513042ms)
+  ✔ source_run_id (3.786125ms)
+  ✔ study_id (3.372ms)
+✔ publication, source-run and study attribution must agree (10.886708ms)
+✔ changed saved sources, revision outputs and declared selected assets fail closed (21.365291ms)
+✔ publication and source-map outputs must be declared in the retained manifest (8.889666ms)
+▶ declared source, output and asset identities require nonempty valid SHA-256 pins
+  ✔ source (24.992208ms)
+  ✔ output (25.549125ms)
+  ✔ asset (27.814584ms)
+✔ declared source, output and asset identities require nonempty valid SHA-256 pins (78.618458ms)
+▶ missing and nonregular selected files are rejected across each read boundary
+  ✔ missing (23.858583ms)
+  ✔ directory (21.182875ms)
+✔ missing and nonregular selected files are rejected across each read boundary (45.262875ms)
+✔ file symlinks are rejected before JSON parsing or retained-byte access (23.540042ms)
+✔ symlinked ancestors of revision, source and asset files are rejected (25.103ms)
+✔ safe retained snapshot filenames with bracketed app routes remain accepted (5.596792ms)
+✔ checks-only verification requires a nonempty array of explicitly passed checks (20.069541ms)
+✔ explicit passed verification accepts historical descriptive checks without imposing a new schema (4.067541ms)
+✔ superseded presentation status retains its catalog qualification only for a presentation revision (6.734875ms)
+✔ explicit failed and unknown results cannot be rescued by positive checks (17.712708ms)
+✔ Phase 2 fallback preserves its inherited qualification and hashes the consumed record (17.205708ms)
+✔ undeclared Phase 2 fallback is checked before parsing and missing fallback fails (5.590291ms)
+✔ future study 08/09 exporter and shared-helper snapshots are covered by generic output hashes (15.675458ms)
+✔ importing the audit is side-effect free and independent of Python or CLI dispatch (28.842583ms)
+✔ versions 1.0 and 1.1 coexist without rewriting old publication bytes (49.270333ms)
+✔ version selection, unsafe URLs, references and source attribution are strict (1.002708ms)
+✔ download paths, unsupported types, missing files and source/file/directory symlinks are rejected (12.847125ms)
+✔ download hashes, UTF-8 structure, headers, row count and formulas are checked (11.465542ms)
+✔ per-file and total download budgets are independent of figure budgets (24.837959ms)
+✔ staged downloads verify their hashes and unselected source files never cross the boundary (7.891709ms)
+✔ explicit formats preserve scale, zero, missing values, and units (35.677375ms)
+✔ publication dates use UTC regardless of the reader time zone (7.823583ms)
+✔ reference URLs reject ASCII controls, whitespace and backslashes (1.942834ms)
+✔ CSV retains tab, LF and CR but rejects its established forbidden controls (1.526541ms)
+✔ catalog text retains internal tab and LF while rejecting CR and other ASCII controls (1.647333ms)
+✔ preview origins admit only explicit clean HTTP loopback origins (1.385125ms)
+✔ local smoke checks bounded app-owned bytes and GET/HEAD headers without changing output (22.383042ms)
+✔ preview smoke rejects incorrect GET bytes, media headers and HEAD bodies (83.623041ms)
+✔ selected CSV attachment filenames and nosniff are checked for GET and HEAD (25.141834ms)
+✔ unknown study, report, asset and private routes must return the exported 404 rather than 200 fallbacks (42.129958ms)
+✔ redirect status, redirect metadata and a changed response URL fail closed (16.027208ms)
+✔ invalid cases, selected hashes and export file boundaries fail before transport (9.793125ms)
+✖ a supplied local fixture server transport checks actual HTTP and rejects redirects (8.727167ms)
+✔ strict contract rejects unknown containers, duplicate sections, undeclared row keys and invalid dates (8.627166ms)
+✔ dry run writes nothing and ordinary publication verifies (16.923709ms)
+✔ deterministic output and formatting-only idempotence (20.828875ms)
+✔ changed existing ID is rejected without damaging the published result (8.973708ms)
+✔ path traversal, symlink escape, and false raster signatures are rejected (6.155292ms)
+✔ modified assets, report content, stale files, and index drift fail verification (12.364875ms)
+✔ report and asset budgets reject oversized inputs (5.517541ms)
+✔ concurrent publication lock is respected and unrelated files are never copied (5.299291ms)
+✔ missing selected figure leaves existing publication bytes and index unchanged (6.124709ms)
+✔ an empty symlink output directory is rejected (2.618208ms)
+✔ index orders timestamps chronologically across optional milliseconds (9.764416ms)
+✔ gate accepts exact passed artifact and supplied origin without inspecting JSON kind or timestamps (21.862042ms)
+✔ any matching passing event suffices after a failed event (11.843208ms)
+✔ browser gate without an origin retains the original optional-origin predicate (46.095ms)
+✔ missing, failed and mismatched gates reject without changing bytes (83.6745ms)
+✔ malformed matching JSON and missing event directory retain their underlying errors (18.643333ms)
+✔ malformed unrelated files are ignored by the exact filename suffix (6.159375ms)
+✔ helper import from an unrelated directory has no CLI, subprocess or filesystem side effects (31.427083ms)
+✔ release helper export surface and insertion-order JSON bytes remain identical (1.016125ms)
+✔ inventory preserves original locale ordering, field ordering, hashes and source bytes (31.2075ms)
+✔ complete Build Output routes and serialized config retain their original order and bytes (0.539292ms)
+✔ deployment argument arrays and parsed deployment fields remain identical (0.386125ms)
+✔ protected HTTP parser skips proxy and interim headers while preserving binary bytes (1.930083ms)
+✔ local command execution preserves strings, binary output and original failure payloads (155.92175ms)
+✔ release boundary admits selected pages/assets and rejects private or unknown output (37.500917ms)
+✔ exact inventory copy rejects symlinks, additions and modified bytes (40.763958ms)
+✔ deployment format has explicit routes, attachment headers and a hard 404 (0.319791ms)
+✔ production stages without domains and preview never requests production (0.255458ms)
+✔ structured CLI output and protected binary responses are parsed without losing bytes (0.318459ms)
+✔ command failures propagate and preparation primitives do not call hosting (70.050375ms)
+✔ hosted verification checks exact bytes, CSV headers and real 404; rejects auth walls (14.659375ms)
+✔ table scroll region describes keyboard access while preserving scalar meanings and escaping text (11.856875ms)
+✔ table context remains visible, accessible and linked to an attributed reference (0.527333ms)
+✔ selected downloads and references render safe links, visible scope and useful filenames (4.869625ms)
+✔ figures retain alternative text and caption with a visible full-size link (1.132208ms)
+✔ explicit catalog supports routes, lookup and distinct source relationships (1.333833ms)
+✔ duplicate identities, slugs and publication ownership fail (0.402792ms)
+✔ missing, repeated or wrongly attributed publication references fail (0.398ms)
+✔ relationship labels must agree with source-run identity and allowed kinds (0.260292ms)
+✔ bounded authored fields reject paths, unsafe slugs and unexpected containers (0.524833ms)
+✔ catalog loader rejects oversized input and symlinks without workspace access (4.784625ms)
+✔ identity and product fields reject trailing whitespace and control characters (0.21075ms)
+✔ publication context separates featured content, related revision labels and missing IDs (0.10225ms)
+ℹ tests 98
+ℹ suites 0
+ℹ pass 97
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 817.448583
+
+✖ failing tests:
+
+test at tests/preview-smoke.test.mjs:167:1
+✖ a supplied local fixture server transport checks actual HTTP and rejects redirects (8.727167ms)
+  Error: listen EPERM: operation not permitted 127.0.0.1
+      at Server.setupListenHandle [as _listen2] (node:net:1987:21)
+      at listenInCluster (node:net:2066:12)
+      at node:net:2275:7
+      at process.processTicksAndRejections (node:internal/process/task_queues:90:21) {
+    code: 'EPERM',
+    errno: -1,
+    syscall: 'listen',
+    address: '127.0.0.1'
+  }
+[narada-test] failed
+Selected checks: failed (4 selected)

@@ -1,0 +1,361 @@
+{
+  "schema_version": "abacus.study23.phase2-baseline-access/v1",
+  "prepared_inputs": {
+    "audit-bars-15m": {
+      "locator": "data/research/sahadeva/23_gc_overnight_breakout_15m/20261013T142537Z_phase1_gc_ob15m_v1/input-audit/bars-15m.parquet",
+      "sha256": "eb0cbd39d44f7827f6adf06abd826b9a4dd1954a119a2bd7ab6938824eae6a09",
+      "bytes": 9274369,
+      "rows": 209300,
+      "fields": [
+        {
+          "name": "timestamp",
+          "type": "timestamp[ns, tz=UTC]",
+          "nullable": true
+        },
+        {
+          "name": "expected_count",
+          "type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "calendar_valid",
+          "type": "bool",
+          "nullable": true
+        },
+        {
+          "name": "calendar_event",
+          "type": "string",
+          "nullable": true
+        },
+        {
+          "name": "open_fixed",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "high_fixed",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "low_fixed",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "close_fixed",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "volume",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "observed_count",
+          "type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "contract",
+          "type": "string",
+          "nullable": true
+        },
+        {
+          "name": "contract_count",
+          "type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "raw_symbol",
+          "type": "string",
+          "nullable": true
+        },
+        {
+          "name": "roll_id",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "source_valid",
+          "type": "bool",
+          "nullable": true
+        },
+        {
+          "name": "contains_roll",
+          "type": "bool",
+          "nullable": true
+        },
+        {
+          "name": "available_at",
+          "type": "timestamp[ns, tz=UTC]",
+          "nullable": true
+        },
+        {
+          "name": "bar_close_ts",
+          "type": "timestamp[ns, tz=UTC]",
+          "nullable": true
+        },
+        {
+          "name": "missing_expected_count",
+          "type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "quality_reason",
+          "type": "string",
+          "nullable": true
+        },
+        {
+          "name": "usable",
+          "type": "bool",
+          "nullable": true
+        },
+        {
+          "name": "open",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "high",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "low",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "close",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "broker_date",
+          "type": "string",
+          "nullable": true
+        }
+      ]
+    },
+    "audit-missing-minutes": {
+      "locator": "data/research/sahadeva/23_gc_overnight_breakout_15m/20261013T142537Z_phase1_gc_ob15m_v1/input-audit/missing-minutes.parquet",
+      "sha256": "284d8e54abb01d42dafe97c40e05220ca04f186b114234c0cf7d9c5f1dee545e",
+      "bytes": 829015,
+      "rows": 92935,
+      "fields": [
+        {
+          "name": "timestamp",
+          "type": "timestamp[ns, tz=UTC]",
+          "nullable": true
+        },
+        {
+          "name": "session",
+          "type": "string",
+          "nullable": true
+        },
+        {
+          "name": "calendar_event",
+          "type": "string",
+          "nullable": true
+        },
+        {
+          "name": "calendar_valid",
+          "type": "bool",
+          "nullable": true
+        },
+        {
+          "name": "qualification",
+          "type": "string",
+          "nullable": true
+        }
+      ]
+    },
+    "audit-minutes": {
+      "locator": "data/research/sahadeva/23_gc_overnight_breakout_15m/20261013T142537Z_phase1_gc_ob15m_v1/input-audit/minutes.parquet",
+      "sha256": "a0c40d4caab3152894f6c758df51c6154ccddc2a53287c52cdbffa30bc8d951e",
+      "bytes": 84123385,
+      "rows": 3046589,
+      "fields": [
+        {
+          "name": "timestamp",
+          "type": "timestamp[ns, tz=UTC]",
+          "nullable": true
+        },
+        {
+          "name": "session_date",
+          "type": "date32[day]",
+          "nullable": true
+        },
+        {
+          "name": "product",
+          "type": "string",
+          "nullable": true
+        },
+        {
+          "name": "continuous_symbol",
+          "type": "string",
+          "nullable": true
+        },
+        {
+          "name": "instrument_id",
+          "type": "uint32",
+          "nullable": true
+        },
+        {
+          "name": "raw_symbol",
+          "type": "string",
+          "nullable": true
+        },
+        {
+          "name": "open",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "high",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "low",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "close",
+          "type": "double",
+          "nullable": true
+        },
+        {
+          "name": "volume",
+          "type": "uint64",
+          "nullable": true
+        },
+        {
+          "name": "mapping_start",
+          "type": "date32[day]",
+          "nullable": true
+        },
+        {
+          "name": "mapping_end",
+          "type": "date32[day]",
+          "nullable": true
+        },
+        {
+          "name": "roll_id",
+          "type": "int16",
+          "nullable": true
+        },
+        {
+          "name": "is_roll",
+          "type": "bool",
+          "nullable": true
+        },
+        {
+          "name": "source_batch",
+          "type": "string",
+          "nullable": true
+        },
+        {
+          "name": "year",
+          "type": "int32",
+          "nullable": true
+        },
+        {
+          "name": "source_valid",
+          "type": "bool",
+          "nullable": true
+        },
+        {
+          "name": "contract",
+          "type": "string",
+          "nullable": true
+        },
+        {
+          "name": "available_at",
+          "type": "timestamp[ns, tz=UTC]",
+          "nullable": true
+        },
+        {
+          "name": "open_fixed",
+          "type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "high_fixed",
+          "type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "low_fixed",
+          "type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "close_fixed",
+          "type": "int64",
+          "nullable": true
+        },
+        {
+          "name": "scheduled",
+          "type": "bool",
+          "nullable": true
+        },
+        {
+          "name": "calendar_valid",
+          "type": "bool",
+          "nullable": true
+        },
+        {
+          "name": "calendar_event",
+          "type": "string",
+          "nullable": true
+        }
+      ]
+    },
+    "audit-expected-minutes": {
+      "locator": "data/research/sahadeva/23_gc_overnight_breakout_15m/20261013T142537Z_phase1_gc_ob15m_v1/input-audit/expected-minutes.parquet",
+      "sha256": "13111a27006c78d35344a208d80e21bdfed79bb32c66e5ec7b58e6f29ada0a0f",
+      "bytes": 21627730,
+      "rows": 3139500,
+      "fields": [
+        {
+          "name": "timestamp",
+          "type": "timestamp[ns, tz=UTC]",
+          "nullable": true
+        },
+        {
+          "name": "session",
+          "type": "string",
+          "nullable": true
+        },
+        {
+          "name": "calendar_event",
+          "type": "string",
+          "nullable": true
+        },
+        {
+          "name": "calendar_valid",
+          "type": "bool",
+          "nullable": true
+        }
+      ]
+    }
+  },
+  "load": "pyarrow.parquet.ParquetFile(verified_locator).read().to_pandas(); verify file SHA before every new consumption; never rebuild",
+  "execution_prices": "unadjusted same-contract float OHLC; retain exact int64 *_fixed at1e-9 scale",
+  "timestamp": "UTC inclusive minute/candle open; modeled available_at exclusive end; no measured vendor latency",
+  "contract": "GC:instrument_id:maturity_year:maturity_month:raw_symbol; no roll stitching",
+  "minute_filter": "scheduled=True for regular-source execution;24outside-normal prints remain retained, not used",
+  "prior_roster": "3183broker calendar days;994eligible;880accepted;86unknown firstfill and28no-trade keep no direction",
+  "primary_scope": "All880Phase1accepted incl17censored; original_signal_available_at is scheduled15mclose, confirm usable complete b before actionable Phase2 signals",
+  "sessions": "NY/DST analytical windows; Asia crosses midnight withactual entry calendar day; Outside connected intervals",
+  "datasets": "volume_lead_unadjusted_v1 algorithm1.0.0 volume_lead_v1; original20pins verified; no new reusable publication",
+  "outcome_scope": "baseline byte/schema review only; no alternative outcomes calculated",
+  "publication_hash_meanings": {
+    "raw_source_file_sha256": "68b2d9eff09a9a8c93250351ec85e5cbba67b7efdec49f0ff0b8a892ac741a41",
+    "canonical_Narada_report_sha256": "4c5395e60dceeb5ffadc462850b0e6b2db96d37e1031451bf45ead4179ee6e50"
+  }
+}

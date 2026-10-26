@@ -1,0 +1,25 @@
+{
+  "checked_on": "2026-10-13",
+  "read_only": true,
+  "locked_environment_no_sync": true,
+  "checks": [
+    {
+      "suite": "test_continuous_phase1.py",
+      "command": "UV_CACHE_DIR=/private/tmp/abacus-study23-uv-cache ./scripts/uv run --locked --no-sync python -m unittest discover -s packages/bhishma/tests -p test_continuous_phase1.py",
+      "exit_code": 1,
+      "reported_tests": 3,
+      "setup_errors": 1,
+      "reason": "Absent declared volume-rank-0 mapping JSON",
+      "log": "bhishma-phase1-prerequisite.log"
+    },
+    {
+      "suite": "test_continuous_phase2.py",
+      "command": "UV_CACHE_DIR=/private/tmp/abacus-study23-uv-cache ./scripts/uv run --locked --no-sync python -m unittest discover -s packages/bhishma/tests -p test_continuous_phase2.py",
+      "exit_code": 1,
+      "reported_tests": 11,
+      "setup_errors": 1,
+      "reason": "Unavailable ES roll 1 point-in-time definition pair",
+      "log": "bhishma-phase2-prerequisite.log"
+    }
+  ]
+}

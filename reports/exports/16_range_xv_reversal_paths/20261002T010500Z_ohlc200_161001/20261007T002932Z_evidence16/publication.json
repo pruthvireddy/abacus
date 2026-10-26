@@ -1,0 +1,1551 @@
+{
+  "title": "Range XV reversals: persistence, prediction and price are separate",
+  "summary": "Bar-colour continuation is common in the saved FX exports, but added lead-up does not show supported primary prediction improvement. Strict three-bar price paths and uncertainty have separate denominators and units.",
+  "source": {
+    "producer": "sahadeva",
+    "runId": "20261002T010500Z_ohlc200_161001"
+  },
+  "sections": [
+    {
+      "id": "question",
+      "kind": "text",
+      "title": "Question and scope",
+      "body": "Completed protocol 2.0.0 asks about reversal follow-through, three-bar landing and incremental prediction in 6B, 6E, 6J and 6S Range XV 4/5 charts. These are OHLC-only exports, July 2017–October 2026. Chart/direction populations remain separate."
+    },
+    {
+      "id": "findings",
+      "kind": "text",
+      "title": "Supported findings",
+      "body": "The primary later F≥3 prediction result is negative: adding prior length or richer history gives no supported log-loss improvement beyond reversal geometry/context. Later length-two versus length-three contrasts remain inconclusive. A nominated colour-persistence association has a negative gross price mean; the other is inconclusive. A predicate with collapsed efficiency cutpoints adds no independent efficient-versus-choppy evidence."
+    },
+    {
+      "id": "baseline",
+      "kind": "table",
+      "title": "All-history follow-through: separate chart/direction cohorts",
+      "description": "All-history chart/direction order-3 cohorts. R is already completed; F counts only subsequent same-direction completed followers.",
+      "notes": [
+        "Colour persistence is a behavioural property of the exported bars; it is not an entry win rate. Inferred completion and same-second order remain execution limits.",
+        "Saved pointwise 95% synchronized-session bounds are not sixteen independent confirmations."
+      ],
+      "referenceIds": [
+        "continuation-source"
+      ],
+      "columns": [
+        {
+          "key": "chart",
+          "label": "chart"
+        },
+        {
+          "key": "direction",
+          "label": "Direction (1 bullish, −1 bearish)"
+        },
+        {
+          "key": "p3_known_success",
+          "label": "F≥3 successes",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "p3_n",
+          "label": "Complete order-3 n",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "p3_dates",
+          "label": "Dates",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "p3",
+          "label": "F≥3 rate",
+          "format": "percent",
+          "precision": 1
+        },
+        {
+          "key": "p3_low",
+          "label": "95% low",
+          "format": "percent",
+          "precision": 1
+        },
+        {
+          "key": "p3_high",
+          "label": "95% high",
+          "format": "percent",
+          "precision": 1
+        }
+      ],
+      "rows": [
+        {
+          "chart": "6B_4",
+          "direction": "-1",
+          "p3_known_success": 9541.0,
+          "p3_n": 28951.0,
+          "p3_dates": 2367.0,
+          "p3": 0.329556837415,
+          "p3_low": 0.323963329075,
+          "p3_high": 0.335097014936
+        },
+        {
+          "chart": "6B_4",
+          "direction": "1",
+          "p3_known_success": 9420.0,
+          "p3_n": 29004.0,
+          "p3_dates": 2372.0,
+          "p3": 0.324782788581,
+          "p3_low": 0.319231609171,
+          "p3_high": 0.330054394546
+        },
+        {
+          "chart": "6B_5",
+          "direction": "-1",
+          "p3_known_success": 6337.0,
+          "p3_n": 19261.0,
+          "p3_dates": 2345.0,
+          "p3": 0.329006801308,
+          "p3_low": 0.321661830795,
+          "p3_high": 0.336070924437
+        },
+        {
+          "chart": "6B_5",
+          "direction": "1",
+          "p3_known_success": 6407.0,
+          "p3_n": 19300.0,
+          "p3_dates": 2347.0,
+          "p3": 0.331968911917,
+          "p3_low": 0.32525869032,
+          "p3_high": 0.338561756319
+        },
+        {
+          "chart": "6E_4",
+          "direction": "-1",
+          "p3_known_success": 21344.0,
+          "p3_n": 65654.0,
+          "p3_dates": 2375.0,
+          "p3": 0.325098242301,
+          "p3_low": 0.321584259648,
+          "p3_high": 0.328553884048
+        },
+        {
+          "chart": "6E_4",
+          "direction": "1",
+          "p3_known_success": 21137.0,
+          "p3_n": 65765.0,
+          "p3_dates": 2375.0,
+          "p3": 0.32140196153,
+          "p3_low": 0.317868833656,
+          "p3_high": 0.324999323194
+        },
+        {
+          "chart": "6E_5",
+          "direction": "-1",
+          "p3_known_success": 14620.0,
+          "p3_n": 44734.0,
+          "p3_dates": 2374.0,
+          "p3": 0.326820762731,
+          "p3_low": 0.322358354314,
+          "p3_high": 0.331142267001
+        },
+        {
+          "chart": "6E_5",
+          "direction": "1",
+          "p3_known_success": 14450.0,
+          "p3_n": 44831.0,
+          "p3_dates": 2375.0,
+          "p3": 0.322321607816,
+          "p3_low": 0.317999890592,
+          "p3_high": 0.326480320283
+        },
+        {
+          "chart": "6J_4",
+          "direction": "-1",
+          "p3_known_success": 12184.0,
+          "p3_n": 36658.0,
+          "p3_dates": 2333.0,
+          "p3": 0.332369469147,
+          "p3_low": 0.327735516991,
+          "p3_high": 0.337282836396
+        },
+        {
+          "chart": "6J_4",
+          "direction": "1",
+          "p3_known_success": 11961.0,
+          "p3_n": 36445.0,
+          "p3_dates": 2322.0,
+          "p3": 0.328193167787,
+          "p3_low": 0.323020092839,
+          "p3_high": 0.333290792772
+        },
+        {
+          "chart": "6J_5",
+          "direction": "-1",
+          "p3_known_success": 8311.0,
+          "p3_n": 24743.0,
+          "p3_dates": 2261.0,
+          "p3": 0.335892979833,
+          "p3_low": 0.330026816895,
+          "p3_high": 0.341814077343
+        },
+        {
+          "chart": "6J_5",
+          "direction": "1",
+          "p3_known_success": 8174.0,
+          "p3_n": 24577.0,
+          "p3_dates": 2238.0,
+          "p3": 0.332587378443,
+          "p3_low": 0.326509898946,
+          "p3_high": 0.338542103756
+        },
+        {
+          "chart": "6S_4",
+          "direction": "-1",
+          "p3_known_success": 13821.0,
+          "p3_n": 40402.0,
+          "p3_dates": 2328.0,
+          "p3": 0.342087025395,
+          "p3_low": 0.337647080354,
+          "p3_high": 0.346418790222
+        },
+        {
+          "chart": "6S_4",
+          "direction": "1",
+          "p3_known_success": 13704.0,
+          "p3_n": 40301.0,
+          "p3_dates": 2322.0,
+          "p3": 0.340041190045,
+          "p3_low": 0.335014138871,
+          "p3_high": 0.344679393184
+        },
+        {
+          "chart": "6S_5",
+          "direction": "-1",
+          "p3_known_success": 9752.0,
+          "p3_n": 28267.0,
+          "p3_dates": 2242.0,
+          "p3": 0.344995931652,
+          "p3_low": 0.339783677382,
+          "p3_high": 0.350501644585
+        },
+        {
+          "chart": "6S_5",
+          "direction": "1",
+          "p3_known_success": 9564.0,
+          "p3_n": 28188.0,
+          "p3_dates": 2214.0,
+          "p3": 0.339293316305,
+          "p3_low": 0.333109827567,
+          "p3_high": 0.345327142283
+        }
+      ]
+    },
+    {
+      "id": "prediction-m1",
+      "kind": "table",
+      "title": "Later primary prediction: adding prior length",
+      "description": "Later 2023–2026 F≥3 log-loss comparison against B1 (reversal geometry/context). Positive improvement means lower loss; negative means worse.",
+      "notes": [
+        "M1 adds prior length; M2 adds richer lead-up to that model family. Both are compared separately with B1 on identical later target-eligible events.",
+        "Pointwise 95% paired-session and five-consecutive-session bounds are copied. No supported primary improvement; intervals spanning zero are inconclusive. Prior inspection prevents a pristine holdout claim."
+      ],
+      "referenceIds": [
+        "prediction-source"
+      ],
+      "columns": [
+        {
+          "key": "chart",
+          "label": "chart"
+        },
+        {
+          "key": "direction",
+          "label": "Direction (1 bullish, −1 bearish)"
+        },
+        {
+          "key": "n",
+          "label": "Later evaluated n",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "dates",
+          "label": "dates",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "improvement",
+          "label": "Log-loss improvement",
+          "format": "number",
+          "precision": 6
+        },
+        {
+          "key": "low",
+          "label": "95% low",
+          "format": "number",
+          "precision": 6
+        },
+        {
+          "key": "high",
+          "label": "95% high",
+          "format": "number",
+          "precision": 6
+        },
+        {
+          "key": "block5_low",
+          "label": "Five-session low",
+          "format": "number",
+          "precision": 6
+        },
+        {
+          "key": "block5_high",
+          "label": "Five-session high",
+          "format": "number",
+          "precision": 6
+        }
+      ],
+      "rows": [
+        {
+          "chart": "6B_4",
+          "direction": "-1",
+          "n": 8352.0,
+          "dates": 962.0,
+          "improvement": 0.000233666329895,
+          "low": -0.000115509995322,
+          "high": 0.000555885325859,
+          "block5_low": -6.56499839842e-05,
+          "block5_high": 0.000525683226185
+        },
+        {
+          "chart": "6B_4",
+          "direction": "1",
+          "n": 8358.0,
+          "dates": 966.0,
+          "improvement": 0.000106026410856,
+          "low": -0.000292560544296,
+          "high": 0.000525341216024,
+          "block5_low": -0.000294115923542,
+          "block5_high": 0.000523174445433
+        },
+        {
+          "chart": "6B_5",
+          "direction": "-1",
+          "n": 5545.0,
+          "dates": 945.0,
+          "improvement": 6.28611160775e-05,
+          "low": -0.000381253398629,
+          "high": 0.000504386665134,
+          "block5_low": -0.000351870605583,
+          "block5_high": 0.000492639821591
+        },
+        {
+          "chart": "6B_5",
+          "direction": "1",
+          "n": 5525.0,
+          "dates": 944.0,
+          "improvement": -0.000258353925394,
+          "low": -0.000741082020078,
+          "high": 0.000218891527963,
+          "block5_low": -0.000779580576298,
+          "block5_high": 0.000259147662341
+        },
+        {
+          "chart": "6E_4",
+          "direction": "-1",
+          "n": 23669.0,
+          "dates": 968.0,
+          "improvement": -9.0465611525e-05,
+          "low": -0.000245727530641,
+          "high": 5.57834238e-05,
+          "block5_low": -0.00025054354618,
+          "block5_high": 6.77744456029e-05
+        },
+        {
+          "chart": "6E_4",
+          "direction": "1",
+          "n": 23700.0,
+          "dates": 968.0,
+          "improvement": 4.66674222649e-05,
+          "low": -5.64278595465e-05,
+          "high": 0.000151059800562,
+          "block5_low": -5.95703406352e-05,
+          "block5_high": 0.00014828812792
+        },
+        {
+          "chart": "6E_5",
+          "direction": "-1",
+          "n": 16174.0,
+          "dates": 968.0,
+          "improvement": -0.000181915103748,
+          "low": -0.000467092906115,
+          "high": 0.000111378165286,
+          "block5_low": -0.000495733503809,
+          "block5_high": 0.000113337060108
+        },
+        {
+          "chart": "6E_5",
+          "direction": "1",
+          "n": 16172.0,
+          "dates": 968.0,
+          "improvement": -0.000155830153302,
+          "low": -0.000533569233578,
+          "high": 0.00021679996748,
+          "block5_low": -0.000528031588063,
+          "block5_high": 0.000227407061138
+        },
+        {
+          "chart": "6J_4",
+          "direction": "-1",
+          "n": 17279.0,
+          "dates": 959.0,
+          "improvement": 2.26900627427e-05,
+          "low": -0.000618468876338,
+          "high": 0.000683405976225,
+          "block5_low": -0.000544016481656,
+          "block5_high": 0.000618166399481
+        },
+        {
+          "chart": "6J_4",
+          "direction": "1",
+          "n": 17156.0,
+          "dates": 953.0,
+          "improvement": -0.000275873555419,
+          "low": -0.000563736534559,
+          "high": 1.50013689589e-05,
+          "block5_low": -0.000584527661631,
+          "block5_high": 2.4254542396e-05
+        },
+        {
+          "chart": "6J_5",
+          "direction": "-1",
+          "n": 11731.0,
+          "dates": 937.0,
+          "improvement": 6.65414461469e-05,
+          "low": -0.000390531729295,
+          "high": 0.000517182848578,
+          "block5_low": -0.000401780326365,
+          "block5_high": 0.000527830320517
+        },
+        {
+          "chart": "6J_5",
+          "direction": "1",
+          "n": 11618.0,
+          "dates": 924.0,
+          "improvement": -0.000490436241876,
+          "low": -0.000908509520446,
+          "high": -6.65281449574e-05,
+          "block5_low": -0.000920006185337,
+          "block5_high": -9.09326950753e-05
+        },
+        {
+          "chart": "6S_4",
+          "direction": "-1",
+          "n": 27824.0,
+          "dates": 968.0,
+          "improvement": -0.000342088296661,
+          "low": -0.000639876184039,
+          "high": -4.37336241455e-05,
+          "block5_low": -0.00062167680275,
+          "block5_high": -7.28866051473e-05
+        },
+        {
+          "chart": "6S_4",
+          "direction": "1",
+          "n": 27774.0,
+          "dates": 968.0,
+          "improvement": 3.57809316677e-05,
+          "low": -7.19423618625e-05,
+          "high": 0.000140362383911,
+          "block5_low": -7.03984381422e-05,
+          "block5_high": 0.000141609980339
+        },
+        {
+          "chart": "6S_5",
+          "direction": "-1",
+          "n": 19617.0,
+          "dates": 968.0,
+          "improvement": -0.000401897763829,
+          "low": -0.000792046262828,
+          "high": -3.6521513963e-05,
+          "block5_low": -0.000796112020825,
+          "block5_high": -2.45686735013e-05
+        },
+        {
+          "chart": "6S_5",
+          "direction": "1",
+          "n": 19580.0,
+          "dates": 968.0,
+          "improvement": -0.00038740424217,
+          "low": -0.000845718492308,
+          "high": 5.35326451218e-05,
+          "block5_low": -0.000819200678436,
+          "block5_high": 4.72964703409e-05
+        }
+      ]
+    },
+    {
+      "id": "prediction-m2",
+      "kind": "table",
+      "title": "Later primary prediction: adding richer lead-up",
+      "description": "Later 2023–2026 F≥3 log-loss comparison against B1 (reversal geometry/context). Positive improvement means lower loss; negative means worse.",
+      "notes": [
+        "M1 adds prior length; M2 adds richer lead-up to that model family. Both are compared separately with B1 on identical later target-eligible events.",
+        "Pointwise 95% paired-session and five-consecutive-session bounds are copied. No supported primary improvement; intervals spanning zero are inconclusive. Prior inspection prevents a pristine holdout claim."
+      ],
+      "referenceIds": [
+        "prediction-source"
+      ],
+      "columns": [
+        {
+          "key": "chart",
+          "label": "chart"
+        },
+        {
+          "key": "direction",
+          "label": "Direction (1 bullish, −1 bearish)"
+        },
+        {
+          "key": "n",
+          "label": "Later evaluated n",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "dates",
+          "label": "dates",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "improvement",
+          "label": "Log-loss improvement",
+          "format": "number",
+          "precision": 6
+        },
+        {
+          "key": "low",
+          "label": "95% low",
+          "format": "number",
+          "precision": 6
+        },
+        {
+          "key": "high",
+          "label": "95% high",
+          "format": "number",
+          "precision": 6
+        },
+        {
+          "key": "block5_low",
+          "label": "Five-session low",
+          "format": "number",
+          "precision": 6
+        },
+        {
+          "key": "block5_high",
+          "label": "Five-session high",
+          "format": "number",
+          "precision": 6
+        }
+      ],
+      "rows": [
+        {
+          "chart": "6B_4",
+          "direction": "-1",
+          "n": 8352.0,
+          "dates": 962.0,
+          "improvement": -0.000332773321708,
+          "low": -0.00148526156557,
+          "high": 0.000715173052171,
+          "block5_low": -0.00136812044624,
+          "block5_high": 0.000750998861815
+        },
+        {
+          "chart": "6B_4",
+          "direction": "1",
+          "n": 8358.0,
+          "dates": 966.0,
+          "improvement": -0.000262981024225,
+          "low": -0.00140846453758,
+          "high": 0.000851668162439,
+          "block5_low": -0.00123201633354,
+          "block5_high": 0.000732057021158
+        },
+        {
+          "chart": "6B_5",
+          "direction": "-1",
+          "n": 5545.0,
+          "dates": 945.0,
+          "improvement": -0.00124793336058,
+          "low": -0.00280526869434,
+          "high": 0.000392249519366,
+          "block5_low": -0.00292917010396,
+          "block5_high": 0.000317841127465
+        },
+        {
+          "chart": "6B_5",
+          "direction": "1",
+          "n": 5525.0,
+          "dates": 944.0,
+          "improvement": -0.000825818444736,
+          "low": -0.00193021204362,
+          "high": 0.000286759864119,
+          "block5_low": -0.00193071328756,
+          "block5_high": 0.000272068820865
+        },
+        {
+          "chart": "6E_4",
+          "direction": "-1",
+          "n": 23669.0,
+          "dates": 968.0,
+          "improvement": -4.55002117263e-05,
+          "low": -0.000500611892753,
+          "high": 0.000387894551953,
+          "block5_low": -0.00049842621713,
+          "block5_high": 0.000417449490292
+        },
+        {
+          "chart": "6E_4",
+          "direction": "1",
+          "n": 23700.0,
+          "dates": 968.0,
+          "improvement": -0.000180566502681,
+          "low": -0.000550000201155,
+          "high": 0.000186125183652,
+          "block5_low": -0.000599213313515,
+          "block5_high": 0.000193308254688
+        },
+        {
+          "chart": "6E_5",
+          "direction": "-1",
+          "n": 16174.0,
+          "dates": 968.0,
+          "improvement": -0.00120255316737,
+          "low": -0.00199992841424,
+          "high": -0.000436088805909,
+          "block5_low": -0.00200842783382,
+          "block5_high": -0.000454067823337
+        },
+        {
+          "chart": "6E_5",
+          "direction": "1",
+          "n": 16172.0,
+          "dates": 968.0,
+          "improvement": -0.0004575292556,
+          "low": -0.00126839360097,
+          "high": 0.000344657585895,
+          "block5_low": -0.00133880249369,
+          "block5_high": 0.000303577095812
+        },
+        {
+          "chart": "6J_4",
+          "direction": "-1",
+          "n": 17279.0,
+          "dates": 959.0,
+          "improvement": -0.000915041186955,
+          "low": -0.00192119875236,
+          "high": 0.000110606937329,
+          "block5_low": -0.00186667174675,
+          "block5_high": 5.54224590657e-05
+        },
+        {
+          "chart": "6J_4",
+          "direction": "1",
+          "n": 17156.0,
+          "dates": 953.0,
+          "improvement": -0.000417941043783,
+          "low": -0.0012658815259,
+          "high": 0.000393433190023,
+          "block5_low": -0.00121340441406,
+          "block5_high": 0.000427707617131
+        },
+        {
+          "chart": "6J_5",
+          "direction": "-1",
+          "n": 11731.0,
+          "dates": 937.0,
+          "improvement": -0.00185809185408,
+          "low": -0.00302537937848,
+          "high": -0.00061684978657,
+          "block5_low": -0.00320684841129,
+          "block5_high": -0.000660094066162
+        },
+        {
+          "chart": "6J_5",
+          "direction": "1",
+          "n": 11618.0,
+          "dates": 924.0,
+          "improvement": -0.00282399535086,
+          "low": -0.00444728944021,
+          "high": -0.00131306807068,
+          "block5_low": -0.00462616418158,
+          "block5_high": -0.00131403240793
+        },
+        {
+          "chart": "6S_4",
+          "direction": "-1",
+          "n": 27824.0,
+          "dates": 968.0,
+          "improvement": -0.00228351166925,
+          "low": -0.00306230666877,
+          "high": -0.00151983391298,
+          "block5_low": -0.00308793981088,
+          "block5_high": -0.00153509100818
+        },
+        {
+          "chart": "6S_4",
+          "direction": "1",
+          "n": 27774.0,
+          "dates": 968.0,
+          "improvement": -0.000426595678435,
+          "low": -0.00090903169282,
+          "high": 4.83676267457e-05,
+          "block5_low": -0.000935543609575,
+          "block5_high": 6.77928819077e-05
+        },
+        {
+          "chart": "6S_5",
+          "direction": "-1",
+          "n": 19617.0,
+          "dates": 968.0,
+          "improvement": -0.00235632722296,
+          "low": -0.00348352640859,
+          "high": -0.00134985472556,
+          "block5_low": -0.00354347156213,
+          "block5_high": -0.00131835668415
+        },
+        {
+          "chart": "6S_5",
+          "direction": "1",
+          "n": 19580.0,
+          "dates": 968.0,
+          "improvement": -0.0012969482736,
+          "low": -0.00210129442877,
+          "high": -0.000459829347691,
+          "block5_low": -0.002114091437,
+          "block5_high": -0.000466061639915
+        }
+      ]
+    },
+    {
+      "id": "price-paths",
+      "kind": "table",
+      "title": "Strict three-physical-bar price paths",
+      "description": "B1-open entry reference through B4-open mark after B1–B3, regardless of colour. Strict positive durations and same-session marks give a different population from the order cohort.",
+      "notes": [
+        "q is a constant 2026 quote-tick equivalent, not historical exchange ticks or dollar P&L. Product quanta are listed below.",
+        "MAE and MFE include future extremes and the exit gap, exclude R, and have unknown intrabar ordering. Mean D3 is gross before unverified execution and costs."
+      ],
+      "referenceIds": [
+        "price-source"
+      ],
+      "columns": [
+        {
+          "key": "chart",
+          "label": "Chart"
+        },
+        {
+          "key": "direction",
+          "label": "Direction (+1 bullish, −1 bearish)"
+        },
+        {
+          "key": "n",
+          "label": "Strict paths",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "D_q_mean",
+          "label": "Mean signed D3",
+          "format": "number",
+          "precision": 2,
+          "unit": "q"
+        },
+        {
+          "key": "D_q_low",
+          "label": "D3 95% low",
+          "format": "number",
+          "precision": 2,
+          "unit": "q"
+        },
+        {
+          "key": "D_q_high",
+          "label": "D3 95% high",
+          "format": "number",
+          "precision": 2,
+          "unit": "q"
+        },
+        {
+          "key": "MAE_q_mean",
+          "label": "Mean MAE",
+          "format": "number",
+          "precision": 2,
+          "unit": "q"
+        },
+        {
+          "key": "MFE_q_mean",
+          "label": "Mean MFE",
+          "format": "number",
+          "precision": 2,
+          "unit": "q"
+        },
+        {
+          "key": "favourable",
+          "label": "Favorable landing",
+          "format": "percent",
+          "precision": 1
+        },
+        {
+          "key": "flat",
+          "label": "Flat landing",
+          "format": "percent",
+          "precision": 1
+        },
+        {
+          "key": "adverse",
+          "label": "Adverse landing",
+          "format": "percent",
+          "precision": 1
+        }
+      ],
+      "rows": [
+        {
+          "chart": "6B_4",
+          "direction": "-1",
+          "n": 27194.0,
+          "D_q_mean": -0.10509671251,
+          "D_q_low": -0.282723133574,
+          "D_q_high": 0.0768198994563,
+          "MAE_q_mean": 10.3756343311,
+          "MFE_q_mean": 9.73814076635,
+          "favourable": 0.438001029639,
+          "flat": 0.168529822755,
+          "adverse": 0.393469147606
+        },
+        {
+          "chart": "6B_4",
+          "direction": "1",
+          "n": 27209.0,
+          "D_q_mean": -0.215075894006,
+          "D_q_low": -0.399644831276,
+          "D_q_high": -0.041831700167,
+          "MAE_q_mean": 10.4542247051,
+          "MFE_q_mean": 9.69473336029,
+          "favourable": 0.434378330699,
+          "flat": 0.169355727884,
+          "adverse": 0.396265941416
+        },
+        {
+          "chart": "6B_5",
+          "direction": "-1",
+          "n": 18179.0,
+          "D_q_mean": -0.0791022608504,
+          "D_q_low": -0.336871590056,
+          "D_q_high": 0.185565610107,
+          "MAE_q_mean": 12.3206997085,
+          "MFE_q_mean": 11.731393366,
+          "favourable": 0.432752076572,
+          "flat": 0.173001815281,
+          "adverse": 0.394246108147
+        },
+        {
+          "chart": "6B_5",
+          "direction": "1",
+          "n": 18218.0,
+          "D_q_mean": -0.0716324514217,
+          "D_q_low": -0.326160913793,
+          "D_q_high": 0.163209959581,
+          "MAE_q_mean": 12.4291909101,
+          "MFE_q_mean": 11.7399275442,
+          "favourable": 0.436162037545,
+          "flat": 0.166867932814,
+          "adverse": 0.396970029641
+        },
+        {
+          "chart": "6E_4",
+          "direction": "-1",
+          "n": 61953.0,
+          "D_q_mean": -0.198117928107,
+          "D_q_low": -0.301878545713,
+          "D_q_high": -0.0870134176206,
+          "MAE_q_mean": 10.4327474053,
+          "MFE_q_mean": 9.7071328265,
+          "favourable": 0.432505286265,
+          "flat": 0.169919132245,
+          "adverse": 0.397575581489
+        },
+        {
+          "chart": "6E_4",
+          "direction": "1",
+          "n": 62031.0,
+          "D_q_mean": -0.347487546549,
+          "D_q_low": -0.463818250611,
+          "D_q_high": -0.241589167652,
+          "MAE_q_mean": 10.4922055101,
+          "MFE_q_mean": 9.66000870532,
+          "favourable": 0.427415324596,
+          "flat": 0.170447034547,
+          "adverse": 0.402137640857
+        },
+        {
+          "chart": "6E_5",
+          "direction": "-1",
+          "n": 42386.0,
+          "D_q_mean": -0.130113716793,
+          "D_q_low": -0.290313007303,
+          "D_q_high": 0.0363099585951,
+          "MAE_q_mean": 12.4732694758,
+          "MFE_q_mean": 11.7225498986,
+          "favourable": 0.435426791865,
+          "flat": 0.171448119662,
+          "adverse": 0.393125088473
+        },
+        {
+          "chart": "6E_5",
+          "direction": "1",
+          "n": 42551.0,
+          "D_q_mean": -0.380884115532,
+          "D_q_low": -0.547015888556,
+          "D_q_high": -0.222041793332,
+          "MAE_q_mean": 12.6160842283,
+          "MFE_q_mean": 11.6474113417,
+          "favourable": 0.428944090621,
+          "flat": 0.169890249348,
+          "adverse": 0.401165660031
+        },
+        {
+          "chart": "6J_4",
+          "direction": "-1",
+          "n": 33480.0,
+          "D_q_mean": 0.00020908004779,
+          "D_q_low": -0.163932861355,
+          "D_q_high": 0.158587094067,
+          "MAE_q_mean": 10.7192054958,
+          "MFE_q_mean": 10.1371565114,
+          "favourable": 0.441666666667,
+          "flat": 0.16729390681,
+          "adverse": 0.391039426523
+        },
+        {
+          "chart": "6J_4",
+          "direction": "1",
+          "n": 33164.0,
+          "D_q_mean": -0.337353757086,
+          "D_q_low": -0.504270872843,
+          "D_q_high": -0.165279608929,
+          "MAE_q_mean": 10.8721203715,
+          "MFE_q_mean": 10.0357315161,
+          "favourable": 0.431582438789,
+          "flat": 0.166053552044,
+          "adverse": 0.402364009167
+        },
+        {
+          "chart": "6J_5",
+          "direction": "-1",
+          "n": 22738.0,
+          "D_q_mean": 0.033072389832,
+          "D_q_low": -0.207938406226,
+          "D_q_high": 0.288034254042,
+          "MAE_q_mean": 12.8389919958,
+          "MFE_q_mean": 12.18387721,
+          "favourable": 0.444762072302,
+          "flat": 0.16439440584,
+          "adverse": 0.390843521858
+        },
+        {
+          "chart": "6J_5",
+          "direction": "1",
+          "n": 22545.0,
+          "D_q_mean": -0.387447327567,
+          "D_q_low": -0.628649558253,
+          "D_q_high": -0.141690991372,
+          "MAE_q_mean": 12.9202927478,
+          "MFE_q_mean": 12.1037480594,
+          "favourable": 0.431226436017,
+          "flat": 0.168551785318,
+          "adverse": 0.400221778665
+        },
+        {
+          "chart": "6S_4",
+          "direction": "-1",
+          "n": 38239.0,
+          "D_q_mean": 0.121734354978,
+          "D_q_low": -0.057078291557,
+          "D_q_high": 0.299023915128,
+          "MAE_q_mean": 11.8678051204,
+          "MFE_q_mean": 11.5962237506,
+          "favourable": 0.469442192526,
+          "flat": 0.113627448417,
+          "adverse": 0.416930359058
+        },
+        {
+          "chart": "6S_4",
+          "direction": "1",
+          "n": 38020.0,
+          "D_q_mean": 0.0731194108364,
+          "D_q_low": -0.126200603252,
+          "D_q_high": 0.249865917043,
+          "MAE_q_mean": 11.8932930037,
+          "MFE_q_mean": 11.5551025776,
+          "favourable": 0.467490794319,
+          "flat": 0.114781693845,
+          "adverse": 0.417727511836
+        },
+        {
+          "chart": "6S_5",
+          "direction": "-1",
+          "n": 26850.0,
+          "D_q_mean": 0.288454376164,
+          "D_q_low": 0.0443773165382,
+          "D_q_high": 0.530326250393,
+          "MAE_q_mean": 13.8623091248,
+          "MFE_q_mean": 13.7425325885,
+          "favourable": 0.469422718808,
+          "flat": 0.118026070764,
+          "adverse": 0.412551210428
+        },
+        {
+          "chart": "6S_5",
+          "direction": "1",
+          "n": 26721.0,
+          "D_q_mean": 0.0654915609446,
+          "D_q_low": -0.195200688167,
+          "D_q_high": 0.318056978964,
+          "MAE_q_mean": 13.924516298,
+          "MFE_q_mean": 13.6974664122,
+          "favourable": 0.464653268964,
+          "flat": 0.116874368474,
+          "adverse": 0.418472362561
+        }
+      ]
+    },
+    {
+      "id": "units",
+      "kind": "table",
+      "title": "Constant quote units",
+      "description": "Native price divided by constant q gives the displayed equivalent. Historical event-date ticks are a separate diagnostic.",
+      "notes": [
+        "6S changed units at trade date 2022-05-02; the saved pre/post rows below retain that context. Off-grid raw prices are not rounded."
+      ],
+      "referenceIds": [
+        "unit-source"
+      ],
+      "columns": [
+        {
+          "key": "product",
+          "label": "Product"
+        },
+        {
+          "key": "constant_q_price",
+          "label": "One q in native price"
+        },
+        {
+          "key": "historical_pre_20220502_tick_price",
+          "label": "Historical pre-change tick"
+        },
+        {
+          "key": "units_policy",
+          "label": "Saved policy"
+        }
+      ],
+      "rows": [
+        {
+          "product": "6B",
+          "constant_q_price": "0.0001",
+          "historical_pre_20220502_tick_price": "0.0001",
+          "units_policy": "raw and constant q are primary; 6S historical units separately within each era"
+        },
+        {
+          "product": "6E",
+          "constant_q_price": "5e-05",
+          "historical_pre_20220502_tick_price": "5e-05",
+          "units_policy": "raw and constant q are primary; 6S historical units separately within each era"
+        },
+        {
+          "product": "6J",
+          "constant_q_price": "5e-07",
+          "historical_pre_20220502_tick_price": "5e-07",
+          "units_policy": "raw and constant q are primary; 6S historical units separately within each era"
+        },
+        {
+          "product": "6S",
+          "constant_q_price": "5e-05",
+          "historical_pre_20220502_tick_price": "0.0001",
+          "units_policy": "raw and constant q are primary; 6S historical units separately within each era"
+        }
+      ]
+    },
+    {
+      "id": "six-s-eras",
+      "kind": "table",
+      "title": "6S: saved pre/post unit-era panels",
+      "description": "Pre is before trade date 2022-05-02; post is on/after it. These panels use constant q throughout rather than averaging changing historical tick units.",
+      "notes": [
+        "Unknown historical rebuild/roll settings and off-grid 6S observations remain provenance limitations."
+      ],
+      "referenceIds": [
+        "price-source"
+      ],
+      "columns": [
+        {
+          "key": "chart",
+          "label": "Chart"
+        },
+        {
+          "key": "direction",
+          "label": "Direction"
+        },
+        {
+          "key": "level",
+          "label": "Era"
+        },
+        {
+          "key": "n",
+          "label": "Strict paths",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "D_q_mean",
+          "label": "Mean D3",
+          "format": "number",
+          "precision": 2,
+          "unit": "constant q"
+        },
+        {
+          "key": "D_q_low",
+          "label": "95% low",
+          "format": "number",
+          "precision": 2,
+          "unit": "constant q"
+        },
+        {
+          "key": "D_q_high",
+          "label": "95% high",
+          "format": "number",
+          "precision": 2,
+          "unit": "constant q"
+        },
+        {
+          "key": "MAE_q_mean",
+          "label": "Mean MAE",
+          "format": "number",
+          "precision": 2,
+          "unit": "constant q"
+        },
+        {
+          "key": "MFE_q_mean",
+          "label": "Mean MFE",
+          "format": "number",
+          "precision": 2,
+          "unit": "constant q"
+        }
+      ],
+      "rows": [
+        {
+          "chart": "6B_4",
+          "direction": "-1",
+          "level": "constant",
+          "n": 27194.0,
+          "D_q_mean": -0.10509671251,
+          "D_q_low": -0.282723133574,
+          "D_q_high": 0.0768198994563,
+          "MAE_q_mean": 10.3756343311,
+          "MFE_q_mean": 9.73814076635
+        },
+        {
+          "chart": "6B_4",
+          "direction": "1",
+          "level": "constant",
+          "n": 27209.0,
+          "D_q_mean": -0.215075894006,
+          "D_q_low": -0.399644831276,
+          "D_q_high": -0.041831700167,
+          "MAE_q_mean": 10.4542247051,
+          "MFE_q_mean": 9.69473336029
+        },
+        {
+          "chart": "6B_5",
+          "direction": "-1",
+          "level": "constant",
+          "n": 18179.0,
+          "D_q_mean": -0.0791022608504,
+          "D_q_low": -0.336871590056,
+          "D_q_high": 0.185565610107,
+          "MAE_q_mean": 12.3206997085,
+          "MFE_q_mean": 11.731393366
+        },
+        {
+          "chart": "6B_5",
+          "direction": "1",
+          "level": "constant",
+          "n": 18218.0,
+          "D_q_mean": -0.0716324514217,
+          "D_q_low": -0.326160913793,
+          "D_q_high": 0.163209959581,
+          "MAE_q_mean": 12.4291909101,
+          "MFE_q_mean": 11.7399275442
+        },
+        {
+          "chart": "6E_4",
+          "direction": "-1",
+          "level": "constant",
+          "n": 61953.0,
+          "D_q_mean": -0.198117928107,
+          "D_q_low": -0.301878545713,
+          "D_q_high": -0.0870134176206,
+          "MAE_q_mean": 10.4327474053,
+          "MFE_q_mean": 9.7071328265
+        },
+        {
+          "chart": "6E_4",
+          "direction": "1",
+          "level": "constant",
+          "n": 62031.0,
+          "D_q_mean": -0.347487546549,
+          "D_q_low": -0.463818250611,
+          "D_q_high": -0.241589167652,
+          "MAE_q_mean": 10.4922055101,
+          "MFE_q_mean": 9.66000870532
+        },
+        {
+          "chart": "6E_5",
+          "direction": "-1",
+          "level": "constant",
+          "n": 42386.0,
+          "D_q_mean": -0.130113716793,
+          "D_q_low": -0.290313007303,
+          "D_q_high": 0.0363099585951,
+          "MAE_q_mean": 12.4732694758,
+          "MFE_q_mean": 11.7225498986
+        },
+        {
+          "chart": "6E_5",
+          "direction": "1",
+          "level": "constant",
+          "n": 42551.0,
+          "D_q_mean": -0.380884115532,
+          "D_q_low": -0.547015888556,
+          "D_q_high": -0.222041793332,
+          "MAE_q_mean": 12.6160842283,
+          "MFE_q_mean": 11.6474113417
+        },
+        {
+          "chart": "6J_4",
+          "direction": "-1",
+          "level": "constant",
+          "n": 33480.0,
+          "D_q_mean": 0.00020908004779,
+          "D_q_low": -0.163932861355,
+          "D_q_high": 0.158587094067,
+          "MAE_q_mean": 10.7192054958,
+          "MFE_q_mean": 10.1371565114
+        },
+        {
+          "chart": "6J_4",
+          "direction": "1",
+          "level": "constant",
+          "n": 33164.0,
+          "D_q_mean": -0.337353757086,
+          "D_q_low": -0.504270872843,
+          "D_q_high": -0.165279608929,
+          "MAE_q_mean": 10.8721203715,
+          "MFE_q_mean": 10.0357315161
+        },
+        {
+          "chart": "6J_5",
+          "direction": "-1",
+          "level": "constant",
+          "n": 22738.0,
+          "D_q_mean": 0.033072389832,
+          "D_q_low": -0.207938406226,
+          "D_q_high": 0.288034254042,
+          "MAE_q_mean": 12.8389919958,
+          "MFE_q_mean": 12.18387721
+        },
+        {
+          "chart": "6J_5",
+          "direction": "1",
+          "level": "constant",
+          "n": 22545.0,
+          "D_q_mean": -0.387447327567,
+          "D_q_low": -0.628649558253,
+          "D_q_high": -0.141690991372,
+          "MAE_q_mean": 12.9202927478,
+          "MFE_q_mean": 12.1037480594
+        },
+        {
+          "chart": "6S_4",
+          "direction": "-1",
+          "level": "post",
+          "n": 32552.0,
+          "D_q_mean": 0.0641742442861,
+          "D_q_low": -0.104286717094,
+          "D_q_high": 0.223534123445,
+          "MAE_q_mean": 10.6504362251,
+          "MFE_q_mean": 10.3010567707
+        },
+        {
+          "chart": "6S_4",
+          "direction": "-1",
+          "level": "pre",
+          "n": 5687.0,
+          "D_q_mean": 0.451204501495,
+          "D_q_low": -0.245483624576,
+          "D_q_high": 1.18701224619,
+          "MAE_q_mean": 18.8359416212,
+          "MFE_q_mean": 19.0096711799
+        },
+        {
+          "chart": "6S_4",
+          "direction": "1",
+          "level": "post",
+          "n": 32398.0,
+          "D_q_mean": 0.064078029508,
+          "D_q_low": -0.112154798858,
+          "D_q_high": 0.232458967408,
+          "MAE_q_mean": 10.6604420026,
+          "MFE_q_mean": 10.2817149207
+        },
+        {
+          "chart": "6S_4",
+          "direction": "1",
+          "level": "pre",
+          "n": 5622.0,
+          "D_q_mean": 0.125222340804,
+          "D_q_low": -0.654033890963,
+          "D_q_high": 0.850858814099,
+          "MAE_q_mean": 18.9978655283,
+          "MFE_q_mean": 18.8932764141
+        },
+        {
+          "chart": "6S_5",
+          "direction": "-1",
+          "level": "post",
+          "n": 23034.0,
+          "D_q_mean": 0.154423895112,
+          "D_q_low": -0.0870763081723,
+          "D_q_high": 0.38791639917,
+          "MAE_q_mean": 12.5600850916,
+          "MFE_q_mean": 12.3562993835
+        },
+        {
+          "chart": "6S_5",
+          "direction": "-1",
+          "level": "pre",
+          "n": 3816.0,
+          "D_q_mean": 1.09748427673,
+          "D_q_low": 0.0666203041016,
+          "D_q_high": 2.0982893647,
+          "MAE_q_mean": 21.7227463312,
+          "MFE_q_mean": 22.1100628931
+        },
+        {
+          "chart": "6S_5",
+          "direction": "1",
+          "level": "post",
+          "n": 22943.0,
+          "D_q_mean": 0.078629647387,
+          "D_q_low": -0.162734702387,
+          "D_q_high": 0.327803926866,
+          "MAE_q_mean": 12.6317831147,
+          "MFE_q_mean": 12.336921937
+        },
+        {
+          "chart": "6S_5",
+          "direction": "1",
+          "level": "pre",
+          "n": 3778.0,
+          "D_q_mean": -0.0142932768661,
+          "D_q_low": -1.11692465475,
+          "D_q_high": 1.07043895327,
+          "MAE_q_mean": 21.7750132345,
+          "MFE_q_mean": 21.9597670725
+        }
+      ]
+    },
+    {
+      "id": "example-l2-f0",
+      "kind": "figure",
+      "title": "6J setting 4 bearish: L2, F0",
+      "path": "figures/6j4-bearish-l2-f0.png",
+      "alt": "Computed saved OHLC example with prior leg, R and physical future bars labelled; L2 and F0.",
+      "caption": "Saved source-row audit illustration: L2; F0. L excludes R and F counts only consecutive followers. Raw 6J prices and source rows are preserved. Chosen failure and longer-follow-through examples illustrate definitions, not independent confirmations or executable entries.",
+      "referenceIds": [
+        "continuation-source"
+      ]
+    },
+    {
+      "id": "example-l3-f4",
+      "kind": "figure",
+      "title": "6J setting 4 bearish: L3, F4",
+      "path": "figures/6j4-bearish-l3-f4.png",
+      "alt": "Computed saved OHLC example with prior leg, R and physical future bars labelled; L3 and F4.",
+      "caption": "Saved source-row audit illustration: L3; F4. L excludes R and F counts only consecutive followers. Raw 6J prices and source rows are preserved. Chosen failure and longer-follow-through examples illustrate definitions, not independent confirmations or executable entries.",
+      "referenceIds": [
+        "continuation-source"
+      ]
+    },
+    {
+      "id": "methods",
+      "kind": "text",
+      "title": "Definitions and methods",
+      "body": "R is a completed first opposite-colour bar after a known prior leg L; L and future F exclude R. A doji breaks the leg. Continuation F≥3 requires three physical followers completed through the next observed start, with its own denominator. The price reference enters at B1 open and marks at B4 open, including gaps and all B1–B3 colours; strict paths require positive durations. Baseline B1 uses reversal geometry and context, M1 adds L, M2 richer lead-up. Positive saved log-loss improvement means lower loss than B1. Saved 95% paired session-bootstrap bounds and five-session moving-block sensitivity are pointwise. Model selection used development/validation before later metrics, but earlier inspection prevents a pristine holdout claim. Candidate C0576 is bearish 6J 4, prior length one; C0592 additionally uses the frozen efficiency predicate. q for these 6J candidate price means is constant 0.0000005 native price units."
+    },
+    {
+      "id": "limitations",
+      "kind": "text",
+      "title": "Limitations and uncertainty",
+      "body": "Colour persistence is not execution or profitability. Clocks/completion, roll/adjustment history, spreads, fills and intrabar ordering are unverified. Correlated FX settings are not independent confirmations. 6S historical tick units change at trade date May 2, 2022; cross-era price comparisons must use constant q or raw price, never pooled historical ticks. Off-grid raw prices are retained. The selected baseline table uses bar order, not an execution cohort. Censoring and sparse support are explicit in full evidence; retained event backups are local and off-device backup was not verified."
+    },
+    {
+      "id": "sources-provenance",
+      "kind": "text",
+      "title": "Source-run and presentation provenance",
+      "body": "Study 16_range_xv_reversal_paths. Source run 20261002T010500Z_ohlc200_161001; executed protocol 2.0.0. Presentation 20261007T002932Z_evidence16. Saved summary artifacts and selected figure bytes retain their recorded identities. Research evidence and qualifications are unchanged."
+    }
+  ],
+  "schemaVersion": "1.1",
+  "id": "16-range-xv-reversal-paths-20261007-evidence",
+  "publishedAt": "2026-10-07T00:29:32Z",
+  "references": [
+    {
+      "id": "continuation-source",
+      "kind": "saved-artifact",
+      "label": "continuation.csv",
+      "title": "Saved order and censoring continuation summaries",
+      "runId": "20261002T010500Z_ohlc200_161001",
+      "artifact": "tables/continuation.csv",
+      "sha256": "87a224e6b801e96e77934cf38a3adf94ab39e945c9b874d44a3befe6d5d9ce2b"
+    },
+    {
+      "id": "prediction-source",
+      "kind": "saved-artifact",
+      "label": "model-paired-improvements.csv",
+      "title": "Frozen later primary model score comparisons",
+      "runId": "20261002T010500Z_ohlc200_161001",
+      "artifact": "tables/model-paired-improvements.csv",
+      "sha256": "1d7719c56e77758e41bbee788e3efa770113cc78e156e0cc051e2525ff200f77"
+    },
+    {
+      "id": "price-source",
+      "kind": "saved-artifact",
+      "label": "price-paths.csv",
+      "title": "Saved strict price/time populations and unit-era panels",
+      "runId": "20261002T010500Z_ohlc200_161001",
+      "artifact": "tables/price-paths.csv",
+      "sha256": "a103050c0b0fbe4a52220a942d21c437168a13068ffd3c09344ffc5c01490287"
+    },
+    {
+      "id": "unit-source",
+      "kind": "saved-artifact",
+      "label": "unit-definitions.csv",
+      "title": "Frozen constant quote-equivalent and historical unit definitions",
+      "runId": "20261002T010500Z_ohlc200_161001",
+      "artifact": "tables/unit-definitions.csv",
+      "sha256": "e109cdade08f64a89afba00d222608db9cd43512484d04a30f0a87965115b6b9"
+    }
+  ],
+  "downloads": [
+    {
+      "id": "fx-colour-continuation",
+      "label": "FX order-3 continuation",
+      "description": "Matches the on-page continuation with extra saved unresolved counts and all-candidate bounds; no event ledger.",
+      "population": "All-history, known prior starts, separate eight charts and two reversal directions.",
+      "units": "Rates/bounds: ratios; successes/n/dates/unresolved: counts.",
+      "scope": "Sixteen main chart/direction rows. Complete-window rate and all-candidate censor bounds are distinct.",
+      "columns": [
+        "chart",
+        "direction",
+        "p3_known_success",
+        "p3_n",
+        "p3_dates",
+        "p3",
+        "p3_low",
+        "p3_high",
+        "p3_unresolved",
+        "p3_bounds_low",
+        "p3_bounds_high"
+      ],
+      "path": "downloads/fx-colour-continuation.csv",
+      "mediaType": "text/csv",
+      "rowCount": 16,
+      "sha256": "94b965f6f7ec60070538de7e645689367f72f53a4e24ec75fd07bf977f1d07f2",
+      "source": {
+        "runId": "20261002T010500Z_ohlc200_161001",
+        "artifact": "tables/continuation.csv",
+        "sha256": "87a224e6b801e96e77934cf38a3adf94ab39e945c9b874d44a3befe6d5d9ce2b"
+      }
+    },
+    {
+      "id": "fx-later-primary-prediction",
+      "label": "Later primary model comparisons",
+      "description": "Same two later comparison tables as the page; saved pointwise and five-session bounds remain unmodified.",
+      "population": "2023–2026 later target-eligible F≥3 events, separated by chart/direction.",
+      "units": "Log-loss improvements and endpoints: absolute loss differences; positive means lower loss. n/dates: counts.",
+      "scope": "M1 and M2 versus B1, primary log_loss only; 32 saved rows.",
+      "columns": [
+        "chart",
+        "direction",
+        "target",
+        "model",
+        "baseline",
+        "metric",
+        "improvement",
+        "low",
+        "high",
+        "block5_low",
+        "block5_high",
+        "n",
+        "dates"
+      ],
+      "path": "downloads/fx-later-primary-prediction.csv",
+      "mediaType": "text/csv",
+      "rowCount": 32,
+      "sha256": "b64ac3480bd2e029ffbee780ced2bacc20aefcf4a62283a50d40e68d6b5b8c5d",
+      "source": {
+        "runId": "20261002T010500Z_ohlc200_161001",
+        "artifact": "tables/model-paired-improvements.csv",
+        "sha256": "1d7719c56e77758e41bbee788e3efa770113cc78e156e0cc051e2525ff200f77"
+      }
+    },
+    {
+      "id": "fx-strict-three-bar-paths",
+      "label": "Strict three-bar price paths and 6S eras",
+      "description": "Matches the main and 6S tables; adds saved excursion mean bounds and support counts.",
+      "population": "Separate strict positive-duration chart/direction paths and saved 6S pre/post panels.",
+      "units": "D/MAE/MFE and bounds: constant product q. Landing shares: ratios. Horizon: physical bars.",
+      "scope": "Sixteen main plus eight 6S era rows. No pooling or same-second sensitivity.",
+      "columns": [
+        "chart",
+        "direction",
+        "panel",
+        "level",
+        "cohort",
+        "horizon",
+        "n",
+        "dates",
+        "sparse",
+        "D_q_mean",
+        "D_q_low",
+        "D_q_high",
+        "MAE_q_mean",
+        "MAE_q_low",
+        "MAE_q_high",
+        "MFE_q_mean",
+        "MFE_q_low",
+        "MFE_q_high",
+        "favourable",
+        "flat",
+        "adverse"
+      ],
+      "path": "downloads/fx-strict-three-bar-paths.csv",
+      "mediaType": "text/csv",
+      "rowCount": 24,
+      "sha256": "576956b6b55afb314b9381302b151f900e059a89369d795d9642149e29063e46",
+      "source": {
+        "runId": "20261002T010500Z_ohlc200_161001",
+        "artifact": "tables/price-paths.csv",
+        "sha256": "a103050c0b0fbe4a52220a942d21c437168a13068ffd3c09344ffc5c01490287"
+      }
+    }
+  ]
+}

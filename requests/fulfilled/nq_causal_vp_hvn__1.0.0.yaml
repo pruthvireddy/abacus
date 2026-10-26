@@ -1,0 +1,65 @@
+request:
+  id: nq_causal_vp_hvn__1.0.0
+  requesting_repository: {name: abacus, contact_or_owner: Sahadeva}
+  requested_on: '2026-09-27'
+  purpose: Reusable causal profile and HVN evidence for Asia study 14; no trade labels.
+base_data:
+  dataset: volume_lead_unadjusted_v1
+  variant: unadjusted
+  products: [NQ]
+  date_range: {start: '2010-06-06', end: '2026-09-19', end_is_exclusive: true}
+  source_timeframe: 1m
+  requested_timeframe: 1m
+  coordinate_rationale: Absolute VP row phase requires actual contract prices; mixed-contract state is retained and flagged.
+aggregation:
+  timezone: America/New_York
+  futures_session: '18:00-17:00'
+  overnight: '18:00-09:30'
+  rth: '09:30-16:00'
+  timestamp_label: bar_open
+  missing_minutes: do_not_fill
+features:
+  - name: causal_vp_hvn
+    formula: catalog/indicators/nq_causal_vp_hvn__1.0.0.spec.json and byte-preserved catalog/indicators/nq_causal_vp_hvn__1.0.0.source.pine, SHA256 6fb8254d661c41e8a867953e608886bf367ee3a759a110eab41f2469d373e8ee.
+    parameters:
+      vp_row_ticks: 16
+      value_area_percent: 70
+      hvn_completed_sessions: 10
+      hvn_row_ticks: 4
+      smoothing_rows: 3
+      peak_percent: 20
+      peak_window: 5
+      prominence_percent: 10
+      expansion_percent: 60
+      maximum_zone_ticks: 8
+      merge_reference_zone_clearance_ticks: 8
+      candidate_cadence_minutes: 15
+    causality:
+      causal: true
+      uses_future_data: false
+      available_at: previous completed minute close
+    historical_adaptation: Rebuild at every first session-minute close and 15 elapsed minutes thereafter; last-bar gate replaced by historical replay. Save evening snapshots 18:00-00:00; reconstruct reference state from all source minutes. Selection uses preceding observed close and completed references.
+    warmup: Retain null and incomplete/mixed-contract state; primary consumers require ten prior complete futures sessions and all active reference histories on the same contract.
+    null_handling: No invented minutes; missing volume contributes zero; undefined levels remain null.
+research_labels: {requested: [], allow_forward_looking_columns: false}
+output:
+  feature_set_name: nq_causal_vp_hvn
+  feature_set_version: 1.0.0
+  format: parquet
+  compression: zstd
+  partition_by: [year]
+  tables: [snapshots, candidates, decisions, sessions, rhythm]
+  overwrite_existing_version: false
+validation:
+  require_source_manifest_and_partition_hashes: true
+  require_unique_timestamp: true
+  require_strict_timestamp_order: true
+  require_no_synthetic_market_bars: true
+  require_no_lookahead_in_features: true
+  require_deterministic_rebuild: true
+  require_adjusted_unadjusted_lineage_check: true
+  indicator_spot_checks: synthetic mass/tie/VA/HVN examples and bounded feature-only replay
+delivery:
+  keep_inside_abacus_bhishma: true
+  copy_into_requesting_repository: false
+  return: [dataset_id, manifest_path, partition_hashes, row_counts, coverage, known_limitations, loader_example]

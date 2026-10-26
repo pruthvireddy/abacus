@@ -1,0 +1,44 @@
+{
+  "schema": "es-opening-pivot-cloud-synthetic-publication-check/v1",
+  "status": "passed",
+  "scope": "Synthetic fixture only, no strategy outcomes",
+  "producer_source": "studies/26_es_opening_pivot_cloud/src/reporting.py",
+  "producer_sha256": "3dc3297ad7e07bef1c9945d5be768c721fe8efd80eb0c8c0beda137a6c7e59b6",
+  "command": [
+    "node",
+    "apps/narada/scripts/publish.mjs",
+    "--report",
+    "/private/tmp/abacus26-reporting-contract-j41fk5vp/publication.json",
+    "--dry-run"
+  ],
+  "exit_status": 0,
+  "result": {
+    "id": "es-opening-pivot-cloud-26-v1-syntheticcontract",
+    "status": "ready",
+    "dryRun": true
+  },
+  "synthetic_report_sha256": "22d1d37801b82329133f4b20349dbe59d463f5ae926c37d38283daec5987619c",
+  "saved_cell_verification": {
+    "status": "passed",
+    "cells": 1045,
+    "downloads": 4
+  },
+  "focused_tests": {
+    "command": [
+      "./scripts/uv",
+      "run",
+      "--locked",
+      "--no-sync",
+      "python",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "studies/26_es_opening_pivot_cloud/tests",
+      "-p",
+      "test_reporting.py"
+    ],
+    "tests": 7,
+    "status": "passed"
+  }
+}

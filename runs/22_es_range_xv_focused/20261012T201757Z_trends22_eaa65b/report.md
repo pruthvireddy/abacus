@@ -1,0 +1,17 @@
+# ES Range XV directional trend lengths
+
+Protocol 0.2.0. Length = consecutive same-sign close-open completed candles. Exact lengths exclude unknown starts/ends. Group by first candle opening; no named-window truncation.
+
+| Chart | Direction | Exact trends | Mean candles | Median | P90 | Maximum | Censored |
+|---|---|---:|---:|---:|---:|---:|---:|
+| 4 | Bullish | 202765 | 3.1453061425788476 | 2.0 | 6.0 | 41 | 1832 |
+| 4 | Bearish | 202815 | 3.1289105835367206 | 2.0 | 6.0 | 36 | 1732 |
+| 4 | Both directions | 405580 | 3.137107352433552 | 2.0 | 6.0 | 41 | 3564 |
+| 5 | Bullish | 138903 | 3.1588158643081865 | 2.0 | 6.0 | 37 | 1875 |
+| 5 | Bearish | 138996 | 3.14227028115917 | 2.0 | 6.0 | 29 | 1689 |
+| 5 | Both directions | 277899 | 3.1505403042112423 | 2.0 | 6.0 | 37 | 3564 |
+| 6 | Bullish | 101023 | 3.167892460132841 | 2.0 | 6.0 | 50 | 1832 |
+| 6 | Bearish | 101073 | 3.147774380893018 | 2.0 | 6.0 | 33 | 1732 |
+| 6 | Both directions | 202096 | 3.1578309318343756 | 2.0 | 6.0 | 50 | 3564 |
+
+All overall/yearly/session/year-by-session summaries, distributions and thresholds are retained in tables/. The partial final session is excluded. 2019/2026 are partial coverage years. New York clock and completion are inferred; volume and contract/roll treatment are unverified. These descriptive statistics do not establish profitability.

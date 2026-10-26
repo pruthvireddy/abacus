@@ -1,0 +1,988 @@
+{
+  "title": "GC EMA outer band: years, cohorts and path scale",
+  "summary": "Saved GC excursion means, coverage and horizon-specific evidence at a ten-bar cooldown. Annual regimes differ; MAE/MFE extrema and terminal rates do not establish executable profits.",
+  "source": {
+    "producer": "sahadeva",
+    "runId": "20260925T223721Z_gc_ema_excursions_v1"
+  },
+  "sections": [
+    {
+      "id": "question",
+      "kind": "text",
+      "title": "Question and selected scope",
+      "body": "A completed five-minute GC close at or below EMA225 minus three population standard deviations of signed close-minus-EMA residuals is followed from the next complete unadjusted open. The annual view fixes cooldown at ten following bars and horizon at twenty five-minute bars (100 minutes). The 2026 horizon view retains the saved seven horizons; it does not pool their outcomes."
+    },
+    {
+      "id": "findings",
+      "kind": "text",
+      "title": "Supported findings",
+      "body": "The saved yearly table reports both adverse and favorable path extrema rather than choosing an MFE exit. Coverage, valid denominators and uncertainty differ by year. The larger cooldown/horizon grid is a correlated sensitivity, not independent replication or optimized trading evidence."
+    },
+    {
+      "kind": "figure",
+      "id": "yearly-figure",
+      "title": "Annual path scale at the saved default",
+      "path": "figures/yearly-excursions.png",
+      "alt": "Separate adverse and favorable annual GC excursion means with saved interval endpoints; both increase markedly in 2025 and 2026.",
+      "caption": "Exact yearly.csv values at cooldown 10 and horizon 20. Dots are means; vertical lines are approximate 95% normal ISO-week cluster intervals, unadjusted for multiple comparisons. GC points; 2010 partial and 2026 YTD. Extrema have unknown ordering and are not executable exits.",
+      "referenceIds": [
+        "yearly-source"
+      ]
+    },
+    {
+      "id": "yearly",
+      "kind": "table",
+      "title": "Annual means and outcome support",
+      "description": "Each row is one signal-close calendar year at cooldown 10 / horizon 20. Accepted signals include subsequently unavailable paths; complete paths supply the outcome denominator.",
+      "notes": [
+        "Mean intervals are approximate 95% normal cluster intervals by ISO week, unadjusted for multiple comparisons; metrics.json names this method.",
+        "2010 begins midyear and 2026 is YTD through September 18. MAE/MFE are separate extrema with unknown ordering."
+      ],
+      "referenceIds": [
+        "yearly-source"
+      ],
+      "columns": [
+        {
+          "key": "year",
+          "label": "Year"
+        },
+        {
+          "key": "accepted_signals",
+          "label": "Accepted signals",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "valid_n",
+          "label": "Complete paths",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "sessions",
+          "label": "Sessions",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "weeks",
+          "label": "ISO weeks",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "mean_mae",
+          "label": "Mean MAE",
+          "format": "number",
+          "precision": 2,
+          "unit": "GC points"
+        },
+        {
+          "key": "mean_mae_ci_low",
+          "label": "MAE 95% low",
+          "format": "number",
+          "precision": 2,
+          "unit": "GC points"
+        },
+        {
+          "key": "mean_mae_ci_high",
+          "label": "MAE 95% high",
+          "format": "number",
+          "precision": 2,
+          "unit": "GC points"
+        },
+        {
+          "key": "mean_mfe",
+          "label": "Mean MFE",
+          "format": "number",
+          "precision": 2,
+          "unit": "GC points"
+        },
+        {
+          "key": "mean_mfe_ci_low",
+          "label": "MFE 95% low",
+          "format": "number",
+          "precision": 2,
+          "unit": "GC points"
+        },
+        {
+          "key": "mean_mfe_ci_high",
+          "label": "MFE 95% high",
+          "format": "number",
+          "precision": 2,
+          "unit": "GC points"
+        }
+      ],
+      "rows": [
+        {
+          "year": "2010",
+          "accepted_signals": 160.0,
+          "valid_n": 141.0,
+          "sessions": 56.0,
+          "weeks": 26.0,
+          "mean_mae": 5.2078014184,
+          "mean_mae_ci_low": 4.0636400464,
+          "mean_mae_ci_high": 6.3519627905,
+          "mean_mfe": 3.8815602837,
+          "mean_mfe_ci_low": 3.3465285265,
+          "mean_mfe_ci_high": 4.4165920409
+        },
+        {
+          "year": "2011",
+          "accepted_signals": 350.0,
+          "valid_n": 316.0,
+          "sessions": 100.0,
+          "weeks": 45.0,
+          "mean_mae": 7.8180379747,
+          "mean_mae_ci_low": 6.157428644,
+          "mean_mae_ci_high": 9.4786473054,
+          "mean_mfe": 5.5658227848,
+          "mean_mfe_ci_low": 4.64789701,
+          "mean_mfe_ci_high": 6.4837485596
+        },
+        {
+          "year": "2012",
+          "accepted_signals": 381.0,
+          "valid_n": 361.0,
+          "sessions": 111.0,
+          "weeks": 49.0,
+          "mean_mae": 5.375900277,
+          "mean_mae_ci_low": 4.5150488004,
+          "mean_mae_ci_high": 6.2367517536,
+          "mean_mfe": 4.4603878116,
+          "mean_mfe_ci_low": 3.8940719105,
+          "mean_mfe_ci_high": 5.0267037128
+        },
+        {
+          "year": "2013",
+          "accepted_signals": 410.0,
+          "valid_n": 376.0,
+          "sessions": 108.0,
+          "weeks": 51.0,
+          "mean_mae": 6.0079787234,
+          "mean_mae_ci_low": 4.2128773024,
+          "mean_mae_ci_high": 7.8030801444,
+          "mean_mfe": 4.5946808511,
+          "mean_mfe_ci_low": 3.6889583231,
+          "mean_mfe_ci_high": 5.5004033791
+        },
+        {
+          "year": "2014",
+          "accepted_signals": 359.0,
+          "valid_n": 289.0,
+          "sessions": 97.0,
+          "weeks": 44.0,
+          "mean_mae": 3.5051903114,
+          "mean_mae_ci_low": 3.045040182,
+          "mean_mae_ci_high": 3.9653404408,
+          "mean_mfe": 3.108650519,
+          "mean_mfe_ci_low": 2.5895681656,
+          "mean_mfe_ci_high": 3.6277328724
+        },
+        {
+          "year": "2015",
+          "accepted_signals": 380.0,
+          "valid_n": 324.0,
+          "sessions": 106.0,
+          "weeks": 47.0,
+          "mean_mae": 3.1774691358,
+          "mean_mae_ci_low": 2.8013809925,
+          "mean_mae_ci_high": 3.5535572791,
+          "mean_mfe": 3.112345679,
+          "mean_mfe_ci_low": 2.705001156,
+          "mean_mfe_ci_high": 3.5196902021
+        },
+        {
+          "year": "2016",
+          "accepted_signals": 300.0,
+          "valid_n": 279.0,
+          "sessions": 97.0,
+          "weeks": 45.0,
+          "mean_mae": 3.4888888889,
+          "mean_mae_ci_low": 2.9366981762,
+          "mean_mae_ci_high": 4.0410796016,
+          "mean_mfe": 3.3451612903,
+          "mean_mfe_ci_low": 2.6808361799,
+          "mean_mfe_ci_high": 4.0094864008
+        },
+        {
+          "year": "2017",
+          "accepted_signals": 374.0,
+          "valid_n": 341.0,
+          "sessions": 96.0,
+          "weeks": 46.0,
+          "mean_mae": 2.1598240469,
+          "mean_mae_ci_low": 1.8899505825,
+          "mean_mae_ci_high": 2.4296975113,
+          "mean_mfe": 1.9680351906,
+          "mean_mfe_ci_low": 1.6959841793,
+          "mean_mfe_ci_high": 2.2400862019
+        },
+        {
+          "year": "2018",
+          "accepted_signals": 376.0,
+          "valid_n": 336.0,
+          "sessions": 94.0,
+          "weeks": 47.0,
+          "mean_mae": 2.2633928571,
+          "mean_mae_ci_low": 1.922607379,
+          "mean_mae_ci_high": 2.6041783353,
+          "mean_mfe": 1.931547619,
+          "mean_mfe_ci_low": 1.6550156702,
+          "mean_mfe_ci_high": 2.2080795679
+        },
+        {
+          "year": "2019",
+          "accepted_signals": 263.0,
+          "valid_n": 246.0,
+          "sessions": 84.0,
+          "weeks": 45.0,
+          "mean_mae": 3.1394308943,
+          "mean_mae_ci_low": 2.5483171805,
+          "mean_mae_ci_high": 3.7305446081,
+          "mean_mfe": 2.6333333333,
+          "mean_mfe_ci_low": 2.076663986,
+          "mean_mfe_ci_high": 3.1900026806
+        },
+        {
+          "year": "2020",
+          "accepted_signals": 295.0,
+          "valid_n": 275.0,
+          "sessions": 94.0,
+          "weeks": 47.0,
+          "mean_mae": 7.5232727273,
+          "mean_mae_ci_low": 5.6955642558,
+          "mean_mae_ci_high": 9.3509811987,
+          "mean_mfe": 6.644,
+          "mean_mfe_ci_low": 5.3614651496,
+          "mean_mfe_ci_high": 7.9265348504
+        },
+        {
+          "year": "2021",
+          "accepted_signals": 335.0,
+          "valid_n": 315.0,
+          "sessions": 101.0,
+          "weeks": 45.0,
+          "mean_mae": 5.6803174603,
+          "mean_mae_ci_low": 4.5026066396,
+          "mean_mae_ci_high": 6.858028281,
+          "mean_mfe": 5.2958730159,
+          "mean_mfe_ci_low": 4.7602441577,
+          "mean_mfe_ci_high": 5.8315018741
+        },
+        {
+          "year": "2022",
+          "accepted_signals": 385.0,
+          "valid_n": 354.0,
+          "sessions": 94.0,
+          "weeks": 46.0,
+          "mean_mae": 4.4621468927,
+          "mean_mae_ci_low": 3.8993419623,
+          "mean_mae_ci_high": 5.024951823,
+          "mean_mfe": 4.7209039548,
+          "mean_mfe_ci_low": 4.1445562547,
+          "mean_mfe_ci_high": 5.2972516549
+        },
+        {
+          "year": "2023",
+          "accepted_signals": 342.0,
+          "valid_n": 326.0,
+          "sessions": 102.0,
+          "weeks": 45.0,
+          "mean_mae": 4.222392638,
+          "mean_mae_ci_low": 3.6176048946,
+          "mean_mae_ci_high": 4.8271803814,
+          "mean_mfe": 3.7932515337,
+          "mean_mfe_ci_low": 3.2231544396,
+          "mean_mfe_ci_high": 4.3633486278
+        },
+        {
+          "year": "2024",
+          "accepted_signals": 295.0,
+          "valid_n": 278.0,
+          "sessions": 89.0,
+          "weeks": 48.0,
+          "mean_mae": 6.4848920863,
+          "mean_mae_ci_low": 5.4416357724,
+          "mean_mae_ci_high": 7.5281484003,
+          "mean_mfe": 5.4589928058,
+          "mean_mfe_ci_low": 4.7774024092,
+          "mean_mfe_ci_high": 6.1405832023
+        },
+        {
+          "year": "2025",
+          "accepted_signals": 218.0,
+          "valid_n": 207.0,
+          "sessions": 82.0,
+          "weeks": 43.0,
+          "mean_mae": 11.7657004831,
+          "mean_mae_ci_low": 8.6314616642,
+          "mean_mae_ci_high": 14.899939302,
+          "mean_mfe": 11.4975845411,
+          "mean_mfe_ci_low": 9.5091839069,
+          "mean_mfe_ci_high": 13.4859851752
+        },
+        {
+          "year": "2026",
+          "accepted_signals": 272.0,
+          "valid_n": 245.0,
+          "sessions": 71.0,
+          "weeks": 36.0,
+          "mean_mae": 30.9440816327,
+          "mean_mae_ci_low": 19.3767862063,
+          "mean_mae_ci_high": 42.511377059,
+          "mean_mfe": 23.9106122449,
+          "mean_mfe_ci_low": 18.1260963195,
+          "mean_mfe_ci_high": 29.6951281703
+        }
+      ]
+    },
+    {
+      "id": "terminal",
+      "kind": "table",
+      "title": "Annual terminal movement",
+      "description": "Terminal movement is horizon-close minus next-open entry, distinct from the path maximum or minimum. Terminal-positive rate uses complete paths.",
+      "notes": [
+        "Mean intervals are approximate 95% normal cluster intervals by ISO week, unadjusted for multiple comparisons; metrics.json names this method.",
+        "2010 begins midyear and 2026 is YTD through September 18. MAE/MFE are separate extrema with unknown ordering."
+      ],
+      "referenceIds": [
+        "yearly-source"
+      ],
+      "columns": [
+        {
+          "key": "year",
+          "label": "Year"
+        },
+        {
+          "key": "valid_n",
+          "label": "Complete paths",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "mean_terminal",
+          "label": "Mean terminal",
+          "format": "number",
+          "precision": 2,
+          "unit": "GC points"
+        },
+        {
+          "key": "mean_terminal_ci_low",
+          "label": "95% low",
+          "format": "number",
+          "precision": 2,
+          "unit": "GC points"
+        },
+        {
+          "key": "mean_terminal_ci_high",
+          "label": "95% high",
+          "format": "number",
+          "precision": 2,
+          "unit": "GC points"
+        },
+        {
+          "key": "terminal_positive_rate",
+          "label": "Terminal positive",
+          "format": "percent",
+          "precision": 1
+        }
+      ],
+      "rows": [
+        {
+          "year": "2010",
+          "valid_n": 141.0,
+          "mean_terminal": -0.6375886525,
+          "mean_terminal_ci_low": -1.8538283277,
+          "mean_terminal_ci_high": 0.5786510227,
+          "terminal_positive_rate": 0.5319148936
+        },
+        {
+          "year": "2011",
+          "valid_n": 316.0,
+          "mean_terminal": -1.107278481,
+          "mean_terminal_ci_low": -2.0528166846,
+          "mean_terminal_ci_high": -0.1617402775,
+          "terminal_positive_rate": 0.4810126582
+        },
+        {
+          "year": "2012",
+          "valid_n": 361.0,
+          "mean_terminal": -0.0387811634,
+          "mean_terminal_ci_low": -0.9212090933,
+          "mean_terminal_ci_high": 0.8436467664,
+          "terminal_positive_rate": 0.5290858726
+        },
+        {
+          "year": "2013",
+          "valid_n": 376.0,
+          "mean_terminal": -0.722606383,
+          "mean_terminal_ci_low": -1.7266310895,
+          "mean_terminal_ci_high": 0.2814183235,
+          "terminal_positive_rate": 0.4946808511
+        },
+        {
+          "year": "2014",
+          "valid_n": 289.0,
+          "mean_terminal": -0.0356401384,
+          "mean_terminal_ci_low": -0.7089138783,
+          "mean_terminal_ci_high": 0.6376336015,
+          "terminal_positive_rate": 0.5121107266
+        },
+        {
+          "year": "2015",
+          "valid_n": 324.0,
+          "mean_terminal": 0.0324074074,
+          "mean_terminal_ci_low": -0.4347905233,
+          "mean_terminal_ci_high": 0.4996053381,
+          "terminal_positive_rate": 0.5401234568
+        },
+        {
+          "year": "2016",
+          "valid_n": 279.0,
+          "mean_terminal": 0.0372759857,
+          "mean_terminal_ci_low": -0.7082974086,
+          "mean_terminal_ci_high": 0.7828493799,
+          "terminal_positive_rate": 0.5663082437
+        },
+        {
+          "year": "2017",
+          "valid_n": 341.0,
+          "mean_terminal": 0.006744868,
+          "mean_terminal_ci_low": -0.3621774771,
+          "mean_terminal_ci_high": 0.3756672132,
+          "terminal_positive_rate": 0.5190615836
+        },
+        {
+          "year": "2018",
+          "valid_n": 336.0,
+          "mean_terminal": -0.1523809524,
+          "mean_terminal_ci_low": -0.5571690373,
+          "mean_terminal_ci_high": 0.2524071325,
+          "terminal_positive_rate": 0.4910714286
+        },
+        {
+          "year": "2019",
+          "valid_n": 246.0,
+          "mean_terminal": 0.0142276423,
+          "mean_terminal_ci_low": -0.6723514197,
+          "mean_terminal_ci_high": 0.7008067042,
+          "terminal_positive_rate": 0.5203252033
+        },
+        {
+          "year": "2020",
+          "valid_n": 275.0,
+          "mean_terminal": -0.052,
+          "mean_terminal_ci_low": -1.4793485081,
+          "mean_terminal_ci_high": 1.3753485081,
+          "terminal_positive_rate": 0.5127272727
+        },
+        {
+          "year": "2021",
+          "valid_n": 315.0,
+          "mean_terminal": 0.2317460317,
+          "mean_terminal_ci_low": -0.8517443597,
+          "mean_terminal_ci_high": 1.3152364232,
+          "terminal_positive_rate": 0.5206349206
+        },
+        {
+          "year": "2022",
+          "valid_n": 354.0,
+          "mean_terminal": 0.3096045198,
+          "mean_terminal_ci_low": -0.2876551965,
+          "mean_terminal_ci_high": 0.906864236,
+          "terminal_positive_rate": 0.4971751412
+        },
+        {
+          "year": "2023",
+          "valid_n": 326.0,
+          "mean_terminal": -0.2911042945,
+          "mean_terminal_ci_low": -1.0335755771,
+          "mean_terminal_ci_high": 0.4513669882,
+          "terminal_positive_rate": 0.4938650307
+        },
+        {
+          "year": "2024",
+          "valid_n": 278.0,
+          "mean_terminal": -0.2802158273,
+          "mean_terminal_ci_low": -1.2055505691,
+          "mean_terminal_ci_high": 0.6451189144,
+          "terminal_positive_rate": 0.5179856115
+        },
+        {
+          "year": "2025",
+          "valid_n": 207.0,
+          "mean_terminal": 1.7463768116,
+          "mean_terminal_ci_low": -0.381490305,
+          "mean_terminal_ci_high": 3.8742439282,
+          "terminal_positive_rate": 0.5893719807
+        },
+        {
+          "year": "2026",
+          "valid_n": 245.0,
+          "mean_terminal": -0.147755102,
+          "mean_terminal_ci_low": -5.1548320423,
+          "mean_terminal_ci_high": 4.8593218382,
+          "terminal_positive_rate": 0.5428571429
+        }
+      ]
+    },
+    {
+      "id": "exclusions",
+      "kind": "table",
+      "title": "Why accepted signals lack an annual outcome",
+      "description": "Saved exclusion counts are copied at the same default. Missing paths are unavailable, rather than zero-return or failed trades.",
+      "notes": [
+        "Do not sum across cooldowns or horizons: the same source observations can contribute repeatedly."
+      ],
+      "referenceIds": [
+        "yearly-source"
+      ],
+      "columns": [
+        {
+          "key": "year",
+          "label": "Year"
+        },
+        {
+          "key": "accepted_signals",
+          "label": "Accepted",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "valid_n",
+          "label": "Valid",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "insufficient_future_bars",
+          "label": "Incomplete future",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "time_gap",
+          "label": "Time gap",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "partial_or_mixed_bar",
+          "label": "Partial / mixed",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "contract_change",
+          "label": "Contract change",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "adjustment_change",
+          "label": "Adjustment change",
+          "format": "number",
+          "precision": 0
+        }
+      ],
+      "rows": [
+        {
+          "year": "2010",
+          "accepted_signals": 160.0,
+          "valid_n": 141.0,
+          "insufficient_future_bars": 0.0,
+          "time_gap": 4.0,
+          "partial_or_mixed_bar": 15.0,
+          "contract_change": 0.0,
+          "adjustment_change": 0.0
+        },
+        {
+          "year": "2011",
+          "accepted_signals": 350.0,
+          "valid_n": 316.0,
+          "insufficient_future_bars": 0.0,
+          "time_gap": 3.0,
+          "partial_or_mixed_bar": 31.0,
+          "contract_change": 0.0,
+          "adjustment_change": 0.0
+        },
+        {
+          "year": "2012",
+          "accepted_signals": 381.0,
+          "valid_n": 361.0,
+          "insufficient_future_bars": 0.0,
+          "time_gap": 6.0,
+          "partial_or_mixed_bar": 14.0,
+          "contract_change": 0.0,
+          "adjustment_change": 0.0
+        },
+        {
+          "year": "2013",
+          "accepted_signals": 410.0,
+          "valid_n": 376.0,
+          "insufficient_future_bars": 0.0,
+          "time_gap": 16.0,
+          "partial_or_mixed_bar": 18.0,
+          "contract_change": 0.0,
+          "adjustment_change": 0.0
+        },
+        {
+          "year": "2014",
+          "accepted_signals": 359.0,
+          "valid_n": 289.0,
+          "insufficient_future_bars": 0.0,
+          "time_gap": 23.0,
+          "partial_or_mixed_bar": 47.0,
+          "contract_change": 0.0,
+          "adjustment_change": 0.0
+        },
+        {
+          "year": "2015",
+          "accepted_signals": 380.0,
+          "valid_n": 324.0,
+          "insufficient_future_bars": 0.0,
+          "time_gap": 8.0,
+          "partial_or_mixed_bar": 48.0,
+          "contract_change": 0.0,
+          "adjustment_change": 0.0
+        },
+        {
+          "year": "2016",
+          "accepted_signals": 300.0,
+          "valid_n": 279.0,
+          "insufficient_future_bars": 0.0,
+          "time_gap": 12.0,
+          "partial_or_mixed_bar": 9.0,
+          "contract_change": 0.0,
+          "adjustment_change": 0.0
+        },
+        {
+          "year": "2017",
+          "accepted_signals": 374.0,
+          "valid_n": 341.0,
+          "insufficient_future_bars": 0.0,
+          "time_gap": 21.0,
+          "partial_or_mixed_bar": 12.0,
+          "contract_change": 0.0,
+          "adjustment_change": 0.0
+        },
+        {
+          "year": "2018",
+          "accepted_signals": 376.0,
+          "valid_n": 336.0,
+          "insufficient_future_bars": 0.0,
+          "time_gap": 18.0,
+          "partial_or_mixed_bar": 22.0,
+          "contract_change": 0.0,
+          "adjustment_change": 0.0
+        },
+        {
+          "year": "2019",
+          "accepted_signals": 263.0,
+          "valid_n": 246.0,
+          "insufficient_future_bars": 0.0,
+          "time_gap": 8.0,
+          "partial_or_mixed_bar": 9.0,
+          "contract_change": 0.0,
+          "adjustment_change": 0.0
+        },
+        {
+          "year": "2020",
+          "accepted_signals": 295.0,
+          "valid_n": 275.0,
+          "insufficient_future_bars": 0.0,
+          "time_gap": 17.0,
+          "partial_or_mixed_bar": 3.0,
+          "contract_change": 0.0,
+          "adjustment_change": 0.0
+        },
+        {
+          "year": "2021",
+          "accepted_signals": 335.0,
+          "valid_n": 315.0,
+          "insufficient_future_bars": 0.0,
+          "time_gap": 9.0,
+          "partial_or_mixed_bar": 11.0,
+          "contract_change": 0.0,
+          "adjustment_change": 0.0
+        },
+        {
+          "year": "2022",
+          "accepted_signals": 385.0,
+          "valid_n": 354.0,
+          "insufficient_future_bars": 0.0,
+          "time_gap": 21.0,
+          "partial_or_mixed_bar": 10.0,
+          "contract_change": 0.0,
+          "adjustment_change": 0.0
+        },
+        {
+          "year": "2023",
+          "accepted_signals": 342.0,
+          "valid_n": 326.0,
+          "insufficient_future_bars": 0.0,
+          "time_gap": 7.0,
+          "partial_or_mixed_bar": 9.0,
+          "contract_change": 0.0,
+          "adjustment_change": 0.0
+        },
+        {
+          "year": "2024",
+          "accepted_signals": 295.0,
+          "valid_n": 278.0,
+          "insufficient_future_bars": 0.0,
+          "time_gap": 13.0,
+          "partial_or_mixed_bar": 4.0,
+          "contract_change": 0.0,
+          "adjustment_change": 0.0
+        },
+        {
+          "year": "2025",
+          "accepted_signals": 218.0,
+          "valid_n": 207.0,
+          "insufficient_future_bars": 0.0,
+          "time_gap": 5.0,
+          "partial_or_mixed_bar": 6.0,
+          "contract_change": 0.0,
+          "adjustment_change": 0.0
+        },
+        {
+          "year": "2026",
+          "accepted_signals": 272.0,
+          "valid_n": 245.0,
+          "insufficient_future_bars": 0.0,
+          "time_gap": 21.0,
+          "partial_or_mixed_bar": 6.0,
+          "contract_change": 0.0,
+          "adjustment_change": 0.0
+        }
+      ]
+    },
+    {
+      "id": "horizons",
+      "kind": "table",
+      "title": "2026 YTD: separate saved horizons",
+      "description": "These are separate per-horizon eligible populations at cooldown 10. A longer horizon has its own denominator and exclusions.",
+      "notes": [
+        "Mean intervals are approximate 95% normal cluster intervals by ISO week, unadjusted for multiple comparisons; metrics.json names this method.",
+        "2010 begins midyear and 2026 is YTD through September 18. MAE/MFE are separate extrema with unknown ordering."
+      ],
+      "referenceIds": [
+        "yearly-source"
+      ],
+      "columns": [
+        {
+          "key": "horizon",
+          "label": "Five-minute bars",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "valid_n",
+          "label": "Complete paths",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "mean_mae",
+          "label": "Mean MAE",
+          "format": "number",
+          "precision": 2,
+          "unit": "GC points"
+        },
+        {
+          "key": "mean_mae_ci_low",
+          "label": "MAE 95% low",
+          "format": "number",
+          "precision": 2,
+          "unit": "GC points"
+        },
+        {
+          "key": "mean_mae_ci_high",
+          "label": "MAE 95% high",
+          "format": "number",
+          "precision": 2,
+          "unit": "GC points"
+        },
+        {
+          "key": "mean_mfe",
+          "label": "Mean MFE",
+          "format": "number",
+          "precision": 2,
+          "unit": "GC points"
+        },
+        {
+          "key": "mean_mfe_ci_low",
+          "label": "MFE 95% low",
+          "format": "number",
+          "precision": 2,
+          "unit": "GC points"
+        },
+        {
+          "key": "mean_mfe_ci_high",
+          "label": "MFE 95% high",
+          "format": "number",
+          "precision": 2,
+          "unit": "GC points"
+        }
+      ],
+      "rows": [
+        {
+          "horizon": 5.0,
+          "valid_n": 265.0,
+          "mean_mae": 15.9947169811,
+          "mean_mae_ci_low": 10.4384094339,
+          "mean_mae_ci_high": 21.5510245284,
+          "mean_mfe": 13.1467924528,
+          "mean_mfe_ci_low": 10.3084354302,
+          "mean_mfe_ci_high": 15.9851494755
+        },
+        {
+          "horizon": 10.0,
+          "valid_n": 258.0,
+          "mean_mae": 22.1317829457,
+          "mean_mae_ci_low": 14.4321564476,
+          "mean_mae_ci_high": 29.8314094438,
+          "mean_mfe": 17.4096899225,
+          "mean_mfe_ci_low": 14.029024829,
+          "mean_mfe_ci_high": 20.790355016
+        },
+        {
+          "horizon": 15.0,
+          "valid_n": 254.0,
+          "mean_mae": 27.4590551181,
+          "mean_mae_ci_low": 16.7458567988,
+          "mean_mae_ci_high": 38.1722534374,
+          "mean_mfe": 21.2862204724,
+          "mean_mfe_ci_low": 16.4891015312,
+          "mean_mfe_ci_high": 26.0833394137
+        },
+        {
+          "horizon": 20.0,
+          "valid_n": 245.0,
+          "mean_mae": 30.9440816327,
+          "mean_mae_ci_low": 19.3767862063,
+          "mean_mae_ci_high": 42.511377059,
+          "mean_mfe": 23.9106122449,
+          "mean_mfe_ci_low": 18.1260963195,
+          "mean_mfe_ci_high": 29.6951281703
+        },
+        {
+          "horizon": 30.0,
+          "valid_n": 235.0,
+          "mean_mae": 36.7987234043,
+          "mean_mae_ci_low": 22.2721706904,
+          "mean_mae_ci_high": 51.3252761181,
+          "mean_mfe": 27.9676595745,
+          "mean_mfe_ci_low": 20.8866782045,
+          "mean_mfe_ci_high": 35.0486409445
+        },
+        {
+          "horizon": 50.0,
+          "valid_n": 214.0,
+          "mean_mae": 46.0686915888,
+          "mean_mae_ci_low": 27.4829415216,
+          "mean_mae_ci_high": 64.654441656,
+          "mean_mfe": 36.003271028,
+          "mean_mfe_ci_low": 25.0582394589,
+          "mean_mfe_ci_high": 46.9483025971
+        },
+        {
+          "horizon": 100.0,
+          "valid_n": 133.0,
+          "mean_mae": 73.5,
+          "mean_mae_ci_low": 34.3784497461,
+          "mean_mae_ci_high": 112.6215502539,
+          "mean_mfe": 53.6894736842,
+          "mean_mfe_ci_low": 28.2449514362,
+          "mean_mfe_ci_high": 79.1339959323
+        }
+      ]
+    },
+    {
+      "id": "methods",
+      "kind": "text",
+      "title": "Definitions and methods",
+      "body": "Cooldown C suppresses the C following bars after an accepted signal; suppressed candidates do not restart it. The next contiguous full five-minute bar supplies the unadjusted entry reference. Every measured future bar must be complete and keep one contract and adjustment. MAE is adverse excursion, MFE favorable excursion, and terminal movement is the final close minus entry. Saved mean bounds use approximate 95% normal ISO-week cluster intervals; no interval for terminal-positive rate is manufactured."
+    },
+    {
+      "id": "limitations",
+      "kind": "text",
+      "title": "Limitations and uncertainty",
+      "body": "Coverage begins partway through 2010 and 2026 is YTD through September 18. Whole-day and adjusted continuous history eligibility is retrospective rather than point-in-time. Missing minutes, partial bars, gaps and roll/adjustment changes exclude paths. No stops, fees, fills, slippage or net profitability were tested; the saved interactive report is not imported into the public page."
+    },
+    {
+      "id": "sources-provenance",
+      "kind": "text",
+      "title": "Source-run and presentation provenance",
+      "body": "Study 12_gc_ema_band_excursions. Source run 20260925T223721Z_gc_ema_excursions_v1; executed protocol 1.0.0. Presentation 20261007T002932Z_evidence12. Saved summary artifacts and selected figure bytes retain their recorded identities. Research evidence and qualifications are unchanged."
+    }
+  ],
+  "schemaVersion": "1.1",
+  "id": "12-gc-ema-band-excursions-20261007-evidence",
+  "publishedAt": "2026-10-07T00:29:32Z",
+  "references": [
+    {
+      "id": "yearly-source",
+      "kind": "saved-artifact",
+      "label": "yearly.csv",
+      "title": "Saved annual cohort, exclusion and excursion summary",
+      "runId": "20260925T223721Z_gc_ema_excursions_v1",
+      "artifact": "tables/yearly.csv",
+      "sha256": "20993a93b12a82944ecbad0cfaf78bd3bda9b181be9edfc12e743dc1cc3715b9"
+    },
+    {
+      "id": "interval-definition",
+      "kind": "saved-artifact",
+      "label": "metrics.json",
+      "title": "Executed metric definitions, including approximate normal cluster mean intervals",
+      "runId": "20260925T223721Z_gc_ema_excursions_v1",
+      "artifact": "metrics.json",
+      "sha256": "73e07a890898ae38825c0f38ea10ba92894cc520c8299a5492ddf19ba1829b9e"
+    }
+  ],
+  "downloads": [
+    {
+      "id": "gc-cooldown10-year-horizon",
+      "label": "GC annual and horizon evidence",
+      "description": "Contains all seven saved horizons for every year, beyond the on-page annual horizon-20 and 2026 selections. Exclusions and saved mean bounds are included; no event ledger or other cooldown is included.",
+      "population": "GC lower outer-band accepted signals, cooldown 10; 2010 partial through 2026 YTD.",
+      "units": "Price means/bounds: GC points. Rate: ratio. Horizon/cooldown: five-minute bars. Counts: saved signals, paths, sessions, weeks.",
+      "scope": "All 17 saved years and seven horizons at cooldown 10; 119 separate cells.",
+      "columns": [
+        "year",
+        "cooldown",
+        "horizon",
+        "accepted_signals",
+        "valid_n",
+        "sessions",
+        "weeks",
+        "insufficient_future_bars",
+        "time_gap",
+        "partial_or_mixed_bar",
+        "contract_change",
+        "adjustment_change",
+        "mean_mae",
+        "mean_mae_ci_low",
+        "mean_mae_ci_high",
+        "mean_mfe",
+        "mean_mfe_ci_low",
+        "mean_mfe_ci_high",
+        "mean_terminal",
+        "mean_terminal_ci_low",
+        "mean_terminal_ci_high",
+        "terminal_positive_rate"
+      ],
+      "path": "downloads/gc-cooldown10-year-horizon.csv",
+      "mediaType": "text/csv",
+      "rowCount": 119,
+      "sha256": "c2f90ac4d8c295675c803089cf876626b7347dc740216169d6c4d70efda1d713",
+      "source": {
+        "runId": "20260925T223721Z_gc_ema_excursions_v1",
+        "artifact": "tables/yearly.csv",
+        "sha256": "20993a93b12a82944ecbad0cfaf78bd3bda9b181be9edfc12e743dc1cc3715b9"
+      }
+    }
+  ]
+}

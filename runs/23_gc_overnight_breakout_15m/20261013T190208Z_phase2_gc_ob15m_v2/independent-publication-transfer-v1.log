@@ -1,0 +1,16 @@
+Traceback (most recent call last):
+  File "/Users/ppanati/Documents/projects/abacus/studies/23_gc_overnight_breakout_15m/phase2_verify_publication.py", line 397, in <module>
+    if __name__=="__main__":main()
+  File "/Users/ppanati/Documents/projects/abacus/studies/23_gc_overnight_breakout_15m/phase2_verify_publication.py", line 379, in main
+    receipt["publications"]=[verify_one(stage,path) for path in roots]
+  File "/Users/ppanati/Documents/projects/abacus/studies/23_gc_overnight_breakout_15m/phase2_verify_publication.py", line 379, in <listcomp>
+    receipt["publications"]=[verify_one(stage,path) for path in roots]
+  File "/Users/ppanati/Documents/projects/abacus/studies/23_gc_overnight_breakout_15m/phase2_verify_publication.py", line 358, in verify_one
+    result["figures"],result["figure_saved_cells"]=figures(report,source_map,projection)
+  File "/Users/ppanati/Documents/projects/abacus/studies/23_gc_overnight_breakout_15m/phase2_verify_publication.py", line 249, in figures
+    verify_geometry(record,tree,projection)
+  File "/Users/ppanati/Documents/projects/abacus/studies/23_gc_overnight_breakout_15m/phase2_verify_publication.py", line 295, in verify_geometry
+    need(label in text,"saved chart category label")
+  File "/Users/ppanati/Documents/projects/abacus/studies/23_gc_overnight_breakout_15m/phase2_verify_publication.py", line 20, in need
+    if not condition:raise ValueError(message)
+ValueError: saved chart category label

@@ -1,0 +1,65 @@
+{
+  "publication_id": "nq-amd-source-review-20261007-references",
+  "source_run_id": "20261005T172713Z_video17",
+  "checks": [
+    {
+      "name": "content",
+      "passed": true,
+      "record": "content-verification.json"
+    },
+    {
+      "name": "source_and_previous_publication_preservation",
+      "passed": true,
+      "record": "preservation-verification.json"
+    },
+    {
+      "name": "browser",
+      "passed": true,
+      "record": "browser-verification.json"
+    },
+    {
+      "name": "static_http_assets_and_headers",
+      "passed": true,
+      "record": "static-verification.json"
+    },
+    {
+      "name": "publisher",
+      "passed": true,
+      "mode": "dry-run then normal staging"
+    },
+    {
+      "name": "npm run verify",
+      "passed": true,
+      "studies": 17,
+      "publications": 23,
+      "figures": 16,
+      "downloads": 6
+    },
+    {
+      "name": "npm test",
+      "passed": true,
+      "tests": 31
+    },
+    {
+      "name": "npm run lint",
+      "passed": true
+    },
+    {
+      "name": "npm run build",
+      "passed": true,
+      "bounded_static_payloads": 377
+    },
+    {
+      "name": "python3 scripts/check-agent-docs.py",
+      "passed": true
+    }
+  ],
+  "react_review": "Server components, no hooks/client analytics or runtime research fetch; bounded props, typed variants, escaped text, native links/downloads, explicit labels/alt text, accessible table regions and focus, no dangerous HTML. Reviewed using vercel:react-best-practices guidance.",
+  "research_index": "Not run: its metadata/run/strategy/quality navigation inputs were unchanged; appended completed-study note contents and app catalog are not index inputs.",
+  "limitations": [
+    "Large tables require horizontal scrolling",
+    "Native image inspection may be needed on small screens",
+    "Hosted headers and external source reachability were not tested"
+  ],
+  "hosted_state_changed": false
+}

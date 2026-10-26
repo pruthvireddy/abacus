@@ -1,0 +1,80 @@
+{
+  "schemaVersion": "1.0",
+  "id": "vwap-ac-context-20260923t035300z-ac-context",
+  "title": "VWAP A/C conditional context",
+  "summary": "Exploratory early-session and pre-touch price-path cuts on pinned VWAP evidence.",
+  "publishedAt": "2026-09-23T04:05:06Z",
+  "source": {
+    "producer": "sahadeva",
+    "runId": "20260923T035300Z_ac_context"
+  },
+  "sections": [
+    {
+      "id": "scorecard",
+      "title": "A/C parent outcome scorecard",
+      "kind": "table",
+      "columns": [
+        {
+          "key": "candidate",
+          "label": "Candidate"
+        },
+        {
+          "key": "events",
+          "label": "Events"
+        },
+        {
+          "key": "favorable",
+          "label": "Favorable first"
+        },
+        {
+          "key": "adverse",
+          "label": "Adverse first"
+        },
+        {
+          "key": "rate",
+          "label": "Rate",
+          "format": "percent"
+        },
+        {
+          "key": "ciLow",
+          "label": "95% low",
+          "format": "percent"
+        },
+        {
+          "key": "ciHigh",
+          "label": "95% high",
+          "format": "percent"
+        }
+      ],
+      "rows": [
+        {
+          "candidate": "A: first outside-2\u03c3 fade",
+          "events": 86475,
+          "favorable": 40480,
+          "adverse": 41390,
+          "rate": 0.46811217114773057,
+          "ciLow": 0.4623083374349993,
+          "ciHigh": 0.47397506043343374
+        },
+        {
+          "candidate": "C: first VWAP retest bounce",
+          "events": 132202,
+          "favorable": 61689,
+          "adverse": 62010,
+          "rate": 0.46662682864101906,
+          "ciLow": 0.4622853483934462,
+          "ciHigh": 0.471008716157681
+        }
+      ]
+    },
+    {
+      "id": "scope",
+      "title": "Scope and caution",
+      "kind": "text",
+      "body": "Exploratory A/C cuts on previously viewed dates. See the saved offline report for NY early exits, C pre-touch excursion, denominators, baselines, and limits. No net trading claim."
+    }
+  ],
+  "notes": [
+    "Local publication source only; hosted publication requires separate authorization."
+  ]
+}

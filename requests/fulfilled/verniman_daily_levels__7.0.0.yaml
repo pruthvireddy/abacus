@@ -1,0 +1,94 @@
+request:
+  id: verniman_daily_levels__7.0.0
+  purpose: >-
+    Collect available 2021 Verniman ES outlook thresholds and bullish/bearish
+    targets as a separate immutable release, preserving original source captures,
+    timestamps, chronological coverage, gaps and duplicate-date cases.
+  requester: workspace user
+  requested_on: '2026-10-20'
+inputs:
+  source: https://verniman.blogspot.com/
+  date_range: {start: '2021-01-01', end: '2021-12-31', end_is_inclusive: true}
+  product: ES
+  source_contracts: retain exact source-stated contracts, including legitimate 2022 delivery contracts in late 2021
+  source_material: [desktop_html, per_post_atom, linked_images, chronological_link_ledger, public_feed_discovery]
+  raw_copies: data/raw/blogspot/verniman/html/<new-capture-id>/
+  staging: data/staging/verniman/<new-crawl-id>-v7/
+  retained_prior_inputs: >-
+    Reuse explicitly selected hash-pinned 2021 context captures from the previous
+    collection, beginning with the body explicitly describing the final trading
+    session of 2021. Preserve their original capture timestamps. Recompute the
+    new traversal's dates from visible Outlook month/day values anchored to
+    December 31, 2021; do not adopt the earlier generic crawler's 2022 assignments.
+  retain: exact response bytes, requested/final URLs, source links, capture timestamps, metadata and SHA256 hashes
+  underlying_market_bars: none
+  indicator_calculation: none
+collection:
+  direction: follow chronological older-post links from the explicit December 31, 2021 boundary
+  ledger: record every visited post, transition, date assignment, capture status and issue
+  boundary: retain the first out-of-range older post establishing the January 1 boundary
+  boundary_qualification: older 2020 posts remain raw and are excluded from 2021 outlook tables
+  date_assignment: >-
+    Infer the year from descending chronological Outlook month/day values
+    anchored to December 31, 2021. Contract delivery year, updated metadata and
+    permalink dates do not independently determine the session year. Retain
+    disagreements and qualify any discontinuity in a separate reviewed record.
+    Feed-discovered detached candidates require explicit source-year review,
+    supplemental captures and a separately recorded date method before inclusion.
+  uncertain_dates: retain issues and source references; never invent dates or levels
+  duplicate_dates: retain every distinct captured source-post revision and expose source-linked groups
+  discovery_crosscheck: compare fresh public-feed candidates and body text against the selected crawl and supplements
+output:
+  dataset: verniman_daily_levels
+  version: 7.0.0
+  destination: data/curated/external_levels/source=verniman/version=7.0.0/
+  tables:
+    outlooks: Parquet and CSV; captured revision, qualified date, contract, timestamps, raw references and original plan text
+    levels: Parquet and CSV; branch, trigger/target role, ordinal, numeric bounds, source labels and qualifiers
+    coverage: Parquet and CSV; every calendar date, observed posts, extraction outcomes and absence classification
+    issues: Parquet and CSV; ambiguous, discrepant, failed, unsupported and duplicate-date posts with source references
+  viewing_only: daily_summary.csv
+  manifest: catalog/datasets/verniman_daily_levels__7.0.0.json
+  schema: catalog/schemas/verniman_daily_levels__7.0.0.json
+  quality_report: reports/quality/verniman_daily_levels__7.0.0.md
+  overwrite_existing_version: false
+extraction:
+  scope: source-stated /ES Plan A and Plan B text; retain source images without chart-only inference
+  sides: [bullish, bearish]
+  roles: [trigger, target]
+  shared_threshold: pivot is shorthand; retain distinct branch thresholds and original source labels
+  price_units: source contract points without roll adjustment or bar-derived reconstruction
+  ranges: retain original notation and numeric lower/upper bounds
+  qualifiers: retain confirmation conditions, wording, inconsistent labels and discrepancies
+  unsupported_posts: retain as issues instead of silently dropping encountered posts
+  missing_values: null; no interpolation or invented sessions, triggers or targets
+coverage:
+  calendar: complete inclusive 365-date ledger from January 1 through December 31, 2021
+  gaps: distinguish weekday/weekend absence, capture failures and extraction failures
+  absence_meaning: no observed post does not establish that no historical post ever existed
+  completeness_proof: observed navigation, boundary evidence, independent feed comparison and per-post accounting
+  not_claimed: proof of deleted content, exchange-session eligibility or research validity
+timing:
+  timezone: America/New_York
+  available_at: null
+  status: historical_availability_unverified
+  source_metadata: preserve original published and updated claims separately from capture timestamps
+  qualification: >-
+    Reused historical posts can retain old publication metadata or later updates.
+    A session-date assignment, update time, image filename or assumed posting
+    hour does not establish when the captured levels were available before open.
+  causal_use: no verified pre-open or point-in-time availability
+validation:
+  require_raw_and_output_hashes: true
+  require_exact_source_traceability: true
+  require_unique_revision_branch_role_ordinal: true
+  require_ordered_numeric_bounds: true
+  require_only_in_scope_2021_outlooks: true
+  require_complete_calendar_and_encountered_post_accounting: true
+  require_null_available_at: true
+  checks_meaning: source integrity, extraction and observed coverage; no trading-outcome validation
+retention:
+  preserve: every prior release, request, producer, catalog record and published byte
+  new_capture: unique batch identities; never overwrite failed-attempt evidence
+  revised_source: new captures and a new release identity
+  backups: ignored bulk raw, staging and curated data require separate retained storage

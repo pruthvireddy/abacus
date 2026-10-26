@@ -20,14 +20,21 @@ def verify(root: Path, original: bool, publication: Path | None) -> dict:
     inventory = json.loads((root / 'docs/migration/source-files.json').read_text())
     failures = []
     preserved = sources = parts = 0
+    adapted_guides = {"requests/README.md": "legacy/bhishma/requests/README.md"}
+    redirected = []
     seen = set()
     for item in inventory['files']:
         dest = item['destination']
         # Active package code is deliberately adapted to the new layout.
         if not dest.startswith('packages/'):
-            path = root / dest
+            # Current request guidance evolved after consolidation; its original
+            # bytes remain in the historical snapshot and must still match.
+            preserved_dest = adapted_guides.get(dest, dest)
+            if preserved_dest != dest:
+                redirected.append({'active_path': dest, 'preserved_path': preserved_dest})
+            path = root / preserved_dest
             if not path.is_file() or digest(path) != item['sha256']:
-                failures.append({'path': dest, 'reason': 'preserved copy missing or changed'})
+                failures.append({'path': preserved_dest, 'reason': 'preserved copy missing or changed'})
             preserved += 1
         if original and item['source'] not in seen:
             seen.add(item['source'])
@@ -51,7 +58,7 @@ def verify(root: Path, original: bool, publication: Path | None) -> dict:
     return {'checked_at': datetime.now(timezone.utc).isoformat(), 'status': 'pass' if not failures else 'fail',
             'preserved_copies_checked': preserved, 'original_files_checked': sources,
             'published_partitions_checked': parts, 'publication_root': str(publication) if publication else None,
-            'failures': failures}
+            'adapted_guides_verified_at_historical_copy': redirected, 'failures': failures}
 
 
 def main():

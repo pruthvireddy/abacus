@@ -1,0 +1,305 @@
+{
+  "provenance": {
+    "assets": [],
+    "sourceSha256": "ad3bec5347a84161072906fca3302969ef78867fcc22a43061b7a7863a6b7584"
+  },
+  "report": {
+    "id": "12-gc-ema-band-excursions-20261006-web",
+    "publishedAt": "2026-10-06T23:09:36Z",
+    "schemaVersion": "1.0",
+    "sections": [
+      {
+        "body": "After a five-minute GC close at or below EMA225 minus three residual standard deviations, how much adverse and favorable excursion occurs from the next complete unadjusted open? The default saved comparison uses ten-bar cooldown and twenty future five-minute bars, a hundred-minute horizon.",
+        "id": "question",
+        "kind": "text",
+        "title": "Question and scope"
+      },
+      {
+        "body": "The saved yearly table reports both adverse and favorable path extrema rather than choosing an MFE exit. Coverage, valid denominators and uncertainty differ by year. The larger cooldown/horizon grid is a correlated sensitivity, not independent replication or optimized trading evidence.",
+        "id": "findings",
+        "kind": "text",
+        "title": "Supported findings"
+      },
+      {
+        "columns": [
+          {
+            "format": "number",
+            "key": "year",
+            "label": "year",
+            "precision": 0
+          },
+          {
+            "format": "number",
+            "key": "accepted_signals",
+            "label": "Accepted signals",
+            "precision": 0
+          },
+          {
+            "format": "number",
+            "key": "valid_n",
+            "label": "Valid paths",
+            "precision": 0
+          },
+          {
+            "format": "number",
+            "key": "mean_mae",
+            "label": "Mean MAE",
+            "precision": 2,
+            "unit": "points"
+          },
+          {
+            "format": "number",
+            "key": "mean_mae_ci_low",
+            "label": "95% MAE low",
+            "precision": 2,
+            "unit": "points"
+          },
+          {
+            "format": "number",
+            "key": "mean_mae_ci_high",
+            "label": "95% MAE high",
+            "precision": 2,
+            "unit": "points"
+          },
+          {
+            "format": "number",
+            "key": "mean_mfe",
+            "label": "Mean MFE",
+            "precision": 2,
+            "unit": "points"
+          },
+          {
+            "format": "number",
+            "key": "mean_mfe_ci_low",
+            "label": "95% MFE low",
+            "precision": 2,
+            "unit": "points"
+          },
+          {
+            "format": "number",
+            "key": "mean_mfe_ci_high",
+            "label": "95% MFE high",
+            "precision": 2,
+            "unit": "points"
+          }
+        ],
+        "id": "yearly",
+        "kind": "table",
+        "rows": [
+          {
+            "accepted_signals": 160,
+            "mean_mae": 5.2078014184,
+            "mean_mae_ci_high": 6.3519627905,
+            "mean_mae_ci_low": 4.0636400464,
+            "mean_mfe": 3.8815602837,
+            "mean_mfe_ci_high": 4.4165920409,
+            "mean_mfe_ci_low": 3.3465285265,
+            "valid_n": 141,
+            "year": 2010
+          },
+          {
+            "accepted_signals": 350,
+            "mean_mae": 7.8180379747,
+            "mean_mae_ci_high": 9.4786473054,
+            "mean_mae_ci_low": 6.157428644,
+            "mean_mfe": 5.5658227848,
+            "mean_mfe_ci_high": 6.4837485596,
+            "mean_mfe_ci_low": 4.64789701,
+            "valid_n": 316,
+            "year": 2011
+          },
+          {
+            "accepted_signals": 381,
+            "mean_mae": 5.375900277,
+            "mean_mae_ci_high": 6.2367517536,
+            "mean_mae_ci_low": 4.5150488004,
+            "mean_mfe": 4.4603878116,
+            "mean_mfe_ci_high": 5.0267037128,
+            "mean_mfe_ci_low": 3.8940719105,
+            "valid_n": 361,
+            "year": 2012
+          },
+          {
+            "accepted_signals": 410,
+            "mean_mae": 6.0079787234,
+            "mean_mae_ci_high": 7.8030801444,
+            "mean_mae_ci_low": 4.2128773024,
+            "mean_mfe": 4.5946808511,
+            "mean_mfe_ci_high": 5.5004033791,
+            "mean_mfe_ci_low": 3.6889583231,
+            "valid_n": 376,
+            "year": 2013
+          },
+          {
+            "accepted_signals": 359,
+            "mean_mae": 3.5051903114,
+            "mean_mae_ci_high": 3.9653404408,
+            "mean_mae_ci_low": 3.045040182,
+            "mean_mfe": 3.108650519,
+            "mean_mfe_ci_high": 3.6277328724,
+            "mean_mfe_ci_low": 2.5895681656,
+            "valid_n": 289,
+            "year": 2014
+          },
+          {
+            "accepted_signals": 380,
+            "mean_mae": 3.1774691358,
+            "mean_mae_ci_high": 3.5535572791,
+            "mean_mae_ci_low": 2.8013809925,
+            "mean_mfe": 3.112345679,
+            "mean_mfe_ci_high": 3.5196902021,
+            "mean_mfe_ci_low": 2.705001156,
+            "valid_n": 324,
+            "year": 2015
+          },
+          {
+            "accepted_signals": 300,
+            "mean_mae": 3.4888888889,
+            "mean_mae_ci_high": 4.0410796016,
+            "mean_mae_ci_low": 2.9366981762,
+            "mean_mfe": 3.3451612903,
+            "mean_mfe_ci_high": 4.0094864008,
+            "mean_mfe_ci_low": 2.6808361799,
+            "valid_n": 279,
+            "year": 2016
+          },
+          {
+            "accepted_signals": 374,
+            "mean_mae": 2.1598240469,
+            "mean_mae_ci_high": 2.4296975113,
+            "mean_mae_ci_low": 1.8899505825,
+            "mean_mfe": 1.9680351906,
+            "mean_mfe_ci_high": 2.2400862019,
+            "mean_mfe_ci_low": 1.6959841793,
+            "valid_n": 341,
+            "year": 2017
+          },
+          {
+            "accepted_signals": 376,
+            "mean_mae": 2.2633928571,
+            "mean_mae_ci_high": 2.6041783353,
+            "mean_mae_ci_low": 1.922607379,
+            "mean_mfe": 1.931547619,
+            "mean_mfe_ci_high": 2.2080795679,
+            "mean_mfe_ci_low": 1.6550156702,
+            "valid_n": 336,
+            "year": 2018
+          },
+          {
+            "accepted_signals": 263,
+            "mean_mae": 3.1394308943,
+            "mean_mae_ci_high": 3.7305446081,
+            "mean_mae_ci_low": 2.5483171805,
+            "mean_mfe": 2.6333333333,
+            "mean_mfe_ci_high": 3.1900026806,
+            "mean_mfe_ci_low": 2.076663986,
+            "valid_n": 246,
+            "year": 2019
+          },
+          {
+            "accepted_signals": 295,
+            "mean_mae": 7.5232727273,
+            "mean_mae_ci_high": 9.3509811987,
+            "mean_mae_ci_low": 5.6955642558,
+            "mean_mfe": 6.644,
+            "mean_mfe_ci_high": 7.9265348504,
+            "mean_mfe_ci_low": 5.3614651496,
+            "valid_n": 275,
+            "year": 2020
+          },
+          {
+            "accepted_signals": 335,
+            "mean_mae": 5.6803174603,
+            "mean_mae_ci_high": 6.858028281,
+            "mean_mae_ci_low": 4.5026066396,
+            "mean_mfe": 5.2958730159,
+            "mean_mfe_ci_high": 5.8315018741,
+            "mean_mfe_ci_low": 4.7602441577,
+            "valid_n": 315,
+            "year": 2021
+          },
+          {
+            "accepted_signals": 385,
+            "mean_mae": 4.4621468927,
+            "mean_mae_ci_high": 5.024951823,
+            "mean_mae_ci_low": 3.8993419623,
+            "mean_mfe": 4.7209039548,
+            "mean_mfe_ci_high": 5.2972516549,
+            "mean_mfe_ci_low": 4.1445562547,
+            "valid_n": 354,
+            "year": 2022
+          },
+          {
+            "accepted_signals": 342,
+            "mean_mae": 4.222392638,
+            "mean_mae_ci_high": 4.8271803814,
+            "mean_mae_ci_low": 3.6176048946,
+            "mean_mfe": 3.7932515337,
+            "mean_mfe_ci_high": 4.3633486278,
+            "mean_mfe_ci_low": 3.2231544396,
+            "valid_n": 326,
+            "year": 2023
+          },
+          {
+            "accepted_signals": 295,
+            "mean_mae": 6.4848920863,
+            "mean_mae_ci_high": 7.5281484003,
+            "mean_mae_ci_low": 5.4416357724,
+            "mean_mfe": 5.4589928058,
+            "mean_mfe_ci_high": 6.1405832023,
+            "mean_mfe_ci_low": 4.7774024092,
+            "valid_n": 278,
+            "year": 2024
+          },
+          {
+            "accepted_signals": 218,
+            "mean_mae": 11.7657004831,
+            "mean_mae_ci_high": 14.899939302,
+            "mean_mae_ci_low": 8.6314616642,
+            "mean_mfe": 11.4975845411,
+            "mean_mfe_ci_high": 13.4859851752,
+            "mean_mfe_ci_low": 9.5091839069,
+            "valid_n": 207,
+            "year": 2025
+          },
+          {
+            "accepted_signals": 272,
+            "mean_mae": 30.9440816327,
+            "mean_mae_ci_high": 42.511377059,
+            "mean_mae_ci_low": 19.3767862063,
+            "mean_mfe": 23.9106122449,
+            "mean_mfe_ci_high": 29.6951281703,
+            "mean_mfe_ci_low": 18.1260963195,
+            "valid_n": 245,
+            "year": 2026
+          }
+        ],
+        "title": "Default grid: yearly valid paths and excursion means"
+      },
+      {
+        "body": "EMA uses adjusted five-minute closes; sigma is population standard deviation of rolling close-minus-EMA residuals, with pinned readiness and feature availability. Outcomes use raw contract coordinates from the next full five-minute open. MAE and MFE are nonnegative extrema over the whole eligible future path and need not occur in an executable order. Saved approximate 95% ISO-week bootstrap bounds accompany yearly means. Accepted signals include later excluded paths; valid n is the outcome denominator. The twenty-bar horizon must be contiguous, complete and retain contract/adjustment identity.",
+        "id": "methods",
+        "kind": "text",
+        "title": "Definitions and methods"
+      },
+      {
+        "body": "Coverage begins partway through 2010 and 2026 is YTD through September 18. Whole-day and adjusted continuous history eligibility is retrospective rather than point-in-time. Missing minutes, partial bars, gaps and roll/adjustment changes exclude paths. No stops, fees, fills, slippage or net profitability were tested; the saved interactive report is not imported into the public page.",
+        "id": "limitations",
+        "kind": "text",
+        "title": "Limitations and uncertainty"
+      },
+      {
+        "body": "Study 12_gc_ema_band_excursions; source run 20260925T223721Z_gc_ema_excursions_v1. Registered reference: Explicit registered reference; retain its executed scope and saved qualifications.\n\nPresentation revision 20261006T230936Z_web12, web-study-report-1.0. Saved numerical tables are the authority; only selected rows and columns are presented. No new statistics or research execution. The publication record identifies this JSON and its selected assets.",
+        "id": "sources-provenance",
+        "kind": "text",
+        "title": "Source and presentation provenance"
+      }
+    ],
+    "source": {
+      "producer": "sahadeva",
+      "runId": "20260925T223721Z_gc_ema_excursions_v1"
+    },
+    "summary": "Next-open GC excursions after a close below the outer lower EMA band vary by year. The saved default grid is descriptive; excursion extrema are not executable exits.",
+    "title": "GC outer lower band: yearly excursion paths"
+  }
+}

@@ -1,0 +1,49 @@
+schema_version: 1
+study_id: 05_session_vwap
+protocol_version: 1.0.0
+status: evaluated
+authoritative_protocol: protocol-1.0.0.md
+historical_plan: plan.md
+inputs_lock: inputs.lock.json
+products: [ES, NQ, GC]
+timeframes: [2m, 5m]
+anchors: [globex, asia, london, ny]
+timezone: America/New_York
+primary_window: anchor_membership
+compare_globex_over_same_local_window: true
+anchor_warmup_minutes: 30
+primary_horizon_minutes: 30
+secondary_horizons_minutes: [10, 60]
+primary_symmetric_barrier_signal_sigma: 0.5
+barrier_tick_rounding: ceiling
+illustrative_movement_ticks: [4, 8, 16, 32]
+touch_zone_ticks: 1
+signal_availability: completed_bar_available_at
+movement_reference: next_unadjusted_bar_open
+return_references: [frozen_departure_vwap, causally_updated_vwap]
+uncertainty_unit: trading_session
+uncertainty_sensitivity_unit: calendar_week
+chronological_split_proposal:
+  development_end: '2023-12-31'
+  validation_start: '2024-01-01'
+  validation_end: '2024-12-31'
+  final_start: '2025-01-01'
+  final_end: '2026-09-18'
+  previously_unseen_outcomes_confirmed: false
+execution_assumptions:
+  commission: null
+  slippage: null
+  latency: null
+  position_size: null
+  status: must_be_fixed_before_profitability_research
+evaluated_strategy_ids:
+  - vwap_extreme_fade
+  - vwap_return_after_departure
+  - vwap_first_retest_bounce
+unexecuted_strategy_ids:
+  - vwap_reentry_fade
+  - vwap_cross_acceptance_retest
+  - vwap_outside_band_continuation
+research_order: [3, 1, 4]
+reference_run: 20260923T015900Z_vwap3
+# Only the three evaluated candidates have computed outcomes in the reference run.

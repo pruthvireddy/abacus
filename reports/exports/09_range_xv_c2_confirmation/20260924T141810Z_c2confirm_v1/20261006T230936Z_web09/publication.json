@@ -1,0 +1,840 @@
+{
+  "schemaVersion": "1.0",
+  "id": "09-range-xv-c2-confirmation-20261006-web",
+  "title": "Second-candle confirmation: colour lift and price disagree",
+  "summary": "Some confirmed cohorts beat ordinary two-bar baselines, but waiting does not improve signed chart-price means. Confirmed samples and original opportunities have different denominators.",
+  "publishedAt": "2026-10-06T23:09:36Z",
+  "source": {
+    "producer": "sahadeva",
+    "runId": "20260924T141810Z_c2confirm_v1"
+  },
+  "sections": [
+    {
+      "kind": "text",
+      "id": "question",
+      "title": "Question and scope",
+      "body": "Does waiting for C2 to confirm a countertrend C1 improve the next two-bar follow-through? This uses the corrected-prose reference run on seven Range XV chart settings. Primary C1 follows at least three opposing candles; confirmation is observed at C2 completion."
+    },
+    {
+      "kind": "text",
+      "id": "findings",
+      "title": "Supported findings",
+      "body": "Selected GC and bearish NQ 10 cells show colour-rate improvement versus ordinary two-bar baselines. Yet the common-opportunity wait-minus-immediate price contrast is mostly negative and the saved wait means are negative throughout. The age-two follow-up is post-result exploratory and is excluded from this concise primary presentation."
+    },
+    {
+      "kind": "table",
+      "id": "confirmed",
+      "title": "Confirmed two-more-bar cohorts versus ordinary controls",
+      "columns": [
+        {
+          "key": "product",
+          "label": "product"
+        },
+        {
+          "key": "setting",
+          "label": "setting",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "direction",
+          "label": "Direction (1 bullish, −1 bearish)"
+        },
+        {
+          "key": "numerator",
+          "label": "C3+C4 successes",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "denominator",
+          "label": "Confirmed eligible n",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "probability",
+          "label": "Confirmed rate",
+          "format": "percent",
+          "precision": 1
+        },
+        {
+          "key": "baseline_denominator",
+          "label": "Ordinary eligible n",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "baseline_probability",
+          "label": "Ordinary rate",
+          "format": "percent",
+          "precision": 1
+        },
+        {
+          "key": "difference_pp",
+          "label": "Rate difference",
+          "format": "number",
+          "precision": 2,
+          "unit": "pp"
+        },
+        {
+          "key": "family_ci_low_pp",
+          "label": "Familywise low",
+          "format": "number",
+          "precision": 2,
+          "unit": "pp"
+        },
+        {
+          "key": "family_ci_high_pp",
+          "label": "Familywise high",
+          "format": "number",
+          "precision": 2,
+          "unit": "pp"
+        }
+      ],
+      "rows": [
+        {
+          "product": "ES",
+          "setting": 4.0,
+          "direction": "-1",
+          "numerator": 25276.0,
+          "denominator": 62680.0,
+          "probability": 0.4032546266751755,
+          "baseline_denominator": 286697.0,
+          "baseline_probability": 0.40189468323700633,
+          "difference_pp": 0.13599434381691422,
+          "family_ci_low_pp": -0.5918146594157736,
+          "family_ci_high_pp": 0.863803347049602
+        },
+        {
+          "product": "ES",
+          "setting": 4.0,
+          "direction": "1",
+          "numerator": 25338.0,
+          "denominator": 62137.0,
+          "probability": 0.4077763651286673,
+          "baseline_denominator": 287803.0,
+          "baseline_probability": 0.4056281553701664,
+          "difference_pp": 0.21482097585008852,
+          "family_ci_low_pp": -0.5427700081560807,
+          "family_ci_high_pp": 0.9724119598562577
+        },
+        {
+          "product": "ES",
+          "setting": 5.0,
+          "direction": "-1",
+          "numerator": 18343.0,
+          "denominator": 44661.0,
+          "probability": 0.4107162849018159,
+          "baseline_denominator": 209270.0,
+          "baseline_probability": 0.4090935155540689,
+          "difference_pp": 0.16227693477469662,
+          "family_ci_low_pp": -0.74946909755551,
+          "family_ci_high_pp": 1.0740229671049033
+        },
+        {
+          "product": "ES",
+          "setting": 5.0,
+          "direction": "1",
+          "numerator": 18397.0,
+          "denominator": 44603.0,
+          "probability": 0.41246104522117344,
+          "baseline_denominator": 208851.0,
+          "baseline_probability": 0.41130758291796543,
+          "difference_pp": 0.11534623032080082,
+          "family_ci_low_pp": -0.7728461856164849,
+          "family_ci_high_pp": 1.0035386462580864
+        },
+        {
+          "product": "ES",
+          "setting": 6.0,
+          "direction": "-1",
+          "numerator": 13767.0,
+          "denominator": 33352.0,
+          "probability": 0.41277884384744545,
+          "baseline_denominator": 158156.0,
+          "baseline_probability": 0.4125357242216546,
+          "difference_pp": 0.024311962579087742,
+          "family_ci_low_pp": -1.0019337049803938,
+          "family_ci_high_pp": 1.0505576301385693
+        },
+        {
+          "product": "ES",
+          "setting": 6.0,
+          "direction": "1",
+          "numerator": 13829.0,
+          "denominator": 33234.0,
+          "probability": 0.4161100078233135,
+          "baseline_denominator": 158558.0,
+          "baseline_probability": 0.4172164129214546,
+          "difference_pp": -0.11064050981411389,
+          "family_ci_low_pp": -1.1295745445421062,
+          "family_ci_high_pp": 0.9082935249138784
+        },
+        {
+          "product": "GC",
+          "setting": 6.0,
+          "direction": "-1",
+          "numerator": 28268.0,
+          "denominator": 68215.0,
+          "probability": 0.41439566077842116,
+          "baseline_denominator": 285002.0,
+          "baseline_probability": 0.3981691356551884,
+          "difference_pp": 1.622652512323275,
+          "family_ci_low_pp": 0.9102013707542342,
+          "family_ci_high_pp": 2.3351036538923156
+        },
+        {
+          "product": "GC",
+          "setting": 6.0,
+          "direction": "1",
+          "numerator": 28289.0,
+          "denominator": 67724.0,
+          "probability": 0.41771011753588094,
+          "baseline_denominator": 305558.0,
+          "baseline_probability": 0.40856400421523903,
+          "difference_pp": 0.9146113320641913,
+          "family_ci_low_pp": 0.16892473983279144,
+          "family_ci_high_pp": 1.660297924295591
+        },
+        {
+          "product": "GC",
+          "setting": 10.0,
+          "direction": "-1",
+          "numerator": 14229.0,
+          "denominator": 33397.0,
+          "probability": 0.42605623259574216,
+          "baseline_denominator": 143048.0,
+          "baseline_probability": 0.4058427940271797,
+          "difference_pp": 2.0213438568562445,
+          "family_ci_low_pp": 0.9215757508801261,
+          "family_ci_high_pp": 3.121111962832363
+        },
+        {
+          "product": "GC",
+          "setting": 10.0,
+          "direction": "1",
+          "numerator": 14187.0,
+          "denominator": 33105.0,
+          "probability": 0.4285455369279565,
+          "baseline_denominator": 154879.0,
+          "baseline_probability": 0.41774546581524935,
+          "difference_pp": 1.0800071112707144,
+          "family_ci_low_pp": 0.004093896665748442,
+          "family_ci_high_pp": 2.1559203258756803
+        },
+        {
+          "product": "NQ",
+          "setting": 10.0,
+          "direction": "-1",
+          "numerator": 79340.0,
+          "denominator": 193286.0,
+          "probability": 0.4104798071251927,
+          "baseline_denominator": 810996.0,
+          "baseline_probability": 0.3956825927624797,
+          "difference_pp": 1.479721436271303,
+          "family_ci_low_pp": 1.0424156847418713,
+          "family_ci_high_pp": 1.9170271878007346
+        },
+        {
+          "product": "NQ",
+          "setting": 10.0,
+          "direction": "1",
+          "numerator": 79076.0,
+          "denominator": 193088.0,
+          "probability": 0.4095334769638714,
+          "baseline_denominator": 835649.0,
+          "baseline_probability": 0.4029562651304555,
+          "difference_pp": 0.6577211833415864,
+          "family_ci_low_pp": 0.2261085311246563,
+          "family_ci_high_pp": 1.0893338355585165
+        },
+        {
+          "product": "NQ",
+          "setting": 20.0,
+          "direction": "-1",
+          "numerator": 28814.0,
+          "denominator": 68134.0,
+          "probability": 0.4229019285525582,
+          "baseline_denominator": 313692.0,
+          "baseline_probability": 0.4180980069622432,
+          "difference_pp": 0.4803921590315008,
+          "family_ci_low_pp": -0.2485014933830052,
+          "family_ci_high_pp": 1.2092858114460068
+        },
+        {
+          "product": "NQ",
+          "setting": 20.0,
+          "direction": "1",
+          "numerator": 28987.0,
+          "denominator": 67957.0,
+          "probability": 0.42654914136880673,
+          "baseline_denominator": 318046.0,
+          "baseline_probability": 0.4244731894128522,
+          "difference_pp": 0.20759519559545025,
+          "family_ci_low_pp": -0.5030638779999592,
+          "family_ci_high_pp": 0.9182542691908597
+        }
+      ]
+    },
+    {
+      "kind": "table",
+      "id": "common-opportunity",
+      "title": "Policies on original C1 opportunities",
+      "columns": [
+        {
+          "key": "product",
+          "label": "product"
+        },
+        {
+          "key": "setting",
+          "label": "setting",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "direction",
+          "label": "Direction (1 bullish, −1 bearish)"
+        },
+        {
+          "key": "metric",
+          "label": "Policy outcome"
+        },
+        {
+          "key": "numerator",
+          "label": "numerator",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "denominator",
+          "label": "Eligible C1 n",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "probability",
+          "label": "probability",
+          "format": "percent",
+          "precision": 1
+        },
+        {
+          "key": "ci_low",
+          "label": "95% low",
+          "format": "percent",
+          "precision": 1
+        },
+        {
+          "key": "ci_high",
+          "label": "95% high",
+          "format": "percent",
+          "precision": 1
+        }
+      ],
+      "rows": [
+        {
+          "product": "ES",
+          "setting": 4.0,
+          "direction": "-1",
+          "metric": "immediate two per c1",
+          "numerator": 39864.0,
+          "denominator": 84167.0,
+          "probability": 0.47362980740670335,
+          "ci_low": 0.47013165118390865,
+          "ci_high": 0.47712796362949805
+        },
+        {
+          "product": "ES",
+          "setting": 4.0,
+          "direction": "-1",
+          "metric": "wait two per c1",
+          "numerator": 25276.0,
+          "denominator": 84167.0,
+          "probability": 0.300307721553578,
+          "ci_low": 0.2971461874025473,
+          "ci_high": 0.3034692557046087
+        },
+        {
+          "product": "ES",
+          "setting": 4.0,
+          "direction": "1",
+          "metric": "immediate two per c1",
+          "numerator": 39611.0,
+          "denominator": 84174.0,
+          "probability": 0.47058474113146576,
+          "ci_low": 0.4668653609706179,
+          "ci_high": 0.4743041212923136
+        },
+        {
+          "product": "ES",
+          "setting": 4.0,
+          "direction": "1",
+          "metric": "wait two per c1",
+          "numerator": 25338.0,
+          "denominator": 84174.0,
+          "probability": 0.30101931712880464,
+          "ci_low": 0.2976035567347931,
+          "ci_high": 0.3044350775228162
+        },
+        {
+          "product": "ES",
+          "setting": 5.0,
+          "direction": "-1",
+          "metric": "immediate two per c1",
+          "numerator": 28498.0,
+          "denominator": 60005.0,
+          "probability": 0.4749270894092159,
+          "ci_low": 0.47080253352087137,
+          "ci_high": 0.47905164529756045
+        },
+        {
+          "product": "ES",
+          "setting": 5.0,
+          "direction": "-1",
+          "metric": "wait two per c1",
+          "numerator": 18343.0,
+          "denominator": 60005.0,
+          "probability": 0.3056911924006333,
+          "ci_low": 0.30181707071946495,
+          "ci_high": 0.30956531408180166
+        },
+        {
+          "product": "ES",
+          "setting": 5.0,
+          "direction": "1",
+          "metric": "immediate two per c1",
+          "numerator": 28390.0,
+          "denominator": 59991.0,
+          "probability": 0.47323765231451387,
+          "ci_low": 0.4691706849832799,
+          "ci_high": 0.47730461964574783
+        },
+        {
+          "product": "ES",
+          "setting": 5.0,
+          "direction": "1",
+          "metric": "wait two per c1",
+          "numerator": 18397.0,
+          "denominator": 59991.0,
+          "probability": 0.30666266606657666,
+          "ci_low": 0.3029296212842878,
+          "ci_high": 0.3103957108488655
+        },
+        {
+          "product": "ES",
+          "setting": 6.0,
+          "direction": "-1",
+          "metric": "immediate two per c1",
+          "numerator": 21283.0,
+          "denominator": 44828.0,
+          "probability": 0.47477023289015796,
+          "ci_low": 0.46966353531637073,
+          "ci_high": 0.4798769304639452
+        },
+        {
+          "product": "ES",
+          "setting": 6.0,
+          "direction": "-1",
+          "metric": "wait two per c1",
+          "numerator": 13767.0,
+          "denominator": 44828.0,
+          "probability": 0.30710716516462927,
+          "ci_low": 0.3026435452000183,
+          "ci_high": 0.31157078512924025
+        },
+        {
+          "product": "ES",
+          "setting": 6.0,
+          "direction": "1",
+          "metric": "immediate two per c1",
+          "numerator": 21379.0,
+          "denominator": 44791.0,
+          "probability": 0.47730570873613004,
+          "ci_low": 0.4725323700985573,
+          "ci_high": 0.4820790473737028
+        },
+        {
+          "product": "ES",
+          "setting": 6.0,
+          "direction": "1",
+          "metric": "wait two per c1",
+          "numerator": 13829.0,
+          "denominator": 44791.0,
+          "probability": 0.30874506039159655,
+          "ci_low": 0.3042762840124992,
+          "ci_high": 0.3132138367706939
+        },
+        {
+          "product": "GC",
+          "setting": 6.0,
+          "direction": "-1",
+          "metric": "immediate two per c1",
+          "numerator": 43795.0,
+          "denominator": 91811.0,
+          "probability": 0.4770125584080339,
+          "ci_low": 0.47293981646796873,
+          "ci_high": 0.4810853003480991
+        },
+        {
+          "product": "GC",
+          "setting": 6.0,
+          "direction": "-1",
+          "metric": "wait two per c1",
+          "numerator": 28268.0,
+          "denominator": 91811.0,
+          "probability": 0.30789338968097507,
+          "ci_low": 0.30422156723788646,
+          "ci_high": 0.3115652121240637
+        },
+        {
+          "product": "GC",
+          "setting": 6.0,
+          "direction": "1",
+          "metric": "immediate two per c1",
+          "numerator": 43802.0,
+          "denominator": 89808.0,
+          "probability": 0.487729378229111,
+          "ci_low": 0.4837693896818872,
+          "ci_high": 0.4916893667763348
+        },
+        {
+          "product": "GC",
+          "setting": 6.0,
+          "direction": "1",
+          "metric": "wait two per c1",
+          "numerator": 28289.0,
+          "denominator": 89808.0,
+          "probability": 0.31499420986994475,
+          "ci_low": 0.3113072902719273,
+          "ci_high": 0.31868112946796223
+        },
+        {
+          "product": "GC",
+          "setting": 10.0,
+          "direction": "-1",
+          "metric": "immediate two per c1",
+          "numerator": 21696.0,
+          "denominator": 44733.0,
+          "probability": 0.4850110656562269,
+          "ci_low": 0.4797324130427218,
+          "ci_high": 0.49028971826973206
+        },
+        {
+          "product": "GC",
+          "setting": 10.0,
+          "direction": "-1",
+          "metric": "wait two per c1",
+          "numerator": 14229.0,
+          "denominator": 44733.0,
+          "probability": 0.3180873180873181,
+          "ci_low": 0.3129893602466334,
+          "ci_high": 0.32318527592800284
+        },
+        {
+          "product": "GC",
+          "setting": 10.0,
+          "direction": "1",
+          "metric": "immediate two per c1",
+          "numerator": 21630.0,
+          "denominator": 43584.0,
+          "probability": 0.4962830396475771,
+          "ci_low": 0.49123245864184323,
+          "ci_high": 0.5013336206533109
+        },
+        {
+          "product": "GC",
+          "setting": 10.0,
+          "direction": "1",
+          "metric": "wait two per c1",
+          "numerator": 14187.0,
+          "denominator": 43584.0,
+          "probability": 0.3255093612334802,
+          "ci_low": 0.32108261933210547,
+          "ci_high": 0.3299361031348549
+        },
+        {
+          "product": "NQ",
+          "setting": 10.0,
+          "direction": "-1",
+          "metric": "immediate two per c1",
+          "numerator": 123427.0,
+          "denominator": 260495.0,
+          "probability": 0.4738171557995355,
+          "ci_low": 0.47164175648502904,
+          "ci_high": 0.4759925551140419
+        },
+        {
+          "product": "NQ",
+          "setting": 10.0,
+          "direction": "-1",
+          "metric": "wait two per c1",
+          "numerator": 79340.0,
+          "denominator": 260495.0,
+          "probability": 0.304573984145569,
+          "ci_low": 0.30254035666743634,
+          "ci_high": 0.3066076116237017
+        },
+        {
+          "product": "NQ",
+          "setting": 10.0,
+          "direction": "1",
+          "metric": "immediate two per c1",
+          "numerator": 123164.0,
+          "denominator": 259432.0,
+          "probability": 0.4747448271608745,
+          "ci_low": 0.4723195961408571,
+          "ci_high": 0.4771700581808919
+        },
+        {
+          "product": "NQ",
+          "setting": 10.0,
+          "direction": "1",
+          "metric": "wait two per c1",
+          "numerator": 79076.0,
+          "denominator": 259432.0,
+          "probability": 0.3048043417928397,
+          "ci_low": 0.3025793498812502,
+          "ci_high": 0.30702933370442925
+        },
+        {
+          "product": "NQ",
+          "setting": 20.0,
+          "direction": "-1",
+          "metric": "immediate two per c1",
+          "numerator": 44276.0,
+          "denominator": 91163.0,
+          "probability": 0.48567949716441977,
+          "ci_low": 0.4821361749696661,
+          "ci_high": 0.48922281935917344
+        },
+        {
+          "product": "NQ",
+          "setting": 20.0,
+          "direction": "-1",
+          "metric": "wait two per c1",
+          "numerator": 28814.0,
+          "denominator": 91163.0,
+          "probability": 0.31607121310180664,
+          "ci_low": 0.3126080841015615,
+          "ci_high": 0.3195343421020518
+        },
+        {
+          "product": "NQ",
+          "setting": 20.0,
+          "direction": "1",
+          "metric": "immediate two per c1",
+          "numerator": 44203.0,
+          "denominator": 91115.0,
+          "probability": 0.48513417110245294,
+          "ci_low": 0.4816735921831521,
+          "ci_high": 0.4885947500217538
+        },
+        {
+          "product": "NQ",
+          "setting": 20.0,
+          "direction": "1",
+          "metric": "wait two per c1",
+          "numerator": 28987.0,
+          "denominator": 91115.0,
+          "probability": 0.3181364210064205,
+          "ci_low": 0.31497797146180617,
+          "ci_high": 0.3212948705510348
+        }
+      ]
+    },
+    {
+      "kind": "table",
+      "id": "price",
+      "title": "Wait minus immediate: common-opportunity price contrast",
+      "columns": [
+        {
+          "key": "product",
+          "label": "product"
+        },
+        {
+          "key": "setting",
+          "label": "setting",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "direction",
+          "label": "Direction (1 bullish, −1 bearish)"
+        },
+        {
+          "key": "events",
+          "label": "Eligible C1 n",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "mean_signed_ticks",
+          "label": "Mean difference",
+          "format": "number",
+          "precision": 2,
+          "unit": "ticks"
+        },
+        {
+          "key": "mean_ci_low",
+          "label": "95% low",
+          "format": "number",
+          "precision": 2,
+          "unit": "ticks"
+        },
+        {
+          "key": "mean_ci_high",
+          "label": "95% high",
+          "format": "number",
+          "precision": 2,
+          "unit": "ticks"
+        }
+      ],
+      "rows": [
+        {
+          "product": "ES",
+          "setting": 4.0,
+          "direction": "-1",
+          "events": 84167.0,
+          "mean_signed_ticks": -0.16779735525799896,
+          "mean_ci_low": -0.25373958614278214,
+          "mean_ci_high": -0.08185512437321578
+        },
+        {
+          "product": "ES",
+          "setting": 4.0,
+          "direction": "1",
+          "events": 84174.0,
+          "mean_signed_ticks": 0.006058878038349134,
+          "mean_ci_low": -0.08076708166321336,
+          "mean_ci_high": 0.09288483773991163
+        },
+        {
+          "product": "ES",
+          "setting": 5.0,
+          "direction": "-1",
+          "events": 60005.0,
+          "mean_signed_ticks": -0.05061244896258645,
+          "mean_ci_low": -0.17237219590246455,
+          "mean_ci_high": 0.07114729797729166
+        },
+        {
+          "product": "ES",
+          "setting": 5.0,
+          "direction": "1",
+          "events": 59991.0,
+          "mean_signed_ticks": -0.008567951859445583,
+          "mean_ci_low": -0.12658279130228678,
+          "mean_ci_high": 0.10944688758339562
+        },
+        {
+          "product": "ES",
+          "setting": 6.0,
+          "direction": "-1",
+          "events": 44828.0,
+          "mean_signed_ticks": 0.03326046221111805,
+          "mean_ci_low": -0.12169063891741419,
+          "mean_ci_high": 0.1882115633396503
+        },
+        {
+          "product": "ES",
+          "setting": 6.0,
+          "direction": "1",
+          "events": 44791.0,
+          "mean_signed_ticks": 0.01736956084927776,
+          "mean_ci_low": -0.14899876498447745,
+          "mean_ci_high": 0.18373788668303298
+        },
+        {
+          "product": "GC",
+          "setting": 6.0,
+          "direction": "-1",
+          "events": 91811.0,
+          "mean_signed_ticks": -0.1843896700831055,
+          "mean_ci_low": -0.3130669831255792,
+          "mean_ci_high": -0.05571235704063182
+        },
+        {
+          "product": "GC",
+          "setting": 6.0,
+          "direction": "1",
+          "events": 89808.0,
+          "mean_signed_ticks": -0.6163816141101015,
+          "mean_ci_low": -0.7432030142038843,
+          "mean_ci_high": -0.48956021401631866
+        },
+        {
+          "product": "GC",
+          "setting": 10.0,
+          "direction": "-1",
+          "events": 44733.0,
+          "mean_signed_ticks": -0.2899201931459996,
+          "mean_ci_low": -0.5471238240306553,
+          "mean_ci_high": -0.03271656226134395
+        },
+        {
+          "product": "GC",
+          "setting": 10.0,
+          "direction": "1",
+          "events": 43584.0,
+          "mean_signed_ticks": -0.9136380323054332,
+          "mean_ci_low": -1.1884092851801935,
+          "mean_ci_high": -0.6388667794306728
+        },
+        {
+          "product": "NQ",
+          "setting": 10.0,
+          "direction": "-1",
+          "events": 260495.0,
+          "mean_signed_ticks": -0.3315495498953915,
+          "mean_ci_low": -0.4439689025978893,
+          "mean_ci_high": -0.21913019719289367
+        },
+        {
+          "product": "NQ",
+          "setting": 10.0,
+          "direction": "1",
+          "events": 259432.0,
+          "mean_signed_ticks": -0.5111628480680872,
+          "mean_ci_low": -0.6260511842346118,
+          "mean_ci_high": -0.3962745119015626
+        },
+        {
+          "product": "NQ",
+          "setting": 20.0,
+          "direction": "-1",
+          "events": 91163.0,
+          "mean_signed_ticks": -0.4416045983567895,
+          "mean_ci_low": -0.7750262757663642,
+          "mean_ci_high": -0.10818292094721488
+        },
+        {
+          "product": "NQ",
+          "setting": 20.0,
+          "direction": "1",
+          "events": 91115.0,
+          "mean_signed_ticks": -0.25191241837238654,
+          "mean_ci_low": -0.5874792132058486,
+          "mean_ci_high": 0.08365437646107554
+        }
+      ]
+    },
+    {
+      "kind": "text",
+      "id": "methods",
+      "title": "Definitions and methods",
+      "body": "Confirmed next2 requires C3 and C4 to close in C1 direction after C2 confirms. Its denominator is eligible confirmed C2 events. Ordinary controls begin after a same-direction B1/B2 pair, excluding main candidates. Common-opportunity immediate_two_per_c1 requires C2+C3; wait_two_per_c1 requires confirmation plus C3+C4. Thus these policies use shifted physical horizons. Nonconfirmation contributes zero signed price movement to the wait policy, not an observed trade loss. Price references use next-bar opens and fixed exits. Saved 95% intervals are session-cluster; the colour contrast table retains its familywise bounds in percentage points."
+    },
+    {
+      "kind": "text",
+      "id": "limitations",
+      "title": "Limitations and uncertainty",
+      "body": "Bars with duplicate clocks or incomplete/boundary futures are excluded; inferred clocks and completion proxies do not verify live entry. Chart settings and screened cells are dependent. A fifty-percent colour benchmark is not a profitability baseline. Costs, spreads, fill latency and same-bar stop ordering are unverified. Waiting may condition on subsequent success rather than create an executable advantage."
+    },
+    {
+      "kind": "text",
+      "id": "sources-provenance",
+      "title": "Source and presentation provenance",
+      "body": "Study 09_range_xv_c2_confirmation; source run 20260924T141810Z_c2confirm_v1. Registered reference: Explicit registered reference; retain its executed scope and saved qualifications.\n\nPresentation revision 20261006T230936Z_web09, web-study-report-1.0. Saved numerical tables are the authority; only selected rows and columns are presented. No new statistics or research execution. The publication record identifies this JSON and its selected assets."
+    }
+  ]
+}

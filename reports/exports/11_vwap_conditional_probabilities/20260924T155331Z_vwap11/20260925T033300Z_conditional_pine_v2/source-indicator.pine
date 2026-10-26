@@ -1,0 +1,325 @@
+// This Pine Script® code is subject to the terms of the Mozilla Public License 2.0 at https://mozilla.org/MPL/2.0/
+//@version=6
+indicator("Session VWAP OE Scalp - Delta + TICK Bubbles", shorttitle="OE Scalp - Delta + TICK", overlay=true, max_labels_count=500)
+
+// --- Constants ---
+MS_PER_DAY = 86400000
+
+// --- Inputs ---
+g_gen = "General Settings"
+tz  = input.string("America/New_York", "Timezone", group=g_gen)
+src = input.source(hlc3, "VWAP Source", group=g_gen)
+
+g_asia = "Asia Session"
+show_asia      = input.bool(true, "Show Visuals", group=g_asia, inline="a_vis")
+asia_col       = input.color(color.rgb(127, 23, 145), "", group=g_asia, inline="a_vis")
+asia_vwap_sess = input.session("2000-0000", "Asia VWAP Session", group=g_asia)
+asia_mult      = input.float(2.0, "Asia Sigma (σ)", minval=0.0, step=0.1, group=g_asia)
+asia_n         = input.int(10, "Sessions to Show", minval=1, group=g_asia)
+
+g_lon = "London Session"
+show_lon      = input.bool(true, "Show Visuals", group=g_lon, inline="l_vis")
+lon_col       = input.color(color.rgb(230, 81, 0), "", group=g_lon, inline="l_vis")
+lon_vwap_sess = input.session("0300-0800", "London VWAP Session", group=g_lon)
+lon_mult      = input.float(2.0, "London Sigma (σ)", minval=0.0, step=0.1, group=g_lon)
+lon_n         = input.int(10, "Sessions to Show", minval=1, group=g_lon)
+
+g_ny = "NY Session"
+show_ny      = input.bool(true, "Show Visuals", group=g_ny, inline="n_vis")
+ny_col       = input.color(color.rgb(5, 107, 20), "", group=g_ny, inline="n_vis")
+ny_vwap_sess = input.session("0930-1600", "NY VWAP Session", group=g_ny)
+ny_mult      = input.float(2.0, "NY Sigma (σ)", minval=0.0, step=0.1, group=g_ny)
+ny_n         = input.int(10, "Sessions to Show", minval=1, group=g_ny)
+
+g_sig = "Signal Marker Condition"
+sig_tf     = input.timeframe("", "Candle Timeframe", options=["", "1", "2", "5", "15", "30"], group=g_sig)
+sig_cond   = input.string("Candle Close", "Candle Condition", options=["Candle Close", "Wick"], group=g_sig)
+sig_offset = input.string("Current Candle", "Signal Placement", options=["Current Candle", "Next Candle"], group=g_sig)
+buy_col    = input.color(#089981, "Buy Signal Color", group=g_sig)
+sel_col    = input.color(#f23645, "Sell Signal Color", group=g_sig)
+
+g_conf = "Confluence Settings"
+show_confluence = input.bool(true, "Show Volume/Delta Confluence", group=g_conf)
+volMult         = input.float(2.0, "Volume Spike Multiplier", group=g_conf)
+deltaMult       = input.float(2.5, "Delta Surge Multiplier", group=g_conf)
+
+g_tick_set = "TICK / Settings"
+tickSource        = input.string("TICKQ", "TICK Source", options=["TICK", "TICKQ"], group=g_tick_set)
+tickRefresh       = input.string("Chart", "Refresh Frequency", options=["Chart", "1", "5S", "15S", "30S", "1S"], group=g_tick_set)
+tickUseExtremes   = input.bool(true, "Include High/Low Extremes", group=g_tick_set)
+tickPrintDayValue = input.bool(true, "Print NHOD/NLOD Value", group=g_tick_set)
+tickExt1          = input.int(800, "Extension 1", minval=1, group=g_tick_set)
+tickExt2          = input.int(1000, "Extension 2", minval=1, group=g_tick_set)
+tickExt3          = input.int(1200, "Extension 3", minval=1, group=g_tick_set)
+
+g_tick_style = "TICK / Style"
+tickPosColor = input.color(#f23645, "Positive TICK Color", inline="tick_colors", group=g_tick_style)
+tickNegColor = input.color(#089981, "Negative TICK Color", inline="tick_colors", group=g_tick_style)
+tickStyle    = input.string("Circles", "Marker Style", options=["Circles", "Triangles", "None"], group=g_tick_style)
+
+g_alert = "Alerts"
+alertTiming = input.string("Bar Close", "Alert Timing", options=["Bar Close", "Any Update"], group=g_alert)
+alertAsiaOE = input.bool(true, "Asia OE Signal", inline="a_alert", group=g_alert)
+alertAsiaTick = input.bool(true, "TICK Extreme", inline="a_alert", group=g_alert)
+alertLonOE = input.bool(true, "London OE Signal", inline="l_alert", group=g_alert)
+alertLonTick = input.bool(true, "TICK Extreme", inline="l_alert", group=g_alert)
+alertNyOE = input.bool(true, "NY OE Signal", inline="n_alert", group=g_alert)
+alertNyTick = input.bool(true, "TICK Extreme", inline="n_alert", group=g_alert)
+
+// --- Helpers ---
+f_in_session(string sess, string timezone) =>
+    not na(time(timeframe.period, sess, timezone))
+
+f_calc_values(bool inVwap, bool anchor, float mult) =>
+    var float pv  = 0.0
+    var float vv  = 0.0
+    var float p2v = 0.0
+    if anchor
+        pv := src * volume, vv := volume, p2v := src * src * volume
+    else if inVwap
+        pv += src * volume, vv += volume, p2v += src * src * volume
+    vwap = inVwap and vv > 0 ? pv / vv : na
+    v_sd = inVwap and vv > 0 and not anchor ? math.sqrt(math.max(0, (p2v / vv) - math.pow(vwap, 2))) : 0.0
+    up = not na(vwap) ? vwap + mult * v_sd : na
+    dn = not na(vwap) ? vwap - mult * v_sd : na
+    [vwap, up, dn, anchor]
+
+f_track_anchors(bool anchor, int limit) =>
+    var array<int> anchors = array.new_int()
+    if anchor
+        array.unshift(anchors, time)
+        if array.size(anchors) > limit
+            array.pop(anchors)
+    cutoff = array.size(anchors) == limit ? array.get(anchors, limit - 1) : array.size(anchors) > 0 ? array.get(anchors, array.size(anchors) - 1) : na
+    cutoff
+
+f_clean_p(bool show, bool anchor, float val) =>
+    show and not anchor and not (anchor[1] == true) ? val : na
+
+f_newlines(int count) =>
+    string result = ""
+    if count > 0
+        for i = 1 to count
+            result += "\n"
+    result
+
+// --- Session VWAPs ---
+aInV = f_in_session(asia_vwap_sess, tz), aAnc = aInV and not aInV[1]
+[aV, aU, aD, aA] = f_calc_values(aInV, aAnc, asia_mult)
+a_cutoff = f_track_anchors(aAnc, asia_n)
+
+lInV = f_in_session(lon_vwap_sess, tz), lAnc = lInV and not lInV[1]
+[lV, lU, lD, lA] = f_calc_values(lInV, lAnc, lon_mult)
+l_cutoff = f_track_anchors(lAnc, lon_n)
+
+nInV = f_in_session(ny_vwap_sess, tz), nAnc = nInV and not nInV[1]
+[nV, nU, nD, nA] = f_calc_values(nInV, nAnc, ny_mult)
+n_cutoff = f_track_anchors(nAnc, ny_n)
+
+// --- Signal Logic ---
+[req_c, req_h, req_l] = request.security(syminfo.tickerid, sig_tf, [close, high, low], barmerge.gaps_off, barmerge.lookahead_off)
+is_close = sig_cond == "Candle Close"
+
+a_buy_base = aInV and (is_close ? req_c < aD and req_c[1] >= aD[1] : req_l < aD and req_l[1] >= aD[1])
+a_sel_base = aInV and (is_close ? req_c > aU and req_c[1] <= aU[1] : req_h > aU and req_h[1] <= aU[1])
+
+l_buy_base = lInV and (is_close ? req_c < lD and req_c[1] >= lD[1] : req_l < lD and req_l[1] >= lD[1])
+l_sel_base = lInV and (is_close ? req_c > lU and req_c[1] <= lU[1] : req_h > lU and req_h[1] <= lU[1])
+
+n_buy_base = nInV and (is_close ? req_c < nD and req_c[1] >= nD[1] : req_l < nD and req_l[1] >= nD[1])
+n_sel_base = nInV and (is_close ? req_c > nU and req_c[1] <= nU[1] : req_h > nU and req_h[1] <= nU[1])
+
+offset_bars = sig_offset == "Next Candle" ? 1 : 0
+
+a_buy = a_buy_base[offset_bars]
+a_sel = a_sel_base[offset_bars]
+l_buy = l_buy_base[offset_bars]
+l_sel = l_sel_base[offset_bars]
+n_buy = n_buy_base[offset_bars]
+n_sel = n_sel_base[offset_bars]
+
+// --- Visibility Checks and Signal Markers ---
+show_asia_now = show_asia and not na(a_cutoff) and time >= a_cutoff
+show_lon_now  = show_lon and not na(l_cutoff) and time >= l_cutoff
+show_ny_now   = show_ny and not na(n_cutoff) and time >= n_cutoff
+
+asia_buy_now = show_asia_now and a_buy
+asia_sel_now = show_asia_now and a_sel
+lon_buy_now  = show_lon_now and l_buy
+lon_sel_now  = show_lon_now and l_sel
+ny_buy_now   = show_ny_now and n_buy
+ny_sel_now   = show_ny_now and n_sel
+
+current_buy_signal = asia_buy_now or lon_buy_now or ny_buy_now
+current_sel_signal = asia_sel_now or lon_sel_now or ny_sel_now
+
+plotshape(asia_buy_now, "Asia Buy", shape.triangleup, location.belowbar, buy_col, size=size.tiny)
+plotshape(asia_sel_now, "Asia Sell", shape.triangledown, location.abovebar, sel_col, size=size.tiny)
+plotshape(lon_buy_now, "London Buy", shape.triangleup, location.belowbar, buy_col, size=size.tiny)
+plotshape(lon_sel_now, "London Sell", shape.triangledown, location.abovebar, sel_col, size=size.tiny)
+plotshape(ny_buy_now, "NY Buy", shape.triangleup, location.belowbar, buy_col, size=size.tiny)
+plotshape(ny_sel_now, "NY Sell", shape.triangledown, location.abovebar, sel_col, size=size.tiny)
+
+// --- Session VWAP Plots ---
+FILL_T = 100
+ap_m = plot(f_clean_p(show_asia_now, aA, aV), "Asia VWAP", asia_col, 2, plot.style_linebr)
+ap_u = plot(f_clean_p(show_asia_now, aA, aU), "Asia Upper", color.new(asia_col, 50), 1, plot.style_linebr)
+ap_d = plot(f_clean_p(show_asia_now, aA, aD), "Asia Lower", color.new(asia_col, 50), 1, plot.style_linebr)
+fill(ap_m, ap_u, aU, aV, color.new(asia_col, FILL_T), color.new(asia_col, FILL_T), "Asia Fill U")
+fill(ap_m, ap_d, aV, aD, color.new(asia_col, FILL_T), color.new(asia_col, FILL_T), "Asia Fill D")
+
+lp_m = plot(f_clean_p(show_lon_now, lA, lV), "London VWAP", lon_col, 2, plot.style_linebr)
+lp_u = plot(f_clean_p(show_lon_now, lA, lU), "London Upper", color.new(lon_col, 50), 1, plot.style_linebr)
+lp_d = plot(f_clean_p(show_lon_now, lA, lD), "London Lower", color.new(lon_col, 50), 1, plot.style_linebr)
+fill(lp_m, lp_u, lU, lV, color.new(lon_col, FILL_T), color.new(lon_col, FILL_T), "London Fill U")
+fill(lp_m, lp_d, lV, lD, color.new(lon_col, FILL_T), color.new(lon_col, FILL_T), "London Fill D")
+
+np_m = plot(f_clean_p(show_ny_now, nA, nV), "NY VWAP", ny_col, 2, plot.style_linebr)
+np_u = plot(f_clean_p(show_ny_now, nA, nU), "NY Upper", color.new(ny_col, 50), 1, plot.style_linebr)
+np_d = plot(f_clean_p(show_ny_now, nA, nD), "NY Lower", color.new(ny_col, 50), 1, plot.style_linebr)
+fill(np_m, np_u, nU, nV, color.new(ny_col, FILL_T), color.new(ny_col, FILL_T), "NY Fill U")
+fill(np_m, np_d, nV, nD, color.new(ny_col, FILL_T), color.new(ny_col, FILL_T), "NY Fill D")
+
+// --- Delta and Volume Confluence ---
+any_signal = current_buy_signal or current_sel_signal
+is_near_signal = math.sum(any_signal ? 1 : 0, 4) > 0
+near_buy = math.sum(current_buy_signal ? 1 : 0, 4) > 0
+near_sel = math.sum(current_sel_signal ? 1 : 0, 4) > 0
+
+fp = request.footprint(1)
+barDelta = not na(fp) ? fp.delta() : 0.0
+dynDeltaThresh = ta.sma(math.abs(barDelta), 20) * deltaMult
+volThresh = ta.sma(volume, 20) * volMult
+
+has_delta_surge = not na(dynDeltaThresh) and math.abs(barDelta) >= dynDeltaThresh
+has_vol_spike = volume >= volThresh
+confluence_above = near_sel and not near_buy ? true : near_buy and not near_sel ? false : close <= open
+confluence_line_count = (has_delta_surge ? 1 : 0) + (has_vol_spike ? 1 : 0)
+show_confluence_label = show_confluence and is_near_signal and confluence_line_count > 0
+
+if show_confluence_label
+    string lblText = ""
+    if has_delta_surge
+        lblText += "Δ " + str.tostring(math.round(barDelta)) + "\n"
+    if has_vol_spike
+        lblText += "V " + str.tostring(volume, format.volume) + "\n"
+
+    lblColor = barDelta > 0 ? buy_col : sel_col
+    paddedText = confluence_above ? lblText + "\n" : "\n" + lblText
+
+    label.new(
+         bar_index,
+         na,
+         paddedText,
+         yloc=confluence_above ? yloc.abovebar : yloc.belowbar,
+         style=label.style_none,
+         color=#00000000,
+         textcolor=lblColor,
+         size=size.tiny)
+
+// --- TICK/TICKQ Bubble Logic ---
+parsedTickFreq = tickRefresh == "Chart" ? timeframe.period : tickRefresh
+[tickHigh, tickLow, tickClose] = request.security(tickSource, parsedTickFreq, [high, low, close])
+
+tickValue = tickUseExtremes ? math.abs(tickHigh) > math.abs(tickLow) ? tickHigh : tickLow : tickClose
+absTick = math.abs(tickValue)
+
+var float tickSessionHigh = 0.0
+var float tickSessionLow = 0.0
+isNewDay = nz(ta.change(time("D"))) != 0
+
+if isNewDay
+    tickSessionHigh := tickValue
+    tickSessionLow := tickValue
+else
+    tickSessionHigh := math.max(tickSessionHigh, tickValue)
+    tickSessionLow := math.min(tickSessionLow, tickValue)
+
+tickHighChange = ta.change(tickSessionHigh)
+tickLowChange = ta.change(tickSessionLow)
+isNewTickHigh = tickValue == tickSessionHigh and tickValue > tickExt1 and not isNewDay and tickHighChange != 0
+isNewTickLow = tickValue == tickSessionLow and tickValue < -tickExt1 and not isNewDay and tickLowChange != 0
+
+tickChar = tickStyle == "Circles" ? "●" : tickValue > 0 ? "▼" : "▲"
+tickDots = if tickStyle == "None" or absTick < tickExt1
+    ""
+else
+    absTick >= tickExt3 ? tickChar + "\n" + tickChar + "\n" + tickChar : absTick >= tickExt2 ? tickChar + "\n" + tickChar : tickChar
+
+if tickDots != "" or isNewTickHigh or isNewTickLow
+    tickAbove = tickValue > 0
+    triangleOnTickSide = tickAbove ? current_sel_signal : current_buy_signal
+    valuesOnTickSide = show_confluence_label and confluence_above == tickAbove
+
+    // Each occupied line becomes clearance between the candle and the TICK marker.
+    clearanceLines = (triangleOnTickSide ? 1 : 0) + (valuesOnTickSide ? confluence_line_count + 1 : 0)
+    collisionPad = f_newlines(clearanceLines)
+    tickValueText = str.tostring(tickValue, "#")
+    string tickLabelText = ""
+
+    if tickAbove
+        tickLabelText := (isNewTickHigh and tickPrintDayValue ? tickValueText + "\n\n\n" : "") + tickDots + collisionPad
+    else
+        tickLabelText := collisionPad + tickDots + (isNewTickLow and tickPrintDayValue ? "\n\n\n" + tickValueText : "")
+
+    if tickLabelText != ""
+        label.new(
+             bar_index,
+             tickAbove ? high : low,
+             tickLabelText,
+             color=#00000000,
+             style=tickAbove ? label.style_label_down : label.style_label_up,
+             textcolor=tickAbove ? tickPosColor : tickNegColor,
+             size=size.tiny)
+
+// --- Dynamic Alerts ---
+// Create one alert from TradingView using "Any alert() function call".
+// Signal alerts use the active session's OE signal; TICK alerts use the
+// session in which a new positive/negative extreme is recorded.
+alertOnClose = alertTiming == "Bar Close"
+alertFreq = alertOnClose ? alert.freq_once_per_bar_close : alert.freq_once_per_bar
+
+asiaOEBuyAlert = alertAsiaOE and asia_buy_now
+asiaOESellAlert = alertAsiaOE and asia_sel_now
+lonOEBuyAlert = alertLonOE and lon_buy_now
+lonOESellAlert = alertLonOE and lon_sel_now
+nyOEBuyAlert = alertNyOE and ny_buy_now
+nyOESellAlert = alertNyOE and ny_sel_now
+
+asiaTickBuyAlert = alertAsiaTick and aInV and isNewTickHigh
+asiaTickSellAlert = alertAsiaTick and aInV and isNewTickLow
+lonTickBuyAlert = alertLonTick and lInV and isNewTickHigh
+lonTickSellAlert = alertLonTick and lInV and isNewTickLow
+nyTickBuyAlert = alertNyTick and nInV and isNewTickHigh
+nyTickSellAlert = alertNyTick and nInV and isNewTickLow
+
+string alertMessage = ""
+if asiaOEBuyAlert
+    alertMessage += "Asia Session: OE Buy\n"
+if asiaOESellAlert
+    alertMessage += "Asia Session: OE Sell\n"
+if lonOEBuyAlert
+    alertMessage += "London Session: OE Buy\n"
+if lonOESellAlert
+    alertMessage += "London Session: OE Sell\n"
+if nyOEBuyAlert
+    alertMessage += "NY Session: OE Buy\n"
+if nyOESellAlert
+    alertMessage += "NY Session: OE Sell\n"
+if asiaTickBuyAlert
+    alertMessage += "Asia Session: " + tickSource + " Extreme Buy\n"
+if asiaTickSellAlert
+    alertMessage += "Asia Session: " + tickSource + " Extreme Sell\n"
+if lonTickBuyAlert
+    alertMessage += "London Session: " + tickSource + " Extreme Buy\n"
+if lonTickSellAlert
+    alertMessage += "London Session: " + tickSource + " Extreme Sell\n"
+if nyTickBuyAlert
+    alertMessage += "NY Session: " + tickSource + " Extreme Buy\n"
+if nyTickSellAlert
+    alertMessage += "NY Session: " + tickSource + " Extreme Sell\n"
+
+if alertMessage != ""
+    alert(alertMessage, alertFreq)
+
+plot(tickValue, "TICK Value", color.new(chart.fg_color, 100), display=display.data_window)

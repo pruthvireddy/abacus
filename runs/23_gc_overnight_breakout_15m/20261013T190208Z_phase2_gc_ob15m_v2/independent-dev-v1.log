@@ -1,0 +1,63 @@
+independent dev-validation: 0/550 episodes
+independent dev-validation: 100/550 episodes
+independent dev-validation: 200/550 episodes
+independent dev-validation: 300/550 episodes
+independent dev-validation: 400/550 episodes
+independent dev-validation: 500/550 episodes
+{
+  "schema_version": "study23-phase2-independent-verification/v1",
+  "attempt": "dev-v1",
+  "phase": "dev-validation",
+  "command": [
+    "studies/23_gc_overnight_breakout_15m/phase2_verify.py",
+    "--stage",
+    "work/23_gc_overnight_breakout_15m/20261013T190208Z_phase2_gc_ob15m_v2",
+    "--phase",
+    "dev-validation",
+    "--attempt",
+    "dev-v1"
+  ],
+  "source_snapshots": [
+    {
+      "path": "verification/independent-dev-v1/phase2_verify.py",
+      "sha256": "fc62fbc8b11e698d6858b0381666cf22c6d201de20d05d3ccdb37cab1c0f7c66"
+    },
+    {
+      "path": "verification/independent-dev-v1/test_phase2_independent.py",
+      "sha256": "8b6f3b21aa6b56392409af7048c3d8fc35ed5a6095bcba742e1d76677936abfa"
+    }
+  ],
+  "started_at": "2026-10-13T19:05:13.260899Z",
+  "runtime_freeze": {
+    "status": "passed",
+    "hash_checks": 20,
+    "phase3_uncomputed_by_scope": true
+  },
+  "phases": [
+    {
+      "phase": "dev-validation",
+      "episodes": 550,
+      "policy_rows": 5500,
+      "comparisons": 1248849,
+      "status": "passed"
+    }
+  ],
+  "selection": {
+    "status": "passed",
+    "selected_policy": null,
+    "validation_episodes": 213,
+    "common_complete_pairs": 207,
+    "comparisons": 34,
+    "chronology": "saved settings \u2192 development/validation \u2192 hashed selection \u2192 later completion",
+    "prior_baseline_exposure": true
+  },
+  "status": "passed",
+  "finished_at": "2026-10-13T19:08:15.671221Z",
+  "baseline_accepted_episodes": 880,
+  "eligible_calendar_days": 994,
+  "limits": [
+    "Historical OHLC replay checks the frozen modeled path, not native tick ordering or TradingView execution.",
+    "Annual holiday certification and live mapping receipt remain unresolved.",
+    "Published Phase1 baseline years were previously exposed; later outcomes are not pristine holdouts."
+  ]
+}

@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "requested": {
+    "profiles": [
+      "metadata"
+    ],
+    "checks": []
+  },
+  "selection": [
+    "navigation-metadata"
+  ],
+  "checks": [
+    {
+      "id": "navigation-metadata",
+      "owner": "workspace",
+      "kind": "command",
+      "argv": [
+        "/Library/Developer/CommandLineTools/usr/bin/python3",
+        "scripts/check-navigation-metadata.py"
+      ],
+      "cwd": "/Users/ppanati/Documents/projects/abacus",
+      "scope": [
+        "Metadata validity only; no saved CSV reads, hash verification, status promotion or index writes."
+      ],
+      "environment_overrides": {},
+      "prerequisites": [
+        {
+          "kind": "file",
+          "path": "strategies/index.json",
+          "description": "Explicit mutable strategy metadata; only study navigation JSON and declared target existence are inspected."
+        }
+      ],
+      "outcome": "passed",
+      "exit_code": 0,
+      "duration_seconds": 0.042622,
+      "missing_prerequisites": [],
+      "unittest": null
+    }
+  ],
+  "outcome": "passed",
+  "exit_code": 0,
+  "limitations": [
+    "Only selected checks were executed.",
+    "Unittest counts come from the child TestResult; command checks have no test counts.",
+    "Configured-input diagnostics do not verify every partition or reproduce research."
+  ]
+}

@@ -1,0 +1,806 @@
+{
+  "schemaVersion": "1.0",
+  "id": "16-range-xv-reversal-paths-20261006-web",
+  "title": "FX Range XV: lead-up adds no supported primary prediction",
+  "summary": "Eight FX chart/direction populations retain separate continuation rates. Adding prior-leg length or richer history yields no supported primary log-loss improvement beyond reversal geometry and context.",
+  "publishedAt": "2026-10-06T23:09:36Z",
+  "source": {
+    "producer": "sahadeva",
+    "runId": "20261002T010500Z_ohlc200_161001"
+  },
+  "sections": [
+    {
+      "kind": "text",
+      "id": "question",
+      "title": "Question and scope",
+      "body": "Completed protocol 2.0.0 asks about reversal follow-through, three-bar landing and incremental prediction in 6B, 6E, 6J and 6S Range XV 4/5 charts. These are OHLC-only exports, July 2017–October 2026. Chart/direction populations remain separate."
+    },
+    {
+      "kind": "text",
+      "id": "findings",
+      "title": "Supported findings",
+      "body": "The primary later F≥3 prediction result is negative: adding prior length or richer history gives no supported log-loss improvement beyond reversal geometry/context. Later length-two versus length-three contrasts remain inconclusive. A nominated colour-persistence association has a negative gross price mean; the other is inconclusive. A predicate with collapsed efficiency cutpoints adds no independent efficient-versus-choppy evidence."
+    },
+    {
+      "kind": "table",
+      "id": "baseline",
+      "title": "All-history follow-through: separate chart/direction cohorts",
+      "columns": [
+        {
+          "key": "chart",
+          "label": "chart"
+        },
+        {
+          "key": "direction",
+          "label": "Direction (1 bullish, −1 bearish)"
+        },
+        {
+          "key": "p3_known_success",
+          "label": "F≥3 successes",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "p3_n",
+          "label": "Complete order-3 n",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "p3_dates",
+          "label": "Dates",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "p3",
+          "label": "F≥3 rate",
+          "format": "percent",
+          "precision": 1
+        },
+        {
+          "key": "p3_low",
+          "label": "95% low",
+          "format": "percent",
+          "precision": 1
+        },
+        {
+          "key": "p3_high",
+          "label": "95% high",
+          "format": "percent",
+          "precision": 1
+        }
+      ],
+      "rows": [
+        {
+          "chart": "6B 4",
+          "direction": "-1",
+          "p3_known_success": 9541.0,
+          "p3_n": 28951.0,
+          "p3_dates": 2367.0,
+          "p3": 0.329556837415,
+          "p3_low": 0.323963329075,
+          "p3_high": 0.335097014936
+        },
+        {
+          "chart": "6B 4",
+          "direction": "1",
+          "p3_known_success": 9420.0,
+          "p3_n": 29004.0,
+          "p3_dates": 2372.0,
+          "p3": 0.324782788581,
+          "p3_low": 0.319231609171,
+          "p3_high": 0.330054394546
+        },
+        {
+          "chart": "6B 5",
+          "direction": "-1",
+          "p3_known_success": 6337.0,
+          "p3_n": 19261.0,
+          "p3_dates": 2345.0,
+          "p3": 0.329006801308,
+          "p3_low": 0.321661830795,
+          "p3_high": 0.336070924437
+        },
+        {
+          "chart": "6B 5",
+          "direction": "1",
+          "p3_known_success": 6407.0,
+          "p3_n": 19300.0,
+          "p3_dates": 2347.0,
+          "p3": 0.331968911917,
+          "p3_low": 0.32525869032,
+          "p3_high": 0.338561756319
+        },
+        {
+          "chart": "6E 4",
+          "direction": "-1",
+          "p3_known_success": 21344.0,
+          "p3_n": 65654.0,
+          "p3_dates": 2375.0,
+          "p3": 0.325098242301,
+          "p3_low": 0.321584259648,
+          "p3_high": 0.328553884048
+        },
+        {
+          "chart": "6E 4",
+          "direction": "1",
+          "p3_known_success": 21137.0,
+          "p3_n": 65765.0,
+          "p3_dates": 2375.0,
+          "p3": 0.32140196153,
+          "p3_low": 0.317868833656,
+          "p3_high": 0.324999323194
+        },
+        {
+          "chart": "6E 5",
+          "direction": "-1",
+          "p3_known_success": 14620.0,
+          "p3_n": 44734.0,
+          "p3_dates": 2374.0,
+          "p3": 0.326820762731,
+          "p3_low": 0.322358354314,
+          "p3_high": 0.331142267001
+        },
+        {
+          "chart": "6E 5",
+          "direction": "1",
+          "p3_known_success": 14450.0,
+          "p3_n": 44831.0,
+          "p3_dates": 2375.0,
+          "p3": 0.322321607816,
+          "p3_low": 0.317999890592,
+          "p3_high": 0.326480320283
+        },
+        {
+          "chart": "6J 4",
+          "direction": "-1",
+          "p3_known_success": 12184.0,
+          "p3_n": 36658.0,
+          "p3_dates": 2333.0,
+          "p3": 0.332369469147,
+          "p3_low": 0.327735516991,
+          "p3_high": 0.337282836396
+        },
+        {
+          "chart": "6J 4",
+          "direction": "1",
+          "p3_known_success": 11961.0,
+          "p3_n": 36445.0,
+          "p3_dates": 2322.0,
+          "p3": 0.328193167787,
+          "p3_low": 0.323020092839,
+          "p3_high": 0.333290792772
+        },
+        {
+          "chart": "6J 5",
+          "direction": "-1",
+          "p3_known_success": 8311.0,
+          "p3_n": 24743.0,
+          "p3_dates": 2261.0,
+          "p3": 0.335892979833,
+          "p3_low": 0.330026816895,
+          "p3_high": 0.341814077343
+        },
+        {
+          "chart": "6J 5",
+          "direction": "1",
+          "p3_known_success": 8174.0,
+          "p3_n": 24577.0,
+          "p3_dates": 2238.0,
+          "p3": 0.332587378443,
+          "p3_low": 0.326509898946,
+          "p3_high": 0.338542103756
+        },
+        {
+          "chart": "6S 4",
+          "direction": "-1",
+          "p3_known_success": 13821.0,
+          "p3_n": 40402.0,
+          "p3_dates": 2328.0,
+          "p3": 0.342087025395,
+          "p3_low": 0.337647080354,
+          "p3_high": 0.346418790222
+        },
+        {
+          "chart": "6S 4",
+          "direction": "1",
+          "p3_known_success": 13704.0,
+          "p3_n": 40301.0,
+          "p3_dates": 2322.0,
+          "p3": 0.340041190045,
+          "p3_low": 0.335014138871,
+          "p3_high": 0.344679393184
+        },
+        {
+          "chart": "6S 5",
+          "direction": "-1",
+          "p3_known_success": 9752.0,
+          "p3_n": 28267.0,
+          "p3_dates": 2242.0,
+          "p3": 0.344995931652,
+          "p3_low": 0.339783677382,
+          "p3_high": 0.350501644585
+        },
+        {
+          "chart": "6S 5",
+          "direction": "1",
+          "p3_known_success": 9564.0,
+          "p3_n": 28188.0,
+          "p3_dates": 2214.0,
+          "p3": 0.339293316305,
+          "p3_low": 0.333109827567,
+          "p3_high": 0.345327142283
+        }
+      ]
+    },
+    {
+      "kind": "table",
+      "id": "prediction",
+      "title": "Later primary F≥3: loss improvement versus B1",
+      "columns": [
+        {
+          "key": "chart",
+          "label": "chart"
+        },
+        {
+          "key": "direction",
+          "label": "Direction (1 bullish, −1 bearish)"
+        },
+        {
+          "key": "model",
+          "label": "model"
+        },
+        {
+          "key": "n",
+          "label": "Later evaluated n",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "dates",
+          "label": "dates",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "improvement",
+          "label": "Log-loss improvement",
+          "format": "number",
+          "precision": 4
+        },
+        {
+          "key": "low",
+          "label": "95% low",
+          "format": "number",
+          "precision": 4
+        },
+        {
+          "key": "high",
+          "label": "95% high",
+          "format": "number",
+          "precision": 4
+        },
+        {
+          "key": "block5_low",
+          "label": "Five-session low",
+          "format": "number",
+          "precision": 4
+        },
+        {
+          "key": "block5_high",
+          "label": "Five-session high",
+          "format": "number",
+          "precision": 4
+        }
+      ],
+      "rows": [
+        {
+          "chart": "6B 4",
+          "direction": "-1",
+          "model": "M1",
+          "n": 8352.0,
+          "dates": 962.0,
+          "improvement": 0.000233666329895,
+          "low": -0.000115509995322,
+          "high": 0.000555885325859,
+          "block5_low": -6.56499839842e-05,
+          "block5_high": 0.000525683226185
+        },
+        {
+          "chart": "6B 4",
+          "direction": "-1",
+          "model": "M2",
+          "n": 8352.0,
+          "dates": 962.0,
+          "improvement": -0.000332773321708,
+          "low": -0.00148526156557,
+          "high": 0.000715173052171,
+          "block5_low": -0.00136812044624,
+          "block5_high": 0.000750998861815
+        },
+        {
+          "chart": "6B 4",
+          "direction": "1",
+          "model": "M1",
+          "n": 8358.0,
+          "dates": 966.0,
+          "improvement": 0.000106026410856,
+          "low": -0.000292560544296,
+          "high": 0.000525341216024,
+          "block5_low": -0.000294115923542,
+          "block5_high": 0.000523174445433
+        },
+        {
+          "chart": "6B 4",
+          "direction": "1",
+          "model": "M2",
+          "n": 8358.0,
+          "dates": 966.0,
+          "improvement": -0.000262981024225,
+          "low": -0.00140846453758,
+          "high": 0.000851668162439,
+          "block5_low": -0.00123201633354,
+          "block5_high": 0.000732057021158
+        },
+        {
+          "chart": "6B 5",
+          "direction": "-1",
+          "model": "M1",
+          "n": 5545.0,
+          "dates": 945.0,
+          "improvement": 6.28611160775e-05,
+          "low": -0.000381253398629,
+          "high": 0.000504386665134,
+          "block5_low": -0.000351870605583,
+          "block5_high": 0.000492639821591
+        },
+        {
+          "chart": "6B 5",
+          "direction": "-1",
+          "model": "M2",
+          "n": 5545.0,
+          "dates": 945.0,
+          "improvement": -0.00124793336058,
+          "low": -0.00280526869434,
+          "high": 0.000392249519366,
+          "block5_low": -0.00292917010396,
+          "block5_high": 0.000317841127465
+        },
+        {
+          "chart": "6B 5",
+          "direction": "1",
+          "model": "M1",
+          "n": 5525.0,
+          "dates": 944.0,
+          "improvement": -0.000258353925394,
+          "low": -0.000741082020078,
+          "high": 0.000218891527963,
+          "block5_low": -0.000779580576298,
+          "block5_high": 0.000259147662341
+        },
+        {
+          "chart": "6B 5",
+          "direction": "1",
+          "model": "M2",
+          "n": 5525.0,
+          "dates": 944.0,
+          "improvement": -0.000825818444736,
+          "low": -0.00193021204362,
+          "high": 0.000286759864119,
+          "block5_low": -0.00193071328756,
+          "block5_high": 0.000272068820865
+        },
+        {
+          "chart": "6E 4",
+          "direction": "-1",
+          "model": "M1",
+          "n": 23669.0,
+          "dates": 968.0,
+          "improvement": -9.0465611525e-05,
+          "low": -0.000245727530641,
+          "high": 5.57834238e-05,
+          "block5_low": -0.00025054354618,
+          "block5_high": 6.77744456029e-05
+        },
+        {
+          "chart": "6E 4",
+          "direction": "-1",
+          "model": "M2",
+          "n": 23669.0,
+          "dates": 968.0,
+          "improvement": -4.55002117263e-05,
+          "low": -0.000500611892753,
+          "high": 0.000387894551953,
+          "block5_low": -0.00049842621713,
+          "block5_high": 0.000417449490292
+        },
+        {
+          "chart": "6E 4",
+          "direction": "1",
+          "model": "M1",
+          "n": 23700.0,
+          "dates": 968.0,
+          "improvement": 4.66674222649e-05,
+          "low": -5.64278595465e-05,
+          "high": 0.000151059800562,
+          "block5_low": -5.95703406352e-05,
+          "block5_high": 0.00014828812792
+        },
+        {
+          "chart": "6E 4",
+          "direction": "1",
+          "model": "M2",
+          "n": 23700.0,
+          "dates": 968.0,
+          "improvement": -0.000180566502681,
+          "low": -0.000550000201155,
+          "high": 0.000186125183652,
+          "block5_low": -0.000599213313515,
+          "block5_high": 0.000193308254688
+        },
+        {
+          "chart": "6E 5",
+          "direction": "-1",
+          "model": "M1",
+          "n": 16174.0,
+          "dates": 968.0,
+          "improvement": -0.000181915103748,
+          "low": -0.000467092906115,
+          "high": 0.000111378165286,
+          "block5_low": -0.000495733503809,
+          "block5_high": 0.000113337060108
+        },
+        {
+          "chart": "6E 5",
+          "direction": "-1",
+          "model": "M2",
+          "n": 16174.0,
+          "dates": 968.0,
+          "improvement": -0.00120255316737,
+          "low": -0.00199992841424,
+          "high": -0.000436088805909,
+          "block5_low": -0.00200842783382,
+          "block5_high": -0.000454067823337
+        },
+        {
+          "chart": "6E 5",
+          "direction": "1",
+          "model": "M1",
+          "n": 16172.0,
+          "dates": 968.0,
+          "improvement": -0.000155830153302,
+          "low": -0.000533569233578,
+          "high": 0.00021679996748,
+          "block5_low": -0.000528031588063,
+          "block5_high": 0.000227407061138
+        },
+        {
+          "chart": "6E 5",
+          "direction": "1",
+          "model": "M2",
+          "n": 16172.0,
+          "dates": 968.0,
+          "improvement": -0.0004575292556,
+          "low": -0.00126839360097,
+          "high": 0.000344657585895,
+          "block5_low": -0.00133880249369,
+          "block5_high": 0.000303577095812
+        },
+        {
+          "chart": "6J 4",
+          "direction": "-1",
+          "model": "M1",
+          "n": 17279.0,
+          "dates": 959.0,
+          "improvement": 2.26900627427e-05,
+          "low": -0.000618468876338,
+          "high": 0.000683405976225,
+          "block5_low": -0.000544016481656,
+          "block5_high": 0.000618166399481
+        },
+        {
+          "chart": "6J 4",
+          "direction": "-1",
+          "model": "M2",
+          "n": 17279.0,
+          "dates": 959.0,
+          "improvement": -0.000915041186955,
+          "low": -0.00192119875236,
+          "high": 0.000110606937329,
+          "block5_low": -0.00186667174675,
+          "block5_high": 5.54224590657e-05
+        },
+        {
+          "chart": "6J 4",
+          "direction": "1",
+          "model": "M1",
+          "n": 17156.0,
+          "dates": 953.0,
+          "improvement": -0.000275873555419,
+          "low": -0.000563736534559,
+          "high": 1.50013689589e-05,
+          "block5_low": -0.000584527661631,
+          "block5_high": 2.4254542396e-05
+        },
+        {
+          "chart": "6J 4",
+          "direction": "1",
+          "model": "M2",
+          "n": 17156.0,
+          "dates": 953.0,
+          "improvement": -0.000417941043783,
+          "low": -0.0012658815259,
+          "high": 0.000393433190023,
+          "block5_low": -0.00121340441406,
+          "block5_high": 0.000427707617131
+        },
+        {
+          "chart": "6J 5",
+          "direction": "-1",
+          "model": "M1",
+          "n": 11731.0,
+          "dates": 937.0,
+          "improvement": 6.65414461469e-05,
+          "low": -0.000390531729295,
+          "high": 0.000517182848578,
+          "block5_low": -0.000401780326365,
+          "block5_high": 0.000527830320517
+        },
+        {
+          "chart": "6J 5",
+          "direction": "-1",
+          "model": "M2",
+          "n": 11731.0,
+          "dates": 937.0,
+          "improvement": -0.00185809185408,
+          "low": -0.00302537937848,
+          "high": -0.00061684978657,
+          "block5_low": -0.00320684841129,
+          "block5_high": -0.000660094066162
+        },
+        {
+          "chart": "6J 5",
+          "direction": "1",
+          "model": "M1",
+          "n": 11618.0,
+          "dates": 924.0,
+          "improvement": -0.000490436241876,
+          "low": -0.000908509520446,
+          "high": -6.65281449574e-05,
+          "block5_low": -0.000920006185337,
+          "block5_high": -9.09326950753e-05
+        },
+        {
+          "chart": "6J 5",
+          "direction": "1",
+          "model": "M2",
+          "n": 11618.0,
+          "dates": 924.0,
+          "improvement": -0.00282399535086,
+          "low": -0.00444728944021,
+          "high": -0.00131306807068,
+          "block5_low": -0.00462616418158,
+          "block5_high": -0.00131403240793
+        },
+        {
+          "chart": "6S 4",
+          "direction": "-1",
+          "model": "M1",
+          "n": 27824.0,
+          "dates": 968.0,
+          "improvement": -0.000342088296661,
+          "low": -0.000639876184039,
+          "high": -4.37336241455e-05,
+          "block5_low": -0.00062167680275,
+          "block5_high": -7.28866051473e-05
+        },
+        {
+          "chart": "6S 4",
+          "direction": "-1",
+          "model": "M2",
+          "n": 27824.0,
+          "dates": 968.0,
+          "improvement": -0.00228351166925,
+          "low": -0.00306230666877,
+          "high": -0.00151983391298,
+          "block5_low": -0.00308793981088,
+          "block5_high": -0.00153509100818
+        },
+        {
+          "chart": "6S 4",
+          "direction": "1",
+          "model": "M1",
+          "n": 27774.0,
+          "dates": 968.0,
+          "improvement": 3.57809316677e-05,
+          "low": -7.19423618625e-05,
+          "high": 0.000140362383911,
+          "block5_low": -7.03984381422e-05,
+          "block5_high": 0.000141609980339
+        },
+        {
+          "chart": "6S 4",
+          "direction": "1",
+          "model": "M2",
+          "n": 27774.0,
+          "dates": 968.0,
+          "improvement": -0.000426595678435,
+          "low": -0.00090903169282,
+          "high": 4.83676267457e-05,
+          "block5_low": -0.000935543609575,
+          "block5_high": 6.77928819077e-05
+        },
+        {
+          "chart": "6S 5",
+          "direction": "-1",
+          "model": "M1",
+          "n": 19617.0,
+          "dates": 968.0,
+          "improvement": -0.000401897763829,
+          "low": -0.000792046262828,
+          "high": -3.6521513963e-05,
+          "block5_low": -0.000796112020825,
+          "block5_high": -2.45686735013e-05
+        },
+        {
+          "chart": "6S 5",
+          "direction": "-1",
+          "model": "M2",
+          "n": 19617.0,
+          "dates": 968.0,
+          "improvement": -0.00235632722296,
+          "low": -0.00348352640859,
+          "high": -0.00134985472556,
+          "block5_low": -0.00354347156213,
+          "block5_high": -0.00131835668415
+        },
+        {
+          "chart": "6S 5",
+          "direction": "1",
+          "model": "M1",
+          "n": 19580.0,
+          "dates": 968.0,
+          "improvement": -0.00038740424217,
+          "low": -0.000845718492308,
+          "high": 5.35326451218e-05,
+          "block5_low": -0.000819200678436,
+          "block5_high": 4.72964703409e-05
+        },
+        {
+          "chart": "6S 5",
+          "direction": "1",
+          "model": "M2",
+          "n": 19580.0,
+          "dates": 968.0,
+          "improvement": -0.0012969482736,
+          "low": -0.00210129442877,
+          "high": -0.000459829347691,
+          "block5_low": -0.002114091437,
+          "block5_high": -0.000466061639915
+        }
+      ]
+    },
+    {
+      "kind": "table",
+      "id": "candidates",
+      "title": "Nominated candidates: later colour and gross price",
+      "columns": [
+        {
+          "key": "candidate_id",
+          "label": "candidate id"
+        },
+        {
+          "key": "chart",
+          "label": "chart"
+        },
+        {
+          "key": "order_n",
+          "label": "Colour cohort n",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "D_q_n",
+          "label": "Strict price n",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "p3",
+          "label": "F≥3 rate",
+          "format": "percent",
+          "precision": 1
+        },
+        {
+          "key": "lift",
+          "label": "Colour lift",
+          "format": "number",
+          "precision": 1,
+          "unit": "pp"
+        },
+        {
+          "key": "lift_low",
+          "label": "95% lift low",
+          "format": "number",
+          "precision": 1,
+          "unit": "pp"
+        },
+        {
+          "key": "lift_high",
+          "label": "95% lift high",
+          "format": "number",
+          "precision": 1,
+          "unit": "pp"
+        },
+        {
+          "key": "D_q_mean",
+          "label": "Gross mean D3",
+          "format": "number",
+          "precision": 2,
+          "unit": "q"
+        },
+        {
+          "key": "D_q_low",
+          "label": "95% price low",
+          "format": "number",
+          "precision": 2,
+          "unit": "q"
+        },
+        {
+          "key": "D_q_high",
+          "label": "95% price high",
+          "format": "number",
+          "precision": 2,
+          "unit": "q"
+        }
+      ],
+      "rows": [
+        {
+          "candidate_id": "C0576",
+          "chart": "6J 4",
+          "order_n": 4273.0,
+          "D_q_n": 3873.0,
+          "p3": 0.342850456354,
+          "lift": 1.40119819051,
+          "lift_low": 0.279763108352,
+          "lift_high": 2.56104160225,
+          "D_q_mean": -0.299509424219,
+          "D_q_low": -0.765629761946,
+          "D_q_high": 0.142209986536
+        },
+        {
+          "candidate_id": "C0592",
+          "chart": "6J 4",
+          "order_n": 4507.0,
+          "D_q_n": 4076.0,
+          "p3": 0.337031284668,
+          "lift": 0.8192810219540001,
+          "lift_low": -0.374749959235,
+          "lift_high": 1.96392657117,
+          "D_q_mean": 0.632237487733,
+          "D_q_low": 0.20557115392,
+          "D_q_high": 1.055102944
+        }
+      ]
+    },
+    {
+      "kind": "text",
+      "id": "methods",
+      "title": "Definitions and methods",
+      "body": "R is a completed first opposite-colour bar after a known prior leg L; L and future F exclude R. A doji breaks the leg. Continuation F≥3 requires three physical followers completed through the next observed start, with its own denominator. The price reference enters at B1 open and marks at B4 open, including gaps and all B1–B3 colours; strict paths require positive durations. Baseline B1 uses reversal geometry and context, M1 adds L, M2 richer lead-up. Positive saved log-loss improvement means lower loss than B1. Saved 95% paired session-bootstrap bounds and five-session moving-block sensitivity are pointwise. Model selection used development/validation before later metrics, but earlier inspection prevents a pristine holdout claim. Candidate C0576 is bearish 6J 4, prior length one; C0592 additionally uses the frozen efficiency predicate. q for these 6J candidate price means is constant 0.0000005 native price units."
+    },
+    {
+      "kind": "text",
+      "id": "limitations",
+      "title": "Limitations and uncertainty",
+      "body": "Colour persistence is not execution or profitability. Clocks/completion, roll/adjustment history, spreads, fills and intrabar ordering are unverified. Correlated FX settings are not independent confirmations. 6S historical tick units change at trade date May 2, 2022; cross-era price comparisons must use constant q or raw price, never pooled historical ticks. Off-grid raw prices are retained. The selected baseline table uses bar order, not an execution cohort. Censoring and sparse support are explicit in full evidence; retained event backups are local and off-device backup was not verified."
+    },
+    {
+      "kind": "text",
+      "id": "sources-provenance",
+      "title": "Source and presentation provenance",
+      "body": "Study 16_range_xv_reversal_paths; source run 20261002T010500Z_ohlc200_161001. Publication-only choice: Sole completed protocol 2.0.0 run directly covers the registered questions, including negative primary results and all nominees; no new reference is registered.\n\nPresentation revision 20261006T230936Z_web16, web-study-report-1.0. Saved numerical tables are the authority; only selected rows and columns are presented. No new statistics or research execution. The publication record identifies this JSON and its selected assets."
+    }
+  ]
+}

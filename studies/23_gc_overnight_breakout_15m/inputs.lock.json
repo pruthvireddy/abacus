@@ -1,0 +1,59 @@
+{
+  "schema_version": "abacus.study-source-lock/v1",
+  "study_id": "23_gc_overnight_breakout_15m",
+  "lock_state": "source_bytes_pinned_market_inputs_pinned_in_separate_phase1_lock",
+  "sources": [
+    {
+      "id": "original_strategy",
+      "kind": "user_supplied_pine_v6",
+      "root_alias": "workspace_root",
+      "path": "studies/23_gc_overnight_breakout_15m/sources/original-strategy.pine",
+      "sha256": "016b4c85905463700a6df1f4fb0de9129c3bd21c2fb938ee56002c34c70539b1",
+      "bytes": 72177,
+      "original_locator": "/Users/ppanati/.codex/attachments/7de9bc00-8c99-4247-912b-e6f7afe92992/Pasted text.txt",
+      "received_on": "2026-10-13"
+    },
+    {
+      "id": "indicator_adaptation",
+      "kind": "user_supplied_pine_v6",
+      "root_alias": "workspace_root",
+      "path": "studies/23_gc_overnight_breakout_15m/sources/indicator-adaptation.pine",
+      "sha256": "051c1e0ee6fb744f37457c67b0b33cc5b7b00138c82acdf09aa38345c96c36a8",
+      "bytes": 47858,
+      "original_locator": "/Users/ppanati/.codex/attachments/abde3160-b3bc-4564-8560-af035c564d91/Pasted text.txt",
+      "received_on": "2026-10-13"
+    },
+    {
+      "id": "indicator_chart_reference",
+      "kind": "user_supplied_chart_screenshot",
+      "role": "visual_reference_only_not_market_data_or_performance_evidence",
+      "root_alias": "workspace_root",
+      "path": "studies/23_gc_overnight_breakout_15m/sources/indicator-chart-reference.png",
+      "sha256": "aa4dd49ebb3a75a06df5e17483f54afeb31cedb1bfef05c8988222d4b4ff3bbd",
+      "bytes": 53331,
+      "original_locator": "/var/folders/8m/7y_qdqcn1fn6gkf6ggc_39bc0000gn/T/codex-clipboard-7f34d279-85c3-4454-9595-50a907b91eec.png",
+      "received_on": "2026-10-13",
+      "public_asset_selection": "pending_page_building_review",
+      "limitations": "No visible symbol, dates, price scale, time axis, settings, or legend; unexplained markings have no inferred meaning."
+    }
+  ],
+  "market_datasets": [],
+  "market_input_selection": {
+    "status": "selected_and_frozen_in_separate_phase1_market_lock",
+    "product": "GC",
+    "signal_timeframe": "15m",
+    "preferred_execution_resolution": "1m_or_finer_if_available",
+    "execution_prices": "same_contract_unadjusted",
+    "publication_root_resolution": "config/paths.local.toml or config/paths.example.toml; ABACUS_PUBLICATION_ROOT override",
+    "required_pins": [
+      "dataset_id",
+      "version",
+      "manifest_sha256",
+      "selected_partition_sha256",
+      "calendar_and_roll_mapping",
+      "bar_timestamp_and_available_at_semantics"
+    ],
+    "reason": "Retained source hashes remain unchanged. Phase1 market identities and coverage were frozen separately in phase1-inputs.lock.json before outcomes."
+  },
+  "phase1_market_lock": "phase1-inputs.lock.json"
+}

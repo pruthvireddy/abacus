@@ -1,0 +1,131 @@
+request:
+  id: verniman_daily_levels__12.0.0
+  purpose: >-
+    Recover retrievable 2016 Verniman daily ES thresholds and directional
+    targets from archived sources, preserving source revisions, timestamp
+    claims, capture failures, calendar gaps and duplicate-date cases.
+  requester: workspace user
+  requested_on: '2026-10-20'
+inputs:
+  source: https://verniman.blogspot.com/
+  archive_provider: https://web.archive.org/
+  date_range: {start: '2016-01-01', end: '2016-12-31', end_is_inclusive: true}
+  product: ES
+  underlying_market_bars: none
+  indicator_calculation: none
+  source_material: [archived_html, archived_feed_if_retrievable, linked_source_images, archive_indexes, current_feed_baseline]
+  raw_copies: data/raw/blogspot/verniman/archive_html/<new-capture-id>/
+  archive_discovery: data/raw/blogspot/verniman/archive_discovery/<new-discovery-id>/
+  staging: data/staging/verniman/<new-capture-id>-v12/
+  retain: >-
+    Exact provider response bytes, original source URLs, requested/final archive
+    URLs, archive observation timestamps, HTTP headers, current request/capture
+    clocks, source metadata, helper software snapshots and SHA256 hashes.
+collection:
+  current_source_baseline: >-
+    A fresh complete current feed and independent prior-body reconciliation
+    establish that current sources contain no textually recoverable 2016 daily
+    plans. Current permalink years do not establish body year. Preserve the
+    two repurposed 2016 resources and the current navigation terminal separately.
+  archive_discovery: >-
+    Retain bounded complete CDX results and truncation/resume evidence for
+    2016 captures across the whole source domain, and all-time captures of
+    2016 permalink paths. Inspect archived home/feed sources for additional
+    daily bodies and record every candidate, exclusion, duplicate and failure.
+  date_assignment: >-
+    Use an explicit Outlook month/day in the original post title or body,
+    recording which source element supplies it. Require agreement if both
+    contain dates. Qualify the year independently using the archived source
+    revision, source delivery-contract notation and corroborating source
+    context. A permalink year, archive observation date, source update or
+    image filename alone does not assign a session date.
+  uncertain_dates: retain source text and issues; refuse numeric rows without a qualified session date
+  revisions: >-
+    Select explicitly reviewed archived revisions and retain all capture
+    attempts. Do not mix archived HTML with current Atom content. Duplicate
+    source revisions and duplicate session dates remain distinguishable.
+  boundary: >-
+    Archive index/retrieval completion is not a chronological 2015 boundary.
+    Keep traversal_reached_lower_boundary false and never claim full-year
+    historical completeness from surviving archives.
+output:
+  dataset: verniman_daily_levels
+  version: 12.0.0
+  destination: data/curated/external_levels/source=verniman/version=12.0.0/
+  tables:
+    outlooks: Parquet and CSV; captured revision, qualified date, source plan structure, original prose, side status, contract, timestamp claims and archive/capture evidence
+    levels: Parquet and CSV; semantic side, literal source branch if present, trigger/target role, ordinal, exact bounds, source text and qualifications
+    issues: Parquet and CSV; ambiguous, unsupported, missing-threshold, discrepant and duplicate-date source claims
+    coverage: Parquet and CSV; all 366 requested dates, observed posts, extraction outcomes and qualified retrieval gaps
+  viewing_only: daily_summary.csv
+  manifest: catalog/datasets/verniman_daily_levels__12.0.0.json
+  schema: catalog/schemas/verniman_daily_levels__12.0.0.json
+  quality_report: reports/quality/verniman_daily_levels__12.0.0.md
+  overwrite_existing_version: false
+extraction:
+  scope: explicit textual ES daily-plan claims; retain images without chart-only price inference
+  sides: [bullish, bearish]
+  roles: [trigger, target]
+  price_units: exact unadjusted source-contract points
+  shared_threshold: never infer a shared pivot or borrow a threshold from the opposite side
+  lettered_plans: preserve actual A/B/C letters separately from economic side
+  unlettered_plans: >-
+    Retain the entire original Trading Plan and exact side fragments with
+    source_plan_structure and source_unlettered_plan_text. Source-letter
+    fields remain null when the source prints no letter; never invent A/B.
+  participant_scenarios: >-
+    Bounded explicit buyers-hold/push-above source conditions may identify
+    a bullish scenario with source_market_condition_wording, without asserting
+    an unstated buy order. A buyer-failure clause explicitly becoming a seller
+    may identify bearish targets. Preserve exact wording and conditions;
+    ambiguous prose is retained without guessed numeric assignments.
+  partial_sides: >-
+    Preserve fully explicit labelled directional targets even if that side
+    lacks an explicit numeric threshold. Mark the side targets_only with
+    source_trigger_unstated; create no trigger row. Side and overall statuses
+    expose partial extraction. parsed_branch_count counts only complete sides;
+    level_count includes every retained literal trigger/target row.
+  trigger_interpretation: >-
+    Distinguish conditional_threshold, execution_reference and
+    explicit_failure_reference on trigger rows. A first idea to buy/sell at
+    or around an explicit labelled price retains that execution reference and
+    exact conditions with source_execution_reference_threshold; it is not
+    relabelled as an above/below pivot. An explicit failure at one numeric
+    price can retain that failure reference with an unlabelled-point warning
+    when no label is printed. Missing references remain absent.
+  contracts: >-
+    Preserve exact source codes, including literal single-digit 6 and permitted
+    late-year 7 suffixes. Never infer front-month delivery. Qualified generic
+    ES contract and exact unlabelled-trigger exceptions require their existing
+    explicit source evidence and warnings; targets require labels and prices.
+  missing_values: null; no invented labels, prices, dates, source letters or target-only thresholds
+coverage:
+  calendar: all 366 dates from January 1 through December 31, 2016 inclusive
+  gaps: distinguish observed absence, source capture failure, unresolved dates and extraction failure
+  absence_meaning: archive/current-source absence does not prove no original historical post existed
+  duplicates: retain every distinct selected source revision and expose duplicate-date groups
+  completeness_claim: currently retrievable indexed and reviewed source coverage only
+  not_claimed: full original-year completeness, exchange-session eligibility or trading validity
+timing:
+  timezone: America/New_York
+  available_at: null
+  status: historical_availability_unverified
+  archive_observed_at: timestamp of the selected archived observation, separate from publication and current capture clocks
+  source_metadata: retain actual source publication/update claims only; leave absent claims null
+  caveat: >-
+    An archive observation can postdate the stated session and does not establish
+    original pre-open publication. Screenshot filenames are not publication
+    clocks. Never copy an archive/capture timestamp into a publication field.
+validation:
+  require_source_and_output_hashes: true
+  require_exact_source_traceability: true
+  require_qualified_2016_dates: true
+  require_complete_calendar_and_candidate_accounting: true
+  require_explicit_targets_only_qualification: true
+  require_null_available_at: true
+  checks_meaning: source integrity, extraction and observed retrieval coverage; no trading-outcome validation
+retention:
+  preserve: all eleven prior releases, requests, producers, catalog records and published bytes
+  new_captures: unique batch identities; preserve unsuccessful attempts
+  revised_source: new captures and a new release identity
+  backups: ignored bulk raw, staging and curated data need separate retained storage

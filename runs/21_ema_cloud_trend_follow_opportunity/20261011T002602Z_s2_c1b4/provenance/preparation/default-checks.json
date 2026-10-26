@@ -1,0 +1,329 @@
+{
+  "schema_version": 1,
+  "requested": {
+    "profiles": [
+      "default"
+    ],
+    "checks": []
+  },
+  "selection": [
+    "agent-docs",
+    "bhishma",
+    "sahadeva",
+    "legacy-01",
+    "legacy-02",
+    "vwap-doctor"
+  ],
+  "checks": [
+    {
+      "id": "agent-docs",
+      "owner": "workspace",
+      "kind": "command",
+      "argv": [
+        "/Users/ppanati/Documents/projects/abacus/scripts/uv",
+        "run",
+        "--locked",
+        "--no-sync",
+        "python",
+        "scripts/check-agent-docs.py"
+      ],
+      "cwd": "/Users/ppanati/Documents/projects/abacus",
+      "scope": [
+        "Maintained local Markdown links and anchors only."
+      ],
+      "environment_overrides": {},
+      "prerequisites": [
+        {
+          "kind": "executable",
+          "name": "uv",
+          "description": "Existing scripts/uv resolution: ignored .tools/uv/bin/uv or uv on PATH; no bootstrap."
+        },
+        {
+          "kind": "directory",
+          "path": ".venv",
+          "description": "Existing locked Python environment; --no-sync never installs dependencies."
+        },
+        {
+          "kind": "file",
+          "path": ".venv/bin/python",
+          "description": "Prepared locked Python interpreter (.venv/bin/python)"
+        }
+      ],
+      "outcome": "passed",
+      "exit_code": 0,
+      "duration_seconds": 0.240415,
+      "missing_prerequisites": [],
+      "unittest": null
+    },
+    {
+      "id": "bhishma",
+      "owner": "bhishma",
+      "kind": "unittest",
+      "argv": [
+        "/Users/ppanati/Documents/projects/abacus/scripts/uv",
+        "run",
+        "--locked",
+        "--no-sync",
+        "python",
+        "-B",
+        "/Users/ppanati/Documents/projects/abacus/scripts/unittest_child.py",
+        "--spec",
+        "{\"optimize\": false, \"pattern\": \"test*.py\", \"start_dir\": \"/Users/ppanati/Documents/projects/abacus/packages/bhishma/tests\"}",
+        "--result",
+        "/var/folders/8m/7y_qdqcn1fn6gkf6ggc_39bc0000gn/T/abacus-check-y210eieg/unittest-result.json"
+      ],
+      "cwd": "/Users/ppanati/Documents/projects/abacus",
+      "scope": [
+        "Synthetic fixtures, actual native/Ruby tools and configured-publication integration; not a no-data suite."
+      ],
+      "environment_overrides": {},
+      "prerequisites": [
+        {
+          "kind": "executable",
+          "name": "uv",
+          "description": "Existing scripts/uv resolution: ignored .tools/uv/bin/uv or uv on PATH; no bootstrap."
+        },
+        {
+          "kind": "directory",
+          "path": ".venv",
+          "description": "Existing locked Python environment; --no-sync never installs dependencies."
+        },
+        {
+          "kind": "executable",
+          "name": "clang++",
+          "description": "Native VP parity actually invokes clang++."
+        },
+        {
+          "kind": "executable",
+          "name": "ruby",
+          "description": "Runtime-prerequisite fixtures actually execute the Ruby YAML parser."
+        },
+        {
+          "kind": "note",
+          "description": "Phase 1/2 integration resolves publication storage; retain existing unittest skips when no root is configured, and report their reasons."
+        },
+        {
+          "kind": "file",
+          "path": ".venv/bin/python",
+          "description": "Prepared locked Python interpreter (.venv/bin/python)"
+        }
+      ],
+      "outcome": "failed",
+      "exit_code": 1,
+      "duration_seconds": 3.948582,
+      "missing_prerequisites": [],
+      "unittest": {
+        "counts": {
+          "discovered": 227,
+          "errors": 2,
+          "expected_failures": 0,
+          "failures": 0,
+          "skipped": 0,
+          "tests_run": 220,
+          "unexpected_successes": 0
+        },
+        "outcome": "failed",
+        "schema_version": 1,
+        "skips": [],
+        "successful_callbacks": 605
+      }
+    },
+    {
+      "id": "sahadeva",
+      "owner": "sahadeva",
+      "kind": "unittest",
+      "argv": [
+        "/Users/ppanati/Documents/projects/abacus/scripts/uv",
+        "run",
+        "--locked",
+        "--no-sync",
+        "python",
+        "-B",
+        "/Users/ppanati/Documents/projects/abacus/scripts/unittest_child.py",
+        "--spec",
+        "{\"optimize\": false, \"pattern\": \"test*.py\", \"start_dir\": \"/Users/ppanati/Documents/projects/abacus/packages/sahadeva/tests\"}",
+        "--result",
+        "<temporary-result>"
+      ],
+      "cwd": "/Users/ppanati/Documents/projects/abacus",
+      "scope": [
+        "Shared numerical/input-pin and synthetic exporter/projection checks; no research run."
+      ],
+      "environment_overrides": {},
+      "prerequisites": [
+        {
+          "kind": "executable",
+          "name": "uv",
+          "description": "Existing scripts/uv resolution: ignored .tools/uv/bin/uv or uv on PATH; no bootstrap."
+        },
+        {
+          "kind": "directory",
+          "path": ".venv",
+          "description": "Existing locked Python environment; --no-sync never installs dependencies."
+        },
+        {
+          "kind": "file",
+          "path": ".venv/bin/python",
+          "description": "Prepared locked Python interpreter (.venv/bin/python)"
+        }
+      ],
+      "outcome": "not_run",
+      "exit_code": null,
+      "duration_seconds": 0.0,
+      "missing_prerequisites": [],
+      "unittest": null,
+      "reason": "Unexecuted after fail-fast"
+    },
+    {
+      "id": "legacy-01",
+      "owner": "study-01",
+      "kind": "unittest",
+      "argv": [
+        "/Users/ppanati/Documents/projects/abacus/scripts/uv",
+        "run",
+        "--locked",
+        "--no-sync",
+        "python",
+        "-B",
+        "/Users/ppanati/Documents/projects/abacus/scripts/unittest_child.py",
+        "--spec",
+        "{\"optimize\": false, \"pattern\": \"test*.py\", \"start_dir\": \"/Users/ppanati/Documents/projects/abacus/legacy/sahadeva/analysis/01_reversal_follow_through/tests\"}",
+        "--result",
+        "<temporary-result>"
+      ],
+      "cwd": "/Users/ppanati/Documents/projects/abacus",
+      "scope": [
+        "Archived numerical tests, not execution or revalidation of imported runs."
+      ],
+      "environment_overrides": {
+        "PYTHONPATH": "/Users/ppanati/Documents/projects/abacus/legacy/sahadeva/analysis/01_reversal_follow_through/src"
+      },
+      "prerequisites": [
+        {
+          "kind": "executable",
+          "name": "uv",
+          "description": "Existing scripts/uv resolution: ignored .tools/uv/bin/uv or uv on PATH; no bootstrap."
+        },
+        {
+          "kind": "directory",
+          "path": ".venv",
+          "description": "Existing locked Python environment; --no-sync never installs dependencies."
+        },
+        {
+          "kind": "file",
+          "path": ".venv/bin/python",
+          "description": "Prepared locked Python interpreter (.venv/bin/python)"
+        }
+      ],
+      "outcome": "not_run",
+      "exit_code": null,
+      "duration_seconds": 0.0,
+      "missing_prerequisites": [],
+      "unittest": null,
+      "reason": "Unexecuted after fail-fast"
+    },
+    {
+      "id": "legacy-02",
+      "owner": "study-02",
+      "kind": "unittest",
+      "argv": [
+        "/Users/ppanati/Documents/projects/abacus/scripts/uv",
+        "run",
+        "--locked",
+        "--no-sync",
+        "python",
+        "-B",
+        "/Users/ppanati/Documents/projects/abacus/scripts/unittest_child.py",
+        "--spec",
+        "{\"optimize\": false, \"pattern\": \"test*.py\", \"start_dir\": \"/Users/ppanati/Documents/projects/abacus/legacy/sahadeva/analysis/02_followthrough_candle_adverse/tests\"}",
+        "--result",
+        "<temporary-result>"
+      ],
+      "cwd": "/Users/ppanati/Documents/projects/abacus",
+      "scope": [
+        "Archived numerical tests, not execution or revalidation of imported runs."
+      ],
+      "environment_overrides": {
+        "PYTHONPATH": "/Users/ppanati/Documents/projects/abacus/legacy/sahadeva/analysis/02_followthrough_candle_adverse/src"
+      },
+      "prerequisites": [
+        {
+          "kind": "executable",
+          "name": "uv",
+          "description": "Existing scripts/uv resolution: ignored .tools/uv/bin/uv or uv on PATH; no bootstrap."
+        },
+        {
+          "kind": "directory",
+          "path": ".venv",
+          "description": "Existing locked Python environment; --no-sync never installs dependencies."
+        },
+        {
+          "kind": "file",
+          "path": ".venv/bin/python",
+          "description": "Prepared locked Python interpreter (.venv/bin/python)"
+        }
+      ],
+      "outcome": "not_run",
+      "exit_code": null,
+      "duration_seconds": 0.0,
+      "missing_prerequisites": [],
+      "unittest": null,
+      "reason": "Unexecuted after fail-fast"
+    },
+    {
+      "id": "vwap-doctor",
+      "owner": "sahadeva",
+      "kind": "command",
+      "argv": [
+        "/Users/ppanati/Documents/projects/abacus/scripts/uv",
+        "run",
+        "--locked",
+        "--no-sync",
+        "abacus-research",
+        "doctor",
+        "--workspace-root",
+        "/Users/ppanati/Documents/projects/abacus",
+        "--read-sample"
+      ],
+      "cwd": "/Users/ppanati/Documents/projects/abacus",
+      "scope": [
+        "Pins and one sampled partition/session per selected product/timeframe; not all partitions or feature reproduction."
+      ],
+      "environment_overrides": {},
+      "prerequisites": [
+        {
+          "kind": "executable",
+          "name": "uv",
+          "description": "Existing scripts/uv resolution: ignored .tools/uv/bin/uv or uv on PATH; no bootstrap."
+        },
+        {
+          "kind": "directory",
+          "path": ".venv",
+          "description": "Existing locked Python environment; --no-sync never installs dependencies."
+        },
+        {
+          "kind": "note",
+          "description": "Requires the configured publication root and pinned VWAP release; the owning doctor resolves inputs without harness inspection of private configuration."
+        },
+        {
+          "kind": "file",
+          "path": ".venv/bin/python",
+          "description": "Prepared locked Python interpreter (.venv/bin/python)"
+        }
+      ],
+      "outcome": "not_run",
+      "exit_code": null,
+      "duration_seconds": 0.0,
+      "missing_prerequisites": [],
+      "unittest": null,
+      "reason": "Unexecuted after fail-fast"
+    }
+  ],
+  "outcome": "failed",
+  "exit_code": 1,
+  "limitations": [
+    "Only selected checks were executed.",
+    "Unittest counts come from the child TestResult; command checks have no test counts.",
+    "Configured-input diagnostics do not verify every partition or reproduce research."
+  ]
+}

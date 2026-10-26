@@ -1,0 +1,30 @@
+{
+  "status": "published_input_provenance_sufficient_with_qualifications",
+  "missing_raw_mapping": {
+    "bytes": 23167,
+    "path": "data/raw/databento/GLBX.MDP3/symbology/continuous/volume-rank-0/2010-06-06_2026-09-20.json",
+    "sha256": "2e0d48d93b1cf7a4c0556a9522f3de603ca06f36fd1bb692706db02033fef456",
+    "present": false
+  },
+  "unavailable_raw_condition_records": [
+    {
+      "bytes": 617010,
+      "path": "data/raw/databento/GLBX.MDP3/ohlcv-1m/GLBX-20260920-577W4VCSK7/condition.json",
+      "sha256": "5a72a88291b5f03e286ffd56334786e396a5a649cfdaeb178d41c62159ff030f",
+      "status": "unavailable_not_verified"
+    },
+    {
+      "bytes": 617010,
+      "path": "data/raw/databento/GLBX.MDP3/definition/GLBX-20260920-QQQSGCKWES/condition.json",
+      "sha256": "5a72a88291b5f03e286ffd56334786e396a5a649cfdaeb178d41c62159ff030f",
+      "status": "unavailable_not_verified"
+    }
+  ],
+  "condition_record_scope": "Pinned original release manifests retain source-condition summaries; absent original raw condition JSON bytes are not verified.",
+  "source_reconstruction": "Missing raw mapping and ES roll-1 definition pair prevent source reconstruction checks. No mappings invented; existing releases not rebuilt.",
+  "published_consumption": "Verified actual retained minute partitions, master, roll schedule, adjusted reconciliation partitions and adjustment schedules; selected 2017\u20132020 contract identity reconciles to master and rolls.",
+  "essential_for_this_delivery": "Published byte and lineage identities are sufficient for this historical descriptive study. Original mapping arrival/publication times remain unavailable; this is not certified live-feed reconstruction.",
+  "historical_roll1": "ES roll_id 1 pertains to 2010-06-14 and is not consumed for 2017\u20132020 features. Its existing published adjustment translation is checked rather than recomputed.",
+  "calendar": "Normal weekday 18\u201317 NY, ES/NQ 16:15\u201316:30 pre-2021 pause; rule-generated holiday/early-close sessions unusable, all nominal slots retained. Missing no-trade minutes are unknown gaps, never inferred closures.",
+  "outcome_scope": "No signals or outcomes calculated by preparation; only 2017 causal warmup and 2018\u20132020 input bars."
+}

@@ -1,4 +1,4 @@
-"""Read-only workspace diagnostics; no study execution is implemented here."""
+"""Read-only VWAP input-pin diagnostics; no study execution or feature reproduction."""
 
 from __future__ import annotations
 
@@ -16,10 +16,27 @@ from .inputs import read_samples, verify_inputs
 def main(argv: Sequence[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     commands = parser.add_subparsers(dest="command", required=True)
-    doctor = commands.add_parser("doctor", help="Check configured storage and pinned input identities")
-    doctor.add_argument("--workspace-root", type=Path)
-    doctor.add_argument("--inputs-lock", type=Path, default=Path("studies/05_session_vwap/inputs.lock.json"))
-    doctor.add_argument("--read-sample", action="store_true", help="Also hash and read one source partition/session per product and timeframe")
+    doctor = commands.add_parser(
+        "doctor",
+        help="Check session_anchored_vwap input pins and configured storage",
+        description=(
+            "Diagnose session_anchored_vwap pins using the schema-version-1 VWAP lock "
+            "contract and supported release versions. Check manifest/catalog identities "
+            "and applicable audit/quality-report hashes. This bounded diagnostic does "
+            "not verify every data partition, reproduce features, execute a study, "
+            "or certify profitability."
+        ),
+    )
+    doctor.add_argument("--workspace-root", type=Path, help="Workspace used to resolve storage and relative lock paths")
+    doctor.add_argument(
+        "--inputs-lock", type=Path, default=Path("studies/05_session_vwap/inputs.lock.json"),
+        help=("A schema-version-1 VWAP lock with an explicitly supported release version "
+              "(default: studies/05_session_vwap/inputs.lock.json)"),
+    )
+    doctor.add_argument(
+        "--read-sample", action="store_true",
+        help="Also hash one selected partition and load one session per product/timeframe; other partitions remain unverified",
+    )
     args = parser.parse_args(argv)
     try:
         paths = load_workspace_paths(args.workspace_root)

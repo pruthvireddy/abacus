@@ -1,0 +1,16 @@
+study_id: 08_countertrend_bar_continuation
+protocol_version: 1.0.0
+frozen_at_utc: 2026-09-24T05:47:00Z
+primary_snapshot: data/range_xv/20191101_20260924/range_xv_exports_manifest.json
+charts: [ES_4, ES_5, ES_6, GC_6, GC_10, NQ_10, NQ_20]
+larger_pairs: {ES_4: ES_5, ES_5: ES_6, GC_6: GC_10, NQ_10: NQ_20}
+prior_bins: {context: [1, 2], short: [3, 4], medium: [5, 7], extended: [8, null]}
+session_windows: {asia: '18:00-03:00', london_pre_ny: '03:00-09:30', ny_morning: '09:30-12:00', ny_afternoon: '12:00-16:00', transition: '16:00-18:00'}
+structure: {body_min: 0.70, close_location_min: 0.80, adverse_wick_max_exclusive: 0.20, prior_opposing_wick_max_exclusive: 0.20, prior_net_units_per_bar_min: 0.75, prior_median_duration_seconds_max_exclusive: 60}
+chronological_blocks: {early: ['2019-11-01', '2021-12-31'], middle: ['2022-01-01', '2023-12-31'], recent: ['2024-01-01', '2026-09-24']}
+gc_primary_excluded_sessions: ['2026-01-28', '2026-02-04', '2026-02-20', '2026-03-19', '2026-04-02']
+headline_min_events: 300
+headline_min_session_dates: 100
+headline_min_events_per_date: 2
+primary_comparison_count: 210
+cluster_interval: session_sandwich_normal

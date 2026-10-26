@@ -1,0 +1,50 @@
+
+> @abacus/narada@0.1.0 prebuild
+> npm run verify
+
+
+> @abacus/narada@0.1.0 verify
+> node scripts/verify.mjs
+
+Verified 24 studies, 97 publications, 154 raster assets and 237 selected CSVs.
+
+> @abacus/narada@0.1.0 build
+> next build
+
+▲ Next.js 16.2.10 (Turbopack)
+
+  Creating an optimized production build ...
+✓ Compiled successfully in 1174ms
+  Running TypeScript ...
+  Finished TypeScript in 1134ms ...
+  Collecting page data using 6 workers ...
+  Generating static pages using 6 workers (0/124) ...
+  Generating static pages using 6 workers (31/124) 
+  Generating static pages using 6 workers (62/124) 
+  Generating static pages using 6 workers (93/124) 
+✓ Generating static pages using 6 workers (124/124) in 1772ms
+  Finalizing page optimization ...
+
+Route (app)
+┌ ○ /
+├ ○ /_not-found
+├ ● /reports/[id]
+│ ├ /reports/es-opening-pivot-cloud-26-v1-20261021t044616zreportfixv1
+│ ├ /reports/es-opening-pivot-cloud-26-v1-20261021t042230zopeningpivotv1
+│ ├ /reports/forex-news-6a-20261017-v2-r1
+│ └ [+94 more paths]
+└ ● /studies/[slug]
+  ├ /studies/reversal-follow-through
+  ├ /studies/followthrough-candle-adverse
+  ├ /studies/multi-rxv-alignment
+  └ [+21 more paths]
+
+
+○  (Static)  prerendered as static content
+●  (SSG)     prerendered as static HTML (uses generateStaticParams)
+
+
+> @abacus/narada@0.1.0 postbuild
+> node scripts/verify-export.mjs
+
+Verified library, 24 study routes, 97 publication routes and 1106 bounded page payloads in out/.

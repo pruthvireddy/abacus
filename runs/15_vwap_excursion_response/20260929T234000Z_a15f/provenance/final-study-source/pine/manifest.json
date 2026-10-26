@@ -1,0 +1,72 @@
+{
+  "schema_version": 1,
+  "artifact": "vwap_oe_two_sigma_fade_chart_companion",
+  "created_at_utc": "2026-09-29T23:43:24.165054+00:00",
+  "study_id": "15_vwap_excursion_response",
+  "artifact_kind": "editable_chart_indicator_source_not_sealed_research_evidence",
+  "native_pine_compilation": "not_verified",
+  "native_chart_replay": "not_verified",
+  "local_numerical_helper_tests": {
+    "passed": 15,
+    "command": "python3 -m unittest discover -s studies/15_vwap_excursion_response/tests -p 'test_pine_fade_stats.py' -v",
+    "scope": "Delivered Pine scalar helper expressions translated for local tests; does not compile Pine or emulate series/UDT state."
+  },
+  "git_head": "cd11be3f8f7d27c9429b2ff03872f3b6485a6e27",
+  "dirty_worktree": true,
+  "data_source": "Loaded TradingView chart OHLCV; no Abacus result rates embedded.",
+  "source_inputs": [
+    {
+      "retained_path": "studies/15_vwap_excursion_response/pine/source_vwap_oe.pine",
+      "origin": "reports/exports/11_vwap_conditional_probabilities/20260924T155331Z_vwap11/20260925T034500Z_stats_only_v4/source-indicator.pine",
+      "sha256": "5f42139c73c5084ceb951bab3b11f236a52921bef7be3bf5448863b083a0166e"
+    },
+    {
+      "retained_path": "studies/15_vwap_excursion_response/pine/source_stats_reference.pine",
+      "origin": "User attachment adebd855-46d0-4005-ab2c-11a74f137eb3/Pasted text.txt",
+      "sha256": "a6173e65c4fc3eda512509419cf5a27155898aa2dcda81894c3f2aaeb992f530"
+    }
+  ],
+  "files": [
+    {
+      "path": "studies/15_vwap_excursion_response/pine/vwap_oe_fade_stats.pine",
+      "sha256": "c556078995b5bdeb02144be07f4d318b326d6ce034d4c34260f3df031107e65f",
+      "bytes": 51808
+    },
+    {
+      "path": "studies/15_vwap_excursion_response/pine/source_vwap_oe.pine",
+      "sha256": "5f42139c73c5084ceb951bab3b11f236a52921bef7be3bf5448863b083a0166e",
+      "bytes": 15913
+    },
+    {
+      "path": "studies/15_vwap_excursion_response/pine/source_stats_reference.pine",
+      "sha256": "a6173e65c4fc3eda512509419cf5a27155898aa2dcda81894c3f2aaeb992f530",
+      "bytes": 37788
+    },
+    {
+      "path": "studies/15_vwap_excursion_response/pine/README.md",
+      "sha256": "4e118e12bbeff9b2a23f056e7be90879cf9c9dafa69cc0ad21b2a00b9b4dae65",
+      "bytes": 9304
+    },
+    {
+      "path": "studies/15_vwap_excursion_response/pine/verification.md",
+      "sha256": "36a98e2aaf64534da792e171715fd9357e11526c316f0668ecf19653e35c8fc1",
+      "bytes": 4012
+    },
+    {
+      "path": "studies/15_vwap_excursion_response/tests/test_pine_fade_stats.py",
+      "sha256": "9cf364afd414ac109594d3bfb14e3f3948fdb179033c6c69b9a68446f0630008",
+      "bytes": 7539
+    }
+  ],
+  "updated_at_utc": "2026-09-29T23:57:18.333115+00:00",
+  "rendering_revision": {
+    "reported_error": "RE10140: 74 plot counts; limit 64",
+    "retention": "Two most recent observed daily occurrences of each anchor; marker history independent of curve retention.",
+    "plot_count_conservative_upper_bound": 33,
+    "polyline_count_upper_bound": 42,
+    "polyline_declared_limit": 50,
+    "statistical_engine_changed": false,
+    "local_queue_probe": "Passed translated-helper checks with fake drawing APIs: weekend retention, third-anchor eviction, redraw deletion, disabled streams and combined drawing bound; does not emulate Pine rollback.",
+    "native_acceptance": "not_verified"
+  }
+}

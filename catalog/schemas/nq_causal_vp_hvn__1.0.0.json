@@ -1,0 +1,688 @@
+{
+  "dataset_id": "nq_causal_vp_hvn__1.0.0",
+  "snapshots": "ts_event: int64\navailable_at: int64\nrebuild_at: int64\nadj_rebuild_at: int64\nsession_date: string\nweek: string\nraw_symbol: string\nsource_batch: string\nseason: string\nminute: int32\ninstrument_id: int32\nroll_id: int32\nis_roll: bool\novernight_complete: bool\novernight_contract_clean: bool\nhvn_complete: bool\nhvn_contract_clean: bool\nreference_complete: bool\nreference_contract_clean: bool\nsource_degraded: bool\nhvn_source_degraded: bool\nreference_source_degraded: bool\nopen: double\nhigh: double\nlow: double\nclose: double\nvolume: double\nadjustment: double\nprevious_close: double\nvolatility60: double\npdh: double\npdl: double\non_vah: double\non_poc: double\non_val: double\npost_on_vah: double\npost_on_poc: double\npost_on_val: double\ncw_vah: double\ncw_poc: double\ncw_val: double\npw_vah: double\npw_poc: double\npw_val: double\nrth_vah: double\nrth_poc: double\nrth_val: double\nadj_on_vah: double\nadj_on_poc: double\nadj_on_val: double\nadj_post_on_vah: double\nadj_post_on_poc: double\nadj_post_on_val: double\nadj_cw_vah: double\nadj_cw_poc: double\nadj_cw_val: double\nadj_pw_vah: double\nadj_pw_poc: double\nadj_pw_val: double\nadj_rth_vah: double\nadj_rth_poc: double\nadj_rth_val: double\nreferences: list<item: double>\n  child 0, item: double\nadj_references: list<item: double>\n  child 0, item: double\nselected: list<item: struct<candidate_id: string, node_id: string, lo: double, hi: double, mid: double, streng (... 80 chars omitted)\n  child 0, item: struct<candidate_id: string, node_id: string, lo: double, hi: double, mid: double, strength: double, (... 68 chars omitted)\n      child 0, candidate_id: string\n      child 1, node_id: string\n      child 2, lo: double\n      child 3, hi: double\n      child 4, mid: double\n      child 5, strength: double\n      child 6, side: int8\n      child 7, rank: int8\n      child 8, available_at: int64\n      child 9, match_ambiguous: bool\npost_selected: list<item: struct<candidate_id: string, node_id: string, lo: double, hi: double, mid: double, streng (... 80 chars omitted)\n  child 0, item: struct<candidate_id: string, node_id: string, lo: double, hi: double, mid: double, strength: double, (... 68 chars omitted)\n      child 0, candidate_id: string\n      child 1, node_id: string\n      child 2, lo: double\n      child 3, hi: double\n      child 4, mid: double\n      child 5, strength: double\n      child 6, side: int8\n      child 7, rank: int8\n      child 8, available_at: int64\n      child 9, match_ambiguous: bool\nadj_selected: list<item: struct<candidate_id: string, node_id: string, lo: double, hi: double, mid: double, streng (... 80 chars omitted)\n  child 0, item: struct<candidate_id: string, node_id: string, lo: double, hi: double, mid: double, strength: double, (... 68 chars omitted)\n      child 0, candidate_id: string\n      child 1, node_id: string\n      child 2, lo: double\n      child 3, hi: double\n      child 4, mid: double\n      child 5, strength: double\n      child 6, side: int8\n      child 7, rank: int8\n      child 8, available_at: int64\n      child 9, match_ambiguous: bool",
+  "decisions": "ts_event: int64\nsession_date: string\ndecisions: list<item: struct<candidate_id: string, node_id: string, reason: string>>\n  child 0, item: struct<candidate_id: string, node_id: string, reason: string>\n      child 0, candidate_id: string\n      child 1, node_id: string\n      child 2, reason: string\nadj_decisions: list<item: struct<candidate_id: string, node_id: string, reason: string>>\n  child 0, item: struct<candidate_id: string, node_id: string, reason: string>\n      child 0, candidate_id: string\n      child 1, node_id: string\n      child 2, reason: string",
+  "table_files": [
+    {
+      "path": "data/features/vp_hvn/version=1.0.0/snapshots/year=2010/part-000.parquet",
+      "sha256": "2eed573a960641332999714382b3f66fe40d2818ecf8d88face3389562e518c0",
+      "rows": 37464,
+      "bytes": 1420998,
+      "table": "snapshots",
+      "year": 2010
+    },
+    {
+      "path": "data/features/vp_hvn/version=1.0.0/decisions/year=2010/part-000.parquet",
+      "sha256": "2a16f464d131b5658bbf546b6a9a3cd92fefa18122f80e2b09bb1c0df88f5bfe",
+      "rows": 37464,
+      "bytes": 689504,
+      "table": "decisions",
+      "year": 2010
+    },
+    {
+      "path": "data/features/vp_hvn/version=1.0.0/candidates/year=2010/part-000.parquet",
+      "sha256": "ae2aed1061c1cb0a1ccbd918c54cf7409eb0ffcf0a35b9548b1c1262bf3a29c5",
+      "rows": 36491,
+      "bytes": 337429,
+      "table": "candidates",
+      "year": 2010
+    },
+    {
+      "path": "data/features/vp_hvn/version=1.0.0/sessions/year=2010/part-000.parquet",
+      "sha256": "c7c5d2adf66f2bf03fce23e46440e12c92d255dac78bca5d40a23be34714dcee",
+      "rows": 149,
+      "bytes": 7580,
+      "table": "sessions",
+      "year": 2010
+    },
+    {
+      "path": "data/features/vp_hvn/version=1.0.0/rhythm/year=2010/part-000.parquet",
+      "sha256": "f3acb78aa677d204e5b8ace0f87a32b3fb800d600a8361ab1513d4f9544d76dc",
+      "rows": 3573,
+      "bytes": 15431,
+      "table": "rhythm",
+      "year": 2010
+    },
+    {
+      "path": "data/features/vp_hvn/version=1.0.0/snapshots/year=2011/part-000.parquet",
+      "sha256": "865f717ed09a71c00c94c2d36b9ee94212b03057b3a4821e016780d91b2b6cd8",
+      "rows": 72622,
+      "bytes": 2807420,
+      "table": "snapshots",
+      "year": 2011
+    },
+    {
+      "path": "data/features/vp_hvn/version=1.0.0/decisions/year=2011/part-000.parquet",
+      "sha256": "af3d4e2cc0b6eae3fa61245791dd90ba104589db985948228df149c253f8a6c8",
+      "rows": 72622,
+      "bytes": 1240887,
+      "table": "decisions",
+      "year": 2011
+    },
+    {
+      "path": "data/features/vp_hvn/version=1.0.0/candidates/year=2011/part-000.parquet",
+      "sha256": "bfea4436b347759148f40a19be66b67babb4e1f4e6ae76ea30d3b62114585cb7",
+      "rows": 83412,
+      "bytes": 615856,
+      "table": "candidates",
+      "year": 2011
+    },
+    {
+      "path": "data/features/vp_hvn/version=1.0.0/sessions/year=2011/part-000.parquet",
+      "sha256": "8461e4bd0ad8f3db5c773bb956f072a31ef2fc23d7555ae80d7550d7f95002d7",
+      "rows": 258,
+      "bytes": 8942,
+      "table": "sessions",
+      "year": 2011
+    },
+    {
+      "path": "data/features/vp_hvn/version=1.0.0/rhythm/year=2011/part-000.parquet",
+      "sha256": "d8641f5357b56727fa979ed4ca4d8cc94d79ba8676dc474c2dd412883bd50977",
+      "rows": 6168,
+      "bytes": 25829,
+      "table": "rhythm",
+      "year": 2011
+    },
+    {
+      "path": "data/features/vp_hvn/version=1.0.0/snapshots/year=2012/part-000.parquet",
+      "sha256": "b2ef7491f142d5d6635a085c218b4b2d4c54364c141426544fdeaf157a5f0e1c",
+      "rows": 72758,
+      "bytes": 2750829,
+      "table": "snapshots",
+      "year": 2012
+    },
+    {
+      "path": "data/features/vp_hvn/version=1.0.0/decisions/year=2012/part-000.parquet",
+      "sha256": "b3bbad8ac1ddab40c13ea0a7b961b524be9bdf468596027abf26bd88132297c4",
+      "rows": 72758,
+      "bytes": 1300298,
+      "table": "decisions",
+      "year": 2012
+    },
+    {
+      "path": "data/features/vp_hvn/version=1.0.0/candidates/year=2012/part-000.parquet",
+      "sha256": "84b71ac7386a15618a9b7ff5baef5ddad66ec6017c9ce59eac839a5a098bedfb",
+      "rows": 66851,
+      "bytes": 572033,
+      "table": "candidates",
+      "year": 2012
+    },
+    {
+      "path": "data/features/vp_hvn/version=1.0.0/sessions/year=2012/part-000.parquet",
+      "sha256": "d6d5b86080ca51e6c464e065b34cba6cb55f483f5e9d023bfa3ae8ab239b4b75",
+      "rows": 258,
+      "bytes": 8823,
+      "table": "sessions",
+      "year": 2012
+    },
+    {
+      "path": "data/features/vp_hvn/version=1.0.0/rhythm/year=2012/part-000.parquet",
+      "sha256": "e9c77757243016274299ab03be6707e31473d8d4a4a4a442faebc4aa3878270a",
+      "rows": 6144,
+      "bytes": 23965,
+      "table": "rhythm",
+      "year": 2012
+    },
+    {
+      "path": "data/features/vp_hvn/version=1.0.0/snapshots/year=2013/part-000.parquet",
+      "sha256": "745ed5b0b3a5ba2bae634f130f02e7aa4d44c36fef7519fa3f7917ef8ab4a90b",
+      "rows": 69364,
+      "bytes": 2558158,
+      "table": "snapshots",
+      "year": 2013
+    },
+    {
+      "path": "data/features/vp_hvn/version=1.0.0/decisions/year=2013/part-000.parquet",
+      "sha256": "ec556c29a08fb7f6723fcc675e61ff14ff59529fc01feba4367b617e1de42825",
+      "rows": 69364,
+      "bytes": 1390067,
+      "table": "decisions",
+      "year": 2013
+    },
+    {
+      "path": "data/features/vp_hvn/version=1.0.0/candidates/year=2013/part-000.parquet",
+      "sha256": "5a820f453089a5829370e9298f8c3f336e0db6d419b4fcf5bc035082f28aa766",
+      "rows": 61002,
+      "bytes": 555900,
+      "table": "candidates",
+      "year": 2013
+    },
+    {
+      "path": "data/features/vp_hvn/version=1.0.0/sessions/year=2013/part-000.parquet",
+      "sha256": "4303c2e93a0fc79988af098eafcbf7476dee7b558ae16bbac8581ed6b9e2ea66",
+      "rows": 252,
+      "bytes": 8605,
+      "table": "sessions",
+      "year": 2013
+    },
+    {
+      "path": "data/features/vp_hvn/version=1.0.0/rhythm/year=2013/part-000.parquet",
+      "sha256": "ab6e4cc82d6831510155a70ee03e17d3133adc4300e4d51dc1b736b14f4bf67b",
+      "rows": 5997,
+      "bytes": 23681,
+      "table": "rhythm",
+      "year": 2013
+    },
+    {
+      "path": "data/features/vp_hvn/version=1.0.0/snapshots/year=2014/part-000.parquet",
+      "sha256": "4ef5311c5f5acc9702d4579589dc483bc7efec0e0ac382f70ed52a0574c9bb27",
+      "rows": 71145,
+      "bytes": 2704953,
+      "table": "snapshots",
+      "year": 2014
+    },
+    {
+      "path": "data/features/vp_hvn/version=1.0.0/decisions/year=2014/part-000.parquet",
+      "sha256": "7987adde4aa1841dab190709090d914acec263640a96e7d1f8fea791236f9d80",
+      "rows": 71145,
+      "bytes": 1217410,
+      "table": "decisions",
+      "year": 2014
+    },
+    {
+      "path": "data/features/vp_hvn/version=1.0.0/candidates/year=2014/part-000.parquet",
+      "sha256": "100822f556201317ee3772b1ec75274ad103b375a4b033b516e9cc1dc4065e12",
+      "rows": 80634,
+      "bytes": 605297,
+      "table": "candidates",
+      "year": 2014
+    },
+    {
+      "path": "data/features/vp_hvn/version=1.0.0/sessions/year=2014/part-000.parquet",
+      "sha256": "f93ec7ca6745e6a439debf132076031337a1f555c3f9ec7786839fb5680f0785",
+      "rows": 250,
+      "bytes": 8681,
+      "table": "sessions",
+      "year": 2014
+    },
+    {
+      "path": "data/features/vp_hvn/version=1.0.0/rhythm/year=2014/part-000.parquet",
+      "sha256": "34f820b86ca428874d859a20c410753ff2914cde91538067ca6c3a979dc1e19f",
+      "rows": 5936,
+      "bytes": 23874,
+      "table": "rhythm",
+      "year": 2014
+    },
+    {
+      "path": "data/features/vp_hvn/version=1.0.0/snapshots/year=2015/part-000.parquet",
+      "sha256": "0d0ff7e7bc8caf0353647707ee82a1658c2f79d8fe4250dbee4b68efc727653a",
+      "rows": 77974,
+      "bytes": 3247386,
+      "table": "snapshots",
+      "year": 2015
+    },
+    {
+      "path": "data/features/vp_hvn/version=1.0.0/decisions/year=2015/part-000.parquet",
+      "sha256": "e7d6e0bee5bcc7e027bc5c61a683ec907a0805cf4b080cdc4d8fbf6acc5f49a9",
+      "rows": 77974,
+      "bytes": 1423905,
+      "table": "decisions",
+      "year": 2015
+    },
+    {
+      "path": "data/features/vp_hvn/version=1.0.0/candidates/year=2015/part-000.parquet",
+      "sha256": "7ded559300548eceea2418aea07b5c12399248126624073b71a72218cda8c14a",
+      "rows": 99171,
+      "bytes": 654365,
+      "table": "candidates",
+      "year": 2015
+    },
+    {
+      "path": "data/features/vp_hvn/version=1.0.0/sessions/year=2015/part-000.parquet",
+      "sha256": "d6e399b87067af71c99a53faaed7fc47668f988d78cf2338ed00397999284ad9",
+      "rows": 259,
+      "bytes": 8756,
+      "table": "sessions",
+      "year": 2015
+    },
+    {
+      "path": "data/features/vp_hvn/version=1.0.0/rhythm/year=2015/part-000.parquet",
+      "sha256": "a94b00c78d64260857bb69abe17cb539f3e7405641d3509f51314c3f937e0082",
+      "rows": 6204,
+      "bytes": 26293,
+      "table": "rhythm",
+      "year": 2015
+    },
+    {
+      "path": "data/features/vp_hvn/version=1.0.0/snapshots/year=2016/part-000.parquet",
+      "sha256": "4d3b3807a650cbf964bdf47ba7380791b85ee7aaf85cda7e62f85961aeac947b",
+      "rows": 83904,
+      "bytes": 3353541,
+      "table": "snapshots",
+      "year": 2016
+    },
+    {
+      "path": "data/features/vp_hvn/version=1.0.0/decisions/year=2016/part-000.parquet",
+      "sha256": "5a94274ed715361822d3fe7a8bcdec060fcee7b3f0ea543f4d133c46586be091",
+      "rows": 83904,
+      "bytes": 1440533,
+      "table": "decisions",
+      "year": 2016
+    },
+    {
+      "path": "data/features/vp_hvn/version=1.0.0/candidates/year=2016/part-000.parquet",
+      "sha256": "a1f42bdf9e67d076f7c5f1d242fdce71e04e4a2b649e73433d319b800a3f0793",
+      "rows": 97629,
+      "bytes": 685127,
+      "table": "candidates",
+      "year": 2016
+    },
+    {
+      "path": "data/features/vp_hvn/version=1.0.0/sessions/year=2016/part-000.parquet",
+      "sha256": "33aedbdd2a79f4d71a27870c71260aeb6eb011e0857fd33f5ceaf813f63f1dc8",
+      "rows": 258,
+      "bytes": 8303,
+      "table": "sessions",
+      "year": 2016
+    },
+    {
+      "path": "data/features/vp_hvn/version=1.0.0/rhythm/year=2016/part-000.parquet",
+      "sha256": "23d37ec7eec82f9fcbae1daa21652467d2e6a5b48086931285548ffee5181309",
+      "rows": 6192,
+      "bytes": 27423,
+      "table": "rhythm",
+      "year": 2016
+    },
+    {
+      "path": "data/features/vp_hvn/version=1.0.0/snapshots/year=2017/part-000.parquet",
+      "sha256": "4fce6c1d710c6363d4fb9762da0d34877f992d7f207a76f529efd4c33b55db53",
+      "rows": 88434,
+      "bytes": 3319156,
+      "table": "snapshots",
+      "year": 2017
+    },
+    {
+      "path": "data/features/vp_hvn/version=1.0.0/decisions/year=2017/part-000.parquet",
+      "sha256": "5f922daa9348637e1e917f80dcb4e52f02f38864381a3f7ba05ecc3d8d616325",
+      "rows": 88434,
+      "bytes": 1550183,
+      "table": "decisions",
+      "year": 2017
+    },
+    {
+      "path": "data/features/vp_hvn/version=1.0.0/candidates/year=2017/part-000.parquet",
+      "sha256": "d212d7d7c691f4f1585d4048236c95c52b18f23cb0f0e86eaeb8668cc2d327ea",
+      "rows": 84916,
+      "bytes": 623987,
+      "table": "candidates",
+      "year": 2017
+    },
+    {
+      "path": "data/features/vp_hvn/version=1.0.0/sessions/year=2017/part-000.parquet",
+      "sha256": "1ee1fe1c462a9fbe4457db7419815de03cd317ecea69e9b9e17f32db20799884",
+      "rows": 257,
+      "bytes": 8063,
+      "table": "sessions",
+      "year": 2017
+    },
+    {
+      "path": "data/features/vp_hvn/version=1.0.0/rhythm/year=2017/part-000.parquet",
+      "sha256": "04958c695e82efe8755b8b7d3ae240c51003ae72569554e2897d924dfdde7eca",
+      "rows": 6168,
+      "bytes": 26724,
+      "table": "rhythm",
+      "year": 2017
+    },
+    {
+      "path": "data/features/vp_hvn/version=1.0.0/snapshots/year=2018/part-000.parquet",
+      "sha256": "a0bfdb84241349dffd6b007c04d699245b320dcae32f03a69272729461a50172",
+      "rows": 92474,
+      "bytes": 4101245,
+      "table": "snapshots",
+      "year": 2018
+    },
+    {
+      "path": "data/features/vp_hvn/version=1.0.0/decisions/year=2018/part-000.parquet",
+      "sha256": "9494cdd42ca3eff4e9bdb7af76336cd8ee323ee4df87e19c623fdcd7bee00fb0",
+      "rows": 92474,
+      "bytes": 1798600,
+      "table": "decisions",
+      "year": 2018
+    },
+    {
+      "path": "data/features/vp_hvn/version=1.0.0/candidates/year=2018/part-000.parquet",
+      "sha256": "1fc6e3ab5bd78caeb5d90694d11960bc20216a198ae5f4521a72e95f0e111018",
+      "rows": 160151,
+      "bytes": 814960,
+      "table": "candidates",
+      "year": 2018
+    },
+    {
+      "path": "data/features/vp_hvn/version=1.0.0/sessions/year=2018/part-000.parquet",
+      "sha256": "a9da77aca0523f0ffdd0497beba5b98e11a0b782d7f2879b5150d0ed3fc8388c",
+      "rows": 259,
+      "bytes": 7625,
+      "table": "sessions",
+      "year": 2018
+    },
+    {
+      "path": "data/features/vp_hvn/version=1.0.0/rhythm/year=2018/part-000.parquet",
+      "sha256": "2e2aa6d4b3fc5b4c965a9c6f90c60379da0477c4c42836a444b2e4267b1e19cf",
+      "rows": 6190,
+      "bytes": 27786,
+      "table": "rhythm",
+      "year": 2018
+    },
+    {
+      "path": "data/features/vp_hvn/version=1.0.0/snapshots/year=2019/part-000.parquet",
+      "sha256": "7f0e803078eb8d7d032d305320cc87f5418eb771da3a33a388f2e7a9cad77ca3",
+      "rows": 92590,
+      "bytes": 4119082,
+      "table": "snapshots",
+      "year": 2019
+    },
+    {
+      "path": "data/features/vp_hvn/version=1.0.0/decisions/year=2019/part-000.parquet",
+      "sha256": "b2ee891c81dea2dd0670f90f110972b6c05a1471a865a6028b885b0867e151f1",
+      "rows": 92590,
+      "bytes": 1788067,
+      "table": "decisions",
+      "year": 2019
+    },
+    {
+      "path": "data/features/vp_hvn/version=1.0.0/candidates/year=2019/part-000.parquet",
+      "sha256": "4a235b67dad8d1c9ef0b3715037e7a8cad74b8477ee4d9ece985e39b904687ac",
+      "rows": 137873,
+      "bytes": 759004,
+      "table": "candidates",
+      "year": 2019
+    },
+    {
+      "path": "data/features/vp_hvn/version=1.0.0/sessions/year=2019/part-000.parquet",
+      "sha256": "b871a2254292deda532596fe26d65c1b79b4f30f0434b2d44eedcf78556d824c",
+      "rows": 258,
+      "bytes": 7275,
+      "table": "sessions",
+      "year": 2019
+    },
+    {
+      "path": "data/features/vp_hvn/version=1.0.0/rhythm/year=2019/part-000.parquet",
+      "sha256": "46dda8928188c518ce69911edf3c7181d3ec42c29cfa1d83f6e9f00dc1ca84e3",
+      "rows": 6180,
+      "bytes": 28246,
+      "table": "rhythm",
+      "year": 2019
+    },
+    {
+      "path": "data/features/vp_hvn/version=1.0.0/snapshots/year=2020/part-000.parquet",
+      "sha256": "e236dcb724bd0e0f92a80689445865c4f2595e47c5db0d638b5f11ceae6259fe",
+      "rows": 92710,
+      "bytes": 5036752,
+      "table": "snapshots",
+      "year": 2020
+    },
+    {
+      "path": "data/features/vp_hvn/version=1.0.0/decisions/year=2020/part-000.parquet",
+      "sha256": "d9446db954d1f9c50d43f89154b815a7f67c2c05208fa841b0bbd1e6cebd5a12",
+      "rows": 92710,
+      "bytes": 1907129,
+      "table": "decisions",
+      "year": 2020
+    },
+    {
+      "path": "data/features/vp_hvn/version=1.0.0/candidates/year=2020/part-000.parquet",
+      "sha256": "878cbf92b240874cf33ade1d89917b8a5102c0492e01aafa4769f924664ff729",
+      "rows": 214648,
+      "bytes": 1019058,
+      "table": "candidates",
+      "year": 2020
+    },
+    {
+      "path": "data/features/vp_hvn/version=1.0.0/sessions/year=2020/part-000.parquet",
+      "sha256": "bc354e41d754ea8eb80f3d202b75d8e0e3308f830e9ff287c23407afdaca31e2",
+      "rows": 259,
+      "bytes": 7315,
+      "table": "sessions",
+      "year": 2020
+    },
+    {
+      "path": "data/features/vp_hvn/version=1.0.0/rhythm/year=2020/part-000.parquet",
+      "sha256": "ad1b76dc76798ea46f01b0c9eaa7c5607463a5e2d9fbdef3ee80ae60af9e2d1d",
+      "rows": 6206,
+      "bytes": 34297,
+      "table": "rhythm",
+      "year": 2020
+    },
+    {
+      "path": "data/features/vp_hvn/version=1.0.0/snapshots/year=2021/part-000.parquet",
+      "sha256": "7cb0e2b540a264c0816c32ed0b84cb2ccaf39419143781e21568b755e1de93af",
+      "rows": 93206,
+      "bytes": 4737087,
+      "table": "snapshots",
+      "year": 2021
+    },
+    {
+      "path": "data/features/vp_hvn/version=1.0.0/decisions/year=2021/part-000.parquet",
+      "sha256": "147fbf7de62c72c1eb223157b1f01aa2a7c9c8fb62e11b65ba5c91d336533dd6",
+      "rows": 93206,
+      "bytes": 1854881,
+      "table": "decisions",
+      "year": 2021
+    },
+    {
+      "path": "data/features/vp_hvn/version=1.0.0/candidates/year=2021/part-000.parquet",
+      "sha256": "754531d1cc838f760cf257e0d851b62fcd9603c9d47fba726d3844d9e9307cd4",
+      "rows": 205356,
+      "bytes": 964227,
+      "table": "candidates",
+      "year": 2021
+    },
+    {
+      "path": "data/features/vp_hvn/version=1.0.0/sessions/year=2021/part-000.parquet",
+      "sha256": "01d5b3fd220f139441d4009a9cf2f97671286c08111a95077a57082e1af148e6",
+      "rows": 259,
+      "bytes": 7174,
+      "table": "sessions",
+      "year": 2021
+    },
+    {
+      "path": "data/features/vp_hvn/version=1.0.0/rhythm/year=2021/part-000.parquet",
+      "sha256": "059db893fbd4f3b3995cc470070ecca994e537bcab9248abdca49d87ff1a0a31",
+      "rows": 6216,
+      "bytes": 30642,
+      "table": "rhythm",
+      "year": 2021
+    },
+    {
+      "path": "data/features/vp_hvn/version=1.0.0/snapshots/year=2022/part-000.parquet",
+      "sha256": "a87a6fdeb0afb849b6f4bd5fe0d6ca754d23c5809888d3f5721541f0a6a36eac",
+      "rows": 92865,
+      "bytes": 5098673,
+      "table": "snapshots",
+      "year": 2022
+    },
+    {
+      "path": "data/features/vp_hvn/version=1.0.0/decisions/year=2022/part-000.parquet",
+      "sha256": "281426965cbb994382800e4a548d32b5633524aed346578f2b9cb04c534d7919",
+      "rows": 92865,
+      "bytes": 2071692,
+      "table": "decisions",
+      "year": 2022
+    },
+    {
+      "path": "data/features/vp_hvn/version=1.0.0/candidates/year=2022/part-000.parquet",
+      "sha256": "4a9361b9a72c6d8900bbfc3d8d324d696967c45a65df19854ea7a62be8254110",
+      "rows": 254782,
+      "bytes": 1187505,
+      "table": "candidates",
+      "year": 2022
+    },
+    {
+      "path": "data/features/vp_hvn/version=1.0.0/sessions/year=2022/part-000.parquet",
+      "sha256": "7e6a631ee924c731d1c87e01261908d5964088dcb3ba5b8178aa468e998fe1d8",
+      "rows": 258,
+      "bytes": 7012,
+      "table": "sessions",
+      "year": 2022
+    },
+    {
+      "path": "data/features/vp_hvn/version=1.0.0/rhythm/year=2022/part-000.parquet",
+      "sha256": "96d1cbac60e3c64ad7caba60709a3d3804ef080ad12d9433181a589b783e0521",
+      "rows": 6192,
+      "bytes": 32678,
+      "table": "rhythm",
+      "year": 2022
+    },
+    {
+      "path": "data/features/vp_hvn/version=1.0.0/snapshots/year=2023/part-000.parquet",
+      "sha256": "dd6bcf6af0748dce24d2aee053bf28256ec4a4861a6888b9234dc25ea9c60ca1",
+      "rows": 92844,
+      "bytes": 4634046,
+      "table": "snapshots",
+      "year": 2023
+    },
+    {
+      "path": "data/features/vp_hvn/version=1.0.0/decisions/year=2023/part-000.parquet",
+      "sha256": "4f836322a35baf6b71fd8dd6ef13312839bd126eb3dea7901f4f8c968f0cbdc5",
+      "rows": 92844,
+      "bytes": 1966088,
+      "table": "decisions",
+      "year": 2023
+    },
+    {
+      "path": "data/features/vp_hvn/version=1.0.0/candidates/year=2023/part-000.parquet",
+      "sha256": "dba7f0b9acccce0fbc7c8d7578b612ac3cedb92df5c9dcdb0226aa788533aa8b",
+      "rows": 206088,
+      "bytes": 959555,
+      "table": "candidates",
+      "year": 2023
+    },
+    {
+      "path": "data/features/vp_hvn/version=1.0.0/sessions/year=2023/part-000.parquet",
+      "sha256": "5695b4fb2efb7bb64753d0faf80ebc467dfbb05ed9efd2a24abe489e43a94e8e",
+      "rows": 258,
+      "bytes": 7144,
+      "table": "sessions",
+      "year": 2023
+    },
+    {
+      "path": "data/features/vp_hvn/version=1.0.0/rhythm/year=2023/part-000.parquet",
+      "sha256": "076f4cfd17916c7ac3c6b11cb656b4a00234421ff0bfb9fbd64bef36523b6f09",
+      "rows": 6192,
+      "bytes": 27453,
+      "table": "rhythm",
+      "year": 2023
+    },
+    {
+      "path": "data/features/vp_hvn/version=1.0.0/snapshots/year=2024/part-000.parquet",
+      "sha256": "3bc0167bc38737967959d8c8154955b7612a6b30fbf07c43cbc99962607d7cee",
+      "rows": 93201,
+      "bytes": 4794429,
+      "table": "snapshots",
+      "year": 2024
+    },
+    {
+      "path": "data/features/vp_hvn/version=1.0.0/decisions/year=2024/part-000.parquet",
+      "sha256": "5cf11dc89b91eddcca30a599b32ea13b508e2ae52fccdf3f8a7b1fba7c1ce65b",
+      "rows": 93201,
+      "bytes": 1919708,
+      "table": "decisions",
+      "year": 2024
+    },
+    {
+      "path": "data/features/vp_hvn/version=1.0.0/candidates/year=2024/part-000.parquet",
+      "sha256": "7e18339b6c304bbd123104a75f22ff19c35e127386eabc9b44a70a9a7335328a",
+      "rows": 202136,
+      "bytes": 955628,
+      "table": "candidates",
+      "year": 2024
+    },
+    {
+      "path": "data/features/vp_hvn/version=1.0.0/sessions/year=2024/part-000.parquet",
+      "sha256": "bdb28940046ff7f93aa8bcc91313f7c84afec60b64304eee12516c9f0c4cec4a",
+      "rows": 259,
+      "bytes": 7147,
+      "table": "sessions",
+      "year": 2024
+    },
+    {
+      "path": "data/features/vp_hvn/version=1.0.0/rhythm/year=2024/part-000.parquet",
+      "sha256": "4325149f0b31ec935088c65f4cee99b6e527fe170d69557970382226e40f51a9",
+      "rows": 6216,
+      "bytes": 30807,
+      "table": "rhythm",
+      "year": 2024
+    },
+    {
+      "path": "data/features/vp_hvn/version=1.0.0/snapshots/year=2025/part-000.parquet",
+      "sha256": "e4c0f33507d7d7ccc38f0609d52e0549df70ea10cb4f74100f8b57ff6e4ccde4",
+      "rows": 92711,
+      "bytes": 5340384,
+      "table": "snapshots",
+      "year": 2025
+    },
+    {
+      "path": "data/features/vp_hvn/version=1.0.0/decisions/year=2025/part-000.parquet",
+      "sha256": "4b71721dd3a6309c92501f53f5c5b9ad89e6fb6def19eddc18143430210ab19c",
+      "rows": 92711,
+      "bytes": 2133290,
+      "table": "decisions",
+      "year": 2025
+    },
+    {
+      "path": "data/features/vp_hvn/version=1.0.0/candidates/year=2025/part-000.parquet",
+      "sha256": "88c26b8282fbd4e6d49968f0337addcbc8cf6375bafc0748809d4f355c446cda",
+      "rows": 245913,
+      "bytes": 1128110,
+      "table": "candidates",
+      "year": 2025
+    },
+    {
+      "path": "data/features/vp_hvn/version=1.0.0/sessions/year=2025/part-000.parquet",
+      "sha256": "87808b62b0524a70e366ab231c83a0bcf77cc9b2c1ac12022ef69e1ee40970d4",
+      "rows": 258,
+      "bytes": 7216,
+      "table": "sessions",
+      "year": 2025
+    },
+    {
+      "path": "data/features/vp_hvn/version=1.0.0/rhythm/year=2025/part-000.parquet",
+      "sha256": "a81e55a0609ed170b2450d23ef3731a839fdb96000f6cfc98e60791bc0560e8c",
+      "rows": 6183,
+      "bytes": 33775,
+      "table": "rhythm",
+      "year": 2025
+    },
+    {
+      "path": "data/features/vp_hvn/version=1.0.0/snapshots/year=2026/part-000.parquet",
+      "sha256": "56bc471330c4a558acc167c71a2ca2d4715f165ac007103b389ce9ed5337230e",
+      "rows": 66933,
+      "bytes": 4236325,
+      "table": "snapshots",
+      "year": 2026
+    },
+    {
+      "path": "data/features/vp_hvn/version=1.0.0/decisions/year=2026/part-000.parquet",
+      "sha256": "454954dd9e4fa59c4f9e4592e31c6220aae76aa06c7fb8cc46903beb9d00bdfb",
+      "rows": 66933,
+      "bytes": 1629924,
+      "table": "decisions",
+      "year": 2026
+    },
+    {
+      "path": "data/features/vp_hvn/version=1.0.0/candidates/year=2026/part-000.parquet",
+      "sha256": "523f6b10f6f86435ac40602f0de4fb6aec9c097874de25c9a60304c69779f2ab",
+      "rows": 197443,
+      "bytes": 920794,
+      "table": "candidates",
+      "year": 2026
+    },
+    {
+      "path": "data/features/vp_hvn/version=1.0.0/sessions/year=2026/part-000.parquet",
+      "sha256": "d578a89ebd214b35ac698cfeae56f91e964198268a2b431a6c5cb0f679b5a267",
+      "rows": 186,
+      "bytes": 6650,
+      "table": "sessions",
+      "year": 2026
+    },
+    {
+      "path": "data/features/vp_hvn/version=1.0.0/rhythm/year=2026/part-000.parquet",
+      "sha256": "da8190ee7674605bc369cb6808d66e5bd987ac2dbdfcea7184b68e789100543a",
+      "rows": 4464,
+      "bytes": 27632,
+      "table": "rhythm",
+      "year": 2026
+    }
+  ],
+  "null_semantics": "NaN unavailable numerical level; null rebuild before first completed minute; never false-fill undefined events"
+}

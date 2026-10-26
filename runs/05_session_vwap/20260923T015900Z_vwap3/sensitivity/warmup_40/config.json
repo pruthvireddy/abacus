@@ -1,0 +1,45 @@
+{
+  "study_id": "05_session_vwap",
+  "run_id": "20260923T022830Z_warmup40",
+  "protocol_version": "1.0.0",
+  "release_id": "session_anchored_vwap__1.0.0",
+  "publication_root": "/Users/ppanati/Documents/projects/abacus",
+  "strategies": [
+    "vwap_return_after_departure",
+    "vwap_extreme_fade",
+    "vwap_first_retest_bounce"
+  ],
+  "products": [
+    "ES",
+    "NQ",
+    "GC"
+  ],
+  "timeframes": [
+    "2m",
+    "5m"
+  ],
+  "views": [
+    "globex/globex",
+    "asia/asia",
+    "london/london",
+    "ny/ny",
+    "globex/asia",
+    "globex/london",
+    "globex/ny"
+  ],
+  "warmup_minutes": 40,
+  "horizons_minutes": [
+    10,
+    30,
+    60
+  ],
+  "sensitivity_only": true,
+  "barrier_sigma": 0.5,
+  "barrier_sensitivities_sigma": [
+    0.25,
+    1.0
+  ],
+  "costs": null,
+  "workers": 2,
+  "started_at_utc": "2026-09-23T02:28:32.622491+00:00"
+}

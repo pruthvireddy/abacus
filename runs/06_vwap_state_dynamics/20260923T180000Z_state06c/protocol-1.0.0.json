@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "study_id": "06_vwap_state_dynamics",
+  "version": "1.0.0",
+  "status": "frozen",
+  "frozen_utc": "2026-09-23T18:09:00Z",
+  "threshold_source_run_id": "20260923T180000Z_state06c",
+  "release_id": "session_anchored_vwap__1.0.0",
+  "products": ["ES", "NQ", "GC"],
+  "primary_cohort": {"timeframe": "2m", "anchor": "globex", "landmark_clock": "America/New_York minute 00 or 30", "anchor_maturity_before_lookback_minutes": 30, "exact_lookback_minutes": 30, "complete_followup_minutes": 30},
+  "replication_cohorts": ["2m/asia", "2m/london", "2m/ny", "5m/globex"],
+  "chronological_labels": {"development_end": "2023-12-31", "validation_year": 2024, "final_start": "2025-01-01", "all_available_dates_exploratory": true},
+  "state": {"2m_persistent_min_current_side_closes": 12, "2m_persistent_max_side_changes": 1, "2m_rotational_above_count_inclusive": [6, 9], "2m_rotational_min_side_changes": 3, "5m_sensitivity_persistent_min_current_side_closes": 5, "5m_sensitivity_rotational_above_count_inclusive": [2, 4], "5m_sensitivity_rotational_min_changes": 2, "equality": "neutral; counted separately; does not itself cross"},
+  "slope": {"price_min_abs_prior_atr14": 0.016, "vwap_min_abs_prior_atr14": 0.0023, "missing_atr_class": "flat_or_unavailable", "classes": ["aligned", "opposing", "flat_or_unavailable"]},
+  "material_dislocation_min_abs_ticks": {"ES": 2, "NQ": 6, "GC": 3},
+  "matching": {"current_side": [-1, 1], "absolute_distance_sigma_edges": [0.5, 1.0], "clock_windows": ["evening_asia", "london_to_ny", "ny_morning", "ny_afternoon"], "atr_product_development_terciles": {"ES": [67.30357142857143, 84.0], "NQ": [261.4642857142857, 333.2142857142857], "GC": [26.488095238095223, 36.5404761904761]}, "anchor_age_minutes_edge": 240, "q2_add_residence_state": true, "estimator": "treated-stratum-weighted common-support baseline; no extrapolation"},
+  "questions": [
+    {"id": "Q1", "condition": "persistent", "baseline": "rotational", "outcome": "no opposite completed close against causally updated VWAP by 30m", "sensitivity": "same event against frozen landmark VWAP"},
+    {"id": "Q2", "condition": "opposing", "baseline": "aligned", "outcome": "opposite completed-close crossing of causal VWAP by 30m", "sensitivity": "fixed 8-tick and ceil(0.5 sigma/tick)-tick favorable-first path"},
+    {"id": "Q3", "condition": "all common landmarks", "baseline": "paired TWAP on same bars", "outcome": "absolute frozen VWAP error strictly less than frozen TWAP error to next-30m unadjusted 1m close median", "ties": "explicit and in full denominator", "material_subset": "product-specific pre-outcome dislocation threshold"}
+  ],
+  "barriers": {"fixed_ticks": 8, "sigma_factor": 0.5, "sigma_tick_rounding": "ceiling", "same_minute_both": "ambiguous", "classes": ["favorable", "adverse", "neither", "ambiguous"]},
+  "uncertainty": {"method": "percentile bootstrap", "resampling_unit": "shared calendar date across products and views", "repetitions": 400, "seed": 606, "confidence": 0.95, "formal_familywise_claim": false},
+  "exclusions": ["immature anchor", "nonconsecutive lookback", "outside local membership", "less than 30m before window end", "missing/zero sigma", "changing contract or adjustment", "missing prior ATR only for slope class or ATR match", "source gap", "future contract or anchor discontinuity", "undefined current side only for Q1/Q2 and barriers"],
+  "report_tables": ["funnel", "primary_probabilities", "matched_comparisons", "barrier_outcomes", "paired_errors", "breakdowns", "replications", "examples", "exclusions"],
+  "secondary_exploratory_modules": "not executed in version 1.0.0; require frozen amendment or new run before outcome calculation",
+  "no_execution_cost_or_profit_claim": true
+}

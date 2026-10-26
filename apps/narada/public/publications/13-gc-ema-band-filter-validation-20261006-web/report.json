@@ -1,0 +1,388 @@
+{
+  "provenance": {
+    "assets": [],
+    "sourceSha256": "517062e91f83a842f2f6ca30d2dd3d9494151a9244fdce82c63563d12bd0acc1"
+  },
+  "report": {
+    "id": "13-gc-ema-band-filter-validation-20261006-web",
+    "publishedAt": "2026-10-06T23:09:36Z",
+    "schemaVersion": "1.0",
+    "sections": [
+      {
+        "body": "Can a simple signal-time filter improve GC outer-lower EMA band long excursions? The saved comparison covers 2025 and 2026 YTD, next complete five-minute unadjusted open, ten-bar cooldown and twenty-bar future horizon.",
+        "id": "question",
+        "kind": "text",
+        "title": "Question and scope"
+      },
+      {
+        "body": "The frozen selection chose upper-half close. The chronological check improved directionally, but its difference interval spans zero and its score remains negative. All nine filters and the unfiltered baseline are retained below, rather than selecting only favorable rows.",
+        "id": "findings",
+        "kind": "text",
+        "title": "Supported findings"
+      },
+      {
+        "columns": [
+          {
+            "key": "rule",
+            "label": "rule"
+          },
+          {
+            "format": "number",
+            "key": "year",
+            "label": "year",
+            "precision": 0
+          },
+          {
+            "format": "number",
+            "key": "accepted_signals",
+            "label": "Accepted signals",
+            "precision": 0
+          },
+          {
+            "format": "number",
+            "key": "valid_n",
+            "label": "Valid paths",
+            "precision": 0
+          },
+          {
+            "format": "number",
+            "key": "excluded",
+            "label": "excluded",
+            "precision": 0
+          },
+          {
+            "format": "number",
+            "key": "mean_mae_sigma",
+            "label": "Mean MAE",
+            "precision": 2,
+            "unit": "sigma"
+          },
+          {
+            "format": "number",
+            "key": "mean_mfe_sigma",
+            "label": "Mean MFE",
+            "precision": 2,
+            "unit": "sigma"
+          },
+          {
+            "format": "number",
+            "key": "mean_clipped_score",
+            "label": "Capped score",
+            "precision": 2,
+            "unit": "sigma"
+          },
+          {
+            "format": "number",
+            "key": "score_delta_vs_unfiltered",
+            "label": "Difference vs baseline",
+            "precision": 2,
+            "unit": "sigma"
+          },
+          {
+            "format": "number",
+            "key": "score_delta_ci_low",
+            "label": "95% difference low",
+            "precision": 2,
+            "unit": "sigma"
+          },
+          {
+            "format": "number",
+            "key": "score_delta_ci_high",
+            "label": "95% difference high",
+            "precision": 2,
+            "unit": "sigma"
+          }
+        ],
+        "id": "candidate-grid",
+        "kind": "table",
+        "rows": [
+          {
+            "accepted_signals": 218,
+            "excluded": 11,
+            "mean_clipped_score": 0.0434574068,
+            "mean_mae_sigma": 1.3247433556,
+            "mean_mfe_sigma": 1.402961578,
+            "rule": "unfiltered",
+            "score_delta_ci_high": null,
+            "score_delta_ci_low": null,
+            "score_delta_vs_unfiltered": null,
+            "valid_n": 207,
+            "year": 2025
+          },
+          {
+            "accepted_signals": 272,
+            "excluded": 27,
+            "mean_clipped_score": -0.3094883366,
+            "mean_mae_sigma": 1.5568645236,
+            "mean_mfe_sigma": 1.2325359704,
+            "rule": "unfiltered",
+            "score_delta_ci_high": null,
+            "score_delta_ci_low": null,
+            "score_delta_vs_unfiltered": null,
+            "valid_n": 245,
+            "year": 2026
+          },
+          {
+            "accepted_signals": 155,
+            "excluded": 6,
+            "mean_clipped_score": 0.0069599133,
+            "mean_mae_sigma": 1.4116131056,
+            "mean_mfe_sigma": 1.4668648903,
+            "rule": "first outer close",
+            "score_delta_ci_high": 0.0800666879,
+            "score_delta_ci_low": -0.1567523461,
+            "score_delta_vs_unfiltered": -0.0364974934,
+            "valid_n": 149,
+            "year": 2025
+          },
+          {
+            "accepted_signals": 174,
+            "excluded": 17,
+            "mean_clipped_score": -0.2177464218,
+            "mean_mae_sigma": 1.5430222347,
+            "mean_mfe_sigma": 1.3182663284,
+            "rule": "first outer close",
+            "score_delta_ci_high": 0.318001274,
+            "score_delta_ci_low": -0.1166110473,
+            "score_delta_vs_unfiltered": 0.0917419148,
+            "valid_n": 157,
+            "year": 2026
+          },
+          {
+            "accepted_signals": 151,
+            "excluded": 9,
+            "mean_clipped_score": 0.2351012362,
+            "mean_mae_sigma": 1.1271840431,
+            "mean_mfe_sigma": 1.3622852794,
+            "rule": "bullish signal body",
+            "score_delta_ci_high": 0.4770349808,
+            "score_delta_ci_low": -0.0840294031,
+            "score_delta_vs_unfiltered": 0.1916438295,
+            "valid_n": 142,
+            "year": 2025
+          },
+          {
+            "accepted_signals": 187,
+            "excluded": 16,
+            "mean_clipped_score": -0.3713616789,
+            "mean_mae_sigma": 1.5331057752,
+            "mean_mfe_sigma": 1.1525501012,
+            "rule": "bullish signal body",
+            "score_delta_ci_high": 0.1649710332,
+            "score_delta_ci_low": -0.3124872671,
+            "score_delta_vs_unfiltered": -0.0618733422,
+            "valid_n": 171,
+            "year": 2026
+          },
+          {
+            "accepted_signals": 158,
+            "excluded": 10,
+            "mean_clipped_score": 0.3064532359,
+            "mean_mae_sigma": 1.082688167,
+            "mean_mfe_sigma": 1.3891414029,
+            "rule": "upper half close",
+            "score_delta_ci_high": 0.5524004461,
+            "score_delta_ci_low": -0.0172429486,
+            "score_delta_vs_unfiltered": 0.2629958291,
+            "valid_n": 148,
+            "year": 2025
+          },
+          {
+            "accepted_signals": 205,
+            "excluded": 23,
+            "mean_clipped_score": -0.1788365068,
+            "mean_mae_sigma": 1.4591380046,
+            "mean_mfe_sigma": 1.2603242831,
+            "rule": "upper half close",
+            "score_delta_ci_high": 0.3164397913,
+            "score_delta_ci_low": -0.0473850486,
+            "score_delta_vs_unfiltered": 0.1306518298,
+            "valid_n": 182,
+            "year": 2026
+          },
+          {
+            "accepted_signals": 146,
+            "excluded": 5,
+            "mean_clipped_score": -0.1126204532,
+            "mean_mae_sigma": 1.2740632911,
+            "mean_mfe_sigma": 1.1614428379,
+            "rule": "shallow penetration 025",
+            "score_delta_ci_high": 0.0563202438,
+            "score_delta_ci_low": -0.3805695507,
+            "score_delta_vs_unfiltered": -0.15607786,
+            "valid_n": 141,
+            "year": 2025
+          },
+          {
+            "accepted_signals": 176,
+            "excluded": 19,
+            "mean_clipped_score": -0.2739304323,
+            "mean_mae_sigma": 1.3569324317,
+            "mean_mfe_sigma": 1.075992515,
+            "rule": "shallow penetration 025",
+            "score_delta_ci_high": 0.2720334115,
+            "score_delta_ci_low": -0.1914852979,
+            "score_delta_vs_unfiltered": 0.0355579044,
+            "valid_n": 157,
+            "year": 2026
+          },
+          {
+            "accepted_signals": 150,
+            "excluded": 8,
+            "mean_clipped_score": -0.0452790688,
+            "mean_mae_sigma": 1.4924700527,
+            "mean_mfe_sigma": 1.4978634405,
+            "rule": "less falling ema 050",
+            "score_delta_ci_high": 0.0678720046,
+            "score_delta_ci_low": -0.2347311862,
+            "score_delta_vs_unfiltered": -0.0887364755,
+            "valid_n": 142,
+            "year": 2025
+          },
+          {
+            "accepted_signals": 152,
+            "excluded": 17,
+            "mean_clipped_score": -0.4800197176,
+            "mean_mae_sigma": 1.8135558755,
+            "mean_mfe_sigma": 1.3066039129,
+            "rule": "less falling ema 050",
+            "score_delta_ci_high": 0.04613804,
+            "score_delta_ci_low": -0.4137782345,
+            "score_delta_vs_unfiltered": -0.170531381,
+            "valid_n": 135,
+            "year": 2026
+          },
+          {
+            "accepted_signals": 134,
+            "excluded": 4,
+            "mean_clipped_score": 0.0282450451,
+            "mean_mae_sigma": 1.43047567,
+            "mean_mfe_sigma": 1.5140706291,
+            "rule": "nonexpanding sigma 110",
+            "score_delta_ci_high": 0.2327641897,
+            "score_delta_ci_low": -0.2566459477,
+            "score_delta_vs_unfiltered": -0.0152123617,
+            "valid_n": 130,
+            "year": 2025
+          },
+          {
+            "accepted_signals": 184,
+            "excluded": 18,
+            "mean_clipped_score": -0.3184046757,
+            "mean_mae_sigma": 1.6082292096,
+            "mean_mfe_sigma": 1.2831950817,
+            "rule": "nonexpanding sigma 110",
+            "score_delta_ci_high": 0.1785279106,
+            "score_delta_ci_low": -0.2177194686,
+            "score_delta_vs_unfiltered": -0.0089163391,
+            "valid_n": 166,
+            "year": 2026
+          },
+          {
+            "accepted_signals": 101,
+            "excluded": 3,
+            "mean_clipped_score": -0.2111562947,
+            "mean_mae_sigma": 1.5928108987,
+            "mean_mfe_sigma": 1.4550779595,
+            "rule": "ny morning 08 13",
+            "score_delta_ci_high": 0.0476224574,
+            "score_delta_ci_low": -0.5725357887,
+            "score_delta_vs_unfiltered": -0.2546137015,
+            "valid_n": 98,
+            "year": 2025
+          },
+          {
+            "accepted_signals": 90,
+            "excluded": 2,
+            "mean_clipped_score": -0.4560093218,
+            "mean_mae_sigma": 1.769789839,
+            "mean_mfe_sigma": 1.3137805172,
+            "rule": "ny morning 08 13",
+            "score_delta_ci_high": 0.2151855415,
+            "score_delta_ci_low": -0.4384077864,
+            "score_delta_vs_unfiltered": -0.1465209852,
+            "valid_n": 88,
+            "year": 2026
+          },
+          {
+            "accepted_signals": 10,
+            "excluded": 2,
+            "mean_clipped_score": -0.9317920668,
+            "mean_mae_sigma": 1.7588865771,
+            "mean_mfe_sigma": 0.8270945103,
+            "rule": "first outer and upper half",
+            "score_delta_ci_high": 0.1080715077,
+            "score_delta_ci_low": -1.7613623825,
+            "score_delta_vs_unfiltered": -0.9752494736,
+            "valid_n": 8,
+            "year": 2025
+          },
+          {
+            "accepted_signals": 20,
+            "excluded": 2,
+            "mean_clipped_score": -0.9668752364,
+            "mean_mae_sigma": 2.1730137345,
+            "mean_mfe_sigma": 1.145000217,
+            "rule": "first outer and upper half",
+            "score_delta_ci_high": 0.5450632593,
+            "score_delta_ci_low": -1.8674847087,
+            "score_delta_vs_unfiltered": -0.6573868998,
+            "valid_n": 18,
+            "year": 2026
+          },
+          {
+            "accepted_signals": 91,
+            "excluded": 5,
+            "mean_clipped_score": 0.0781486572,
+            "mean_mae_sigma": 1.0279602503,
+            "mean_mfe_sigma": 1.1061089076,
+            "rule": "shallow and upper half",
+            "score_delta_ci_high": 0.3492017817,
+            "score_delta_ci_low": -0.297024596,
+            "score_delta_vs_unfiltered": 0.0346912505,
+            "valid_n": 86,
+            "year": 2025
+          },
+          {
+            "accepted_signals": 118,
+            "excluded": 16,
+            "mean_clipped_score": -0.2994331373,
+            "mean_mae_sigma": 1.3286739167,
+            "mean_mfe_sigma": 1.018451671,
+            "rule": "shallow and upper half",
+            "score_delta_ci_high": 0.264700066,
+            "score_delta_ci_low": -0.252903509,
+            "score_delta_vs_unfiltered": 0.0100551994,
+            "valid_n": 102,
+            "year": 2026
+          }
+        ],
+        "title": "All filters and baseline by year"
+      },
+      {
+        "body": "A signal closes at or below EMA225 minus three population residual standard deviations. Upper-half close requires (close − low)/(high − low) at least one half. Cooldown is reapplied after each filter. Score is mean clipped MFE/sigma minus clipped MAE/sigma, each capped at ten. Development selects under frozen support, lower-MAE and MFE-retention criteria; the selected rule is applied unchanged in the later year. Saved approximate 95% ISO-week bootstrap intervals are pointwise, uncorrected for the candidate search.",
+        "id": "methods",
+        "kind": "text",
+        "title": "Definitions and methods"
+      },
+      {
+        "body": "2026 YTD had already been viewed in Study 12 and is not a pristine holdout. Sensitivity cells are correlated. Adjusted chart history is retrospective; five-minute OHLC cannot resolve target/stop ordering. Scores and excursion extrema do not model costs, executable exits or profitability.",
+        "id": "limitations",
+        "kind": "text",
+        "title": "Limitations and uncertainty"
+      },
+      {
+        "body": "Study 13_gc_ema_band_filter_validation; source run 20260926T000219Z_gc_band_filters_v1. Registered reference: Explicit registered reference; retain its executed scope and saved qualifications.\n\nPresentation revision 20261006T230936Z_web13, web-study-report-1.0. Saved numerical tables are the authority; only selected rows and columns are presented. No new statistics or research execution. The publication record identifies this JSON and its selected assets.",
+        "id": "sources-provenance",
+        "kind": "text",
+        "title": "Source and presentation provenance"
+      }
+    ],
+    "source": {
+      "producer": "sahadeva",
+      "runId": "20260926T000219Z_gc_band_filters_v1"
+    },
+    "summary": "An upper-half signal close was selected in 2025. Its chronological 2026 improvement remains uncertain, and the filtered score is negative; this is conditional path evidence.",
+    "title": "GC lower band: filter improvement remains uncertain"
+  }
+}

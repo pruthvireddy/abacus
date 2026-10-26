@@ -1,0 +1,11 @@
+export type NumberFormat = "number" | "percent";
+export type ReportSource = { producer: string; runId: string };
+export type TextSection = { id: string; kind: "text"; title: string; body: string };
+export type MetricsSection = { id: string; kind: "metrics"; title: string; items: Array<{ label: string; value: number | null; format: NumberFormat; unit?: string; precision?: number; note?: string }> };
+export type TableSection = { id: string; kind: "table"; title: string; columns: Array<{ key: string; label: string; format?: NumberFormat; unit?: string; precision?: number }>; rows: Array<Record<string, string | number | boolean | null>> };
+export type FigureSection = { id: string; kind: "figure"; title: string; path: string; alt: string; caption?: string };
+export type ReportSection = TextSection | MetricsSection | TableSection | FigureSection;
+export type SourceReport = { schemaVersion: "1.0"; id: string; title: string; summary: string; publishedAt: string; source: ReportSource; sections: ReportSection[]; notes?: string[] };
+export type PublicationBundle = { report: SourceReport; provenance: { sourceSha256: string; assets: Array<{ path: string; sha256: string }> } };
+export type PublicationIndexEntry = Pick<SourceReport, "id" | "title" | "summary" | "publishedAt" | "source"> & { href: string; sourceSha256: string };
+export type PublicationIndex = { schemaVersion: "1.0"; reports: PublicationIndexEntry[] };

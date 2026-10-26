@@ -1,0 +1,269 @@
+[
+  {
+    "argv": [
+      "./scripts/uv",
+      "run",
+      "--locked",
+      "--no-sync",
+      "python",
+      "studies/23_gc_overnight_breakout_15m/prepare_inputs.py",
+      "--workspace",
+      ".",
+      "--stage",
+      "work/23_gc_overnight_breakout_15m/20261013T142537Z_phase1_gc_ob15m_v1/input-audit",
+      "--lock",
+      "studies/23_gc_overnight_breakout_15m/phase1-inputs.lock.json"
+    ],
+    "cwd": "/Users/ppanati/Documents/projects/abacus",
+    "environment": {
+      "UV_CACHE_DIR": "/private/tmp/abacus-study23-uv-cache"
+    }
+  },
+  {
+    "argv": [
+      "./scripts/uv",
+      "run",
+      "--locked",
+      "--no-sync",
+      "python",
+      "studies/23_gc_overnight_breakout_15m/run.py",
+      "--stage",
+      "work/23_gc_overnight_breakout_15m/20261013T142537Z_phase1_gc_ob15m_v1"
+    ],
+    "cwd": "/Users/ppanati/Documents/projects/abacus",
+    "environment": {
+      "UV_CACHE_DIR": "/private/tmp/abacus-study23-uv-cache"
+    }
+  },
+  {
+    "argv": [
+      "./scripts/check-workspace"
+    ],
+    "cwd": "/Users/ppanati/Documents/projects/abacus",
+    "environment": {
+      "UV_CACHE_DIR": "/private/tmp/abacus-study23-uv-cache"
+    }
+  },
+  {
+    "argv": [
+      "./scripts/check-workspace",
+      "--profile",
+      "tooling"
+    ],
+    "cwd": "/Users/ppanati/Documents/projects/abacus",
+    "environment": {}
+  },
+  {
+    "argv": [
+      "./scripts/check-workspace",
+      "--profile",
+      "metadata"
+    ],
+    "cwd": "/Users/ppanati/Documents/projects/abacus",
+    "environment": {}
+  },
+  {
+    "argv": [
+      "./scripts/uv",
+      "run",
+      "--locked",
+      "--no-sync",
+      "python",
+      "studies/23_gc_overnight_breakout_15m/verify_execution.py",
+      "--stage",
+      "work/23_gc_overnight_breakout_15m/20261013T142537Z_phase1_gc_ob15m_v1",
+      "--output",
+      "work/23_gc_overnight_breakout_15m/20261013T142537Z_phase1_gc_ob15m_v1/independent-verification-final.json"
+    ],
+    "cwd": "/Users/ppanati/Documents/projects/abacus",
+    "environment": {
+      "UV_CACHE_DIR": "/private/tmp/abacus-study23-uv-cache"
+    }
+  },
+  {
+    "argv": [
+      "./scripts/uv",
+      "run",
+      "--locked",
+      "--no-sync",
+      "python",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "studies/23_gc_overnight_breakout_15m/tests",
+      "-p",
+      "test_independent_verifier.py"
+    ],
+    "cwd": "/Users/ppanati/Documents/projects/abacus",
+    "environment": {
+      "UV_CACHE_DIR": "/private/tmp/abacus-study23-uv-cache"
+    }
+  },
+  {
+    "argv": [
+      "./scripts/uv",
+      "run",
+      "--locked",
+      "--no-sync",
+      "python",
+      "-"
+    ],
+    "cwd": "/Users/ppanati/Documents/projects/abacus",
+    "environment": {
+      "UV_CACHE_DIR": "/private/tmp/abacus-study23-uv-cache"
+    }
+  },
+  {
+    "argv": [
+      "./scripts/uv",
+      "run",
+      "--locked",
+      "--no-sync",
+      "python",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "packages/bhishma/tests",
+      "-p",
+      "test_continuous_phase1.py"
+    ],
+    "cwd": "/Users/ppanati/Documents/projects/abacus",
+    "environment": {
+      "UV_CACHE_DIR": "/private/tmp/abacus-study23-uv-cache"
+    }
+  },
+  {
+    "argv": [
+      "./scripts/uv",
+      "run",
+      "--locked",
+      "--no-sync",
+      "python",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "packages/bhishma/tests",
+      "-p",
+      "test_continuous_phase2.py"
+    ],
+    "cwd": "/Users/ppanati/Documents/projects/abacus",
+    "environment": {
+      "UV_CACHE_DIR": "/private/tmp/abacus-study23-uv-cache"
+    }
+  },
+  {
+    "argv": [
+      "/Users/ppanati/Documents/projects/abacus/.venv/bin/python",
+      "studies/23_gc_overnight_breakout_15m/verify_publication.py",
+      "--stage",
+      "work/23_gc_overnight_breakout_15m/20261013T142537Z_phase1_gc_ob15m_v1"
+    ],
+    "cwd": "/Users/ppanati/Documents/projects/abacus",
+    "environment": {}
+  },
+  {
+    "argv": [
+      "/Users/ppanati/Documents/projects/abacus/.venv/bin/python",
+      "studies/23_gc_overnight_breakout_15m/publish_web.py",
+      "--stage",
+      "work/23_gc_overnight_breakout_15m/20261013T142537Z_phase1_gc_ob15m_v1",
+      "--run-id",
+      "20261013T142537Z_phase1_gc_ob15m_v1",
+      "--publication-id",
+      "gc-overnight-breakout-15m-phase1-20261013-v1",
+      "--published-at",
+      "2026-10-13T15:26:41Z",
+      "--node-package-root",
+      "/Users/ppanati/.cache/codex-runtimes/codex-primary-runtime/dependencies/node"
+    ],
+    "cwd": "/Users/ppanati/Documents/projects/abacus",
+    "environment": {}
+  },
+  {
+    "argv": [
+      "./scripts/uv",
+      "run",
+      "--locked",
+      "--no-sync",
+      "python",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "studies/23_gc_overnight_breakout_15m/tests",
+      "-p",
+      "test_publish_web.py"
+    ],
+    "cwd": "/Users/ppanati/Documents/projects/abacus",
+    "environment": {
+      "UV_CACHE_DIR": "/private/tmp/abacus-study23-uv-cache"
+    }
+  },
+  {
+    "argv": [
+      "npm",
+      "run",
+      "report:publish",
+      "--",
+      "--report",
+      "../../work/23_gc_overnight_breakout_15m/20261013T142537Z_phase1_gc_ob15m_v1/publication.json",
+      "--dry-run"
+    ],
+    "cwd": "/Users/ppanati/Documents/projects/abacus/apps/narada",
+    "environment": {}
+  },
+  {
+    "argv": [
+      "./scripts/check-workspace",
+      "--check",
+      "study-23"
+    ],
+    "cwd": "/Users/ppanati/Documents/projects/abacus",
+    "environment": {
+      "UV_CACHE_DIR": "/private/tmp/abacus-study23-uv-cache"
+    }
+  },
+  {
+    "argv": [
+      "./scripts/uv",
+      "run",
+      "--locked",
+      "--no-sync",
+      "python",
+      "studies/23_gc_overnight_breakout_15m/save_report.py",
+      "--stage",
+      "work/23_gc_overnight_breakout_15m/20261013T142537Z_phase1_gc_ob15m_v1"
+    ],
+    "cwd": "/Users/ppanati/Documents/projects/abacus",
+    "environment": {
+      "UV_CACHE_DIR": "/private/tmp/abacus-study23-uv-cache"
+    }
+  },
+  {
+    "argv": [
+      "python3",
+      "scripts/check-agent-docs.py"
+    ],
+    "cwd": "/Users/ppanati/Documents/projects/abacus",
+    "environment": {}
+  },
+  {
+    "argv": [
+      "./scripts/uv",
+      "run",
+      "--locked",
+      "--no-sync",
+      "python",
+      "studies/23_gc_overnight_breakout_15m/seal.py",
+      "--stage",
+      "work/23_gc_overnight_breakout_15m/20261013T142537Z_phase1_gc_ob15m_v1"
+    ],
+    "cwd": "/Users/ppanati/Documents/projects/abacus",
+    "environment": {
+      "UV_CACHE_DIR": "/private/tmp/abacus-study23-uv-cache"
+    }
+  }
+]

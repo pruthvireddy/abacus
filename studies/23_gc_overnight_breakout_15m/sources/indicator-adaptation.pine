@@ -1,0 +1,735 @@
+//@version=6
+// Gold Breakout 15M: compact indicator adaptation of the supplied
+// Gold Breakout 15M Strategy by WillyAlgoTrader. OHLC estimates, no account P&L.
+// Decisions, markers and alerts are confirmed at bar close; the estimated fill
+// can occur earlier within that candle. A live close alert is not a stop order.
+indicator("Gold Breakout 15M · Signals & Statistics", "Gold BO Stats", overlay = true, behind_chart = false, max_bars_back = 5000, max_boxes_count = 250, max_lines_count = 500)
+
+const string ENGINE_MAIN = "Breakout settings"
+const string ENGINE_RISK = "Estimated trade exits"
+const string ENGINE_VISUAL = "Chart markers and levels"
+string engineTimeMode = input.string("Fixed timezone", "Broker time mode", options = ["Fixed timezone", "New York + 7h"], group = ENGINE_MAIN,
+     tooltip = "Fixed timezone uses the timezone below year round. New York + 7h follows US daylight saving: GMT+2 in winter and GMT+3 in summer. All range and exit hours use this broker clock.")
+string engineTimezone = input.string("GMT+3", "Broker timezone", group = ENGINE_MAIN)
+int engineRangeFrom = input.int(0, "Range start hour", minval = 0, maxval = 22, group = ENGINE_MAIN)
+int engineRangeTo = input.int(7, "Range end / trading start hour", minval = 1, maxval = 23, group = ENGINE_MAIN)
+int engineCloseHour = input.int(20, "Close positions hour", minval = 2, maxval = 23, group = ENGINE_MAIN,
+     tooltip = "The exit is queued by the candle immediately before this hour and estimated at the next available candle open. If bars are missing, the next available open is used.")
+bool engineSkipDual = input.bool(false, "Skip dual-boundary bars", group = ENGINE_MAIN,
+     tooltip = "A candle touching both range boundaries has an uncertain first breakout. Off: estimate direction using the TradingView OHLC path. On: skip the candle and consume the day's one opportunity.")
+string engineStopMode = input.string("% of entry", "Stop-loss mode", options = ["% of entry", "Range boundary"], group = ENGINE_RISK)
+float engineStopPercent = input.float(1.0, "Stop distance, %", minval = 0.05, maxval = 20, step = 0.05, group = ENGINE_RISK,
+     tooltip = "Initially anchored to the range breakout level. After an entry candle survives, the stop is reset from the estimated actual fill. No take-profit. These are price-based trade estimates without sizing, costs or daily account protection.")
+bool engineShowMarkers = input.bool(true, "Show tiny buy / sell markers", group = ENGINE_VISUAL)
+color engineBuyColor = input.color(#00AA96, "Buy", inline = "engineColors", group = ENGINE_VISUAL)
+color engineSellColor = input.color(#FF435A, "Sell", inline = "engineColors", group = ENGINE_VISUAL)
+bool engineShowRange = input.bool(true, "Show range boundaries", group = ENGINE_VISUAL,
+     tooltip = "Show the shaded overnight range and its high / low boundaries, extended to the evening close hour.")
+bool engineShowLevels = input.bool(true, "Show active entry / stop", group = ENGINE_VISUAL,
+     tooltip = "Master visibility switch for the light dotted trade lines. Stop-loss and entry reference have separate switches below. The strategy has no take-profit target.")
+bool engineShowExitMarkers = input.bool(false, "Show tiny exit dots", group = ENGINE_VISUAL)
+
+bool engineNy7 = engineTimeMode == "New York + 7h"
+string calcTz = engineNy7 ? "UTC" : engineTimezone
+string tzLabel = engineNy7 ? "New York + 7h" : engineTimezone
+brokerClock(int t) =>
+    engineNy7 ? timestamp("UTC", year(t, "America/New_York"), month(t, "America/New_York"), dayofmonth(t, "America/New_York"), hour(t, "America/New_York"), minute(t, "America/New_York"), second(t, "America/New_York")) + 7 * 3600000 : t
+
+int engineBarClock = brokerClock(time)
+int barHour = hour(engineBarClock, calcTz)
+int dayKey = year(engineBarClock, calcTz) * 10000 + month(engineBarClock, calcTz) * 100 + dayofmonth(engineBarClock, calcTz)
+bool inRange = barHour >= engineRangeFrom and barHour < engineRangeTo
+bool engineHoursOk = engineRangeFrom < engineRangeTo and engineRangeTo < engineCloseHour
+bool engineTfOk = timeframe.isminutes and timeframe.multiplier <= 60 and 60 % timeframe.multiplier == 0
+bool envOk = engineHoursOk and engineTfOk and chart.is_standard
+
+// Walk monotonic segments of the default chart-OHLC price path. Never mark
+// pre-entry prices or prices beyond a filled exit. Gap-through stops fill at open.
+type EnginePosition
+    int dir = 0
+    float entry = na
+    float stop = na
+    float risk = na
+    float mfe = 0.0
+    float mae = 0.0
+    int entryTime = na
+    int entryBar = na
+    float exitPrice = na
+    int exitReason = 0
+
+method engineMark(EnginePosition p, float price) =>
+    float move = p.dir * (price - p.entry)
+    p.mfe := math.max(p.mfe, move)
+    p.mae := math.max(p.mae, -move)
+
+method engineStart(EnginePosition p, int direction, float price, float initialStop) =>
+    p.dir := direction
+    p.entry := price
+    p.stop := initialStop
+    p.risk := math.abs(price - initialStop)
+    p.mfe := 0.0
+    p.mae := 0.0
+    p.entryTime := time
+    p.entryBar := bar_index
+    p.exitPrice := na
+    p.exitReason := 0
+
+method engineWalk(EnginePosition p, float a, float b) =>
+    if p.dir != 0 and p.exitReason == 0
+        p.engineMark(a)
+        bool alreadyThrough = p.dir == 1 ? a <= p.stop : a >= p.stop
+        bool reachesStop = p.dir == 1 ? b <= p.stop : b >= p.stop
+        if alreadyThrough or reachesStop
+            p.exitPrice := alreadyThrough ? a : p.stop
+            p.exitReason := 1
+            p.engineMark(p.exitPrice)
+        else
+            p.engineMark(b)
+
+var EnginePosition enginePos = EnginePosition.new()
+var float rangeHigh = na
+var float rangeLow = na
+bool rangeReady = false
+var int engineFirstDay = na
+var int firstLoadedTime = time
+var int engineTradedDay = -1
+var bool engineArmed = false
+var int engineArmedDay = -1
+var bool engineTimeExitQueued = false
+var bool engineResetStopQueued = false
+var int dualBars = 0
+var int skippedDualDays = 0
+var int entryGapCount = 0
+
+// Per-bar events, consumed by the statistical studies that follow this engine.
+int signalDir = 0
+float signalPrice = na
+float signalStop = na
+float signalRange = na
+bool signalAmbiguous = false
+bool tradeClosed = false
+int closedDir = 0
+float closedPoints = na
+float closedR = na
+float closedMfe = na
+float closedMae = na
+int closedEntryTime = na
+int closedEntryBar = na
+int closedExitReason = 0
+int closedHoldBars = 0
+
+if na(engineFirstDay)
+    engineFirstDay := dayKey
+bool engineNewDay = barstate.isfirst or dayKey != dayKey[1]
+
+if barstate.isconfirmed and envOk
+    // A previously queued market close is first at this open. A missing close
+    // candle or a new broker day also closes at the next available open.
+    if enginePos.dir != 0 and (engineTimeExitQueued or engineNewDay or barHour >= engineCloseHour or barHour < engineRangeTo)
+        enginePos.engineMark(open)
+        enginePos.exitPrice := open
+        enginePos.exitReason := engineTimeExitQueued ? 2 : 3
+    else if enginePos.dir != 0 and engineResetStopQueued
+        // A fill-based stop reset beyond the entry candle close activates at
+        // creation. With close processing off, it fills at the NEXT open even
+        // if that open has rebounded to the profitable side of the stop.
+        enginePos.engineMark(open)
+        enginePos.exitPrice := open
+        enginePos.exitReason := 1
+    engineTimeExitQueued := false
+    engineResetStopQueued := false
+
+    if engineNewDay
+        rangeHigh := na
+        rangeLow := na
+        engineArmed := false
+        engineArmedDay := -1
+
+    bool engineTradingHour = barHour >= engineRangeTo and barHour < engineCloseHour
+    bool engineCanEnter = enginePos.dir == 0 and engineArmed and engineArmedDay == dayKey and engineTradingHour and engineTradedDay != dayKey and dayKey != engineFirstDay
+    bool engineDual = engineCanEnter and high >= rangeHigh and low <= rangeLow
+    if engineDual
+        dualBars += 1
+        if engineSkipDual
+            engineTradedDay := dayKey
+            skippedDualDays += 1
+            engineCanEnter := false
+
+    // Official broker-emulator assumption: visit the extreme nearest open,
+    // then the other extreme, then close. Equal distance uses LOW first here;
+    // TradingView's public documentation does not specify its tie handling.
+    bool engineHighFirst = high - open < open - low
+    float engineExtreme1 = engineHighFirst ? high : low
+    float engineExtreme2 = engineHighFirst ? low : high
+
+    // Existing positions mark the opening gap before intrabar segments.
+    if enginePos.dir != 0 and enginePos.exitReason == 0
+        enginePos.engineWalk(open, open)
+
+    // Stop entries crossed during a gap use the opening price.
+    if engineCanEnter and (open >= rangeHigh or open <= rangeLow)
+        int engineDirection = open >= rangeHigh ? 1 : -1
+        float engineBoundary = engineDirection == 1 ? rangeHigh : rangeLow
+        float engineInitialStop = engineStopMode == "Range boundary" ? (engineDirection == 1 ? rangeLow : rangeHigh) : math.round_to_mintick(engineBoundary * (1.0 - engineDirection * engineStopPercent / 100.0))
+        if engineDirection * (open - engineInitialStop) > 0
+            enginePos.engineStart(engineDirection, open, engineInitialStop)
+            signalDir := engineDirection
+            signalPrice := open
+            signalStop := engineInitialStop
+            signalRange := rangeHigh - rangeLow
+            signalAmbiguous := engineDual
+            engineTradedDay := dayKey
+            if open != engineBoundary
+                entryGapCount += 1
+        engineCanEnter := false
+
+    for engineSegment = 0 to 2
+        float engineA = engineSegment == 0 ? open : engineSegment == 1 ? engineExtreme1 : engineExtreme2
+        float engineB = engineSegment == 0 ? engineExtreme1 : engineSegment == 1 ? engineExtreme2 : close
+        if engineCanEnter and enginePos.dir == 0
+            int engineDirection = engineB > engineA and engineA <= rangeHigh and engineB >= rangeHigh ? 1 : engineB < engineA and engineA >= rangeLow and engineB <= rangeLow ? -1 : 0
+            if engineDirection != 0
+                float engineFill = engineDirection == 1 ? rangeHigh : rangeLow
+                float engineInitialStop = engineStopMode == "Range boundary" ? (engineDirection == 1 ? rangeLow : rangeHigh) : math.round_to_mintick(engineFill * (1.0 - engineDirection * engineStopPercent / 100.0))
+                if engineDirection * (engineFill - engineInitialStop) > 0
+                    enginePos.engineStart(engineDirection, engineFill, engineInitialStop)
+                    signalDir := engineDirection
+                    signalPrice := engineFill
+                    signalStop := engineInitialStop
+                    signalRange := rangeHigh - rangeLow
+                    signalAmbiguous := engineDual
+                    engineTradedDay := dayKey
+                    enginePos.engineWalk(engineFill, engineB)
+                engineCanEnter := false
+        else if enginePos.dir != 0 and enginePos.exitReason == 0
+            enginePos.engineWalk(engineA, engineB)
+
+    // Preserve the source's delayed stop reset: an entry-bar stop fill cannot
+    // be reconstructed into a surviving trade with a new fill-based stop.
+    if signalDir != 0 and enginePos.exitReason == 0 and engineStopMode == "% of entry"
+        enginePos.stop := math.round_to_mintick(enginePos.entry * (1.0 - enginePos.dir * engineStopPercent / 100.0))
+        enginePos.risk := math.abs(enginePos.entry - enginePos.stop)
+        signalStop := enginePos.stop
+        engineResetStopQueued := enginePos.dir * (close - enginePos.stop) <= 0
+
+    if enginePos.dir != 0 and enginePos.exitReason != 0
+        tradeClosed := true
+        closedDir := enginePos.dir
+        closedPoints := enginePos.dir * (enginePos.exitPrice - enginePos.entry)
+        closedR := enginePos.risk > 0 ? closedPoints / enginePos.risk : na
+        closedMfe := enginePos.mfe
+        closedMae := enginePos.mae
+        closedEntryTime := enginePos.entryTime
+        closedEntryBar := enginePos.entryBar
+        closedExitReason := enginePos.exitReason
+        closedHoldBars := bar_index - enginePos.entryBar
+        enginePos.dir := 0
+
+    if inRange
+        rangeHigh := na(rangeHigh) ? high : math.max(rangeHigh, high)
+        rangeLow := na(rangeLow) ? low : math.min(rangeLow, low)
+    rangeReady := not na(rangeHigh) and not na(rangeLow) and rangeHigh > rangeLow
+
+    int engineNextClock = brokerClock(time_close)
+    int engineNextHour = hour(engineNextClock, calcTz)
+    int engineNextDay = year(engineNextClock, calcTz) * 10000 + month(engineNextClock, calcTz) * 100 + dayofmonth(engineNextClock, calcTz)
+    bool engineNextWindow = engineNextDay == dayKey and engineNextHour >= engineRangeTo and engineNextHour < engineCloseHour
+    engineArmed := rangeReady and engineNextWindow and enginePos.dir == 0 and engineTradedDay != dayKey and dayKey != engineFirstDay
+    engineArmedDay := engineArmed ? dayKey : -1
+    if enginePos.dir != 0 and not engineNextWindow
+        engineTimeExitQueued := true
+else
+    rangeReady := not na(rangeHigh) and not na(rangeLow) and rangeHigh > rangeLow
+
+// Public live-position context for optional statistics/status panels.
+int positionDir = enginePos.dir
+float positionEntry = positionDir != 0 ? enginePos.entry : na
+float positionStop = positionDir != 0 ? enginePos.stop : na
+float positionRisk = positionDir != 0 ? enginePos.risk : na
+
+plotshape(engineShowMarkers and signalDir == 1 ? signalPrice : na, title = "Buy marker", style = shape.triangleup, location = location.absolute, color = engineBuyColor, size = size.tiny)
+plotshape(engineShowMarkers and signalDir == -1 ? signalPrice : na, title = "Sell marker", style = shape.triangledown, location = location.absolute, color = engineSellColor, size = size.tiny)
+plotshape(engineShowExitMarkers and tradeClosed, title = "Exit marker", style = shape.circle, location = location.abovebar, color = color.gray, size = size.tiny)
+plot(signalPrice, "Signal entry", display = display.none)
+plot(signalStop, "Signal stop", display = display.none)
+alertcondition(signalDir == 1, "Gold breakout · Buy", 'Confirmed BUY on {{ticker}} {{interval}}. Estimated entry {{plot("Signal entry")}}, stop {{plot("Signal stop")}}. Alert arrives at candle close.')
+alertcondition(signalDir == -1, "Gold breakout · Sell", 'Confirmed SELL on {{ticker}} {{interval}}. Estimated entry {{plot("Signal entry")}}, stop {{plot("Signal stop")}}. Alert arrives at candle close.')
+alertcondition(tradeClosed and closedDir == 1, "Gold breakout · Exit long", "Estimated long exit on {{ticker}} {{interval}}; confirmed at candle close.")
+alertcondition(tradeClosed and closedDir == -1, "Gold breakout · Exit short", "Estimated short exit on {{ticker}} {{interval}}; confirmed at candle close.")
+
+
+// ── Fixed-horizon research and estimated trade statistics ────────────────────
+// Horizon entry is the CONFIRMED SIGNAL CLOSE, not the estimated stop-order fill.
+// Measurements begin on the following bar, and continue independently of exits.
+st_group = "Statistics · calendar / horizon"
+st_showPeriod = input.bool(true, "Show calendar statistics", group=st_group)
+st_periodUnit = input.string("Week", "Group by", options=["Day", "Week", "Month"], group=st_group)
+st_periodCount = input.int(8, "Recent periods", minval=1, maxval=16, group=st_group)
+st_horizon = input.int(10, "Horizon (chart bars)", minval=1, maxval=500, group=st_group,
+     tooltip="Entry = confirmed breakout candle CLOSE. Measure the following H chart bars, excluding the signal candle. Stops and time exits do not truncate this research observation. Missing clock time does not add bars.")
+st_side = input.string("All", "Calendar / weekday side filter", options=["All", "Buy", "Sell"], group=st_group,
+     tooltip="Display filter only. Both breakout directions always consume the one daily trade. The trade comparison table always shows All, Buy and Sell separately.")
+st_zoneInput = input.string("America/New_York", "Calendar timezone", group=st_group,
+     tooltip="Use an IANA timezone, UTC, GMT+3, or Exchange. Calendar grouping is independent of the broker clock. Weeks begin Monday; outcomes stay in the signal's entry period.")
+st_periodCorner = input.string("Bottom Left", "Calendar position", options=["Top Left", "Top Right", "Bottom Left", "Bottom Right"], group=st_group)
+st_groupTrade = "Statistics · trade outcomes"
+st_showTrade = input.bool(true, "Show Buy / Sell trade comparison", group=st_groupTrade)
+st_tradeCorner = input.string("Top Right", "Trade comparison position", options=["Top Left", "Top Right", "Bottom Left", "Bottom Right"], group=st_groupTrade)
+st_showWeekday = input.bool(false, "Show weekday comparison", group=st_groupTrade,
+     tooltip="Closed simulated trades grouped by ENTRY weekday in the calendar timezone. Applies the calendar side filter. Includes weekend rows for symbols that trade then.")
+st_weekdayCorner = input.string("Bottom Right", "Weekday position", options=["Top Left", "Top Right", "Bottom Left", "Bottom Right"], group=st_groupTrade)
+st_groupStyle = "Statistics · appearance"
+st_sizeInput = input.string("Small", "Table text size", options=["Tiny", "Small", "Normal"], group=st_groupStyle)
+st_theme = input.string("Auto", "Table theme", options=["Auto", "Light", "Dark"], group=st_groupStyle)
+st_decimals = input.int(2, "Point decimals", minval=0, maxval=6, group=st_groupStyle,
+     tooltip="Raw price points; not ticks, pips, dollars or percent. Display rounding only.")
+
+string st_zone = st_zoneInput == "Exchange" ? syminfo.timezone : st_zoneInput
+string st_size = st_sizeInput == "Tiny" ? size.tiny : st_sizeInput == "Normal" ? size.normal : size.small
+color st_fg = st_theme == "Auto" ? chart.fg_color : st_theme == "Dark" ? color.rgb(220, 223, 229) : color.rgb(25, 25, 25)
+color st_bg = st_theme == "Auto" ? chart.bg_color : st_theme == "Dark" ? color.rgb(19, 23, 34) : color.white
+color st_header = color.new(st_fg, 92)
+color st_green = color.rgb(0, 164, 145)
+color st_red = color.rgb(255, 75, 93)
+color st_muted = color.new(st_fg, 25)
+string st_fmt = st_decimals == 0 ? "0" : st_decimals == 1 ? "0.0" : st_decimals == 2 ? "0.00" : st_decimals == 3 ? "0.000" : st_decimals == 4 ? "0.0000" : st_decimals == 5 ? "0.00000" : "0.000000"
+
+st_position(string corner) =>
+    switch corner
+        "Top Left" => position.top_left
+        "Top Right" => position.top_right
+        "Bottom Right" => position.bottom_right
+        => position.bottom_left
+
+st_opposite(string corner) =>
+    switch corner
+        "Top Left" => "Bottom Right"
+        "Top Right" => "Bottom Left"
+        "Bottom Right" => "Top Left"
+        => "Top Right"
+
+st_number(float v, string fmt) =>
+    na(v) ? "—" : str.tostring(v, fmt)
+
+st_average(float total, int n, string fmt) =>
+    n > 0 ? str.tostring(total / n, fmt) : "—"
+
+st_percent(int hits, int n) =>
+    n > 0 ? str.tostring(100.0 * hits / n, "0.0") + "%" : "—"
+
+st_matches(int direction) =>
+    st_side == "All" or (st_side == "Buy" and direction == 1) or (st_side == "Sell" and direction == -1)
+
+// Calendar timestamps normalize day/month offsets, respecting local DST dates.
+st_periodStart(int t) =>
+    int y = year(t, st_zone)
+    int m = month(t, st_zone)
+    int d = dayofmonth(t, st_zone)
+    int mondayOffset = (dayofweek(t, st_zone) + 5) % 7
+    timestamp(st_zone, y, m, st_periodUnit == "Month" ? 1 : st_periodUnit == "Week" ? d - mondayOffset : d, 0, 0)
+
+st_shiftPeriod(int start, int offset) =>
+    int y = year(start, st_zone)
+    int m = month(start, st_zone)
+    int d = dayofmonth(start, st_zone)
+    timestamp(st_zone, y, st_periodUnit == "Month" ? m + offset : m,
+         st_periodUnit == "Month" ? 1 : d + offset * (st_periodUnit == "Week" ? 7 : 1), 0, 0)
+
+type GBPeriod
+    int start = na
+    int signals = 0
+    int samples = 0
+    float mfe = 0.0
+    float mae = 0.0
+    float delta = 0.0
+    int favorable = 0
+    int edge = 0
+
+method record(GBPeriod this, float mfe, float mae, float delta) =>
+    this.samples += 1
+    this.mfe += mfe
+    this.mae += mae
+    this.delta += delta
+    this.favorable += delta > 0 ? 1 : 0
+    float tieEpsilon = 1e-10 * math.max(1.0, math.max(mfe, mae))
+    this.edge += mfe - mae > tieEpsilon ? 1 : 0
+
+type GBObservation
+    int direction
+    int entryBar
+    float entry
+    float highest
+    float lowest
+    GBPeriod period
+
+type GBTradeStats
+    int n = 0
+    int wins = 0
+    int stops = 0
+    int times = 0
+    int gaps = 0
+    float sumR = 0.0
+    float gainsR = 0.0
+    float lossesR = 0.0
+    float sumMfe = 0.0
+    float sumMae = 0.0
+    float sumHold = 0.0
+    float peakR = 0.0
+    float ddR = 0.0
+    int streak = 0
+    int maxStreak = 0
+
+method record(GBTradeStats this, float r, float mfe, float mae, int hold, int reason) =>
+    this.n += 1
+    this.wins += r > 0 ? 1 : 0
+    this.stops += reason == 1 ? 1 : 0
+    this.times += reason == 2 ? 1 : 0
+    this.gaps += reason == 3 ? 1 : 0
+    this.sumR += r
+    this.gainsR += math.max(r, 0.0)
+    this.lossesR += math.max(-r, 0.0)
+    this.sumMfe += mfe
+    this.sumMae += mae
+    this.sumHold += hold
+    this.peakR := math.max(this.peakR, this.sumR)
+    this.ddR := math.max(this.ddR, this.peakR - this.sumR)
+    this.streak := r < 0 ? this.streak + 1 : 0
+    this.maxStreak := math.max(this.maxStreak, this.streak)
+
+st_pf(GBTradeStats s) =>
+    s.n == 0 ? "—" : s.lossesR > 0 ? str.tostring(s.gainsR / s.lossesR, "0.00") : s.gainsR > 0 ? "∞" : "—"
+
+var GBPeriod st_loaded = GBPeriod.new()
+var array<GBPeriod> st_periods = array.new<GBPeriod>()
+var array<GBObservation> st_pending = array.new<GBObservation>()
+var array<GBTradeStats> st_trades = array.new<GBTradeStats>()
+var array<GBTradeStats> st_days = array.new<GBTradeStats>()
+var int st_firstPeriod = na
+var int st_currentPeriod = na
+var int st_signalCount = 0
+var int st_ambiguousSignals = 0
+var int st_invalidR = 0
+if barstate.isfirst
+    for i = 0 to 2
+        array.push(st_trades, GBTradeStats.new())
+    for i = 0 to 6
+        array.push(st_days, GBTradeStats.new())
+
+if barstate.isconfirmed
+    int periodKey = st_periodStart(time)
+    if na(st_firstPeriod)
+        st_firstPeriod := periodKey
+    if na(st_currentPeriod) or periodKey != st_currentPeriod
+        // Rebuild a small recent-calendar window. Existing objects retain identity,
+        // so a pending sample can finish in its original period after it scrolls off.
+        array<GBPeriod> recent = array.new<GBPeriod>()
+        for offset = 0 to st_periodCount - 1
+            int key = st_shiftPeriod(periodKey, -offset)
+            if key >= st_firstPeriod
+                GBPeriod bucket = na
+                if array.size(st_periods) > 0
+                    for i = 0 to array.size(st_periods) - 1
+                        GBPeriod old = array.get(st_periods, i)
+                        if old.start == key
+                            bucket := old
+                            break
+                if na(bucket)
+                    bucket := GBPeriod.new(start=key)
+                array.push(recent, bucket)
+        st_periods := recent
+        st_currentPeriod := periodKey
+
+    // Process old observations before accepting today's close-based observation.
+    int pendingIndex = array.size(st_pending) - 1
+    while pendingIndex >= 0
+        GBObservation sample = array.get(st_pending, pendingIndex)
+        sample.highest := math.max(sample.highest, high)
+        sample.lowest := math.min(sample.lowest, low)
+        if bar_index - sample.entryBar >= st_horizon
+            float mfe = math.max(0.0, sample.direction == 1 ? sample.highest - sample.entry : sample.entry - sample.lowest)
+            float mae = math.max(0.0, sample.direction == 1 ? sample.entry - sample.lowest : sample.highest - sample.entry)
+            float delta = sample.direction * (close - sample.entry)
+            sample.period.record(mfe, mae, delta)
+            st_loaded.record(mfe, mae, delta)
+            array.remove(st_pending, pendingIndex)
+        pendingIndex -= 1
+
+    if signalDir != 0
+        st_signalCount += 1
+        st_ambiguousSignals += signalAmbiguous ? 1 : 0
+        if st_matches(signalDir)
+            GBPeriod bucket = array.get(st_periods, 0)
+            bucket.signals += 1
+            st_loaded.signals += 1
+            array.push(st_pending, GBObservation.new(signalDir, bar_index, close, close, close, bucket))
+
+    if tradeClosed
+        if not na(closedR)
+            GBTradeStats all = array.get(st_trades, 0)
+            GBTradeStats side = array.get(st_trades, closedDir == 1 ? 1 : 2)
+            all.record(closedR, closedMfe, closedMae, closedHoldBars, closedExitReason)
+            side.record(closedR, closedMfe, closedMae, closedHoldBars, closedExitReason)
+            if st_matches(closedDir)
+                int weekday = (dayofweek(closedEntryTime, st_zone) + 5) % 7
+                GBTradeStats day = array.get(st_days, weekday)
+                day.record(closedR, closedMfe, closedMae, closedHoldBars, closedExitReason)
+        else
+            st_invalidR += 1
+
+st_periodRow(table t, int row, string label, GBPeriod s, color bg) =>
+    table.cell(t, 0, row, label, text_color=st_fg, bgcolor=bg, text_size=st_size)
+    table.cell(t, 1, row, str.tostring(s.signals), text_color=st_green, bgcolor=bg, text_size=st_size)
+    table.cell(t, 2, row, str.tostring(s.samples), text_color=st_fg, bgcolor=bg, text_size=st_size)
+    table.cell(t, 3, row, st_average(s.mfe, s.samples, st_fmt), text_color=st_green, bgcolor=bg, text_size=st_size)
+    table.cell(t, 4, row, st_average(s.mae, s.samples, st_fmt), text_color=st_red, bgcolor=bg, text_size=st_size)
+    table.cell(t, 5, row, st_average(s.delta, s.samples, st_fmt), text_color=s.delta > 0 ? st_green : s.delta < 0 ? st_red : st_fg, bgcolor=bg, text_size=st_size)
+    table.cell(t, 6, row, st_percent(s.favorable, s.samples), text_color=st_fg, bgcolor=bg, text_size=st_size)
+    table.cell(t, 7, row, st_percent(s.edge, s.samples), text_color=st_fg, bgcolor=bg, text_size=st_size)
+
+st_tradeColumn(table t, int col, GBTradeStats s) =>
+    table.cell(t, col, 2, str.tostring(s.n), text_color=st_fg, bgcolor=st_bg, text_size=st_size)
+    table.cell(t, col, 3, st_percent(s.wins, s.n), text_color=st_fg, bgcolor=st_bg, text_size=st_size)
+    table.cell(t, col, 4, st_pf(s), text_color=s.sumR > 0 ? st_green : s.sumR < 0 ? st_red : st_fg, bgcolor=st_bg, text_size=st_size)
+    table.cell(t, col, 5, st_average(s.sumR, s.n, "0.00"), text_color=s.sumR > 0 ? st_green : s.sumR < 0 ? st_red : st_fg, bgcolor=st_bg, text_size=st_size)
+    table.cell(t, col, 6, s.n > 0 ? str.tostring(s.sumR, "0.00") : "—", text_color=s.sumR > 0 ? st_green : s.sumR < 0 ? st_red : st_fg, bgcolor=st_bg, text_size=st_size)
+    table.cell(t, col, 7, st_average(s.sumMfe, s.n, st_fmt), text_color=st_green, bgcolor=st_bg, text_size=st_size)
+    table.cell(t, col, 8, st_average(s.sumMae, s.n, st_fmt), text_color=st_red, bgcolor=st_bg, text_size=st_size)
+    table.cell(t, col, 9, st_average(s.sumHold, s.n, "0.0"), text_color=st_fg, bgcolor=st_bg, text_size=st_size)
+    table.cell(t, col, 10, st_percent(s.stops, s.n), text_color=st_fg, bgcolor=st_bg, text_size=st_size)
+    table.cell(t, col, 11, st_percent(s.times, s.n), text_color=st_fg, bgcolor=st_bg, text_size=st_size)
+    table.cell(t, col, 12, s.n > 0 ? str.tostring(s.ddR, "0.00") : "—", text_color=st_red, bgcolor=st_bg, text_size=st_size)
+    table.cell(t, col, 13, s.n > 0 ? str.tostring(s.maxStreak) : "—", text_color=st_fg, bgcolor=st_bg, text_size=st_size)
+
+string st_tradeResolved = st_showPeriod and st_tradeCorner == st_periodCorner ? st_opposite(st_periodCorner) : st_tradeCorner
+string st_weekdayResolved = st_weekdayCorner
+if (st_showPeriod and st_weekdayResolved == st_periodCorner) or (st_showTrade and st_weekdayResolved == st_tradeResolved)
+    array<string> corners = array.from("Bottom Right", "Top Left", "Top Right", "Bottom Left")
+    for i = 0 to 3
+        string candidate = array.get(corners, i)
+        if (not st_showPeriod or candidate != st_periodCorner) and (not st_showTrade or candidate != st_tradeResolved)
+            st_weekdayResolved := candidate
+            break
+
+var table st_periodTable = table.new(st_position(st_periodCorner), 8, st_periodCount + 6, border_width=1, border_color=color.new(st_fg, 83))
+var table st_tradeTable = table.new(st_position(st_tradeResolved), 4, 18, border_width=1, border_color=color.new(st_fg, 83))
+var table st_weekdayTable = table.new(st_position(st_weekdayResolved), 6, 11, border_width=1, border_color=color.new(st_fg, 83))
+if barstate.isfirst
+    table.merge_cells(st_periodTable, 0, 0, 7, 0)
+    for i = st_periodCount + 3 to st_periodCount + 5
+        table.merge_cells(st_periodTable, 0, i, 7, i)
+    table.merge_cells(st_tradeTable, 0, 0, 3, 0)
+    for i = 14 to 17
+        table.merge_cells(st_tradeTable, 0, i, 3, i)
+    table.merge_cells(st_weekdayTable, 0, 0, 5, 0)
+    table.merge_cells(st_weekdayTable, 0, 9, 5, 9)
+    table.merge_cells(st_weekdayTable, 0, 10, 5, 10)
+
+if barstate.islast or barstate.islastconfirmedhistory
+    string warning = not envOk ? "DISABLED: use regular intraday bars ≤ 60m dividing an hour; Start < End < Close" : ""
+    if st_showPeriod
+        string periodName = st_periodUnit == "Week" ? "Weekly" : st_periodUnit == "Day" ? "Daily" : "Monthly"
+        table.cell(st_periodTable, 0, 0, "Gold Breakout | " + periodName + " | Last " + str.tostring(st_periodCount) + " | " + st_side + " | H=" + str.tostring(st_horizon) + " | Points", text_color=st_fg, bgcolor=st_header, text_size=st_size)
+        array<string> headers = array.from(str.upper(st_periodUnit) + " START", "SIGNALS", "N", "AVG MFE (pt)", "AVG MAE (pt)", "AVG CLOSE Δ (pt)", "FAVORABLE CLOSE", "MFE > MAE")
+        for col = 0 to 7
+            string tip = col == 1 ? "Accepted daily breakout signals, including pending horizons." : col == 2 ? "Completed H-bar observations. Pending observations are excluded from averages and percentages." : col == 3 ? "Maximum favorable movement during entry+1 through entry+H, measured from signal close." : col == 4 ? "Maximum adverse movement during entry+1 through entry+H, measured from signal close." : col == 5 ? "Direction × (close at H − signal close)." : col == 6 ? "Percentage with strictly positive direction-adjusted H-bar close; breakevens are not favorable." : col == 7 ? "Percentage with MFE strictly greater than MAE; ties are not counted." : "Entry period in calendar timezone. Weeks start Monday."
+            table.cell(st_periodTable, col, 1, array.get(headers, col), text_color=col == 1 or col == 3 ? st_green : col == 4 ? st_red : st_fg, bgcolor=st_header, text_size=st_size, tooltip=tip)
+        st_periodRow(st_periodTable, 2, "Σ loaded", st_loaded, st_header)
+        for i = 0 to st_periodCount - 1
+            if i < array.size(st_periods)
+                GBPeriod s = array.get(st_periods, i)
+                st_periodRow(st_periodTable, i + 3, str.format_time(s.start, st_periodUnit == "Month" ? "yyyy-MM" : "yyyy-MM-dd", st_zone), s, i == 0 ? color.new(st_green, 90) : st_bg)
+            else
+                for col = 0 to 7
+                    table.cell(st_periodTable, col, i + 3, "—", text_color=st_muted, bgcolor=st_bg, text_size=st_size)
+        string scope = st_periodUnit == "Week" ? "Mon–Sun" : st_periodUnit == "Day" ? "Calendar days" : "Calendar months"
+        table.cell(st_periodTable, 0, st_periodCount + 3, scope + " | " + st_zone + " | Entry: signal CLOSE | Next H bars; signal candle excluded", text_color=st_muted, bgcolor=st_header, text_size=st_size)
+        table.cell(st_periodTable, 0, st_periodCount + 4, "Loaded " + str.format_time(firstLoadedTime, "yyyy-MM-dd HH:mm", st_zone) + " | Pending " + str.tostring(array.size(st_pending)) + " | Edge periods may be partial; Σ includes older", text_color=st_muted, bgcolor=st_header, text_size=st_size)
+        table.cell(st_periodTable, 0, st_periodCount + 5, warning == "" ? "Broker " + tzLabel + " | One breakout/day | Confirmed markers | Horizon study continues after exits" : warning, text_color=warning == "" ? st_muted : st_red, bgcolor=st_header, text_size=st_size)
+    if st_showTrade
+        table.cell(st_tradeTable, 0, 0, "Estimated trade outcomes | SL / evening exit", text_color=st_fg, bgcolor=st_header, text_size=st_size)
+        array<string> headers = array.from("METRIC", "ALL", "BUY", "SELL")
+        for col = 0 to 3
+            table.cell(st_tradeTable, col, 1, array.get(headers, col), text_color=col == 2 ? st_green : col == 3 ? st_red : st_fg, bgcolor=st_header, text_size=st_size)
+        array<string> names = array.from("Completed trades", "Win rate", "Profit factor (R)", "Expectancy (R/trade)", "Net R", "Avg trade MFE (pt)", "Avg trade MAE (pt)", "Avg hold (bar intervals)", "Stop exits", "Timed exits", "Closed-trade drawdown (R)", "Max losing streak")
+        for i = 0 to array.size(names) - 1
+            string tip = i == 2 ? "Sum of positive trade R / absolute sum of negative trade R. Not monetary profit factor." : i == 3 or i == 4 ? "R = direction-adjusted exit minus estimated fill, divided by initial risk to stop. Equal-risk normalization; no sizing or compounding." : i == 6 or i == 5 ? "Excursions use only the estimated path AFTER fill and BEFORE exit, including entry/exit candle portions." : i == 7 ? "Exit bar index minus entry bar index. Same-bar exits have a hold of zero." : i == 10 ? "Peak-to-trough decline in cumulative CLOSED trade R. No floating equity, commission, spread or slippage included." : "Completed estimated trades only; open trade excluded."
+            table.cell(st_tradeTable, 0, i + 2, array.get(names, i), text_color=st_fg, bgcolor=st_bg, text_size=st_size, text_halign=text.align_left, tooltip=tip)
+        for bucket = 0 to 2
+            st_tradeColumn(st_tradeTable, bucket + 1, array.get(st_trades, bucket))
+        string status = positionDir == 1 ? "Open BUY" : positionDir == -1 ? "Open SELL" : inRange ? "Building range" : rangeReady ? "Range ready / no open trade" : "Waiting for range"
+        table.cell(st_tradeTable, 0, 14, warning == "" ? status + " | Broker " + tzLabel : warning, text_color=warning == "" ? st_muted : st_red, bgcolor=st_header, text_size=st_size)
+        table.cell(st_tradeTable, 0, 15, "Signals " + str.tostring(st_signalCount) + " | Dual-boundary " + str.tostring(dualBars) + " | Skipped " + str.tostring(skippedDualDays) + " | Entry gaps " + str.tostring(entryGapCount), text_color=st_muted, bgcolor=st_header, text_size=st_size,
+             tooltip="Dual-boundary candles require inferred ordering. Gap entries fill at open. Skipping dual-boundary candles consumes that broker day. Signals include the currently open trade.")
+        GBTradeStats all = array.get(st_trades, 0)
+        table.cell(st_tradeTable, 0, 16, "OHLC path estimate | No costs / sizing / margin / equity guard", text_color=st_muted, bgcolor=st_header, text_size=st_size)
+        table.cell(st_tradeTable, 0, 17, "Data-gap exits " + str.tostring(all.gaps) + " | R unavailable " + str.tostring(st_invalidR) + " | Loaded chart history", text_color=st_muted, bgcolor=st_header, text_size=st_size)
+    if st_showWeekday
+        table.cell(st_weekdayTable, 0, 0, "Entry weekday | " + st_side + " | Estimated closed trades", text_color=st_fg, bgcolor=st_header, text_size=st_size)
+        array<string> headers = array.from("DAY", "N", "WIN RATE", "AVG R", "AVG MFE (pt)", "AVG MAE (pt)")
+        for col = 0 to 5
+            table.cell(st_weekdayTable, col, 1, array.get(headers, col), text_color=st_fg, bgcolor=st_header, text_size=st_size)
+        array<string> days = array.from("Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun")
+        for i = 0 to 6
+            GBTradeStats s = array.get(st_days, i)
+            table.cell(st_weekdayTable, 0, i + 2, array.get(days, i), text_color=st_fg, bgcolor=st_bg, text_size=st_size)
+            table.cell(st_weekdayTable, 1, i + 2, str.tostring(s.n), text_color=st_fg, bgcolor=st_bg, text_size=st_size)
+            table.cell(st_weekdayTable, 2, i + 2, st_percent(s.wins, s.n), text_color=st_fg, bgcolor=st_bg, text_size=st_size)
+            table.cell(st_weekdayTable, 3, i + 2, st_average(s.sumR, s.n, "0.00"), text_color=s.sumR > 0 ? st_green : s.sumR < 0 ? st_red : st_fg, bgcolor=st_bg, text_size=st_size)
+            table.cell(st_weekdayTable, 4, i + 2, st_average(s.sumMfe, s.n, st_fmt), text_color=st_green, bgcolor=st_bg, text_size=st_size)
+            table.cell(st_weekdayTable, 5, i + 2, st_average(s.sumMae, s.n, st_fmt), text_color=st_red, bgcolor=st_bg, text_size=st_size)
+        table.cell(st_weekdayTable, 0, 9, st_zone + " | Entry weekday; open trades excluded", text_color=st_muted, bgcolor=st_header, text_size=st_size)
+        table.cell(st_weekdayTable, 0, 10, "N shows sample size | Average R is historical, not a forecast", text_color=st_muted, bgcolor=st_header, text_size=st_size)
+
+// ── Shaded daily range ──────────────────────────────────────────────────────
+// Append new inputs after the existing statistics inputs to preserve saved IDs.
+color engineRangeColor = input.color(#9A85FF, "Range color", group = ENGINE_VISUAL)
+int engineRangeTransparency = input.int(85, "Range shading transparency", minval = 0, maxval = 100, group = ENGINE_VISUAL,
+     tooltip = "0 = opaque; 100 = invisible. Shading covers only the range-building candles. The boundary lines continue to the close hour.")
+int engineRangeHistory = input.int(130, "Shaded ranges to retain", minval = 1, maxval = 200, group = ENGINE_VISUAL,
+     tooltip = "Keep recent daily range boxes and boundaries. With the midpoint enabled, the drawing limit permits up to 130 ranges; otherwise up to 200. Signal markers and statistics cover all loaded chart history.")
+
+// Convert a broker civil hour to a real chart timestamp. For NY+7, first shift
+// the civil date in UTC, then interpret its resulting fields in New York. This
+// allows each target timestamp to choose its own DST offset.
+engineSessionTimestamp(int reference, int sessionHour) =>
+    int broker = brokerClock(reference)
+    int y = year(broker, calcTz)
+    int m = month(broker, calcTz)
+    int d = dayofmonth(broker, calcTz)
+    if engineNy7
+        int nyCivil = timestamp("UTC", y, m, d, sessionHour, 0) - 7 * 3600000
+        timestamp("America/New_York", year(nyCivil, "UTC"), month(nyCivil, "UTC"), dayofmonth(nyCivil, "UTC"), hour(nyCivil, "UTC"), 0)
+    else
+        timestamp(engineTimezone, y, m, d, sessionHour, 0)
+
+// ── Light dotted trade levels ───────────────────────────────────────────────
+// Visual references only: no take-profit or changes to the exit engine.
+bool engineShowStopLevel = input.bool(true, "Show stop-loss line", group = ENGINE_VISUAL)
+bool engineShowEntryLevel = input.bool(false, "Show entry reference line", group = ENGINE_VISUAL)
+bool engineKeepClosedLevels = input.bool(true, "Keep closed trade lines", group = ENGINE_VISUAL,
+     tooltip = "On: retain recent trades' dotted levels through their exits. Off: show only the currently open trade. All trade-line switches are visual only.")
+int engineLevelTransparency = input.int(65, "Trade line transparency", minval = 0, maxval = 100, group = ENGINE_VISUAL,
+     tooltip = "0 = opaque; 100 = invisible. Stop-loss is light red; the optional entry reference follows the chart text color.")
+int engineLevelHistory = input.int(30, "Trades with level lines to retain", minval = 1, maxval = 30, group = ENGINE_VISUAL,
+     tooltip = "Separate from range retention. Up to three lines per trade keeps total drawings below the indicator's limit. Statistics still use all loaded trades.")
+
+type EngineTradeLevelSet
+    line initialStop = na
+    line activeStop = na
+    line entry = na
+
+method deleteLevels(EngineTradeLevelSet levels) =>
+    if not na(levels.initialStop)
+        line.delete(levels.initialStop)
+    if not na(levels.activeStop)
+        line.delete(levels.activeStop)
+    if not na(levels.entry)
+        line.delete(levels.entry)
+
+var array<EngineTradeLevelSet> engineLevelSets = array.new<EngineTradeLevelSet>()
+var EngineTradeLevelSet engineActiveLevels = na
+bool engineDrawTradeLevels = engineShowLevels and (engineShowStopLevel or engineShowEntryLevel)
+color engineStopLevelColor = color.new(engineSellColor, engineLevelTransparency)
+color engineEntryLevelColor = color.new(chart.fg_color, engineLevelTransparency)
+
+if barstate.isconfirmed and engineDrawTradeLevels
+    if signalDir != 0
+        while array.size(engineLevelSets) >= engineLevelHistory
+            EngineTradeLevelSet oldest = array.shift(engineLevelSets)
+            oldest.deleteLevels()
+        engineActiveLevels := EngineTradeLevelSet.new()
+        array.push(engineLevelSets, engineActiveLevels)
+        int plannedEnd = engineSessionTimestamp(time, engineCloseHour)
+        if engineShowStopLevel
+            float boundary = signalDir == 1 ? rangeHigh : rangeLow
+            float initialStop = engineStopMode == "Range boundary" ? (signalDir == 1 ? rangeLow : rangeHigh) : math.round_to_mintick(boundary * (1.0 - signalDir * engineStopPercent / 100.0))
+            // A surviving gap-fill entry can reset its stop at candle close.
+            // Keep its initial and effective levels in separate time segments.
+            bool hasReset = math.abs(initialStop - enginePos.stop) >= syminfo.mintick * 0.5
+            if hasReset
+                engineActiveLevels.initialStop := line.new(x1 = time, y1 = initialStop, x2 = time_close, y2 = initialStop,
+                     xloc = xloc.bar_time, color = engineStopLevelColor, width = 1, style = line.style_dotted)
+            engineActiveLevels.activeStop := line.new(x1 = hasReset ? time_close : time, y1 = enginePos.stop,
+                 x2 = plannedEnd, y2 = enginePos.stop, xloc = xloc.bar_time,
+                 color = engineStopLevelColor, width = 1, style = line.style_dotted)
+        if engineShowEntryLevel
+            engineActiveLevels.entry := line.new(x1 = time, y1 = signalPrice, x2 = plannedEnd, y2 = signalPrice,
+                 xloc = xloc.bar_time, color = engineEntryLevelColor, width = 1, style = line.style_dotted)
+
+    if tradeClosed and not na(engineActiveLevels)
+        // Market/time exits are known at bar open; intrabar stop timing is known
+        // only to the exit candle, so its segment ends at that candle's right edge.
+        int actualEnd = closedExitReason == 1 ? time_close : time
+        if not na(engineActiveLevels.activeStop)
+            line.set_x2(engineActiveLevels.activeStop, actualEnd)
+        if not na(engineActiveLevels.entry)
+            line.set_x2(engineActiveLevels.entry, actualEnd)
+        if not engineKeepClosedLevels
+            engineActiveLevels.deleteLevels()
+            array.pop(engineLevelSets)
+        engineActiveLevels := na
+
+// Values remain available in Data Window without solid price plots on the chart.
+plot(engineShowLevels and engineShowEntryLevel ? positionEntry : na, "Estimated active entry", display = display.data_window)
+plot(engineShowLevels and engineShowStopLevel ? positionStop : na, "Estimated active stop", display = display.data_window)
+
+// Append midpoint controls after the existing inputs to preserve saved IDs.
+bool engineShowMidline = input.bool(true, "Show range midpoint", group = ENGINE_VISUAL,
+     tooltip = "Dotted line at (range high + range low) / 2. Its default endpoint is the next broker midnight, so it spans the rest of the broker day. This is a visual level, not a trade exit.")
+string engineMidlineEnd = input.string("Broker day end", "Midpoint extends to", options = ["Broker day end", "Trading close hour"], group = ENGINE_VISUAL)
+
+var box engineRangeBox = na
+var line engineRangeHighLine = na
+var line engineRangeLowLine = na
+var line engineRangeMidLine = na
+var array<box> engineRangeBoxes = array.new<box>()
+var array<line> engineRangeHighLines = array.new<line>()
+var array<line> engineRangeLowLines = array.new<line>()
+var array<line> engineRangeMidLines = array.new<line>()
+// Midpoint on: 390 range + 90 trade lines. Off: 400 + 90. Both stay below 500.
+int engineRangeDrawHistory = engineShowMidline ? math.min(engineRangeHistory, 130) : engineRangeHistory
+
+if barstate.isconfirmed
+    if engineNewDay
+        // Previous objects remain in history; new-day updates use new handles.
+        engineRangeBox := na
+        engineRangeHighLine := na
+        engineRangeLowLine := na
+        engineRangeMidLine := na
+    if engineShowRange and envOk and inRange and not na(rangeHigh) and not na(rangeLow)
+        float midpoint = (rangeHigh + rangeLow) * 0.5
+        if na(engineRangeBox)
+            while array.size(engineRangeBoxes) >= engineRangeDrawHistory
+                box.delete(array.shift(engineRangeBoxes))
+                line.delete(array.shift(engineRangeHighLines))
+                line.delete(array.shift(engineRangeLowLines))
+                line oldMid = array.shift(engineRangeMidLines)
+                if not na(oldMid)
+                    line.delete(oldMid)
+            int sessionEnd = engineSessionTimestamp(time, engineCloseHour)
+            engineRangeBox := box.new(left = time, top = rangeHigh, right = time_close, bottom = rangeLow,
+                 xloc = xloc.bar_time, border_color = engineRangeColor, border_width = 1,
+                 bgcolor = color.new(engineRangeColor, engineRangeTransparency))
+            engineRangeHighLine := line.new(x1 = time, y1 = rangeHigh, x2 = sessionEnd, y2 = rangeHigh,
+                 xloc = xloc.bar_time, color = engineRangeColor, width = 1)
+            engineRangeLowLine := line.new(x1 = time, y1 = rangeLow, x2 = sessionEnd, y2 = rangeLow,
+                 xloc = xloc.bar_time, color = engineRangeColor, width = 1)
+            if engineShowMidline
+                int midEnd = engineSessionTimestamp(time, engineMidlineEnd == "Broker day end" ? 24 : engineCloseHour)
+                engineRangeMidLine := line.new(x1 = time, y1 = midpoint, x2 = midEnd, y2 = midpoint,
+                     xloc = xloc.bar_time, color = color.new(engineRangeColor, 30), width = 1, style = line.style_dotted)
+            array.push(engineRangeBoxes, engineRangeBox)
+            array.push(engineRangeHighLines, engineRangeHighLine)
+            array.push(engineRangeLowLines, engineRangeLowLine)
+            array.push(engineRangeMidLines, engineRangeMidLine)
+        else
+            box.set_top(engineRangeBox, rangeHigh)
+            box.set_bottom(engineRangeBox, rangeLow)
+            box.set_right(engineRangeBox, time_close)
+            line.set_y1(engineRangeHighLine, rangeHigh)
+            line.set_y2(engineRangeHighLine, rangeHigh)
+            line.set_y1(engineRangeLowLine, rangeLow)
+            line.set_y2(engineRangeLowLine, rangeLow)
+            if not na(engineRangeMidLine)
+                line.set_y1(engineRangeMidLine, midpoint)
+                line.set_y2(engineRangeMidLine, midpoint)

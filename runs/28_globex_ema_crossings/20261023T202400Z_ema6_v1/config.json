@@ -1,0 +1,36 @@
+{
+  "study_id": "28_globex_ema_crossings",
+  "protocol_version": "1.0.0",
+  "products": [
+    "ES",
+    "NQ",
+    "GC"
+  ],
+  "primary_timeframe": "5m",
+  "timeframes": [
+    "5m",
+    "2m"
+  ],
+  "ema_period": 6,
+  "ema_warmup_min_preceding_bars": 250,
+  "common_calendar": [
+    "2021-06-28",
+    "2026-09-18"
+  ],
+  "atr_lookback": 252,
+  "atr_max_age_days": 7,
+  "atr_percentile_cuts": [
+    0.3333333333333333,
+    0.6666666666666666
+  ],
+  "range_atr_cuts": [
+    0.75,
+    1.25
+  ],
+  "bootstrap": {
+    "replicates": 2000,
+    "block_observed_sessions": 5,
+    "seed": 20261023
+  },
+  "exclusions": "Published retrospective product-day eligibility; unknown volatility is retained as unknown."
+}

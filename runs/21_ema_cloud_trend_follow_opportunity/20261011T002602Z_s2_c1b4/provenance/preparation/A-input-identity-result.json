@@ -1,0 +1,105 @@
+{
+  "status": "passed",
+  "started_at": "2026-10-11T00:30:18.607865+00:00",
+  "completed_at": "2026-10-11T00:30:19.289085+00:00",
+  "checks": {
+    "handoff_baseline": 7,
+    "sealed_local_artifacts": 260,
+    "sealed_external_ledgers": 24,
+    "ledger_manifest_records": 24,
+    "frozen_sources": 53,
+    "reusable_delivery_manifest": 1,
+    "reusable_delivery_partitions": 6,
+    "reusable_delivery_auxiliary": 18,
+    "market_manifest_pins": 3,
+    "consumed_market_support_and_environment": 45,
+    "historical_source_ema_cloud.py": 1,
+    "historical_source_ema_cloud_release.py": 1,
+    "historical_source_calendar.py": 1,
+    "historical_source_continuous_loader.py": 1,
+    "historical_source_manifest_selection.py": 1,
+    "historical_source_paths.py": 1,
+    "historical_source_provenance.py": 1
+  },
+  "mismatches": [],
+  "baseline_manifest_sha256": "139f50355969e0557efea2f5a3f273320e059af4a74aad429011c396a4b098a6",
+  "handoff_sha256": "cf0ceb88b47e661088e27ce321582122d731f987ba2ab311b9298897a31309bc",
+  "delivery_manifest_sha256": "59010a558b4e727dbfaa37a64b4a209590288f23744127ab98747cd27ff56d44",
+  "current_vs_frozen_sources": [
+    {
+      "path": "studies/21_ema_cloud_trend_follow_opportunity/src/reconcile.py",
+      "frozen_sha256": "44914dba411872bf661f763f1ee65b8f5c713256f7a750c8d6097cb333caf4e9",
+      "current_sha256": "d71c5c07fd7b3fa627ad4a3ef723e4e388ecfd9238ce1bb27db11b5cfda3110e"
+    },
+    {
+      "path": "studies/21_ema_cloud_trend_follow_opportunity/src/reporting.py",
+      "frozen_sha256": "ef30097c1e90945f80c40a130f868aef1c7512d3fea1000b10adfd17bb27185f",
+      "current_sha256": "ccc45024b3d046b9a0ca26ef0f4669fc8894b2db5938997446a0d5d4ff1b1c0a"
+    },
+    {
+      "path": "studies/21_ema_cloud_trend_follow_opportunity/tests/test_reconcile.py",
+      "frozen_sha256": "063a93cb0ba3a3b67463f5492a975215e9807a3339df91bd447e22c481047b1a",
+      "current_sha256": "5a35336f2e1436c548cec98c39e60a7774d2e74ad92edb0b7f47dcf658d4df79"
+    },
+    {
+      "path": "studies/21_ema_cloud_trend_follow_opportunity/tests/test_reporting.py",
+      "frozen_sha256": "4ac3999edf2f0a3a6318119144041c38b6cc2cde4bb53dd66cab3435536826e7",
+      "current_sha256": "314a88d33430231474245a3966826907eb7a185605685a3f8c54de87677b78da"
+    }
+  ],
+  "historical_producer_resolutions": [
+    {
+      "historical_canonical_locator": "packages/bhishma/src/abacus_bhishma/ema_cloud.py",
+      "historical_sha256": "c9a030f1940fd5ac4776a5a6c1ba741e36f4a334e9d684f7cbe629d8074e390e",
+      "resolved_retained_snapshot": "/Users/ppanati/Documents/projects/abacus/data/features/ema_cloud/version=1.0.0/provenance/ema_cloud.py",
+      "current_canonical_sha256": "3d091fce42f53fe1905c2037b1f983f8db6e1ee720cbbab8a89b289cb224d30d",
+      "current_differs_from_historical_producer": true
+    },
+    {
+      "historical_canonical_locator": "packages/bhishma/src/abacus_bhishma/ema_cloud_release.py",
+      "historical_sha256": "41cb48db5928b07e06bb79474baa626b8702466b6be19ec6ae770912ce5e90a1",
+      "resolved_retained_snapshot": "/Users/ppanati/Documents/projects/abacus/data/features/ema_cloud/version=1.0.0/provenance/ema_cloud_release.py",
+      "current_canonical_sha256": "41cb48db5928b07e06bb79474baa626b8702466b6be19ec6ae770912ce5e90a1",
+      "current_differs_from_historical_producer": false
+    },
+    {
+      "historical_canonical_locator": "packages/bhishma/src/abacus_bhishma/calendar.py",
+      "historical_sha256": "94c89dfc03e36ad57819c4337da1f4b02a27dd18f49c92ae5a143582624da314",
+      "resolved_retained_snapshot": "/Users/ppanati/Documents/projects/abacus/data/features/ema_cloud/version=1.0.0/provenance/calendar.py",
+      "current_canonical_sha256": "94c89dfc03e36ad57819c4337da1f4b02a27dd18f49c92ae5a143582624da314",
+      "current_differs_from_historical_producer": false
+    },
+    {
+      "historical_canonical_locator": "packages/bhishma/src/abacus_bhishma/continuous_loader.py",
+      "historical_sha256": "810ca34425a3f620850e8e576130065fb0824adabb21a5aff2019c2467cbec6c",
+      "resolved_retained_snapshot": "/Users/ppanati/Documents/projects/abacus/data/features/ema_cloud/version=1.0.0/provenance/continuous_loader.py",
+      "current_canonical_sha256": "810ca34425a3f620850e8e576130065fb0824adabb21a5aff2019c2467cbec6c",
+      "current_differs_from_historical_producer": false
+    },
+    {
+      "historical_canonical_locator": "packages/bhishma/src/abacus_bhishma/manifest_selection.py",
+      "historical_sha256": "bdbf8c2c65759c1e2b2cb82f74b04c7aa18920dbc638af525446d9d3ec5c550d",
+      "resolved_retained_snapshot": "/Users/ppanati/Documents/projects/abacus/data/features/ema_cloud/version=1.0.0/provenance/manifest_selection.py",
+      "current_canonical_sha256": "bdbf8c2c65759c1e2b2cb82f74b04c7aa18920dbc638af525446d9d3ec5c550d",
+      "current_differs_from_historical_producer": false
+    },
+    {
+      "historical_canonical_locator": "packages/bhishma/src/abacus_bhishma/paths.py",
+      "historical_sha256": "f3125bcff0953fcfc9845119c9ff9b3f006b2d1df77c3899e0d49609e93aac18",
+      "resolved_retained_snapshot": "/Users/ppanati/Documents/projects/abacus/data/features/ema_cloud/version=1.0.0/provenance/paths.py",
+      "current_canonical_sha256": "f3125bcff0953fcfc9845119c9ff9b3f006b2d1df77c3899e0d49609e93aac18",
+      "current_differs_from_historical_producer": false
+    },
+    {
+      "historical_canonical_locator": "packages/bhishma/src/abacus_bhishma/provenance.py",
+      "historical_sha256": "34e75937186557e92d3e26feac8a4c576158e44f98ba4b67e3803a65517350d9",
+      "resolved_retained_snapshot": "/Users/ppanati/Documents/projects/abacus/data/features/ema_cloud/version=1.0.0/provenance/provenance.py",
+      "current_canonical_sha256": "34e75937186557e92d3e26feac8a4c576158e44f98ba4b67e3803a65517350d9",
+      "current_differs_from_historical_producer": false
+    }
+  ],
+  "unique_verified_paths": 357,
+  "outcomes_computed": false,
+  "features_rebuilt": false,
+  "interpretation": "Declared-byte identity audit only; baseline scientific validity derives from retained independent receipts. Historical producer snapshot differs intentionally from corrected canonical EMA source; later verifier/caption repairs are distinguished from frozen executed bytes."
+}

@@ -1,0 +1,9 @@
+# VWAP state dynamics exploratory reporting supplement 1.1.0
+
+Frozen 2026-09-23 18:28 UTC **after** primary run `20260923T180000Z_state06c` outcomes were viewed, before calculating the new descriptive tables. This supplement links the unchanged sealed parent event ledger and its published input hashes. It does not extract new events, change thresholds, replace any primary comparison, or claim confirmation. All new segment summaries are explicitly exploratory.
+
+The supplemental outputs complete planned descriptive reporting that the first report left at event level: (1) first opposite completed-close crossing time among observed crossers, keeping noncrossers censored at 30 minutes; (2) explicit New York clock labels for Asia, London, NY and three gaps, using landmark instant in local time with DST; (3) paired frozen VWAP/TWAP absolute-error comparisons against the already-saved next-30-minute volume-weighted one-minute close and horizon-end unadjusted close, with ties and full denominators; (4) descriptive prior-normalized slope, VWAP acceleration, anchor volume, and recent-volume-share distributions.
+
+Clock labels use `[18:00,20:00)` pre-Asia gap, `[20:00,03:00)` Asia, `[03:00,09:00)` London, `[09:00,09:30)` pre-NY gap, `[09:30,16:00)` NY, `[16:00,17:00)` post-NY gap. At a boundary, the label names the clock period beginning at the landmark instant, regardless of membership of the just-completed feature bar. The primary full-coverage rule means the first sampled pre-Asia clock is 19:00 and the last sampled post-NY clock is 16:30. These are descriptive clock strata, not additional optimized signals.
+
+Use the original cohort, four-way outcome definitions, complete denominators, product distinctions, and causal one-minute reconciliation. For new probability intervals resample whole shared calendar dates 400 times with seed 607. No threshold search, superiority claim, or new public publication is authorized.

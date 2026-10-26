@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "study_id": "05_session_vwap",
+  "title": "Session-anchored VWAP",
+  "summary": "Three evaluated candidates: return after departure, first outside-2σ fade, and first VWAP retest bounce. Three other VWAP ideas remain proposed.",
+  "status": "evaluated",
+  "topic": "VWAP",
+  "products": [
+    "ES",
+    "NQ",
+    "GC"
+  ],
+  "data_summary": "Session-Anchored VWAP 1.0.0 · 2m / 5m · Globex / Asia / London / NY",
+  "evidence_status": "Price-path statistics from the pinned 1.0.0 release; execution costs and fills remain unmodeled. Three of six candidate families were evaluated.",
+  "reference_run": "20260923T015900Z_vwap3",
+  "strategy_ids": [
+    "vwap_extreme_fade",
+    "vwap_reentry_fade",
+    "vwap_return_after_departure",
+    "vwap_first_retest_bounce",
+    "vwap_cross_acceptance_retest",
+    "vwap_outside_band_continuation"
+  ]
+}

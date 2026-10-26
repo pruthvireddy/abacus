@@ -1,0 +1,81 @@
+{
+  "schema_version": 1,
+  "requested": {
+    "profiles": [],
+    "checks": [
+      "study-26"
+    ]
+  },
+  "selection": [
+    "study-26"
+  ],
+  "checks": [
+    {
+      "id": "study-26",
+      "owner": "study-26",
+      "kind": "unittest",
+      "argv": [
+        "/Users/ppanati/Documents/projects/abacus/scripts/uv",
+        "run",
+        "--locked",
+        "--no-sync",
+        "python",
+        "-B",
+        "/Users/ppanati/Documents/projects/abacus/scripts/unittest_child.py",
+        "--spec",
+        "{\"optimize\": false, \"pattern\": \"test*.py\", \"start_dir\": \"/Users/ppanati/Documents/projects/abacus/studies/26_es_opening_pivot_cloud/tests\"}",
+        "--result",
+        "/var/folders/8m/7y_qdqcn1fn6gkf6ggc_39bc0000gn/T/abacus-check-h1izhneq/unittest-result.json"
+      ],
+      "cwd": "/Users/ppanati/Documents/projects/abacus",
+      "scope": [
+        "Synthetic minute/five-minute fixtures covering causal direction/timing, interactions, masks, fills, ambiguity, costs and null outcomes.",
+        "Independent input and saved-ledger/statistical/lifecycle guards; no real market outcomes, publication, sealing or deployment in tests."
+      ],
+      "environment_overrides": {},
+      "prerequisites": [
+        {
+          "kind": "executable",
+          "name": "uv",
+          "description": "Existing scripts/uv resolution: ignored .tools/uv/bin/uv or uv on PATH; no bootstrap."
+        },
+        {
+          "kind": "directory",
+          "path": ".venv",
+          "description": "Existing locked Python environment; --no-sync never installs dependencies."
+        },
+        {
+          "kind": "file",
+          "path": ".venv/bin/python",
+          "description": "Prepared locked Python interpreter (.venv/bin/python)"
+        }
+      ],
+      "outcome": "passed",
+      "exit_code": 0,
+      "duration_seconds": 3.806348,
+      "missing_prerequisites": [],
+      "unittest": {
+        "counts": {
+          "discovered": 83,
+          "errors": 0,
+          "expected_failures": 0,
+          "failures": 0,
+          "skipped": 0,
+          "tests_run": 83,
+          "unexpected_successes": 0
+        },
+        "outcome": "passed",
+        "schema_version": 1,
+        "skips": [],
+        "successful_callbacks": 177288
+      }
+    }
+  ],
+  "outcome": "passed",
+  "exit_code": 0,
+  "limitations": [
+    "Only selected checks were executed.",
+    "Unittest counts come from the child TestResult; command checks have no test counts.",
+    "Configured-input diagnostics do not verify every partition or reproduce research."
+  ]
+}

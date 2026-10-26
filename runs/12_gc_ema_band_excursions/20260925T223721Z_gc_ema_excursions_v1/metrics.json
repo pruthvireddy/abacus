@@ -1,0 +1,37 @@
+{
+  "generated_at_utc": "2026-09-25T22:37:38.304151+00:00",
+  "input_bar_rows": 1149486,
+  "input_band_rows": 1149486,
+  "observed_years": [
+    2010,
+    2011,
+    2012,
+    2013,
+    2014,
+    2015,
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024,
+    2025,
+    2026
+  ],
+  "cohort_horizon_rows": 406910,
+  "status_counts_across_cooldowns_and_horizons": {
+    "valid": 335247,
+    "time_gap": 49838,
+    "partial_or_mixed_bar": 21825
+  },
+  "statistic_rows": 595,
+  "definitions": {
+    "mae_points": "max(0, next open - min future low)",
+    "mfe_points": "max(0, max future high - next open)",
+    "terminal_points": "last future close - next open",
+    "mean_ci": "approximate 95% normal cluster interval by ISO week; unadjusted for multiple comparisons"
+  }
+}

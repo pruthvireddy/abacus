@@ -27,7 +27,11 @@ import pyarrow as pa
 import pyarrow.compute as pc
 import pyarrow.parquet as pq
 
-from .continuous_phase1 import _git_version, _sha256
+from . import calendar as _calendar
+from . import provenance as _provenance
+from .calendar import _easter, _last_weekday, _nth_weekday, _observed, holiday_sessions
+from .provenance import git_version as _git_version, sha256_file as _sha256
+from .publication_safety import check_absent, check_path, write_new_bytes
 
 FEATURE_SET = "session_anchored_vwap"
 VERSION = "1.0.0"
@@ -137,10 +141,9 @@ def _relative(path: Path, root: Path) -> str:
 
 
 def _atomic_bytes(path: Path, content: bytes) -> None:
-    path.parent.mkdir(parents=True, exist_ok=True)
     temporary = path.with_name(f".{path.name}.{os.getpid()}.tmp")
-    temporary.write_bytes(content)
-    os.replace(temporary, path)
+    write_new_bytes(path, content, Path(path.absolute().anchor), error=FeatureBuildError,
+                    recovery_path=temporary)
 
 
 def _atomic_json(path: Path, value: Any) -> None:
@@ -159,85 +162,6 @@ def session_bounds(session_date: date) -> tuple[int, int]:
     start = datetime.combine(session_date - timedelta(days=1), time(18), NY)
     end = datetime.combine(session_date, time(17), NY)
     return _ts_ns(start.astimezone(UTC)), _ts_ns(end.astimezone(UTC))
-
-
-def _easter(year: int) -> date:
-    """Return Gregorian Easter using the Meeus/Jones/Butcher algorithm."""
-
-    a = year % 19
-    b, c = divmod(year, 100)
-    d, e = divmod(b, 4)
-    f = (b + 8) // 25
-    g = (b - f + 1) // 3
-    h = (19 * a + b - d - g + 15) % 30
-    i, k = divmod(c, 4)
-    l = (32 + 2 * e + 2 * i - h - k) % 7
-    m = (a + 11 * h + 22 * l) // 451
-    month = (h + l - 7 * m + 114) // 31
-    day = (h + l - 7 * m + 114) % 31 + 1
-    return date(year, month, day)
-
-
-def _nth_weekday(year: int, month: int, weekday: int, n: int) -> date:
-    first = date(year, month, 1)
-    return first + timedelta(days=(weekday - first.weekday()) % 7 + 7 * (n - 1))
-
-
-def _last_weekday(year: int, month: int, weekday: int) -> date:
-    if month == 12:
-        next_month = date(year + 1, 1, 1)
-    else:
-        next_month = date(year, month + 1, 1)
-    last = next_month - timedelta(days=1)
-    return last - timedelta(days=(last.weekday() - weekday) % 7)
-
-
-def _observed(value: date) -> date:
-    if value.weekday() == 5:
-        return value - timedelta(days=1)
-    if value.weekday() == 6:
-        return value + timedelta(days=1)
-    return value
-
-
-def holiday_sessions(product: str, start_year: int, end_year: int) -> dict[date, list[str]]:
-    """Generate the pinned CME holiday/shortened-session exclusion set."""
-
-    result: dict[date, list[str]] = defaultdict(list)
-    for year in range(start_year, end_year + 1):
-        new_year = date(year, 1, 1)
-        # CME does not shift a Saturday New Year's closure back onto Friday;
-        # for Sunday it observes the following Monday.
-        new_year_session = (
-            new_year + timedelta(days=1) if new_year.weekday() == 6 else new_year
-        )
-        fixed = (
-            (new_year_session, "New Year's"),
-            (_observed(date(year, 7, 4)), "Independence Day"),
-            (_observed(date(year, 12, 25)), "Christmas"),
-        )
-        for value, name in fixed:
-            result[value].append(name)
-        result[_nth_weekday(year, 1, 0, 3)].append("Martin Luther King Jr. Day")
-        result[_nth_weekday(year, 2, 0, 3)].append("Presidents Day")
-        result[_easter(year) - timedelta(days=2)].append("Good Friday")
-        result[_last_weekday(year, 5, 0)].append("Memorial Day")
-        if year >= 2022:
-            result[_observed(date(year, 6, 19))].append("Juneteenth")
-        result[_nth_weekday(year, 9, 0, 1)].append("Labor Day")
-        thanksgiving = _nth_weekday(year, 11, 3, 4)
-        result[thanksgiving].append("Thanksgiving")
-        result[thanksgiving + timedelta(days=1)].append("Thanksgiving Friday early close")
-        adjacent = [(12, 24, "Christmas Eve early close")]
-        if product in {"ES", "NQ"}:
-            adjacent.append((7, 3, "Independence Day adjacent equity early close"))
-        for month, day, name in adjacent:
-            value = date(year, month, day)
-            if value.weekday() < 5:
-                result[value].append(name)
-    result[date(2018, 12, 5)].append("National day of mourning")
-    result[date(2025, 1, 9)].append("National day of mourning")
-    return dict(result)
 
 
 def calendar_regime(product: str, session_date: date) -> tuple[str, bool]:
@@ -1045,6 +969,10 @@ def _manifest(
         "software": {
             "builder": "src/abacus_bhishma/session_anchored_vwap.py",
             "builder_sha256": _sha256(Path(__file__)),
+            "helper_source_sha256": {
+                "abacus_bhishma.provenance": _sha256(Path(_provenance.__file__)),
+                "abacus_bhishma.calendar": _sha256(Path(_calendar.__file__)),
+            },
             "python": platform.python_version(),
             "numpy": np.__version__,
             "pyarrow": pa.__version__,
@@ -1176,20 +1104,26 @@ def _verify_inputs(paths: Paths) -> tuple[dict[str, Any], dict[str, str]]:
     return source_manifest, hashes
 
 
+def _check_publication_absent(paths: Paths, *, include_stage: bool = True,
+                              written: tuple[Path, ...] = ()) -> None:
+    metadata = (*[paths.manifest(i) for i in INTERVALS], paths.release_manifest,
+                paths.schema, paths.report)
+    outputs = [*[paths.output_root(i) for i in INTERVALS], paths.audit, *metadata]
+    if include_stage:
+        outputs.extend(paths.output_root(i, True) for i in INTERVALS)
+    for path in outputs:
+        if path not in written:
+            check_absent(path, paths.root, error=FeatureBuildError)
+    for path in metadata:
+        check_absent(path.with_name(f".{path.name}.{os.getpid()}.tmp"), paths.root, error=FeatureBuildError)
+        # Recovery leaves from an earlier PID remain evidence, not disposable scratch.
+        for recovery in path.parent.glob(f".{path.name}.*.tmp"):
+            check_absent(recovery, paths.root, error=FeatureBuildError)
+
+
 def build(root: Path | str) -> dict[str, Any]:
     paths = Paths.from_root(root)
-    protected = [
-        *(paths.output_root(interval) for interval in INTERVALS),
-        *(paths.output_root(interval, True) for interval in INTERVALS),
-        *(paths.manifest(interval) for interval in INTERVALS),
-        paths.release_manifest,
-        paths.audit,
-        paths.schema,
-        paths.report,
-    ]
-    existing = [str(path) for path in protected if path.exists()]
-    if existing:
-        raise FeatureBuildError("refusing to overwrite completed or partial version: " + ", ".join(existing))
+    _check_publication_absent(paths)
     source_manifest, hashes = _verify_inputs(paths)
     audit, eligible = build_eligibility_audit(paths, source_manifest)
     if not any(eligible.values()):
@@ -1207,6 +1141,12 @@ def build(root: Path | str) -> dict[str, Any]:
     # One logical contract serves both intervals; timestamp metadata differs only in Parquet.
     _atomic_json(paths.schema, _schema_contract(schemas[2]))
     hashes["schema_contract_sha256"] = _sha256(paths.schema)
+    declared_sources = _provenance.publication_sources(Path(__file__), ("calendar.py", "provenance.py", "publication_safety.py", "paths.py"))
+    retained = _provenance.retain_sources(
+        paths.output_root(2, True) / "provenance",
+        declared_sources,
+        artifact_id=RELEASE_ID, root=paths.root, error=FeatureBuildError,
+    )
     stats: dict[int, list[dict[str, Any]]] = {interval: [] for interval in INTERVALS}
     years = range(2010, 2027)
     try:
@@ -1226,13 +1166,20 @@ def build(root: Path | str) -> dict[str, Any]:
                     )
                     _write_parquet(table, output_path)
                     stats[interval].append({"product": product, "year": year, **details})
+        _provenance.verify_retained_sources(
+            paths.output_root(2, True) / "provenance", declared_sources, retained, error=FeatureBuildError)
+        _check_publication_absent(paths, include_stage=False, written=(paths.schema,))
         for interval in INTERVALS:
+            check_path(paths.output_root(interval, True), paths.root, error=FeatureBuildError)
+            check_absent(paths.output_root(interval), paths.root, error=FeatureBuildError)
             paths.output_root(interval).parent.mkdir(parents=True, exist_ok=True)
             os.replace(paths.output_root(interval, True), paths.output_root(interval))
     except Exception:
         # Leave temporary output as visible evidence; the immutable build refuses reuse.
         raise
+    check_absent(paths.audit, paths.root, error=FeatureBuildError)
     paths.audit.parent.mkdir(parents=True, exist_ok=True)
+    check_absent(paths.audit, paths.root, error=FeatureBuildError)
     _write_parquet(audit, paths.audit)
     audit_descriptor = _descriptor(paths.audit, paths.root)
     audit_summary = _audit_summary(audit)
@@ -1249,6 +1196,9 @@ def build(root: Path | str) -> dict[str, Any]:
         )
         for interval in INTERVALS
     }
+    for manifest in manifests.values():
+        manifest["retained_provenance"] = dict(
+            retained, path=str((paths.output_root(2) / "provenance").relative_to(paths.root)))
     report = _report(manifests, audit_summary)
     _atomic_bytes(paths.report, report.encode())
     for interval in INTERVALS:

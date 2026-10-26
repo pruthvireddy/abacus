@@ -1,0 +1,115 @@
+[sahadeva] ["/Users/ppanati/Documents/projects/abacus/scripts/uv", "run", "--locked", "--no-sync", "python", "-B", "/Users/ppanati/Documents/projects/abacus/scripts/unittest_child.py", "--spec", "{\"optimize\": false, \"pattern\": \"test*.py\", \"start_dir\": \"/Users/ppanati/Documents/projects/abacus/packages/sahadeva/tests\"}", "--result", "/var/folders/8m/7y_qdqcn1fn6gkf6ggc_39bc0000gn/T/abacus-check-28kalm4d/unittest-result.json"]
+.........................................
+----------------------------------------------------------------------
+Ran 41 tests in 31.803s
+
+OK
+[sahadeva] passed
+[legacy-01] ["/Users/ppanati/Documents/projects/abacus/scripts/uv", "run", "--locked", "--no-sync", "python", "-B", "/Users/ppanati/Documents/projects/abacus/scripts/unittest_child.py", "--spec", "{\"optimize\": false, \"pattern\": \"test*.py\", \"start_dir\": \"/Users/ppanati/Documents/projects/abacus/legacy/sahadeva/analysis/01_reversal_follow_through/tests\"}", "--result", "/var/folders/8m/7y_qdqcn1fn6gkf6ggc_39bc0000gn/T/abacus-check-qxcmql6_/unittest-result.json"]
+.............
+----------------------------------------------------------------------
+Ran 13 tests in 0.055s
+
+OK
+[legacy-01] passed
+[legacy-02] ["/Users/ppanati/Documents/projects/abacus/scripts/uv", "run", "--locked", "--no-sync", "python", "-B", "/Users/ppanati/Documents/projects/abacus/scripts/unittest_child.py", "--spec", "{\"optimize\": false, \"pattern\": \"test*.py\", \"start_dir\": \"/Users/ppanati/Documents/projects/abacus/legacy/sahadeva/analysis/02_followthrough_candle_adverse/tests\"}", "--result", "/var/folders/8m/7y_qdqcn1fn6gkf6ggc_39bc0000gn/T/abacus-check-il1zbp6l/unittest-result.json"]
+........................
+----------------------------------------------------------------------
+Ran 24 tests in 0.185s
+
+OK
+[legacy-02] passed
+[vwap-doctor] ["/Users/ppanati/Documents/projects/abacus/scripts/uv", "run", "--locked", "--no-sync", "abacus-research", "doctor", "--workspace-root", "/Users/ppanati/Documents/projects/abacus", "--read-sample"]
+{
+  "status": "passed",
+  "workspace_root": "/Users/ppanati/Documents/projects/abacus",
+  "publication_root": "/Users/ppanati/Documents/projects/abacus",
+  "legacy_research_root": "/Users/ppanati/Documents/projects/abacus/legacy/sahadeva",
+  "inputs_lock": "/Users/ppanati/Documents/projects/abacus/studies/05_session_vwap/inputs.lock.json",
+  "inputs_lock_sha256": "afb23540d05ac7e3351d311b50f547f8c0cb945dd077680d72c37e2caf79f275",
+  "feature_version": "1.0.0",
+  "verified_manifest_and_release_files": 9,
+  "all_data_partitions_verified": false,
+  "samples": [
+    {
+      "product": "ES",
+      "timeframe": "2m",
+      "session_date": "2021-06-28",
+      "rows": 690,
+      "partition_sha256": "8f126d741a584c8a7fb5e9470e578343d0cc121ebd749ee49949ead8294e8cdf",
+      "columns": [
+        "session_date",
+        "ts_event",
+        "available_at",
+        "close"
+      ]
+    },
+    {
+      "product": "GC",
+      "timeframe": "2m",
+      "session_date": "2016-02-11",
+      "rows": 690,
+      "partition_sha256": "4cb692c56ed080e78feeae3d0d1bb183a192c3c6e81dabb55996d884d0ca7659",
+      "columns": [
+        "session_date",
+        "ts_event",
+        "available_at",
+        "close"
+      ]
+    },
+    {
+      "product": "NQ",
+      "timeframe": "2m",
+      "session_date": "2021-06-28",
+      "rows": 690,
+      "partition_sha256": "a0bcf40fa6cad2aa452121e7d6cbc14001ecbbd517f7bef2bb2fd00ed661848b",
+      "columns": [
+        "session_date",
+        "ts_event",
+        "available_at",
+        "close"
+      ]
+    },
+    {
+      "product": "ES",
+      "timeframe": "5m",
+      "session_date": "2021-06-28",
+      "rows": 276,
+      "partition_sha256": "014b023f36dd7f07e101ae0d3f037d526d3d011b6107eba064e01b1fd9869ca1",
+      "columns": [
+        "session_date",
+        "ts_event",
+        "available_at",
+        "close"
+      ]
+    },
+    {
+      "product": "GC",
+      "timeframe": "5m",
+      "session_date": "2016-02-11",
+      "rows": 276,
+      "partition_sha256": "40d9f6ceee44716ba18369fe572106da8614fc53b44c9750ed772bf88bf34aeb",
+      "columns": [
+        "session_date",
+        "ts_event",
+        "available_at",
+        "close"
+      ]
+    },
+    {
+      "product": "NQ",
+      "timeframe": "5m",
+      "session_date": "2021-06-28",
+      "rows": 276,
+      "partition_sha256": "094db360e5de7d447cf1d94a535747a2bb2bb894f1544ca58df94bf6309874bc",
+      "columns": [
+        "session_date",
+        "ts_event",
+        "available_at",
+        "close"
+      ]
+    }
+  ]
+}
+[vwap-doctor] passed
+Selected checks: passed (4 selected)

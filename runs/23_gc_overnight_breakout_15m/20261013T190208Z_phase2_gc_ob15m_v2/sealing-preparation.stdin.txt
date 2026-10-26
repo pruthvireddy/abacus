@@ -1,0 +1,210 @@
+from pathlib import Path
+import hashlib,json,shutil,subprocess,tarfile,shlex
+from datetime import datetime,timezone
+
+root=Path('/Users/ppanati/Documents/projects/abacus')
+study='23_gc_overnight_breakout_15m'
+run='20261013T190208Z_phase2_gc_ob15m_v2'
+stage=root/'work'/study/run
+ops=root/'work'/study/'phase2-narada-operations-20261013T181342Z'
+retained=root/'data/research/sahadeva'/study/run
+cache_env={'UV_CACHE_DIR':'/private/tmp/abacus-study23-uv-cache'}
+if (root/'runs'/study/run).exists():raise FileExistsError('completed run is immutable')
+for name in ('commands.json','checks.json','sealing-inputs.json','retention-verification.json','verification/publication-contract-sealing.json'):
+    if (stage/name).exists():raise FileExistsError('existing preparation must be preserved: '+name)
+
+def sha(path):
+    h=hashlib.sha256()
+    with Path(path).open('rb') as file:
+        for block in iter(lambda:file.read(1024*1024),b''):h.update(block)
+    return h.hexdigest()
+def pin(relative):
+    path=stage/relative
+    if Path(relative).is_absolute() or '..' in Path(relative).parts or path.is_symlink() or not path.is_file():raise ValueError('ordinary stage file required')
+    return dict(path=relative,bytes=path.stat().st_size,sha256=sha(path))
+def write(relative,value):
+    path=stage/relative;path.parent.mkdir(parents=True,exist_ok=True)
+    with path.open('x') as file:json.dump(value,file,indent=2,allow_nan=False);file.write('\n')
+def copied(source,relative):
+    target=stage/relative;target.parent.mkdir(parents=True,exist_ok=True)
+    if target.exists():raise FileExistsError('new evidence copy only')
+    shutil.copyfile(source,target)
+    if sha(source)!=sha(target):raise ValueError('copied evidence mismatch')
+    return pin(relative)
+
+before=shutil.disk_usage(root)
+print('free_before',before.free,flush=True)
+protected={p:sha(p) for p in [stage/n for n in ('scientific-verification.json','metrics-verification.json','account-verification.json','time-recovery-verification.json','publication-verification.json','synthesis-verification.json','visual-qa.json')]}
+protected.update({p:sha(p) for p in (stage/'publications').rglob('*') if p.is_file()})
+numeric=json.loads((stage/'numerical-tests/final-v1/receipt.json').read_text())
+if numeric['status']!='passed' or numeric['counts']['tests_run']!=336 or numeric['counts']['skipped']!=0:raise ValueError('actual final numerical gate required')
+for record in numeric['source_snapshots']:
+    if sha(root/record['original_workspace_path'])!=record['sha256']:raise ValueError('final Python source drift')
+
+# Preserve operation commands/logs inside the future evidence bundle. No
+# publisher command or research producer is run by this metadata preparation.
+ops_pins=[]
+for path in sorted(ops.rglob('*')):
+    if path.is_file():ops_pins.append(copied(path,'operations-records/narada/'+str(path.relative_to(ops))))
+native=json.loads((stage/'publication-native-contract-verification.json').read_text())
+source_paths=['apps/narada/scripts/publish.mjs','apps/narada/scripts/lib/publication.mjs','apps/narada/scripts/lib/evidence.mjs',
+              *['apps/narada/contracts/'+name+'.schema.json' for name in ('report','bundle','index','report-1.0','report-1.1')],
+              'apps/narada/package.json','apps/narada/package-lock.json']
+node_sources=[dict(copied(root/path,'source-lifecycle/'+path),original_workspace_path=path,role='publisher-contract') for path in source_paths]
+native_artifacts=[pin('publication-native-contract-verification.json')]
+native_commands=[]
+for report in native['reports']:
+    prefix='publications/'+report['publication_id']+'/'
+    for filename,key in (('publication.json','publication_sha256'),('source-map.json','source_map_sha256')):
+        item=pin(prefix+filename)
+        if item['sha256']!=report[key]:raise ValueError('native dry-run report/map drift')
+        native_artifacts.append(item)
+    original_log=root/report['log']
+    if sha(original_log)!=report['log_sha256'] or report['exit_code']!=0:raise ValueError('native dry-run execution/log mismatch')
+    stdout=json.loads(original_log.read_text())
+    if stdout!={'id':report['publication_id'],'status':'ready','dryRun':True}:raise ValueError('native dry-run did not report ready')
+    log='operations-records/narada/'+str(original_log.relative_to(ops))
+    native_artifacts.append(pin(log))
+    native_commands.append(dict(argv=report['command'],cwd=report['cwd']))
+if len(native_commands)!=23:raise ValueError('exact23 native dry runs required')
+write('verification/publication-contract-sealing.json',dict(status='passed',schema_version='study23.phase2-recorded-native-contract/v1',run_id=run,
+    prepared_at=datetime.now(timezone.utc).isoformat(),reports=native['reports'],artifacts=native_artifacts,source_snapshots=node_sources,
+    scope='Exact saved final report/map bytes and preserved actual Node --dry-run ready outputs; no fresh publisher or numerical execution.',
+    qualifications=['Current publisher/schema/package lock bytes snapshotted after the recorded commands, as authorized by root; not an earlier immutable source-freeze claim.',
+                    'Scientific validity and source-cell transfer use their separate independent receipts. Publication/deployment has not been performed by this preparation.']))
+
+# Hash and stream-verify every already retained draft archive without extraction.
+archives=[];archive_files=0
+for inventory in sorted((stage/'publication-draft-archives').glob('*-inventory.json')):
+    record=json.loads(inventory.read_text());path=root/record['archive']
+    if path.stat().st_size!=record['archive_bytes'] or sha(path)!=record['archive_sha256']:raise ValueError('retained archive byte drift')
+    expected={r['path']:r for r in record['files']};seen=set()
+    with tarfile.open(path,'r|gz') as archive:
+        for member in archive:
+            if member.isdir():continue
+            if not member.isfile() or member.name not in expected or member.name in seen:raise ValueError('archive member schema/roster mismatch')
+            declared=expected[member.name];stream=archive.extractfile(member);h=hashlib.sha256()
+            for block in iter(lambda:stream.read(1024*1024),b''):h.update(block)
+            if member.size!=declared['bytes'] or h.hexdigest()!=declared['sha256']:raise ValueError('archive member changed')
+            seen.add(member.name)
+    if seen!=set(expected):raise ValueError('archive missing retained member')
+    archive_files+=len(seen)
+    archives.append(dict(id='presentation-archive-'+inventory.stem,locator=record['archive'],bytes=record['archive_bytes'],sha256=record['archive_sha256'],inventory_path=str(inventory.relative_to(stage)),verified_members=len(seen)))
+    print('archive_verified',inventory.name,len(seen),flush=True)
+
+# Retain all bulk ledgers plus every future Git-ignored selected source byte.
+# Required nested source maps/tables stay at their exact staged paths.
+all_files=sorted(p for p in stage.rglob('*') if p.is_file())
+private=[str(p.relative_to(stage)) for p in all_files if p.name.endswith(('.jsonl.gz','.parquet'))]
+future={str(root/'runs'/study/run/p.relative_to(stage)):p for p in all_files}
+query=subprocess.run(['git','check-ignore','--no-index','--stdin','-z'],input=('\0'.join(future)+'\0').encode(),stdout=subprocess.PIPE,stderr=subprocess.PIPE,cwd=root)
+if query.returncode not in (0,1):raise ValueError('future ignore inventory failed')
+ignored={future[name] for name in query.stdout.decode().split('\0') if name}
+selected=sorted(ignored|{stage/path for path in private})
+objects=retained/'objects';objects.mkdir(exist_ok=False)
+external=[];object_hashes=set();copied_bytes=0
+required_space=sum(p.stat().st_size for p in selected)+2*sum(p.stat().st_size for p in stage.rglob('*') if p.is_file())+256*1024*1024
+if shutil.disk_usage(root).free<required_space:raise OSError('insufficient headroom for retention plus future payload/run copies')
+for path in selected:
+    relative=str(path.relative_to(stage));hash_value=sha(path);destination=objects/hash_value[:2]/hash_value
+    destination.parent.mkdir(exist_ok=True)
+    if destination.exists():
+        if destination.stat().st_size!=path.stat().st_size or sha(destination)!=hash_value:raise ValueError('occupied immutable object mismatch')
+    else:
+        with path.open('rb') as source,destination.open('xb') as target:shutil.copyfileobj(source,target,1024*1024)
+        copied_bytes+=path.stat().st_size
+    if sha(destination)!=hash_value:raise ValueError('retained object byte mismatch')
+    object_hashes.add(hash_value)
+    external.append(dict(id='stage-'+hashlib.sha256(relative.encode()).hexdigest()[:32],locator=str(destination.relative_to(root)),bytes=path.stat().st_size,sha256=hash_value,source_stage_path=relative,
+                         retention='private actual local bytes outside ordinary Git; original staged bytes retained'))
+print('objects_retained',len(external),len(object_hashes),copied_bytes,flush=True)
+write('retention-verification.json',dict(status='passed',run_id=run,prepared_at=datetime.now(timezone.utc).isoformat(),external_stage_records=len(external),unique_objects=len(object_hashes),object_bytes=copied_bytes,
+    private_staged_files=private,verified_archives=archives,verified_archive_members=archive_files,external_artifacts=external,
+    free_before=before.free,free_after=shutil.disk_usage(root).free,scope='Actual selected private bytes and prior presentation archives hashed locally; no deletion, extraction or off-device backup claim.'))
+
+commands=[];details=[]
+def command(argv,cwd=root,environment=None,log=None,exit_code=None,scope=None):
+    item=dict(argv=[str(x) for x in argv],cwd=str(cwd))
+    if environment:item['environment']=environment
+    commands.append(item)
+    details.append(dict(command_index=len(commands)-1,log=pin(log) if log else None,exit_code=exit_code,scope=scope))
+proof=json.loads((stage/'verification/root-execution-command-evidence.json').read_text())
+for record in proof['records']:
+    argv=shlex.split(record['shell_command']);environment={};environment[argv[0].split('=',1)[0]]=argv.pop(0).split('=',1)[1]
+    cut=argv.index('>');log_path=argv[cut+1];argv=argv[:cut]
+    command(argv,record['cwd'],environment,str(Path(log_path).relative_to(stage.relative_to(root))),0,record['evidence_source'])
+    details[-1].update(at=record['at'],actual_shell_command=record['shell_command'],command_evidence=pin('verification/root-execution-command-evidence.json'))
+command(['./scripts/uv','run','--locked','--no-sync','python','-m','unittest','discover','-s','studies/'+study+'/tests'],environment=cache_env,log='pre-execution-tests.log',exit_code=0,scope='Actual root pre-execution263-test invocation.')
+baseline=json.loads((stage/'baseline-pin/baseline-pin-verification.json').read_text())
+for item in baseline['commands']:command(item['argv'],item['cwd'],item.get('environment'),log='baseline-pin/baseline-pin.log',exit_code=0,scope='Original v1 no-outcome baseline audit reused exact bytes in v2.')
+command(['./scripts/check-workspace'],environment=cache_env,log='workspace-default-prior-attempt.log',exit_code=1,scope='Original v1 fail-fast broad default attempt: agent-docs passed; Bhishma226 tests/2 prerequisite errors; other four selected checks unexecuted.')
+uv=['./scripts/uv','run','--locked','--no-sync','python']
+for attempt,phase in (('dev-v1','dev-validation'),('later-v1','later'),('full-v1','all'),('full-v2','all'),('full-v3','all')):
+    record=json.loads((stage/'verification'/('independent-'+attempt)/'receipt.json').read_text())
+    command(uv+record['command'],environment=cache_env,log='independent-'+attempt+'.log',exit_code=0 if record['status']=='passed' else 1,scope='Separate independent causal replay; retained actual attempt result.')
+for attempt in ('transfer-v1','transfer-v2','final-v1'):
+    record=json.loads((stage/'verification'/('publication-independent-'+attempt)/'receipt.json').read_text())
+    argv=['python3','studies/'+study+'/phase2_verify_publication.py','--stage',str(stage.relative_to(root)),'--attempt',attempt]
+    if attempt=='final-v1':argv+=['--finalize-from','verification/publication-independent-transfer-v2/receipt.json']
+    command(argv,log='independent-publication-'+attempt+'.log',exit_code=0 if record['status']=='passed' else 1,scope='Independent source-cell/geometry/inventory transfer; earlier checker failures retained.')
+for attempt in ('synthesis-v1','synthesis-v2'):
+    record=json.loads((stage/'verification'/('synthesis-independent-'+attempt)/'receipt.json').read_text())
+    command(['python3']+record['command'],log='independent-'+attempt+'.log',exit_code=0 if record['status']=='passed' else 1,scope='Independent exact saved synthesis cells/decision prose.')
+timing=json.loads((stage/'verification/time-recovery-independent-timing-v1/receipt.json').read_text())
+command(['python3']+timing['command'],log='independent-time-recovery-v1.log',exit_code=0,scope='Separate post-policy-execution breach-origin measurement verification.')
+command(uv+['studies/'+study+'/phase2_time_diagnostics.py','--stage',str(stage.relative_to(root))],environment=cache_env,log='time-recovery-preparation.log',exit_code=0,scope='Requested measurement froze source/input hashes before derivation; changes no policy/order/mask/selection.')
+command(uv+['studies/'+study+'/phase2_save_report.py','--stage',str(stage.relative_to(root))],environment=cache_env,log='report-preparation.log',exit_code=0,scope='Saved-cell synthesis refreshed after final publications; earlier synthesis losslessly retained.')
+for item in native_commands:command(item['argv'],item['cwd'],exit_code=0,scope='Actual final native read-only publisher dry-run; exact log pin in supplemental native contract receipt.')
+generation=json.loads((stage/'source-publication/20261013T195700Z/command.json').read_text())
+command(uv+generation['argv'],generation['cwd'],cache_env,'operations-records/narada/exporter-generation-final-anchors.log',0,'Final saved-cell exporter generation; prior failed/superseded drafts remain archived.')
+command(numeric['command'],numeric['cwd'],numeric['environment'],'numerical-tests/final-v1/tests.log',0,'Actual stage-bound final numerical336 tests/353 success callbacks/0 skips.')
+command(uv+['studies/'+study+'/phase2_record_tests.py','--stage',str(stage.relative_to(root)),'--attempt','final-v1'],environment=cache_env,log='final-numerical-record.log',exit_code=0,scope='Root actual outer final numerical recorder invocation.')
+command(['python3','-'],log=None,exit_code=None,scope='This metadata/retention preparation; exact stdin retained in sealing-preparation.stdin.txt and redirected output in sealing-preparation.log.')
+write('commands.json',commands)
+write('command-record-details.json',dict(status='recorded',records=details,qualification='commands.json follows the narrow evidence-contract argv/cwd/environment schema; details retain actual status/log/source qualifications. No recorded command was replayed by sealing preparation.'))
+
+receipt_paths=dict(science='scientific-verification.json',metrics='metrics-verification.json',account='account-verification.json',publication_transfer='publication-verification.json',publication_contract='verification/publication-contract-sealing.json',numerical='numerical-tests/final-v1/receipt.json',time_recovery='time-recovery-verification.json',synthesis='synthesis-verification.json')
+receipts={name:pin(path) for name,path in receipt_paths.items()}
+checks=[dict(name=name,status='passed',record=path) for name,path in receipt_paths.items()]
+checks.extend([dict(name='manual-raster-review',status='passed',record='visual-qa.json',reason='Actual tools.view_image observations of all88 unique final image hashes/89paths; manual appearance judgment distinct from scientific/source-cell checks.'),
+               dict(name='baseline-byte-pin-before-alternatives',status='passed',record='baseline-pin/baseline-pin-verification.json'),
+               dict(name='agent-docs-final',status='passed',record='agent-docs-final.log'),
+               dict(name='registry-tests-final',status='passed',record='registry-tests-final.log'),
+               dict(name='metadata-pre-execution',status='passed',record='metadata-pre-execution.log'),
+               dict(name='actual-private-retention',status='passed',record='retention-verification.json'),
+               dict(name='broad-default-prior-attempt',status='failed',record='workspace-default-prior-attempt.log',reason='Fail-fast Bhishma raw rank0 symbology and ES roll definition prerequisites absent;226tests/2errors. This was not research invalidation; the default six-check registry was preserved.'),
+               *[dict(name='broad-default-'+name,status='not_run',reason='Original broad fail-fast attempt stopped at Bhishma; this default-check process was unexecuted, distinct from focused study336-test pass.') for name in ('sahadeva','legacy-01','legacy-02','vwap-doctor')],
+               dict(name='native-TradingView-and-tick-replay',status='not_run',reason='Native account and tick-order equivalence remains unverified; OHLC/source15 sensitivity and independent modeled-path checks are separate.'),
+               dict(name='annual-holiday-certification',status='not_run',reason='Pinned calendar exclusions were audited; no complete annual exchange holiday certification receipt is available.'),
+               dict(name='off-device-backup',status='not_run',reason='Local retained bytes were verified; off-device backup availability was not assessed.')])
+for attempt in ('dev-v1','later-v1','full-v1','full-v2','full-v3'):
+    path='verification/independent-'+attempt+'/receipt.json';record=json.loads((stage/path).read_text())
+    checks.append(dict(name='independent-attempt-'+attempt,status=record['status'],record=path,reason='Earlier attempts are preserved; final all-phase full-v3 is authoritative.'))
+for prefix,attempts in (('publication-independent-',('transfer-v1','transfer-v2','final-v1')),('synthesis-independent-',('synthesis-v1','synthesis-v2'))):
+    for attempt in attempts:
+        path='verification/'+prefix+attempt+'/receipt.json';record=json.loads((stage/path).read_text())
+        checks.append(dict(name=prefix+attempt,status=record['status'],record=path,reason='Actual retained checker attempt; failures were verifier projection/escaping assumptions, corrected before final passing certification.'))
+checks.append(dict(name='synthetic-event-oracle-earlier',status='failed',record='verification/independent-synthetic-events-v1/receipt.json',reason='Earlier synthetic event-branch implementation mismatch retained; corrected before full historical verification.'))
+checks.append(dict(name='synthetic-event-oracle-final',status='passed',record='verification/independent-synthetic-final-v1/receipt.json',reason='30synthetic contexts/154033 fields; no historical outcome tuning.'))
+write('checks.json',checks)
+
+snapshots=[]
+for record in numeric['source_snapshots']:
+    role='sealer' if record['original_workspace_path'].endswith('/phase2_seal.py') else 'final-numerical-source'
+    snapshots.append(dict(record,role=role))
+for path,role in (('verification/independent-full-v3/phase2_verify.py','verifier'),('verification/publication-independent-final-v1/phase2_verify_publication.py','verifier'),('verification/synthesis-independent-synthesis-v2/phase2_verify_synthesis.py','verifier'),('verification/time-recovery-independent-timing-v1/phase2_verify_time_recovery.py','verifier'),('source-publication/20261013T195700Z/phase2_publish_web.py','exporter'),('source-publication/20261013T195700Z/test_phase2_publish_web.py','exporter-tests'),('source-publication/20261013T195700Z/rasterize_figures.mjs','raster-renderer'),('additional/time-recovery/phase2_time_diagnostics.py','ancillary-measurement'),('sealing-preparation.stdin.txt','metadata-preparation')):
+    snapshots.append(dict(pin(path),role=role))
+snapshots+=node_sources
+publications=[]
+for directory in sorted((stage/'publications').iterdir()):
+    publications.append(dict(path=str(directory.relative_to(stage)),files=[dict(path=str(p.relative_to(directory)),bytes=p.stat().st_size,sha256=sha(p)) for p in sorted(directory.rglob('*')) if p.is_file()]))
+if len(publications)!=23:raise ValueError('exact23 final publications required')
+results=['metrics.json','assessment.json','selection.json','account-settings.json',*['tables/'+p.name for p in sorted((stage/'tables').glob('*.csv'))],'additional/time-recovery/time-recovery.csv','example-selection.json']
+write('sealing-inputs.json',dict(schema_version='study23.phase2-sealing-inputs/v1',run_id=run,receipts=receipts,chronology=pin('phase-starts.json'),source_snapshots=snapshots,publications=publications,external_artifacts=external+archives,private_staged_files=private,results_artifacts=results,
+    qualification='Root-authorized metadata/retention preparation only. Final policy runtime/settings/results/publication/source-cell and manual visual receipts were preserved. Large selected ignored evidence remains at exact required local paths with actual private locators; private gzip/parquet aliases are explicit. Root performs actual seal and later publication/deployment separately.'))
+for path,value in protected.items():
+    if sha(path)!=value:raise ValueError('protected final source/receipt/publication byte changed during preparation')
+for record in numeric['source_snapshots']:
+    if sha(root/record['original_workspace_path'])!=record['sha256']:raise ValueError('final Python source changed during preparation')
+print(json.dumps(dict(status='prepared-not-sealed',external_records=len(external)+len(archives),unique_objects=len(object_hashes),private_aliases=len(private),selected_publications=len(publications),commands=len(commands),checks=len(checks),free_after=shutil.disk_usage(root).free,
+                     metadata=[pin(name) for name in ('commands.json','checks.json','sealing-inputs.json','retention-verification.json','verification/publication-contract-sealing.json')]),indent=2),flush=True)

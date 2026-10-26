@@ -1,0 +1,13 @@
+{
+  "working_directory": "/Users/ppanati/Documents/projects/abacus",
+  "commands": [
+    "UV_CACHE_DIR=/private/tmp/abacus-forex25-uv-cache ./scripts/uv run --locked --no-sync python -B studies/25_forex_news_ema/per_future.py freeze work/25_forex_news_ema/20261017T193830Z_perfuture25_d2c74b --workspace .",
+    "UV_CACHE_DIR=/private/tmp/abacus-forex25-uv-cache ./scripts/uv run --locked --no-sync python -B -m unittest discover -s work/25_forex_news_ema/20261017T193830Z_perfuture25_d2c74b/producer/tests -v",
+    "UV_CACHE_DIR=/private/tmp/abacus-forex25-uv-cache ./scripts/uv run --locked --no-sync python -B work/25_forex_news_ema/20261017T193830Z_perfuture25_d2c74b/producer/per_future.py compute work/25_forex_news_ema/20261017T193830Z_perfuture25_d2c74b",
+    "UV_CACHE_DIR=/private/tmp/abacus-forex25-uv-cache ./scripts/uv run --locked --no-sync python -B work/25_forex_news_ema/20261017T193830Z_perfuture25_d2c74b/producer/per_future_verify.py work/25_forex_news_ema/20261017T193830Z_perfuture25_d2c74b",
+    "PYTHONPATH=/private/tmp/abacus-forex-plot-20261017 UV_CACHE_DIR=/private/tmp/abacus-forex25-uv-cache ./scripts/uv run --locked --no-sync python -B work/25_forex_news_ema/20261017T193830Z_perfuture25_d2c74b/producer/per_future_report.py work/25_forex_news_ema/20261017T193830Z_perfuture25_d2c74b --run-id 20261017T193830Z_perfuture25_d2c74b --figure-python /Users/ppanati/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+    "UV_CACHE_DIR=/private/tmp/abacus-forex25-uv-cache ./scripts/uv run --locked --no-sync python -B work/25_forex_news_ema/20261017T193830Z_perfuture25_d2c74b/producer/per_future_report.py work/25_forex_news_ema/20261017T193830Z_perfuture25_d2c74b --run-id 20261017T193830Z_perfuture25_d2c74b --check",
+    "UV_CACHE_DIR=/private/tmp/abacus-forex25-uv-cache ./scripts/uv run --locked --no-sync python -B studies/25_forex_news_ema/per_future.py seal work/25_forex_news_ema/20261017T193830Z_perfuture25_d2c74b --workspace ."
+  ],
+  "scope": "No original price reconstruction or signal/native export rerun; external matplotlib runtime draws saved chart inputs only"
+}

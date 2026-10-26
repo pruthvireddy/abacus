@@ -1,0 +1,444 @@
+// This Pine Script® code is subject to the terms of the Mozilla Public License 2.0 at https://mozilla.org/MPL/2.0/ MPL-2.0
+//@version=6
+indicator("GC Band MAE/MFE | Filtered Long Study", shorttitle = "GC Band MAE/MFE", overlay = false, max_polylines_count = 2)
+
+// Chart-local companion to Abacus studies 12 and 13. This pane recalculates
+// excursions from bars loaded in TradingView; the sealed reports remain the
+// source of record for the pinned GC data, exclusions, and 2025/2026 results.
+
+// --- Constants ---
+const int BASE_LENGTH = 225
+const int TREND_LENGTH = 135
+const int MAX_HORIZON = 100
+const int SHORT_HORIZON = 5
+const int CALENDAR_DAY_MS = 86400000
+const string STUDY_TIMEZONE = "America/New_York"
+const color BULL_COLOR = #00E676
+const color BEAR_COLOR = #FF5252
+const color TABLE_BG = #161616
+const color TABLE_BORDER = #2E2E2E
+const color TABLE_HEADER = #808080
+const color TABLE_TEXT = #DBDBDB
+
+// --- Inputs ---
+const string BAND_GROUP = "Bands"
+int lookbackInput = input.int(225, "Deviation lookback (bars)", minval = 2, maxval = 5000, group = BAND_GROUP, tooltip = "Rolling population standard deviation of close minus the 225 EMA; matches the original GC EMA band.")
+float innerMultInput = input.float(2.0, "Inner band (sigma)", minval = 0.1, maxval = 10.0, step = 0.1, group = BAND_GROUP, tooltip = "Distance of the inner band from the base EMA in residual standard deviations.")
+float outerMultInput = input.float(3.0, "Outer band (sigma)", minval = 0.1, maxval = 20.0, step = 0.1, group = BAND_GROUP, tooltip = "Distance of the outer band from the base EMA. The studied signal is a completed close at or below the lower outer band.")
+
+const string STUDY_GROUP = "Signal / event study"
+string bandContactInput = input.string("Close at/below outer band", "Band contact", options = ["Close at/below outer band", "Wick touches outer band"], group = STUDY_GROUP, tooltip = "The saved Abacus studies use the confirmed close at/below the lower outer band. Wick touch reproduces the supplied example's signal but is an exploratory setting with different statistics.")
+bool requireUpperHalfInput = input.bool(true, "Require upper-half signal close", group = STUDY_GROUP, tooltip = "Apply the filter selected on 2025 data: signal candle close position must be at least the threshold below. Turn off for the unfiltered outer-band signal.")
+float minClosePositionInput = input.float(50.0, "Minimum close position (%)", minval = 0.0, maxval = 100.0, step = 5.0, group = STUDY_GROUP, tooltip = "100 × (close − low) / (high − low). The study-13 setting was 50%. A zero-range candle fails while this filter is on.")
+int cooldownInput = input.int(10, "Cooldown after accepted confirmation (candles)", options = [0, 5, 10, 20, 30], group = STUDY_GROUP, tooltip = "Ignore entry confirmations on the next N completed five-minute chart candles after an accepted confirmation. At 10, the earliest next confirmation is 11 bars later. A rejected confirmation does not reset cooldown. Reclaim setups can form during cooldown; acceptance is checked when they confirm.")
+int comparisonHorizonInput = input.int(20, "Comparison horizon (candles)", options = [5, 10, 15, 20, 30, 50, 100], group = STUDY_GROUP, tooltip = "The comparison table uses this path horizon, counting the next-open entry candle as candle 1. The end marker is a measurement boundary, not an executed sell.")
+int firstYearInput = input.int(2025, "First confirmation year (New York)", minval = 2000, maxval = 2100, group = STUDY_GROUP, tooltip = "Study inclusion follows the accepted confirmation's close year. In reclaim mode its original setup can be in the preceding year.")
+int lastYearInput = input.int(2026, "Last confirmation year (New York)", minval = 2000, maxval = 2100, group = STUDY_GROUP)
+bool showLongMarkersInput = input.bool(true, "Show MAE/MFE LONG labels", group = STUDY_GROUP)
+bool showEndMarkersInput = input.bool(true, "Show horizon-end triangles", group = STUDY_GROUP, tooltip = "Mark the selected comparison horizon's completed candle. This is a measurement boundary, not an executed order.")
+bool enableSignalAlertsInput = input.bool(true, "Enable study LONG alert", group = STUDY_GROUP)
+
+const string ENTRY_GROUP = "Entry model / optional candle filter"
+string entryModelInput = input.string("Next open after signal", "Entry model", options = ["Next open after signal", "Wait for a band reclaim"], group = ENTRY_GROUP, tooltip = "Immediate: enter after the qualifying signal. Reclaim: save its lower outer-band price, wait for a later confirmed close strictly above that fixed price, then enter at the following contiguous open. All statistics and cooldown comparisons use this choice.")
+bool rejectOversizedInput = input.bool(false, "Reject oversized signal candles", group = ENTRY_GROUP, tooltip = "Require signal true range ≤ the ATR multiple below × prior-bar ATR. Evaluated on the original setup candle, including any gap from the previous close. It does not filter the later reclaim candle.")
+int atrLengthInput = input.int(14, "ATR length (candles)", minval = 1, maxval = 500, group = ENTRY_GROUP)
+float maxSignalAtrInput = input.float(2.0, "Maximum signal true range / prior ATR", minval = 0.1, maxval = 20.0, step = 0.1, group = ENTRY_GROUP, tooltip = "Equality passes. Uses ATR[1], so the signal's own range cannot inflate its comparison baseline. Missing or zero prior ATR fails while the filter is enabled.")
+int reclaimWaitInput = input.int(2, "Maximum candles to wait for reclaim", minval = 1, maxval = 30, group = ENTRY_GROUP, tooltip = "Only later candles 1 through N can confirm, including N. One setup is tracked at a time; further touches do not replace it or extend its deadline. Expired setups can be followed by a fresh setup. A chart gap cancels a pending setup.")
+bool showReclaimLevelInput = input.bool(true, "Show frozen reclaim level while waiting", group = ENTRY_GROUP)
+
+const string STYLE_GROUP = "Style"
+color upperColorInput = input.color(#EF5350, "Upper bands", group = STYLE_GROUP, tooltip = "Color of the original upper EMA bands on the price chart.")
+color lowerColorInput = input.color(#26A69A, "Lower bands", group = STYLE_GROUP, tooltip = "Color of the original lower EMA bands on the price chart.")
+color mfeColorInput = input.color(#089981, "MFE / entry", group = STYLE_GROUP, tooltip = "Color of average maximum favorable excursion and next-open entry markers.")
+color maeColorInput = input.color(#f23645, "MAE", group = STYLE_GROUP, tooltip = "Color of average maximum adverse excursion in the horizon chart.")
+color sellColorInput = input.color(#f23645, "Horizon-end triangle", group = STYLE_GROUP, tooltip = "Color of the horizon-end measurement triangles on the price chart.")
+bool shadeBandsInput = input.bool(true, "Shade between bands", group = STYLE_GROUP, tooltip = "Keep the original shading between inner and outer price bands.")
+int fillTransparencyInput = input.int(90, "Shading transparency", minval = 0, maxval = 100, group = STYLE_GROUP, tooltip = "Transparency of the price-band shading; 100 hides it.")
+int chartSpacingInput = input.int(6, "Horizon chart spacing (bars)", minval = 1, maxval = 20, group = STYLE_GROUP, tooltip = "Horizontal width of each candle-horizon step in the separate MAE/MFE pane. This is a horizon diagram, not a historical time series.")
+bool showChartTagInput = input.bool(true, "Show study label on price chart", group = STYLE_GROUP)
+
+const string WEEK_GROUP = "Calendar-week opportunities"
+bool showWeeklyTableInput = input.bool(true, "Show weekly opportunity table", group = WEEK_GROUP)
+int weeklyRowsInput = input.int(8, "Weeks per page", minval = 4, maxval = 20, group = WEEK_GROUP)
+int weeklyPageInput = input.int(1, "Week page (1 = latest)", minval = 1, maxval = 2000, group = WEEK_GROUP, tooltip = "Browse older observed Monday–Sunday New York weeks. Setup candles use their own close week; ready and accepted confirmations use their confirmation close week. Counts use the selected year range and loaded chart bars; boundary weeks can be partial.")
+
+// --- Study State ---
+type StudyState
+    array<float> entryPricesArray
+    array<float> minLowsArray
+    array<float> maxHighsArray
+    array<int> agesArray
+    array<float> maeTotalsArray
+    array<float> mfeTotalsArray
+    array<float> closeTotalsArray
+    array<int> winTotalsArray
+    array<int> samplesArray
+    int lastSignalIndex
+
+newStudyState() =>
+    StudyState.new(array.new<float>(), array.new<float>(), array.new<float>(), array.new<int>(), array.new<float>(MAX_HORIZON, 0.0), array.new<float>(MAX_HORIZON, 0.0), array.new<float>(MAX_HORIZON, 0.0), array.new<int>(MAX_HORIZON, 0), array.new<int>(MAX_HORIZON, 0), -MAX_HORIZON - 1)
+
+calendarWeekDateKey(int closeTime) =>
+    // Encode the New York calendar date at UTC midnight before subtracting
+    // calendar days. This is a date key, not a market timestamp, so DST cannot
+    // shift a Monday label or merge weeks at a calendar-year boundary.
+    int daysSinceMonday = (dayofweek(closeTime, STUDY_TIMEZONE) - dayofweek.monday + 7) % 7
+    int localDateKey = timestamp("UTC", year(closeTime, STUDY_TIMEZONE), month(closeTime, STUDY_TIMEZONE), dayofmonth(closeTime, STUDY_TIMEZONE), 0, 0)
+    localDateKey - daysSinceMonday * CALENDAR_DAY_MS
+
+var array<int> weekDatesArray = array.new<int>()
+var array<int> weekCandidatesArray = array.new<int>()
+var array<int> weekReadyArray = array.new<int>()
+var array<int> weekAcceptedArray = array.new<int>()
+var array<int> weekLoadedBarsArray = array.new<int>()
+
+signalSizePass(bool rejectOversized, float signalTrueRange, float priorAtr, float maximumMultiple) =>
+    not rejectOversized or (not na(priorAtr) and priorAtr > 0.0 and signalTrueRange <= maximumMultiple * priorAtr)
+
+advanceEntryModel(bool waitForReclaim, bool confirmedBar, bool contiguousBar, bool qualifyingSetup, int currentIndex, float closePrice, float outerBandPrice, int maxWait, int setupIndex, float setupLevel) =>
+    bool entryReady = false
+    int nextSetupIndex = setupIndex
+    float nextSetupLevel = setupLevel
+    float displayedLevel = setupLevel
+    if confirmedBar
+        if not contiguousBar
+            nextSetupIndex := na
+            nextSetupLevel := na
+            displayedLevel := na
+        if not waitForReclaim
+            entryReady := qualifyingSetup
+        else
+            if not na(nextSetupIndex)
+                displayedLevel := nextSetupLevel
+                int setupAge = currentIndex - nextSetupIndex
+                if setupAge >= 1 and setupAge <= maxWait and closePrice > nextSetupLevel
+                    entryReady := true
+                    nextSetupIndex := na
+                    nextSetupLevel := na
+                else if setupAge >= maxWait
+                    nextSetupIndex := na
+                    nextSetupLevel := na
+            // Keep the oldest pending setup. A confirming candle cannot also
+            // start another setup, even in wick-touch mode.
+            if not entryReady and na(nextSetupIndex) and qualifyingSetup
+                nextSetupIndex := currentIndex
+                nextSetupLevel := outerBandPrice
+                displayedLevel := outerBandPrice
+    [entryReady, nextSetupIndex, nextSetupLevel, displayedLevel]
+
+// --- Validation ---
+if barstate.isfirst and outerMultInput <= innerMultInput
+    runtime.error("Outer band (sigma) must be greater than Inner band (sigma).")
+if barstate.isfirst and timeframe.in_seconds() != 300
+    runtime.error("Use this event study on a standard 5-minute chart.")
+if barstate.isfirst and firstYearInput > lastYearInput
+    runtime.error("First confirmation year must be at or before last confirmation year.")
+
+// --- Original GC EMA Bands ---
+float emaBase = ta.ema(close, BASE_LENGTH)
+float emaTrend = ta.ema(close, TREND_LENGTH)
+color emaColor = emaTrend >= emaBase ? BULL_COLOR : BEAR_COLOR
+float residual = close - emaBase
+float sigma = ta.stdev(residual, lookbackInput, biased = true)
+bool bandsReady = bar_index >= math.max(BASE_LENGTH, lookbackInput) - 1 and not na(sigma)
+float upperInner = bandsReady ? emaBase + innerMultInput * sigma : na
+float upperOuter = bandsReady ? emaBase + outerMultInput * sigma : na
+float lowerInner = bandsReady ? emaBase - innerMultInput * sigma : na
+float lowerOuter = bandsReady ? emaBase - outerMultInput * sigma : na
+
+// --- Five Parallel, Independent Cooldown Studies ---
+// A filtered setup feeds the selected entry model before cooldown. A ready
+// confirmation enters at the next contiguous open. Paths can overlap.
+float signalRange = high - low
+float signalTrueRange = ta.tr(true)
+float priorAtr = ta.atr(atrLengthInput)[1]
+float closePositionPercent = signalRange > 0.0 ? 100.0 * (close - low) / signalRange : na
+bool closeFilterPass = not requireUpperHalfInput or (not na(closePositionPercent) and closePositionPercent >= minClosePositionInput)
+bool sizeFilterPass = signalSizePass(rejectOversizedInput, signalTrueRange, priorAtr, maxSignalAtrInput)
+bool bandContact = bandContactInput == "Close at/below outer band" ? close <= lowerOuter : low <= lowerOuter
+int signalCloseYear = year(time_close, STUDY_TIMEZONE)
+bool signalYearInScope = signalCloseYear >= firstYearInput and signalCloseYear <= lastYearInput
+bool candidateSignal = bandsReady and sigma > 0.0 and bandContact and closeFilterPass and sizeFilterPass and barstate.isconfirmed
+bool contiguousChartBar = bar_index > 0 and time - time[1] == 300000
+bool waitForReclaim = entryModelInput == "Wait for a band reclaim"
+var int pendingSetupIndex = na
+var float pendingSetupLevel = na
+[entryReadySignal, nextPendingSetupIndex, nextPendingSetupLevel, displayedReclaimLevel] = advanceEntryModel(waitForReclaim, barstate.isconfirmed, contiguousChartBar, candidateSignal, bar_index, close, lowerOuter, reclaimWaitInput, pendingSetupIndex, pendingSetupLevel)
+pendingSetupIndex := nextPendingSetupIndex
+pendingSetupLevel := nextPendingSetupLevel
+string entryModelLabel = waitForReclaim ? "Reclaim ≤ " + str.tostring(reclaimWaitInput) + " bars → next open" : "Signal → next open"
+string sizeFilterLabel = rejectOversizedInput ? "TR ≤ " + str.tostring(maxSignalAtrInput, "0.#") + " × prior ATR(" + str.tostring(atrLengthInput) + ")" : "Size filter OFF"
+int selectedStudyIndex = cooldownInput == 0 ? 0 : cooldownInput == 5 ? 1 : cooldownInput == 10 ? 2 : cooldownInput == 20 ? 3 : 4
+var array<StudyState> studiesArray = array.new<StudyState>()
+if barstate.isfirst
+    for studyIndex = 0 to 4
+        array.push(studiesArray, newStudyState())
+
+bool selectedSignal = false
+bool selectedExit = false
+if barstate.isconfirmed
+    for studyIndex = 0 to 4
+        int cooldownBars = switch studyIndex
+            0 => 0
+            1 => 5
+            2 => 10
+            3 => 20
+            => 30
+        StudyState study = array.get(studiesArray, studyIndex)
+
+        // A missing five-minute bar invalidates every still-active path.
+        if not contiguousChartBar
+            array.clear(study.entryPricesArray)
+            array.clear(study.minLowsArray)
+            array.clear(study.maxHighsArray)
+            array.clear(study.agesArray)
+
+        // First enter on the contiguous bar after an accepted confirmation.
+        if contiguousChartBar and study.lastSignalIndex == bar_index - 1 and signalYearInScope[1]
+            array.push(study.entryPricesArray, open)
+            array.push(study.minLowsArray, open)
+            array.push(study.maxHighsArray, open)
+            array.push(study.agesArray, 0)
+
+        int eventIndex = 0
+        while eventIndex < array.size(study.entryPricesArray)
+            float entryPrice = array.get(study.entryPricesArray, eventIndex)
+            float eventLow = math.min(array.get(study.minLowsArray, eventIndex), low)
+            float eventHigh = math.max(array.get(study.maxHighsArray, eventIndex), high)
+            int eventAge = array.get(study.agesArray, eventIndex) + 1
+            int horizonIndex = eventAge - 1
+            array.set(study.minLowsArray, eventIndex, eventLow)
+            array.set(study.maxHighsArray, eventIndex, eventHigh)
+            array.set(study.agesArray, eventIndex, eventAge)
+
+            // GC points per troy ounce; both excursion magnitudes are positive.
+            array.set(study.maeTotalsArray, horizonIndex, array.get(study.maeTotalsArray, horizonIndex) + math.max(0.0, entryPrice - eventLow))
+            array.set(study.mfeTotalsArray, horizonIndex, array.get(study.mfeTotalsArray, horizonIndex) + math.max(0.0, eventHigh - entryPrice))
+            array.set(study.closeTotalsArray, horizonIndex, array.get(study.closeTotalsArray, horizonIndex) + close - entryPrice)
+            array.set(study.winTotalsArray, horizonIndex, array.get(study.winTotalsArray, horizonIndex) + (close > entryPrice ? 1 : 0))
+            array.set(study.samplesArray, horizonIndex, array.get(study.samplesArray, horizonIndex) + 1)
+
+            // One marker at the close of the selected holding candle; count the entry bar as 1.
+            if studyIndex == selectedStudyIndex and eventAge == comparisonHorizonInput
+                selectedExit := true
+
+            if eventAge == MAX_HORIZON
+                array.remove(study.entryPricesArray, eventIndex)
+                array.remove(study.minLowsArray, eventIndex)
+                array.remove(study.maxHighsArray, eventIndex)
+                array.remove(study.agesArray, eventIndex)
+            else
+                eventIndex += 1
+
+        // Apply cooldown to model confirmations, never to unconfirmed setups.
+        if entryReadySignal and bar_index - study.lastSignalIndex > cooldownBars
+            study.lastSignalIndex := bar_index
+            if studyIndex == selectedStudyIndex and signalYearInScope
+                selectedSignal := true
+
+// Setups use their close week; ready/accepted confirmations use their own
+// close week. Neither count requires a completed entry or outcome path.
+if barstate.isconfirmed and signalYearInScope
+    int weekDateKey = calendarWeekDateKey(time_close)
+    int weekCount = array.size(weekDatesArray)
+    bool startsNewWeek = weekCount == 0
+    if weekCount > 0
+        startsNewWeek := array.get(weekDatesArray, weekCount - 1) != weekDateKey
+    if startsNewWeek
+        array.push(weekDatesArray, weekDateKey)
+        array.push(weekCandidatesArray, 0)
+        array.push(weekReadyArray, 0)
+        array.push(weekAcceptedArray, 0)
+        array.push(weekLoadedBarsArray, 0)
+    int currentWeekIndex = array.size(weekDatesArray) - 1
+    array.set(weekLoadedBarsArray, currentWeekIndex, array.get(weekLoadedBarsArray, currentWeekIndex) + 1)
+    if candidateSignal
+        array.set(weekCandidatesArray, currentWeekIndex, array.get(weekCandidatesArray, currentWeekIndex) + 1)
+    if entryReadySignal
+        array.set(weekReadyArray, currentWeekIndex, array.get(weekReadyArray, currentWeekIndex) + 1)
+    if selectedSignal
+        array.set(weekAcceptedArray, currentWeekIndex, array.get(weekAcceptedArray, currentWeekIndex) + 1)
+
+StudyState selectedStudy = array.get(studiesArray, selectedStudyIndex)
+array<float> maeTotalsArray = selectedStudy.maeTotalsArray
+array<float> mfeTotalsArray = selectedStudy.mfeTotalsArray
+array<float> closeTotalsArray = selectedStudy.closeTotalsArray
+array<int> winTotalsArray = selectedStudy.winTotalsArray
+array<int> samplesArray = selectedStudy.samplesArray
+
+// --- Visuals: Original Bands and Filled Zones on the Price Chart ---
+plot(emaBase, "BASE", color = emaColor, linewidth = 4, force_overlay = true)
+upperInnerPlotId = plot(upperInner, "Upper inner band", color = upperColorInput, force_overlay = true)
+upperOuterPlotId = plot(upperOuter, "Upper outer band", color = upperColorInput, force_overlay = true)
+lowerInnerPlotId = plot(lowerInner, "Lower inner band", color = lowerColorInput, force_overlay = true)
+lowerOuterPlotId = plot(lowerOuter, "Lower outer band", color = lowerColorInput, force_overlay = true)
+fill(upperInnerPlotId, upperOuterPlotId, color = shadeBandsInput ? color.new(upperColorInput, fillTransparencyInput) : na, title = "Upper extension zone")
+fill(lowerInnerPlotId, lowerOuterPlotId, color = shadeBandsInput ? color.new(lowerColorInput, fillTransparencyInput) : na, title = "Lower extension zone")
+plot(showReclaimLevelInput and waitForReclaim ? displayedReclaimLevel : na, "Frozen outer-band reclaim level", color = color.orange, linewidth = 2, style = plot.style_linebr, force_overlay = true)
+plotshape(showLongMarkersInput and selectedSignal and not waitForReclaim, title = "GC MAE/MFE immediate LONG", style = shape.labelup, location = location.belowbar, color = mfeColorInput, text = "MAE/MFE\nLONG", textcolor = color.white, size = size.tiny, force_overlay = true)
+plotshape(showLongMarkersInput and selectedSignal and waitForReclaim, title = "GC MAE/MFE reclaim LONG", style = shape.labelup, location = location.belowbar, color = mfeColorInput, text = "MAE/MFE\nRECLAIM", textcolor = color.white, size = size.tiny, force_overlay = true)
+plot(selectedSignal[1] and contiguousChartBar and barstate.isconfirmed ? open : na, "Selected-cooldown next-open reference", color = mfeColorInput, linewidth = 3, style = plot.style_circles, force_overlay = true)
+plotshape(showEndMarkersInput and selectedExit, title = "Selected comparison horizon ends", style = shape.triangledown, location = location.abovebar, color = sellColorInput, size = size.tiny, force_overlay = true)
+alertcondition(enableSignalAlertsInput and selectedSignal, title = "GC Band MAE/MFE study LONG", message = "GC Band MAE/MFE selected entry model confirmed on {{ticker}} ({{interval}}). Confirmation close: {{close}}. The study's entry is the hypothetical next contiguous bar open.")
+hline(0, "Entry / zero excursion", color = TABLE_HEADER, linestyle = hline.style_dotted)
+
+var table chartTag = table.new(position.top_left, 1, 3, frame_color = color.new(mfeColorInput, 25), frame_width = 1, force_overlay = true)
+if barstate.islast
+    if showChartTagInput
+        string filterLabel = requireUpperHalfInput ? "close ≥ " + str.tostring(minClosePositionInput, "0.#") + "% of candle" : "no close-position filter"
+        string contactLabel = bandContactInput == "Close at/below outer band" ? "close ≤ band" : "wick ≤ band"
+        table.cell(chartTag, 0, 0, "GC BAND MAE/MFE • LONG STUDY", text_color = color.white, bgcolor = #00695C, text_size = size.small)
+        table.cell(chartTag, 0, 1, str.tostring(firstYearInput) + "–" + str.tostring(lastYearInput) + " NY | C" + str.tostring(cooldownInput) + " | " + contactLabel + " | " + filterLabel, text_color = color.white, bgcolor = TABLE_BG, text_size = size.tiny)
+        table.cell(chartTag, 0, 2, entryModelLabel + " | " + sizeFilterLabel, text_color = color.white, bgcolor = TABLE_BG, text_size = size.tiny)
+    else
+        table.clear(chartTag, 0, 0, 0, 2)
+
+// --- Horizon Diagram: X = Number of Entry Candles; Y = Average Excursion in GC Points ---
+var polyline mfeLineId = na
+var polyline maeLineId = na
+var array<label> horizonLabelsArray = array.new<label>()
+if barstate.islast
+    if not na(mfeLineId)
+        polyline.delete(mfeLineId)
+    if not na(maeLineId)
+        polyline.delete(maeLineId)
+    for horizonLabelId in horizonLabelsArray
+        label.delete(horizonLabelId)
+    array.clear(horizonLabelsArray)
+    array<chart.point> mfePointsArray = array.new<chart.point>()
+    array<chart.point> maePointsArray = array.new<chart.point>()
+    int effectiveSpacing = math.min(chartSpacingInput, math.max(1, int(math.floor(bar_index / (MAX_HORIZON - 1)))))
+    for candle = 1 to MAX_HORIZON
+        int horizonIndex = candle - 1
+        int sampleCount = array.get(samplesArray, horizonIndex)
+        if sampleCount > 0 and (candle == 1 or candle % 5 == 0)
+            int xCoord = bar_index - (MAX_HORIZON - candle) * effectiveSpacing
+            float meanMfe = array.get(mfeTotalsArray, horizonIndex) / sampleCount
+            float meanMae = array.get(maeTotalsArray, horizonIndex) / sampleCount
+            array.push(mfePointsArray, chart.point.from_index(xCoord, meanMfe))
+            array.push(maePointsArray, chart.point.from_index(xCoord, -meanMae))
+            if candle == SHORT_HORIZON or candle == 10 or candle == 15 or candle == 20 or candle == 30 or candle == 50 or candle == MAX_HORIZON
+                label horizonLabelId = label.new(xCoord, meanMfe, str.tostring(candle) + " bars", style = candle == MAX_HORIZON ? label.style_label_up : label.style_label_down, color = #00000000, textcolor = mfeColorInput, size = size.tiny)
+                array.push(horizonLabelsArray, horizonLabelId)
+    if array.size(mfePointsArray) > 1
+        mfeLineId := polyline.new(mfePointsArray, line_color = mfeColorInput, line_width = 3)
+        maeLineId := polyline.new(maePointsArray, line_color = maeColorInput, line_width = 3)
+
+// --- Study Horizons for the Selected Cooldown ---
+var table resultsTable = table.new(position.middle_left, 6, 11, bgcolor = TABLE_BG, frame_color = TABLE_BORDER, frame_width = 1, border_color = TABLE_BORDER, border_width = 1)
+if barstate.islast
+    table.cell(resultsTable, 0, 0, "CANDLES", text_color = TABLE_HEADER, bgcolor = TABLE_BG, text_size = size.tiny)
+    table.cell(resultsTable, 1, 0, "SAMPLES", text_color = TABLE_HEADER, bgcolor = TABLE_BG, text_size = size.tiny)
+    table.cell(resultsTable, 2, 0, "AVG MFE", text_color = mfeColorInput, bgcolor = TABLE_BG, text_size = size.tiny)
+    table.cell(resultsTable, 3, 0, "AVG MAE", text_color = maeColorInput, bgcolor = TABLE_BG, text_size = size.tiny)
+    table.cell(resultsTable, 4, 0, "AVG CLOSE Δ", text_color = TABLE_HEADER, bgcolor = TABLE_BG, text_size = size.tiny)
+    table.cell(resultsTable, 5, 0, "CLOSE > ENTRY", text_color = TABLE_HEADER, bgcolor = TABLE_BG, text_size = size.tiny)
+    for row = 1 to 7
+        int horizon = switch row
+            1 => SHORT_HORIZON
+            2 => 10
+            3 => 15
+            4 => 20
+            5 => 30
+            6 => 50
+            => MAX_HORIZON
+        int horizonIndex = horizon - 1
+        int sampleCount = array.get(samplesArray, horizonIndex)
+        float avgMfe = sampleCount > 0 ? array.get(mfeTotalsArray, horizonIndex) / sampleCount : na
+        float avgMae = sampleCount > 0 ? array.get(maeTotalsArray, horizonIndex) / sampleCount : na
+        float avgClose = sampleCount > 0 ? array.get(closeTotalsArray, horizonIndex) / sampleCount : na
+        float winPercent = sampleCount > 0 ? 100.0 * array.get(winTotalsArray, horizonIndex) / sampleCount : na
+        table.cell(resultsTable, 0, row, str.tostring(horizon), text_color = TABLE_TEXT, bgcolor = TABLE_BG, text_size = size.small)
+        table.cell(resultsTable, 1, row, str.tostring(sampleCount), text_color = TABLE_TEXT, bgcolor = TABLE_BG, text_size = size.small)
+        table.cell(resultsTable, 2, row, sampleCount > 0 ? str.tostring(avgMfe, "#.##") : "—", text_color = mfeColorInput, bgcolor = TABLE_BG, text_size = size.small)
+        table.cell(resultsTable, 3, row, sampleCount > 0 ? str.tostring(avgMae, "#.##") : "—", text_color = maeColorInput, bgcolor = TABLE_BG, text_size = size.small)
+        table.cell(resultsTable, 4, row, sampleCount > 0 ? str.tostring(avgClose, "#.##") : "—", text_color = avgClose >= 0 ? mfeColorInput : maeColorInput, bgcolor = TABLE_BG, text_size = size.small)
+        table.cell(resultsTable, 5, row, sampleCount > 0 ? str.tostring(winPercent, "#.0") + "%" : "—", text_color = TABLE_TEXT, bgcolor = TABLE_BG, text_size = size.small)
+    table.cell(resultsTable, 0, 8, "GC POINTS", text_color = TABLE_HEADER, bgcolor = TABLE_BG, text_size = size.tiny)
+    table.cell(resultsTable, 1, 8, str.tostring(firstYearInput) + "–" + str.tostring(lastYearInput) + " NY confirmations", text_color = TABLE_HEADER, bgcolor = TABLE_BG, text_size = size.tiny)
+    table.cell(resultsTable, 2, 8, bandContactInput == "Close at/below outer band" ? "Close ≤ lower outer" : "Low ≤ lower outer", text_color = TABLE_HEADER, bgcolor = TABLE_BG, text_size = size.tiny)
+    table.cell(resultsTable, 3, 8, entryModelLabel, text_color = TABLE_HEADER, bgcolor = TABLE_BG, text_size = size.tiny)
+    table.cell(resultsTable, 4, 8, "MAE: positive magnitude", text_color = TABLE_HEADER, bgcolor = TABLE_BG, text_size = size.tiny)
+    table.cell(resultsTable, 5, 8, "Cooldown: " + str.tostring(cooldownInput) + " bars", text_color = TABLE_HEADER, bgcolor = TABLE_BG, text_size = size.tiny)
+    table.cell(resultsTable, 0, 9, "LOADED BARS", text_color = TABLE_HEADER, bgcolor = TABLE_BG, text_size = size.tiny)
+    table.cell(resultsTable, 1, 9, "Chart-local sample", text_color = TABLE_HEADER, bgcolor = TABLE_BG, text_size = size.tiny)
+    table.cell(resultsTable, 2, 9, "Not sealed report", text_color = TABLE_HEADER, bgcolor = TABLE_BG, text_size = size.tiny)
+    table.cell(resultsTable, 3, 9, "No fills / costs", text_color = TABLE_HEADER, bgcolor = TABLE_BG, text_size = size.tiny)
+    table.cell(resultsTable, 4, 9, "Red MAE curve below zero", text_color = TABLE_HEADER, bgcolor = TABLE_BG, text_size = size.tiny)
+    table.cell(resultsTable, 5, 9, "MFE/MAE order unknown", text_color = TABLE_HEADER, bgcolor = TABLE_BG, text_size = size.tiny)
+    table.cell(resultsTable, 0, 10, "ENTRY MODEL", text_color = TABLE_HEADER, bgcolor = TABLE_BG, text_size = size.tiny)
+    table.cell(resultsTable, 1, 10, waitForReclaim ? "Band reclaim" : "Immediate", text_color = TABLE_TEXT, bgcolor = TABLE_BG, text_size = size.tiny)
+    table.cell(resultsTable, 2, 10, sizeFilterLabel, text_color = TABLE_TEXT, bgcolor = TABLE_BG, text_size = size.tiny)
+    table.cell(resultsTable, 3, 10, waitForReclaim ? "Frozen setup outer band" : "No reclaim wait", text_color = TABLE_HEADER, bgcolor = TABLE_BG, text_size = size.tiny)
+    table.cell(resultsTable, 4, 10, "CD starts at confirmation", text_color = TABLE_HEADER, bgcolor = TABLE_BG, text_size = size.tiny)
+    table.cell(resultsTable, 5, 10, waitForReclaim or rejectOversizedInput ? "Exploratory setting" : "Study-13 default if 50% / C10", text_color = TABLE_HEADER, bgcolor = TABLE_BG, text_size = size.tiny)
+
+// --- Side-by-Side Comparison at One Holding Horizon ---
+var table compareTable = table.new(position.top_right, 6, 6, bgcolor = TABLE_BG, frame_color = TABLE_BORDER, frame_width = 1, border_color = TABLE_BORDER, border_width = 1)
+if barstate.islast
+    table.cell(compareTable, 0, 0, "COOL / " + str.tostring(comparisonHorizonInput) + " BARS", text_color = TABLE_HEADER, bgcolor = TABLE_BG, text_size = size.tiny)
+    table.cell(compareTable, 1, 0, "SAMPLES", text_color = TABLE_HEADER, bgcolor = TABLE_BG, text_size = size.tiny)
+    table.cell(compareTable, 2, 0, "CLOSE > ENTRY", text_color = TABLE_HEADER, bgcolor = TABLE_BG, text_size = size.tiny)
+    table.cell(compareTable, 3, 0, "AVG CLOSE Δ", text_color = TABLE_HEADER, bgcolor = TABLE_BG, text_size = size.tiny)
+    table.cell(compareTable, 4, 0, "AVG MFE", text_color = mfeColorInput, bgcolor = TABLE_BG, text_size = size.tiny)
+    table.cell(compareTable, 5, 0, "AVG MAE", text_color = maeColorInput, bgcolor = TABLE_BG, text_size = size.tiny)
+    int comparisonIndex = comparisonHorizonInput - 1
+    for row = 1 to 5
+        int cooldownBars = switch row
+            1 => 0
+            2 => 5
+            3 => 10
+            4 => 20
+            => 30
+        StudyState comparedStudy = array.get(studiesArray, row - 1)
+        int sampleCount = array.get(comparedStudy.samplesArray, comparisonIndex)
+        float winPercent = sampleCount > 0 ? 100.0 * array.get(comparedStudy.winTotalsArray, comparisonIndex) / sampleCount : na
+        float avgClose = sampleCount > 0 ? array.get(comparedStudy.closeTotalsArray, comparisonIndex) / sampleCount : na
+        float avgMfe = sampleCount > 0 ? array.get(comparedStudy.mfeTotalsArray, comparisonIndex) / sampleCount : na
+        float avgMae = sampleCount > 0 ? array.get(comparedStudy.maeTotalsArray, comparisonIndex) / sampleCount : na
+        color rowBg = cooldownBars == cooldownInput ? color.new(mfeColorInput, 88) : TABLE_BG
+        table.cell(compareTable, 0, row, str.tostring(cooldownBars) + " bars", text_color = cooldownBars == cooldownInput ? mfeColorInput : TABLE_TEXT, bgcolor = rowBg, text_size = size.small)
+        table.cell(compareTable, 1, row, str.tostring(sampleCount), text_color = TABLE_TEXT, bgcolor = rowBg, text_size = size.small)
+        table.cell(compareTable, 2, row, sampleCount > 0 ? str.tostring(winPercent, "#.0") + "%" : "—", text_color = TABLE_TEXT, bgcolor = rowBg, text_size = size.small)
+        table.cell(compareTable, 3, row, sampleCount > 0 ? str.tostring(avgClose, "#.##") : "—", text_color = avgClose >= 0 ? mfeColorInput : maeColorInput, bgcolor = rowBg, text_size = size.small)
+        table.cell(compareTable, 4, row, sampleCount > 0 ? str.tostring(avgMfe, "#.##") : "—", text_color = mfeColorInput, bgcolor = rowBg, text_size = size.small)
+        table.cell(compareTable, 5, row, sampleCount > 0 ? str.tostring(avgMae, "#.##") : "—", text_color = maeColorInput, bgcolor = rowBg, text_size = size.small)
+
+// --- Calendar-week Opportunities for the Selected Entry Model and Cooldown ---
+var table weeklyTable = table.new(position.bottom_right, 5, weeklyRowsInput + 3, bgcolor = TABLE_BG, frame_color = TABLE_BORDER, frame_width = 1, border_color = TABLE_BORDER, border_width = 1)
+if barstate.islast
+    if showWeeklyTableInput
+        int weekCount = array.size(weekDatesArray)
+        int pageCount = math.max(1, int(math.ceil(float(weekCount) / weeklyRowsInput)))
+        int selectedPage = math.min(weeklyPageInput, pageCount)
+        int totalCandidates = weekCount > 0 ? array.sum(weekCandidatesArray) : 0
+        int totalReady = weekCount > 0 ? array.sum(weekReadyArray) : 0
+        int totalAccepted = weekCount > 0 ? array.sum(weekAcceptedArray) : 0
+        int totalLoadedBars = weekCount > 0 ? array.sum(weekLoadedBarsArray) : 0
+        table.cell(weeklyTable, 0, 0, "NY WEEK / MON", text_color = TABLE_HEADER, bgcolor = TABLE_BG, text_size = size.tiny)
+        table.cell(weeklyTable, 1, 0, "SETUP CANDLES", text_color = TABLE_HEADER, bgcolor = TABLE_BG, text_size = size.tiny)
+        table.cell(weeklyTable, 2, 0, "ENTRY READY", text_color = TABLE_HEADER, bgcolor = TABLE_BG, text_size = size.tiny)
+        table.cell(weeklyTable, 3, 0, "ACCEPTED C" + str.tostring(cooldownInput), text_color = mfeColorInput, bgcolor = TABLE_BG, text_size = size.tiny)
+        table.cell(weeklyTable, 4, 0, "LOADED BARS", text_color = TABLE_HEADER, bgcolor = TABLE_BG, text_size = size.tiny)
+        table.cell(weeklyTable, 0, 1, "Page " + str.tostring(selectedPage) + "/" + str.tostring(pageCount), text_color = TABLE_HEADER, bgcolor = TABLE_BG, text_size = size.tiny)
+        table.cell(weeklyTable, 1, 1, "Σ " + str.tostring(totalCandidates), text_color = TABLE_TEXT, bgcolor = TABLE_BG, text_size = size.tiny)
+        table.cell(weeklyTable, 2, 1, "Σ " + str.tostring(totalReady), text_color = TABLE_TEXT, bgcolor = TABLE_BG, text_size = size.tiny)
+        table.cell(weeklyTable, 3, 1, "Σ " + str.tostring(totalAccepted), text_color = mfeColorInput, bgcolor = TABLE_BG, text_size = size.tiny)
+        table.cell(weeklyTable, 4, 1, "Σ " + str.tostring(totalLoadedBars), text_color = TABLE_TEXT, bgcolor = TABLE_BG, text_size = size.tiny)
+        for rowOffset = 0 to weeklyRowsInput - 1
+            int weekIndex = weekCount - 1 - (selectedPage - 1) * weeklyRowsInput - rowOffset
+            int tableRow = rowOffset + 2
+            bool hasWeek = weekIndex >= 0
+            string weekLabel = hasWeek ? str.format_time(array.get(weekDatesArray, weekIndex), "yyyy-MM-dd", "UTC") : "—"
+            table.cell(weeklyTable, 0, tableRow, weekLabel, text_color = TABLE_TEXT, bgcolor = TABLE_BG, text_size = size.small)
+            table.cell(weeklyTable, 1, tableRow, hasWeek ? str.tostring(array.get(weekCandidatesArray, weekIndex)) : "—", text_color = TABLE_TEXT, bgcolor = TABLE_BG, text_size = size.small)
+            table.cell(weeklyTable, 2, tableRow, hasWeek ? str.tostring(array.get(weekReadyArray, weekIndex)) : "—", text_color = TABLE_TEXT, bgcolor = TABLE_BG, text_size = size.small)
+            table.cell(weeklyTable, 3, tableRow, hasWeek ? str.tostring(array.get(weekAcceptedArray, weekIndex)) : "—", text_color = mfeColorInput, bgcolor = TABLE_BG, text_size = size.small)
+            table.cell(weeklyTable, 4, tableRow, hasWeek ? str.tostring(array.get(weekLoadedBarsArray, weekIndex)) : "—", text_color = TABLE_TEXT, bgcolor = TABLE_BG, text_size = size.small)
+        table.cell(weeklyTable, 0, weeklyRowsInput + 2, "MON–SUN NY", text_color = TABLE_HEADER, bgcolor = TABLE_BG, text_size = size.tiny)
+        table.cell(weeklyTable, 1, weeklyRowsInput + 2, "Filtered contacts", text_color = TABLE_HEADER, bgcolor = TABLE_BG, text_size = size.tiny)
+        table.cell(weeklyTable, 2, weeklyRowsInput + 2, waitForReclaim ? "Reclaims before CD" : "Signals before CD", text_color = TABLE_HEADER, bgcolor = TABLE_BG, text_size = size.tiny)
+        table.cell(weeklyTable, 3, weeklyRowsInput + 2, "Confirmation counts", text_color = TABLE_HEADER, bgcolor = TABLE_BG, text_size = size.tiny)
+        table.cell(weeklyTable, 4, weeklyRowsInput + 2, "Partial weeks possible", text_color = TABLE_HEADER, bgcolor = TABLE_BG, text_size = size.tiny)
+    else
+        table.clear(weeklyTable, 0, 0, 4, weeklyRowsInput + 2)

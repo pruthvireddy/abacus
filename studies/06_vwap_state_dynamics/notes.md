@@ -1,0 +1,23 @@
+# Decision and experiment history
+
+## 2026-09-23 — feature-only gate and protocol freeze
+
+The user authorized local implementation and execution. No new future outcomes were read during the feasibility gate. Two abandoned scratch pilots, `20260923T180000Z_state06` and `20260923T180000Z_state06b`, were interrupted when the feature-only code exposed local-anchor start indexing and full-horizon coverage defects. The corrected `20260923T180000Z_state06c` pilot verifies the pinned Bhishma manifest and all published data partition hashes, recomputes VWAP from completed-bar HLC3/volume, and checks one-minute source keys without reading future prices. It found 3,039 eligible product-days, all with primary landmarks, 133,716 primary landmarks, 104,577 persistent, 4,236 rotational, 24,903 other, and 367,719/367,719 source-key-capable landmarks across separate views. The maximum VWAP identity deviation is below `5e-11` price points.
+
+Development-only absolute slope lower quartiles were 0.016007 adjusted price/ATR and 0.002333 VWAP/ATR. Rounded fixed cuts are 0.016 and 0.0023. Development opposing counts are ES 4,656, NQ 5,258, GC 4,322. Product dislocation lower quartiles were ES 1.507, NQ 5.796, GC 2.428 ticks, rounded upward to 2, 6, and 3. The original 12/15 persistent and 6–9-above/3-cross rotational cuts remain unchanged. [Protocol 1.0.0](protocol-1.0.0.md) and its JSON freeze comparisons, baselines, matching strata, outputs, and exclusions before outcome evaluation. All pinned periods are exploratory because previous VWAP outcomes had been viewed.
+
+## 2026-09-23 — primary execution and review
+
+The full pinned extraction used the frozen protocol without changing feature thresholds or primary event definitions. A first table pass was regenerated in staging to add explicit context-excluded denominators, product-session confidence bounds, and baseline probability columns; the event ledger and comparisons did not change. The report text was corrected to match the final 400-replicate shared-date interval for NQ and GC Q2, which approaches but does not include zero. The completed numerical audit checked all 8,360,289 active VWAP anchor-bar positions and 20 distinct real example paths representing every observed class in each product. All 367,719 evaluated views reconcile Y1 and Y2 exactly, and all source 30-minute key joins are complete. The first execution is selected as the study's reference run for local navigation, not as validated strategy evidence.
+
+The report records the positive residence association, the small context-adjusted slope effect, the paired Globex VWAP/TWAP advantage and contradictory local-anchor sensitivities, and the fixed-8-tick versus half-sigma barrier change. No secondary module, public Narada bundle, deployment, or profitability calculation was run.
+
+## 2026-09-23 — exploratory reporting supplement
+
+After reviewing the primary report, a scope audit found that first-cross time, explicit local clock membership gaps, and two prespecified Q3 secondary targets were saved at event level but not tabulated. [Protocol 1.1.0](protocol-1.1.0.md) freezes their descriptive summaries and labels them exploratory after outcome exposure. The supplemental run `20260923T182800Z_state06supp` verifies every parent event partition hash, calculates these tables without altering parent events or primary comparisons, and preserves a parent locator plus its SHA-256. The full supplemental report also includes the original primary tables for offline reading. The first run remains the selected prespecified reference; the supplement is a later exploratory report. The plan's five optional discovery modules remain unexecuted.
+
+## 2026-10-06 — Phase 3 local publication navigation
+
+Featured presentation: [20261006T230936Z_web06](../../reports/exports/06_vwap_state_dynamics/20260923T180000Z_state06c/20261006T230936Z_web06/publication.json) · [manifest](../../reports/exports/06_vwap_state_dynamics/20260923T180000Z_state06c/20261006T230936Z_web06/manifest.json). Stable local study route: `/studies/vwap-state-dynamics/`; immutable report route: `/reports/06-vwap-state-dynamics-20261006-web/`.
+
+Registered reference retained: `20260923T180000Z_state06c`. Catalog navigation is maintained in [Narada](../../apps/narada/content/studies.json). Saved findings, evidence status and research-reference metadata are unchanged. This is local static publication; no deployment or research execution.

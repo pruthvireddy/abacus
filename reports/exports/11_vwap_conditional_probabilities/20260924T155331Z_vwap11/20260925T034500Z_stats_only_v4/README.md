@@ -1,0 +1,27 @@
+# VWAP conditional statistics — standalone table (Pine presentation revision 4)
+
+This revision responds to the user's request for a statistics-only indicator. It retains revision 3's 123 lookup cells, historical probabilities, denominators, week-block intervals, and A/B/C event logic. Day and active-session VWAP and sigma are computed internally but no VWAP curves, bands, or target levels are drawn. The output is a table only (plus one `display.none` plot required by Pine's output rule). TradingView compilation remains pending.
+
+Paste [`session_vwap_conditional_stats.pine`](session_vwap_conditional_stats.pine) into a **new, private TradingView indicator**. This standalone script does not contain the original OE, volume/delta, TICK/TICKQ, or alert sections; the user's supplied indicator is retained in the export only as provenance. It does not edit the live indicator, publish a script, or alter the sealed research run.
+
+The added panel is a compact presentation of [study 11's frozen 2-minute evidence](../../../../../runs/11_vwap_conditional_probabilities/20260924T155331Z_vwap11/report.md), not an on-chart backtest or a trading signal. It supports raw ES/NQ/GC futures contracts on a standard 2-minute chart with the expected minimum tick, from the study-supported eras (ES/NQ from the 2021-06-28 session; GC from the 2016-02-11 session). Continuous symbols containing `!` are suppressed by default to avoid silent roll/adjustment mismatches; an explicit opt-in permits an **unverified continuous proxy** and warns against roll periods. TradingView prices, volume, available one-minute bars, and calendar eligibility can differ from the pinned Databento inputs; the panel explicitly says “chart feed proxy.” It cannot verify the study's retrospective complete-day filter live.
+
+The internal **Globex day VWAP** starts at 18:00 New York time; the internal **active-session VWAP** uses Asia 20:00–03:00, London 03:00–09:00, and NY 09:30–16:00 membership. Both use output-bar HLC3, volume-weighted population sigma, the release's 30-minute warm-up, and completed-bar event timing. Forecasts are unavailable while anchors are immature or during local clock gaps. The panel's “departure reference” input chooses Globex or the active local session for A/B. The separate indicator supplying visible VWAP lines may use different settings or data, so its curves need not exactly match these internal references.
+
+The table shows three questions, each with a 30-minute explicit timestamp and deadline:
+
+- **A:** frozen checkpoint-VWAP ±1-tick contact, conditional on a fresh departure surviving to a ten-minute clock checkpoint. The saved lookup conditions on product × current sigma distance × elapsed no-return time. It pools anchors and does not jointly condition on clock or prior volatility; hover spells this out.
+- **B:** frozen checkpoint return zone versus a further 0.5σ extension, with all four saved classes: return, extension, neither, and same-one-minute ambiguity. Lookup is product × return-distance geometry share, with anchors pooled. The two barrier distances are unequal; 50% is not a neutral benchmark.
+- **C:** after a completed local-VWAP cross into a mature day/session corridor, frozen day VWAP versus frozen session reclaim. Requires ≥8 ticks and ≥0.25 day σ separation and a fixed 30-minute re-signal lockout. Lookup is product × starting position, sessions pooled. At +10/+20 minutes, if the original frozen race is still unresolved, the table uses the distinct still-at-risk updated cohort and the original deadline. Sparse cells (<100 historical observations) show `SPARSE`, never 0%.
+
+Hover the rates or case counts for the event and cohort, numerator/denominator, all race-class counts, shared-week 95% interval, distinct episodes/events, product-days, and history caveat. Full definitions, secondary references, and baseline comparisons remain in the sealed report. The rates are raw conditional frequencies from exploratory 2016–2026 history, not the study's jointly conditioned geometry/clock/volatility prediction model. Added A/B path context had small chronological Brier improvements; C's added context was unsupported. No estimate is a trade win rate or profitability claim.
+
+Only completed bars create a forecast. One-minute arrays monitor status after the signal bar: `REACHED`, `RETURN FIRST`, `EXTENSION FIRST`, `DAY FIRST`, `SESSION FIRST`, `NEITHER`, `AMBIGUOUS`, or `UNAVAILABLE`. Opening gaps are flagged. Missing one-minute evidence is unavailable, not a failure. Frozen destination prices remain in the table, not on the chart. The panel shows the **latest** A/B checkpoint; overlapping earlier checkpoints are not simultaneously listed or re-scored on-chart. A Pine reload against a back-adjusted or changed feed is not an immutable event ledger. The sealed run remains that ledger.
+
+Reproduce this presentation revision from the saved source snapshot and immutable run tables:
+
+```sh
+python3 reports/exports/11_vwap_conditional_probabilities/20260924T155331Z_vwap11/20260925T034500Z_stats_only_v4/generate.py
+```
+
+The generator verifies the archived source-indicator hash for provenance and checks every four-class row sum. The [manifest](manifest.json) pins inputs and output hashes. This source has **not been compiler-verified in TradingView**; a private Pine Editor compile and visual replay on a raw 2-minute contract are required before relying on it. Unlike earlier revisions, this standalone script does not require `request.footprint` access.

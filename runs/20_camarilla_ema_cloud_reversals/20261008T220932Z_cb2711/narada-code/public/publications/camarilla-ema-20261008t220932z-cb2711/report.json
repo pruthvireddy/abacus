@@ -1,0 +1,3824 @@
+{
+  "provenance": {
+    "assets": [
+      {
+        "path": "downloads/annual-core.csv",
+        "sha256": "c7c21986ce310d812fc6966607fba0e1681a58bc758bbbfc699ad36516621401"
+      },
+      {
+        "path": "downloads/es-weekly.csv",
+        "sha256": "87a1dbc0cfcbd5b31828e986b2d0bb1bc0fdfcca4c6a1b08e89d95e0234099f2"
+      },
+      {
+        "path": "downloads/final-horizons.csv",
+        "sha256": "9a474446c8926a5cfacc17cf02859bfd82b7fbac71da11112d1c62bef54af0d4"
+      },
+      {
+        "path": "downloads/final-policy.csv",
+        "sha256": "1b5046d51d2a3f6b8b398e869350b253500b3a36f4d39342da703462aa6a3077"
+      },
+      {
+        "path": "figures/annual_stability.png",
+        "sha256": "051217b98285ac4fa55be23e189e95399c6a2f06f7a5410a629bbdb3f0f8bbdf"
+      },
+      {
+        "path": "figures/cloud_grid.png",
+        "sha256": "867a6fabce6215216856cacf906bd7e007ccdd8918a723f868f5559f69f77005"
+      },
+      {
+        "path": "figures/horizons.png",
+        "sha256": "5d0ea8fbbff59b8870defe7f14c9b5576864cfe902c1a945b66e40286f37aee7"
+      },
+      {
+        "path": "figures/joint_excursions.png",
+        "sha256": "a751cff6b4fa1063275c2c7a10839cd0222132697ad66447829d702e1bc5d0e3"
+      },
+      {
+        "path": "figures/policy_costs.png",
+        "sha256": "bfa12c1fd709c5cf094d2eaf2b72eed924ae2bd76407e5bd4fa2e07dd3f06ac6"
+      },
+      {
+        "path": "figures/threshold_ordering.png",
+        "sha256": "5f24c052bd0cca7b102e386f73b9acb87fe7b3faa4a7f147a1e332af96914405"
+      }
+    ],
+    "sourceSha256": "42871bb7930a0ba76ee03e5d568fd07cc578ed4259e3e53c0996156542670f28"
+  },
+  "report": {
+    "downloads": [
+      {
+        "columns": [
+          "product",
+          "pair",
+          "mode",
+          "side",
+          "horizon",
+          "completed_N",
+          "sessions",
+          "mean_MFE",
+          "mean_MAE",
+          "mean_delta",
+          "favorable_share",
+          "ci95_low",
+          "ci95_high",
+          "sparse"
+        ],
+        "description": "360-row core final-evaluation grid; separate long/short; ATR and probability ratios",
+        "id": "final-horizons",
+        "label": "final horizons",
+        "mediaType": "text/csv",
+        "path": "downloads/final-horizons.csv",
+        "population": "ES NQ GC unless ES weekly; fixed frozen cohorts",
+        "rowCount": 360,
+        "scope": "360-row core final-evaluation grid; separate long/short; ATR and probability ratios",
+        "sha256": "9a474446c8926a5cfacc17cf02859bfd82b7fbac71da11112d1c62bef54af0d4",
+        "source": {
+          "artifact": "tables/horizons.csv",
+          "runId": "20261008T220932Z_cb2711",
+          "sha256": "fc6c056fad5c5361bd657fd6bb1fe9d9dc8698523ff262dba1a97ab4e21fba88"
+        },
+        "units": "ATR, R, USD, event/session counts and ratios as column labels specify"
+      },
+      {
+        "columns": [
+          "product",
+          "year",
+          "split",
+          "pair",
+          "mode",
+          "side",
+          "completed_N",
+          "sessions",
+          "mean_delta",
+          "ci95_low",
+          "ci95_high",
+          "mae_median",
+          "mfe_median",
+          "favorable_share",
+          "sparse"
+        ],
+        "description": "648-row 2018–2026 core annual grid; 2026 ends September 18",
+        "id": "annual-core",
+        "label": "annual core",
+        "mediaType": "text/csv",
+        "path": "downloads/annual-core.csv",
+        "population": "ES NQ GC unless ES weekly; fixed frozen cohorts",
+        "rowCount": 648,
+        "scope": "648-row 2018–2026 core annual grid; 2026 ends September 18",
+        "sha256": "c7c21986ce310d812fc6966607fba0e1681a58bc758bbbfc699ad36516621401",
+        "source": {
+          "artifact": "tables/annual.csv",
+          "runId": "20261008T220932Z_cb2711",
+          "sha256": "77631cfa5abc8bf7932579d6003446ba3b4b4c442435f4455244da6cca9ef2e2"
+        },
+        "units": "ATR, R, USD, event/session counts and ratios as column labels specify"
+      },
+      {
+        "columns": [
+          "split",
+          "week",
+          "eligible_sessions",
+          "accepted",
+          "completed_N",
+          "favorable_share",
+          "mean_delta",
+          "censored_entered",
+          "entry_cancelled",
+          "partial_week"
+        ],
+        "description": "Complete ES R3/S3 alignment 15-bar weekly summaries and split total rows",
+        "id": "es-weekly",
+        "label": "es weekly",
+        "mediaType": "text/csv",
+        "path": "downloads/es-weekly.csv",
+        "population": "ES NQ GC unless ES weekly; fixed frozen cohorts",
+        "rowCount": 732,
+        "scope": "Complete ES R3/S3 alignment 15-bar weekly summaries and split total rows",
+        "sha256": "87a1dbc0cfcbd5b31828e986b2d0bb1bc0fdfcca4c6a1b08e89d95e0234099f2",
+        "source": {
+          "artifact": "tables/weekly.csv",
+          "runId": "20261008T220932Z_cb2711",
+          "sha256": "ae01d7a4b977387f1be64b6d6909239f6192a95d6f5281abc0256de7f3c7e9e5"
+        },
+        "units": "ATR, R, USD, event/session counts and ratios as column labels specify"
+      },
+      {
+        "columns": [
+          "product",
+          "pair",
+          "mode",
+          "extension",
+          "fee_USD",
+          "slippage_ticks",
+          "target",
+          "delay",
+          "touch",
+          "order_assumption",
+          "window",
+          "eligible_sessions",
+          "scorable_sessions",
+          "entered_trades",
+          "ambiguous_trades",
+          "unresolved_trades",
+          "mean_net_R_per_session",
+          "ci95_low",
+          "ci95_high",
+          "mean_net_R_per_trade",
+          "net_USD_resolved_trades"
+        ],
+        "description": "All declared final-evaluation policy configurations, costs, delay and bounded checks",
+        "id": "final-policy",
+        "label": "final policy",
+        "mediaType": "text/csv",
+        "path": "downloads/final-policy.csv",
+        "population": "ES NQ GC unless ES weekly; fixed frozen cohorts",
+        "rowCount": 432,
+        "scope": "All declared final-evaluation policy configurations, costs, delay and bounded checks",
+        "sha256": "1b5046d51d2a3f6b8b398e869350b253500b3a36f4d39342da703462aa6a3077",
+        "source": {
+          "artifact": "tables/policy.csv",
+          "runId": "20261008T220932Z_cb2711",
+          "sha256": "fc6a9397cbb11f162e83fdb1c961db33993b2c664375d6c458f94bd2416759ca"
+        },
+        "units": "ATR, R, USD, event/session counts and ratios as column labels specify"
+      }
+    ],
+    "id": "camarilla-ema-20261008t220932z-cb2711",
+    "notes": [
+      "Prepared for local review; hosted deployment requires a separate publication instruction.",
+      "All strategy values derive from saved summary evidence. Public download cells preserve exact saved CSV strings."
+    ],
+    "publishedAt": "2026-10-08T22:47:44Z",
+    "references": [
+      {
+        "accessedOn": "2026-10-08",
+        "creator": "CME Group",
+        "id": "cme-equity-regime",
+        "kind": "external",
+        "label": "CME equity session notice",
+        "title": "Elimination of CME Equity Futures and Options Market Pause",
+        "url": "https://www.cmegroup.com/notices/electronic-trading/2021/06/20210621.html"
+      },
+      {
+        "accessedOn": "2026-10-08",
+        "creator": "CME Group",
+        "id": "cme-metals-regime",
+        "kind": "external",
+        "label": "CME COMEX filing",
+        "title": "COMEX closing time change, filing 15-387",
+        "url": "https://www.cmegroup.com/market-regulation/files/15-387.pdf"
+      },
+      {
+        "accessedOn": "2026-10-08",
+        "creator": "Databento",
+        "id": "mapping-semantics",
+        "kind": "external",
+        "label": "Databento continuous contracts",
+        "title": "Continuous contract roll rules",
+        "url": "https://databento.com/microstructure/continuous-contract"
+      },
+      {
+        "artifact": "tables/coverage_summary.csv",
+        "id": "source-coverage-summary",
+        "kind": "saved-artifact",
+        "label": "Saved numerical source",
+        "runId": "20261008T220932Z_cb2711",
+        "sha256": "e9552d4c3cfc7983d119bbcb1c6375fec0517f8732f1538c1d103f86e845b025",
+        "title": "coverage_summary.csv"
+      },
+      {
+        "artifact": "tables/horizons.csv",
+        "id": "source-horizons",
+        "kind": "saved-artifact",
+        "label": "Saved numerical source",
+        "runId": "20261008T220932Z_cb2711",
+        "sha256": "fc6c056fad5c5361bd657fd6bb1fe9d9dc8698523ff262dba1a97ab4e21fba88",
+        "title": "horizons.csv"
+      },
+      {
+        "artifact": "tables/weekly.csv",
+        "id": "source-weekly",
+        "kind": "saved-artifact",
+        "label": "Saved numerical source",
+        "runId": "20261008T220932Z_cb2711",
+        "sha256": "ae01d7a4b977387f1be64b6d6909239f6192a95d6f5281abc0256de7f3c7e9e5",
+        "title": "weekly.csv"
+      },
+      {
+        "artifact": "tables/annual.csv",
+        "id": "source-annual",
+        "kind": "saved-artifact",
+        "label": "Saved numerical source",
+        "runId": "20261008T220932Z_cb2711",
+        "sha256": "77631cfa5abc8bf7932579d6003446ba3b4b4c442435f4455244da6cca9ef2e2",
+        "title": "annual.csv"
+      },
+      {
+        "artifact": "tables/policy.csv",
+        "id": "source-policy",
+        "kind": "saved-artifact",
+        "label": "Saved numerical source",
+        "runId": "20261008T220932Z_cb2711",
+        "sha256": "fc6a9397cbb11f162e83fdb1c961db33993b2c664375d6c458f94bd2416759ca",
+        "title": "policy.csv"
+      },
+      {
+        "artifact": "tables/primary_contrasts.csv",
+        "id": "source-primary-contrasts",
+        "kind": "saved-artifact",
+        "label": "Saved numerical source",
+        "runId": "20261008T220932Z_cb2711",
+        "sha256": "0257938481f4590ff3feba6fc5cadebd5b8f9b0d6bb38d5d631af58973d1f06c",
+        "title": "primary_contrasts.csv"
+      },
+      {
+        "artifact": "tables/extensions.csv",
+        "id": "source-extensions",
+        "kind": "saved-artifact",
+        "label": "Saved numerical source",
+        "runId": "20261008T220932Z_cb2711",
+        "sha256": "ff174c012faab3262172d18ea04fd7a400cd34be252c6ece9c04f3dcd5083db2",
+        "title": "extensions.csv"
+      }
+    ],
+    "schemaVersion": "1.1",
+    "sections": [
+      {
+        "body": "Historical five-minute Camarilla rejections in ES, NQ and GC; independent price paths, conditional EMA selection and a separate one-position assumed-fill policy. Development 2018–2020, validation 2021–2023, final evaluation 2024–2025, recent replication January 1–September 18, 2026, earlier robustness June 2010–2017. No parameter selection on final outcomes.",
+        "id": "scope",
+        "kind": "text",
+        "title": "What this study answers"
+      },
+      {
+        "body": "The final R3/S3 comparison does not support a positive EMA-alignment gain in any of the six primary contrasts. All three alignment path cohorts are sparse (ES N=49, NQ N=55, GC N=40). All reference-cost alignment-policy 95% intervals include zero. NQ's adverse alignment-minus-none path contrast has a four-week familywise interval [-2.4065, -0.0147] ATR and an eight-week interval [-2.2393, -0.0147], but the one-week interval [-2.3577, 0.0388] includes zero. This near-boundary, block-sensitive result does not support a universal cloud advantage. T01, T03 and T08 retain the complete fixed comparisons; the study does not establish a reproducible capturable net edge.\n\nES: R3/S3 alignment has 49 completed 15-bar paths across 41 sessions, mean signed delta 0.1411 ATR (95% interval -0.9065 to 1.1726), versus 0.0205 ATR for no filter (N=180). The alignment-minus-none contrast is 0.1206 ATR; its six-contrast familywise interval [-1.1339, 1.2991] does not exclude zero. Under reference assumed costs, alignment's 3R policy averages 0.0301 net R per scorable eligible session (95% interval -0.0397 to 0.1077), with the target-first replay giving 0.0301 R. It enters 49 trades; 0 are barrier-ambiguous and 0 eligible sessions remain unresolved. References: T01 product=ES, split=final_evaluation, pair=3, horizon=15, side=both; T08 endpoint=path_delta_ATR, block_weeks=4; T03 target=3R, fee=10, slippage=1, delay=0, window=main, extension=core.\n\nNQ: R3/S3 alignment has 55 completed 15-bar paths across 47 sessions, mean signed delta -0.5370 ATR (95% interval -1.2819 to 0.2042), versus 0.5362 ATR for no filter (N=191). The alignment-minus-none contrast is -1.0732 ATR; its six-contrast familywise interval [-2.4065, -0.0147] is entirely negative. Under reference assumed costs, alignment's 3R policy averages 0.0067 net R per scorable eligible session (95% interval -0.0465 to 0.0612), with the target-first replay giving 0.0067 R. It enters 54 trades; 0 are barrier-ambiguous and 0 eligible sessions remain unresolved. References: T01 product=NQ, split=final_evaluation, pair=3, horizon=15, side=both; T08 endpoint=path_delta_ATR, block_weeks=4; T03 target=3R, fee=10, slippage=1, delay=0, window=main, extension=core.\n\nGC: R3/S3 alignment has 40 completed 15-bar paths across 32 sessions, mean signed delta 0.5390 ATR (95% interval -0.3190 to 1.1967), versus 0.2157 ATR for no filter (N=114). The alignment-minus-none contrast is 0.3234 ATR; its six-contrast familywise interval [-0.7440, 1.1289] does not exclude zero. Under reference assumed costs, alignment's 3R policy averages 0.0532 net R per scorable eligible session (95% interval -0.0079 to 0.1216), with the target-first replay giving 0.0532 R. It enters 38 trades; 0 are barrier-ambiguous and 0 eligible sessions remain unresolved. References: T01 product=GC, split=final_evaluation, pair=3, horizon=15, side=both; T08 endpoint=path_delta_ATR, block_weeks=4; T03 target=3R, fee=10, slippage=1, delay=0, window=main, extension=core.",
+        "id": "findings",
+        "kind": "text",
+        "title": "Actual findings and uncertainty"
+      },
+      {
+        "body": "ES: across the nine declared fee/slippage assumptions, final alignment-policy means range from 0.0256 to 0.0352 net R per scorable eligible session. One-minute delay at reference costs gives 0.0396 R (immediate reference 0.0301 R). The primary paired alignment-minus-none policy contrast is 0.0395 R, familywise interval [-0.0867, 0.1662], over 461 jointly scorable sessions. These are fixed sensitivity results from T03 and T08, not a selection of the best executable policy.\n\nNQ: across the nine declared fee/slippage assumptions, final alignment-policy means range from 0.0046 to 0.0088 net R per scorable eligible session. One-minute delay at reference costs gives -0.0140 R (immediate reference 0.0067 R). The primary paired alignment-minus-none policy contrast is -0.0571 R, familywise interval [-0.1631, 0.0473], over 457 jointly scorable sessions. These are fixed sensitivity results from T03 and T08, not a selection of the best executable policy.\n\nGC: across the nine declared fee/slippage assumptions, final alignment-policy means range from 0.0464 to 0.0571 net R per scorable eligible session. One-minute delay at reference costs gives 0.0226 R (immediate reference 0.0532 R). The primary paired alignment-minus-none policy contrast is 0.0106 R, familywise interval [-0.0531, 0.0678], over 448 jointly scorable sessions. These are fixed sensitivity results from T03 and T08, not a selection of the best executable policy.",
+        "id": "sensitivities",
+        "kind": "text",
+        "title": "Assumed costs, latency and policy contrast"
+      },
+      {
+        "columns": [
+          {
+            "key": "product",
+            "label": "product"
+          },
+          {
+            "format": "number",
+            "key": "year",
+            "label": "year",
+            "precision": 0
+          },
+          {
+            "format": "number",
+            "key": "candidate_weekdays",
+            "label": "candidate weekdays",
+            "precision": 0
+          },
+          {
+            "format": "number",
+            "key": "eligible_sessions",
+            "label": "eligible sessions",
+            "precision": 0
+          },
+          {
+            "format": "number",
+            "key": "HLC_valid_sessions",
+            "label": "HLC valid sessions",
+            "precision": 3
+          },
+          {
+            "format": "number",
+            "key": "source_minute_coverage",
+            "label": "source minute coverage",
+            "precision": 3
+          },
+          {
+            "format": "number",
+            "key": "partial_5m",
+            "label": "partial 5m",
+            "precision": 3
+          },
+          {
+            "format": "number",
+            "key": "source_degraded_sessions",
+            "label": "source degraded sessions",
+            "precision": 3
+          }
+        ],
+        "description": "2024–2026 selected annual input audit; 2026 ends September 18. Complete 2010–2026 rosters and all split totals remain in the local T00 evidence. Exclusions use unchanged quality gates; source degradation and holiday rules are retrospective/model qualifications.",
+        "id": "coverage",
+        "kind": "table",
+        "notes": [
+          "Blank cells are undefined; measured zero remains zero. Intervals are descriptive except the six primary contrasts."
+        ],
+        "referenceIds": [
+          "source-coverage-summary"
+        ],
+        "rows": [
+          {
+            "HLC_valid_sessions": 247,
+            "candidate_weekdays": 262,
+            "eligible_sessions": 234,
+            "partial_5m": 232,
+            "product": "ES",
+            "source_degraded_sessions": 2,
+            "source_minute_coverage": 0.9813557916,
+            "year": 2024
+          },
+          {
+            "HLC_valid_sessions": 243,
+            "candidate_weekdays": 261,
+            "eligible_sessions": 227,
+            "partial_5m": 46,
+            "product": "ES",
+            "source_degraded_sessions": 5,
+            "source_minute_coverage": 0.9787994891,
+            "year": 2025
+          },
+          {
+            "HLC_valid_sessions": 176,
+            "candidate_weekdays": 187,
+            "eligible_sessions": 164,
+            "partial_5m": 12,
+            "product": "ES",
+            "source_degraded_sessions": 4,
+            "source_minute_coverage": 0.9872239014,
+            "year": 2026
+          },
+          {
+            "HLC_valid_sessions": 246,
+            "candidate_weekdays": 262,
+            "eligible_sessions": 231,
+            "partial_5m": 73,
+            "product": "NQ",
+            "source_degraded_sessions": 2,
+            "source_minute_coverage": 0.9818066158,
+            "year": 2024
+          },
+          {
+            "HLC_valid_sessions": 242,
+            "candidate_weekdays": 261,
+            "eligible_sessions": 226,
+            "partial_5m": 67,
+            "product": "NQ",
+            "source_degraded_sessions": 5,
+            "source_minute_coverage": 0.9787300794,
+            "year": 2025
+          },
+          {
+            "HLC_valid_sessions": 176,
+            "candidate_weekdays": 187,
+            "eligible_sessions": 163,
+            "partial_5m": 42,
+            "product": "NQ",
+            "source_degraded_sessions": 4,
+            "source_minute_coverage": 0.9870921491,
+            "year": 2026
+          },
+          {
+            "HLC_valid_sessions": 240,
+            "candidate_weekdays": 262,
+            "eligible_sessions": 227,
+            "partial_5m": 1644,
+            "product": "GC",
+            "source_degraded_sessions": 2,
+            "source_minute_coverage": 0.9729228897,
+            "year": 2024
+          },
+          {
+            "HLC_valid_sessions": 235,
+            "candidate_weekdays": 261,
+            "eligible_sessions": 221,
+            "partial_5m": 1163,
+            "product": "GC",
+            "source_degraded_sessions": 5,
+            "source_minute_coverage": 0.9751179966,
+            "year": 2025
+          },
+          {
+            "HLC_valid_sessions": 169,
+            "candidate_weekdays": 187,
+            "eligible_sessions": 153,
+            "partial_5m": 1041,
+            "product": "GC",
+            "source_degraded_sessions": 4,
+            "source_minute_coverage": 0.9753855692,
+            "year": 2026
+          }
+        ],
+        "title": "T00 · Final and recent annual coverage"
+      },
+      {
+        "body": "Prior electronic-session HLC supplies exact Camarilla fractions: 1.1/6, 1.1/4 and 1.1/2. Long: previous close > support, open >= support, low <= support, close > support and close > open. Short mirrors it at resistance. Dual touches are excluded. First technical rejection consumes its episode before EMA selection; a full candle strictly on the approach side rearms. EMA20/50 and Wilder ATR14 use the full actual five-minute stream and reset on selected-contract changes or unknown gaps >5 minutes. All primary prices are unadjusted on the same contract. Main entries use observed next five-minute opens between 09:30 and 11:30 NY. The entry candle is bar 1, and confirmation extrema are excluded from paths. Fixed horizons are 5/10/15/30/50 bars. Horizon=0 in T01 is a separate terminal 16:00 close with variable elapsed time. Favorable close is direction-normalized; literal close above entry and defended-side pivot close remain separate. Quality requires full confirmation, >=99% preceding-session and seed coverage, complete prior edges and the stated warmup. Invalid immediately prior weekdays never fall back to older valid HLC. T09 also retains a potential recovery interval after an observed adverse excursion, with the non-null recovery count. Same-minute OHLC cannot establish the order of the dip and recovery, so this interval is a possibility diagnostic, not an exact recovery time or a fill claim.",
+        "id": "definitions",
+        "kind": "text",
+        "title": "Signal, episode and causal timing"
+      },
+      {
+        "columns": [
+          {
+            "key": "mode",
+            "label": "mode"
+          },
+          {
+            "format": "number",
+            "key": "horizon",
+            "label": "horizon",
+            "precision": 0
+          },
+          {
+            "format": "number",
+            "key": "elapsed_minutes",
+            "label": "elapsed minutes",
+            "precision": 3
+          },
+          {
+            "format": "number",
+            "key": "accepted",
+            "label": "accepted",
+            "precision": 0
+          },
+          {
+            "format": "number",
+            "key": "completed_N",
+            "label": "completed N",
+            "precision": 0
+          },
+          {
+            "format": "number",
+            "key": "mean_MFE",
+            "label": "mean MFE",
+            "precision": 3
+          },
+          {
+            "format": "number",
+            "key": "mean_MAE",
+            "label": "mean MAE",
+            "precision": 3
+          },
+          {
+            "format": "number",
+            "key": "mean_delta",
+            "label": "mean delta",
+            "precision": 3
+          },
+          {
+            "format": "percent",
+            "key": "favorable_share",
+            "label": "favorable share",
+            "precision": 3
+          },
+          {
+            "format": "percent",
+            "key": "MFE_gt_MAE_share",
+            "label": "MFE gt MAE share",
+            "precision": 3
+          },
+          {
+            "format": "number",
+            "key": "ci95_low",
+            "label": "ci95 low",
+            "precision": 3
+          },
+          {
+            "format": "number",
+            "key": "ci95_high",
+            "label": "ci95 high",
+            "precision": 3
+          }
+        ],
+        "description": "R3/S3, both sides, final evaluation 2024–2025. MAE/MFE and signed delta are in ATR14. Entry candle counts as bar 1; censoring preserves shorter horizons. The final download includes separate sides and the full core grid.",
+        "id": "horizons-es",
+        "kind": "table",
+        "notes": [
+          "Blank cells are undefined; measured zero remains zero. Intervals are descriptive except the six primary contrasts."
+        ],
+        "referenceIds": [
+          "source-horizons"
+        ],
+        "rows": [
+          {
+            "MFE_gt_MAE_share": 0.4888888889,
+            "accepted": 180,
+            "ci95_high": 0.3811819417,
+            "ci95_low": -0.3155415019,
+            "completed_N": 180,
+            "elapsed_minutes": 25,
+            "favorable_share": 0.4777777778,
+            "horizon": 5,
+            "mean_MAE": 1.429325551,
+            "mean_MFE": 1.441893887,
+            "mean_delta": 0.04177811123,
+            "mode": "none"
+          },
+          {
+            "MFE_gt_MAE_share": 0.5166666667,
+            "accepted": 180,
+            "ci95_high": 0.6039277908,
+            "ci95_low": -0.2282949884,
+            "completed_N": 180,
+            "elapsed_minutes": 50,
+            "favorable_share": 0.5166666667,
+            "horizon": 10,
+            "mean_MAE": 1.899038181,
+            "mean_MFE": 2.175337839,
+            "mean_delta": 0.1998764838,
+            "mode": "none"
+          },
+          {
+            "MFE_gt_MAE_share": 0.5388888889,
+            "accepted": 180,
+            "ci95_high": 0.5250901007,
+            "ci95_low": -0.4862569377,
+            "completed_N": 180,
+            "elapsed_minutes": 75,
+            "favorable_share": 0.5111111111,
+            "horizon": 15,
+            "mean_MAE": 2.319582506,
+            "mean_MFE": 2.612720991,
+            "mean_delta": 0.02049812693,
+            "mode": "none"
+          },
+          {
+            "MFE_gt_MAE_share": 0.5,
+            "accepted": 180,
+            "ci95_high": 0.8484932447,
+            "ci95_low": -0.4135743188,
+            "completed_N": 180,
+            "elapsed_minutes": 150,
+            "favorable_share": 0.5388888889,
+            "horizon": 30,
+            "mean_MAE": 3.190122142,
+            "mean_MFE": 3.442333963,
+            "mean_delta": 0.1959989828,
+            "mode": "none"
+          },
+          {
+            "MFE_gt_MAE_share": 0.5166666667,
+            "accepted": 180,
+            "ci95_high": 0.5930256113,
+            "ci95_low": -0.8127285333,
+            "completed_N": 180,
+            "elapsed_minutes": 250,
+            "favorable_share": 0.5222222222,
+            "horizon": 50,
+            "mean_MAE": 3.875536386,
+            "mean_MFE": 4.046028212,
+            "mean_delta": -0.1165809672,
+            "mode": "none"
+          },
+          {
+            "MFE_gt_MAE_share": 0.5510204082,
+            "accepted": 49,
+            "ci95_high": 0.9835810742,
+            "ci95_low": -0.1519634904,
+            "completed_N": 49,
+            "elapsed_minutes": 25,
+            "favorable_share": 0.5102040816,
+            "horizon": 5,
+            "mean_MAE": 1.231944687,
+            "mean_MFE": 1.82644611,
+            "mean_delta": 0.4238778971,
+            "mode": "alignment"
+          },
+          {
+            "MFE_gt_MAE_share": 0.5510204082,
+            "accepted": 49,
+            "ci95_high": 1.155148255,
+            "ci95_low": -0.7778421885,
+            "completed_N": 49,
+            "elapsed_minutes": 50,
+            "favorable_share": 0.5714285714,
+            "horizon": 10,
+            "mean_MAE": 1.862412681,
+            "mean_MFE": 2.51228155,
+            "mean_delta": 0.2419188,
+            "mode": "alignment"
+          },
+          {
+            "MFE_gt_MAE_share": 0.612244898,
+            "accepted": 49,
+            "ci95_high": 1.172573413,
+            "ci95_low": -0.9065126875,
+            "completed_N": 49,
+            "elapsed_minutes": 75,
+            "favorable_share": 0.5714285714,
+            "horizon": 15,
+            "mean_MAE": 2.217400169,
+            "mean_MFE": 2.841952232,
+            "mean_delta": 0.1411231458,
+            "mode": "alignment"
+          },
+          {
+            "MFE_gt_MAE_share": 0.5102040816,
+            "accepted": 49,
+            "ci95_high": 1.399584673,
+            "ci95_low": -1.701191303,
+            "completed_N": 49,
+            "elapsed_minutes": 150,
+            "favorable_share": 0.5306122449,
+            "horizon": 30,
+            "mean_MAE": 3.405401931,
+            "mean_MFE": 3.676922924,
+            "mean_delta": -0.1245949488,
+            "mode": "alignment"
+          },
+          {
+            "MFE_gt_MAE_share": 0.5102040816,
+            "accepted": 49,
+            "ci95_high": 1.135109801,
+            "ci95_low": -2.524295252,
+            "completed_N": 49,
+            "elapsed_minutes": 250,
+            "favorable_share": 0.5510204082,
+            "horizon": 50,
+            "mean_MAE": 4.194149528,
+            "mean_MFE": 4.035208129,
+            "mean_delta": -0.6743916295,
+            "mode": "alignment"
+          }
+        ],
+        "title": "ES · T01 horizon paths"
+      },
+      {
+        "columns": [
+          {
+            "key": "pair",
+            "label": "pair"
+          },
+          {
+            "key": "mode",
+            "label": "mode"
+          },
+          {
+            "format": "number",
+            "key": "completed_N",
+            "label": "completed N",
+            "precision": 0
+          },
+          {
+            "format": "number",
+            "key": "sessions",
+            "label": "sessions",
+            "precision": 0
+          },
+          {
+            "format": "percent",
+            "key": "filter_acceptance",
+            "label": "filter acceptance",
+            "precision": 3
+          },
+          {
+            "format": "number",
+            "key": "mean_delta",
+            "label": "mean delta",
+            "precision": 3
+          },
+          {
+            "format": "number",
+            "key": "ci95_low",
+            "label": "ci95 low",
+            "precision": 3
+          },
+          {
+            "format": "number",
+            "key": "ci95_high",
+            "label": "ci95 high",
+            "precision": 3
+          },
+          {
+            "format": "percent",
+            "key": "favorable_share",
+            "label": "favorable share",
+            "precision": 3
+          },
+          {
+            "format": "number",
+            "key": "mae_median",
+            "label": "mae median",
+            "precision": 3
+          },
+          {
+            "format": "number",
+            "key": "mfe_median",
+            "label": "mfe median",
+            "precision": 3
+          },
+          {
+            "key": "sparse",
+            "label": "sparse"
+          }
+        ],
+        "description": "Fixed three-pair, four-mode comparison at 15 bars. Filtering changes the population; these conditional associations do not establish an EMA causal effect.",
+        "id": "confluence-es",
+        "kind": "table",
+        "notes": [
+          "Blank cells are undefined; measured zero remains zero. Intervals are descriptive except the six primary contrasts."
+        ],
+        "referenceIds": [
+          "source-horizons"
+        ],
+        "rows": [
+          {
+            "ci95_high": 0.5661458666,
+            "ci95_low": -0.456969093,
+            "completed_N": 215,
+            "favorable_share": 0.5581395349,
+            "filter_acceptance": 1,
+            "mae_median": 1.775724265,
+            "mean_delta": 0.04744046593,
+            "mfe_median": 1.89283481,
+            "mode": "none",
+            "pair": "2",
+            "sessions": 154,
+            "sparse": "false"
+          },
+          {
+            "ci95_high": 1.07061379,
+            "ci95_low": -0.9002686874,
+            "completed_N": 77,
+            "favorable_share": 0.6103896104,
+            "filter_acceptance": 0.3581395349,
+            "mae_median": 1.491152086,
+            "mean_delta": 0.08893119903,
+            "mfe_median": 1.952379594,
+            "mode": "alignment",
+            "pair": "2",
+            "sessions": 67,
+            "sparse": "true"
+          },
+          {
+            "ci95_high": 1.322400524,
+            "ci95_low": -0.2988590713,
+            "completed_N": 89,
+            "favorable_share": 0.6404494382,
+            "filter_acceptance": 0.4139534884,
+            "mae_median": 1.448963306,
+            "mean_delta": 0.5440078495,
+            "mfe_median": 2.336667098,
+            "mode": "outside",
+            "pair": "2",
+            "sessions": 75,
+            "sparse": "true"
+          },
+          {
+            "ci95_high": 1.695486013,
+            "ci95_low": -1.216653627,
+            "completed_N": 46,
+            "favorable_share": 0.6956521739,
+            "filter_acceptance": 0.2139534884,
+            "mae_median": 1.179392866,
+            "mean_delta": 0.2773076698,
+            "mfe_median": 2.235264822,
+            "mode": "alignment_outside",
+            "pair": "2",
+            "sessions": 41,
+            "sparse": "true"
+          },
+          {
+            "ci95_high": 0.5250901007,
+            "ci95_low": -0.4862569377,
+            "completed_N": 180,
+            "favorable_share": 0.5111111111,
+            "filter_acceptance": 1,
+            "mae_median": 1.719601823,
+            "mean_delta": 0.02049812693,
+            "mfe_median": 2.152524175,
+            "mode": "none",
+            "pair": "3",
+            "sessions": 141,
+            "sparse": "false"
+          },
+          {
+            "ci95_high": 1.172573413,
+            "ci95_low": -0.9065126875,
+            "completed_N": 49,
+            "favorable_share": 0.5714285714,
+            "filter_acceptance": 0.2722222222,
+            "mae_median": 1.669454619,
+            "mean_delta": 0.1411231458,
+            "mfe_median": 2.519384793,
+            "mode": "alignment",
+            "pair": "3",
+            "sessions": 41,
+            "sparse": "true"
+          },
+          {
+            "ci95_high": 0.4684456671,
+            "ci95_low": -1.026059623,
+            "completed_N": 69,
+            "favorable_share": 0.5217391304,
+            "filter_acceptance": 0.3833333333,
+            "mae_median": 1.817997954,
+            "mean_delta": -0.2685995311,
+            "mfe_median": 2.352662643,
+            "mode": "outside",
+            "pair": "3",
+            "sessions": 60,
+            "sparse": "true"
+          },
+          {
+            "ci95_high": 1.399681256,
+            "ci95_low": -0.9087657878,
+            "completed_N": 36,
+            "favorable_share": 0.5555555556,
+            "filter_acceptance": 0.2,
+            "mae_median": 1.671848185,
+            "mean_delta": 0.3037026254,
+            "mfe_median": 2.470801055,
+            "mode": "alignment_outside",
+            "pair": "3",
+            "sessions": 29,
+            "sparse": "true"
+          },
+          {
+            "ci95_high": 1.301961142,
+            "ci95_low": -0.3927100521,
+            "completed_N": 81,
+            "favorable_share": 0.5432098765,
+            "filter_acceptance": 1,
+            "mae_median": 1.324078681,
+            "mean_delta": 0.4632326274,
+            "mfe_median": 1.978561744,
+            "mode": "none",
+            "pair": "4",
+            "sessions": 62,
+            "sparse": "true"
+          },
+          {
+            "ci95_high": 4.9481812,
+            "ci95_low": -2.263635219,
+            "completed_N": 15,
+            "favorable_share": 0.5333333333,
+            "filter_acceptance": 0.1851851852,
+            "mae_median": 1.581458158,
+            "mean_delta": 1.011862503,
+            "mfe_median": 2.610307978,
+            "mode": "alignment",
+            "pair": "4",
+            "sessions": 12,
+            "sparse": "true"
+          },
+          {
+            "ci95_high": 2.558281015,
+            "ci95_low": -1.071404542,
+            "completed_N": 26,
+            "favorable_share": 0.5769230769,
+            "filter_acceptance": 0.3209876543,
+            "mae_median": 1.230490777,
+            "mean_delta": 0.9650537165,
+            "mfe_median": 2.035061352,
+            "mode": "outside",
+            "pair": "4",
+            "sessions": 21,
+            "sparse": "true"
+          },
+          {
+            "ci95_high": 5.216722022,
+            "ci95_low": -2.238822583,
+            "completed_N": 14,
+            "favorable_share": 0.5714285714,
+            "filter_acceptance": 0.1728395062,
+            "mae_median": 1.366622073,
+            "mean_delta": 1.254125715,
+            "mfe_median": 2.948142824,
+            "mode": "alignment_outside",
+            "pair": "4",
+            "sessions": 11,
+            "sparse": "true"
+          }
+        ],
+        "title": "ES · T01 level and cloud grid"
+      },
+      {
+        "columns": [
+          {
+            "key": "mode",
+            "label": "mode"
+          },
+          {
+            "format": "number",
+            "key": "horizon",
+            "label": "horizon",
+            "precision": 0
+          },
+          {
+            "format": "number",
+            "key": "elapsed_minutes",
+            "label": "elapsed minutes",
+            "precision": 3
+          },
+          {
+            "format": "number",
+            "key": "accepted",
+            "label": "accepted",
+            "precision": 0
+          },
+          {
+            "format": "number",
+            "key": "completed_N",
+            "label": "completed N",
+            "precision": 0
+          },
+          {
+            "format": "number",
+            "key": "mean_MFE",
+            "label": "mean MFE",
+            "precision": 3
+          },
+          {
+            "format": "number",
+            "key": "mean_MAE",
+            "label": "mean MAE",
+            "precision": 3
+          },
+          {
+            "format": "number",
+            "key": "mean_delta",
+            "label": "mean delta",
+            "precision": 3
+          },
+          {
+            "format": "percent",
+            "key": "favorable_share",
+            "label": "favorable share",
+            "precision": 3
+          },
+          {
+            "format": "percent",
+            "key": "MFE_gt_MAE_share",
+            "label": "MFE gt MAE share",
+            "precision": 3
+          },
+          {
+            "format": "number",
+            "key": "ci95_low",
+            "label": "ci95 low",
+            "precision": 3
+          },
+          {
+            "format": "number",
+            "key": "ci95_high",
+            "label": "ci95 high",
+            "precision": 3
+          }
+        ],
+        "description": "R3/S3, both sides, final evaluation 2024–2025. MAE/MFE and signed delta are in ATR14. Entry candle counts as bar 1; censoring preserves shorter horizons. The final download includes separate sides and the full core grid.",
+        "id": "horizons-nq",
+        "kind": "table",
+        "notes": [
+          "Blank cells are undefined; measured zero remains zero. Intervals are descriptive except the six primary contrasts."
+        ],
+        "referenceIds": [
+          "source-horizons"
+        ],
+        "rows": [
+          {
+            "MFE_gt_MAE_share": 0.5287958115,
+            "accepted": 191,
+            "ci95_high": 0.4535549461,
+            "ci95_low": -0.1622555583,
+            "completed_N": 191,
+            "elapsed_minutes": 25,
+            "favorable_share": 0.5078534031,
+            "horizon": 5,
+            "mean_MAE": 1.536476832,
+            "mean_MFE": 1.783641773,
+            "mean_delta": 0.1591764599,
+            "mode": "none"
+          },
+          {
+            "MFE_gt_MAE_share": 0.5235602094,
+            "accepted": 191,
+            "ci95_high": 0.771651815,
+            "ci95_low": -0.1354193423,
+            "completed_N": 191,
+            "elapsed_minutes": 50,
+            "favorable_share": 0.5130890052,
+            "horizon": 10,
+            "mean_MAE": 2.051551538,
+            "mean_MFE": 2.506505681,
+            "mean_delta": 0.3159910605,
+            "mode": "none"
+          },
+          {
+            "MFE_gt_MAE_share": 0.502617801,
+            "accepted": 191,
+            "ci95_high": 1.264124699,
+            "ci95_low": -0.100039501,
+            "completed_N": 191,
+            "elapsed_minutes": 75,
+            "favorable_share": 0.554973822,
+            "horizon": 15,
+            "mean_MAE": 2.34967739,
+            "mean_MFE": 3.004424338,
+            "mean_delta": 0.5361529826,
+            "mode": "none"
+          },
+          {
+            "MFE_gt_MAE_share": 0.5392670157,
+            "accepted": 191,
+            "ci95_high": 1.587202222,
+            "ci95_low": -0.2253337705,
+            "completed_N": 191,
+            "elapsed_minutes": 150,
+            "favorable_share": 0.5602094241,
+            "horizon": 30,
+            "mean_MAE": 2.984634935,
+            "mean_MFE": 3.778432568,
+            "mean_delta": 0.5989039663,
+            "mode": "none"
+          },
+          {
+            "MFE_gt_MAE_share": 0.554973822,
+            "accepted": 191,
+            "ci95_high": 1.541027737,
+            "ci95_low": -0.3437246355,
+            "completed_N": 191,
+            "elapsed_minutes": 250,
+            "favorable_share": 0.497382199,
+            "horizon": 50,
+            "mean_MAE": 3.519354517,
+            "mean_MFE": 4.380300636,
+            "mean_delta": 0.51924034,
+            "mode": "none"
+          },
+          {
+            "MFE_gt_MAE_share": 0.5090909091,
+            "accepted": 55,
+            "ci95_high": 0.3990342571,
+            "ci95_low": -0.602862503,
+            "completed_N": 55,
+            "elapsed_minutes": 25,
+            "favorable_share": 0.4909090909,
+            "horizon": 5,
+            "mean_MAE": 1.549862914,
+            "mean_MFE": 1.691004219,
+            "mean_delta": -0.09488875284,
+            "mode": "alignment"
+          },
+          {
+            "MFE_gt_MAE_share": 0.4727272727,
+            "accepted": 55,
+            "ci95_high": 0.4632760256,
+            "ci95_low": -0.9803645789,
+            "completed_N": 55,
+            "elapsed_minutes": 50,
+            "favorable_share": 0.4727272727,
+            "horizon": 10,
+            "mean_MAE": 2.191107346,
+            "mean_MFE": 2.216728332,
+            "mean_delta": -0.2398385706,
+            "mode": "alignment"
+          },
+          {
+            "MFE_gt_MAE_share": 0.4363636364,
+            "accepted": 55,
+            "ci95_high": 0.2041731311,
+            "ci95_low": -1.281869822,
+            "completed_N": 55,
+            "elapsed_minutes": 75,
+            "favorable_share": 0.4727272727,
+            "horizon": 15,
+            "mean_MAE": 2.610513231,
+            "mean_MFE": 2.402716374,
+            "mean_delta": -0.5370386015,
+            "mode": "alignment"
+          },
+          {
+            "MFE_gt_MAE_share": 0.4363636364,
+            "accepted": 55,
+            "ci95_high": -0.3226790565,
+            "ci95_low": -1.900957363,
+            "completed_N": 55,
+            "elapsed_minutes": 150,
+            "favorable_share": 0.4909090909,
+            "horizon": 30,
+            "mean_MAE": 3.504907004,
+            "mean_MFE": 2.711711534,
+            "mean_delta": -1.110857178,
+            "mode": "alignment"
+          },
+          {
+            "MFE_gt_MAE_share": 0.4545454545,
+            "accepted": 55,
+            "ci95_high": 0.6055466281,
+            "ci95_low": -1.929949402,
+            "completed_N": 55,
+            "elapsed_minutes": 250,
+            "favorable_share": 0.4727272727,
+            "horizon": 50,
+            "mean_MAE": 4.181578276,
+            "mean_MFE": 3.193754358,
+            "mean_delta": -0.6582098265,
+            "mode": "alignment"
+          }
+        ],
+        "title": "NQ · T01 horizon paths"
+      },
+      {
+        "columns": [
+          {
+            "key": "pair",
+            "label": "pair"
+          },
+          {
+            "key": "mode",
+            "label": "mode"
+          },
+          {
+            "format": "number",
+            "key": "completed_N",
+            "label": "completed N",
+            "precision": 0
+          },
+          {
+            "format": "number",
+            "key": "sessions",
+            "label": "sessions",
+            "precision": 0
+          },
+          {
+            "format": "percent",
+            "key": "filter_acceptance",
+            "label": "filter acceptance",
+            "precision": 3
+          },
+          {
+            "format": "number",
+            "key": "mean_delta",
+            "label": "mean delta",
+            "precision": 3
+          },
+          {
+            "format": "number",
+            "key": "ci95_low",
+            "label": "ci95 low",
+            "precision": 3
+          },
+          {
+            "format": "number",
+            "key": "ci95_high",
+            "label": "ci95 high",
+            "precision": 3
+          },
+          {
+            "format": "percent",
+            "key": "favorable_share",
+            "label": "favorable share",
+            "precision": 3
+          },
+          {
+            "format": "number",
+            "key": "mae_median",
+            "label": "mae median",
+            "precision": 3
+          },
+          {
+            "format": "number",
+            "key": "mfe_median",
+            "label": "mfe median",
+            "precision": 3
+          },
+          {
+            "key": "sparse",
+            "label": "sparse"
+          }
+        ],
+        "description": "Fixed three-pair, four-mode comparison at 15 bars. Filtering changes the population; these conditional associations do not establish an EMA causal effect.",
+        "id": "confluence-nq",
+        "kind": "table",
+        "notes": [
+          "Blank cells are undefined; measured zero remains zero. Intervals are descriptive except the six primary contrasts."
+        ],
+        "referenceIds": [
+          "source-horizons"
+        ],
+        "rows": [
+          {
+            "ci95_high": 0.6413136928,
+            "ci95_low": -0.5280331836,
+            "completed_N": 187,
+            "favorable_share": 0.5347593583,
+            "filter_acceptance": 1,
+            "mae_median": 1.576152647,
+            "mean_delta": 0.05283585498,
+            "mfe_median": 1.929944243,
+            "mode": "none",
+            "pair": "2",
+            "sessions": 141,
+            "sparse": "false"
+          },
+          {
+            "ci95_high": 0.4419819333,
+            "ci95_low": -1.435312693,
+            "completed_N": 58,
+            "favorable_share": 0.4482758621,
+            "filter_acceptance": 0.3101604278,
+            "mae_median": 1.794341668,
+            "mean_delta": -0.5404692922,
+            "mfe_median": 1.998466132,
+            "mode": "alignment",
+            "pair": "2",
+            "sessions": 50,
+            "sparse": "true"
+          },
+          {
+            "ci95_high": 1.299878701,
+            "ci95_low": -0.5752152407,
+            "completed_N": 78,
+            "favorable_share": 0.5384615385,
+            "filter_acceptance": 0.4171122995,
+            "mae_median": 1.519218231,
+            "mean_delta": 0.3418384102,
+            "mfe_median": 2.205623662,
+            "mode": "outside",
+            "pair": "2",
+            "sessions": 70,
+            "sparse": "true"
+          },
+          {
+            "ci95_high": 0.8582573451,
+            "ci95_low": -0.9198025986,
+            "completed_N": 41,
+            "favorable_share": 0.4390243902,
+            "filter_acceptance": 0.2192513369,
+            "mae_median": 1.794116586,
+            "mean_delta": -0.08701510145,
+            "mfe_median": 2.04945969,
+            "mode": "alignment_outside",
+            "pair": "2",
+            "sessions": 36,
+            "sparse": "true"
+          },
+          {
+            "ci95_high": 1.264124699,
+            "ci95_low": -0.100039501,
+            "completed_N": 191,
+            "favorable_share": 0.554973822,
+            "filter_acceptance": 1,
+            "mae_median": 1.57847522,
+            "mean_delta": 0.5361529826,
+            "mfe_median": 1.967557109,
+            "mode": "none",
+            "pair": "3",
+            "sessions": 152,
+            "sparse": "false"
+          },
+          {
+            "ci95_high": 0.2041731311,
+            "ci95_low": -1.281869822,
+            "completed_N": 55,
+            "favorable_share": 0.4727272727,
+            "filter_acceptance": 0.2879581152,
+            "mae_median": 2.182055267,
+            "mean_delta": -0.5370386015,
+            "mfe_median": 1.759333463,
+            "mode": "alignment",
+            "pair": "3",
+            "sessions": 47,
+            "sparse": "true"
+          },
+          {
+            "ci95_high": 1.394231796,
+            "ci95_low": -0.9871893637,
+            "completed_N": 62,
+            "favorable_share": 0.5322580645,
+            "filter_acceptance": 0.3246073298,
+            "mae_median": 2.162386836,
+            "mean_delta": 0.1120533766,
+            "mfe_median": 1.761764867,
+            "mode": "outside",
+            "pair": "3",
+            "sessions": 55,
+            "sparse": "true"
+          },
+          {
+            "ci95_high": -0.02810732539,
+            "ci95_low": -1.579651233,
+            "completed_N": 37,
+            "favorable_share": 0.4324324324,
+            "filter_acceptance": 0.1937172775,
+            "mae_median": 2.42144991,
+            "mean_delta": -0.7989989908,
+            "mfe_median": 1.71406314,
+            "mode": "alignment_outside",
+            "pair": "3",
+            "sessions": 32,
+            "sparse": "true"
+          },
+          {
+            "ci95_high": 0.001835578377,
+            "ci95_low": -1.115411771,
+            "completed_N": 94,
+            "favorable_share": 0.4574468085,
+            "filter_acceptance": 1,
+            "mae_median": 2.120054933,
+            "mean_delta": -0.576998812,
+            "mfe_median": 1.993794553,
+            "mode": "none",
+            "pair": "4",
+            "sessions": 78,
+            "sparse": "true"
+          },
+          {
+            "ci95_high": 0.9263139148,
+            "ci95_low": -1.688345433,
+            "completed_N": 13,
+            "favorable_share": 0.4615384615,
+            "filter_acceptance": 0.1382978723,
+            "mae_median": 2.390827472,
+            "mean_delta": -0.4224492704,
+            "mfe_median": 1.883639166,
+            "mode": "alignment",
+            "pair": "4",
+            "sessions": 13,
+            "sparse": "true"
+          },
+          {
+            "ci95_high": 0.4442267299,
+            "ci95_low": -2.9989849,
+            "completed_N": 17,
+            "favorable_share": 0.4705882353,
+            "filter_acceptance": 0.1808510638,
+            "mae_median": 1.796154916,
+            "mean_delta": -1.227599527,
+            "mfe_median": 2.043346573,
+            "mode": "outside",
+            "pair": "4",
+            "sessions": 16,
+            "sparse": "true"
+          },
+          {
+            "ci95_high": 1.228799269,
+            "ci95_low": -1.940489692,
+            "completed_N": 6,
+            "favorable_share": 0.5,
+            "filter_acceptance": 0.06382978723,
+            "mae_median": 2.035355157,
+            "mean_delta": -0.3981400024,
+            "mfe_median": 1.831834159,
+            "mode": "alignment_outside",
+            "pair": "4",
+            "sessions": 6,
+            "sparse": "true"
+          }
+        ],
+        "title": "NQ · T01 level and cloud grid"
+      },
+      {
+        "columns": [
+          {
+            "key": "mode",
+            "label": "mode"
+          },
+          {
+            "format": "number",
+            "key": "horizon",
+            "label": "horizon",
+            "precision": 0
+          },
+          {
+            "format": "number",
+            "key": "elapsed_minutes",
+            "label": "elapsed minutes",
+            "precision": 3
+          },
+          {
+            "format": "number",
+            "key": "accepted",
+            "label": "accepted",
+            "precision": 0
+          },
+          {
+            "format": "number",
+            "key": "completed_N",
+            "label": "completed N",
+            "precision": 0
+          },
+          {
+            "format": "number",
+            "key": "mean_MFE",
+            "label": "mean MFE",
+            "precision": 3
+          },
+          {
+            "format": "number",
+            "key": "mean_MAE",
+            "label": "mean MAE",
+            "precision": 3
+          },
+          {
+            "format": "number",
+            "key": "mean_delta",
+            "label": "mean delta",
+            "precision": 3
+          },
+          {
+            "format": "percent",
+            "key": "favorable_share",
+            "label": "favorable share",
+            "precision": 3
+          },
+          {
+            "format": "percent",
+            "key": "MFE_gt_MAE_share",
+            "label": "MFE gt MAE share",
+            "precision": 3
+          },
+          {
+            "format": "number",
+            "key": "ci95_low",
+            "label": "ci95 low",
+            "precision": 3
+          },
+          {
+            "format": "number",
+            "key": "ci95_high",
+            "label": "ci95 high",
+            "precision": 3
+          }
+        ],
+        "description": "R3/S3, both sides, final evaluation 2024–2025. MAE/MFE and signed delta are in ATR14. Entry candle counts as bar 1; censoring preserves shorter horizons. The final download includes separate sides and the full core grid.",
+        "id": "horizons-gc",
+        "kind": "table",
+        "notes": [
+          "Blank cells are undefined; measured zero remains zero. Intervals are descriptive except the six primary contrasts."
+        ],
+        "referenceIds": [
+          "source-horizons"
+        ],
+        "rows": [
+          {
+            "MFE_gt_MAE_share": 0.5789473684,
+            "accepted": 114,
+            "ci95_high": 0.4248875913,
+            "ci95_low": -0.119821567,
+            "completed_N": 114,
+            "elapsed_minutes": 25,
+            "favorable_share": 0.5087719298,
+            "horizon": 5,
+            "mean_MAE": 1.007081388,
+            "mean_MFE": 1.25028612,
+            "mean_delta": 0.150475202,
+            "mode": "none"
+          },
+          {
+            "MFE_gt_MAE_share": 0.5438596491,
+            "accepted": 114,
+            "ci95_high": 0.5269097399,
+            "ci95_low": -0.1930620658,
+            "completed_N": 114,
+            "elapsed_minutes": 50,
+            "favorable_share": 0.5701754386,
+            "horizon": 10,
+            "mean_MAE": 1.473235756,
+            "mean_MFE": 1.692235817,
+            "mean_delta": 0.1690722922,
+            "mode": "none"
+          },
+          {
+            "MFE_gt_MAE_share": 0.5964912281,
+            "accepted": 114,
+            "ci95_high": 0.5768213829,
+            "ci95_low": -0.1748817997,
+            "completed_N": 114,
+            "elapsed_minutes": 75,
+            "favorable_share": 0.5964912281,
+            "horizon": 15,
+            "mean_MAE": 1.759437627,
+            "mean_MFE": 2.061402358,
+            "mean_delta": 0.2156594981,
+            "mode": "none"
+          },
+          {
+            "MFE_gt_MAE_share": 0.6140350877,
+            "accepted": 114,
+            "ci95_high": 0.6642744937,
+            "ci95_low": -0.3821218159,
+            "completed_N": 114,
+            "elapsed_minutes": 150,
+            "favorable_share": 0.5789473684,
+            "horizon": 30,
+            "mean_MAE": 2.281455876,
+            "mean_MFE": 2.535538199,
+            "mean_delta": 0.1479589637,
+            "mode": "none"
+          },
+          {
+            "MFE_gt_MAE_share": 0.5526315789,
+            "accepted": 114,
+            "ci95_high": 0.574158416,
+            "ci95_low": -0.9794062044,
+            "completed_N": 114,
+            "elapsed_minutes": 250,
+            "favorable_share": 0.5175438596,
+            "horizon": 50,
+            "mean_MAE": 2.779340208,
+            "mean_MFE": 2.809144942,
+            "mean_delta": -0.1660044475,
+            "mode": "none"
+          },
+          {
+            "MFE_gt_MAE_share": 0.675,
+            "accepted": 40,
+            "ci95_high": 1.0272425,
+            "ci95_low": 0.1891325294,
+            "completed_N": 40,
+            "elapsed_minutes": 25,
+            "favorable_share": 0.725,
+            "horizon": 5,
+            "mean_MAE": 0.7970441716,
+            "mean_MFE": 1.570957805,
+            "mean_delta": 0.6346687758,
+            "mode": "alignment"
+          },
+          {
+            "MFE_gt_MAE_share": 0.7,
+            "accepted": 40,
+            "ci95_high": 1.285704827,
+            "ci95_low": -0.2550260916,
+            "completed_N": 40,
+            "elapsed_minutes": 50,
+            "favorable_share": 0.7,
+            "horizon": 10,
+            "mean_MAE": 1.30548713,
+            "mean_MFE": 2.188327155,
+            "mean_delta": 0.6099366977,
+            "mode": "alignment"
+          },
+          {
+            "MFE_gt_MAE_share": 0.7,
+            "accepted": 40,
+            "ci95_high": 1.19672174,
+            "ci95_low": -0.3190307262,
+            "completed_N": 40,
+            "elapsed_minutes": 75,
+            "favorable_share": 0.675,
+            "horizon": 15,
+            "mean_MAE": 1.610101384,
+            "mean_MFE": 2.527895281,
+            "mean_delta": 0.5390292374,
+            "mode": "alignment"
+          },
+          {
+            "MFE_gt_MAE_share": 0.675,
+            "accepted": 40,
+            "ci95_high": 1.869884429,
+            "ci95_low": -0.01835272879,
+            "completed_N": 40,
+            "elapsed_minutes": 150,
+            "favorable_share": 0.65,
+            "horizon": 30,
+            "mean_MAE": 1.978935727,
+            "mean_MFE": 3.023693256,
+            "mean_delta": 0.9402525206,
+            "mode": "alignment"
+          },
+          {
+            "MFE_gt_MAE_share": 0.575,
+            "accepted": 40,
+            "ci95_high": 1.056568628,
+            "ci95_low": -0.8272534051,
+            "completed_N": 40,
+            "elapsed_minutes": 250,
+            "favorable_share": 0.525,
+            "horizon": 50,
+            "mean_MAE": 2.206742378,
+            "mean_MFE": 3.104025425,
+            "mean_delta": 0.1281266828,
+            "mode": "alignment"
+          }
+        ],
+        "title": "GC · T01 horizon paths"
+      },
+      {
+        "columns": [
+          {
+            "key": "pair",
+            "label": "pair"
+          },
+          {
+            "key": "mode",
+            "label": "mode"
+          },
+          {
+            "format": "number",
+            "key": "completed_N",
+            "label": "completed N",
+            "precision": 0
+          },
+          {
+            "format": "number",
+            "key": "sessions",
+            "label": "sessions",
+            "precision": 0
+          },
+          {
+            "format": "percent",
+            "key": "filter_acceptance",
+            "label": "filter acceptance",
+            "precision": 3
+          },
+          {
+            "format": "number",
+            "key": "mean_delta",
+            "label": "mean delta",
+            "precision": 3
+          },
+          {
+            "format": "number",
+            "key": "ci95_low",
+            "label": "ci95 low",
+            "precision": 3
+          },
+          {
+            "format": "number",
+            "key": "ci95_high",
+            "label": "ci95 high",
+            "precision": 3
+          },
+          {
+            "format": "percent",
+            "key": "favorable_share",
+            "label": "favorable share",
+            "precision": 3
+          },
+          {
+            "format": "number",
+            "key": "mae_median",
+            "label": "mae median",
+            "precision": 3
+          },
+          {
+            "format": "number",
+            "key": "mfe_median",
+            "label": "mfe median",
+            "precision": 3
+          },
+          {
+            "key": "sparse",
+            "label": "sparse"
+          }
+        ],
+        "description": "Fixed three-pair, four-mode comparison at 15 bars. Filtering changes the population; these conditional associations do not establish an EMA causal effect.",
+        "id": "confluence-gc",
+        "kind": "table",
+        "notes": [
+          "Blank cells are undefined; measured zero remains zero. Intervals are descriptive except the six primary contrasts."
+        ],
+        "referenceIds": [
+          "source-horizons"
+        ],
+        "rows": [
+          {
+            "ci95_high": 0.4087736355,
+            "ci95_low": -0.4645392672,
+            "completed_N": 145,
+            "favorable_share": 0.5310344828,
+            "filter_acceptance": 1,
+            "mae_median": 1.676181221,
+            "mean_delta": -0.05013640464,
+            "mfe_median": 1.708121031,
+            "mode": "none",
+            "pair": "2",
+            "sessions": 116,
+            "sparse": "false"
+          },
+          {
+            "ci95_high": 0.8521456886,
+            "ci95_low": 0.02003009243,
+            "completed_N": 65,
+            "favorable_share": 0.5384615385,
+            "filter_acceptance": 0.4482758621,
+            "mae_median": 1.676181221,
+            "mean_delta": 0.4323306755,
+            "mfe_median": 1.838880993,
+            "mode": "alignment",
+            "pair": "2",
+            "sessions": 54,
+            "sparse": "true"
+          },
+          {
+            "ci95_high": 1.214115582,
+            "ci95_low": -0.2398116596,
+            "completed_N": 66,
+            "favorable_share": 0.6212121212,
+            "filter_acceptance": 0.4551724138,
+            "mae_median": 1.384803472,
+            "mean_delta": 0.5034277993,
+            "mfe_median": 1.888220049,
+            "mode": "outside",
+            "pair": "2",
+            "sessions": 57,
+            "sparse": "true"
+          },
+          {
+            "ci95_high": 1.161310504,
+            "ci95_low": -0.1316507814,
+            "completed_N": 47,
+            "favorable_share": 0.5957446809,
+            "filter_acceptance": 0.324137931,
+            "mae_median": 1.264633953,
+            "mean_delta": 0.5495198808,
+            "mfe_median": 1.89549976,
+            "mode": "alignment_outside",
+            "pair": "2",
+            "sessions": 40,
+            "sparse": "true"
+          },
+          {
+            "ci95_high": 0.5768213829,
+            "ci95_low": -0.1748817997,
+            "completed_N": 114,
+            "favorable_share": 0.5964912281,
+            "filter_acceptance": 1,
+            "mae_median": 1.304872677,
+            "mean_delta": 0.2156594981,
+            "mfe_median": 1.663186882,
+            "mode": "none",
+            "pair": "3",
+            "sessions": 95,
+            "sparse": "false"
+          },
+          {
+            "ci95_high": 1.19672174,
+            "ci95_low": -0.3190307262,
+            "completed_N": 40,
+            "favorable_share": 0.675,
+            "filter_acceptance": 0.350877193,
+            "mae_median": 0.8025930314,
+            "mean_delta": 0.5390292374,
+            "mfe_median": 1.873359806,
+            "mode": "alignment",
+            "pair": "3",
+            "sessions": 32,
+            "sparse": "true"
+          },
+          {
+            "ci95_high": 1.149450688,
+            "ci95_low": 0.09259068772,
+            "completed_N": 44,
+            "favorable_share": 0.7272727273,
+            "filter_acceptance": 0.3859649123,
+            "mae_median": 0.8557795456,
+            "mean_delta": 0.5961644646,
+            "mfe_median": 2.212210185,
+            "mode": "outside",
+            "pair": "3",
+            "sessions": 38,
+            "sparse": "true"
+          },
+          {
+            "ci95_high": 1.268530336,
+            "ci95_low": -0.6246716444,
+            "completed_N": 25,
+            "favorable_share": 0.68,
+            "filter_acceptance": 0.2192982456,
+            "mae_median": 0.8155255952,
+            "mean_delta": 0.2922211106,
+            "mfe_median": 2.03057004,
+            "mode": "alignment_outside",
+            "pair": "3",
+            "sessions": 20,
+            "sparse": "true"
+          },
+          {
+            "ci95_high": 0.3809777448,
+            "ci95_low": -0.360787349,
+            "completed_N": 70,
+            "favorable_share": 0.4571428571,
+            "filter_acceptance": 1,
+            "mae_median": 1.524805275,
+            "mean_delta": -0.02949991324,
+            "mfe_median": 1.593124133,
+            "mode": "none",
+            "pair": "4",
+            "sessions": 59,
+            "sparse": "true"
+          },
+          {
+            "ci95_high": 1.640025136,
+            "ci95_low": -0.3825891682,
+            "completed_N": 12,
+            "favorable_share": 0.5833333333,
+            "filter_acceptance": 0.1714285714,
+            "mae_median": 1.143301095,
+            "mean_delta": 0.5340826911,
+            "mfe_median": 2.120183611,
+            "mode": "alignment",
+            "pair": "4",
+            "sessions": 12,
+            "sparse": "true"
+          },
+          {
+            "ci95_high": 0.9924311999,
+            "ci95_low": -0.5299911371,
+            "completed_N": 16,
+            "favorable_share": 0.5,
+            "filter_acceptance": 0.2285714286,
+            "mae_median": 0.8511341093,
+            "mean_delta": 0.211264478,
+            "mfe_median": 1.954101751,
+            "mode": "outside",
+            "pair": "4",
+            "sessions": 15,
+            "sparse": "true"
+          },
+          {
+            "ci95_high": 1.408618939,
+            "ci95_low": -0.3342052467,
+            "completed_N": 9,
+            "favorable_share": 0.6666666667,
+            "filter_acceptance": 0.1285714286,
+            "mae_median": 0.7806105558,
+            "mean_delta": 0.5488018016,
+            "mfe_median": 2.233327334,
+            "mode": "alignment_outside",
+            "pair": "4",
+            "sessions": 9,
+            "sparse": "true"
+          }
+        ],
+        "title": "GC · T01 level and cloud grid"
+      },
+      {
+        "columns": [
+          {
+            "key": "product",
+            "label": "product"
+          },
+          {
+            "format": "number",
+            "key": "completed_N",
+            "label": "completed N",
+            "precision": 0
+          },
+          {
+            "format": "number",
+            "key": "mae_median",
+            "label": "mae median",
+            "precision": 3
+          },
+          {
+            "format": "number",
+            "key": "mae_q75",
+            "label": "mae q75",
+            "precision": 3
+          },
+          {
+            "format": "number",
+            "key": "mae_q90",
+            "label": "mae q90",
+            "precision": 3
+          },
+          {
+            "format": "number",
+            "key": "mfe_median",
+            "label": "mfe median",
+            "precision": 3
+          },
+          {
+            "format": "number",
+            "key": "mfe_q75",
+            "label": "mfe q75",
+            "precision": 3
+          },
+          {
+            "format": "number",
+            "key": "mfe_q90",
+            "label": "mfe q90",
+            "precision": 3
+          },
+          {
+            "format": "percent",
+            "key": "favorable_share",
+            "label": "favorable share",
+            "precision": 3
+          },
+          {
+            "format": "percent",
+            "key": "literal_above_share",
+            "label": "literal above share",
+            "precision": 3
+          },
+          {
+            "format": "percent",
+            "key": "defended_share",
+            "label": "defended share",
+            "precision": 3
+          }
+        ],
+        "description": "R3/S3 alignment, 15 bars, both directions, 2024–2025. Excursions are magnitudes; close shares distinguish favorable, literal above entry and defended pivot side.",
+        "id": "quantiles",
+        "kind": "table",
+        "notes": [
+          "Blank cells are undefined; measured zero remains zero. Intervals are descriptive except the six primary contrasts."
+        ],
+        "referenceIds": [
+          "source-horizons"
+        ],
+        "rows": [
+          {
+            "completed_N": 49,
+            "defended_share": 0.6326530612,
+            "favorable_share": 0.5714285714,
+            "literal_above_share": 0.4081632653,
+            "mae_median": 1.669454619,
+            "mae_q75": 2.621824488,
+            "mae_q90": 4.415446232,
+            "mfe_median": 2.519384793,
+            "mfe_q75": 3.685336431,
+            "mfe_q90": 5.450185182,
+            "product": "ES"
+          },
+          {
+            "completed_N": 55,
+            "defended_share": 0.6,
+            "favorable_share": 0.4727272727,
+            "literal_above_share": 0.4727272727,
+            "mae_median": 2.182055267,
+            "mae_q75": 3.471303223,
+            "mae_q90": 4.9127912,
+            "mfe_median": 1.759333463,
+            "mfe_q75": 2.723843765,
+            "mfe_q90": 5.059693266,
+            "product": "NQ"
+          },
+          {
+            "completed_N": 40,
+            "defended_share": 0.725,
+            "favorable_share": 0.675,
+            "literal_above_share": 0.55,
+            "mae_median": 0.8025930314,
+            "mae_q75": 1.981011795,
+            "mae_q90": 3.561047356,
+            "mfe_median": 1.873359806,
+            "mfe_q75": 3.496774989,
+            "mfe_q90": 5.238243978,
+            "product": "GC"
+          }
+        ],
+        "title": "T01 · Excursion tails and close meanings"
+      },
+      {
+        "columns": [
+          {
+            "key": "week",
+            "label": "week"
+          },
+          {
+            "format": "number",
+            "key": "eligible_sessions",
+            "label": "eligible sessions",
+            "precision": 0
+          },
+          {
+            "format": "number",
+            "key": "accepted",
+            "label": "accepted",
+            "precision": 0
+          },
+          {
+            "format": "number",
+            "key": "completed_N",
+            "label": "completed N",
+            "precision": 0
+          },
+          {
+            "format": "percent",
+            "key": "favorable_share",
+            "label": "favorable share",
+            "precision": 3
+          },
+          {
+            "format": "number",
+            "key": "mean_delta",
+            "label": "mean delta",
+            "precision": 3
+          },
+          {
+            "format": "number",
+            "key": "censored_entered",
+            "label": "censored entered",
+            "precision": 3
+          },
+          {
+            "format": "number",
+            "key": "entry_cancelled",
+            "label": "entry cancelled",
+            "precision": 3
+          },
+          {
+            "key": "partial_week",
+            "label": "partial week"
+          }
+        ],
+        "description": "R3/S3 alignment, 15 bars. Fixed final 13 New York weeks, June 22–September 18, 2026, selected to fit the bundle budget. Zero-event eligible weeks remain. Full ES weekly history and event-weighted split TOTAL rows are selected for download; no subset TOTAL is implied here.",
+        "id": "weekly",
+        "kind": "table",
+        "notes": [
+          "Blank cells are undefined; measured zero remains zero. Intervals are descriptive except the six primary contrasts."
+        ],
+        "referenceIds": [
+          "source-weekly"
+        ],
+        "rows": [
+          {
+            "accepted": 0,
+            "censored_entered": 0,
+            "completed_N": 0,
+            "eligible_sessions": 4,
+            "entry_cancelled": 0,
+            "favorable_share": null,
+            "mean_delta": null,
+            "partial_week": "false",
+            "week": "2026-06-22"
+          },
+          {
+            "accepted": 0,
+            "censored_entered": 0,
+            "completed_N": 0,
+            "eligible_sessions": 4,
+            "entry_cancelled": 0,
+            "favorable_share": null,
+            "mean_delta": null,
+            "partial_week": "false",
+            "week": "2026-06-29"
+          },
+          {
+            "accepted": 0,
+            "censored_entered": 0,
+            "completed_N": 0,
+            "eligible_sessions": 4,
+            "entry_cancelled": 0,
+            "favorable_share": null,
+            "mean_delta": null,
+            "partial_week": "false",
+            "week": "2026-07-06"
+          },
+          {
+            "accepted": 1,
+            "censored_entered": 0,
+            "completed_N": 1,
+            "eligible_sessions": 5,
+            "entry_cancelled": 0,
+            "favorable_share": 0,
+            "mean_delta": -1.988824708,
+            "partial_week": "false",
+            "week": "2026-07-13"
+          },
+          {
+            "accepted": 0,
+            "censored_entered": 0,
+            "completed_N": 0,
+            "eligible_sessions": 5,
+            "entry_cancelled": 0,
+            "favorable_share": null,
+            "mean_delta": null,
+            "partial_week": "false",
+            "week": "2026-07-20"
+          },
+          {
+            "accepted": 1,
+            "censored_entered": 0,
+            "completed_N": 1,
+            "eligible_sessions": 5,
+            "entry_cancelled": 0,
+            "favorable_share": 1,
+            "mean_delta": 0.7451442015,
+            "partial_week": "false",
+            "week": "2026-07-27"
+          },
+          {
+            "accepted": 0,
+            "censored_entered": 0,
+            "completed_N": 0,
+            "eligible_sessions": 5,
+            "entry_cancelled": 0,
+            "favorable_share": null,
+            "mean_delta": null,
+            "partial_week": "false",
+            "week": "2026-08-03"
+          },
+          {
+            "accepted": 0,
+            "censored_entered": 0,
+            "completed_N": 0,
+            "eligible_sessions": 5,
+            "entry_cancelled": 0,
+            "favorable_share": null,
+            "mean_delta": null,
+            "partial_week": "false",
+            "week": "2026-08-10"
+          },
+          {
+            "accepted": 1,
+            "censored_entered": 0,
+            "completed_N": 1,
+            "eligible_sessions": 5,
+            "entry_cancelled": 0,
+            "favorable_share": 0,
+            "mean_delta": -1.895567482,
+            "partial_week": "false",
+            "week": "2026-08-17"
+          },
+          {
+            "accepted": 2,
+            "censored_entered": 0,
+            "completed_N": 2,
+            "eligible_sessions": 5,
+            "entry_cancelled": 0,
+            "favorable_share": 0,
+            "mean_delta": -1.610672956,
+            "partial_week": "false",
+            "week": "2026-08-24"
+          },
+          {
+            "accepted": 0,
+            "censored_entered": 0,
+            "completed_N": 0,
+            "eligible_sessions": 5,
+            "entry_cancelled": 0,
+            "favorable_share": null,
+            "mean_delta": null,
+            "partial_week": "false",
+            "week": "2026-08-31"
+          },
+          {
+            "accepted": 0,
+            "censored_entered": 0,
+            "completed_N": 0,
+            "eligible_sessions": 3,
+            "entry_cancelled": 0,
+            "favorable_share": null,
+            "mean_delta": null,
+            "partial_week": "false",
+            "week": "2026-09-07"
+          },
+          {
+            "accepted": 0,
+            "censored_entered": 0,
+            "completed_N": 0,
+            "eligible_sessions": 4,
+            "entry_cancelled": 0,
+            "favorable_share": null,
+            "mean_delta": null,
+            "partial_week": "false",
+            "week": "2026-09-14"
+          }
+        ],
+        "title": "T06 · ES final 13 replication weeks"
+      },
+      {
+        "columns": [
+          {
+            "key": "product",
+            "label": "product"
+          },
+          {
+            "format": "number",
+            "key": "year",
+            "label": "year",
+            "precision": 0
+          },
+          {
+            "key": "split",
+            "label": "split"
+          },
+          {
+            "format": "number",
+            "key": "completed_N",
+            "label": "completed N",
+            "precision": 0
+          },
+          {
+            "format": "number",
+            "key": "sessions",
+            "label": "sessions",
+            "precision": 0
+          },
+          {
+            "format": "number",
+            "key": "mean_delta",
+            "label": "mean delta",
+            "precision": 3
+          },
+          {
+            "format": "number",
+            "key": "ci95_low",
+            "label": "ci95 low",
+            "precision": 3
+          },
+          {
+            "format": "number",
+            "key": "ci95_high",
+            "label": "ci95 high",
+            "precision": 3
+          },
+          {
+            "format": "percent",
+            "key": "exclusion_share",
+            "label": "exclusion share",
+            "precision": 3
+          },
+          {
+            "key": "sparse",
+            "label": "sparse"
+          }
+        ],
+        "description": "15 bars, R3/S3 alignment. 2026 ends September 18. Earlier robustness is retained locally; NQ's earlier quality support is limited.",
+        "id": "annual",
+        "kind": "table",
+        "notes": [
+          "Blank cells are undefined; measured zero remains zero. Intervals are descriptive except the six primary contrasts."
+        ],
+        "referenceIds": [
+          "source-annual"
+        ],
+        "rows": [
+          {
+            "ci95_high": 1.883665806,
+            "ci95_low": -2.132361367,
+            "completed_N": 14,
+            "exclusion_share": 0.1724137931,
+            "mean_delta": -0.02009315586,
+            "product": "ES",
+            "sessions": 13,
+            "sparse": "true",
+            "split": "development",
+            "year": 2018
+          },
+          {
+            "ci95_high": 2.02502573,
+            "ci95_low": -0.9426439231,
+            "completed_N": 24,
+            "exclusion_share": 0.153256705,
+            "mean_delta": 0.6166268233,
+            "product": "ES",
+            "sessions": 17,
+            "sparse": "true",
+            "split": "development",
+            "year": 2019
+          },
+          {
+            "ci95_high": 1.991314075,
+            "ci95_low": -2.066955032,
+            "completed_N": 25,
+            "exclusion_share": 0.1641221374,
+            "mean_delta": -0.3051161568,
+            "product": "ES",
+            "sessions": 23,
+            "sparse": "true",
+            "split": "development",
+            "year": 2020
+          },
+          {
+            "ci95_high": 0.9062517272,
+            "ci95_low": -2.481320243,
+            "completed_N": 18,
+            "exclusion_share": 0.09578544061,
+            "mean_delta": -0.7154928173,
+            "product": "ES",
+            "sessions": 18,
+            "sparse": "true",
+            "split": "validation",
+            "year": 2021
+          },
+          {
+            "ci95_high": 3.050151311,
+            "ci95_low": -1.236322398,
+            "completed_N": 13,
+            "exclusion_share": 0.09615384615,
+            "mean_delta": 1.036866994,
+            "product": "ES",
+            "sessions": 11,
+            "sparse": "true",
+            "split": "validation",
+            "year": 2022
+          },
+          {
+            "ci95_high": 2.279977962,
+            "ci95_low": 0.5474260839,
+            "completed_N": 17,
+            "exclusion_share": 0.1038461538,
+            "mean_delta": 1.254743846,
+            "product": "ES",
+            "sessions": 14,
+            "sparse": "true",
+            "split": "validation",
+            "year": 2023
+          },
+          {
+            "ci95_high": 1.339975413,
+            "ci95_low": -1.084339764,
+            "completed_N": 17,
+            "exclusion_share": 0.106870229,
+            "mean_delta": -0.02932880088,
+            "product": "ES",
+            "sessions": 13,
+            "sparse": "true",
+            "split": "final_evaluation",
+            "year": 2024
+          },
+          {
+            "ci95_high": 1.605970018,
+            "ci95_low": -1.383562245,
+            "completed_N": 32,
+            "exclusion_share": 0.1302681992,
+            "mean_delta": 0.2316757425,
+            "product": "ES",
+            "sessions": 28,
+            "sparse": "true",
+            "split": "final_evaluation",
+            "year": 2025
+          },
+          {
+            "ci95_high": 0.8874971294,
+            "ci95_low": -0.7212577357,
+            "completed_N": 18,
+            "exclusion_share": 0.1229946524,
+            "mean_delta": 0.1257376044,
+            "product": "ES",
+            "sessions": 16,
+            "sparse": "true",
+            "split": "recent_replication",
+            "year": 2026
+          },
+          {
+            "ci95_high": 0.7532013148,
+            "ci95_low": -1.547313812,
+            "completed_N": 24,
+            "exclusion_share": 0.153256705,
+            "mean_delta": -0.3801191879,
+            "product": "NQ",
+            "sessions": 19,
+            "sparse": "true",
+            "split": "development",
+            "year": 2018
+          },
+          {
+            "ci95_high": 2.681922954,
+            "ci95_low": -1.232472909,
+            "completed_N": 18,
+            "exclusion_share": 0.1494252874,
+            "mean_delta": 0.5719637776,
+            "product": "NQ",
+            "sessions": 14,
+            "sparse": "true",
+            "split": "development",
+            "year": 2019
+          },
+          {
+            "ci95_high": 1.140152028,
+            "ci95_low": -3.414619347,
+            "completed_N": 24,
+            "exclusion_share": 0.1679389313,
+            "mean_delta": -0.9079606109,
+            "product": "NQ",
+            "sessions": 23,
+            "sparse": "true",
+            "split": "development",
+            "year": 2020
+          },
+          {
+            "ci95_high": -0.05718973743,
+            "ci95_low": -2.571095857,
+            "completed_N": 29,
+            "exclusion_share": 0.09578544061,
+            "mean_delta": -1.379669453,
+            "product": "NQ",
+            "sessions": 24,
+            "sparse": "true",
+            "split": "validation",
+            "year": 2021
+          },
+          {
+            "ci95_high": 2.037882168,
+            "ci95_low": -0.7166223638,
+            "completed_N": 19,
+            "exclusion_share": 0.09615384615,
+            "mean_delta": 0.8532800257,
+            "product": "NQ",
+            "sessions": 15,
+            "sparse": "true",
+            "split": "validation",
+            "year": 2022
+          },
+          {
+            "ci95_high": 1.88952339,
+            "ci95_low": -1.20120105,
+            "completed_N": 24,
+            "exclusion_share": 0.1,
+            "mean_delta": 0.3088601306,
+            "product": "NQ",
+            "sessions": 20,
+            "sparse": "true",
+            "split": "validation",
+            "year": 2023
+          },
+          {
+            "ci95_high": -0.1570686607,
+            "ci95_low": -2.141812098,
+            "completed_N": 32,
+            "exclusion_share": 0.1183206107,
+            "mean_delta": -1.096109211,
+            "product": "NQ",
+            "sessions": 29,
+            "sparse": "true",
+            "split": "final_evaluation",
+            "year": 2024
+          },
+          {
+            "ci95_high": 1.343510884,
+            "ci95_low": -0.8993403993,
+            "completed_N": 23,
+            "exclusion_share": 0.1340996169,
+            "mean_delta": 0.2407987681,
+            "product": "NQ",
+            "sessions": 18,
+            "sparse": "true",
+            "split": "final_evaluation",
+            "year": 2025
+          },
+          {
+            "ci95_high": 1.554958525,
+            "ci95_low": -0.8626628013,
+            "completed_N": 18,
+            "exclusion_share": 0.128342246,
+            "mean_delta": 0.3312331612,
+            "product": "NQ",
+            "sessions": 16,
+            "sparse": "true",
+            "split": "recent_replication",
+            "year": 2026
+          },
+          {
+            "ci95_high": 0.9539011034,
+            "ci95_low": -1.764075124,
+            "completed_N": 16,
+            "exclusion_share": 0.183908046,
+            "mean_delta": -0.3394510479,
+            "product": "GC",
+            "sessions": 13,
+            "sparse": "true",
+            "split": "development",
+            "year": 2018
+          },
+          {
+            "ci95_high": 1.212496448,
+            "ci95_low": -1.858335147,
+            "completed_N": 9,
+            "exclusion_share": 0.183908046,
+            "mean_delta": -0.2651779546,
+            "product": "GC",
+            "sessions": 9,
+            "sparse": "true",
+            "split": "development",
+            "year": 2019
+          },
+          {
+            "ci95_high": 0.6608624688,
+            "ci95_low": -2.185688695,
+            "completed_N": 15,
+            "exclusion_share": 0.1488549618,
+            "mean_delta": -0.9282515433,
+            "product": "GC",
+            "sessions": 15,
+            "sparse": "true",
+            "split": "development",
+            "year": 2020
+          },
+          {
+            "ci95_high": 2.080092402,
+            "ci95_low": 0.02047137167,
+            "completed_N": 17,
+            "exclusion_share": 0.1647509579,
+            "mean_delta": 1.040412722,
+            "product": "GC",
+            "sessions": 16,
+            "sparse": "true",
+            "split": "validation",
+            "year": 2021
+          },
+          {
+            "ci95_high": 1.266896298,
+            "ci95_low": -1.641506883,
+            "completed_N": 15,
+            "exclusion_share": 0.1346153846,
+            "mean_delta": -0.2538286342,
+            "product": "GC",
+            "sessions": 14,
+            "sparse": "true",
+            "split": "validation",
+            "year": 2022
+          },
+          {
+            "ci95_high": 1.257422948,
+            "ci95_low": -0.565555131,
+            "completed_N": 13,
+            "exclusion_share": 0.2269230769,
+            "mean_delta": 0.2672900314,
+            "product": "GC",
+            "sessions": 12,
+            "sparse": "true",
+            "split": "validation",
+            "year": 2023
+          },
+          {
+            "ci95_high": 0.3932333418,
+            "ci95_low": -2.302914406,
+            "completed_N": 14,
+            "exclusion_share": 0.1335877863,
+            "mean_delta": -1.020917784,
+            "product": "GC",
+            "sessions": 13,
+            "sparse": "true",
+            "split": "final_evaluation",
+            "year": 2024
+          },
+          {
+            "ci95_high": 1.75784593,
+            "ci95_low": 1.058582495,
+            "completed_N": 26,
+            "exclusion_share": 0.153256705,
+            "mean_delta": 1.379000711,
+            "product": "GC",
+            "sessions": 19,
+            "sparse": "true",
+            "split": "final_evaluation",
+            "year": 2025
+          },
+          {
+            "ci95_high": 3.745034885,
+            "ci95_low": -1.420437662,
+            "completed_N": 7,
+            "exclusion_share": 0.1818181818,
+            "mean_delta": 0.7455027439,
+            "product": "GC",
+            "sessions": 5,
+            "sparse": "true",
+            "split": "recent_replication",
+            "year": 2026
+          }
+        ],
+        "title": "T04 · Annual alignment stability"
+      },
+      {
+        "columns": [
+          {
+            "key": "product",
+            "label": "product"
+          },
+          {
+            "key": "mode",
+            "label": "mode"
+          },
+          {
+            "key": "order_assumption",
+            "label": "order assumption"
+          },
+          {
+            "format": "number",
+            "key": "eligible_sessions",
+            "label": "eligible sessions",
+            "precision": 0
+          },
+          {
+            "format": "number",
+            "key": "scorable_sessions",
+            "label": "scorable sessions",
+            "precision": 0
+          },
+          {
+            "format": "number",
+            "key": "entered_trades",
+            "label": "entered trades",
+            "precision": 0
+          },
+          {
+            "format": "number",
+            "key": "ambiguous_trades",
+            "label": "ambiguous trades",
+            "precision": 0
+          },
+          {
+            "format": "number",
+            "key": "unresolved_trades",
+            "label": "unresolved trades",
+            "precision": 0
+          },
+          {
+            "format": "number",
+            "key": "mean_net_R_per_session",
+            "label": "mean net R per session",
+            "precision": 3
+          },
+          {
+            "format": "number",
+            "key": "ci95_low",
+            "label": "ci95 low",
+            "precision": 3
+          },
+          {
+            "format": "number",
+            "key": "ci95_high",
+            "label": "ci95 high",
+            "precision": 3
+          },
+          {
+            "format": "number",
+            "key": "net_USD_resolved_trades",
+            "label": "net USD resolved trades",
+            "precision": 3
+          }
+        ],
+        "description": "3R, fees USD10, one adverse tick on entry/market/stop, one-tick limit trade-through, 16:00 observed open. Rows show complete stop-first and target-first replay assumptions; unknown price paths remain missing.",
+        "id": "policy",
+        "kind": "table",
+        "notes": [
+          "Blank cells are undefined; measured zero remains zero. Intervals are descriptive except the six primary contrasts."
+        ],
+        "referenceIds": [
+          "source-policy"
+        ],
+        "rows": [
+          {
+            "ambiguous_trades": 0,
+            "ci95_high": 0.09584805348,
+            "ci95_low": -0.1081499172,
+            "eligible_sessions": 461,
+            "entered_trades": 169,
+            "mean_net_R_per_session": -0.00936780072,
+            "mode": "none",
+            "net_USD_resolved_trades": -3652.5,
+            "order_assumption": "stop_first",
+            "product": "ES",
+            "scorable_sessions": 461,
+            "unresolved_trades": 0
+          },
+          {
+            "ambiguous_trades": 0,
+            "ci95_high": 0.09584805348,
+            "ci95_low": -0.1081499172,
+            "eligible_sessions": 461,
+            "entered_trades": 169,
+            "mean_net_R_per_session": -0.00936780072,
+            "mode": "none",
+            "net_USD_resolved_trades": -3652.5,
+            "order_assumption": "target_first",
+            "product": "ES",
+            "scorable_sessions": 461,
+            "unresolved_trades": 0
+          },
+          {
+            "ambiguous_trades": 0,
+            "ci95_high": 0.1077167542,
+            "ci95_low": -0.03969848003,
+            "eligible_sessions": 461,
+            "entered_trades": 49,
+            "mean_net_R_per_session": 0.03010955073,
+            "mode": "alignment",
+            "net_USD_resolved_trades": 6960,
+            "order_assumption": "stop_first",
+            "product": "ES",
+            "scorable_sessions": 461,
+            "unresolved_trades": 0
+          },
+          {
+            "ambiguous_trades": 0,
+            "ci95_high": 0.1077167542,
+            "ci95_low": -0.03969848003,
+            "eligible_sessions": 461,
+            "entered_trades": 49,
+            "mean_net_R_per_session": 0.03010955073,
+            "mode": "alignment",
+            "net_USD_resolved_trades": 6960,
+            "order_assumption": "target_first",
+            "product": "ES",
+            "scorable_sessions": 461,
+            "unresolved_trades": 0
+          },
+          {
+            "ambiguous_trades": 0,
+            "ci95_high": 0.15884185,
+            "ci95_low": -0.02443086244,
+            "eligible_sessions": 457,
+            "entered_trades": 179,
+            "mean_net_R_per_session": 0.0637416692,
+            "mode": "none",
+            "net_USD_resolved_trades": 29105,
+            "order_assumption": "stop_first",
+            "product": "NQ",
+            "scorable_sessions": 457,
+            "unresolved_trades": 0
+          },
+          {
+            "ambiguous_trades": 0,
+            "ci95_high": 0.15884185,
+            "ci95_low": -0.02443086244,
+            "eligible_sessions": 457,
+            "entered_trades": 179,
+            "mean_net_R_per_session": 0.0637416692,
+            "mode": "none",
+            "net_USD_resolved_trades": 29105,
+            "order_assumption": "target_first",
+            "product": "NQ",
+            "scorable_sessions": 457,
+            "unresolved_trades": 0
+          },
+          {
+            "ambiguous_trades": 0,
+            "ci95_high": 0.06123456814,
+            "ci95_low": -0.04649016521,
+            "eligible_sessions": 457,
+            "entered_trades": 54,
+            "mean_net_R_per_session": 0.006650738793,
+            "mode": "alignment",
+            "net_USD_resolved_trades": 3090,
+            "order_assumption": "stop_first",
+            "product": "NQ",
+            "scorable_sessions": 457,
+            "unresolved_trades": 0
+          },
+          {
+            "ambiguous_trades": 0,
+            "ci95_high": 0.06123456814,
+            "ci95_low": -0.04649016521,
+            "eligible_sessions": 457,
+            "entered_trades": 54,
+            "mean_net_R_per_session": 0.006650738793,
+            "mode": "alignment",
+            "net_USD_resolved_trades": 3090,
+            "order_assumption": "target_first",
+            "product": "NQ",
+            "scorable_sessions": 457,
+            "unresolved_trades": 0
+          },
+          {
+            "ambiguous_trades": 0,
+            "ci95_high": 0.1231705439,
+            "ci95_low": -0.03098567291,
+            "eligible_sessions": 448,
+            "entered_trades": 104,
+            "mean_net_R_per_session": 0.04258076481,
+            "mode": "none",
+            "net_USD_resolved_trades": 12680,
+            "order_assumption": "stop_first",
+            "product": "GC",
+            "scorable_sessions": 448,
+            "unresolved_trades": 0
+          },
+          {
+            "ambiguous_trades": 0,
+            "ci95_high": 0.1231705439,
+            "ci95_low": -0.03098567291,
+            "eligible_sessions": 448,
+            "entered_trades": 104,
+            "mean_net_R_per_session": 0.04258076481,
+            "mode": "none",
+            "net_USD_resolved_trades": 12680,
+            "order_assumption": "target_first",
+            "product": "GC",
+            "scorable_sessions": 448,
+            "unresolved_trades": 0
+          },
+          {
+            "ambiguous_trades": 0,
+            "ci95_high": 0.1216210695,
+            "ci95_low": -0.007862316285,
+            "eligible_sessions": 448,
+            "entered_trades": 38,
+            "mean_net_R_per_session": 0.05316271672,
+            "mode": "alignment",
+            "net_USD_resolved_trades": 15060,
+            "order_assumption": "stop_first",
+            "product": "GC",
+            "scorable_sessions": 448,
+            "unresolved_trades": 0
+          },
+          {
+            "ambiguous_trades": 0,
+            "ci95_high": 0.1216210695,
+            "ci95_low": -0.007862316285,
+            "eligible_sessions": 448,
+            "entered_trades": 38,
+            "mean_net_R_per_session": 0.05316271672,
+            "mode": "alignment",
+            "net_USD_resolved_trades": 15060,
+            "order_assumption": "target_first",
+            "product": "GC",
+            "scorable_sessions": 448,
+            "unresolved_trades": 0
+          }
+        ],
+        "title": "T03 · Reference assumed-cost trade policy"
+      },
+      {
+        "columns": [
+          {
+            "key": "product",
+            "label": "product"
+          },
+          {
+            "format": "number",
+            "key": "fee_USD",
+            "label": "fee USD",
+            "precision": 3
+          },
+          {
+            "format": "number",
+            "key": "slippage_ticks",
+            "label": "slippage ticks",
+            "precision": 3
+          },
+          {
+            "format": "number",
+            "key": "scorable_sessions",
+            "label": "scorable sessions",
+            "precision": 0
+          },
+          {
+            "format": "number",
+            "key": "entered_trades",
+            "label": "entered trades",
+            "precision": 0
+          },
+          {
+            "format": "number",
+            "key": "mean_net_R_per_session",
+            "label": "mean net R per session",
+            "precision": 3
+          },
+          {
+            "format": "number",
+            "key": "ci95_low",
+            "label": "ci95 low",
+            "precision": 3
+          },
+          {
+            "format": "number",
+            "key": "ci95_high",
+            "label": "ci95 high",
+            "precision": 3
+          },
+          {
+            "format": "number",
+            "key": "mean_net_R_per_trade",
+            "label": "mean net R per trade",
+            "precision": 3
+          },
+          {
+            "format": "number",
+            "key": "net_USD_resolved_trades",
+            "label": "net USD resolved trades",
+            "precision": 3
+          }
+        ],
+        "description": "Primary R3/S3 alignment, 2024–2025, stop-first. All nine scenarios per product. No-filter cost cells remain in the complete final-policy download and local T03; this fixed scope fits the source-byte budget. Zero slippage is diagnostic. Risk, target, fill and occupancy are replayed for each assumption; costs are assumed.",
+        "id": "costs",
+        "kind": "table",
+        "notes": [
+          "Blank cells are undefined; measured zero remains zero. Intervals are descriptive except the six primary contrasts."
+        ],
+        "referenceIds": [
+          "source-policy"
+        ],
+        "rows": [
+          {
+            "ci95_high": 0.1077167542,
+            "ci95_low": -0.03969848003,
+            "entered_trades": 49,
+            "fee_USD": 10,
+            "mean_net_R_per_session": 0.03010955073,
+            "mean_net_R_per_trade": 0.2832755692,
+            "net_USD_resolved_trades": 6960,
+            "product": "ES",
+            "scorable_sessions": 461,
+            "slippage_ticks": 1
+          },
+          {
+            "ci95_high": 0.1125483282,
+            "ci95_low": -0.03417005249,
+            "entered_trades": 49,
+            "fee_USD": 5,
+            "mean_net_R_per_session": 0.03521656676,
+            "mean_net_R_per_trade": 0.3313232098,
+            "net_USD_resolved_trades": 7430,
+            "product": "ES",
+            "scorable_sessions": 461,
+            "slippage_ticks": 0
+          },
+          {
+            "ci95_high": 0.1099018462,
+            "ci95_low": -0.03782535026,
+            "entered_trades": 49,
+            "fee_USD": 5,
+            "mean_net_R_per_session": 0.0321160029,
+            "mean_net_R_per_trade": 0.3021525987,
+            "net_USD_resolved_trades": 7205,
+            "product": "ES",
+            "scorable_sessions": 461,
+            "slippage_ticks": 1
+          },
+          {
+            "ci95_high": 0.1074728017,
+            "ci95_low": -0.04108592063,
+            "entered_trades": 49,
+            "fee_USD": 5,
+            "mean_net_R_per_session": 0.0293600396,
+            "mean_net_R_per_trade": 0.276224046,
+            "net_USD_resolved_trades": 6980,
+            "product": "ES",
+            "scorable_sessions": 461,
+            "slippage_ticks": 2
+          },
+          {
+            "ci95_high": 0.1102030693,
+            "ci95_low": -0.03619977396,
+            "entered_trades": 49,
+            "fee_USD": 10,
+            "mean_net_R_per_session": 0.03307041065,
+            "mean_net_R_per_trade": 0.3111318226,
+            "net_USD_resolved_trades": 7185,
+            "product": "ES",
+            "scorable_sessions": 461,
+            "slippage_ticks": 0
+          },
+          {
+            "ci95_high": 0.1052678438,
+            "ci95_low": -0.04280107754,
+            "entered_trades": 49,
+            "fee_USD": 10,
+            "mean_net_R_per_session": 0.0274723344,
+            "mean_net_R_per_trade": 0.2584642073,
+            "net_USD_resolved_trades": 6735,
+            "product": "ES",
+            "scorable_sessions": 461,
+            "slippage_ticks": 2
+          },
+          {
+            "ci95_high": 0.1076142587,
+            "ci95_low": -0.03804190683,
+            "entered_trades": 49,
+            "fee_USD": 15,
+            "mean_net_R_per_session": 0.03092425454,
+            "mean_net_R_per_trade": 0.2909404355,
+            "net_USD_resolved_trades": 6940,
+            "product": "ES",
+            "scorable_sessions": 461,
+            "slippage_ticks": 0
+          },
+          {
+            "ci95_high": 0.105202235,
+            "ci95_low": -0.04147558861,
+            "entered_trades": 49,
+            "fee_USD": 15,
+            "mean_net_R_per_session": 0.02810309857,
+            "mean_net_R_per_trade": 0.2643985396,
+            "net_USD_resolved_trades": 6715,
+            "product": "ES",
+            "scorable_sessions": 461,
+            "slippage_ticks": 1
+          },
+          {
+            "ci95_high": 0.1032038899,
+            "ci95_low": -0.0446706706,
+            "entered_trades": 49,
+            "fee_USD": 15,
+            "mean_net_R_per_session": 0.0255846292,
+            "mean_net_R_per_trade": 0.2407043686,
+            "net_USD_resolved_trades": 6490,
+            "product": "ES",
+            "scorable_sessions": 461,
+            "slippage_ticks": 2
+          },
+          {
+            "ci95_high": 0.06123456814,
+            "ci95_low": -0.04649016521,
+            "entered_trades": 54,
+            "fee_USD": 10,
+            "mean_net_R_per_session": 0.006650738793,
+            "mean_net_R_per_trade": 0.05628495608,
+            "net_USD_resolved_trades": 3090,
+            "product": "NQ",
+            "scorable_sessions": 457,
+            "slippage_ticks": 1
+          },
+          {
+            "ci95_high": 0.06309924291,
+            "ci95_low": -0.04404810107,
+            "entered_trades": 54,
+            "fee_USD": 5,
+            "mean_net_R_per_session": 0.008779511974,
+            "mean_net_R_per_trade": 0.07430068467,
+            "net_USD_resolved_trades": 3550,
+            "product": "NQ",
+            "scorable_sessions": 457,
+            "slippage_ticks": 0
+          },
+          {
+            "ci95_high": 0.06245701951,
+            "ci95_low": -0.04504133704,
+            "entered_trades": 54,
+            "fee_USD": 5,
+            "mean_net_R_per_session": 0.007885461836,
+            "mean_net_R_per_trade": 0.06673437146,
+            "net_USD_resolved_trades": 3360,
+            "product": "NQ",
+            "scorable_sessions": 457,
+            "slippage_ticks": 1
+          },
+          {
+            "ci95_high": 0.06172376757,
+            "ci95_low": -0.04621336494,
+            "entered_trades": 54,
+            "fee_USD": 5,
+            "mean_net_R_per_session": 0.007019926694,
+            "mean_net_R_per_trade": 0.05940937962,
+            "net_USD_resolved_trades": 3170,
+            "product": "NQ",
+            "scorable_sessions": 457,
+            "slippage_ticks": 2
+          },
+          {
+            "ci95_high": 0.06189647415,
+            "ci95_low": -0.04525096249,
+            "entered_trades": 54,
+            "fee_USD": 10,
+            "mean_net_R_per_session": 0.007523965949,
+            "mean_net_R_per_trade": 0.06367504516,
+            "net_USD_resolved_trades": 3280,
+            "product": "NQ",
+            "scorable_sessions": 457,
+            "slippage_ticks": 0
+          },
+          {
+            "ci95_high": 0.06051594509,
+            "ci95_low": -0.0474690241,
+            "entered_trades": 54,
+            "fee_USD": 10,
+            "mean_net_R_per_session": 0.005805021737,
+            "mean_net_R_per_trade": 0.04912768396,
+            "net_USD_resolved_trades": 2900,
+            "product": "NQ",
+            "scorable_sessions": 457,
+            "slippage_ticks": 2
+          },
+          {
+            "ci95_high": 0.06066929603,
+            "ci95_low": -0.04672294658,
+            "entered_trades": 54,
+            "fee_USD": 15,
+            "mean_net_R_per_session": 0.006268419924,
+            "mean_net_R_per_trade": 0.05304940565,
+            "net_USD_resolved_trades": 3010,
+            "product": "NQ",
+            "scorable_sessions": 457,
+            "slippage_ticks": 0
+          },
+          {
+            "ci95_high": 0.0599725833,
+            "ci95_low": -0.04777311612,
+            "entered_trades": 54,
+            "fee_USD": 15,
+            "mean_net_R_per_session": 0.005416015749,
+            "mean_net_R_per_trade": 0.04583554069,
+            "net_USD_resolved_trades": 2820,
+            "product": "NQ",
+            "scorable_sessions": 457,
+            "slippage_ticks": 1
+          },
+          {
+            "ci95_high": 0.05910966249,
+            "ci95_low": -0.04884529714,
+            "entered_trades": 54,
+            "fee_USD": 15,
+            "mean_net_R_per_session": 0.00459011678,
+            "mean_net_R_per_trade": 0.0388459883,
+            "net_USD_resolved_trades": 2630,
+            "product": "NQ",
+            "scorable_sessions": 457,
+            "slippage_ticks": 2
+          },
+          {
+            "ci95_high": 0.1216210695,
+            "ci95_low": -0.007862316285,
+            "entered_trades": 38,
+            "fee_USD": 10,
+            "mean_net_R_per_session": 0.05316271672,
+            "mean_net_R_per_trade": 0.6267604498,
+            "net_USD_resolved_trades": 15060,
+            "product": "GC",
+            "scorable_sessions": 448,
+            "slippage_ticks": 1
+          },
+          {
+            "ci95_high": 0.1249828299,
+            "ci95_low": -0.003312141405,
+            "entered_trades": 38,
+            "fee_USD": 5,
+            "mean_net_R_per_session": 0.05706921635,
+            "mean_net_R_per_trade": 0.6728160243,
+            "net_USD_resolved_trades": 15260,
+            "product": "GC",
+            "scorable_sessions": 448,
+            "slippage_ticks": 0
+          },
+          {
+            "ci95_high": 0.1230561192,
+            "ci95_low": -0.006216906125,
+            "entered_trades": 38,
+            "fee_USD": 5,
+            "mean_net_R_per_session": 0.05467163474,
+            "mean_net_R_per_trade": 0.6445497991,
+            "net_USD_resolved_trades": 15250,
+            "product": "GC",
+            "scorable_sessions": 448,
+            "slippage_ticks": 1
+          },
+          {
+            "ci95_high": 0.1148602131,
+            "ci95_low": -0.009660147795,
+            "entered_trades": 38,
+            "fee_USD": 5,
+            "mean_net_R_per_session": 0.04927503961,
+            "mean_net_R_per_trade": 0.5809267827,
+            "net_USD_resolved_trades": 14130,
+            "product": "GC",
+            "scorable_sessions": 448,
+            "slippage_ticks": 2
+          },
+          {
+            "ci95_high": 0.1234015118,
+            "ci95_low": -0.005077543147,
+            "entered_trades": 38,
+            "fee_USD": 10,
+            "mean_net_R_per_session": 0.05547180863,
+            "mean_net_R_per_trade": 0.653983428,
+            "net_USD_resolved_trades": 15070,
+            "product": "GC",
+            "scorable_sessions": 448,
+            "slippage_ticks": 0
+          },
+          {
+            "ci95_high": 0.1132615731,
+            "ci95_low": -0.0111977597,
+            "entered_trades": 38,
+            "fee_USD": 10,
+            "mean_net_R_per_session": 0.04784262769,
+            "mean_net_R_per_trade": 0.5640394002,
+            "net_USD_resolved_trades": 13940,
+            "product": "GC",
+            "scorable_sessions": 448,
+            "slippage_ticks": 2
+          },
+          {
+            "ci95_high": 0.1217854649,
+            "ci95_low": -0.006658213391,
+            "entered_trades": 38,
+            "fee_USD": 15,
+            "mean_net_R_per_session": 0.0538744009,
+            "mean_net_R_per_trade": 0.6351508317,
+            "net_USD_resolved_trades": 14880,
+            "product": "GC",
+            "scorable_sessions": 448,
+            "slippage_ticks": 0
+          },
+          {
+            "ci95_high": 0.1201135866,
+            "ci95_low": -0.009415937394,
+            "entered_trades": 38,
+            "fee_USD": 15,
+            "mean_net_R_per_session": 0.0516537987,
+            "mean_net_R_per_trade": 0.6089711005,
+            "net_USD_resolved_trades": 14870,
+            "product": "GC",
+            "scorable_sessions": 448,
+            "slippage_ticks": 1
+          },
+          {
+            "ci95_high": 0.1117616833,
+            "ci95_low": -0.01280487283,
+            "entered_trades": 38,
+            "fee_USD": 15,
+            "mean_net_R_per_session": 0.04641021578,
+            "mean_net_R_per_trade": 0.5471520177,
+            "net_USD_resolved_trades": 13750,
+            "product": "GC",
+            "scorable_sessions": 448,
+            "slippage_ticks": 2
+          }
+        ],
+        "title": "T03 · Nine alignment fee/slippage assumptions"
+      },
+      {
+        "columns": [
+          {
+            "key": "product",
+            "label": "product"
+          },
+          {
+            "key": "endpoint",
+            "label": "endpoint"
+          },
+          {
+            "format": "number",
+            "key": "estimate",
+            "label": "estimate",
+            "precision": 3
+          },
+          {
+            "format": "number",
+            "key": "ci95_low",
+            "label": "ci95 low",
+            "precision": 3
+          },
+          {
+            "format": "number",
+            "key": "ci95_high",
+            "label": "ci95 high",
+            "precision": 3
+          },
+          {
+            "format": "number",
+            "key": "family_low",
+            "label": "family low",
+            "precision": 3
+          },
+          {
+            "format": "number",
+            "key": "family_high",
+            "label": "family high",
+            "precision": 3
+          },
+          {
+            "format": "number",
+            "key": "N_none",
+            "label": "N none",
+            "precision": 3
+          },
+          {
+            "format": "number",
+            "key": "N_alignment",
+            "label": "N alignment",
+            "precision": 3
+          },
+          {
+            "format": "number",
+            "key": "paired_scorable_N",
+            "label": "paired scorable N",
+            "precision": 0
+          },
+          {
+            "format": "number",
+            "key": "support_blocks",
+            "label": "support blocks",
+            "precision": 0
+          },
+          {
+            "format": "number",
+            "key": "undefined_draws",
+            "label": "undefined draws",
+            "precision": 0
+          }
+        ],
+        "description": "Six R3/S3 alignment-minus-none contrasts: 15-bar signed delta in ATR for each product, and reference-cost 3R net R per paired scorable eligible session for each product. N_none/N_alignment count completed path events or eligible policy sessions; paired_scorable_N is the actual policy-contrast denominator and is undefined for paths. 10,000 paired four-week calendar-block resamples; seed 20261008. Pointwise intervals are 95%; familywise marginal intervals are 99.1667% (Bonferroni for six contrasts). T08 retains one/eight-week sensitivities. Other grid intervals are descriptive. Path contrasts change the population; policy contrasts pair the same session roster. No causal effect is asserted.",
+        "id": "primary-contrasts",
+        "kind": "table",
+        "notes": [
+          "Blank cells are undefined; measured zero remains zero. Intervals are descriptive except the six primary contrasts."
+        ],
+        "referenceIds": [
+          "source-primary-contrasts"
+        ],
+        "rows": [
+          {
+            "N_alignment": 49,
+            "N_none": 180,
+            "ci95_high": 0.9988669542,
+            "ci95_low": -0.7860002826,
+            "endpoint": "path_delta_ATR",
+            "estimate": 0.1206250189,
+            "family_high": 1.2990759,
+            "family_low": -1.133858885,
+            "paired_scorable_N": null,
+            "product": "ES",
+            "support_blocks": 20,
+            "undefined_draws": 0
+          },
+          {
+            "N_alignment": 461,
+            "N_none": 461,
+            "ci95_high": 0.1363632635,
+            "ci95_low": -0.05688089267,
+            "endpoint": "policy_net_R_per_session",
+            "estimate": 0.03947735145,
+            "family_high": 0.166188287,
+            "family_low": -0.0866991721,
+            "paired_scorable_N": 461,
+            "product": "ES",
+            "support_blocks": 27,
+            "undefined_draws": 0
+          },
+          {
+            "N_alignment": 55,
+            "N_none": 191,
+            "ci95_high": -0.2636655206,
+            "ci95_low": -2.040845847,
+            "endpoint": "path_delta_ATR",
+            "estimate": -1.073191584,
+            "family_high": -0.01465856101,
+            "family_low": -2.406497632,
+            "paired_scorable_N": null,
+            "product": "NQ",
+            "support_blocks": 21,
+            "undefined_draws": 0
+          },
+          {
+            "N_alignment": 457,
+            "N_none": 457,
+            "ci95_high": 0.02013292771,
+            "ci95_low": -0.136741532,
+            "endpoint": "policy_net_R_per_session",
+            "estimate": -0.0570909304,
+            "family_high": 0.04727120013,
+            "family_low": -0.1630825271,
+            "paired_scorable_N": 457,
+            "product": "NQ",
+            "support_blocks": 27,
+            "undefined_draws": 0
+          },
+          {
+            "N_alignment": 40,
+            "N_none": 114,
+            "ci95_high": 0.9397320718,
+            "ci95_low": -0.4311285162,
+            "endpoint": "path_delta_ATR",
+            "estimate": 0.3233697392,
+            "family_high": 1.128850649,
+            "family_low": -0.7439822938,
+            "paired_scorable_N": null,
+            "product": "GC",
+            "support_blocks": 19,
+            "undefined_draws": 0
+          },
+          {
+            "N_alignment": 448,
+            "N_none": 448,
+            "ci95_high": 0.05338839082,
+            "ci95_low": -0.03557614678,
+            "endpoint": "policy_net_R_per_session",
+            "estimate": 0.01058195191,
+            "family_high": 0.06783451063,
+            "family_low": -0.05312960531,
+            "paired_scorable_N": 448,
+            "product": "GC",
+            "support_blocks": 27,
+            "undefined_draws": 0
+          }
+        ],
+        "title": "T08 · Six primary contrasts"
+      },
+      {
+        "columns": [
+          {
+            "key": "product",
+            "label": "product"
+          },
+          {
+            "key": "extension",
+            "label": "extension"
+          },
+          {
+            "format": "number",
+            "key": "completed_N",
+            "label": "completed N",
+            "precision": 0
+          },
+          {
+            "format": "number",
+            "key": "sessions",
+            "label": "sessions",
+            "precision": 0
+          },
+          {
+            "format": "number",
+            "key": "mean_delta",
+            "label": "mean delta",
+            "precision": 3
+          },
+          {
+            "format": "number",
+            "key": "ci95_low",
+            "label": "ci95 low",
+            "precision": 3
+          },
+          {
+            "format": "number",
+            "key": "ci95_high",
+            "label": "ci95 high",
+            "precision": 3
+          },
+          {
+            "key": "sparse",
+            "label": "sparse"
+          }
+        ],
+        "description": "Nine fixed one-change R3/S3 alignment diagnostics per product at 15 bars. Negative and sparse cells remain. Location controls, R4 continuation and alternate sessions remain in the complete local T02; corresponding policies and all latency/touch/secondary exits are in the final-policy download. Display scope follows byte budgets, with no best combination selected.",
+        "id": "controls",
+        "kind": "table",
+        "notes": [
+          "Blank cells are undefined; measured zero remains zero. Intervals are descriptive except the six primary contrasts."
+        ],
+        "referenceIds": [
+          "source-extensions"
+        ],
+        "rows": [
+          {
+            "ci95_high": 1.809111157,
+            "ci95_low": -0.5104803226,
+            "completed_N": 36,
+            "extension": "slope",
+            "mean_delta": 0.6932162391,
+            "product": "ES",
+            "sessions": 29,
+            "sparse": "true"
+          },
+          {
+            "ci95_high": 1.172550553,
+            "ci95_low": -1.229449814,
+            "completed_N": 32,
+            "extension": "wick",
+            "mean_delta": -0.05635540488,
+            "product": "ES",
+            "sessions": 28,
+            "sparse": "true"
+          },
+          {
+            "ci95_high": 1.494448236,
+            "ci95_low": -1.03833413,
+            "completed_N": 37,
+            "extension": "rvol",
+            "mean_delta": 0.3823462969,
+            "product": "ES",
+            "sessions": 31,
+            "sparse": "true"
+          },
+          {
+            "ci95_high": 1.768601324,
+            "ci95_low": -3.43169015,
+            "completed_N": 8,
+            "extension": "approach_half_atr",
+            "mean_delta": -0.6414531256,
+            "product": "ES",
+            "sessions": 8,
+            "sparse": "true"
+          },
+          {
+            "ci95_high": 1.156652505,
+            "ci95_low": -0.7747981629,
+            "completed_N": 50,
+            "extension": "tolerance",
+            "mean_delta": 0.208658972,
+            "product": "ES",
+            "sessions": 43,
+            "sparse": "true"
+          },
+          {
+            "ci95_high": 1.55673859,
+            "ci95_low": -0.9626427193,
+            "completed_N": 39,
+            "extension": "cooldown",
+            "mean_delta": 0.3129069038,
+            "product": "ES",
+            "sessions": 39,
+            "sparse": "true"
+          },
+          {
+            "ci95_high": 0.7863839264,
+            "ci95_low": -1.734037834,
+            "completed_N": 36,
+            "extension": "strict",
+            "mean_delta": -0.4555042117,
+            "product": "ES",
+            "sessions": 29,
+            "sparse": "true"
+          },
+          {
+            "ci95_high": 1.172573413,
+            "ci95_low": -0.9065126875,
+            "completed_N": 49,
+            "extension": "warm500",
+            "mean_delta": 0.1411231458,
+            "product": "ES",
+            "sessions": 41,
+            "sparse": "true"
+          },
+          {
+            "ci95_high": 1.172573413,
+            "ci95_low": -0.9065126875,
+            "completed_N": 49,
+            "extension": "rollbuffer",
+            "mean_delta": 0.1411231458,
+            "product": "ES",
+            "sessions": 41,
+            "sparse": "true"
+          },
+          {
+            "ci95_high": 0.4059158728,
+            "ci95_low": -1.289191878,
+            "completed_N": 33,
+            "extension": "slope",
+            "mean_delta": -0.4521440781,
+            "product": "NQ",
+            "sessions": 30,
+            "sparse": "true"
+          },
+          {
+            "ci95_high": -0.07581150521,
+            "ci95_low": -2.565460357,
+            "completed_N": 26,
+            "extension": "wick",
+            "mean_delta": -1.297863631,
+            "product": "NQ",
+            "sessions": 23,
+            "sparse": "true"
+          },
+          {
+            "ci95_high": 0.59596068,
+            "ci95_low": -1.153035478,
+            "completed_N": 41,
+            "extension": "rvol",
+            "mean_delta": -0.3064180996,
+            "product": "NQ",
+            "sessions": 37,
+            "sparse": "true"
+          },
+          {
+            "ci95_high": -0.5267072657,
+            "ci95_low": -6.619341451,
+            "completed_N": 7,
+            "extension": "approach_half_atr",
+            "mean_delta": -2.476067228,
+            "product": "NQ",
+            "sessions": 6,
+            "sparse": "true"
+          },
+          {
+            "ci95_high": 0.1116558048,
+            "ci95_low": -1.228190039,
+            "completed_N": 55,
+            "extension": "tolerance",
+            "mean_delta": -0.547340938,
+            "product": "NQ",
+            "sessions": 47,
+            "sparse": "true"
+          },
+          {
+            "ci95_high": 0.17467017,
+            "ci95_low": -1.631329168,
+            "completed_N": 47,
+            "extension": "cooldown",
+            "mean_delta": -0.7391878685,
+            "product": "NQ",
+            "sessions": 43,
+            "sparse": "true"
+          },
+          {
+            "ci95_high": 0.311679427,
+            "ci95_low": -1.261787761,
+            "completed_N": 44,
+            "extension": "strict",
+            "mean_delta": -0.5172090711,
+            "product": "NQ",
+            "sessions": 39,
+            "sparse": "true"
+          },
+          {
+            "ci95_high": 0.2041731311,
+            "ci95_low": -1.281869822,
+            "completed_N": 55,
+            "extension": "warm500",
+            "mean_delta": -0.5370386015,
+            "product": "NQ",
+            "sessions": 47,
+            "sparse": "true"
+          },
+          {
+            "ci95_high": 0.2041731311,
+            "ci95_low": -1.281869822,
+            "completed_N": 55,
+            "extension": "rollbuffer",
+            "mean_delta": -0.5370386015,
+            "product": "NQ",
+            "sessions": 47,
+            "sparse": "true"
+          },
+          {
+            "ci95_high": 0.9948264522,
+            "ci95_low": -0.8516421976,
+            "completed_N": 27,
+            "extension": "slope",
+            "mean_delta": 0.1527843975,
+            "product": "GC",
+            "sessions": 21,
+            "sparse": "true"
+          },
+          {
+            "ci95_high": 2.000268352,
+            "ci95_low": -0.2481669572,
+            "completed_N": 26,
+            "extension": "wick",
+            "mean_delta": 0.9103617268,
+            "product": "GC",
+            "sessions": 22,
+            "sparse": "true"
+          },
+          {
+            "ci95_high": 1.502033082,
+            "ci95_low": -0.6878259346,
+            "completed_N": 22,
+            "extension": "rvol",
+            "mean_delta": 0.4650599073,
+            "product": "GC",
+            "sessions": 20,
+            "sparse": "true"
+          },
+          {
+            "ci95_high": 5.440672276,
+            "ci95_low": -2.831776834,
+            "completed_N": 5,
+            "extension": "approach_half_atr",
+            "mean_delta": 0.7239006931,
+            "product": "GC",
+            "sessions": 5,
+            "sparse": "true"
+          },
+          {
+            "ci95_high": 1.199369823,
+            "ci95_low": -0.1939476308,
+            "completed_N": 43,
+            "extension": "tolerance",
+            "mean_delta": 0.5830201386,
+            "product": "GC",
+            "sessions": 35,
+            "sparse": "true"
+          },
+          {
+            "ci95_high": 1.428616221,
+            "ci95_low": -0.3523621713,
+            "completed_N": 36,
+            "extension": "cooldown",
+            "mean_delta": 0.5756487789,
+            "product": "GC",
+            "sessions": 34,
+            "sparse": "true"
+          },
+          {
+            "ci95_high": 4.439735183,
+            "ci95_low": 0.2602648256,
+            "completed_N": 11,
+            "extension": "strict",
+            "mean_delta": 1.771547385,
+            "product": "GC",
+            "sessions": 10,
+            "sparse": "true"
+          },
+          {
+            "ci95_high": 1.19672174,
+            "ci95_low": -0.3190307262,
+            "completed_N": 40,
+            "extension": "warm500",
+            "mean_delta": 0.5390292374,
+            "product": "GC",
+            "sessions": 32,
+            "sparse": "true"
+          },
+          {
+            "ci95_high": 1.19672174,
+            "ci95_low": -0.3190307262,
+            "completed_N": 40,
+            "extension": "rollbuffer",
+            "mean_delta": 0.5390292374,
+            "product": "GC",
+            "sessions": 32,
+            "sparse": "true"
+          }
+        ],
+        "title": "T02 · R3/S3 one-change diagnostics"
+      },
+      {
+        "alt": "F01 · Horizon curves generated from saved numerical evidence",
+        "caption": "Final evaluation 2024–2025 unless annual panel; fixed definitions and saved table IDs appear on the figure.",
+        "id": "figure-horizons",
+        "kind": "figure",
+        "path": "figures/horizons.png",
+        "title": "F01 · Horizon curves"
+      },
+      {
+        "alt": "F02 · Levels and cloud generated from saved numerical evidence",
+        "caption": "Final evaluation 2024–2025 unless annual panel; fixed definitions and saved table IDs appear on the figure.",
+        "id": "figure-cloud-grid",
+        "kind": "figure",
+        "path": "figures/cloud_grid.png",
+        "title": "F02 · Levels and cloud"
+      },
+      {
+        "alt": "F03 · Joint excursions generated from saved numerical evidence",
+        "caption": "Final evaluation 2024–2025 unless annual panel; fixed definitions and saved table IDs appear on the figure.",
+        "id": "figure-joint-excursions",
+        "kind": "figure",
+        "path": "figures/joint_excursions.png",
+        "title": "F03 · Joint excursions"
+      },
+      {
+        "alt": "F04 · First threshold ordering generated from saved numerical evidence",
+        "caption": "Final evaluation 2024–2025 unless annual panel; fixed definitions and saved table IDs appear on the figure.",
+        "id": "figure-threshold-ordering",
+        "kind": "figure",
+        "path": "figures/threshold_ordering.png",
+        "title": "F04 · First threshold ordering"
+      },
+      {
+        "alt": "F05 · Annual stability generated from saved numerical evidence",
+        "caption": "Final evaluation 2024–2025 unless annual panel; fixed definitions and saved table IDs appear on the figure.",
+        "id": "figure-annual-stability",
+        "kind": "figure",
+        "path": "figures/annual_stability.png",
+        "title": "F05 · Annual stability"
+      },
+      {
+        "alt": "F06 · Assumed-cost policy generated from saved numerical evidence",
+        "caption": "Final evaluation 2024–2025 unless annual panel; fixed definitions and saved table IDs appear on the figure.",
+        "id": "figure-policy-costs",
+        "kind": "figure",
+        "path": "figures/policy_costs.png",
+        "title": "F06 · Assumed-cost policy"
+      },
+      {
+        "body": "These are historical conditional associations and assumed-fill simulations, not certified point-in-time or prospective execution results. The retained map has no original mapping arrival timestamps; annual holiday schedules are modeled from a pinned conservative rule set, not individually certified. CME notices support the two historical regular-session changes. Source-condition exclusions are retrospective. Last-trade HLC is not settlement. Modeled bar availability at completion assumes immediate action; the separately reported one-minute delay tests that assumption. Missing no-trade minutes cannot be distinguished from feed loss. Costs of USD 10 plus one adverse tick are assumptions, with USD 5/10/15 and 0/1/2 ticks separately reported. NQ early robustness is particularly sparse. ES and NQ are correlated; stand-alone policy outcomes are never added into a portfolio. MFE and MAE are path statistics and do not establish achievable profitability. Final evaluation was held out from this protocol's development, while prior repository research and 2026 ES chart acceptance exposure are disclosed.\n\nDaily21, settlement parity, VWAP gating and 100-bar overnight behavior require independent inputs or an explicit overnight policy. Hosted deployment is a separate authorized step.",
+        "id": "limitations",
+        "kind": "text",
+        "title": "Interpretation and material limits"
+      },
+      {
+        "body": "Run 20261008T220932Z_cb2711; protocol 0.3.0-executed.2. Original draft preserved. Partition hashes, calendar arithmetic, mapping boundaries and five-minute aggregation/lineage verified before scoring. Numerical tests passed before scoring. Full local Markdown/offline HTML, input lock, environment/code identities, private ledger locators and checksums accompany the immutable source run. Public content contains selected summary cells and six figures, never raw vendor bars or private event ledgers.",
+        "id": "provenance",
+        "kind": "text",
+        "title": "Frozen evidence and reproducibility"
+      }
+    ],
+    "source": {
+      "producer": "sahadeva",
+      "runId": "20261008T220932Z_cb2711"
+    },
+    "summary": "Historical ES NQ GC rejection paths, cloud comparisons and a separate assumed-cost 3R policy. Final evaluation 2024–2025 with distinct development, validation, recent replication and earlier robustness; input and execution limitations remain explicit.",
+    "title": "Camarilla reversals and the EMA20/50 cloud"
+  }
+}

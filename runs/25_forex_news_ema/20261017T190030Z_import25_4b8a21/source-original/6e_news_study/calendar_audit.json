@@ -1,0 +1,3181 @@
+{
+  "schema_version": 1,
+  "event_count": 4904,
+  "unique_ids": 4904,
+  "actual_timestamp_min": "2024-10-17T09:00:00.000Z",
+  "actual_timestamp_max": "2026-10-16T22:00:00.000Z",
+  "invalid_timestamp_ids": [],
+  "events_after_date_to": [],
+  "importance_counts": {
+    "0": 3992,
+    "1": 912
+  },
+  "country_counts": {
+    "EU": 653,
+    "IT": 273,
+    "US": 2927,
+    "ES": 216,
+    "DE": 533,
+    "FR": 302
+  },
+  "null_actual_count": 1387,
+  "null_pmi_count": 442,
+  "null_actual_interpretation": "Null actual is not proof of a future/scheduled event. PMI historical values are absent under S&P licensing (explicit in source comments). Speeches, press conferences, minutes and meetings have no numerical actual by design. 13 null rows occur in otherwise numerical title series; retain event timing but do not use them for surprise regressions.",
+  "null_rows_in_otherwise_numerical_title_series": [
+    {
+      "id": "388446",
+      "date": "2025-12-18T13:30:00.000Z",
+      "country": "US",
+      "title": "Inflation Rate MoM",
+      "period": "Nov",
+      "actual": null,
+      "forecast": 0.3,
+      "previous": null
+    },
+    {
+      "id": "388447",
+      "date": "2025-12-18T13:30:00.000Z",
+      "country": "US",
+      "title": "Core Inflation Rate MoM",
+      "period": "Nov",
+      "actual": null,
+      "forecast": 0.3,
+      "previous": null
+    },
+    {
+      "id": "389171",
+      "date": "2025-12-29T13:30:00.000Z",
+      "country": "US",
+      "title": "Retail Inventories Ex Autos MoM Adv",
+      "period": "Nov",
+      "actual": null,
+      "forecast": null,
+      "previous": null
+    },
+    {
+      "id": "389173",
+      "date": "2025-12-29T13:30:00.000Z",
+      "country": "US",
+      "title": "Wholesale Inventories MoM Adv",
+      "period": "Nov",
+      "actual": null,
+      "forecast": null,
+      "previous": null
+    },
+    {
+      "id": "389172",
+      "date": "2025-12-29T13:30:00.000Z",
+      "country": "US",
+      "title": "Goods Trade Balance Adv",
+      "period": "Nov",
+      "actual": null,
+      "forecast": null,
+      "previous": null
+    },
+    {
+      "id": "388573",
+      "date": "2026-01-15T13:30:00.000Z",
+      "country": "US",
+      "title": "Export Prices MoM",
+      "period": "Nov",
+      "actual": null,
+      "forecast": 0.2,
+      "previous": null
+    },
+    {
+      "id": "387118",
+      "date": "2026-01-15T13:30:00.000Z",
+      "country": "US",
+      "title": "Export Prices MoM",
+      "period": "Oct",
+      "actual": null,
+      "forecast": null,
+      "previous": 0
+    },
+    {
+      "id": "388575",
+      "date": "2026-01-15T13:30:00.000Z",
+      "country": "US",
+      "title": "Import Prices MoM",
+      "period": "Nov",
+      "actual": null,
+      "forecast": -0.1,
+      "previous": null
+    },
+    {
+      "id": "387111",
+      "date": "2026-01-15T13:30:00.000Z",
+      "country": "US",
+      "title": "Import Prices MoM",
+      "period": "Oct",
+      "actual": null,
+      "forecast": null,
+      "previous": 0
+    },
+    {
+      "id": "398270",
+      "date": "2026-02-27T13:30:00.000Z",
+      "country": "US",
+      "title": "Retail Inventories Ex Autos MoM Adv",
+      "period": "Jan",
+      "actual": null,
+      "forecast": null,
+      "previous": 0.4
+    },
+    {
+      "id": "397996",
+      "date": "2026-02-27T13:30:00.000Z",
+      "country": "US",
+      "title": "Wholesale Inventories MoM Adv",
+      "period": "Jan",
+      "actual": null,
+      "forecast": null,
+      "previous": null
+    },
+    {
+      "id": "398994",
+      "date": "2026-03-27T12:30:00.000Z",
+      "country": "US",
+      "title": "Wholesale Inventories MoM Adv",
+      "period": "Feb",
+      "actual": null,
+      "forecast": null,
+      "previous": null
+    },
+    {
+      "id": "398740",
+      "date": "2026-03-27T12:30:00.000Z",
+      "country": "US",
+      "title": "Retail Inventories Ex Autos MoM Adv",
+      "period": "Feb",
+      "actual": null,
+      "forecast": null,
+      "previous": null
+    }
+  ],
+  "duplicate_country_title_timestamp_different_periods": [
+    {
+      "country": "US",
+      "title": "Net Long-term TIC Flows",
+      "date": "2025-11-18T21:00:00.000Z",
+      "ids": [
+        "387208",
+        "385793"
+      ],
+      "periods": [
+        "Sep",
+        "Aug"
+      ]
+    },
+    {
+      "country": "US",
+      "title": "Initial Jobless Claims",
+      "date": "2025-11-20T13:30:00.000Z",
+      "ids": [
+        "371028",
+        "370929",
+        "371114",
+        "371190",
+        "371241",
+        "371282",
+        "370988"
+      ],
+      "periods": [
+        "Oct/11",
+        "Sep/27",
+        "Oct/25",
+        "Nov/01",
+        "Nov/08",
+        "Nov/15",
+        "Oct/04"
+      ]
+    },
+    {
+      "country": "US",
+      "title": "JOLTs Job Openings",
+      "date": "2025-12-09T15:00:00.000Z",
+      "ids": [
+        "386114",
+        "388025"
+      ],
+      "periods": [
+        "Sep",
+        "Oct"
+      ]
+    },
+    {
+      "country": "US",
+      "title": "Average Hourly Earnings MoM",
+      "date": "2025-12-16T13:30:00.000Z",
+      "ids": [
+        "371208",
+        "371423"
+      ],
+      "periods": [
+        "Oct",
+        "Nov"
+      ]
+    },
+    {
+      "country": "US",
+      "title": "Average Hourly Earnings YoY",
+      "date": "2025-12-16T13:30:00.000Z",
+      "ids": [
+        "371210",
+        "371421"
+      ],
+      "periods": [
+        "Oct",
+        "Nov"
+      ]
+    },
+    {
+      "country": "US",
+      "title": "Non Farm Payrolls",
+      "date": "2025-12-16T13:30:00.000Z",
+      "ids": [
+        "371203",
+        "371418"
+      ],
+      "periods": [
+        "Oct",
+        "Nov"
+      ]
+    },
+    {
+      "country": "US",
+      "title": "Industrial Production MoM",
+      "date": "2025-12-23T14:15:00.000Z",
+      "ids": [
+        "387127",
+        "388773"
+      ],
+      "periods": [
+        "Oct",
+        "Nov"
+      ]
+    },
+    {
+      "country": "US",
+      "title": "MBA 30-Year Mortgage Rate",
+      "date": "2026-01-07T12:00:00.000Z",
+      "ids": [
+        "394741",
+        "371559"
+      ],
+      "periods": [
+        "Jan/02",
+        "Dec/26"
+      ]
+    },
+    {
+      "country": "US",
+      "title": "Building Permits MoM Prel",
+      "date": "2026-01-09T13:30:00.000Z",
+      "ids": [
+        "385775",
+        "387245"
+      ],
+      "periods": [
+        "Sep",
+        "Oct"
+      ]
+    },
+    {
+      "country": "US",
+      "title": "Housing Starts MoM",
+      "date": "2026-01-09T13:30:00.000Z",
+      "ids": [
+        "385764",
+        "387246"
+      ],
+      "periods": [
+        "Sep",
+        "Oct"
+      ]
+    },
+    {
+      "country": "US",
+      "title": "Building Permits Prel",
+      "date": "2026-01-09T13:30:00.000Z",
+      "ids": [
+        "385762",
+        "387243"
+      ],
+      "periods": [
+        "Sep",
+        "Oct"
+      ]
+    },
+    {
+      "country": "US",
+      "title": "Housing Starts",
+      "date": "2026-01-09T13:30:00.000Z",
+      "ids": [
+        "385773",
+        "387244"
+      ],
+      "periods": [
+        "Sep",
+        "Oct"
+      ]
+    },
+    {
+      "country": "US",
+      "title": "New Home Sales",
+      "date": "2026-01-13T15:00:00.000Z",
+      "ids": [
+        "386027",
+        "387548"
+      ],
+      "periods": [
+        "Sep",
+        "Oct"
+      ]
+    },
+    {
+      "country": "US",
+      "title": "New Home Sales MoM",
+      "date": "2026-01-13T15:00:00.000Z",
+      "ids": [
+        "387546",
+        "386026"
+      ],
+      "periods": [
+        "Oct",
+        "Sep"
+      ]
+    },
+    {
+      "country": "US",
+      "title": "Core PPI MoM",
+      "date": "2026-01-14T13:30:00.000Z",
+      "ids": [
+        "388578",
+        "387121"
+      ],
+      "periods": [
+        "Nov",
+        "Oct"
+      ]
+    },
+    {
+      "country": "US",
+      "title": "PPI MoM",
+      "date": "2026-01-14T13:30:00.000Z",
+      "ids": [
+        "387124",
+        "388574"
+      ],
+      "periods": [
+        "Oct",
+        "Nov"
+      ]
+    },
+    {
+      "country": "US",
+      "title": "Export Prices MoM",
+      "date": "2026-01-15T13:30:00.000Z",
+      "ids": [
+        "388573",
+        "387118"
+      ],
+      "periods": [
+        "Nov",
+        "Oct"
+      ]
+    },
+    {
+      "country": "US",
+      "title": "Import Prices MoM",
+      "date": "2026-01-15T13:30:00.000Z",
+      "ids": [
+        "388575",
+        "387111"
+      ],
+      "periods": [
+        "Nov",
+        "Oct"
+      ]
+    },
+    {
+      "country": "US",
+      "title": "Personal Spending MoM",
+      "date": "2026-01-22T15:00:00.000Z",
+      "ids": [
+        "388951",
+        "387590"
+      ],
+      "periods": [
+        "Nov",
+        "Oct"
+      ]
+    },
+    {
+      "country": "US",
+      "title": "Core PCE Price Index MoM",
+      "date": "2026-01-22T15:00:00.000Z",
+      "ids": [
+        "388946",
+        "387584"
+      ],
+      "periods": [
+        "Nov",
+        "Oct"
+      ]
+    },
+    {
+      "country": "US",
+      "title": "Personal Income MoM",
+      "date": "2026-01-22T15:00:00.000Z",
+      "ids": [
+        "387591",
+        "388950"
+      ],
+      "periods": [
+        "Oct",
+        "Nov"
+      ]
+    },
+    {
+      "country": "US",
+      "title": "PCE Price Index YoY",
+      "date": "2026-01-22T15:00:00.000Z",
+      "ids": [
+        "387588",
+        "388949"
+      ],
+      "periods": [
+        "Oct",
+        "Nov"
+      ]
+    },
+    {
+      "country": "US",
+      "title": "PCE Price Index MoM",
+      "date": "2026-01-22T15:00:00.000Z",
+      "ids": [
+        "387586",
+        "388948"
+      ],
+      "periods": [
+        "Oct",
+        "Nov"
+      ]
+    },
+    {
+      "country": "US",
+      "title": "Chicago Fed National Activity Index",
+      "date": "2026-01-26T13:30:00.000Z",
+      "ids": [
+        "387511",
+        "389073"
+      ],
+      "periods": [
+        "Oct",
+        "Nov"
+      ]
+    },
+    {
+      "country": "US",
+      "title": "Building Permits Prel",
+      "date": "2026-02-18T13:30:00.000Z",
+      "ids": [
+        "398287",
+        "388823"
+      ],
+      "periods": [
+        "Dec",
+        "Nov"
+      ]
+    },
+    {
+      "country": "US",
+      "title": "Housing Starts MoM",
+      "date": "2026-02-18T13:30:00.000Z",
+      "ids": [
+        "388821",
+        "397934"
+      ],
+      "periods": [
+        "Nov",
+        "Dec"
+      ]
+    },
+    {
+      "country": "US",
+      "title": "Building Permits MoM Prel",
+      "date": "2026-02-18T13:30:00.000Z",
+      "ids": [
+        "388822",
+        "399170"
+      ],
+      "periods": [
+        "Nov",
+        "Dec"
+      ]
+    },
+    {
+      "country": "US",
+      "title": "Housing Starts",
+      "date": "2026-02-18T13:30:00.000Z",
+      "ids": [
+        "388824",
+        "398285"
+      ],
+      "periods": [
+        "Nov",
+        "Dec"
+      ]
+    },
+    {
+      "country": "US",
+      "title": "New Home Sales MoM",
+      "date": "2026-02-20T15:00:00.000Z",
+      "ids": [
+        "399090",
+        "389107"
+      ],
+      "periods": [
+        "Dec",
+        "Nov"
+      ]
+    },
+    {
+      "country": "US",
+      "title": "New Home Sales",
+      "date": "2026-02-20T15:00:00.000Z",
+      "ids": [
+        "398260",
+        "389108"
+      ],
+      "periods": [
+        "Dec",
+        "Nov"
+      ]
+    },
+    {
+      "country": "US",
+      "title": "Chicago Fed National Activity Index",
+      "date": "2026-02-23T13:30:00.000Z",
+      "ids": [
+        "398368",
+        "398067"
+      ],
+      "periods": [
+        "Dec",
+        "Jan"
+      ]
+    },
+    {
+      "country": "US",
+      "title": "Building Permits MoM Prel",
+      "date": "2026-04-29T12:30:00.000Z",
+      "ids": [
+        "398481",
+        "398313"
+      ],
+      "periods": [
+        "Mar",
+        "Feb"
+      ]
+    },
+    {
+      "country": "US",
+      "title": "Housing Starts",
+      "date": "2026-04-29T12:30:00.000Z",
+      "ids": [
+        "399116",
+        "398122"
+      ],
+      "periods": [
+        "Mar",
+        "Feb"
+      ]
+    },
+    {
+      "country": "US",
+      "title": "Building Permits Prel",
+      "date": "2026-04-29T12:30:00.000Z",
+      "ids": [
+        "398992",
+        "398119"
+      ],
+      "periods": [
+        "Mar",
+        "Feb"
+      ]
+    },
+    {
+      "country": "US",
+      "title": "Housing Starts MoM",
+      "date": "2026-04-29T12:30:00.000Z",
+      "ids": [
+        "398769",
+        "398425"
+      ],
+      "periods": [
+        "Feb",
+        "Mar"
+      ]
+    },
+    {
+      "country": "US",
+      "title": "New Home Sales",
+      "date": "2026-05-05T14:00:00.000Z",
+      "ids": [
+        "398957",
+        "398063"
+      ],
+      "periods": [
+        "Mar",
+        "Feb"
+      ]
+    },
+    {
+      "country": "US",
+      "title": "New Home Sales MoM",
+      "date": "2026-05-05T14:00:00.000Z",
+      "ids": [
+        "398848",
+        "398541"
+      ],
+      "periods": [
+        "Feb",
+        "Mar"
+      ]
+    },
+    {
+      "country": "EU",
+      "title": "New Car Registrations YoY",
+      "date": "2026-09-24T04:00:00.000Z",
+      "ids": [
+        "405536",
+        "404737"
+      ],
+      "periods": [
+        "Jul",
+        "Aug"
+      ]
+    }
+  ],
+  "clock_checks": {
+    "US: Non Farm Payrolls": {
+      "local_zone": "America/New_York",
+      "local_times": {
+        "08:30": 24
+      }
+    },
+    "US: Inflation Rate YoY": {
+      "local_zone": "America/New_York",
+      "local_times": {
+        "08:30": 23
+      }
+    },
+    "US: Fed Interest Rate Decision": {
+      "local_zone": "America/New_York",
+      "local_times": {
+        "14:00": 16
+      }
+    },
+    "US: Fed Press Conference": {
+      "local_zone": "America/New_York",
+      "local_times": {
+        "14:30": 16
+      }
+    },
+    "EU: ECB Interest Rate Decision": {
+      "local_zone": "Europe/Berlin",
+      "local_times": {
+        "14:15": 16
+      }
+    },
+    "EU: ECB Press Conference": {
+      "local_zone": "Europe/Berlin",
+      "local_times": {
+        "14:45": 16
+      }
+    }
+  },
+  "timestamp_audit_conclusion": "One verified canceled GDP schedule row386239 is excluded. All other primary US CPI/NFP/PCE/GDP release dates match official BLS/BEA sources. No malformed/out-of-window timestamps. UTC offsets correctly preserve US08:30 data releases, FOMC14:00/14:30 New York and ECB14:15/14:45 Berlin, with DST. Other event timestamps received sanity checks, not exhaustive official reconciliation.",
+  "coverage_caveats": [
+    "The API request used min_importance=0, so this is a medium/high-importance calendar, not an exhaustive census of economic releases. Calendar ratings and title-specific coverage may change over time.",
+    "US S&P final manufacturing/services/composite PMI appear only 5 times per series over this two-year window. Eurozone final CPI only 5; Germany final CPI 4 per series; EU/DE/FR final PMI also sparse. Their absence for other months does not mean no release occurred.",
+    "US CPI package is 23 timestamps (not 24). The source includes November 2025 CPI on 2025-12-18, but no October 2025 reference-period CPI observation. Do not manufacture or interpolate a missing release.",
+    "US employment report has 24 NFP rows but only 23 release timestamps: October and November 2025 reference months share 2025-12-16 13:30 UTC. Participation/unemployment rows are fewer than NFP. Count the combined date once.",
+    "US PCE package has 24 reference-period releases but only 23 distinct timestamps because October and November 2025 observations share 2026-01-22 15:00 UTC. No Core PCE YoY row is present in this filtered source; Core PCE MoM exists throughout.",
+    "US GDP id386239 is a stale canceled October 30, 2025 advance-release schedule despite actual4.3. Exclude it. Official BEA verifies December 23, 2025 initial GDP release (GDP and deflator ids387585/387579), assigned to us_gdp_advance with stage initial_shutdown_delay. This releases replaces the advance and second estimates; the January 22, 2026 updated estimate replaces the final estimate.",
+    "ECB staff projection rows are listed at a separate later timestamp than the press conference (four rows only). They remain a separate category and are not silently reassigned to the rate-decision timestamp.",
+    "Speeches and multi-day conferences have heterogeneous agendas; scheduled time may differ from market-moving remarks. Auctions, energy inventories, political events and other meetings are retained in distinct non-core categories."
+  ],
+  "official_spot_check_sources": [
+    {
+      "url": "https://www.ecb.europa.eu/press/press_conference/monetary-policy-statement/html/index.cs.html",
+      "supports": "ECB press conference 14:45 CET/local Frankfurt convention."
+    },
+    {
+      "url": "https://www.ecb.europa.eu/press/press_conference/monetary-policy-statement/2024/html/ecb.is241212~ce143b3bc8.en.html",
+      "supports": "December 12, 2024 monetary-policy press conference and contemporaneous discussion of forecasts."
+    },
+    {
+      "url": "https://www.ecb.europa.eu/press/projections/html/all-releases.en.html",
+      "supports": "Historical ECB projection dates; only four standalone projection rows in filtered data is incomplete calendar coverage."
+    },
+    {
+      "url": "https://www.bls.gov/bls/2025-lapse-revised-release-dates.htm",
+      "supports": "BLS revised dates and cancellations during 2025/2026 shutdowns."
+    },
+    {
+      "url": "https://www.bls.gov/bls/news-release/empsit.htm",
+      "supports": "Actual Employment Situation release archive including canceled October 2025 release."
+    },
+    {
+      "url": "https://www.bls.gov/bls/news-release/cpi.htm",
+      "supports": "Actual CPI release archive including canceled October 2025 release."
+    },
+    {
+      "url": "https://www.bea.gov/news/schedule/full",
+      "supports": "All listed 2026 GDP/PCE dates and times."
+    },
+    {
+      "url": "https://www.bea.gov/news/2025/gross-domestic-product-3rd-quarter-2025-initial-estimate-and-corporate-profits",
+      "supports": "December 23 initial GDP publication replacing canceled October 30/November 26 GDP releases."
+    },
+    {
+      "url": "https://www.bea.gov/news/2025/personal-income-and-outlays-september-2025",
+      "supports": "September 2025 PCE released December 5 at 10:00 New York."
+    },
+    {
+      "url": "https://www.bea.gov/news/2026/personal-income-and-outlays-october-and-november-2025",
+      "supports": "Combined October/November PCE released January 22 at 10:00 New York."
+    },
+    {
+      "url": "https://www.bea.gov/news/blog/2026-01-07/economic-release-schedule-updates-gdp-personal-income-and-outlays",
+      "supports": "Official GDP/PCE rescheduling and combined release explanation."
+    }
+  ],
+  "primary_period": {
+    "date_from_inclusive": "2025-10-17",
+    "date_to_exclusive": "2026-10-17",
+    "event_rows": 2422,
+    "excluded_ids": [
+      "386239"
+    ],
+    "category_counts": [
+      {
+        "category": "de_cpi_final",
+        "label": "Germany consumer inflation (final)",
+        "release_timestamps": 0
+      },
+      {
+        "category": "de_cpi_preliminary",
+        "label": "Germany consumer inflation (preliminary)",
+        "release_timestamps": 12
+      },
+      {
+        "category": "de_factory_orders",
+        "label": "Germany factory orders",
+        "release_timestamps": 12
+      },
+      {
+        "category": "de_gdp_final",
+        "label": "Germany GDP package (final)",
+        "release_timestamps": 0
+      },
+      {
+        "category": "de_gdp_flash",
+        "label": "Germany GDP package (flash)",
+        "release_timestamps": 4
+      },
+      {
+        "category": "de_gfk",
+        "label": "Germany GfK consumer confidence",
+        "release_timestamps": 12
+      },
+      {
+        "category": "de_ifo",
+        "label": "Germany Ifo business climate",
+        "release_timestamps": 12
+      },
+      {
+        "category": "de_industrial_production",
+        "label": "Germany industrial production",
+        "release_timestamps": 12
+      },
+      {
+        "category": "de_retail_sales",
+        "label": "Germany retail sales package",
+        "release_timestamps": 12
+      },
+      {
+        "category": "de_sp_pmi_final",
+        "label": "Germany S&P / HCOB PMI package (final)",
+        "release_timestamps": 0
+      },
+      {
+        "category": "de_sp_pmi_flash",
+        "label": "Germany S&P / HCOB PMI package (flash)",
+        "release_timestamps": 12
+      },
+      {
+        "category": "de_zew",
+        "label": "Germany ZEW economic sentiment",
+        "release_timestamps": 11
+      },
+      {
+        "category": "es_gdp_final",
+        "label": "Spain GDP package (final)",
+        "release_timestamps": 0
+      },
+      {
+        "category": "es_gdp_flash",
+        "label": "Spain GDP package (flash)",
+        "release_timestamps": 4
+      },
+      {
+        "category": "eu_consumer_confidence_final",
+        "label": "Eurozone consumer confidence (final)",
+        "release_timestamps": 0
+      },
+      {
+        "category": "eu_consumer_confidence_flash",
+        "label": "Eurozone consumer confidence (flash)",
+        "release_timestamps": 12
+      },
+      {
+        "category": "eu_cpi_final",
+        "label": "Eurozone consumer inflation (final)",
+        "release_timestamps": 0
+      },
+      {
+        "category": "eu_cpi_flash",
+        "label": "Eurozone consumer inflation (flash)",
+        "release_timestamps": 12
+      },
+      {
+        "category": "eu_ecb_accounts",
+        "label": "ECB monetary-policy meeting accounts",
+        "release_timestamps": 8
+      },
+      {
+        "category": "eu_ecb_decision",
+        "label": "ECB interest-rate decision package",
+        "release_timestamps": 8
+      },
+      {
+        "category": "eu_ecb_president_speech",
+        "label": "ECB president speech",
+        "release_timestamps": 61
+      },
+      {
+        "category": "eu_ecb_press_conference",
+        "label": "ECB post-decision press conference",
+        "release_timestamps": 8
+      },
+      {
+        "category": "eu_economic_sentiment",
+        "label": "Eurozone economic sentiment",
+        "release_timestamps": 12
+      },
+      {
+        "category": "eu_gdp_flash",
+        "label": "Eurozone GDP package (flash)",
+        "release_timestamps": 4
+      },
+      {
+        "category": "eu_gdp_second_estimate",
+        "label": "Eurozone GDP package (second estimate)",
+        "release_timestamps": 0
+      },
+      {
+        "category": "eu_gdp_third_estimate",
+        "label": "Eurozone GDP package (third estimate)",
+        "release_timestamps": 0
+      },
+      {
+        "category": "eu_industrial_production",
+        "label": "Eurozone industrial production",
+        "release_timestamps": 12
+      },
+      {
+        "category": "eu_negotiated_wages",
+        "label": "Eurozone negotiated wage growth",
+        "release_timestamps": 4
+      },
+      {
+        "category": "eu_retail_sales",
+        "label": "Eurozone retail sales package",
+        "release_timestamps": 12
+      },
+      {
+        "category": "eu_sp_pmi_final",
+        "label": "Eurozone S&P / HCOB PMI package (final)",
+        "release_timestamps": 0
+      },
+      {
+        "category": "eu_sp_pmi_flash",
+        "label": "Eurozone S&P / HCOB PMI package (flash)",
+        "release_timestamps": 12
+      },
+      {
+        "category": "eu_zew",
+        "label": "Eurozone ZEW economic sentiment",
+        "release_timestamps": 11
+      },
+      {
+        "category": "fr_gdp_final",
+        "label": "France GDP package (final)",
+        "release_timestamps": 0
+      },
+      {
+        "category": "fr_gdp_preliminary",
+        "label": "France GDP package (preliminary)",
+        "release_timestamps": 4
+      },
+      {
+        "category": "fr_industrial_production",
+        "label": "France industrial production",
+        "release_timestamps": 12
+      },
+      {
+        "category": "fr_sp_pmi_final",
+        "label": "France S&P / HCOB PMI package (final)",
+        "release_timestamps": 0
+      },
+      {
+        "category": "fr_sp_pmi_flash",
+        "label": "France S&P / HCOB PMI package (flash)",
+        "release_timestamps": 12
+      },
+      {
+        "category": "it_gdp_advance",
+        "label": "Italy GDP package (advance)",
+        "release_timestamps": 4
+      },
+      {
+        "category": "it_gdp_final",
+        "label": "Italy GDP package (final)",
+        "release_timestamps": 0
+      },
+      {
+        "category": "it_industrial_production",
+        "label": "Italy industrial production",
+        "release_timestamps": 12
+      },
+      {
+        "category": "it_retail_sales",
+        "label": "Italy retail sales package",
+        "release_timestamps": 12
+      },
+      {
+        "category": "us_adp_monthly",
+        "label": "US ADP employment change (monthly)",
+        "release_timestamps": 12
+      },
+      {
+        "category": "us_chicago_pmi",
+        "label": "US Chicago PMI",
+        "release_timestamps": 12
+      },
+      {
+        "category": "us_consumer_confidence",
+        "label": "US Conference Board consumer confidence",
+        "release_timestamps": 12
+      },
+      {
+        "category": "us_cpi",
+        "label": "US CPI / core CPI package",
+        "release_timestamps": 12
+      },
+      {
+        "category": "us_empire_state",
+        "label": "US NY Empire State manufacturing survey",
+        "release_timestamps": 12
+      },
+      {
+        "category": "us_employment_cost",
+        "label": "US employment cost index package",
+        "release_timestamps": 4
+      },
+      {
+        "category": "us_employment_report",
+        "label": "US employment report (NFP / unemployment / earnings)",
+        "release_timestamps": 12
+      },
+      {
+        "category": "us_fed_chair_speech",
+        "label": "US Fed chair speech",
+        "release_timestamps": 6
+      },
+      {
+        "category": "us_fed_chair_testimony",
+        "label": "US Fed chair testimony",
+        "release_timestamps": 2
+      },
+      {
+        "category": "us_fomc_decision",
+        "label": "US FOMC rate decision / projections package",
+        "release_timestamps": 8
+      },
+      {
+        "category": "us_fomc_minutes",
+        "label": "US FOMC minutes",
+        "release_timestamps": 8
+      },
+      {
+        "category": "us_fomc_press_conference",
+        "label": "US Fed chair post-FOMC press conference",
+        "release_timestamps": 8
+      },
+      {
+        "category": "us_gdp_advance",
+        "label": "US GDP package (advance / initial)",
+        "release_timestamps": 4
+      },
+      {
+        "category": "us_gdp_final",
+        "label": "US GDP package (final)",
+        "release_timestamps": 4
+      },
+      {
+        "category": "us_gdp_second_estimate",
+        "label": "US GDP package (second estimate)",
+        "release_timestamps": 3
+      },
+      {
+        "category": "us_industrial_production",
+        "label": "US industrial production",
+        "release_timestamps": 12
+      },
+      {
+        "category": "us_initial_claims",
+        "label": "US initial jobless claims",
+        "release_timestamps": 49
+      },
+      {
+        "category": "us_ism_manufacturing",
+        "label": "US ISM manufacturing package",
+        "release_timestamps": 12
+      },
+      {
+        "category": "us_ism_services",
+        "label": "US ISM services PMI",
+        "release_timestamps": 12
+      },
+      {
+        "category": "us_jolts",
+        "label": "US JOLTS job openings",
+        "release_timestamps": 11
+      },
+      {
+        "category": "us_michigan_final",
+        "label": "US University of Michigan consumer sentiment (final)",
+        "release_timestamps": 12
+      },
+      {
+        "category": "us_michigan_preliminary",
+        "label": "US University of Michigan consumer sentiment (preliminary)",
+        "release_timestamps": 12
+      },
+      {
+        "category": "us_nfp_annual_revision",
+        "label": "US nonfarm-payroll annual benchmark revision",
+        "release_timestamps": 1
+      },
+      {
+        "category": "us_pce",
+        "label": "US PCE inflation / personal income and spending package",
+        "release_timestamps": 11
+      },
+      {
+        "category": "us_philly_fed",
+        "label": "US Philadelphia Fed manufacturing survey",
+        "release_timestamps": 12
+      },
+      {
+        "category": "us_ppi",
+        "label": "US PPI / core PPI package",
+        "release_timestamps": 12
+      },
+      {
+        "category": "us_retail_sales",
+        "label": "US retail sales package",
+        "release_timestamps": 13
+      },
+      {
+        "category": "us_sp_pmi_final",
+        "label": "US S&P / HCOB PMI package (final)",
+        "release_timestamps": 0
+      },
+      {
+        "category": "us_sp_pmi_flash",
+        "label": "US S&P / HCOB PMI package (flash)",
+        "release_timestamps": 12
+      }
+    ]
+  },
+  "verified_canceled_schedule_artifacts": [
+    {
+      "id": "386239",
+      "raw_date": "2025-10-30T12:30:00.000Z",
+      "title": "GDP Growth Rate QoQ Adv",
+      "action": "exclude",
+      "real_initial_release_date": "2025-12-23T13:30:00.000Z",
+      "official_source": "https://www.bea.gov/news/2025/gross-domestic-product-3rd-quarter-2025-initial-estimate-and-corporate-profits"
+    }
+  ],
+  "core_category_counts": [
+    {
+      "category": "de_cpi_final",
+      "label": "Germany consumer inflation (final)",
+      "event_rows": 8,
+      "release_timestamps": 4,
+      "dates": [
+        "2024-11-12T07:00:00.000Z",
+        "2024-12-10T07:00:00.000Z",
+        "2025-01-16T07:00:00.000Z",
+        "2025-02-13T07:00:00.000Z"
+      ]
+    },
+    {
+      "category": "de_cpi_preliminary",
+      "label": "Germany consumer inflation (preliminary)",
+      "event_rows": 48,
+      "release_timestamps": 24,
+      "dates": [
+        "2024-10-30T13:00:00.000Z",
+        "2024-11-28T13:00:00.000Z",
+        "2025-01-06T13:00:00.000Z",
+        "2025-01-31T13:00:00.000Z",
+        "2025-02-28T13:00:00.000Z",
+        "2025-03-31T12:00:00.000Z",
+        "2025-04-30T12:00:00.000Z",
+        "2025-05-30T12:00:00.000Z",
+        "2025-06-30T12:00:00.000Z",
+        "2025-07-31T12:00:00.000Z",
+        "2025-08-29T12:00:00.000Z",
+        "2025-09-30T12:00:00.000Z",
+        "2025-10-30T13:00:00.000Z",
+        "2025-11-28T13:00:00.000Z",
+        "2026-01-06T13:00:00.000Z",
+        "2026-01-30T13:00:00.000Z",
+        "2026-02-27T13:00:00.000Z",
+        "2026-03-30T12:00:00.000Z",
+        "2026-04-29T12:00:00.000Z",
+        "2026-05-29T12:00:00.000Z",
+        "2026-06-30T12:00:00.000Z",
+        "2026-07-30T12:00:00.000Z",
+        "2026-08-31T12:00:00.000Z",
+        "2026-09-30T12:00:00.000Z"
+      ]
+    },
+    {
+      "category": "de_factory_orders",
+      "label": "Germany factory orders",
+      "event_rows": 24,
+      "release_timestamps": 24,
+      "dates": [
+        "2024-11-06T07:00:00.000Z",
+        "2024-12-05T07:00:00.000Z",
+        "2025-01-08T07:00:00.000Z",
+        "2025-02-06T07:00:00.000Z",
+        "2025-03-07T07:00:00.000Z",
+        "2025-04-04T06:00:00.000Z",
+        "2025-05-07T06:00:00.000Z",
+        "2025-06-05T06:00:00.000Z",
+        "2025-07-04T06:00:00.000Z",
+        "2025-08-06T06:00:00.000Z",
+        "2025-09-05T06:00:00.000Z",
+        "2025-10-07T06:00:00.000Z",
+        "2025-11-05T07:00:00.000Z",
+        "2025-12-05T07:00:00.000Z",
+        "2026-01-08T07:00:00.000Z",
+        "2026-02-05T07:00:00.000Z",
+        "2026-03-09T07:00:00.000Z",
+        "2026-04-08T06:00:00.000Z",
+        "2026-05-07T06:00:00.000Z",
+        "2026-06-08T06:00:00.000Z",
+        "2026-07-06T06:00:00.000Z",
+        "2026-08-06T06:00:00.000Z",
+        "2026-09-04T06:00:00.000Z",
+        "2026-10-06T06:00:00.000Z"
+      ]
+    },
+    {
+      "category": "de_gdp_final",
+      "label": "Germany GDP package (final)",
+      "event_rows": 4,
+      "release_timestamps": 2,
+      "dates": [
+        "2024-11-22T07:00:00.000Z",
+        "2025-02-25T07:00:00.000Z"
+      ]
+    },
+    {
+      "category": "de_gdp_flash",
+      "label": "Germany GDP package (flash)",
+      "event_rows": 16,
+      "release_timestamps": 8,
+      "dates": [
+        "2024-10-30T09:00:00.000Z",
+        "2025-01-30T09:00:00.000Z",
+        "2025-04-30T08:00:00.000Z",
+        "2025-07-30T08:00:00.000Z",
+        "2025-10-30T09:00:00.000Z",
+        "2026-01-30T09:00:00.000Z",
+        "2026-04-30T08:00:00.000Z",
+        "2026-07-30T08:00:00.000Z"
+      ]
+    },
+    {
+      "category": "de_gfk",
+      "label": "Germany GfK consumer confidence",
+      "event_rows": 24,
+      "release_timestamps": 24,
+      "dates": [
+        "2024-10-29T07:00:00.000Z",
+        "2024-11-27T09:30:00.000Z",
+        "2024-12-19T07:00:00.000Z",
+        "2025-01-29T07:00:00.000Z",
+        "2025-02-26T07:00:00.000Z",
+        "2025-03-28T07:00:00.000Z",
+        "2025-04-29T06:00:00.000Z",
+        "2025-05-27T06:00:00.000Z",
+        "2025-06-26T06:00:00.000Z",
+        "2025-07-24T06:00:00.000Z",
+        "2025-08-27T06:00:00.000Z",
+        "2025-09-25T06:00:00.000Z",
+        "2025-10-28T07:00:00.000Z",
+        "2025-11-27T07:00:00.000Z",
+        "2025-12-19T07:00:00.000Z",
+        "2026-01-28T07:00:00.000Z",
+        "2026-02-25T07:00:00.000Z",
+        "2026-03-26T07:00:00.000Z",
+        "2026-04-27T06:00:00.000Z",
+        "2026-05-22T06:00:00.000Z",
+        "2026-06-25T06:00:00.000Z",
+        "2026-07-24T06:00:00.000Z",
+        "2026-08-27T06:00:00.000Z",
+        "2026-09-25T06:00:00.000Z"
+      ]
+    },
+    {
+      "category": "de_ifo",
+      "label": "Germany Ifo business climate",
+      "event_rows": 24,
+      "release_timestamps": 24,
+      "dates": [
+        "2024-10-25T08:00:00.000Z",
+        "2024-11-25T09:00:00.000Z",
+        "2024-12-17T09:00:00.000Z",
+        "2025-01-27T09:00:00.000Z",
+        "2025-02-24T09:00:00.000Z",
+        "2025-03-25T09:00:00.000Z",
+        "2025-04-24T08:00:00.000Z",
+        "2025-05-22T08:00:00.000Z",
+        "2025-06-24T08:00:00.000Z",
+        "2025-07-25T08:00:00.000Z",
+        "2025-08-25T08:00:00.000Z",
+        "2025-09-24T08:00:00.000Z",
+        "2025-10-27T09:00:00.000Z",
+        "2025-11-24T09:00:00.000Z",
+        "2025-12-17T09:00:00.000Z",
+        "2026-01-26T09:00:00.000Z",
+        "2026-02-23T09:00:00.000Z",
+        "2026-03-25T09:00:00.000Z",
+        "2026-04-24T08:00:00.000Z",
+        "2026-05-22T08:00:00.000Z",
+        "2026-06-24T08:00:00.000Z",
+        "2026-07-27T08:00:00.000Z",
+        "2026-08-25T08:00:00.000Z",
+        "2026-09-24T08:00:00.000Z"
+      ]
+    },
+    {
+      "category": "de_industrial_production",
+      "label": "Germany industrial production",
+      "event_rows": 24,
+      "release_timestamps": 24,
+      "dates": [
+        "2024-11-07T07:00:00.000Z",
+        "2024-12-06T07:00:00.000Z",
+        "2025-01-09T07:00:00.000Z",
+        "2025-02-07T07:00:00.000Z",
+        "2025-03-10T07:00:00.000Z",
+        "2025-04-07T06:00:00.000Z",
+        "2025-05-08T06:00:00.000Z",
+        "2025-06-06T06:00:00.000Z",
+        "2025-07-07T06:00:00.000Z",
+        "2025-08-07T06:00:00.000Z",
+        "2025-09-08T06:00:00.000Z",
+        "2025-10-08T06:00:00.000Z",
+        "2025-11-06T07:00:00.000Z",
+        "2025-12-08T07:00:00.000Z",
+        "2026-01-09T07:00:00.000Z",
+        "2026-02-06T07:00:00.000Z",
+        "2026-03-09T07:00:00.000Z",
+        "2026-04-09T06:00:00.000Z",
+        "2026-05-08T06:00:00.000Z",
+        "2026-06-09T06:00:00.000Z",
+        "2026-07-07T06:00:00.000Z",
+        "2026-08-07T06:00:00.000Z",
+        "2026-09-07T06:00:00.000Z",
+        "2026-10-07T06:00:00.000Z"
+      ]
+    },
+    {
+      "category": "de_retail_sales",
+      "label": "Germany retail sales package",
+      "event_rows": 48,
+      "release_timestamps": 24,
+      "dates": [
+        "2024-10-31T07:00:00.000Z",
+        "2024-11-29T07:00:00.000Z",
+        "2025-01-08T07:00:00.000Z",
+        "2025-01-31T07:00:00.000Z",
+        "2025-02-28T07:00:00.000Z",
+        "2025-03-31T06:00:00.000Z",
+        "2025-04-30T06:00:00.000Z",
+        "2025-05-30T06:00:00.000Z",
+        "2025-06-30T06:00:00.000Z",
+        "2025-07-30T06:00:00.000Z",
+        "2025-08-29T06:00:00.000Z",
+        "2025-09-30T06:00:00.000Z",
+        "2025-10-31T07:00:00.000Z",
+        "2025-11-28T07:00:00.000Z",
+        "2026-01-07T07:00:00.000Z",
+        "2026-02-02T07:00:00.000Z",
+        "2026-03-02T07:00:00.000Z",
+        "2026-03-31T06:00:00.000Z",
+        "2026-04-30T06:00:00.000Z",
+        "2026-06-01T06:00:00.000Z",
+        "2026-06-30T06:00:00.000Z",
+        "2026-08-03T06:00:00.000Z",
+        "2026-09-01T06:00:00.000Z",
+        "2026-09-30T06:00:00.000Z"
+      ]
+    },
+    {
+      "category": "de_sp_pmi_final",
+      "label": "Germany S&P / HCOB PMI package (final)",
+      "event_rows": 13,
+      "release_timestamps": 10,
+      "dates": [
+        "2024-11-04T08:55:00.000Z",
+        "2024-11-06T08:55:00.000Z",
+        "2024-12-02T08:55:00.000Z",
+        "2024-12-04T08:55:00.000Z",
+        "2025-01-02T08:55:00.000Z",
+        "2025-01-06T08:55:00.000Z",
+        "2025-02-03T08:55:00.000Z",
+        "2025-02-05T08:55:00.000Z",
+        "2025-03-03T08:55:00.000Z",
+        "2025-03-05T08:55:00.000Z"
+      ]
+    },
+    {
+      "category": "de_sp_pmi_flash",
+      "label": "Germany S&P / HCOB PMI package (flash)",
+      "event_rows": 72,
+      "release_timestamps": 24,
+      "dates": [
+        "2024-10-24T07:30:00.000Z",
+        "2024-11-22T08:30:00.000Z",
+        "2024-12-16T08:30:00.000Z",
+        "2025-01-24T08:30:00.000Z",
+        "2025-02-21T08:30:00.000Z",
+        "2025-03-24T08:30:00.000Z",
+        "2025-04-23T07:30:00.000Z",
+        "2025-05-22T07:30:00.000Z",
+        "2025-06-23T07:30:00.000Z",
+        "2025-07-24T07:30:00.000Z",
+        "2025-08-21T07:30:00.000Z",
+        "2025-09-23T07:30:00.000Z",
+        "2025-10-24T07:30:00.000Z",
+        "2025-11-21T08:30:00.000Z",
+        "2025-12-16T08:30:00.000Z",
+        "2026-01-23T08:30:00.000Z",
+        "2026-02-20T08:30:00.000Z",
+        "2026-03-24T08:30:00.000Z",
+        "2026-04-23T07:30:00.000Z",
+        "2026-05-21T07:30:00.000Z",
+        "2026-06-23T07:30:00.000Z",
+        "2026-07-24T07:30:00.000Z",
+        "2026-08-21T07:30:00.000Z",
+        "2026-09-23T07:30:00.000Z"
+      ]
+    },
+    {
+      "category": "de_zew",
+      "label": "Germany ZEW economic sentiment",
+      "event_rows": 23,
+      "release_timestamps": 23,
+      "dates": [
+        "2024-11-12T10:00:00.000Z",
+        "2024-12-17T10:00:00.000Z",
+        "2025-01-21T10:00:00.000Z",
+        "2025-02-18T10:00:00.000Z",
+        "2025-03-18T10:00:00.000Z",
+        "2025-04-15T09:00:00.000Z",
+        "2025-05-13T09:00:00.000Z",
+        "2025-06-17T09:00:00.000Z",
+        "2025-07-15T09:00:00.000Z",
+        "2025-08-12T09:00:00.000Z",
+        "2025-09-16T09:00:00.000Z",
+        "2025-10-14T09:00:00.000Z",
+        "2025-11-11T10:00:00.000Z",
+        "2025-12-16T10:00:00.000Z",
+        "2026-01-20T10:00:00.000Z",
+        "2026-02-17T10:00:00.000Z",
+        "2026-03-17T10:00:00.000Z",
+        "2026-04-21T09:00:00.000Z",
+        "2026-05-12T09:00:00.000Z",
+        "2026-06-16T09:00:00.000Z",
+        "2026-07-21T09:00:00.000Z",
+        "2026-08-18T09:00:00.000Z",
+        "2026-09-15T09:00:00.000Z"
+      ]
+    },
+    {
+      "category": "es_gdp_final",
+      "label": "Spain GDP package (final)",
+      "event_rows": 2,
+      "release_timestamps": 1,
+      "dates": [
+        "2024-12-23T08:00:00.000Z"
+      ]
+    },
+    {
+      "category": "es_gdp_flash",
+      "label": "Spain GDP package (flash)",
+      "event_rows": 16,
+      "release_timestamps": 8,
+      "dates": [
+        "2024-10-30T08:00:00.000Z",
+        "2025-01-29T08:00:00.000Z",
+        "2025-04-29T07:00:00.000Z",
+        "2025-07-29T07:00:00.000Z",
+        "2025-10-29T08:00:00.000Z",
+        "2026-01-30T08:00:00.000Z",
+        "2026-04-30T07:00:00.000Z",
+        "2026-07-30T07:00:00.000Z"
+      ]
+    },
+    {
+      "category": "eu_consumer_confidence_final",
+      "label": "Eurozone consumer confidence (final)",
+      "event_rows": 2,
+      "release_timestamps": 2,
+      "dates": [
+        "2025-01-08T10:00:00.000Z",
+        "2025-01-30T10:00:00.000Z"
+      ]
+    },
+    {
+      "category": "eu_consumer_confidence_flash",
+      "label": "Eurozone consumer confidence (flash)",
+      "event_rows": 24,
+      "release_timestamps": 24,
+      "dates": [
+        "2024-10-23T14:00:00.000Z",
+        "2024-11-21T15:00:00.000Z",
+        "2024-12-20T15:00:00.000Z",
+        "2025-01-23T15:00:00.000Z",
+        "2025-02-20T15:00:00.000Z",
+        "2025-03-21T15:00:00.000Z",
+        "2025-04-22T14:00:00.000Z",
+        "2025-05-20T14:00:00.000Z",
+        "2025-06-20T14:00:00.000Z",
+        "2025-07-23T14:00:00.000Z",
+        "2025-08-21T14:00:00.000Z",
+        "2025-09-22T14:00:00.000Z",
+        "2025-10-23T14:00:00.000Z",
+        "2025-11-20T15:00:00.000Z",
+        "2025-12-19T15:00:00.000Z",
+        "2026-01-22T15:00:00.000Z",
+        "2026-02-19T15:10:00.000Z",
+        "2026-03-23T15:00:00.000Z",
+        "2026-04-22T14:00:00.000Z",
+        "2026-05-21T14:00:00.000Z",
+        "2026-06-22T14:00:00.000Z",
+        "2026-07-23T14:00:00.000Z",
+        "2026-08-21T14:00:00.000Z",
+        "2026-09-22T14:00:00.000Z"
+      ]
+    },
+    {
+      "category": "eu_cpi_final",
+      "label": "Eurozone consumer inflation (final)",
+      "event_rows": 5,
+      "release_timestamps": 5,
+      "dates": [
+        "2024-10-17T09:00:00.000Z",
+        "2024-11-19T10:00:00.000Z",
+        "2024-12-18T10:00:00.000Z",
+        "2025-01-17T10:00:00.000Z",
+        "2025-02-24T10:00:00.000Z"
+      ]
+    },
+    {
+      "category": "eu_cpi_flash",
+      "label": "Eurozone consumer inflation (flash)",
+      "event_rows": 71,
+      "release_timestamps": 24,
+      "dates": [
+        "2024-10-31T10:00:00.000Z",
+        "2024-11-29T10:00:00.000Z",
+        "2025-01-07T10:00:00.000Z",
+        "2025-02-03T10:00:00.000Z",
+        "2025-03-03T10:00:00.000Z",
+        "2025-04-01T09:00:00.000Z",
+        "2025-05-02T09:00:00.000Z",
+        "2025-06-03T09:00:00.000Z",
+        "2025-07-01T09:00:00.000Z",
+        "2025-08-01T09:00:00.000Z",
+        "2025-09-02T09:00:00.000Z",
+        "2025-10-01T09:00:00.000Z",
+        "2025-10-31T10:00:00.000Z",
+        "2025-12-02T10:00:00.000Z",
+        "2026-01-07T10:00:00.000Z",
+        "2026-02-04T10:00:00.000Z",
+        "2026-03-03T10:00:00.000Z",
+        "2026-03-31T09:00:00.000Z",
+        "2026-04-30T09:00:00.000Z",
+        "2026-06-02T09:00:00.000Z",
+        "2026-07-01T09:00:00.000Z",
+        "2026-07-31T09:00:00.000Z",
+        "2026-09-01T09:00:00.000Z",
+        "2026-10-02T09:00:00.000Z"
+      ]
+    },
+    {
+      "category": "eu_ecb_accounts",
+      "label": "ECB monetary-policy meeting accounts",
+      "event_rows": 16,
+      "release_timestamps": 16,
+      "dates": [
+        "2024-11-14T12:30:00.000Z",
+        "2025-01-16T12:30:00.000Z",
+        "2025-02-27T12:30:00.000Z",
+        "2025-04-03T11:30:00.000Z",
+        "2025-05-22T11:30:00.000Z",
+        "2025-07-03T11:30:00.000Z",
+        "2025-08-28T11:30:00.000Z",
+        "2025-10-09T11:30:00.000Z",
+        "2025-11-27T12:30:00.000Z",
+        "2026-01-22T12:30:00.000Z",
+        "2026-03-05T12:30:00.000Z",
+        "2026-04-16T11:30:00.000Z",
+        "2026-05-28T11:30:00.000Z",
+        "2026-07-09T11:30:00.000Z",
+        "2026-08-27T11:30:00.000Z",
+        "2026-10-08T11:30:00.000Z"
+      ]
+    },
+    {
+      "category": "eu_ecb_decision",
+      "label": "ECB interest-rate decision package",
+      "event_rows": 32,
+      "release_timestamps": 16,
+      "dates": [
+        "2024-10-17T12:15:00.000Z",
+        "2024-12-12T13:15:00.000Z",
+        "2025-01-30T13:15:00.000Z",
+        "2025-03-06T13:15:00.000Z",
+        "2025-04-17T12:15:00.000Z",
+        "2025-06-05T12:15:00.000Z",
+        "2025-07-24T12:15:00.000Z",
+        "2025-09-11T12:15:00.000Z",
+        "2025-10-30T13:15:00.000Z",
+        "2025-12-18T13:15:00.000Z",
+        "2026-02-05T13:15:00.000Z",
+        "2026-03-19T13:15:00.000Z",
+        "2026-04-30T12:15:00.000Z",
+        "2026-06-11T12:15:00.000Z",
+        "2026-07-23T12:15:00.000Z",
+        "2026-09-10T12:15:00.000Z"
+      ]
+    },
+    {
+      "category": "eu_ecb_president_speech",
+      "label": "ECB president speech",
+      "event_rows": 111,
+      "release_timestamps": 111,
+      "dates": [
+        "2024-10-22T14:00:00.000Z",
+        "2024-10-22T19:15:00.000Z",
+        "2024-10-23T14:00:00.000Z",
+        "2024-11-05T14:30:00.000Z",
+        "2024-11-06T14:00:00.000Z",
+        "2024-11-09T15:25:00.000Z",
+        "2024-11-18T18:30:00.000Z",
+        "2024-11-20T13:00:00.000Z",
+        "2024-11-22T08:30:00.000Z",
+        "2024-12-02T10:00:00.000Z",
+        "2024-12-04T13:30:00.000Z",
+        "2024-12-04T15:30:00.000Z",
+        "2024-12-12T15:15:00.000Z",
+        "2024-12-16T07:00:00.000Z",
+        "2025-01-22T15:15:00.000Z",
+        "2025-01-24T10:00:00.000Z",
+        "2025-01-27T15:35:00.000Z",
+        "2025-01-28T17:00:00.000Z",
+        "2025-02-10T14:00:00.000Z",
+        "2025-03-06T15:15:00.000Z",
+        "2025-03-07T09:30:00.000Z",
+        "2025-03-12T08:45:00.000Z",
+        "2025-03-17T14:00:00.000Z",
+        "2025-03-20T08:00:00.000Z",
+        "2025-03-27T18:05:00.000Z",
+        "2025-04-01T12:30:00.000Z",
+        "2025-04-11T09:45:00.000Z",
+        "2025-05-26T13:20:00.000Z",
+        "2025-06-07T07:30:00.000Z",
+        "2025-06-19T07:30:00.000Z",
+        "2025-06-19T10:30:00.000Z",
+        "2025-06-23T13:00:00.000Z",
+        "2025-06-24T13:00:00.000Z",
+        "2025-06-26T18:30:00.000Z",
+        "2025-06-30T19:00:00.000Z",
+        "2025-07-01T13:30:00.000Z",
+        "2025-07-02T14:15:00.000Z",
+        "2025-07-04T07:30:00.000Z",
+        "2025-07-22T17:00:00.000Z",
+        "2025-08-23T16:25:00.000Z",
+        "2025-09-01T17:30:00.000Z",
+        "2025-09-03T07:30:00.000Z",
+        "2025-09-15T18:30:00.000Z",
+        "2025-09-17T07:30:00.000Z",
+        "2025-09-26T09:30:00.000Z",
+        "2025-09-30T12:50:00.000Z",
+        "2025-10-03T09:40:00.000Z",
+        "2025-10-07T16:10:00.000Z",
+        "2025-10-08T16:00:00.000Z",
+        "2025-10-16T16:00:00.000Z",
+        "2025-10-18T13:00:00.000Z",
+        "2025-10-21T11:00:00.000Z",
+        "2025-10-22T12:25:00.000Z",
+        "2025-11-04T07:40:00.000Z",
+        "2025-11-04T09:45:00.000Z",
+        "2025-11-11T08:20:00.000Z",
+        "2025-11-21T08:30:00.000Z",
+        "2025-11-24T14:45:00.000Z",
+        "2025-11-26T17:00:00.000Z",
+        "2025-12-03T13:30:00.000Z",
+        "2025-12-10T10:55:00.000Z",
+        "2026-01-21T07:30:00.000Z",
+        "2026-01-21T16:45:00.000Z",
+        "2026-01-23T10:00:00.000Z",
+        "2026-01-27T17:00:00.000Z",
+        "2026-02-02T14:00:00.000Z",
+        "2026-02-09T16:00:00.000Z",
+        "2026-02-14T16:30:00.000Z",
+        "2026-02-15T09:30:00.000Z",
+        "2026-02-23T17:30:00.000Z",
+        "2026-02-26T08:30:00.000Z",
+        "2026-03-02T14:00:00.000Z",
+        "2026-03-05T17:00:00.000Z",
+        "2026-03-06T10:00:00.000Z",
+        "2026-03-25T08:45:00.000Z",
+        "2026-04-14T21:00:00.000Z",
+        "2026-04-15T19:30:00.000Z",
+        "2026-04-20T16:40:00.000Z",
+        "2026-04-22T17:30:00.000Z",
+        "2026-04-28T18:30:00.000Z",
+        "2026-04-30T15:15:00.000Z",
+        "2026-05-04T00:00:00.000Z",
+        "2026-05-05T12:30:00.000Z",
+        "2026-05-08T07:00:00.000Z",
+        "2026-05-13T19:15:00.000Z",
+        "2026-05-14T09:15:00.000Z",
+        "2026-05-28T07:20:00.000Z",
+        "2026-06-04T08:00:00.000Z",
+        "2026-06-09T16:30:00.000Z",
+        "2026-06-15T07:30:00.000Z",
+        "2026-06-17T10:50:00.000Z",
+        "2026-06-22T10:00:00.000Z",
+        "2026-06-22T13:00:00.000Z",
+        "2026-06-22T15:15:00.000Z",
+        "2026-06-29T17:30:00.000Z",
+        "2026-07-01T13:00:00.000Z",
+        "2026-07-01T14:00:00.000Z",
+        "2026-07-03T08:00:00.000Z",
+        "2026-07-06T16:00:00.000Z",
+        "2026-08-19T07:10:00.000Z",
+        "2026-09-09T17:00:00.000Z",
+        "2026-09-11T14:00:00.000Z",
+        "2026-09-12T10:15:00.000Z",
+        "2026-09-14T15:15:00.000Z",
+        "2026-09-16T17:00:00.000Z",
+        "2026-09-18T10:30:00.000Z",
+        "2026-09-28T13:30:00.000Z",
+        "2026-09-29T11:00:00.000Z",
+        "2026-10-01T13:30:00.000Z",
+        "2026-10-14T02:10:00.000Z",
+        "2026-10-14T08:30:00.000Z"
+      ]
+    },
+    {
+      "category": "eu_ecb_press_conference",
+      "label": "ECB post-decision press conference",
+      "event_rows": 16,
+      "release_timestamps": 16,
+      "dates": [
+        "2024-10-17T12:45:00.000Z",
+        "2024-12-12T13:45:00.000Z",
+        "2025-01-30T13:45:00.000Z",
+        "2025-03-06T13:45:00.000Z",
+        "2025-04-17T12:45:00.000Z",
+        "2025-06-05T12:45:00.000Z",
+        "2025-07-24T12:45:00.000Z",
+        "2025-09-11T12:45:00.000Z",
+        "2025-10-30T13:45:00.000Z",
+        "2025-12-18T13:45:00.000Z",
+        "2026-02-05T13:45:00.000Z",
+        "2026-03-19T13:45:00.000Z",
+        "2026-04-30T12:45:00.000Z",
+        "2026-06-11T12:45:00.000Z",
+        "2026-07-23T12:45:00.000Z",
+        "2026-09-10T12:45:00.000Z"
+      ]
+    },
+    {
+      "category": "eu_economic_sentiment",
+      "label": "Eurozone economic sentiment",
+      "event_rows": 24,
+      "release_timestamps": 24,
+      "dates": [
+        "2024-10-30T10:00:00.000Z",
+        "2024-11-28T10:00:00.000Z",
+        "2025-01-08T10:00:00.000Z",
+        "2025-01-30T10:00:00.000Z",
+        "2025-02-27T10:00:00.000Z",
+        "2025-03-28T10:00:00.000Z",
+        "2025-04-29T09:00:00.000Z",
+        "2025-05-27T09:00:00.000Z",
+        "2025-06-27T09:00:00.000Z",
+        "2025-07-30T09:00:00.000Z",
+        "2025-08-28T09:00:00.000Z",
+        "2025-09-29T09:00:00.000Z",
+        "2025-10-30T10:00:00.000Z",
+        "2025-11-27T10:00:00.000Z",
+        "2026-01-08T10:00:00.000Z",
+        "2026-01-29T10:00:00.000Z",
+        "2026-02-26T10:00:00.000Z",
+        "2026-03-30T09:00:00.000Z",
+        "2026-04-29T09:00:00.000Z",
+        "2026-05-28T09:00:00.000Z",
+        "2026-06-29T09:00:00.000Z",
+        "2026-07-30T09:00:00.000Z",
+        "2026-08-28T09:00:00.000Z",
+        "2026-09-29T09:00:00.000Z"
+      ]
+    },
+    {
+      "category": "eu_gdp_flash",
+      "label": "Eurozone GDP package (flash)",
+      "event_rows": 16,
+      "release_timestamps": 8,
+      "dates": [
+        "2024-10-30T10:00:00.000Z",
+        "2025-01-30T10:00:00.000Z",
+        "2025-04-30T09:00:00.000Z",
+        "2025-07-30T09:00:00.000Z",
+        "2025-10-30T10:00:00.000Z",
+        "2026-01-30T10:00:00.000Z",
+        "2026-04-30T09:00:00.000Z",
+        "2026-07-30T09:00:00.000Z"
+      ]
+    },
+    {
+      "category": "eu_gdp_second_estimate",
+      "label": "Eurozone GDP package (second estimate)",
+      "event_rows": 4,
+      "release_timestamps": 2,
+      "dates": [
+        "2024-11-14T10:00:00.000Z",
+        "2025-02-14T10:00:00.000Z"
+      ]
+    },
+    {
+      "category": "eu_gdp_third_estimate",
+      "label": "Eurozone GDP package (third estimate)",
+      "event_rows": 2,
+      "release_timestamps": 2,
+      "dates": [
+        "2024-12-06T10:00:00.000Z",
+        "2025-03-07T10:00:00.000Z"
+      ]
+    },
+    {
+      "category": "eu_industrial_production",
+      "label": "Eurozone industrial production",
+      "event_rows": 24,
+      "release_timestamps": 24,
+      "dates": [
+        "2024-11-14T10:00:00.000Z",
+        "2024-12-13T10:00:00.000Z",
+        "2025-01-15T10:00:00.000Z",
+        "2025-02-13T10:00:00.000Z",
+        "2025-03-13T10:00:00.000Z",
+        "2025-04-15T09:00:00.000Z",
+        "2025-05-15T09:00:00.000Z",
+        "2025-06-13T09:00:00.000Z",
+        "2025-07-15T09:00:00.000Z",
+        "2025-08-14T09:00:00.000Z",
+        "2025-09-16T09:00:00.000Z",
+        "2025-10-15T09:00:00.000Z",
+        "2025-11-13T10:00:00.000Z",
+        "2025-12-15T10:00:00.000Z",
+        "2026-01-15T10:00:00.000Z",
+        "2026-02-16T10:00:00.000Z",
+        "2026-03-13T10:00:00.000Z",
+        "2026-04-15T09:00:00.000Z",
+        "2026-05-13T09:00:00.000Z",
+        "2026-06-15T09:00:00.000Z",
+        "2026-07-15T09:00:00.000Z",
+        "2026-08-13T09:00:00.000Z",
+        "2026-09-16T09:00:00.000Z",
+        "2026-10-15T09:00:00.000Z"
+      ]
+    },
+    {
+      "category": "eu_negotiated_wages",
+      "label": "Eurozone negotiated wage growth",
+      "event_rows": 8,
+      "release_timestamps": 8,
+      "dates": [
+        "2024-11-20T10:00:00.000Z",
+        "2025-02-25T10:00:00.000Z",
+        "2025-05-23T09:00:00.000Z",
+        "2025-08-22T09:00:00.000Z",
+        "2025-11-21T10:00:00.000Z",
+        "2026-02-20T10:00:00.000Z",
+        "2026-05-22T09:00:00.000Z",
+        "2026-08-21T09:00:00.000Z"
+      ]
+    },
+    {
+      "category": "eu_retail_sales",
+      "label": "Eurozone retail sales package",
+      "event_rows": 26,
+      "release_timestamps": 24,
+      "dates": [
+        "2024-11-07T10:00:00.000Z",
+        "2024-12-05T10:00:00.000Z",
+        "2025-01-09T10:00:00.000Z",
+        "2025-02-06T10:00:00.000Z",
+        "2025-03-06T10:00:00.000Z",
+        "2025-04-07T09:00:00.000Z",
+        "2025-05-07T09:00:00.000Z",
+        "2025-06-06T09:00:00.000Z",
+        "2025-07-07T09:00:00.000Z",
+        "2025-08-06T09:00:00.000Z",
+        "2025-09-04T09:00:00.000Z",
+        "2025-10-06T09:00:00.000Z",
+        "2025-11-06T10:00:00.000Z",
+        "2025-12-04T10:00:00.000Z",
+        "2026-01-09T10:00:00.000Z",
+        "2026-02-05T10:00:00.000Z",
+        "2026-03-05T10:00:00.000Z",
+        "2026-04-08T09:00:00.000Z",
+        "2026-05-07T09:00:00.000Z",
+        "2026-06-04T09:00:00.000Z",
+        "2026-07-06T09:00:00.000Z",
+        "2026-08-06T09:00:00.000Z",
+        "2026-09-04T09:00:00.000Z",
+        "2026-10-06T09:00:00.000Z"
+      ]
+    },
+    {
+      "category": "eu_sp_pmi_final",
+      "label": "Eurozone S&P / HCOB PMI package (final)",
+      "event_rows": 13,
+      "release_timestamps": 10,
+      "dates": [
+        "2024-11-04T09:00:00.000Z",
+        "2024-11-06T09:00:00.000Z",
+        "2024-12-02T09:00:00.000Z",
+        "2024-12-04T09:00:00.000Z",
+        "2025-01-02T09:00:00.000Z",
+        "2025-01-06T09:00:00.000Z",
+        "2025-02-03T09:00:00.000Z",
+        "2025-02-05T09:00:00.000Z",
+        "2025-03-03T09:00:00.000Z",
+        "2025-03-05T09:00:00.000Z"
+      ]
+    },
+    {
+      "category": "eu_sp_pmi_flash",
+      "label": "Eurozone S&P / HCOB PMI package (flash)",
+      "event_rows": 72,
+      "release_timestamps": 24,
+      "dates": [
+        "2024-10-24T08:00:00.000Z",
+        "2024-11-22T09:00:00.000Z",
+        "2024-12-16T09:00:00.000Z",
+        "2025-01-24T09:00:00.000Z",
+        "2025-02-21T09:00:00.000Z",
+        "2025-03-24T09:00:00.000Z",
+        "2025-04-23T08:00:00.000Z",
+        "2025-05-22T08:00:00.000Z",
+        "2025-06-23T08:00:00.000Z",
+        "2025-07-24T08:00:00.000Z",
+        "2025-08-21T08:00:00.000Z",
+        "2025-09-23T08:00:00.000Z",
+        "2025-10-24T08:00:00.000Z",
+        "2025-11-21T09:00:00.000Z",
+        "2025-12-16T09:00:00.000Z",
+        "2026-01-23T09:00:00.000Z",
+        "2026-02-20T09:00:00.000Z",
+        "2026-03-24T09:00:00.000Z",
+        "2026-04-23T08:00:00.000Z",
+        "2026-05-21T08:00:00.000Z",
+        "2026-06-23T08:00:00.000Z",
+        "2026-07-24T08:00:00.000Z",
+        "2026-08-21T08:00:00.000Z",
+        "2026-09-23T08:00:00.000Z"
+      ]
+    },
+    {
+      "category": "eu_zew",
+      "label": "Eurozone ZEW economic sentiment",
+      "event_rows": 23,
+      "release_timestamps": 23,
+      "dates": [
+        "2024-11-12T10:00:00.000Z",
+        "2024-12-17T10:00:00.000Z",
+        "2025-01-21T10:00:00.000Z",
+        "2025-02-18T10:00:00.000Z",
+        "2025-03-18T10:00:00.000Z",
+        "2025-04-15T09:00:00.000Z",
+        "2025-05-13T09:00:00.000Z",
+        "2025-06-17T09:00:00.000Z",
+        "2025-07-15T09:00:00.000Z",
+        "2025-08-12T09:00:00.000Z",
+        "2025-09-16T09:00:00.000Z",
+        "2025-10-14T09:00:00.000Z",
+        "2025-11-11T10:00:00.000Z",
+        "2025-12-16T10:00:00.000Z",
+        "2026-01-20T10:00:00.000Z",
+        "2026-02-17T10:00:00.000Z",
+        "2026-03-17T10:00:00.000Z",
+        "2026-04-21T09:00:00.000Z",
+        "2026-05-12T09:00:00.000Z",
+        "2026-06-16T09:00:00.000Z",
+        "2026-07-21T09:00:00.000Z",
+        "2026-08-18T09:00:00.000Z",
+        "2026-09-15T09:00:00.000Z"
+      ]
+    },
+    {
+      "category": "fr_gdp_final",
+      "label": "France GDP package (final)",
+      "event_rows": 4,
+      "release_timestamps": 2,
+      "dates": [
+        "2024-11-29T07:45:00.000Z",
+        "2025-02-28T07:45:00.000Z"
+      ]
+    },
+    {
+      "category": "fr_gdp_preliminary",
+      "label": "France GDP package (preliminary)",
+      "event_rows": 16,
+      "release_timestamps": 8,
+      "dates": [
+        "2024-10-30T06:30:00.000Z",
+        "2025-01-30T06:30:00.000Z",
+        "2025-04-30T05:30:00.000Z",
+        "2025-07-30T05:30:00.000Z",
+        "2025-10-30T06:30:00.000Z",
+        "2026-01-30T06:30:00.000Z",
+        "2026-04-30T05:30:00.000Z",
+        "2026-07-30T05:30:00.000Z"
+      ]
+    },
+    {
+      "category": "fr_industrial_production",
+      "label": "France industrial production",
+      "event_rows": 24,
+      "release_timestamps": 24,
+      "dates": [
+        "2024-11-05T07:45:00.000Z",
+        "2024-12-05T07:45:00.000Z",
+        "2025-01-10T07:45:00.000Z",
+        "2025-02-05T07:45:00.000Z",
+        "2025-03-05T07:45:00.000Z",
+        "2025-04-04T06:45:00.000Z",
+        "2025-05-06T06:45:00.000Z",
+        "2025-06-06T06:45:00.000Z",
+        "2025-07-04T06:45:00.000Z",
+        "2025-08-05T06:45:00.000Z",
+        "2025-09-09T06:45:00.000Z",
+        "2025-10-03T06:45:00.000Z",
+        "2025-11-05T07:45:00.000Z",
+        "2025-12-05T07:45:00.000Z",
+        "2026-01-09T07:45:00.000Z",
+        "2026-02-05T07:45:00.000Z",
+        "2026-03-05T07:45:00.000Z",
+        "2026-04-03T06:45:00.000Z",
+        "2026-05-06T06:45:00.000Z",
+        "2026-06-05T06:45:00.000Z",
+        "2026-07-03T06:45:00.000Z",
+        "2026-08-05T06:45:00.000Z",
+        "2026-09-09T06:45:00.000Z",
+        "2026-10-06T06:45:00.000Z"
+      ]
+    },
+    {
+      "category": "fr_sp_pmi_final",
+      "label": "France S&P / HCOB PMI package (final)",
+      "event_rows": 10,
+      "release_timestamps": 10,
+      "dates": [
+        "2024-11-04T08:50:00.000Z",
+        "2024-11-06T08:50:00.000Z",
+        "2024-12-02T08:50:00.000Z",
+        "2024-12-04T08:50:00.000Z",
+        "2025-01-02T08:50:00.000Z",
+        "2025-01-06T08:50:00.000Z",
+        "2025-02-03T08:50:00.000Z",
+        "2025-02-05T08:50:00.000Z",
+        "2025-03-03T08:50:00.000Z",
+        "2025-03-05T08:50:00.000Z"
+      ]
+    },
+    {
+      "category": "fr_sp_pmi_flash",
+      "label": "France S&P / HCOB PMI package (flash)",
+      "event_rows": 71,
+      "release_timestamps": 24,
+      "dates": [
+        "2024-10-24T07:15:00.000Z",
+        "2024-11-22T08:15:00.000Z",
+        "2024-12-16T08:15:00.000Z",
+        "2025-01-24T08:15:00.000Z",
+        "2025-02-21T08:15:00.000Z",
+        "2025-03-24T08:15:00.000Z",
+        "2025-04-23T07:15:00.000Z",
+        "2025-05-22T07:15:00.000Z",
+        "2025-06-23T07:15:00.000Z",
+        "2025-07-24T07:15:00.000Z",
+        "2025-08-21T07:15:00.000Z",
+        "2025-09-23T07:15:00.000Z",
+        "2025-10-24T07:15:00.000Z",
+        "2025-11-21T08:15:00.000Z",
+        "2025-12-16T08:15:00.000Z",
+        "2026-01-23T08:15:00.000Z",
+        "2026-02-20T08:15:00.000Z",
+        "2026-03-24T08:15:00.000Z",
+        "2026-04-23T07:15:00.000Z",
+        "2026-05-21T07:15:00.000Z",
+        "2026-06-23T07:15:00.000Z",
+        "2026-07-24T07:15:00.000Z",
+        "2026-08-21T07:15:00.000Z",
+        "2026-09-23T07:15:00.000Z"
+      ]
+    },
+    {
+      "category": "it_gdp_advance",
+      "label": "Italy GDP package (advance)",
+      "event_rows": 16,
+      "release_timestamps": 8,
+      "dates": [
+        "2024-10-30T09:00:00.000Z",
+        "2025-01-30T09:00:00.000Z",
+        "2025-04-30T08:00:00.000Z",
+        "2025-07-30T08:00:00.000Z",
+        "2025-10-30T09:00:00.000Z",
+        "2026-01-30T09:00:00.000Z",
+        "2026-04-30T08:00:00.000Z",
+        "2026-07-30T08:00:00.000Z"
+      ]
+    },
+    {
+      "category": "it_gdp_final",
+      "label": "Italy GDP package (final)",
+      "event_rows": 4,
+      "release_timestamps": 2,
+      "dates": [
+        "2024-12-02T10:00:00.000Z",
+        "2025-03-05T09:00:00.000Z"
+      ]
+    },
+    {
+      "category": "it_industrial_production",
+      "label": "Italy industrial production",
+      "event_rows": 24,
+      "release_timestamps": 24,
+      "dates": [
+        "2024-11-08T09:00:00.000Z",
+        "2024-12-10T09:00:00.000Z",
+        "2025-01-14T09:00:00.000Z",
+        "2025-02-12T09:00:00.000Z",
+        "2025-03-14T09:00:00.000Z",
+        "2025-04-10T08:00:00.000Z",
+        "2025-05-09T08:00:00.000Z",
+        "2025-06-10T08:00:00.000Z",
+        "2025-07-10T07:50:00.000Z",
+        "2025-08-06T08:00:00.000Z",
+        "2025-09-10T08:00:00.000Z",
+        "2025-10-10T08:00:00.000Z",
+        "2025-11-12T09:00:00.000Z",
+        "2025-12-10T09:00:00.000Z",
+        "2026-01-15T09:00:00.000Z",
+        "2026-02-11T09:00:00.000Z",
+        "2026-03-13T09:00:00.000Z",
+        "2026-04-10T08:00:00.000Z",
+        "2026-05-12T08:00:00.000Z",
+        "2026-06-10T08:00:00.000Z",
+        "2026-07-10T08:00:00.000Z",
+        "2026-08-06T08:00:00.000Z",
+        "2026-09-10T08:00:00.000Z",
+        "2026-10-09T08:00:00.000Z"
+      ]
+    },
+    {
+      "category": "it_retail_sales",
+      "label": "Italy retail sales package",
+      "event_rows": 24,
+      "release_timestamps": 24,
+      "dates": [
+        "2024-11-08T11:00:00.000Z",
+        "2024-12-06T09:00:00.000Z",
+        "2025-01-10T09:00:00.000Z",
+        "2025-02-05T09:00:00.000Z",
+        "2025-03-05T10:00:00.000Z",
+        "2025-04-04T08:00:00.000Z",
+        "2025-05-07T08:00:00.000Z",
+        "2025-06-05T08:00:00.000Z",
+        "2025-07-04T08:00:00.000Z",
+        "2025-08-01T08:00:00.000Z",
+        "2025-09-05T08:00:00.000Z",
+        "2025-10-03T08:00:00.000Z",
+        "2025-11-05T09:00:00.000Z",
+        "2025-12-05T09:00:00.000Z",
+        "2026-01-09T09:00:00.000Z",
+        "2026-02-05T09:00:00.000Z",
+        "2026-03-05T09:00:00.000Z",
+        "2026-04-02T09:00:00.000Z",
+        "2026-05-06T08:00:00.000Z",
+        "2026-06-05T09:00:00.000Z",
+        "2026-07-03T08:00:00.000Z",
+        "2026-08-04T08:00:00.000Z",
+        "2026-09-04T08:00:00.000Z",
+        "2026-10-02T08:00:00.000Z"
+      ]
+    },
+    {
+      "category": "us_adp_monthly",
+      "label": "US ADP employment change (monthly)",
+      "event_rows": 24,
+      "release_timestamps": 24,
+      "dates": [
+        "2024-10-30T12:15:00.000Z",
+        "2024-12-04T13:15:00.000Z",
+        "2025-01-08T13:15:00.000Z",
+        "2025-02-05T13:15:00.000Z",
+        "2025-03-05T13:15:00.000Z",
+        "2025-04-02T12:15:00.000Z",
+        "2025-04-30T12:15:00.000Z",
+        "2025-06-04T12:15:00.000Z",
+        "2025-07-02T12:15:00.000Z",
+        "2025-07-30T12:15:00.000Z",
+        "2025-09-04T12:15:00.000Z",
+        "2025-10-01T12:15:00.000Z",
+        "2025-11-05T13:15:00.000Z",
+        "2025-12-03T13:15:00.000Z",
+        "2026-01-07T13:15:00.000Z",
+        "2026-02-04T13:15:00.000Z",
+        "2026-03-04T13:15:00.000Z",
+        "2026-04-01T12:15:00.000Z",
+        "2026-05-06T12:15:00.000Z",
+        "2026-06-03T12:15:00.000Z",
+        "2026-07-01T12:15:00.000Z",
+        "2026-08-05T12:15:00.000Z",
+        "2026-09-02T12:15:00.000Z",
+        "2026-09-30T12:15:00.000Z"
+      ]
+    },
+    {
+      "category": "us_chicago_pmi",
+      "label": "US Chicago PMI",
+      "event_rows": 24,
+      "release_timestamps": 24,
+      "dates": [
+        "2024-10-31T13:45:00.000Z",
+        "2024-11-27T14:45:00.000Z",
+        "2024-12-30T14:45:00.000Z",
+        "2025-01-31T14:45:00.000Z",
+        "2025-02-28T14:45:00.000Z",
+        "2025-03-31T13:45:00.000Z",
+        "2025-04-30T13:45:00.000Z",
+        "2025-05-30T13:45:00.000Z",
+        "2025-06-30T13:45:00.000Z",
+        "2025-07-31T13:45:00.000Z",
+        "2025-08-29T13:45:00.000Z",
+        "2025-09-30T13:45:00.000Z",
+        "2025-10-31T13:45:00.000Z",
+        "2025-11-26T14:45:00.000Z",
+        "2025-12-30T14:45:00.000Z",
+        "2026-01-30T14:45:00.000Z",
+        "2026-02-27T14:45:00.000Z",
+        "2026-03-31T13:45:00.000Z",
+        "2026-04-30T13:45:00.000Z",
+        "2026-05-29T13:45:00.000Z",
+        "2026-06-30T13:45:00.000Z",
+        "2026-07-31T13:45:00.000Z",
+        "2026-08-28T13:45:00.000Z",
+        "2026-09-30T13:45:00.000Z"
+      ]
+    },
+    {
+      "category": "us_consumer_confidence",
+      "label": "US Conference Board consumer confidence",
+      "event_rows": 24,
+      "release_timestamps": 24,
+      "dates": [
+        "2024-10-29T14:00:00.000Z",
+        "2024-11-26T15:00:00.000Z",
+        "2024-12-23T15:00:00.000Z",
+        "2025-01-28T15:00:00.000Z",
+        "2025-02-25T15:00:00.000Z",
+        "2025-03-25T14:00:00.000Z",
+        "2025-04-29T14:00:00.000Z",
+        "2025-05-27T14:00:00.000Z",
+        "2025-06-24T14:00:00.000Z",
+        "2025-07-29T14:00:00.000Z",
+        "2025-08-26T14:00:00.000Z",
+        "2025-09-30T14:00:00.000Z",
+        "2025-10-28T14:00:00.000Z",
+        "2025-11-25T15:00:00.000Z",
+        "2025-12-23T15:00:00.000Z",
+        "2026-01-27T15:00:00.000Z",
+        "2026-02-24T15:00:00.000Z",
+        "2026-03-31T14:00:00.000Z",
+        "2026-04-28T14:00:00.000Z",
+        "2026-05-26T14:00:00.000Z",
+        "2026-06-30T14:00:00.000Z",
+        "2026-07-28T14:00:00.000Z",
+        "2026-08-25T14:00:00.000Z",
+        "2026-09-29T14:00:00.000Z"
+      ]
+    },
+    {
+      "category": "us_cpi",
+      "label": "US CPI / core CPI package",
+      "event_rows": 138,
+      "release_timestamps": 23,
+      "dates": [
+        "2024-11-13T13:30:00.000Z",
+        "2024-12-11T13:30:00.000Z",
+        "2025-01-15T13:30:00.000Z",
+        "2025-02-12T13:30:00.000Z",
+        "2025-03-12T12:30:00.000Z",
+        "2025-04-10T12:30:00.000Z",
+        "2025-05-13T12:30:00.000Z",
+        "2025-06-11T12:30:00.000Z",
+        "2025-07-15T12:30:00.000Z",
+        "2025-08-12T12:30:00.000Z",
+        "2025-09-11T12:30:00.000Z",
+        "2025-10-24T12:30:00.000Z",
+        "2025-12-18T13:30:00.000Z",
+        "2026-01-13T13:30:00.000Z",
+        "2026-02-13T13:30:00.000Z",
+        "2026-03-11T12:30:00.000Z",
+        "2026-04-10T12:30:00.000Z",
+        "2026-05-12T12:30:00.000Z",
+        "2026-06-10T12:30:00.000Z",
+        "2026-07-14T12:30:00.000Z",
+        "2026-08-12T12:30:00.000Z",
+        "2026-09-11T12:30:00.000Z",
+        "2026-10-14T12:30:00.000Z"
+      ]
+    },
+    {
+      "category": "us_empire_state",
+      "label": "US NY Empire State manufacturing survey",
+      "event_rows": 24,
+      "release_timestamps": 24,
+      "dates": [
+        "2024-11-15T13:30:00.000Z",
+        "2024-12-16T13:30:00.000Z",
+        "2025-01-15T13:30:00.000Z",
+        "2025-02-18T13:30:00.000Z",
+        "2025-03-17T12:30:00.000Z",
+        "2025-04-15T12:30:00.000Z",
+        "2025-05-15T12:30:00.000Z",
+        "2025-06-16T12:30:00.000Z",
+        "2025-07-15T12:30:00.000Z",
+        "2025-08-15T12:30:00.000Z",
+        "2025-09-15T12:30:00.000Z",
+        "2025-10-15T12:30:00.000Z",
+        "2025-11-17T13:30:00.000Z",
+        "2025-12-15T13:30:00.000Z",
+        "2026-01-15T13:30:00.000Z",
+        "2026-02-17T13:30:00.000Z",
+        "2026-03-16T12:30:00.000Z",
+        "2026-04-15T12:30:00.000Z",
+        "2026-05-15T12:30:00.000Z",
+        "2026-06-15T12:30:00.000Z",
+        "2026-07-15T12:30:00.000Z",
+        "2026-08-17T12:30:00.000Z",
+        "2026-09-15T12:30:00.000Z",
+        "2026-10-15T12:30:00.000Z"
+      ]
+    },
+    {
+      "category": "us_employment_cost",
+      "label": "US employment cost index package",
+      "event_rows": 24,
+      "release_timestamps": 8,
+      "dates": [
+        "2024-10-31T12:30:00.000Z",
+        "2025-01-31T13:30:00.000Z",
+        "2025-04-30T12:30:00.000Z",
+        "2025-07-31T12:30:00.000Z",
+        "2025-12-10T13:30:00.000Z",
+        "2026-02-10T13:30:00.000Z",
+        "2026-04-30T12:30:00.000Z",
+        "2026-07-31T12:30:00.000Z"
+      ]
+    },
+    {
+      "category": "us_employment_report",
+      "label": "US employment report (NFP / unemployment / earnings)",
+      "event_rows": 118,
+      "release_timestamps": 23,
+      "dates": [
+        "2024-11-01T12:30:00.000Z",
+        "2024-12-06T13:30:00.000Z",
+        "2025-01-10T13:30:00.000Z",
+        "2025-02-07T13:30:00.000Z",
+        "2025-03-07T13:30:00.000Z",
+        "2025-04-04T12:30:00.000Z",
+        "2025-05-02T12:30:00.000Z",
+        "2025-06-06T12:30:00.000Z",
+        "2025-07-03T12:30:00.000Z",
+        "2025-08-01T12:30:00.000Z",
+        "2025-09-05T12:30:00.000Z",
+        "2025-11-20T13:30:00.000Z",
+        "2025-12-16T13:30:00.000Z",
+        "2026-01-09T13:30:00.000Z",
+        "2026-02-11T13:30:00.000Z",
+        "2026-03-06T13:30:00.000Z",
+        "2026-04-03T12:30:00.000Z",
+        "2026-05-08T12:30:00.000Z",
+        "2026-06-05T12:30:00.000Z",
+        "2026-07-02T12:30:00.000Z",
+        "2026-08-07T12:30:00.000Z",
+        "2026-09-04T12:30:00.000Z",
+        "2026-10-02T12:30:00.000Z"
+      ]
+    },
+    {
+      "category": "us_fed_chair_speech",
+      "label": "US Fed chair speech",
+      "event_rows": 20,
+      "release_timestamps": 20,
+      "dates": [
+        "2024-11-14T20:00:00.000Z",
+        "2024-12-04T18:40:00.000Z",
+        "2025-03-07T17:30:00.000Z",
+        "2025-04-04T15:25:00.000Z",
+        "2025-04-16T17:30:00.000Z",
+        "2025-05-15T12:40:00.000Z",
+        "2025-05-25T18:40:00.000Z",
+        "2025-06-02T17:00:00.000Z",
+        "2025-07-01T13:30:00.000Z",
+        "2025-07-22T12:30:00.000Z",
+        "2025-08-22T14:00:00.000Z",
+        "2025-09-23T16:35:00.000Z",
+        "2025-10-09T12:30:00.000Z",
+        "2025-10-14T16:20:00.000Z",
+        "2025-12-02T01:00:00.000Z",
+        "2026-03-21T17:30:00.000Z",
+        "2026-03-30T14:30:00.000Z",
+        "2026-07-01T13:00:00.000Z",
+        "2026-08-28T14:00:00.000Z",
+        "2026-10-16T03:30:00.000Z"
+      ]
+    },
+    {
+      "category": "us_fed_chair_testimony",
+      "label": "US Fed chair testimony",
+      "event_rows": 6,
+      "release_timestamps": 6,
+      "dates": [
+        "2025-02-11T15:00:00.000Z",
+        "2025-02-12T15:00:00.000Z",
+        "2025-06-24T14:00:00.000Z",
+        "2025-06-25T14:00:00.000Z",
+        "2026-07-14T14:00:00.000Z",
+        "2026-07-15T14:00:00.000Z"
+      ]
+    },
+    {
+      "category": "us_fomc_decision",
+      "label": "US FOMC rate decision / projections package",
+      "event_rows": 24,
+      "release_timestamps": 16,
+      "dates": [
+        "2024-11-07T19:00:00.000Z",
+        "2024-12-18T19:00:00.000Z",
+        "2025-01-29T19:00:00.000Z",
+        "2025-03-19T18:00:00.000Z",
+        "2025-05-07T18:00:00.000Z",
+        "2025-06-18T18:00:00.000Z",
+        "2025-07-30T18:00:00.000Z",
+        "2025-09-17T18:00:00.000Z",
+        "2025-10-29T18:00:00.000Z",
+        "2025-12-10T19:00:00.000Z",
+        "2026-01-28T19:00:00.000Z",
+        "2026-03-18T18:00:00.000Z",
+        "2026-04-29T18:00:00.000Z",
+        "2026-06-17T18:00:00.000Z",
+        "2026-07-29T18:00:00.000Z",
+        "2026-09-16T18:00:00.000Z"
+      ]
+    },
+    {
+      "category": "us_fomc_minutes",
+      "label": "US FOMC minutes",
+      "event_rows": 16,
+      "release_timestamps": 16,
+      "dates": [
+        "2024-11-26T19:00:00.000Z",
+        "2025-01-08T19:00:00.000Z",
+        "2025-02-19T19:00:00.000Z",
+        "2025-04-09T18:00:00.000Z",
+        "2025-05-28T18:00:00.000Z",
+        "2025-07-09T18:00:00.000Z",
+        "2025-08-20T18:00:00.000Z",
+        "2025-10-08T18:00:00.000Z",
+        "2025-11-19T19:00:00.000Z",
+        "2025-12-30T19:00:00.000Z",
+        "2026-02-18T19:00:00.000Z",
+        "2026-04-08T18:00:00.000Z",
+        "2026-05-20T18:00:00.000Z",
+        "2026-07-08T18:00:00.000Z",
+        "2026-08-19T18:00:00.000Z",
+        "2026-10-07T18:00:00.000Z"
+      ]
+    },
+    {
+      "category": "us_fomc_press_conference",
+      "label": "US Fed chair post-FOMC press conference",
+      "event_rows": 16,
+      "release_timestamps": 16,
+      "dates": [
+        "2024-11-07T19:30:00.000Z",
+        "2024-12-18T19:30:00.000Z",
+        "2025-01-29T19:30:00.000Z",
+        "2025-03-19T18:30:00.000Z",
+        "2025-05-07T18:30:00.000Z",
+        "2025-06-18T18:30:00.000Z",
+        "2025-07-30T18:30:00.000Z",
+        "2025-09-17T18:30:00.000Z",
+        "2025-10-29T18:30:00.000Z",
+        "2025-12-10T19:30:00.000Z",
+        "2026-01-28T19:30:00.000Z",
+        "2026-03-18T18:30:00.000Z",
+        "2026-04-29T18:30:00.000Z",
+        "2026-06-17T18:30:00.000Z",
+        "2026-07-29T18:30:00.000Z",
+        "2026-09-16T18:30:00.000Z"
+      ]
+    },
+    {
+      "category": "us_gdp_advance",
+      "label": "US GDP package (advance / initial)",
+      "event_rows": 17,
+      "release_timestamps": 9,
+      "dates": [
+        "2024-10-30T12:30:00.000Z",
+        "2025-01-30T13:30:00.000Z",
+        "2025-04-30T12:30:00.000Z",
+        "2025-07-30T12:30:00.000Z",
+        "2025-10-30T12:30:00.000Z",
+        "2025-12-23T13:30:00.000Z",
+        "2026-02-20T13:30:00.000Z",
+        "2026-04-30T12:30:00.000Z",
+        "2026-07-30T12:30:00.000Z"
+      ]
+    },
+    {
+      "category": "us_gdp_final",
+      "label": "US GDP package (final)",
+      "event_rows": 16,
+      "release_timestamps": 8,
+      "dates": [
+        "2024-12-19T13:30:00.000Z",
+        "2025-03-27T12:30:00.000Z",
+        "2025-06-26T12:30:00.000Z",
+        "2025-09-25T12:30:00.000Z",
+        "2026-01-22T13:30:00.000Z",
+        "2026-04-09T12:30:00.000Z",
+        "2026-06-25T12:30:00.000Z",
+        "2026-09-30T12:30:00.000Z"
+      ]
+    },
+    {
+      "category": "us_gdp_second_estimate",
+      "label": "US GDP package (second estimate)",
+      "event_rows": 14,
+      "release_timestamps": 7,
+      "dates": [
+        "2024-11-27T13:30:00.000Z",
+        "2025-02-27T13:30:00.000Z",
+        "2025-05-29T12:30:00.000Z",
+        "2025-08-28T12:30:00.000Z",
+        "2026-03-13T12:30:00.000Z",
+        "2026-05-28T12:30:00.000Z",
+        "2026-08-26T12:30:00.000Z"
+      ]
+    },
+    {
+      "category": "us_industrial_production",
+      "label": "US industrial production",
+      "event_rows": 25,
+      "release_timestamps": 24,
+      "dates": [
+        "2024-10-17T13:15:00.000Z",
+        "2024-11-15T14:15:00.000Z",
+        "2024-12-17T14:15:00.000Z",
+        "2025-01-17T14:15:00.000Z",
+        "2025-02-14T14:15:00.000Z",
+        "2025-03-18T13:15:00.000Z",
+        "2025-04-16T13:15:00.000Z",
+        "2025-05-15T13:15:00.000Z",
+        "2025-06-17T13:15:00.000Z",
+        "2025-07-16T13:15:00.000Z",
+        "2025-08-15T13:15:00.000Z",
+        "2025-09-16T13:15:00.000Z",
+        "2025-12-03T14:15:00.000Z",
+        "2025-12-23T14:15:00.000Z",
+        "2026-01-16T14:15:00.000Z",
+        "2026-02-18T14:15:00.000Z",
+        "2026-03-16T13:15:00.000Z",
+        "2026-04-16T13:15:00.000Z",
+        "2026-05-15T13:15:00.000Z",
+        "2026-06-15T13:15:00.000Z",
+        "2026-07-17T13:15:00.000Z",
+        "2026-08-18T13:15:00.000Z",
+        "2026-09-18T13:15:00.000Z",
+        "2026-10-16T13:15:00.000Z"
+      ]
+    },
+    {
+      "category": "us_initial_claims",
+      "label": "US initial jobless claims",
+      "event_rows": 105,
+      "release_timestamps": 99,
+      "dates": [
+        "2024-10-17T12:30:00.000Z",
+        "2024-10-24T12:30:00.000Z",
+        "2024-10-31T12:30:00.000Z",
+        "2024-11-07T13:30:00.000Z",
+        "2024-11-14T13:30:00.000Z",
+        "2024-11-21T13:30:00.000Z",
+        "2024-11-27T13:30:00.000Z",
+        "2024-12-05T13:30:00.000Z",
+        "2024-12-12T13:30:00.000Z",
+        "2024-12-19T13:30:00.000Z",
+        "2024-12-26T13:30:00.000Z",
+        "2025-01-02T13:30:00.000Z",
+        "2025-01-08T13:30:00.000Z",
+        "2025-01-16T13:30:00.000Z",
+        "2025-01-23T13:30:00.000Z",
+        "2025-01-30T13:30:00.000Z",
+        "2025-02-06T13:30:00.000Z",
+        "2025-02-13T13:30:00.000Z",
+        "2025-02-20T13:30:00.000Z",
+        "2025-02-27T13:30:00.000Z",
+        "2025-03-06T13:30:00.000Z",
+        "2025-03-13T12:30:00.000Z",
+        "2025-03-20T12:30:00.000Z",
+        "2025-03-27T12:30:00.000Z",
+        "2025-04-03T12:30:00.000Z",
+        "2025-04-10T12:30:00.000Z",
+        "2025-04-17T12:30:00.000Z",
+        "2025-04-24T12:30:00.000Z",
+        "2025-05-01T12:30:00.000Z",
+        "2025-05-08T12:30:00.000Z",
+        "2025-05-15T12:30:00.000Z",
+        "2025-05-22T12:30:00.000Z",
+        "2025-05-29T12:30:00.000Z",
+        "2025-06-05T12:30:00.000Z",
+        "2025-06-12T12:30:00.000Z",
+        "2025-06-18T12:30:00.000Z",
+        "2025-06-26T12:30:00.000Z",
+        "2025-07-03T12:30:00.000Z",
+        "2025-07-10T12:30:00.000Z",
+        "2025-07-17T12:30:00.000Z",
+        "2025-07-24T12:30:00.000Z",
+        "2025-07-31T12:30:00.000Z",
+        "2025-08-07T12:30:00.000Z",
+        "2025-08-14T12:30:00.000Z",
+        "2025-08-21T12:30:00.000Z",
+        "2025-08-28T12:30:00.000Z",
+        "2025-09-04T12:30:00.000Z",
+        "2025-09-11T12:30:00.000Z",
+        "2025-09-18T12:30:00.000Z",
+        "2025-09-25T12:30:00.000Z",
+        "2025-11-18T10:00:00.000Z",
+        "2025-11-20T13:30:00.000Z",
+        "2025-11-26T13:30:00.000Z",
+        "2025-12-04T13:30:00.000Z",
+        "2025-12-11T13:30:00.000Z",
+        "2025-12-18T13:30:00.000Z",
+        "2025-12-24T13:30:00.000Z",
+        "2025-12-31T13:30:00.000Z",
+        "2026-01-08T13:30:00.000Z",
+        "2026-01-15T13:30:00.000Z",
+        "2026-01-22T13:30:00.000Z",
+        "2026-01-29T13:30:00.000Z",
+        "2026-02-05T13:30:00.000Z",
+        "2026-02-12T13:30:00.000Z",
+        "2026-02-19T13:30:00.000Z",
+        "2026-02-26T13:30:00.000Z",
+        "2026-03-05T13:30:00.000Z",
+        "2026-03-12T12:30:00.000Z",
+        "2026-03-19T12:30:00.000Z",
+        "2026-03-26T12:30:00.000Z",
+        "2026-04-02T12:30:00.000Z",
+        "2026-04-09T12:30:00.000Z",
+        "2026-04-16T12:30:00.000Z",
+        "2026-04-23T12:30:00.000Z",
+        "2026-04-30T12:30:00.000Z",
+        "2026-05-07T12:30:00.000Z",
+        "2026-05-14T12:30:00.000Z",
+        "2026-05-21T12:30:00.000Z",
+        "2026-05-28T12:30:00.000Z",
+        "2026-06-04T12:30:00.000Z",
+        "2026-06-11T12:30:00.000Z",
+        "2026-06-18T12:30:00.000Z",
+        "2026-06-25T12:30:00.000Z",
+        "2026-07-02T12:30:00.000Z",
+        "2026-07-09T12:30:00.000Z",
+        "2026-07-16T12:30:00.000Z",
+        "2026-07-23T12:30:00.000Z",
+        "2026-07-30T12:30:00.000Z",
+        "2026-08-06T12:30:00.000Z",
+        "2026-08-13T12:30:00.000Z",
+        "2026-08-20T12:30:00.000Z",
+        "2026-08-27T12:30:00.000Z",
+        "2026-09-03T12:30:00.000Z",
+        "2026-09-10T12:30:00.000Z",
+        "2026-09-17T12:30:00.000Z",
+        "2026-09-24T12:30:00.000Z",
+        "2026-10-01T12:30:00.000Z",
+        "2026-10-08T12:30:00.000Z",
+        "2026-10-15T12:30:00.000Z"
+      ]
+    },
+    {
+      "category": "us_ism_manufacturing",
+      "label": "US ISM manufacturing package",
+      "event_rows": 48,
+      "release_timestamps": 24,
+      "dates": [
+        "2024-11-01T14:00:00.000Z",
+        "2024-12-02T15:00:00.000Z",
+        "2025-01-03T15:00:00.000Z",
+        "2025-02-03T15:00:00.000Z",
+        "2025-03-03T15:00:00.000Z",
+        "2025-04-01T14:00:00.000Z",
+        "2025-05-01T14:00:00.000Z",
+        "2025-06-02T14:00:00.000Z",
+        "2025-07-01T14:00:00.000Z",
+        "2025-08-01T14:00:00.000Z",
+        "2025-09-02T14:00:00.000Z",
+        "2025-10-01T14:00:00.000Z",
+        "2025-11-03T15:00:00.000Z",
+        "2025-12-01T15:00:00.000Z",
+        "2026-01-05T15:00:00.000Z",
+        "2026-02-02T15:00:00.000Z",
+        "2026-03-02T15:00:00.000Z",
+        "2026-04-01T14:00:00.000Z",
+        "2026-05-01T14:00:00.000Z",
+        "2026-06-01T14:00:00.000Z",
+        "2026-07-01T14:00:00.000Z",
+        "2026-08-03T14:00:00.000Z",
+        "2026-09-01T14:00:00.000Z",
+        "2026-10-01T14:00:00.000Z"
+      ]
+    },
+    {
+      "category": "us_ism_services",
+      "label": "US ISM services PMI",
+      "event_rows": 24,
+      "release_timestamps": 24,
+      "dates": [
+        "2024-11-05T15:00:00.000Z",
+        "2024-12-04T15:00:00.000Z",
+        "2025-01-07T15:00:00.000Z",
+        "2025-02-05T15:00:00.000Z",
+        "2025-03-05T15:00:00.000Z",
+        "2025-04-03T14:00:00.000Z",
+        "2025-05-05T14:00:00.000Z",
+        "2025-06-04T14:00:00.000Z",
+        "2025-07-03T14:00:00.000Z",
+        "2025-08-05T14:00:00.000Z",
+        "2025-09-04T14:00:00.000Z",
+        "2025-10-03T14:00:00.000Z",
+        "2025-11-05T15:00:00.000Z",
+        "2025-12-03T15:00:00.000Z",
+        "2026-01-07T15:00:00.000Z",
+        "2026-02-04T15:00:00.000Z",
+        "2026-03-04T15:00:00.000Z",
+        "2026-04-06T14:00:00.000Z",
+        "2026-05-05T14:00:00.000Z",
+        "2026-06-03T14:00:00.000Z",
+        "2026-07-06T14:00:00.000Z",
+        "2026-08-05T14:00:00.000Z",
+        "2026-09-03T14:00:00.000Z",
+        "2026-10-05T14:00:00.000Z"
+      ]
+    },
+    {
+      "category": "us_jolts",
+      "label": "US JOLTS job openings",
+      "event_rows": 24,
+      "release_timestamps": 23,
+      "dates": [
+        "2024-10-29T14:00:00.000Z",
+        "2024-12-03T15:00:00.000Z",
+        "2025-01-07T15:00:00.000Z",
+        "2025-02-04T15:00:00.000Z",
+        "2025-03-11T14:00:00.000Z",
+        "2025-04-01T14:00:00.000Z",
+        "2025-04-29T14:00:00.000Z",
+        "2025-06-03T14:00:00.000Z",
+        "2025-07-01T14:00:00.000Z",
+        "2025-07-29T14:00:00.000Z",
+        "2025-09-03T14:00:00.000Z",
+        "2025-09-30T14:00:00.000Z",
+        "2025-12-09T15:00:00.000Z",
+        "2026-01-07T15:00:00.000Z",
+        "2026-02-05T15:00:00.000Z",
+        "2026-03-13T14:00:00.000Z",
+        "2026-03-31T14:00:00.000Z",
+        "2026-05-05T14:00:00.000Z",
+        "2026-06-02T14:00:00.000Z",
+        "2026-06-30T14:00:00.000Z",
+        "2026-08-04T14:00:00.000Z",
+        "2026-09-01T14:00:00.000Z",
+        "2026-09-29T14:00:00.000Z"
+      ]
+    },
+    {
+      "category": "us_michigan_final",
+      "label": "US University of Michigan consumer sentiment (final)",
+      "event_rows": 24,
+      "release_timestamps": 24,
+      "dates": [
+        "2024-10-25T14:00:00.000Z",
+        "2024-11-22T15:00:00.000Z",
+        "2024-12-20T15:00:00.000Z",
+        "2025-01-24T15:00:00.000Z",
+        "2025-02-21T15:00:00.000Z",
+        "2025-03-28T14:00:00.000Z",
+        "2025-04-25T14:00:00.000Z",
+        "2025-05-30T14:00:00.000Z",
+        "2025-06-27T14:00:00.000Z",
+        "2025-08-01T14:00:00.000Z",
+        "2025-08-29T14:00:00.000Z",
+        "2025-09-26T14:00:00.000Z",
+        "2025-10-24T14:00:00.000Z",
+        "2025-11-21T15:00:00.000Z",
+        "2025-12-19T15:00:00.000Z",
+        "2026-01-23T15:00:00.000Z",
+        "2026-02-20T15:00:00.000Z",
+        "2026-03-27T14:00:00.000Z",
+        "2026-04-24T14:00:00.000Z",
+        "2026-05-22T14:00:00.000Z",
+        "2026-06-26T14:00:00.000Z",
+        "2026-07-31T14:00:00.000Z",
+        "2026-08-28T14:00:00.000Z",
+        "2026-09-25T14:00:00.000Z"
+      ]
+    },
+    {
+      "category": "us_michigan_preliminary",
+      "label": "US University of Michigan consumer sentiment (preliminary)",
+      "event_rows": 24,
+      "release_timestamps": 24,
+      "dates": [
+        "2024-11-08T15:00:00.000Z",
+        "2024-12-06T15:00:00.000Z",
+        "2025-01-10T15:00:00.000Z",
+        "2025-02-07T15:00:00.000Z",
+        "2025-03-14T14:00:00.000Z",
+        "2025-04-11T14:00:00.000Z",
+        "2025-05-16T14:00:00.000Z",
+        "2025-06-13T14:00:00.000Z",
+        "2025-07-18T14:00:00.000Z",
+        "2025-08-15T14:00:00.000Z",
+        "2025-09-12T14:00:00.000Z",
+        "2025-10-10T14:00:00.000Z",
+        "2025-11-07T15:00:00.000Z",
+        "2025-12-05T15:00:00.000Z",
+        "2026-01-09T15:00:00.000Z",
+        "2026-02-06T15:00:00.000Z",
+        "2026-03-13T14:00:00.000Z",
+        "2026-04-10T14:00:00.000Z",
+        "2026-05-08T14:00:00.000Z",
+        "2026-06-12T14:00:00.000Z",
+        "2026-07-17T14:00:00.000Z",
+        "2026-08-14T14:00:00.000Z",
+        "2026-09-11T14:00:00.000Z",
+        "2026-10-09T14:00:00.000Z"
+      ]
+    },
+    {
+      "category": "us_nfp_annual_revision",
+      "label": "US nonfarm-payroll annual benchmark revision",
+      "event_rows": 2,
+      "release_timestamps": 2,
+      "dates": [
+        "2025-09-09T14:00:00.000Z",
+        "2026-08-28T14:00:00.000Z"
+      ]
+    },
+    {
+      "category": "us_pce",
+      "label": "US PCE inflation / personal income and spending package",
+      "event_rows": 120,
+      "release_timestamps": 23,
+      "dates": [
+        "2024-10-31T12:30:00.000Z",
+        "2024-11-27T15:00:00.000Z",
+        "2024-12-20T13:30:00.000Z",
+        "2025-01-31T13:30:00.000Z",
+        "2025-02-28T13:30:00.000Z",
+        "2025-03-28T12:30:00.000Z",
+        "2025-04-30T14:00:00.000Z",
+        "2025-05-30T12:30:00.000Z",
+        "2025-06-27T12:30:00.000Z",
+        "2025-07-31T12:30:00.000Z",
+        "2025-08-29T12:30:00.000Z",
+        "2025-09-26T12:30:00.000Z",
+        "2025-12-05T15:00:00.000Z",
+        "2026-01-22T15:00:00.000Z",
+        "2026-02-20T13:30:00.000Z",
+        "2026-03-13T12:30:00.000Z",
+        "2026-04-09T12:30:00.000Z",
+        "2026-04-30T12:30:00.000Z",
+        "2026-05-28T12:30:00.000Z",
+        "2026-06-25T12:30:00.000Z",
+        "2026-07-30T12:30:00.000Z",
+        "2026-08-26T12:30:00.000Z",
+        "2026-09-30T12:30:00.000Z"
+      ]
+    },
+    {
+      "category": "us_philly_fed",
+      "label": "US Philadelphia Fed manufacturing survey",
+      "event_rows": 25,
+      "release_timestamps": 25,
+      "dates": [
+        "2024-10-17T12:30:00.000Z",
+        "2024-11-21T13:30:00.000Z",
+        "2024-12-19T13:30:00.000Z",
+        "2025-01-16T13:30:00.000Z",
+        "2025-02-20T13:30:00.000Z",
+        "2025-03-20T12:30:00.000Z",
+        "2025-04-17T12:30:00.000Z",
+        "2025-05-15T12:30:00.000Z",
+        "2025-06-20T12:30:00.000Z",
+        "2025-07-17T12:30:00.000Z",
+        "2025-08-21T12:30:00.000Z",
+        "2025-09-18T12:30:00.000Z",
+        "2025-10-16T12:30:00.000Z",
+        "2025-11-20T13:30:00.000Z",
+        "2025-12-18T13:30:00.000Z",
+        "2026-01-15T13:30:00.000Z",
+        "2026-02-19T13:30:00.000Z",
+        "2026-03-19T12:30:00.000Z",
+        "2026-04-16T12:30:00.000Z",
+        "2026-05-21T12:30:00.000Z",
+        "2026-06-18T12:30:00.000Z",
+        "2026-07-16T12:30:00.000Z",
+        "2026-08-20T12:30:00.000Z",
+        "2026-09-17T12:30:00.000Z",
+        "2026-10-15T12:30:00.000Z"
+      ]
+    },
+    {
+      "category": "us_ppi",
+      "label": "US PPI / core PPI package",
+      "event_rows": 48,
+      "release_timestamps": 23,
+      "dates": [
+        "2024-11-14T13:30:00.000Z",
+        "2024-12-12T13:30:00.000Z",
+        "2025-01-14T13:30:00.000Z",
+        "2025-02-13T13:30:00.000Z",
+        "2025-03-13T12:30:00.000Z",
+        "2025-04-11T12:30:00.000Z",
+        "2025-05-15T12:30:00.000Z",
+        "2025-06-12T12:30:00.000Z",
+        "2025-07-16T12:30:00.000Z",
+        "2025-08-14T12:30:00.000Z",
+        "2025-09-10T12:30:00.000Z",
+        "2025-11-25T13:30:00.000Z",
+        "2026-01-14T13:30:00.000Z",
+        "2026-01-30T13:30:00.000Z",
+        "2026-02-27T13:30:00.000Z",
+        "2026-03-18T12:30:00.000Z",
+        "2026-04-14T12:30:00.000Z",
+        "2026-05-13T12:30:00.000Z",
+        "2026-06-11T12:30:00.000Z",
+        "2026-07-15T12:30:00.000Z",
+        "2026-08-13T12:30:00.000Z",
+        "2026-09-10T12:30:00.000Z",
+        "2026-10-15T12:30:00.000Z"
+      ]
+    },
+    {
+      "category": "us_retail_sales",
+      "label": "US retail sales package",
+      "event_rows": 71,
+      "release_timestamps": 25,
+      "dates": [
+        "2024-10-17T12:30:00.000Z",
+        "2024-11-15T13:30:00.000Z",
+        "2024-12-17T13:30:00.000Z",
+        "2025-01-16T13:30:00.000Z",
+        "2025-02-14T13:30:00.000Z",
+        "2025-03-17T12:30:00.000Z",
+        "2025-04-16T12:30:00.000Z",
+        "2025-05-15T12:30:00.000Z",
+        "2025-06-17T12:30:00.000Z",
+        "2025-07-17T12:30:00.000Z",
+        "2025-08-15T12:30:00.000Z",
+        "2025-09-16T12:30:00.000Z",
+        "2025-11-25T13:30:00.000Z",
+        "2025-12-16T13:30:00.000Z",
+        "2026-01-14T13:30:00.000Z",
+        "2026-02-10T13:30:00.000Z",
+        "2026-03-06T13:30:00.000Z",
+        "2026-04-01T12:30:00.000Z",
+        "2026-04-21T12:30:00.000Z",
+        "2026-05-14T12:30:00.000Z",
+        "2026-06-17T12:30:00.000Z",
+        "2026-07-16T12:30:00.000Z",
+        "2026-08-14T12:30:00.000Z",
+        "2026-09-16T12:30:00.000Z",
+        "2026-10-15T12:30:00.000Z"
+      ]
+    },
+    {
+      "category": "us_sp_pmi_final",
+      "label": "US S&P / HCOB PMI package (final)",
+      "event_rows": 15,
+      "release_timestamps": 10,
+      "dates": [
+        "2024-11-01T13:45:00.000Z",
+        "2024-11-05T14:45:00.000Z",
+        "2024-12-02T14:45:00.000Z",
+        "2024-12-04T14:45:00.000Z",
+        "2025-01-02T14:45:00.000Z",
+        "2025-01-06T14:45:00.000Z",
+        "2025-02-03T14:45:00.000Z",
+        "2025-02-05T14:45:00.000Z",
+        "2025-03-03T14:45:00.000Z",
+        "2025-03-05T14:45:00.000Z"
+      ]
+    },
+    {
+      "category": "us_sp_pmi_flash",
+      "label": "US S&P / HCOB PMI package (flash)",
+      "event_rows": 72,
+      "release_timestamps": 24,
+      "dates": [
+        "2024-10-24T13:45:00.000Z",
+        "2024-11-22T14:45:00.000Z",
+        "2024-12-16T14:45:00.000Z",
+        "2025-01-24T14:45:00.000Z",
+        "2025-02-21T14:45:00.000Z",
+        "2025-03-24T13:45:00.000Z",
+        "2025-04-23T13:45:00.000Z",
+        "2025-05-22T13:45:00.000Z",
+        "2025-06-23T13:45:00.000Z",
+        "2025-07-24T13:45:00.000Z",
+        "2025-08-21T13:45:00.000Z",
+        "2025-09-23T13:45:00.000Z",
+        "2025-10-24T13:45:00.000Z",
+        "2025-11-21T14:45:00.000Z",
+        "2025-12-16T14:45:00.000Z",
+        "2026-01-23T14:45:00.000Z",
+        "2026-02-20T14:45:00.000Z",
+        "2026-03-24T13:45:00.000Z",
+        "2026-04-23T13:45:00.000Z",
+        "2026-05-21T13:45:00.000Z",
+        "2026-06-23T13:45:00.000Z",
+        "2026-07-24T13:45:00.000Z",
+        "2026-08-21T13:45:00.000Z",
+        "2026-09-23T13:45:00.000Z"
+      ]
+    }
+  ],
+  "official_primary_core_us_release_audit": {
+    "scope": "Exact primary period 2025-10-17 inclusive through 2026-10-17 exclusive. All primary NFP/CPI dates checked against BLS actual-release archive links; all primary PCE/GDP dates checked against BEA actual releases and 2026 release schedule. Shutdown-specific changes additionally checked against BLS/BEA notices.",
+    "sources": [
+      {
+        "url": "https://www.bls.gov/bls/2025-lapse-revised-release-dates.htm",
+        "supports": "BLS revised dates and cancellations during 2025/2026 shutdowns."
+      },
+      {
+        "url": "https://www.bls.gov/bls/news-release/empsit.htm",
+        "supports": "Actual Employment Situation release archive including canceled October 2025 release."
+      },
+      {
+        "url": "https://www.bls.gov/bls/news-release/cpi.htm",
+        "supports": "Actual CPI release archive including canceled October 2025 release."
+      },
+      {
+        "url": "https://www.bea.gov/news/schedule/full",
+        "supports": "All listed 2026 GDP/PCE dates and times."
+      },
+      {
+        "url": "https://www.bea.gov/news/2025/gross-domestic-product-3rd-quarter-2025-initial-estimate-and-corporate-profits",
+        "supports": "December 23 initial GDP publication replacing canceled October 30/November 26 GDP releases."
+      },
+      {
+        "url": "https://www.bea.gov/news/2025/personal-income-and-outlays-september-2025",
+        "supports": "September 2025 PCE released December 5 at 10:00 New York."
+      },
+      {
+        "url": "https://www.bea.gov/news/2026/personal-income-and-outlays-october-and-november-2025",
+        "supports": "Combined October/November PCE released January 22 at 10:00 New York."
+      },
+      {
+        "url": "https://www.bea.gov/news/blog/2026-01-07/economic-release-schedule-updates-gdp-personal-income-and-outlays",
+        "supports": "Official GDP/PCE rescheduling and combined release explanation."
+      }
+    ],
+    "us_employment_report": {
+      "valid_primary_release_dates": [
+        "2025-11-20",
+        "2025-12-16",
+        "2026-01-09",
+        "2026-02-11",
+        "2026-03-06",
+        "2026-04-03",
+        "2026-05-08",
+        "2026-06-05",
+        "2026-07-02",
+        "2026-08-07",
+        "2026-09-04",
+        "2026-10-02"
+      ],
+      "official_date_sources": [
+        "https://www.bls.gov/news.release/archives/empsit_11202025.htm",
+        "https://www.bls.gov/news.release/archives/empsit_12162025.htm",
+        "https://www.bls.gov/news.release/archives/empsit_01092026.htm",
+        "https://www.bls.gov/news.release/archives/empsit_02112026.htm",
+        "https://www.bls.gov/news.release/archives/empsit_03062026.htm",
+        "https://www.bls.gov/news.release/archives/empsit_04032026.htm",
+        "https://www.bls.gov/news.release/archives/empsit_05082026.htm",
+        "https://www.bls.gov/news.release/archives/empsit_06052026.htm",
+        "https://www.bls.gov/news.release/archives/empsit_07022026.htm",
+        "https://www.bls.gov/news.release/archives/empsit_08072026.htm",
+        "https://www.bls.gov/news.release/archives/empsit_09042026.htm",
+        "https://www.bls.gov/news.release/archives/empsit_10022026.htm"
+      ],
+      "local_time": "08:30 America/New_York",
+      "result": "All 12 distinct raw release timestamps match official dates. October and November 2025 establishment-survey data were published together December 16; no separate October news release. February 2026 delay is preserved."
+    },
+    "us_cpi": {
+      "valid_primary_release_dates": [
+        "2025-10-24",
+        "2025-12-18",
+        "2026-01-13",
+        "2026-02-13",
+        "2026-03-11",
+        "2026-04-10",
+        "2026-05-12",
+        "2026-06-10",
+        "2026-07-14",
+        "2026-08-12",
+        "2026-09-11",
+        "2026-10-14"
+      ],
+      "official_date_sources": [
+        "https://www.bls.gov/news.release/archives/cpi_10242025.htm",
+        "https://www.bls.gov/news.release/archives/cpi_12182025.htm",
+        "https://www.bls.gov/news.release/archives/cpi_01132026.htm",
+        "https://www.bls.gov/news.release/archives/cpi_02132026.htm",
+        "https://www.bls.gov/news.release/archives/cpi_03112026.htm",
+        "https://www.bls.gov/news.release/archives/cpi_04102026.htm",
+        "https://www.bls.gov/news.release/archives/cpi_05122026.htm",
+        "https://www.bls.gov/news.release/archives/cpi_06102026.htm",
+        "https://www.bls.gov/news.release/archives/cpi_07142026.htm",
+        "https://www.bls.gov/news.release/archives/cpi_08122026.htm",
+        "https://www.bls.gov/news.release/archives/cpi_09112026.htm",
+        "https://www.bls.gov/news.release/archives/cpi_10142026.htm"
+      ],
+      "local_time": "08:30 America/New_York",
+      "result": "All 12 distinct raw release timestamps match official dates. October 2025 reference-month CPI release was canceled. November CPI released December 18; missing MoM actuals reflect missing October data. February 2026 delay is preserved."
+    },
+    "us_pce": {
+      "valid_primary_release_dates": [
+        "2025-12-05",
+        "2026-01-22",
+        "2026-02-20",
+        "2026-03-13",
+        "2026-04-09",
+        "2026-04-30",
+        "2026-05-28",
+        "2026-06-25",
+        "2026-07-30",
+        "2026-08-26",
+        "2026-09-30"
+      ],
+      "local_time": "10:00 America/New_York on 2025-12-05 and 2026-01-22; 08:30 otherwise.",
+      "result": "All 11 distinct raw release timestamps match official dates. Combined October/November 2025 data are one January 22 observation. No stale October31/November26/December19 PCE placeholders occur in this raw calendar."
+    },
+    "us_gdp": {
+      "valid_primary_release_dates": [
+        "2025-12-23",
+        "2026-01-22",
+        "2026-02-20",
+        "2026-03-13",
+        "2026-04-09",
+        "2026-04-30",
+        "2026-05-28",
+        "2026-06-25",
+        "2026-07-30",
+        "2026-08-26",
+        "2026-09-30"
+      ],
+      "local_time": "08:30 America/New_York",
+      "result": "11 valid release timestamps. Exclude stale canceled October30 row386239. December23 initial GDP belongs with advance/initial releases; January22 updated GDP belongs with final/revised releases."
+    },
+    "attribution_warning": "Nine of eleven primary PCE release timestamps exactly coincide with a GDP release: 2026-02-20,2026-03-13,2026-04-09,2026-04-30,2026-05-28,2026-06-25,2026-07-30,2026-08-26,2026-09-30. Price responses on those timestamps cannot identify the separate causal contribution of PCE and GDP."
+  },
+  "additional_unverified_calendar_flags": [
+    {
+      "id": "386105",
+      "date": "2025-10-29T12:30:00.000Z",
+      "country": "US",
+      "title": "Goods Trade Balance Adv",
+      "period": "Sep",
+      "actual": -79,
+      "actualRaw": null
+    },
+    {
+      "id": "386107",
+      "date": "2025-10-29T12:30:00.000Z",
+      "country": "US",
+      "title": "Wholesale Inventories MoM Adv",
+      "period": "Sep",
+      "actual": 0.5,
+      "actualRaw": null
+    }
+  ],
+  "additional_unverified_calendar_flags_note": "Two non-core trade/inventory original-schedule rows have actual but no actualRaw like the verified GDP artifact. Their release dates were not independently audited; do not assume numerical actual proves historical release. They remain marked for follow-up, not automatically excluded."
+}

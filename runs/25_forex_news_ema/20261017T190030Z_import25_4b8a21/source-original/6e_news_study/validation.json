@@ -1,0 +1,528 @@
+{
+  "price_audit": {
+    "files": [
+      {
+        "file": "prices_recent_native.csv",
+        "sha256": "4f64f497bae15e1648734e319edf91d8238eef13618f39d84776bfe569664cbe",
+        "rows": 20908,
+        "unique_timestamps": 20908,
+        "first_bar_open_utc": "2025-11-30T23:00:00Z",
+        "last_bar_open_utc": "2026-10-16T20:45:00Z",
+        "overlap_bars_with_anchor": 0,
+        "overlap_all_ohlc_constant_difference": null,
+        "offset_added_to_this_file_ticks": 0.0,
+        "inconsistent_overlap_bars_excluded": 0,
+        "invalid_ohlc_rows": 0,
+        "off_grid_rows": 0,
+        "off_tick_rows": 0,
+        "duplicate_timestamps": 0
+      },
+      {
+        "file": "prices_replay_2025-12-01_native.csv",
+        "sha256": "8285e8b9cf656055897d6ec070f2f5541bec9245be7662a50527d024eaf421aa",
+        "rows": 3190,
+        "unique_timestamps": 3190,
+        "first_bar_open_utc": "2025-10-12T22:45:00Z",
+        "last_bar_open_utc": "2025-12-01T04:45:00Z",
+        "overlap_bars_with_anchor": 24,
+        "overlap_all_ohlc_constant_difference": true,
+        "offset_added_to_this_file_ticks": -0.0,
+        "inconsistent_overlap_bars_excluded": 0,
+        "invalid_ohlc_rows": 0,
+        "off_grid_rows": 0,
+        "off_tick_rows": 0,
+        "duplicate_timestamps": 0
+      }
+    ],
+    "combined_unique_bars": 24074,
+    "study_bars": 23685,
+    "study_first_bar_open_utc": "2025-10-17T04:00:00Z",
+    "study_last_bar_open_utc": "2026-10-16T20:45:00Z",
+    "native_interval_minutes": 15,
+    "price_floor": 1.11415,
+    "price_ceiling": 1.2241499999999998,
+    "zero_range_bars": 0,
+    "minimum_positive_bar_range_ticks": 1.0,
+    "non_15_minute_gap_histogram_minutes": {
+      "75": 208,
+      "645": 1,
+      "1515": 1,
+      "1710": 1,
+      "2895": 1,
+      "2955": 46,
+      "3015": 1,
+      "3090": 1,
+      "3195": 2,
+      "3300": 1
+    },
+    "contiguous_opening_gaps_at_least_40_ticks": [],
+    "invalid_or_conflicting_bar_count": 0
+  },
+  "calendar_audit": {
+    "raw_rows": 4904,
+    "classified_rows": 4904,
+    "deduplicated_rows": 4904,
+    "raw_sha256": "a5345a143c456c08488dc73fd58f75d46da03f5ca3aed17cf25d62559e1823cc",
+    "classification_sha256": "d6e51ae1e867561a82f67a78ae7859db307fc99f449c20942721c5fe8ea3ec1b",
+    "excluded_rows": [
+      {
+        "id": "386239",
+        "utc": "2025-10-30T12:30:00Z",
+        "title": "GDP Growth Rate QoQ Adv",
+        "reason": "Canceled original October 30 GDP schedule; official BEA initial Q3 2025 GDP release occurred December 23, 2025."
+      }
+    ],
+    "exact_title_country_period_timestamp_category_duplicates_removed": 0,
+    "same_title_timestamp_distinct_period_collisions": [
+      {
+        "utc": "2025-11-18T21:00:00Z",
+        "country": "US",
+        "title": "Net Long-term TIC Flows",
+        "rows": 2,
+        "periods": [
+          "Aug",
+          "Sep"
+        ]
+      },
+      {
+        "utc": "2025-11-20T13:30:00Z",
+        "country": "US",
+        "title": "Initial Jobless Claims",
+        "rows": 7,
+        "periods": [
+          "Nov/01",
+          "Nov/08",
+          "Nov/15",
+          "Oct/04",
+          "Oct/11",
+          "Oct/25",
+          "Sep/27"
+        ]
+      },
+      {
+        "utc": "2025-12-09T15:00:00Z",
+        "country": "US",
+        "title": "JOLTs Job Openings",
+        "rows": 2,
+        "periods": [
+          "Oct",
+          "Sep"
+        ]
+      },
+      {
+        "utc": "2025-12-16T13:30:00Z",
+        "country": "US",
+        "title": "Average Hourly Earnings MoM",
+        "rows": 2,
+        "periods": [
+          "Nov",
+          "Oct"
+        ]
+      },
+      {
+        "utc": "2025-12-16T13:30:00Z",
+        "country": "US",
+        "title": "Average Hourly Earnings YoY",
+        "rows": 2,
+        "periods": [
+          "Nov",
+          "Oct"
+        ]
+      },
+      {
+        "utc": "2025-12-16T13:30:00Z",
+        "country": "US",
+        "title": "Non Farm Payrolls",
+        "rows": 2,
+        "periods": [
+          "Nov",
+          "Oct"
+        ]
+      },
+      {
+        "utc": "2025-12-23T14:15:00Z",
+        "country": "US",
+        "title": "Industrial Production MoM",
+        "rows": 2,
+        "periods": [
+          "Nov",
+          "Oct"
+        ]
+      },
+      {
+        "utc": "2026-01-07T12:00:00Z",
+        "country": "US",
+        "title": "MBA 30-Year Mortgage Rate",
+        "rows": 2,
+        "periods": [
+          "Dec/26",
+          "Jan/02"
+        ]
+      },
+      {
+        "utc": "2026-01-09T13:30:00Z",
+        "country": "US",
+        "title": "Building Permits MoM Prel",
+        "rows": 2,
+        "periods": [
+          "Oct",
+          "Sep"
+        ]
+      },
+      {
+        "utc": "2026-01-09T13:30:00Z",
+        "country": "US",
+        "title": "Building Permits Prel",
+        "rows": 2,
+        "periods": [
+          "Oct",
+          "Sep"
+        ]
+      },
+      {
+        "utc": "2026-01-09T13:30:00Z",
+        "country": "US",
+        "title": "Housing Starts",
+        "rows": 2,
+        "periods": [
+          "Oct",
+          "Sep"
+        ]
+      },
+      {
+        "utc": "2026-01-09T13:30:00Z",
+        "country": "US",
+        "title": "Housing Starts MoM",
+        "rows": 2,
+        "periods": [
+          "Oct",
+          "Sep"
+        ]
+      },
+      {
+        "utc": "2026-01-13T15:00:00Z",
+        "country": "US",
+        "title": "New Home Sales",
+        "rows": 2,
+        "periods": [
+          "Oct",
+          "Sep"
+        ]
+      },
+      {
+        "utc": "2026-01-13T15:00:00Z",
+        "country": "US",
+        "title": "New Home Sales MoM",
+        "rows": 2,
+        "periods": [
+          "Oct",
+          "Sep"
+        ]
+      },
+      {
+        "utc": "2026-01-14T13:30:00Z",
+        "country": "US",
+        "title": "Core PPI MoM",
+        "rows": 2,
+        "periods": [
+          "Nov",
+          "Oct"
+        ]
+      },
+      {
+        "utc": "2026-01-14T13:30:00Z",
+        "country": "US",
+        "title": "PPI MoM",
+        "rows": 2,
+        "periods": [
+          "Nov",
+          "Oct"
+        ]
+      },
+      {
+        "utc": "2026-01-15T13:30:00Z",
+        "country": "US",
+        "title": "Export Prices MoM",
+        "rows": 2,
+        "periods": [
+          "Nov",
+          "Oct"
+        ]
+      },
+      {
+        "utc": "2026-01-15T13:30:00Z",
+        "country": "US",
+        "title": "Import Prices MoM",
+        "rows": 2,
+        "periods": [
+          "Nov",
+          "Oct"
+        ]
+      },
+      {
+        "utc": "2026-01-22T15:00:00Z",
+        "country": "US",
+        "title": "Core PCE Price Index MoM",
+        "rows": 2,
+        "periods": [
+          "Nov",
+          "Oct"
+        ]
+      },
+      {
+        "utc": "2026-01-22T15:00:00Z",
+        "country": "US",
+        "title": "PCE Price Index MoM",
+        "rows": 2,
+        "periods": [
+          "Nov",
+          "Oct"
+        ]
+      },
+      {
+        "utc": "2026-01-22T15:00:00Z",
+        "country": "US",
+        "title": "PCE Price Index YoY",
+        "rows": 2,
+        "periods": [
+          "Nov",
+          "Oct"
+        ]
+      },
+      {
+        "utc": "2026-01-22T15:00:00Z",
+        "country": "US",
+        "title": "Personal Income MoM",
+        "rows": 2,
+        "periods": [
+          "Nov",
+          "Oct"
+        ]
+      },
+      {
+        "utc": "2026-01-22T15:00:00Z",
+        "country": "US",
+        "title": "Personal Spending MoM",
+        "rows": 2,
+        "periods": [
+          "Nov",
+          "Oct"
+        ]
+      },
+      {
+        "utc": "2026-01-26T13:30:00Z",
+        "country": "US",
+        "title": "Chicago Fed National Activity Index",
+        "rows": 2,
+        "periods": [
+          "Nov",
+          "Oct"
+        ]
+      },
+      {
+        "utc": "2026-02-18T13:30:00Z",
+        "country": "US",
+        "title": "Building Permits MoM Prel",
+        "rows": 2,
+        "periods": [
+          "Dec",
+          "Nov"
+        ]
+      },
+      {
+        "utc": "2026-02-18T13:30:00Z",
+        "country": "US",
+        "title": "Building Permits Prel",
+        "rows": 2,
+        "periods": [
+          "Dec",
+          "Nov"
+        ]
+      },
+      {
+        "utc": "2026-02-18T13:30:00Z",
+        "country": "US",
+        "title": "Housing Starts",
+        "rows": 2,
+        "periods": [
+          "Dec",
+          "Nov"
+        ]
+      },
+      {
+        "utc": "2026-02-18T13:30:00Z",
+        "country": "US",
+        "title": "Housing Starts MoM",
+        "rows": 2,
+        "periods": [
+          "Dec",
+          "Nov"
+        ]
+      },
+      {
+        "utc": "2026-02-20T15:00:00Z",
+        "country": "US",
+        "title": "New Home Sales",
+        "rows": 2,
+        "periods": [
+          "Dec",
+          "Nov"
+        ]
+      },
+      {
+        "utc": "2026-02-20T15:00:00Z",
+        "country": "US",
+        "title": "New Home Sales MoM",
+        "rows": 2,
+        "periods": [
+          "Dec",
+          "Nov"
+        ]
+      },
+      {
+        "utc": "2026-02-23T13:30:00Z",
+        "country": "US",
+        "title": "Chicago Fed National Activity Index",
+        "rows": 2,
+        "periods": [
+          "Dec",
+          "Jan"
+        ]
+      },
+      {
+        "utc": "2026-04-29T12:30:00Z",
+        "country": "US",
+        "title": "Building Permits MoM Prel",
+        "rows": 2,
+        "periods": [
+          "Feb",
+          "Mar"
+        ]
+      },
+      {
+        "utc": "2026-04-29T12:30:00Z",
+        "country": "US",
+        "title": "Building Permits Prel",
+        "rows": 2,
+        "periods": [
+          "Feb",
+          "Mar"
+        ]
+      },
+      {
+        "utc": "2026-04-29T12:30:00Z",
+        "country": "US",
+        "title": "Housing Starts",
+        "rows": 2,
+        "periods": [
+          "Feb",
+          "Mar"
+        ]
+      },
+      {
+        "utc": "2026-04-29T12:30:00Z",
+        "country": "US",
+        "title": "Housing Starts MoM",
+        "rows": 2,
+        "periods": [
+          "Feb",
+          "Mar"
+        ]
+      },
+      {
+        "utc": "2026-05-05T14:00:00Z",
+        "country": "US",
+        "title": "New Home Sales",
+        "rows": 2,
+        "periods": [
+          "Feb",
+          "Mar"
+        ]
+      },
+      {
+        "utc": "2026-05-05T14:00:00Z",
+        "country": "US",
+        "title": "New Home Sales MoM",
+        "rows": 2,
+        "periods": [
+          "Feb",
+          "Mar"
+        ]
+      },
+      {
+        "utc": "2026-09-24T04:00:00Z",
+        "country": "EU",
+        "title": "New Car Registrations YoY",
+        "rows": 2,
+        "periods": [
+          "Aug",
+          "Jul"
+        ]
+      }
+    ]
+  },
+  "study": {
+    "start_inclusive_utc": "2025-10-17T04:00:00Z",
+    "end_exclusive_utc": "2026-10-17T04:00:00Z",
+    "start_inclusive_ny_date": "2025-10-17",
+    "end_exclusive_ny_date": "2026-10-17",
+    "last_partial_day_excluded": "2026-10-17",
+    "tick_size": 5e-05,
+    "pip_size": 0.0001,
+    "ticks_per_pip": 2
+  },
+  "self_checks": {
+    "synthetic_measurement_and_boundary_checks": "passed"
+  },
+  "measurement_status_counts": {
+    "15": {
+      "missing_adjacent_pre_release_bar": 7,
+      "valid": 535,
+      "event_not_on_15_minute_grid": 10,
+      "missing_post_release_bar": 1
+    },
+    "30": {
+      "missing_adjacent_pre_release_bar": 7,
+      "valid": 535,
+      "event_not_on_15_minute_grid": 10,
+      "missing_post_release_bar": 1
+    },
+    "60": {
+      "missing_adjacent_pre_release_bar": 7,
+      "valid": 535,
+      "event_not_on_15_minute_grid": 10,
+      "missing_post_release_bar": 1
+    }
+  },
+  "control_status_counts": {
+    "price_window_invalid": 54,
+    "fewer_than_10_clean_same_month_controls": 1239,
+    "valid": 366
+  },
+  "timestamp_observations": 553,
+  "simultaneous_multi_category_bundles": 68,
+  "events_with_exact_15_minute_grid": 543,
+  "valid_30m_non_speech_single_category_events": 422,
+  "isolated_valid_30m_events": 362,
+  "control_unique_dates": 228,
+  "method": {
+    "window": "Half-open [announcement, announcement+horizon); bars at the end boundary are excluded. All bars including adjacent pre-release close must exist and be valid.",
+    "reference": "Close of the immediately adjacent 15-minute bar starting t-15 minutes; includes the opening jump at the release.",
+    "primary_outcome": "Maximum absolute excursion from pre-release close: max(abs(window high-reference), abs(window low-reference)).",
+    "range_sensitivity": "Window high minus window low, which does not include a jump completely outside the post-release range.",
+    "isolation": "Single core category at the timestamp and no other non-speech core category in (t-30min,t+horizon). Same-family earlier/later events are still overlaps. Speech overlap reported separately; isolated_no_speech excludes those overlaps.",
+    "bundles": "All distinct categories scheduled at identical timestamps are combined into one labeled package. They do not contribute to the isolated category ranking.",
+    "central_bank_boundary": "Decision and press-conference categories remain separate. A conference exactly t+30m is outside the decision's 30m outcome and inside its 60m outcome; horizon-specific isolation flags reflect this.",
+    "controls": "For each event: same New York wall-clock time, same year/month, Monday-Friday, distinct date, valid contiguous price window, no supplied calendar event within inclusive +/-60m. Source min_importance=0 supplies medium(0)/high(1); all categories and speeches block controls, with audited canceled artifacts excluded. Require at least 10 controls. Aggregate event-level baseline medians and ratios. Weekdays are mixed and control dates are reused across events, so these are descriptive seasonal baselines, not independent causal controls.",
+    "sensitivity_comparison": "primary_comparison.csv fixes each category's isolated 30m cohort and measures all 15/30/60m outcomes on those same timestamps. Its horizon-specific overlap counts warn that a 60m result may include a later announcement. all_single_category_comparison.csv uses all single-category 30m cohorts regardless of neighboring announcements.",
+    "bootstrap": "2,000 deterministic nonparametric bootstrap replicates of event timestamp/packages within each category. Percentile median intervals are descriptive, especially fragile at n<10; no hypothesis tests or multiple-comparison correction."
+  },
+  "limitations": [
+    "One year of continuous back-adjusted CME:6E1! 15-minute bars; not individual contract executions or a one-minute/tick study.",
+    "Scheduled calendar associations cannot identify causal effects, trade profitability, or whether actual/forecast surprises drove the move.",
+    "Unscheduled headlines, geopolitical events, positioning and non-calendar releases remain unobserved confounders.",
+    "Calendar corrections, unavailable/canceled releases, and provider time/importance errors can affect event matching; classification audit records exclusions and timing repairs.",
+    "The first study month and last calendar year are partial; yearly/monthly splits are descriptive and unequal in length.",
+    "Rank selection across many categories is exploratory. Sparse quarterly/central-bank samples and overlapping uncertainty intervals limit claims about a single winner."
+  ]
+}

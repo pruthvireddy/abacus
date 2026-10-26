@@ -1,15 +1,42 @@
 # Session-anchored VWAP
 
-Study `05_session_vwap` · **planned** · ES / NQ / GC
+Study `05_session_vwap` · **three primary candidates evaluated; A/C context explored** · ES / NQ / GC
 
-Investigate six VWAP candidate families using the pinned Session-Anchored VWAP 1.0.0 release. [The original plan](plan.md) defines events, causal timing, denominators, comparisons, uncertainty, and the proposed evaluation periods. [study.yaml](study.yaml) records the shared proposed settings; it is not an executable configuration.
+The original statistical price-path studies are return to VWAP after departure (`vwap_return_after_departure`), fade of the first close outside 2σ (`vwap_extreme_fade`), and bounce on the first causal VWAP retest (`vwap_first_retest_bounce`). The [original six-candidate plan](plan.md) remains historical context. Re-entry fades now have partial exploratory evidence; a paired wait-versus-immediate policy comparison is outstanding. Cross acceptance/retests and outside-band continuation remain proposed.
 
-Start with return-to-VWAP behavior, then compare immediate and confirmed fades, then retest bounces. The [six strategy cards](../../strategies/README.md) track the ideas separately from the study and will accumulate evidence across later runs.
+[Protocol 1.0.0](protocol-1.0.0.md) fixes the original executed definitions, populations, causal timing, three primary statistics, baselines, splits, and sensitivity checks. [Protocol 1.1.0](protocol-1.1.0.md) freezes the later exploratory A/C context cuts, including NY first 30/60 minutes, prior excursion, opening balance, ATR, and re-entry. [study.yaml](study.yaml) records the selected scope.
 
 ## Inputs and status
 
-[inputs.lock.json](inputs.lock.json) pins release, 2m/5m manifests, source-price manifest, and relevant contracts by SHA-256. Resolve `publication_root` through the root path configuration; physical data remains in the existing Bhishma publication. The published manifests preserve their original contents and relative partition paths. Checks of manifest identities do not substitute for data-partition validation.
+[inputs.lock.json](inputs.lock.json) pins the immutable Bhishma `session_anchored_vwap__1.0.0` release, its 2m/5m datasets, and unadjusted one-minute source. Storage resolves through Abacus path configuration; the current publication root is this workspace. Input identity and consumed partition checksums are verified for each extraction. The [storage relocation](../../docs/migration/storage-relocation-20260922.md) changes physical storage without changing the pinned release.
 
-No VWAP outcomes or strategy implementation have been added. No execution costs or final trading rules have been chosen. [notes.md](notes.md) records remaining decisions and changes. Before computation, freeze the protocol and evaluation assumptions, then save each execution as a distinct artifact bundle under `runs/05_session_vwap/<unique_run_id>/`.
+The reference execution is `20260923T015900Z_vwap3`. Its [report](../../runs/05_session_vwap/20260923T015900Z_vwap3/report.html), [metrics](../../runs/05_session_vwap/20260923T015900Z_vwap3/metrics.json), [event evidence](../../runs/05_session_vwap/20260923T015900Z_vwap3/events.manifest.json), and [manifest](../../runs/05_session_vwap/20260923T015900Z_vwap3/manifest.json) are retained under `runs/` after verification. The [decision history](notes.md) records execution changes and inspected variants. Findings concern conditional movement; fills, costs, latency, and sizing remain unspecified.
+
+The later exploratory execution is `20260923T035300Z_ac_context`. Its [report](../../runs/05_session_vwap/20260923T035300Z_ac_context/report.html), [all cuts](../../runs/05_session_vwap/20260923T035300Z_ac_context/tables/cuts.csv), [NY early exits](../../runs/05_session_vwap/20260923T035300Z_ac_context/tables/ny_early.csv), and [run advice](../../runs/05_session_vwap/20260923T035300Z_ac_context/advice.md) link back to the unchanged parent event ledger. The selected segments are discovery evidence because final-period outcomes had already been viewed.
+
+## Reproduce
+
+[src/reporting.py](src/reporting.py) owns saved-evidence loading, numerical
+summaries, tables, and `write_all` orchestration. Study-local presentation lives
+in [src/report_rendering.py](src/report_rendering.py): `_fmt`, `write_figure`,
+`write_report`, `write_publication`, and `LABELS`. The existing `reporting` imports
+and signatures remain the compatibility entry point for audit, warm-up, and
+summary callers. Both sealers already recursively snapshot `src/` and `tests/`,
+so future source snapshots include the new module without changing that logic.
+
+Use precomputed synthetic frames to check rendering without historical research:
+
+```sh
+./scripts/uv run --locked python -m unittest discover -s studies/05_session_vwap/tests -p 'test_report_rendering.py'
+./scripts/uv run --locked python -m unittest discover -s studies/05_session_vwap/tests
+```
+
+The maintenance comparison preserves Markdown/HTML, SVG/PNG, publication fields,
+and timestamp behavior. It does not revalidate saved findings or change the
+separate conditional-reporting implementation.
+
+From the workspace root, use a fresh run ID with `.venv/bin/python studies/05_session_vwap/run.py --run-id <new-id> --workers 3`. Then run `enrich.py`, `audit.py`, and `summarize.py` with that ID; inspect the output before sealing. The saved run manifest records the exact commands, code snapshot, environment, input hashes, and artifact hashes. Run IDs must be unique; never overwrite a completed run or published input.
+
+For the context study, use a fresh ID with `.venv/bin/python studies/05_session_vwap/conditional_run.py --run-id <new-id> --workers 3`, followed by `conditional_audit.py` and `conditional_summarize.py`. Its saved run manifest records the checks and source snapshot.
 
 [Artifact conventions](../../templates/README.md) · [Research library](../../reports/index.html)

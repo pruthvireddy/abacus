@@ -1,0 +1,13 @@
+# ES Range XV one-candle pullback continuation and retracement
+
+Protocol 0.4.0. A is an original-direction leg, B is exactly one opposite candle, R resumes A direction. n excludes R. F1 recovery requires body retracement and a strict close beyond R.close. Earlier A-leg groups use exact known starts; unknown starts remain separate.
+
+| RXV | Setups | Known F1 | Unknown F1 |
+|---|---:|---:|---:|
+| 4 | 99632 | 99333 | 299 |
+| 5 | 68017 | 67752 | 265 |
+| 6 | 49717 | 49429 | 288 |
+
+Gross OHLC payoff proxy: F1.open reference, adverse B/R extreme plus a nominal 0.25 stop buffer, 1R/2R targets, ten physical candles. Both-extrema order has explicit payoff bounds; no net or executable profitability estimate.
+
+All n=1–20 horizons, four F1 depths, earlier-leg cohorts, direction/year/window and cross-breakdowns are retained in tables/. Selected publications provide saved-row filters and exact count/rate CSVs. Continuation denominators are horizon-specific. F1 joint and conditional denominators differ. Unknowns are never failures. These historical descriptive rates do not establish forecast validity or profitability.

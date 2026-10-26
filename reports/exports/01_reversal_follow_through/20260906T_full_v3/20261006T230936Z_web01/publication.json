@@ -1,0 +1,201 @@
+{
+  "schemaVersion": "1.0",
+  "id": "01-reversal-follow-through-20261006-web",
+  "title": "Reversal follow-through: no clear chart winner",
+  "summary": "The retained historical comparison does not establish a clear ES or NQ chart winner. Requested GC 20 evidence is missing; chart identity and timing remain provisional.",
+  "publishedAt": "2026-10-06T23:09:36Z",
+  "source": {
+    "producer": "sahadeva",
+    "runId": "20260906T_full_v3"
+  },
+  "sections": [
+    {
+      "kind": "text",
+      "id": "question",
+      "title": "Question and scope",
+      "body": "How does reversal follow-through differ across requested ES, NQ and GC Range XV chart sizes? This publication selects the historical full_v3 import because it retains expanded selection and excursion context, not because it is newer. The frozen selected candidates are ES 4 and NQ 10; GC 20 was unavailable."
+    },
+    {
+      "kind": "text",
+      "id": "findings",
+      "title": "Supported findings",
+      "body": "Development leaders and validation-supported choices differ. The test-labelled saved comparison declares no clear winner. Missing GC evidence is retained as missing rather than replaced by available GC 6. The table carries null values and the saved recommendation for that gap."
+    },
+    {
+      "kind": "table",
+      "id": "selection",
+      "title": "Saved candidate selection and decision",
+      "columns": [
+        {
+          "key": "asset",
+          "label": "asset"
+        },
+        {
+          "key": "development_candidate",
+          "label": "development candidate"
+        },
+        {
+          "key": "validation_supported",
+          "label": "validation supported"
+        },
+        {
+          "key": "test_clear_winner",
+          "label": "test clear winner"
+        },
+        {
+          "key": "recommendation",
+          "label": "recommendation"
+        },
+        {
+          "key": "reason",
+          "label": "reason"
+        }
+      ],
+      "rows": [
+        {
+          "asset": "ES",
+          "development_candidate": "4",
+          "validation_supported": false,
+          "test_clear_winner": false,
+          "recommendation": "No clear winner",
+          "reason": "The development leader did not satisfy every prespecified validation and held-out significance condition"
+        },
+        {
+          "asset": "GC",
+          "development_candidate": "10",
+          "validation_supported": false,
+          "test_clear_winner": false,
+          "recommendation": "No range comparison possible",
+          "reason": "Requested comparison unavailable: GC20 dataset missing"
+        },
+        {
+          "asset": "NQ",
+          "development_candidate": "10",
+          "validation_supported": false,
+          "test_clear_winner": false,
+          "recommendation": "No clear winner",
+          "reason": "The development leader did not satisfy every prespecified validation and held-out significance condition"
+        }
+      ]
+    },
+    {
+      "kind": "table",
+      "id": "test",
+      "title": "Selected test-labelled continuation and excursions",
+      "columns": [
+        {
+          "key": "asset",
+          "label": "asset"
+        },
+        {
+          "key": "range_setting",
+          "label": "Selected setting"
+        },
+        {
+          "key": "test_successes",
+          "label": "L≥3 successes",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "denominator",
+          "label": "Eligible reversals",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "test_probability_L_ge_3",
+          "label": "P(L≥3)",
+          "format": "percent",
+          "precision": 1
+        },
+        {
+          "key": "test_ci_low",
+          "label": "95% low",
+          "format": "percent",
+          "precision": 1
+        },
+        {
+          "key": "test_ci_high",
+          "label": "95% high",
+          "format": "percent",
+          "precision": 1
+        },
+        {
+          "key": "test_median_MAE_h3_ticks",
+          "label": "Three-bar median MAE",
+          "format": "number",
+          "precision": 2,
+          "unit": "ticks"
+        },
+        {
+          "key": "test_median_MFE_h3_ticks",
+          "label": "Three-bar median MFE",
+          "format": "number",
+          "precision": 2,
+          "unit": "ticks"
+        },
+        {
+          "key": "recommendation",
+          "label": "recommendation"
+        }
+      ],
+      "rows": [
+        {
+          "asset": "ES",
+          "range_setting": "4",
+          "test_successes": 615.0,
+          "denominator": 1985.0,
+          "test_probability_L_ge_3": 0.30982367758186397,
+          "test_ci_low": 0.2952773423718786,
+          "test_ci_high": 0.32352977776476444,
+          "test_median_MAE_h3_ticks": 9.0,
+          "test_median_MFE_h3_ticks": 11.0,
+          "recommendation": "No clear winner"
+        },
+        {
+          "asset": "GC",
+          "range_setting": "10",
+          "test_successes": 1725.0,
+          "denominator": 4920.0,
+          "test_probability_L_ge_3": 0.35060975609756095,
+          "test_ci_low": 0.3427053631992955,
+          "test_ci_high": 0.3582775873486622,
+          "test_median_MAE_h3_ticks": 19.0,
+          "test_median_MFE_h3_ticks": 26.0,
+          "recommendation": "No range comparison possible"
+        },
+        {
+          "asset": "NQ",
+          "range_setting": "10",
+          "test_successes": 5077.0,
+          "denominator": 15171.0,
+          "test_probability_L_ge_3": 0.3346516379935403,
+          "test_ci_low": 0.3302031795859236,
+          "test_ci_high": 0.33967835785032635,
+          "test_median_MAE_h3_ticks": 20.0,
+          "test_median_MFE_h3_ticks": 26.0,
+          "recommendation": "No clear winner"
+        }
+      ]
+    },
+    {
+      "kind": "text",
+      "id": "methods",
+      "title": "Definitions and methods",
+      "body": "A reversal is the first completed non-doji bar opposite the previous run; L counts additional same-direction bars after it. The primary threshold is at least three followers, excluding the reversal. Saved test labels cover August 20–September 4, 2026, after development June 14–August 2 and validation August 4–18 with embargo dates. Selected candidates are frozen before this test-labelled comparison. Saved 95% date-block intervals describe continuation; companion three-bar MAE/MFE is measured from the signal close in product ticks. Excursion extrema are separate, not executable exits."
+    },
+    {
+      "kind": "text",
+      "id": "limitations",
+      "title": "Limitations and uncertainty",
+      "body": "This is a historical import not newly revalidated research. Original short-export input files are missing locally. Filename chart labels are provisional Range XV, not verified Range XC; timezone, completion and session semantics are unresolved. Imported test labels do not certify pristine independent confirmation. Missing GC 20 prevents its chart-size comparison. Gross path extrema omit fills, costs and profitability."
+    },
+    {
+      "kind": "text",
+      "id": "sources-provenance",
+      "title": "Source and presentation provenance",
+      "body": "Study 01_reversal_follow_through; source run 20260906T_full_v3. Publication-only choice: full_v3 retains the expanded chart-selection decision and companion excursion evidence needed for this question. Historical import gaps remain visible; this is a publication choice, not a research reference.\n\nPresentation revision 20261006T230936Z_web01, web-study-report-1.0. Saved numerical tables are the authority; only selected rows and columns are presented. No new statistics or research execution. The publication record identifies this JSON and its selected assets."
+    }
+  ]
+}

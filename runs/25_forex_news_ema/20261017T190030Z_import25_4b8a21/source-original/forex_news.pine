@@ -1,0 +1,564 @@
+// This Pine Script™ code is subject to the terms of the Mozilla Public License 2.0 at https://mozilla.org/MPL/2.0/
+// Original Live Economic Calendar © toodegrees
+// Alert and deduplication concepts adapted from the Nachodog fork.
+// Forex News integration: selectable event windows, hoverable event markers, independent table/marker scopes, and safer alerts.
+//@version=6
+
+import toodegrees/forex_factory_utility/17 as ffUtil
+import toodegrees/forex_factory_decoding/46 as ffDec
+
+indicator("Forex News", shorttitle = "Forex News", overlay = true, max_lines_count = 500, max_labels_count = 500)
+
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Timeframe support
+// ─────────────────────────────────────────────────────────────────────────────
+int chartSeconds = timeframe.in_seconds(timeframe.period)
+if chartSeconds > 86400
+    runtime.error("Forex News supports the Daily timeframe or lower.")
+else if chartSeconds < 30
+    runtime.error("Forex News supports the 30-second timeframe or higher.")
+
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Feed helpers
+// ─────────────────────────────────────────────────────────────────────────────
+var bool midnightDetected = false
+if hour(time, "America/New_York") == 0 and hour(time[1], "America/New_York") != 0 and not midnightDetected
+    midnightDetected := true
+
+bool newDay = midnightDetected ? hour(time, "America/New_York") == 0 and hour(time[1], "America/New_York") != 0 : timeframe.change("D")
+
+requestData() =>
+    [request.seed("seed_toodegrees_toogit", "TOODEGREES_FOREX_FACTORY_SLOT_1", str.tostring(open) + "," + str.tostring(high) + "," + str.tostring(low) + "," + str.tostring(close) + "," + str.tostring(volume)),
+     request.seed("seed_toodegrees_toogit", "TOODEGREES_FOREX_FACTORY_SLOT_2", str.tostring(open) + "," + str.tostring(high) + "," + str.tostring(low) + "," + str.tostring(close) + "," + str.tostring(volume)),
+     request.seed("seed_toodegrees_toogit", "TOODEGREES_FOREX_FACTORY_SLOT_3", str.tostring(open) + "," + str.tostring(high) + "," + str.tostring(low) + "," + str.tostring(close) + "," + str.tostring(volume)),
+     request.seed("seed_toodegrees_toogit", "TOODEGREES_FOREX_FACTORY_SLOT_4", str.tostring(open) + "," + str.tostring(high) + "," + str.tostring(low) + "," + str.tostring(close) + "," + str.tostring(volume)),
+     request.seed("seed_toodegrees_toogit", "TOODEGREES_FOREX_FACTORY_SLOT_5", str.tostring(open) + "," + str.tostring(high) + "," + str.tostring(low) + "," + str.tostring(close) + "," + str.tostring(volume)),
+     request.seed("seed_toodegrees_toogit", "TOODEGREES_FOREX_FACTORY_SLOT_6", str.tostring(open) + "," + str.tostring(high) + "," + str.tostring(low) + "," + str.tostring(close) + "," + str.tostring(volume)),
+     request.seed("seed_toodegrees_toogit", "TOODEGREES_FOREX_FACTORY_SLOT_7", str.tostring(open) + "," + str.tostring(high) + "," + str.tostring(low) + "," + str.tostring(close) + "," + str.tostring(volume)),
+     request.seed("seed_toodegrees_toogit", "TOODEGREES_FOREX_FACTORY_SLOT_8", str.tostring(open) + "," + str.tostring(high) + "," + str.tostring(low) + "," + str.tostring(close) + "," + str.tostring(volume)),
+     request.seed("seed_toodegrees_toogit", "TOODEGREES_FOREX_FACTORY_SLOT_9", str.tostring(open) + "," + str.tostring(high) + "," + str.tostring(low) + "," + str.tostring(close) + "," + str.tostring(volume))]
+
+method processData(ffUtil.News[] news, string slot1, string slot2, string slot3, string slot4, string slot5, string slot6, string slot7, string slot8, string slot9) =>
+    ffDec.readNews(news, slot1), ffDec.readNews(news, slot2), ffDec.readNews(news, slot3)
+    ffDec.readNews(news, slot4), ffDec.readNews(news, slot5), ffDec.readNews(news, slot6)
+    ffDec.readNews(news, slot7), ffDec.readNews(news, slot8), ffDec.readNews(news, slot9)
+
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Tooltips
+// ─────────────────────────────────────────────────────────────────────────────
+string timezoneTooltip = "The feed is based on New York time. If your chart uses another timezone, enable this and match the fixed UTC offset shown at the bottom-right of the chart. Fixed offsets do not adjust automatically for daylight saving time."
+string impactTooltip = "🔴 High impact\n🟠 Medium impact\n🟡 Low impact\n⚪ Holiday"
+string autoCurrencyTooltip = "Automatically selects calendar currencies from the current chart symbol. For indices, futures, metals, or synthetic symbols, manual currency selection is safer."
+string chartHistoryTooltip = "Today keeps only the current day's drawings. This Week keeps the current week's drawings. Manual also retains prior drawings for the selected number of calendar days."
+string labelPositionTooltip = "Auto places the label opposite the event candle's direction."
+string hoverMarkerTooltip = "Draws one compact circle on each bar containing a shaded release. Hover the circle for the event title, currency, schedule, expected impact, DXY rank, and shaded-window duration. Simultaneous releases are combined into one numbered marker."
+string tableSizeTooltip = "Approximate maximum visible events: Tiny 46, Small 38, Normal 28, Large 20, Huge 11."
+string tableHeaderTooltip = "Header text color / header background color"
+string tableRowTooltip = "Past-event text / future-event text / row background"
+string shadingTooltip = "The window overlaps every chart bar from the selected number of minutes before the event through the selected number after it. 30 + 30 produces a one-hour centered region. Use an intraday time-based chart for precise boundaries."
+string customKeywordsTooltip = "Optional comma-separated title fragments, matched without case sensitivity. Examples: Unemployment Rate, JOLTS, Consumer Confidence"
+string eventRankTooltip = "The numbered order reflects typical immediate USD/DXY volatility, not a guaranteed move. The surprise versus consensus, the policy regime, and the currency attached to the release can change the order."
+
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Calendar inputs
+// ─────────────────────────────────────────────────────────────────────────────
+bool customTimezone = input.bool(false, "Custom timezone?", inline = "tz")
+int timezoneHours = input.int(-4, "UTC", inline = "tz", minval = -12, maxval = 14)
+int timezoneMinutes = input.int(0, ":", inline = "tz", minval = 0, maxval = 59, step = 15, tooltip = timezoneTooltip)
+
+bool highImpact = input.bool(true, "🔴", group = "Calendar · Expected Impact", inline = "impact")
+bool mediumImpact = input.bool(true, "🟠", group = "Calendar · Expected Impact", inline = "impact")
+bool lowImpact = input.bool(false, "🟡", group = "Calendar · Expected Impact", inline = "impact")
+bool holidays = input.bool(false, "⚪", group = "Calendar · Expected Impact", inline = "impact", tooltip = impactTooltip)
+
+bool autoCurrency = input.bool(true, "Automatic", group = "Calendar · Currencies", tooltip = autoCurrencyTooltip)
+bool showAUD = input.bool(false, "AUD", group = "Calendar · Currencies", inline = "currency1")
+bool showCAD = input.bool(false, "CAD", group = "Calendar · Currencies", inline = "currency1")
+bool showCHF = input.bool(false, "CHF", group = "Calendar · Currencies", inline = "currency1")
+bool showCNY = input.bool(false, "CNY", group = "Calendar · Currencies", inline = "currency2")
+bool showEUR = input.bool(false, "EUR", group = "Calendar · Currencies", inline = "currency2")
+bool showGBP = input.bool(false, "GBP", group = "Calendar · Currencies", inline = "currency2")
+bool showJPY = input.bool(false, "JPY", group = "Calendar · Currencies", inline = "currency3")
+bool showNZD = input.bool(false, "NZD", group = "Calendar · Currencies", inline = "currency3")
+bool showUSD = input.bool(false, "USD", group = "Calendar · Currencies", inline = "currency3")
+
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Event-type inputs. Order reflects typical immediate USD/DXY impact.
+// ─────────────────────────────────────────────────────────────────────────────
+bool shadeAllFiltered = input.bool(false, "All impact/currency-filtered events", group = "Events To Shade · Typical DXY Rank", tooltip = eventRankTooltip)
+bool shadeRateDecisions = input.bool(true, "1 · FOMC / rate decisions — Extreme", group = "Events To Shade · Typical DXY Rank")
+bool shadeNFP = input.bool(true, "2 · NFP / Employment Situation — Very high", group = "Events To Shade · Typical DXY Rank")
+bool shadeCPI = input.bool(true, "3 · CPI / consumer prices — Very high", group = "Events To Shade · Typical DXY Rank")
+bool shadeRetailSales = input.bool(false, "4 · Retail sales — High", group = "Events To Shade · Typical DXY Rank")
+bool shadeGDP = input.bool(false, "5 · GDP (advance strongest) — Medium-high", group = "Events To Shade · Typical DXY Rank")
+bool shadePMI = input.bool(false, "6 · ISM / PMI — Medium-high", group = "Events To Shade · Typical DXY Rank")
+bool shadeOtherLabor = input.bool(false, "7 · ADP / claims / JOLTS — Medium", group = "Events To Shade · Typical DXY Rank")
+bool shadePPI = input.bool(false, "8 · PPI / producer prices — Medium-low", group = "Events To Shade · Typical DXY Rank")
+bool shadePCE = input.bool(false, "9 · PCE inflation — Medium-low", group = "Events To Shade · Typical DXY Rank")
+bool shadeCentralBankSpeeches = input.bool(false, "10 · Central-bank speeches — Variable", group = "Events To Shade · Typical DXY Rank")
+bool shadeOtherEvents = input.bool(false, "11 · Other filtered events — Variable", group = "Events To Shade · Typical DXY Rank")
+bool shadeCustomKeywords = input.bool(false, "Custom title keywords — Variable", group = "Events To Shade · Typical DXY Rank", inline = "custom")
+string customKeywordInput = input.text_area("", "", group = "Events To Shade · Typical DXY Rank", tooltip = customKeywordsTooltip)
+bool includeUntimedEvents = input.bool(false, "Treat All Day / Tentative events as timed", group = "Events To Shade · Typical DXY Rank")
+
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Shaded-region and alert inputs
+// ─────────────────────────────────────────────────────────────────────────────
+bool showShadedRegions = input.bool(true, "Show shaded regions", group = "Shaded Regions")
+int minutesBefore = input.int(30, "Minutes before", group = "Shaded Regions", inline = "window", minval = 0, maxval = 1440)
+int minutesAfter = input.int(30, "Minutes after", group = "Shaded Regions", inline = "window", minval = 0, maxval = 1440, tooltip = shadingTooltip)
+color shadedRegionColor = input.color(#EF5350, "Region color", group = "Shaded Regions", inline = "appearance")
+int shadedRegionTransparency = input.int(86, "Transparency", group = "Shaded Regions", inline = "appearance", minval = 0, maxval = 100)
+
+bool enableAlerts = input.bool(false, "Enable selected-event conditions", group = "Alerts")
+int alertBeforeMinutes = input.int(30, "Alert before", group = "Alerts", inline = "alertWindow", minval = 0, maxval = 1440)
+int alertAfterMinutes = input.int(5, "Alert after", group = "Alerts", inline = "alertWindow", minval = 0, maxval = 1440)
+
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Existing chart marker inputs
+// ─────────────────────────────────────────────────────────────────────────────
+string chartHistory = input.string("This Week", "Chart history", group = "Chart Markers", inline = "history", options = ["Today", "This Week", "Manual"])
+int chartLookbackDays = input.int(30, "days", group = "Chart Markers", inline = "history", minval = 1, maxval = 180, tooltip = chartHistoryTooltip)
+bool markersFollowEventSelection = input.bool(true, "Lines and labels follow Events To Shade", group = "Chart Markers")
+bool showHoverMarkers = input.bool(true, "Hover circles for shaded events", group = "Chart Markers", inline = "hover")
+string hoverMarkerSizeInput = input.string("Small", "", group = "Chart Markers", inline = "hover", options = ["Tiny", "Small", "Normal"])
+string hoverMarkerPosition = input.string("Above", "", group = "Chart Markers", inline = "hover", options = ["Above", "Below"], tooltip = hoverMarkerTooltip)
+bool showLabels = input.bool(false, "Expanded title labels", group = "Chart Markers", inline = "labels")
+string labelSizeInput = input.string("Normal", "", group = "Chart Markers", inline = "labels", options = ["Tiny", "Small", "Normal", "Large", "Huge"])
+string labelPosition = input.string("Auto", "", group = "Chart Markers", inline = "labels", options = ["Above", "Below", "Auto"], tooltip = labelPositionTooltip)
+bool labelOutline = input.bool(true, "Outline", group = "Chart Markers", inline = "labels")
+bool showLines = input.bool(true, "Lines", group = "Chart Markers", inline = "lines")
+string lineHistory = input.string("Future", "", group = "Chart Markers", inline = "lines", options = ["Future", "Past+Future"])
+string lineWeightInput = input.string("Heavy", "", group = "Chart Markers", inline = "lines", options = ["Light", "Medium", "Heavy"])
+string lineStyleInput = input.string("Solid", "", group = "Chart Markers", inline = "lines", options = ["Dashed", "Dotted", "Solid"])
+
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Maximal calendar table inputs
+// ─────────────────────────────────────────────────────────────────────────────
+bool showTable = input.bool(true, "Show table", group = "News Table", inline = "table1")
+string tableHistory = input.string("This Week", "", group = "News Table", inline = "table1", options = ["Today", "This Week"])
+string timeDisplay = input.string("24H", "", group = "News Table", inline = "table1", options = ["24H", "AM/PM"])
+bool tableFollowsEventSelection = input.bool(false, "Table follows Events To Shade", group = "News Table")
+color headerTextColor = input.color(#DEE1E9, "Header", group = "News Table", inline = "table2")
+color headerBackgroundColor = input.color(#283C70, "", group = "News Table", inline = "table2", tooltip = tableHeaderTooltip)
+color pastEventTextColor = input.color(#787B86, "Rows", group = "News Table", inline = "table3")
+color futureEventTextColor = input.color(#000000, "", group = "News Table", inline = "table3")
+color rowBackgroundColor = input.color(#DEE1E9, "", group = "News Table", inline = "table3", tooltip = tableRowTooltip)
+bool tableBorder = input.bool(true, "Border", group = "News Table", inline = "table4")
+color manualBorderColor = input.color(#000000, "", group = "News Table", inline = "table4")
+bool automaticBorderColor = input.bool(true, "Auto color", group = "News Table", inline = "table4")
+string tableHorizontal = input.string("Right", "", group = "News Table", inline = "table5", options = ["Left", "Center", "Right"])
+string tableVertical = input.string("Bottom", "", group = "News Table", inline = "table5", options = ["Top", "Middle", "Bottom"])
+string tableTextSize = input.string("Small", "", group = "News Table", inline = "table5", options = ["Tiny", "Small", "Normal", "Large", "Huge"], tooltip = tableSizeTooltip)
+
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Input normalization and event classification
+// ─────────────────────────────────────────────────────────────────────────────
+string normalizedChartHistory = timeframe.period == "D" and chartHistory == "Today" ? "This Week" : chartHistory
+string normalizedTableHistory = timeframe.period == "D" ? "This Week" : tableHistory
+string labelSize = ffUtil.size(labelSizeInput)
+string hoverMarkerSize = ffUtil.size(hoverMarkerSizeInput)
+string hoverMarkerYLocation = hoverMarkerPosition == "Above" ? yloc.abovebar : yloc.belowbar
+int lineTransparency = ffUtil.lineTrnsp(lineWeightInput)
+string lineStyle = ffUtil.lineStyle(lineStyleInput)
+string tableLocation = ffUtil.boxLoc(tableHorizontal, tableVertical)
+color[] impactFilter = ffUtil.impFilter(holidays, lowImpact, mediumImpact, highImpact)
+string[] currencyFilter = ffUtil.curFilter(autoCurrency, showAUD, showCAD, showCHF, showCNY, showEUR, showGBP, showJPY, showNZD, showUSD)
+var color[] holidayImpactKey = ffUtil.impFilter(true, false, false, false)
+var color[] lowImpactKey = ffUtil.impFilter(false, true, false, false)
+var color[] mediumImpactKey = ffUtil.impFilter(false, false, true, false)
+var color[] highImpactKey = ffUtil.impFilter(false, false, false, true)
+var string[] customKeywords = str.split(str.lower(customKeywordInput), ",")
+
+int CATEGORY_OTHER = 0
+int CATEGORY_RATES = 1
+int CATEGORY_CPI = 2
+int CATEGORY_NFP = 3
+int CATEGORY_PCE = 4
+int CATEGORY_PPI = 5
+int CATEGORY_GDP = 6
+int CATEGORY_RETAIL = 7
+int CATEGORY_PMI = 8
+int CATEGORY_LABOR = 9
+int CATEGORY_SPEECH = 10
+
+eventCategory(string title) =>
+    string normalized = str.lower(title)
+    bool isSpeech = str.contains(normalized, " speaks") or str.contains(normalized, "speech") or str.contains(normalized, "testifies") or str.contains(normalized, "testimony")
+    bool isRates = str.contains(normalized, "fomc") or str.contains(normalized, "federal funds rate") or str.contains(normalized, "interest rate decision") or str.contains(normalized, "rate statement") or str.contains(normalized, "monetary policy statement") or str.contains(normalized, "monetary policy report") or str.contains(normalized, "official bank rate") or str.contains(normalized, "cash rate") or str.contains(normalized, "main refinancing rate") or str.contains(normalized, "deposit facility rate") or str.contains(normalized, "overnight rate") or str.contains(normalized, "policy rate")
+    bool isCPI = str.contains(normalized, "cpi") or str.contains(normalized, "consumer price")
+    bool isPCE = str.contains(normalized, "pce") or str.contains(normalized, "personal consumption expenditure")
+    bool isPPI = str.contains(normalized, "ppi") or str.contains(normalized, "producer price")
+    bool isNFP = str.contains(normalized, "non-farm") or str.contains(normalized, "nonfarm") or str.contains(normalized, "payrolls") or str.contains(normalized, "unemployment rate") or str.contains(normalized, "average hourly earnings")
+    bool isOtherLabor = str.contains(normalized, "adp") or str.contains(normalized, "jolts") or str.contains(normalized, "jobless claims") or str.contains(normalized, "unemployment claims") or str.contains(normalized, "claimant count") or str.contains(normalized, "employment change")
+    bool isGDP = str.contains(normalized, "gdp") or str.contains(normalized, "gross domestic product")
+    bool isRetail = str.contains(normalized, "retail sales")
+    bool isPMI = str.contains(normalized, "pmi") or str.contains(normalized, "ism manufacturing") or str.contains(normalized, "ism services")
+
+    int category = CATEGORY_OTHER
+    if isSpeech
+        category := CATEGORY_SPEECH
+    else if isRates
+        category := CATEGORY_RATES
+    else if isCPI
+        category := CATEGORY_CPI
+    else if isPCE
+        category := CATEGORY_PCE
+    else if isPPI
+        category := CATEGORY_PPI
+    else if isNFP
+        category := CATEGORY_NFP
+    else if isOtherLabor
+        category := CATEGORY_LABOR
+    else if isGDP
+        category := CATEGORY_GDP
+    else if isRetail
+        category := CATEGORY_RETAIL
+    else if isPMI
+        category := CATEGORY_PMI
+    category
+
+matchesCustomKeyword(string title) =>
+    bool matches = false
+    string normalized = str.lower(title)
+    if shadeCustomKeywords and customKeywords.size() > 0
+        for i = 0 to customKeywords.size() - 1
+            string keyword = str.trim(customKeywords.get(i))
+            if str.length(keyword) > 0 and str.contains(normalized, keyword)
+                matches := true
+                break
+    matches
+
+categoryEnabled(int category) =>
+    bool enabled = false
+    if category == CATEGORY_RATES
+        enabled := shadeRateDecisions
+    else if category == CATEGORY_CPI
+        enabled := shadeCPI
+    else if category == CATEGORY_NFP
+        enabled := shadeNFP
+    else if category == CATEGORY_PCE
+        enabled := shadePCE
+    else if category == CATEGORY_PPI
+        enabled := shadePPI
+    else if category == CATEGORY_GDP
+        enabled := shadeGDP
+    else if category == CATEGORY_RETAIL
+        enabled := shadeRetailSales
+    else if category == CATEGORY_PMI
+        enabled := shadePMI
+    else if category == CATEGORY_LABOR
+        enabled := shadeOtherLabor
+    else if category == CATEGORY_SPEECH
+        enabled := shadeCentralBankSpeeches
+    else
+        enabled := shadeOtherEvents
+    enabled
+
+titleSelected(string title) =>
+    shadeAllFiltered or categoryEnabled(eventCategory(title)) or matchesCustomKeyword(title)
+
+isTimedEvent(ffUtil.News newsEvent) =>
+    string eventTimeText = str.lower(newsEvent.tod)
+    includeUntimedEvents or (not str.contains(eventTimeText, "all day") and not str.contains(eventTimeText, "tentative"))
+
+timestampInsideBar(int timestamp) =>
+    not na(time_close) and timestamp >= time and timestamp < time_close
+
+categoryRank(int category) =>
+    int rank = 11
+    if category == CATEGORY_RATES
+        rank := 1
+    else if category == CATEGORY_NFP
+        rank := 2
+    else if category == CATEGORY_CPI
+        rank := 3
+    else if category == CATEGORY_RETAIL
+        rank := 4
+    else if category == CATEGORY_GDP
+        rank := 5
+    else if category == CATEGORY_PMI
+        rank := 6
+    else if category == CATEGORY_LABOR
+        rank := 7
+    else if category == CATEGORY_PPI
+        rank := 8
+    else if category == CATEGORY_PCE
+        rank := 9
+    else if category == CATEGORY_SPEECH
+        rank := 10
+    rank
+
+categoryName(int category) =>
+    string name = "Other event"
+    if category == CATEGORY_RATES
+        name := "FOMC / rate decision"
+    else if category == CATEGORY_NFP
+        name := "NFP / Employment Situation"
+    else if category == CATEGORY_CPI
+        name := "CPI / consumer prices"
+    else if category == CATEGORY_RETAIL
+        name := "Retail sales"
+    else if category == CATEGORY_GDP
+        name := "Advance GDP"
+    else if category == CATEGORY_PMI
+        name := "ISM / PMI"
+    else if category == CATEGORY_LABOR
+        name := "ADP / claims / JOLTS"
+    else if category == CATEGORY_PPI
+        name := "PPI / producer prices"
+    else if category == CATEGORY_PCE
+        name := "PCE inflation"
+    else if category == CATEGORY_SPEECH
+        name := "Central-bank speech"
+    name
+
+categoryStrength(int category) =>
+    string strength = "Variable"
+    if category == CATEGORY_RATES
+        strength := "Extreme"
+    else if category == CATEGORY_NFP or category == CATEGORY_CPI
+        strength := "Very high"
+    else if category == CATEGORY_RETAIL
+        strength := "High"
+    else if category == CATEGORY_GDP or category == CATEGORY_PMI
+        strength := "Medium-high"
+    else if category == CATEGORY_LABOR
+        strength := "Medium"
+    else if category == CATEGORY_PPI or category == CATEGORY_PCE
+        strength := "Medium-low"
+    strength
+
+impactScore(color impact) =>
+    impact == highImpactKey.get(0) ? 4 : impact == mediumImpactKey.get(0) ? 3 : impact == lowImpactKey.get(0) ? 2 : 1
+
+impactName(color impact) =>
+    impact == highImpactKey.get(0) ? "High" : impact == mediumImpactKey.get(0) ? "Medium" : impact == lowImpactKey.get(0) ? "Low" : "Holiday"
+
+eventMarkerTooltip(ffUtil.News newsEvent) =>
+    int category = eventCategory(newsEvent.ttl)
+    string tooltip = newsEvent.ttl
+    string timezoneLabel = customTimezone ? "custom UTC offset" : "New York"
+    tooltip += "\n" + newsEvent.cur + " • " + newsEvent.dow + " " + newsEvent.dat + " • " + newsEvent.tod + " (" + timezoneLabel + ")"
+    tooltip += "\nExpected impact: " + impactName(newsEvent.imp)
+    tooltip += newsEvent.cur == "USD" ? "\nTypical DXY rank #" + str.tostring(categoryRank(category)) + " • " + categoryStrength(category) : "\nCategory rank #" + str.tostring(categoryRank(category)) + " • " + categoryStrength(category) + " (DXY effect may be indirect)"
+    tooltip += "\nCategory: " + categoryName(category)
+    tooltip += "\nShaded window: " + str.tostring(minutesBefore) + "m before / " + str.tostring(minutesAfter) + "m after"
+    tooltip
+
+deduplicateNews(ffUtil.News[] newsArray) =>
+    ffUtil.News[] uniqueNews = array.new<ffUtil.News>()
+    if newsArray.size() > 0
+        for i = 0 to newsArray.size() - 1
+            ffUtil.News candidate = newsArray.get(i)
+            bool duplicate = false
+            if uniqueNews.size() > 0
+                for j = 0 to uniqueNews.size() - 1
+                    ffUtil.News existing = uniqueNews.get(j)
+                    if candidate.tmst == existing.tmst and candidate.cur == existing.cur and candidate.ttl == existing.ttl
+                        duplicate := true
+                        break
+            if not duplicate
+                uniqueNews.push(candidate)
+    uniqueNews
+
+selectNews(ffUtil.News[] newsArray) =>
+    ffUtil.News[] selected = array.new<ffUtil.News>()
+    if newsArray.size() > 0
+        for i = 0 to newsArray.size() - 1
+            ffUtil.News candidate = newsArray.get(i)
+            if titleSelected(candidate.ttl)
+                selected.push(candidate)
+    selected
+
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Import, decode, filter, and cache
+// ─────────────────────────────────────────────────────────────────────────────
+var ffUtil.News[] currentWeek = array.new<ffUtil.News>()
+var ffUtil.News[] nextWeek = array.new<ffUtil.News>()
+var ffUtil.News[] currentDay = array.new<ffUtil.News>()
+var ffUtil.News[] uniqueWeek = array.new<ffUtil.News>()
+var ffUtil.News[] uniqueDay = array.new<ffUtil.News>()
+var ffUtil.News[] selectedWeek = array.new<ffUtil.News>()
+var ffUtil.News[] selectedDay = array.new<ffUtil.News>()
+var ffUtil.News[] tableWeek = array.new<ffUtil.News>()
+var ffUtil.News[] tableDay = array.new<ffUtil.News>()
+
+[slot1, slot2, slot3, slot4, slot5, slot6, slot7, slot8, slot9] = requestData()
+
+if timeframe.change("W")
+    nextWeek := ffUtil.bubbleSort_News(nextWeek)
+    if customTimezone
+        nextWeek := ffUtil.adjustTimezone(nextWeek, timezoneHours, timezoneMinutes)
+    if timeDisplay == "AM/PM"
+        nextWeek := ffUtil.NewsAMPM_TOD(nextWeek)
+    currentWeek := nextWeek.copy()
+    currentWeek := ffUtil.weekNews(currentWeek, currencyFilter, impactFilter)
+    uniqueWeek := deduplicateNews(currentWeek)
+    selectedWeek := selectNews(uniqueWeek)
+    tableWeek := tableFollowsEventSelection ? selectedWeek.copy() : uniqueWeek.copy()
+    nextWeek.clear()
+
+if newDay
+    currentDay.clear()
+    currentDay := ffUtil.todayNews(uniqueWeek, currentDay, midnightDetected)
+    uniqueDay := deduplicateNews(currentDay)
+    selectedDay := selectNews(uniqueDay)
+    tableDay := tableFollowsEventSelection ? selectedDay.copy() : uniqueDay.copy()
+
+nextWeek.processData(slot1, slot2, slot3, slot4, slot5, slot6, slot7, slot8, slot9)
+
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Maximal table
+// ─────────────────────────────────────────────────────────────────────────────
+color tableBorderColor = tableBorder ? (automaticBorderColor ? chart.fg_color : manualBorderColor) : na
+var newsTable = ffUtil.newTable(tableLocation, tableBorderColor)
+
+if showTable
+    if normalizedTableHistory == "Today"
+        if tableDay.size() > 0
+            if newDay
+                newsTable := ffUtil.FF_Table(tableDay, tableLocation, tableTextSize, headerTextColor, headerBackgroundColor, futureEventTextColor, rowBackgroundColor, tableBorderColor)
+            ffUtil.timeline(tableDay, newsTable, pastEventTextColor, timezoneHours, timezoneMinutes, true)
+        else
+            newsTable.delete()
+    else
+        if tableWeek.size() > 0
+            if timeframe.change("W")
+                newsTable := ffUtil.FF_Table(tableWeek, tableLocation, tableTextSize, headerTextColor, headerBackgroundColor, futureEventTextColor, rowBackgroundColor, tableBorderColor)
+            ffUtil.timeline(tableWeek, newsTable, pastEventTextColor, timezoneHours, timezoneMinutes)
+        else
+            newsTable.delete()
+else
+    newsTable.delete()
+
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Existing event lines and labels
+// ─────────────────────────────────────────────────────────────────────────────
+int MAX_HOVER_MARKERS = 200
+var label[] hoverMarkerLabels = array.new<label>()
+var int[] hoverMarkerTimestamps = array.new_int()
+
+clearHoverMarkers(label[] markerLabels, int[] markerTimes) =>
+    while markerLabels.size() > 0
+        label.delete(markerLabels.pop())
+    markerTimes.clear()
+
+trimHoverMarkers(label[] markerLabels, int[] markerTimes, int cutoff) =>
+    int i = markerTimes.size() - 1
+    while i >= 0
+        if markerTimes.get(i) < cutoff
+            label.delete(markerLabels.remove(i))
+            markerTimes.remove(i)
+        i -= 1
+
+if (normalizedChartHistory == "Today" and newDay) or (normalizedChartHistory == "This Week" and timeframe.change("W"))
+    clearHoverMarkers(hoverMarkerLabels, hoverMarkerTimestamps)
+else if normalizedChartHistory == "Manual" and newDay
+    trimHoverMarkers(hoverMarkerLabels, hoverMarkerTimestamps, time - chartLookbackDays * 86400000)
+
+if showLines
+    if normalizedChartHistory != "Today" and timeframe.change("W")
+        if markersFollowEventSelection
+            ffUtil.FF_OnChartLine(selectedWeek, lineTransparency, lineStyle)
+        else
+            ffUtil.FF_OnChartLine(uniqueWeek, lineTransparency, lineStyle)
+    else if normalizedChartHistory == "Today" and newDay
+        if markersFollowEventSelection
+            ffUtil.FF_OnChartLine(selectedDay, lineTransparency, lineStyle)
+        else
+            ffUtil.FF_OnChartLine(uniqueDay, lineTransparency, lineStyle)
+
+if showLabels
+    if markersFollowEventSelection
+        ffUtil.FF_OnChartLabel(selectedWeek, labelPosition, labelSize, labelOutline)
+    else
+        ffUtil.FF_OnChartLabel(uniqueWeek, labelPosition, labelSize, labelOutline)
+
+// Compact hover targets for shaded events. Simultaneous releases share one
+// numbered circle and one combined tooltip to prevent overlapping hit targets.
+if showHoverMarkers and selectedWeek.size() > 0 and not na(time_close)
+    for i = 0 to selectedWeek.size() - 1
+        ffUtil.News anchorEvent = selectedWeek.get(i)
+        int eventTimestamp = anchorEvent.tmst
+        if isTimedEvent(anchorEvent) and timestampInsideBar(eventTimestamp) and not hoverMarkerTimestamps.includes(eventTimestamp)
+            int markerEventCount = 0
+            int strongestImpactScore = -1
+            color markerColor = shadedRegionColor
+            string markerTooltipText = ""
+            for j = 0 to selectedWeek.size() - 1
+                ffUtil.News candidateEvent = selectedWeek.get(j)
+                if isTimedEvent(candidateEvent) and candidateEvent.tmst == eventTimestamp
+                    markerEventCount += 1
+                    markerTooltipText += (markerEventCount > 1 ? "\n\n────────\n\n" : "")
+                    markerTooltipText += eventMarkerTooltip(candidateEvent)
+                    int eventImpactScore = impactScore(candidateEvent.imp)
+                    if eventImpactScore > strongestImpactScore
+                        strongestImpactScore := eventImpactScore
+                        markerColor := candidateEvent.imp
+            if markerEventCount > 0
+                if hoverMarkerLabels.size() >= MAX_HOVER_MARKERS
+                    label.delete(hoverMarkerLabels.shift())
+                    hoverMarkerTimestamps.shift()
+                string markerText = markerEventCount > 1 ? str.tostring(markerEventCount) : ""
+                color markerTextColor = strongestImpactScore >= 3 ? color.white : color.black
+                label hoverMarker = label.new(eventTimestamp, na, markerText, xloc = xloc.bar_time, yloc = hoverMarkerYLocation, color = markerColor, style = label.style_circle, textcolor = markerTextColor, size = hoverMarkerSize, tooltip = markerTooltipText)
+                hoverMarkerLabels.push(hoverMarker)
+                hoverMarkerTimestamps.push(eventTimestamp)
+
+ffUtil.historical(chartLookbackDays, normalizedChartHistory == "Today", normalizedChartHistory == "This Week", lineHistory)
+
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Full event-window shading. One global bgcolor call keeps drawing limits free.
+// ─────────────────────────────────────────────────────────────────────────────
+bool insideSelectedWindow = false
+if showShadedRegions and selectedWeek.size() > 0 and not na(time_close)
+    for i = 0 to selectedWeek.size() - 1
+        ffUtil.News newsEvent = selectedWeek.get(i)
+        if isTimedEvent(newsEvent)
+            int windowStart = newsEvent.tmst - minutesBefore * 60000
+            int windowEnd = newsEvent.tmst + minutesAfter * 60000
+            windowEnd := windowEnd <= windowStart ? windowStart + 60000 : windowEnd
+            if time < windowEnd and time_close > windowStart
+                insideSelectedWindow := true
+                break
+
+bgcolor(insideSelectedWindow ? color.new(shadedRegionColor, shadedRegionTransparency) : na, title = "Selected news-event window")
+
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Alerts for the same selected, timed events
+// ─────────────────────────────────────────────────────────────────────────────
+bool alertBefore = false
+bool alertAtRelease = false
+bool alertAfter = false
+
+if enableAlerts and selectedWeek.size() > 0
+    for i = 0 to selectedWeek.size() - 1
+        ffUtil.News newsEvent = selectedWeek.get(i)
+        if isTimedEvent(newsEvent)
+            alertBefore := alertBefore or timestampInsideBar(newsEvent.tmst - alertBeforeMinutes * 60000)
+            alertAtRelease := alertAtRelease or timestampInsideBar(newsEvent.tmst)
+            alertAfter := alertAfter or (alertAfterMinutes > 0 and timestampInsideBar(newsEvent.tmst + alertAfterMinutes * 60000))
+
+alertcondition(alertBefore, "Selected news before", "A selected Forex News event is approaching.")
+alertcondition(alertAtRelease, "Selected news release", "A selected Forex News event is being released.")
+alertcondition(alertAfter, "Selected news after", "The post-event Forex News buffer has elapsed.")
+
+
+// The Daily chart requires one extra decoding pass at weekly boundaries.
+if timeframe.period == "D" and timeframe.change("W")
+    nextWeek.processData(slot1, slot2, slot3, slot4, slot5, slot6, slot7, slot8, slot9)

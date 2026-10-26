@@ -1,0 +1,6 @@
+#!/bin/sh
+set -eu
+ABACUS_CHECK_DIRECTORY=${0%/*}
+if [ "$ABACUS_CHECK_DIRECTORY" = "$0" ]; then ABACUS_CHECK_DIRECTORY=.; fi
+ABACUS_CHECK_ROOT=$(CDPATH= cd -- "$ABACUS_CHECK_DIRECTORY/.." && pwd)
+exec "${ABACUS_CHECK_PYTHON:-python3}" -B "$ABACUS_CHECK_ROOT/scripts/workspace_checks.py" "$@"

@@ -1,0 +1,93 @@
+{
+  "schema_version": 1,
+  "run_id": "20261011T002602Z_s2_c1b4",
+  "status": "ready_for_parent_review",
+  "source_stable": true,
+  "historical_adapter_execution_started": false,
+  "original_historical_verifier_untouched": true,
+  "maintained_sources_changed": false,
+  "numeric_artifacts_changed": false,
+  "behavior_change": "Only successful mismatch repr-string construction deferred; missing/finite/type/2e-10 numeric predicates, strict boolean caller and exact failure messages preserved for saved primitive/pandas/numpy ledger values. Arbitrary custom objects with side-effecting repr are outside scientific ledger domain.",
+  "tests": {
+    "equivalence": {
+      "tests": 4,
+      "failures": 0,
+      "errors": 0,
+      "skips": 0,
+      "seconds": 0.02212962508201599,
+      "status": "passed"
+    },
+    "frozen_independent_fixtures": {
+      "tests": 19,
+      "failures": 0,
+      "errors": 0,
+      "skips": 0,
+      "seconds": 146.55666699982248,
+      "status": "passed"
+    }
+  },
+  "commands": [
+    {
+      "phase": "prepare-tests",
+      "command": "python3 work/21_ema_cloud_trend_follow_opportunity/stage2_preparation/C-runtime/verification_adapter.py prepare-tests",
+      "exit_code": 0
+    },
+    {
+      "phase": "equivalence",
+      "command": "PYTHONPATH=/private/tmp/abacus-study21-plot-deps MPLCONFIGDIR=/private/tmp/abacus-study21-mpl UV_CACHE_DIR=/private/tmp/abacus-study21-uv-cache ./scripts/uv run --locked --no-sync python work/21_ema_cloud_trend_follow_opportunity/stage2_preparation/C-runtime/verification_adapter.py equivalence > work/21_ema_cloud_trend_follow_opportunity/stage2_preparation/C-runtime/equivalence.log 2>&1",
+      "exit_code": 0
+    },
+    {
+      "phase": "fixtures",
+      "command": "PYTHONPATH=/private/tmp/abacus-study21-plot-deps MPLCONFIGDIR=/private/tmp/abacus-study21-mpl UV_CACHE_DIR=/private/tmp/abacus-study21-uv-cache ./scripts/uv run --locked --no-sync python work/21_ema_cloud_trend_follow_opportunity/stage2_preparation/C-runtime/verification_adapter.py fixtures > work/21_ema_cloud_trend_follow_opportunity/stage2_preparation/C-runtime/fixtures.log 2>&1",
+      "exit_code": 0
+    }
+  ],
+  "artifacts": [
+    {
+      "path": "/Users/ppanati/Documents/projects/abacus/work/21_ema_cloud_trend_follow_opportunity/stage2_preparation/C-runtime/verification_adapter.py",
+      "bytes": 10109,
+      "sha256": "c3a6413f4a573ec3f7dc8a4019dc2f6dfaf78b00878ab8970bc372fcef4d435c"
+    },
+    {
+      "path": "/Users/ppanati/Documents/projects/abacus/work/21_ema_cloud_trend_follow_opportunity/stage2_preparation/C-runtime/lazy_equal.py",
+      "bytes": 1561,
+      "sha256": "29a23aafc820d3c755343ac50c33ef1b21ac7431ccb5dfc67c68b0b23d4f1f21"
+    },
+    {
+      "path": "/Users/ppanati/Documents/projects/abacus/work/21_ema_cloud_trend_follow_opportunity/stage2_preparation/C-runtime/test_runtime_adapter.py",
+      "bytes": 4935,
+      "sha256": "f9cf715fd5991f98a59cf130e69e2c10fd70efa92854dc0291bb602648c577ba"
+    },
+    {
+      "path": "/Users/ppanati/Documents/projects/abacus/work/21_ema_cloud_trend_follow_opportunity/stage2_preparation/C-runtime/tests-before.json",
+      "bytes": 5383,
+      "sha256": "5aa439bc3378bebe1bf25b5f15587a57ea64bdeb4a7a98a36dc6276724f0e91e"
+    },
+    {
+      "path": "/Users/ppanati/Documents/projects/abacus/work/21_ema_cloud_trend_follow_opportunity/stage2_preparation/C-runtime/equivalence-result.json",
+      "bytes": 3960,
+      "sha256": "4c0d24debf710e850f24ba1ebc276c9bd78b1b96b82aae75e6b8cad86d18ee1b"
+    },
+    {
+      "path": "/Users/ppanati/Documents/projects/abacus/work/21_ema_cloud_trend_follow_opportunity/stage2_preparation/C-runtime/fixtures-result.json",
+      "bytes": 4026,
+      "sha256": "588d6da08a21f45c0a2234b60baa95016d7039703d113f30db99dda74fc345ad"
+    },
+    {
+      "path": "/Users/ppanati/Documents/projects/abacus/work/21_ema_cloud_trend_follow_opportunity/stage2_preparation/C-runtime/equivalence.log",
+      "bytes": 4304,
+      "sha256": "1778a7c3caa76bacf53bb898b7c1589dfe9d63a22bce6412c9b81de96d1a1c3f"
+    },
+    {
+      "path": "/Users/ppanati/Documents/projects/abacus/work/21_ema_cloud_trend_follow_opportunity/stage2_preparation/C-runtime/fixtures.log",
+      "bytes": 7436,
+      "sha256": "b88525c0b2c546eac3853fce3fc532b653f92fa204c479762d5db352119c8fb4"
+    }
+  ],
+  "qualifications": [
+    "Existing cached rendering context emitted Axes3D-unavailable warning; all report figures are two-dimensional and all19 fixtures passed without skips.",
+    "Original verifier continues separately; adapter prepare-run/run phases have not been invoked.",
+    "Full frozen verify_bundle and its original run_stage2.verify wrapper are retained; no checks omitted in planned historical adapter execution."
+  ]
+}

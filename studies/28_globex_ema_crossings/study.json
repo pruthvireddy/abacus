@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "study_id": "28_globex_ema_crossings",
+  "title": "EMA6 Crossings of Globex VWAP",
+  "summary": "Corrected 3-minute close EMA6 study: full-Globex mean crossings ES 10.98, NQ 10.72, GC 9.39. Realized quiet-range/ATR days had more crossings than active days; prior ATR regimes separated weakly and inconsistently.",
+  "status": "completed",
+  "topic": "vwap_crossing_frequency",
+  "products": [
+    "ES",
+    "NQ",
+    "GC"
+  ],
+  "data_summary": "Pinned minute-source 3m OHLCV and HLC3/volume Globex VWAP with unchanged retrospective eligibility and daily ATR. Common 2021-06-28\u20132026-09-18: ES 1,037, NQ 1,177, GC 418 sessions; 357 shared dates. Earlier 5m/2m run preserved.",
+  "evidence_status": "Corrected protocol 1.1.0 sealed: 25 synthetic tests, full source reconciliation of 1,397,940 bars and 32,006 crossings, saved tables/bootstrap, nine EMA source sessions, and prior-run coverage/range/ATR invariants passed. 107-artifact integrity is distinct from science; sample selection and sparse GC coverage remain.",
+  "strategy_ids": [],
+  "reference_run": "20261023T210215Z_ema6_3m_v1"
+}

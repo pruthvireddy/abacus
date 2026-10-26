@@ -1,0 +1,129 @@
+{
+  "protocol_version": "0.3.0-executed.2",
+  "draft_version": "0.3.0",
+  "products": {
+    "ES": [
+      0.25,
+      50.0
+    ],
+    "NQ": [
+      0.25,
+      20.0
+    ],
+    "GC": [
+      0.1,
+      100.0
+    ]
+  },
+  "periods": {
+    "development": [
+      "2018-01-01",
+      "2020-12-31"
+    ],
+    "validation": [
+      "2021-01-01",
+      "2023-12-31"
+    ],
+    "final_evaluation": [
+      "2024-01-01",
+      "2025-12-31"
+    ],
+    "recent_replication": [
+      "2026-01-01",
+      "2026-09-18"
+    ],
+    "earlier_robustness": [
+      "2010-06-07",
+      "2017-12-31"
+    ]
+  },
+  "level_coefficients": {
+    "2": 0.18333333333333335,
+    "3": 0.275,
+    "4": 0.55,
+    "control225": 0.225,
+    "control325": 0.325
+  },
+  "pivot_arithmetic": "exact rational coefficients and fixed-point comparisons; no float contact tolerance",
+  "ema_lengths": [
+    20,
+    50
+  ],
+  "ema_seed": "first observed close after reset",
+  "atr_length": 14,
+  "atr_seed": "mean of first 14 true ranges; first TR=high-low",
+  "ema_warmup_preceding_bars": 250,
+  "long_warmup_preceding_bars": 500,
+  "prior_session_min_coverage": 0.99,
+  "seed_min_coverage": 0.99,
+  "max_unknown_missing_run_minutes": 5,
+  "confirmation_minutes": 5,
+  "main_window_minutes_NY": [
+    570,
+    690
+  ],
+  "deadline_minutes_NY": 960,
+  "horizons": [
+    5,
+    10,
+    15,
+    30,
+    50
+  ],
+  "modes": [
+    "none",
+    "alignment",
+    "outside",
+    "alignment_outside"
+  ],
+  "fee_USD": 10,
+  "fees_USD": [
+    5,
+    10,
+    15
+  ],
+  "slippage_ticks": [
+    0,
+    1,
+    2
+  ],
+  "reference_slippage_ticks": 1,
+  "limit_trade_through_ticks": 1,
+  "latency_minutes": [
+    0,
+    1
+  ],
+  "targets": [
+    "3R",
+    "2R",
+    "pivot"
+  ],
+  "bootstrap": {
+    "replicates": 10000,
+    "seed": 20261008,
+    "block_weeks": 4,
+    "sensitivity_weeks": [
+      1,
+      8
+    ],
+    "familywise_marginal_coverage": 0.9916666666666667
+  },
+  "sparse_events": 100,
+  "sparse_sessions": 30,
+  "calendar": "study-derived historical regimes; pinned conservative holiday rule set",
+  "calendar_certification": "regime notices verified; annual individual schedules not independently certified",
+  "mapping_certification": "vendor previous-day-volume semantics; retained map lacks original publication/arrival times",
+  "mapping_sensitivity": "exclude first two scheduled weekdays of each mapping interval; historical diagnostic, not causal reconstruction",
+  "policy_ambiguity": "two complete occupancy replays: stop-first and target-first; envelopes apply to these assumptions, not all hypothetical schedules",
+  "missing_policy": "unresolved session excluded from continuous policy mean; missing outcomes never zero",
+  "seed_gate": "250 preceding nonempty bars within reset segment, >=99% expected minutes in window; no unknown >5-minute gap",
+  "strict_gate": "100% prior session and last 250 preceding bars",
+  "prior_day": "immediately previous weekday; holiday/shortened weekday remains invalid, conservative no older-day substitution",
+  "retrospective_exclusions": "source-condition degradation current/prior day; scheduled holiday sample selection",
+  "optional_unavailable_branches": [
+    "daily21",
+    "settlement parity",
+    "VWAP gate",
+    "100-bar overnight"
+  ]
+}

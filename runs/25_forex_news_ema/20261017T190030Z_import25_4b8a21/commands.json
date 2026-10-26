@@ -1,0 +1,52 @@
+[
+  {
+    "argv": [
+      "/Library/Developer/CommandLineTools/usr/bin/python3",
+      "studies/25_forex_news_ema/import_report.py",
+      "prepare",
+      "--run-id",
+      "20261017T190030Z_import25_4b8a21",
+      "--source",
+      "/Users/ppanati/Documents/projects/tv-indicators/forex_news",
+      "--figure-python",
+      "/Users/ppanati/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3"
+    ],
+    "cwd": "/Users/ppanati/Documents/projects/abacus",
+    "environment": {
+      "PYTHONPATH": "/private/tmp/abacus-forex-plot-20261017"
+    }
+  },
+  {
+    "argv": [
+      "/Users/ppanati/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+      "/Users/ppanati/Documents/projects/abacus/studies/25_forex_news_ema/render_figures.py",
+      "/Users/ppanati/Documents/projects/abacus/work/25_forex_news_ema/20261017T190030Z_import25_4b8a21"
+    ],
+    "cwd": "/Users/ppanati/Documents/projects/abacus",
+    "environment": {
+      "PYTHONPATH": "/private/tmp/abacus-forex-plot-20261017"
+    }
+  },
+  {
+    "argv": [
+      "/Library/Developer/CommandLineTools/usr/bin/python3",
+      "studies/25_forex_news_ema/import_report.py",
+      "finalize",
+      "--run-id",
+      "20261017T190030Z_import25_4b8a21",
+      "--node",
+      "/Users/ppanati/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/bin/node"
+    ],
+    "cwd": "/Users/ppanati/Documents/projects/abacus"
+  },
+  {
+    "argv": [
+      "/Users/ppanati/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/bin/node",
+      "scripts/publish.mjs",
+      "--report",
+      "/Users/ppanati/Documents/projects/abacus/work/25_forex_news_ema/20261017T190030Z_import25_4b8a21/publication.json",
+      "--dry-run"
+    ],
+    "cwd": "/Users/ppanati/Documents/projects/abacus/apps/narada"
+  }
+]

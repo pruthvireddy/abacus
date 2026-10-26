@@ -1,0 +1,78 @@
+//@version=6
+indicator("AI data export - Daily indicators", overlay=true, precision=8, max_bars_back=1500)
+// Daily feature set for NQ, ES and GC. No trade signals or performance claims.
+// All calculations use chart OHLCV and inherit chart session, settlement and roll settings.
+// Signals based on a completed daily bar are available only AFTER that bar closes.
+// Exclude bar_confirmed=0; use warmup1000_complete=1 when sufficient history is available.
+// Realized volatility is annualized PERCENT, sample stdev of log returns, 252 sessions/year.
+// Donchian and average volume windows EXCLUDE the current bar. No future data is requested.
+ratio(float numerator, float denominator) =>
+    not na(denominator) and denominator != 0 ? numerator / denominator : na
+ema20 = ta.ema(close, 20)
+ema50 = ta.ema(close, 50)
+sma200 = ta.sma(close, 200)
+atr14 = ta.atr(14)
+rsi14 = ta.rsi(close, 14)
+[plusDI, minusDI, adx14] = ta.dmi(14, 14)
+bbMid = ta.sma(close, 20)
+bbDev = 2.0 * ta.stdev(close, 20, true)
+bbUpper = bbMid + bbDev
+bbLower = bbMid - bbDev
+dc20hRaw = ta.highest(high[1], 20)
+dc20lRaw = ta.lowest(low[1], 20)
+dc55hRaw = ta.highest(high[1], 55)
+dc55lRaw = ta.lowest(low[1], 55)
+dc20h = bar_index >= 20 ? dc20hRaw : na
+dc20l = bar_index >= 20 ? dc20lRaw : na
+dc55h = bar_index >= 55 ? dc55hRaw : na
+dc55l = bar_index >= 55 ? dc55lRaw : na
+logReturn = close > 0 and close[1] > 0 ? math.log(close / close[1]) : na
+rv5 = 100.0 * ta.stdev(logReturn, 5, false) * math.sqrt(252.0)
+rv20 = 100.0 * ta.stdev(logReturn, 20, false) * math.sqrt(252.0)
+roc5 = ta.roc(close, 5)
+roc20 = ta.roc(close, 20)
+roc60 = ta.roc(close, 60)
+priorAvgVol20 = ta.sma(volume[1], 20)
+[macdLine, macdSignal, macdHist] = ta.macd(close, 12, 26, 9)
+// Price overlays. Other outputs remain in the Data Window and chart CSV export.
+plot(ema20, "ema20", color=color.orange, linewidth=2)
+plot(ema50, "ema50", color=color.blue, linewidth=2)
+plot(sma200, "sma200", color=color.purple, linewidth=2)
+plot(bbMid, "bb20_mid", color=color.new(color.gray, 60), display=display.data_window)
+plot(bbUpper, "bb20_upper_2sd", color=color.new(color.teal, 55))
+plot(bbLower, "bb20_lower_2sd", color=color.new(color.teal, 55))
+plot(atr14, "atr14", display=display.data_window)
+plot(100.0 * ratio(atr14, close), "atr14_pct", display=display.data_window)
+plot(rsi14, "rsi14", display=display.data_window)
+plot(adx14, "adx14", display=display.data_window)
+plot(plusDI, "plus_di14", display=display.data_window)
+plot(minusDI, "minus_di14", display=display.data_window)
+plot(ratio(close - bbLower, bbUpper - bbLower), "bb20_percent_b", display=display.data_window)
+plot(100.0 * ratio(bbUpper - bbLower, bbMid), "bb20_bandwidth_pct", display=display.data_window)
+plot(dc20h, "donchian20_prior_high", display=display.data_window)
+plot(dc20l, "donchian20_prior_low", display=display.data_window)
+plot(dc55h, "donchian55_prior_high", display=display.data_window)
+plot(dc55l, "donchian55_prior_low", display=display.data_window)
+plot(rv5, "rv5_annualized_pct", display=display.data_window)
+plot(rv20, "rv20_annualized_pct", display=display.data_window)
+plot(ratio(rv5, rv20), "rv5_rv20_ratio", display=display.data_window)
+plot(roc5, "roc5_pct", display=display.data_window)
+plot(roc20, "roc20_pct", display=display.data_window)
+plot(roc60, "roc60_pct", display=display.data_window)
+plot(volume, "volume_raw", display=display.data_window)
+plot(priorAvgVol20, "volume_prior20_mean", display=display.data_window)
+plot(ratio(volume, priorAvgVol20), "rvol20_prior", display=display.data_window)
+plot(macdLine, "macd_12_26", display=display.data_window)
+plot(macdSignal, "macd_signal9", display=display.data_window)
+plot(macdHist, "macd_hist", display=display.data_window)
+plot(ratio(macdHist, atr14), "macd_hist_atr14", display=display.data_window)
+plot(ratio(close - ema20, atr14), "dist_ema20_atr", display=display.data_window)
+plot(ratio(close - ema50, atr14), "dist_ema50_atr", display=display.data_window)
+plot(ratio(close - sma200, atr14), "dist_sma200_atr", display=display.data_window)
+plot(ratio(ema20 - ema20[5], atr14), "ema20_slope5_atr", display=display.data_window)
+plot(barstate.isconfirmed ? 1 : 0, "bar_confirmed", display=display.data_window)
+plot(bar_index >= 1000 ? 1 : 0, "warmup1000_complete", display=display.data_window)
+plot(timeframe.isdaily and timeframe.multiplier == 1 ? 1 : 0, "is_1d", display=display.data_window)
+plot(time / 1000, "bar_open_unix_s", display=display.data_window)
+plot(time_close / 1000, "bar_close_unix_s", display=display.data_window)
+plot(time_tradingday / 1000, "trading_day_utc_unix_s", display=display.data_window)

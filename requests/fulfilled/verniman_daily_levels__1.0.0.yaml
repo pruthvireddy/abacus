@@ -1,0 +1,65 @@
+request:
+  id: verniman_daily_levels__1.0.0
+  purpose: >-
+    Ten-session sample of Verniman's source-supplied ES outlook thresholds and
+    bullish/bearish targets for inspection and later research design.
+  requester: workspace user
+  requested_on: '2026-10-20'
+inputs:
+  source: https://verniman.blogspot.com/
+  sessions: ['2026-10-07', '2026-10-08', '2026-10-09', '2026-10-12', '2026-10-13', '2026-10-14', '2026-10-15', '2026-10-16', '2026-10-19', '2026-10-20']
+  product: ES
+  source_contract: ESZ26
+  source_material: [desktop_html, per_post_atom, linked_images]
+  raw_copies: data/raw/blogspot/verniman/html/<capture-id>/
+  staging: data/staging/verniman/<capture-id>/
+  retain: exact response bytes, source URLs, capture timestamps, metadata and SHA256 hashes
+  underlying_market_bars: none
+  indicator_calculation: none
+output:
+  dataset: verniman_daily_levels
+  version: 1.0.0
+  format: [parquet, csv]
+  destination: data/curated/external_levels/source=verniman/version=1.0.0/
+  tables:
+    outlooks: captured revision, source/date claims, exact contract, raw references and original plan text
+    levels: one branch/role/ordinal per trigger or target, numeric bounds, source labels and text qualifiers
+  viewing_only: daily_summary.csv
+  manifest: catalog/datasets/verniman_daily_levels__1.0.0.json
+  schema: catalog/schemas/verniman_daily_levels__1.0.0.json
+  quality_report: reports/quality/verniman_daily_levels__1.0.0.md
+  overwrite_existing_version: false
+extraction:
+  scope: /ES Plan A and Plan B text; linked images are retained source evidence
+  sides: [bullish, bearish]
+  roles: [trigger, target]
+  shared_threshold: summary pivot shorthand only; retain each branch and its exact source label
+  price_units: ES index points as stated by the source; no adjustment or bar-derived reconstruction
+  ranges: preserve lower/upper bounds and original abbreviated text
+  qualifiers: preserve VIX/CVD confirmation conditions and other source text
+  discrepancies: retain conflicting labels or header values and flag them; do not silently repair
+  missing_values: preserve null; no interpolation or invented sessions/targets
+timing:
+  timezone: America/New_York
+  available_at: null
+  status: historical_availability_unverified
+  source_metadata: preserve published and updated timestamps as source claims separately from capture time
+  qualification: >-
+    The October 20 Atom entry claims an original publication on 2009-10-20 at
+    09:10 -04:00 and an update on 2026-10-20 at 10:26:57.412 -04:00, while the
+    captured body describes a 2026 plan. Neither timestamp establishes when
+    these 2026 levels became available before the market open. URL dates,
+    image filenames and an assumed posting hour do not establish availability.
+  causal_use: no verified pre-open or point-in-time use in this release
+validation:
+  require_raw_and_output_hashes: true
+  require_exact_source_traceability: true
+  require_unique_revision_branch_role_ordinal: true
+  require_ordered_numeric_bounds: true
+  require_ten_session_coverage: true
+  require_null_available_at: true
+  checks_meaning: extraction and integrity checks; no independent indicator or trading-outcome validation
+retention:
+  new_capture: unique batch ID; never overwrite an earlier capture
+  revised_source: retain as a new captured revision and publish under a new release identity
+  backups: ignored bulk raw, staging and curated files need separate retained storage

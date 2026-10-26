@@ -1,0 +1,21 @@
+{"independent_cell": "ES/3", "status": "passed", "checks": 15}
+{"independent_cell": "ES/5", "status": "passed", "checks": 29}
+Traceback (most recent call last):
+  File "/Users/ppanati/Documents/projects/abacus/studies/21_ema_cloud_trend_follow_opportunity/run_stage2.py", line 475, in <module>
+    main()
+  File "/Users/ppanati/Documents/projects/abacus/studies/21_ema_cloud_trend_follow_opportunity/run_stage2.py", line 469, in main
+    elif args.phase == 'verify': verify(stage)
+                                 ^^^^^^^^^^^^^
+  File "/Users/ppanati/Documents/projects/abacus/studies/21_ema_cloud_trend_follow_opportunity/run_stage2.py", line 356, in verify
+    receipt = verify_bundle(stage)
+              ^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ppanati/Documents/projects/abacus/studies/21_ema_cloud_trend_follow_opportunity/src/stage2_reconcile.py", line 920, in verify_bundle
+    checks.append(reconcile_mapping(slow, native_five))
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ppanati/Documents/projects/abacus/studies/21_ema_cloud_trend_follow_opportunity/src/reconcile.py", line 132, in reconcile_mapping
+    _equal(pd.Timestamp(row["feature_source_timestamp"]), pd.Timestamp(source["timestamp"]), "latest scheduled source")
+  File "/Users/ppanati/Documents/projects/abacus/studies/21_ema_cloud_trend_follow_opportunity/src/reconcile.py", line 47, in _equal
+    _require(actual == expected, f"{context}: value mismatch {actual!r}/{expected!r}")
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pandas/_libs/tslibs/timestamps.pyx", line 1038, in pandas._libs.tslibs.timestamps._Timestamp.__repr__
+KeyboardInterrupt

@@ -1,0 +1,329 @@
+{
+  "path": "forex_news/news_ema_move_checks/native_news_ema_move_full.csv",
+  "sha256": "66dd7678555d38833f127ddacc0e60b8aedb7d3bfe3615cbc02914c36d972b98",
+  "coverage": {
+    "native_export_first_bar_utc": "2025-11-30T23:00:00+00:00",
+    "native_export_last_bar_utc": "2026-10-16T20:45:00+00:00",
+    "native_rows": 20908,
+    "raw_selected_entries": 52,
+    "measured_entries": 52,
+    "archived_selected_events_with_entry_bar_in_export": 57,
+    "shared_calendar_event_times": 50,
+    "native_only_event_times": [
+      "2026-02-06T13:30:00+00:00",
+      "2026-04-21T14:00:00+00:00"
+    ],
+    "archived_only_event_times": [
+      "2025-12-01T15:00:00+00:00",
+      "2025-12-18T13:30:00+00:00",
+      "2026-07-01T14:00:00+00:00",
+      "2026-07-02T12:30:00+00:00",
+      "2026-07-24T13:45:00+00:00",
+      "2026-08-21T13:45:00+00:00",
+      "2026-09-23T13:45:00+00:00"
+    ],
+    "shared_direction_disagreements": [],
+    "max_abs_native_vs_archived_entry_ohlc_difference": 0.0,
+    "max_abs_native_vs_stitched_ema_difference_at_entries": 0.0
+  },
+  "method": "Native exported News measured side fixes entry timestamps and sides; independent Python OHLC slicing supplies all horizon excursions.",
+  "checks": {
+    "entry_side_matches_same_bar_ema_cloud": true,
+    "news_timestamp_equals_entry_close": true,
+    "one_entry_per_timestamp": true
+  },
+  "direction_counts": {
+    "Long": 16,
+    "Short": 36
+  },
+  "overall": [
+    {
+      "horizon_bars": 5,
+      "signals": 52,
+      "closed": 52,
+      "pending": 0,
+      "average_mfe_pips": 26.75,
+      "average_mae_pips": 14.644230769230928,
+      "average_close_pips": 10.942307692307555,
+      "favorable_close_percent": 63.46153846153846,
+      "mfe_above_mae_percent": 65.38461538461539
+    },
+    {
+      "horizon_bars": 10,
+      "signals": 52,
+      "closed": 52,
+      "pending": 0,
+      "average_mfe_pips": 30.26923076923072,
+      "average_mae_pips": 17.259615384615554,
+      "average_close_pips": 9.394230769230695,
+      "favorable_close_percent": 59.61538461538461,
+      "mfe_above_mae_percent": 65.38461538461539
+    },
+    {
+      "horizon_bars": 15,
+      "signals": 52,
+      "closed": 52,
+      "pending": 0,
+      "average_mfe_pips": 32.21153846153858,
+      "average_mae_pips": 20.932692307692456,
+      "average_close_pips": 5.615384615384467,
+      "favorable_close_percent": 61.53846153846154,
+      "mfe_above_mae_percent": 63.46153846153846
+    },
+    {
+      "horizon_bars": 50,
+      "signals": 52,
+      "closed": 52,
+      "pending": 0,
+      "average_mfe_pips": 36.019230769230774,
+      "average_mae_pips": 28.769230769230976,
+      "average_close_pips": 2.432692307692275,
+      "favorable_close_percent": 59.61538461538461,
+      "mfe_above_mae_percent": 57.692307692307686
+    },
+    {
+      "horizon_bars": 100,
+      "signals": 52,
+      "closed": 52,
+      "pending": 0,
+      "average_mfe_pips": 49.63461538461539,
+      "average_mae_pips": 40.269230769230816,
+      "average_close_pips": 5.288461538461468,
+      "favorable_close_percent": 55.769230769230774,
+      "mfe_above_mae_percent": 53.84615384615385
+    }
+  ],
+  "monthly_h5": [
+    {
+      "month_chicago": "2025-12",
+      "horizon_bars": 5,
+      "signals": 4,
+      "closed": 4,
+      "pending": 0,
+      "average_mfe_pips": 31.749999999999833,
+      "average_mae_pips": 16.37500000000014,
+      "average_close_pips": 18.25000000000021,
+      "favorable_close_percent": 75.0,
+      "mfe_above_mae_percent": 100.0
+    },
+    {
+      "month_chicago": "2026-01",
+      "horizon_bars": 5,
+      "signals": 6,
+      "closed": 6,
+      "pending": 0,
+      "average_mfe_pips": 8.499999999999803,
+      "average_mae_pips": 27.58333333333307,
+      "average_close_pips": -15.916666666666579,
+      "favorable_close_percent": 16.666666666666664,
+      "mfe_above_mae_percent": 16.666666666666664
+    },
+    {
+      "month_chicago": "2026-02",
+      "horizon_bars": 5,
+      "signals": 5,
+      "closed": 5,
+      "pending": 0,
+      "average_mfe_pips": 34.20000000000068,
+      "average_mae_pips": 7.299999999999862,
+      "average_close_pips": 20.099999999999785,
+      "favorable_close_percent": 80.0,
+      "mfe_above_mae_percent": 80.0
+    },
+    {
+      "month_chicago": "2026-03",
+      "horizon_bars": 5,
+      "signals": 6,
+      "closed": 6,
+      "pending": 0,
+      "average_mfe_pips": 28.41666666666705,
+      "average_mae_pips": 14.166666666666956,
+      "average_close_pips": 18.83333333333274,
+      "favorable_close_percent": 66.66666666666666,
+      "mfe_above_mae_percent": 66.66666666666666
+    },
+    {
+      "month_chicago": "2026-04",
+      "horizon_bars": 5,
+      "signals": 7,
+      "closed": 7,
+      "pending": 0,
+      "average_mfe_pips": 15.07142857142834,
+      "average_mae_pips": 12.071428571428985,
+      "average_close_pips": 1.5714285714287155,
+      "favorable_close_percent": 71.42857142857143,
+      "mfe_above_mae_percent": 71.42857142857143
+    },
+    {
+      "month_chicago": "2026-05",
+      "horizon_bars": 5,
+      "signals": 4,
+      "closed": 4,
+      "pending": 0,
+      "average_mfe_pips": 13.000000000000234,
+      "average_mae_pips": 12.625000000001108,
+      "average_close_pips": 3.4999999999990594,
+      "favorable_close_percent": 75.0,
+      "mfe_above_mae_percent": 50.0
+    },
+    {
+      "month_chicago": "2026-06",
+      "horizon_bars": 5,
+      "signals": 6,
+      "closed": 6,
+      "pending": 0,
+      "average_mfe_pips": 32.74999999999991,
+      "average_mae_pips": 18.666666666666462,
+      "average_close_pips": 12.583333333333611,
+      "favorable_close_percent": 50.0,
+      "mfe_above_mae_percent": 50.0
+    },
+    {
+      "month_chicago": "2026-07",
+      "horizon_bars": 5,
+      "signals": 3,
+      "closed": 3,
+      "pending": 0,
+      "average_mfe_pips": 33.99999999999995,
+      "average_mae_pips": 27.8333333333336,
+      "average_close_pips": 5.8333333333338,
+      "favorable_close_percent": 66.66666666666666,
+      "mfe_above_mae_percent": 66.66666666666666
+    },
+    {
+      "month_chicago": "2026-08",
+      "horizon_bars": 5,
+      "signals": 3,
+      "closed": 3,
+      "pending": 0,
+      "average_mfe_pips": 31.666666666666135,
+      "average_mae_pips": 5.833333333333801,
+      "average_close_pips": 22.33333333333235,
+      "favorable_close_percent": 66.66666666666666,
+      "mfe_above_mae_percent": 66.66666666666666
+    },
+    {
+      "month_chicago": "2026-09",
+      "horizon_bars": 5,
+      "signals": 5,
+      "closed": 5,
+      "pending": 0,
+      "average_mfe_pips": 38.3,
+      "average_mae_pips": 5.600000000000271,
+      "average_close_pips": 21.799999999999375,
+      "favorable_close_percent": 80.0,
+      "mfe_above_mae_percent": 100.0
+    },
+    {
+      "month_chicago": "2026-10",
+      "horizon_bars": 5,
+      "signals": 3,
+      "closed": 3,
+      "pending": 0,
+      "average_mfe_pips": 42.99999999999971,
+      "average_mae_pips": 10.99999999999953,
+      "average_close_pips": 28.000000000000615,
+      "favorable_close_percent": 66.66666666666666,
+      "mfe_above_mae_percent": 66.66666666666666
+    }
+  ],
+  "monthly_h5_displayed_last8": [
+    {
+      "month_chicago": "2026-03",
+      "horizon_bars": 5,
+      "signals": 6,
+      "closed": 6,
+      "pending": 0,
+      "average_mfe_pips": 28.41666666666705,
+      "average_mae_pips": 14.166666666666956,
+      "average_close_pips": 18.83333333333274,
+      "favorable_close_percent": 66.66666666666666,
+      "mfe_above_mae_percent": 66.66666666666666
+    },
+    {
+      "month_chicago": "2026-04",
+      "horizon_bars": 5,
+      "signals": 7,
+      "closed": 7,
+      "pending": 0,
+      "average_mfe_pips": 15.07142857142834,
+      "average_mae_pips": 12.071428571428985,
+      "average_close_pips": 1.5714285714287155,
+      "favorable_close_percent": 71.42857142857143,
+      "mfe_above_mae_percent": 71.42857142857143
+    },
+    {
+      "month_chicago": "2026-05",
+      "horizon_bars": 5,
+      "signals": 4,
+      "closed": 4,
+      "pending": 0,
+      "average_mfe_pips": 13.000000000000234,
+      "average_mae_pips": 12.625000000001108,
+      "average_close_pips": 3.4999999999990594,
+      "favorable_close_percent": 75.0,
+      "mfe_above_mae_percent": 50.0
+    },
+    {
+      "month_chicago": "2026-06",
+      "horizon_bars": 5,
+      "signals": 6,
+      "closed": 6,
+      "pending": 0,
+      "average_mfe_pips": 32.74999999999991,
+      "average_mae_pips": 18.666666666666462,
+      "average_close_pips": 12.583333333333611,
+      "favorable_close_percent": 50.0,
+      "mfe_above_mae_percent": 50.0
+    },
+    {
+      "month_chicago": "2026-07",
+      "horizon_bars": 5,
+      "signals": 3,
+      "closed": 3,
+      "pending": 0,
+      "average_mfe_pips": 33.99999999999995,
+      "average_mae_pips": 27.8333333333336,
+      "average_close_pips": 5.8333333333338,
+      "favorable_close_percent": 66.66666666666666,
+      "mfe_above_mae_percent": 66.66666666666666
+    },
+    {
+      "month_chicago": "2026-08",
+      "horizon_bars": 5,
+      "signals": 3,
+      "closed": 3,
+      "pending": 0,
+      "average_mfe_pips": 31.666666666666135,
+      "average_mae_pips": 5.833333333333801,
+      "average_close_pips": 22.33333333333235,
+      "favorable_close_percent": 66.66666666666666,
+      "mfe_above_mae_percent": 66.66666666666666
+    },
+    {
+      "month_chicago": "2026-09",
+      "horizon_bars": 5,
+      "signals": 5,
+      "closed": 5,
+      "pending": 0,
+      "average_mfe_pips": 38.3,
+      "average_mae_pips": 5.600000000000271,
+      "average_close_pips": 21.799999999999375,
+      "favorable_close_percent": 80.0,
+      "mfe_above_mae_percent": 100.0
+    },
+    {
+      "month_chicago": "2026-10",
+      "horizon_bars": 5,
+      "signals": 3,
+      "closed": 3,
+      "pending": 0,
+      "average_mfe_pips": 42.99999999999971,
+      "average_mae_pips": 10.99999999999953,
+      "average_close_pips": 28.000000000000615,
+      "favorable_close_percent": 66.66666666666666,
+      "mfe_above_mae_percent": 66.66666666666666
+    }
+  ],
+  "status": "Rejected historical calendar: statistics arithmetic valid, historical seed event coverage inaccurate. Final indicator uses audited historical calendar through 2026-10-17."
+}

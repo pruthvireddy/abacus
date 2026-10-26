@@ -1,0 +1,147 @@
+request:
+  id: verniman_daily_levels__11.0.0
+  purpose: >-
+    Collect available 2017 Verniman ES outlook thresholds and bullish/bearish
+    targets as a separate immutable release, preserving original source captures,
+    timestamps, chronological coverage, gaps and duplicate-date cases.
+  requester: workspace user
+  requested_on: '2026-10-20'
+inputs:
+  source: https://verniman.blogspot.com/
+  date_range: {start: '2017-01-01', end: '2017-12-31', end_is_inclusive: true}
+  product: ES
+  source_contracts: retain literal source contracts including single-digit 7/8 codes and legitimate 2018 deliveries; qualify unresolved generic ES contracts as null
+  source_material: [desktop_html, per_post_atom, linked_images, chronological_link_ledger, public_feed_discovery]
+  raw_copies: data/raw/blogspot/verniman/html/<new-capture-id>/
+  staging: data/staging/verniman/<new-crawl-id>-v11/
+  retained_prior_inputs: >-
+    Reuse only the hash-pinned December 29, 2017 boundary capture from the
+    prior collection, dated by prior anchored chronology and its explicit
+    statement that today is the final trading day of 2017. Preserve original capture timestamps and locators. Newly visited
+    posts receive fresh HTML, Atom and image captures in a unique batch.
+  retain: exact response bytes, requested/final URLs, source links, capture timestamps, metadata and SHA256 hashes
+  underlying_market_bars: none
+  indicator_calculation: none
+collection:
+  direction: follow chronological older-post links from the retained December 29, 2017 boundary
+  ledger: record every visited post, transition, date assignment, capture status and issue
+  boundary: retain an older dated boundary if observed; otherwise record actual navigation exhaustion
+  boundary_qualification: >-
+    The current navigation terminates without an observed 2016 daily post. Keep
+    traversal_reached_lower_boundary false and distinguish exhausted current
+    source navigation/feed from full-year historical completeness. Exclude
+    educational context resources from canonical daily tables while preserving
+    every visited source, transition and explicit classification in raw evidence.
+  date_assignment: >-
+    Infer the year from descending chronological Outlook month/day values
+    anchored by the explicitly stated final 2017 trading day on December 29,
+    within the requested calendar ending December 31. Contract delivery year, updated metadata and
+    permalink dates do not independently determine the session year. Retain
+    disagreements and qualify any discontinuity in a separate reviewed record.
+    Feed-discovered detached candidates require explicit source-year review,
+    supplemental captures and a separately recorded date method before inclusion.
+  uncertain_dates: >-
+    Daily-plan bodies lacking Outlook M/D retain session_date null, source text
+    and explicit issues, with numeric extraction refused. Never assign session
+    dates from source metadata, image filenames, permalinks or adjacent sessions.
+  duplicate_dates: retain every distinct captured source-post revision and expose source-linked groups
+  discovery_crosscheck: >-
+    Compare all fresh public-feed candidates and complete normalized body text
+    against the selected crawl and any explicitly reviewed supplements. Source
+    publication and update years do not independently determine session years;
+    preserve disagreements, feed boundaries and discovery qualifications.
+output:
+  dataset: verniman_daily_levels
+  version: 11.0.0
+  destination: data/curated/external_levels/source=verniman/version=11.0.0/
+  tables:
+    outlooks: Parquet and CSV; captured revision, qualified date, contract, timestamps, raw references and original plan text
+    levels: Parquet and CSV; branch, trigger/target role, ordinal, numeric bounds, source labels and qualifiers
+    coverage: Parquet and CSV; every calendar date, observed posts, extraction outcomes and absence classification
+    issues: Parquet and CSV; ambiguous, discrepant, failed, unsupported and duplicate-date posts with source references
+  viewing_only: daily_summary.csv
+  manifest: catalog/datasets/verniman_daily_levels__11.0.0.json
+  schema: catalog/schemas/verniman_daily_levels__11.0.0.json
+  quality_report: reports/quality/verniman_daily_levels__11.0.0.md
+  overwrite_existing_version: false
+extraction:
+  scope: source-stated /ES Plan A/B/C text; retain source images without chart-only inference
+  sides: [bullish, bearish]
+  roles: [trigger, target]
+  shared_threshold: pivot is shorthand; retain distinct branch thresholds and original source labels
+  price_units: source contract points without roll adjustment or bar-derived reconstruction
+  ranges: retain original notation and numeric lower/upper bounds
+  qualifiers: retain confirmation conditions, wording, inconsistent labels and discrepancies
+  branch_identity: >-
+    Preserve the original Plan A/B/C texts and source letters explicitly.
+    In 2017 either letter may describe either direction. Assign bullish only
+    from a consistent above/buy branch and bearish only from below/sell,
+    including supported explicit be/become a buyer/seller wording; never
+    infer direction from the letter. Add source_plan_c_text to this release,
+    retaining neutral source scenarios without assigning numeric direction.
+    Preserve all earlier release schemas and bytes.
+    Contradictory, duplicated or unresolved branch assignments remain source
+    text with explicit issues instead of guessed numeric rows.
+  lean_on_scenarios: >-
+    A branch explicitly below a numeric threshold with bearish internals may
+    be classified as a bearish scenario when its bounded instruction is
+    try to lean on a single full price towards explicitly labelled targets.
+    Retain source_lean_on_wording and the exact scenario text. The conditional
+    threshold remains the trigger; a differing ancillary lean reference does
+    not replace it or become an extra target. This classification does not
+    assert an explicit sell order. Preserve trailing quoted failed-auction
+    advice. Contradictions and ambiguous lean prices remain unsupported.
+  delivery_contracts: >-
+    Preserve literal source codes such as ESM7 or ESH8; qualify the delivery year only
+    with independently anchored chronology. Generic /ES Value headings with no
+    resolved operative delivery contract retain exact source levels with
+    contract null only when validated as ES and accompanied by
+    source_contract_unspecified. Never infer front month. Explicit still-quoting
+    claims can resolve the operative contract; unclear rollover transitions
+    and conflicting current-contract claims receive issues and no numeric rows.
+  unsupported_posts: retain as issues instead of silently dropping encountered posts
+  unlabelled_trigger_points: >-
+    Retain an exact single full numeric threshold explicitly stated after
+    above/below, even when its source level label is absent. Store source_label
+    as null with an unlabelled_trigger_price issue and unchanged source_text.
+    Permit null labels only for such trigger points with equal exact bounds;
+    targets still require labels. Bare zones, lists and ambiguous prices remain
+    unsupported. Continue the nullable-label policy established in 9.0.0; preserve all
+    earlier release schemas and bytes.
+  ancillary_execution_references: >-
+    Preserve bounded source leaning-on price/range/list expressions before
+    towards as literal source_execution_reference qualifications only. The
+    initial conditional threshold remains the trigger; ancillary references
+    never create numeric level rows or supply a missing target price. Retain
+    observed source spelling and refuse malformed or contradictory expressions.
+  missing_values: null; no interpolation or invented sessions, triggers or targets
+coverage:
+  calendar: complete inclusive 365-date ledger from January 1 through December 31, 2017
+  gaps: distinguish weekday/weekend absence, capture failures and extraction failures
+  absence_meaning: no observed post does not establish that no historical post ever existed
+  completeness_proof: observed navigation exhaustion, independent exhausted feed and exact candidate/body reconciliation; no dated 2016 boundary observed
+  not_claimed: full-year historical availability, proof of deleted content, exchange-session eligibility or research validity
+timing:
+  timezone: America/New_York
+  available_at: null
+  status: historical_availability_unverified
+  source_metadata: preserve original published and updated claims separately from capture timestamps
+  qualification: >-
+    Reused historical posts can retain old publication metadata or later updates.
+    A session-date assignment, update time, image filename or assumed posting
+    hour does not establish when the captured levels were available before open.
+  causal_use: no verified pre-open or point-in-time availability
+validation:
+  require_raw_and_output_hashes: true
+  require_exact_source_traceability: true
+  require_unique_revision_branch_role_ordinal: true
+  require_ordered_numeric_bounds: true
+  require_only_in_scope_2017_outlooks: true
+  require_complete_calendar_and_encountered_post_accounting: true
+  require_null_available_at: true
+  checks_meaning: source integrity, extraction and observed coverage; no trading-outcome validation
+retention:
+  preserve: every prior release, request, producer, catalog record and published byte
+  new_capture: unique batch identities; never overwrite failed-attempt evidence
+  revised_source: new captures and a new release identity
+  backups: ignored bulk raw, staging and curated data require separate retained storage

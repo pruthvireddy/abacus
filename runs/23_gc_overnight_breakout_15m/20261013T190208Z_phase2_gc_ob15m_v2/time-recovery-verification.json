@@ -1,0 +1,120 @@
+{
+  "schema_version": "study23.phase2-independent-breach-time/v1",
+  "command": [
+    "studies/23_gc_overnight_breakout_15m/phase2_verify_time_recovery.py",
+    "--stage",
+    "work/23_gc_overnight_breakout_15m/20261013T190208Z_phase2_gc_ob15m_v2",
+    "--attempt",
+    "timing-v1"
+  ],
+  "started_at": "2026-10-13T19:50:00.637772+00:00",
+  "source_snapshots": [
+    {
+      "path": "verification/time-recovery-independent-timing-v1/phase2_verify_time_recovery.py",
+      "bytes": 11822,
+      "sha256": "56150d8b8c030fba5d3bc5bd68f60c0f5517726ba0a820fbaa11200dc25a886c"
+    },
+    {
+      "path": "verification/time-recovery-independent-timing-v1/test_phase2_time_verifier.py",
+      "bytes": 3973,
+      "sha256": "c2173fa9d00a220287fcd5a0cfbdf426d721e807940c46f7f82ca0e38e68bfd7"
+    },
+    {
+      "path": "verification/canonical-receipts/phase2_verification_receipts.py",
+      "bytes": 5073,
+      "sha256": "e674d824ff50af4b3ea3e5314796b32af02d7279c48bf61cd1a76ca0c48b666e"
+    }
+  ],
+  "status": "passed",
+  "episode_rows": 10560,
+  "summary_rows": 1800,
+  "compared_cells": 298440,
+  "method_scope": "Requested measurement declared after policy execution; canonical events, orders, masks, selection and existing sixteen tables are unchanged.",
+  "qualifications": [
+    "Source-estimate delay uses saved first minute lower-bound timestamps; conservative bounds preserve within-minute uncertainty.",
+    "Unknown exact first breach/recovery times remain unavailable even where an event was observed.",
+    "Conditional delay means are neither executed profit targets nor survival estimates."
+  ],
+  "artifacts": [
+    {
+      "path": "additional/time-recovery/completion.json",
+      "bytes": 599,
+      "sha256": "89adf2fd84ec4cb1a93e8e011d276cd8f71abee169b56caee44bfdbcd8dfc798"
+    },
+    {
+      "path": "additional/time-recovery/episodes.jsonl.gz",
+      "bytes": 102726,
+      "sha256": "e76adafa57f23695fb7a55cb81eaea665ce3d21e1c0a26234c21e865976e0ac5"
+    },
+    {
+      "path": "additional/time-recovery/measurement-freeze.json",
+      "bytes": 1724,
+      "sha256": "be6a3d137575a4907e9239b3789c1589d7be4937bcb633e1328e398b5468052c"
+    },
+    {
+      "path": "additional/time-recovery/phase2_time_diagnostics.py",
+      "bytes": 7497,
+      "sha256": "b003fa4b7f3d3b5537731540b03f712c291f486d0013db678e52e17da131ee2f"
+    },
+    {
+      "path": "additional/time-recovery/time-recovery.csv",
+      "bytes": 361075,
+      "sha256": "6819a6f3c6503afe6ffa520d17cddefd3b5e1c1902702c467c2967695c9aaf33"
+    },
+    {
+      "path": "config.json",
+      "bytes": 8289,
+      "sha256": "b17581173b66da111094674a083d786aafb4bca7825351ab3661d8b86d9e65b0"
+    },
+    {
+      "path": "environment.lock",
+      "bytes": 335045,
+      "sha256": "b2c02f82320599b00cb3277479c660a9c56c37c6476bc423215c9cbb7ab0c645"
+    },
+    {
+      "path": "phases/dev-validation/occurrence.jsonl.gz",
+      "bytes": 117603,
+      "sha256": "46ffc09049d080813b4efd62622cb2c801476895e7f8ce5f94ae25041ba2761e"
+    },
+    {
+      "path": "phases/dev-validation/recovery.jsonl.gz",
+      "bytes": 145291,
+      "sha256": "c111fd502edf97037879eb9557f9a896cc58f17f34b4266a11841788e5c476b4"
+    },
+    {
+      "path": "phases/later/occurrence.jsonl.gz",
+      "bytes": 62701,
+      "sha256": "6d7fb5f8941e77d1e8363d7400367aeeb7d4808a666b73a3f9420bd081f59d73"
+    },
+    {
+      "path": "phases/later/recovery.jsonl.gz",
+      "bytes": 78020,
+      "sha256": "796d82120a1d0bcb99c10f97ebc731ef466968367bfbb3bf9922c1ec84c0902e"
+    },
+    {
+      "path": "selection.json",
+      "bytes": 1524,
+      "sha256": "d7a6aafcbda07574b6abdccaabf727cc5ed48b164392249da74572ecb59d88f0"
+    },
+    {
+      "path": "verification/time-recovery-independent-timing-v1/receipt.json",
+      "bytes": 3519,
+      "sha256": "cd8f8529777400c3a41de8d4059a5a532d46262a774e78298eabbf6e15f5b7cf"
+    }
+  ],
+  "finished_at": "2026-10-13T19:50:01.210260+00:00",
+  "independent_attempt_receipt": {
+    "path": "verification/time-recovery-independent-timing-v1/receipt.json",
+    "bytes": 3519,
+    "sha256": "cd8f8529777400c3a41de8d4059a5a532d46262a774e78298eabbf6e15f5b7cf"
+  },
+  "canonicalization_command": [
+    "studies/23_gc_overnight_breakout_15m/phase2_verification_receipts.py",
+    "--stage",
+    "work/23_gc_overnight_breakout_15m/20261013T190208Z_phase2_gc_ob15m_v2",
+    "--science-attempt",
+    "verification/independent-full-v3/receipt.json",
+    "--time-attempt",
+    "verification/time-recovery-independent-timing-v1/receipt.json"
+  ]
+}

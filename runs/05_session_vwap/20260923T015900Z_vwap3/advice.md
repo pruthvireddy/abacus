@@ -1,0 +1,31 @@
+# Research advice — 2026-09-22
+
+Reference: `05_session_vwap/20260923T015900Z_vwap3`, protocol 1.0.0, pinned Bhishma `session_anchored_vwap__1.0.0`. This is conditional price-path evidence from 3,039 eligible product-days (1,650 distinct dates), counted through 42,546 correlated timeframe and anchor/window views. The development, 2024 validation, and 2025–2026 final periods are chronological; prior unseen status is unverified. No net trading return is estimated.
+
+## B — Return after meaningful departure (`vwap_return_after_departure`)
+
+**Observed behavior:** 42,487 of 42,546 eligible views had a qualifying first departure. Frozen VWAP was contacted by window end after 33,327 of those departures: 78.4% (95% shared-date session bootstrap interval 77.7%–79.2%). Evolving VWAP was contacted after 38,325 departures. The frozen contact occurred within 10/30/60 minutes for 10,655/18,757/23,797 horizon-capable departures, respectively. The median observed return time among *returners* was 22 minutes. These are strong descriptive observations of reversion, especially in long observation windows. [Scorecards](tables/scorecards.csv), [horizons](tables/horizons.csv), [cycles](tables/cycles.csv).
+
+**Limiting evidence:** 9,160 departures did not contact frozen VWAP before window end. The 30-minute frozen-contact fraction is 18,757/42,466 (44.2%), much lower than the window-end figure. Full Globex windows and short local windows have very different time remaining; `tables/breakdowns.csv` shows that dependence. Median adverse extension before return is bounded at 32–33 ticks in the pooled event table, but pooled ticks combine instruments with different values. Price retracement and VWAP movement are distinct in `tables/scorecards.csv` and the event ledger. The pooled primary rate fell from 79.9% in development to 75.9% in the final period. A return frequency alone specifies no profitable entry, stop, or realizable VWAP fill. [Breakdowns](tables/breakdowns.csv), [paths](tables/paths.csv), [return survival](tables/return_survival.csv).
+
+**Decision:** Retain B as a descriptive context and timing hypothesis for execution research. Test a prespecified entry and adverse exit against alternative timing/distance contexts, with overlap and costs, before treating return frequency as an edge. Do not present the 78.4% window-end rate as a trade win rate.
+
+## A — First close outside 2σ (`vwap_extreme_fade`)
+
+**Observed behavior:** 86,475 of 90,938 recorded exits had full 30-minute primary follow-up. Favorable 0.5σ movement was observed before equal adverse movement in 40,480 cases: 46.8% (95% interval 46.2%–47.4%). First adverse movement occurred in 41,390; 2,677 reached neither barrier and 1,928 remained order-ambiguous. Even assigning every ambiguous case to favorable yields 49.0%. The pooled matched contrast against fresh 1–2σ departures is +1.1 percentage points at the 0.5σ barrier, but exact distance support is disjoint and the 2024/final intervals include zero. [Scorecards](tables/scorecards.csv), [baselines](tables/baselines.csv).
+
+**Opposing evidence:** On a common fixed 8-tick barrier, A trails its matched control by 1.4 percentage points overall and 3.2 points in the final period (conditional shared-date interval −4.5 to −1.8 points). The primary rate declines from 47.7% in development to 45.3% in the final period. Large full-horizon favorable excursions are visible, but often follow an adverse-first barrier; [paths](tables/paths.csv) separates stopped and unstopped movement. The outward 3σ-before-return flag is common, with same-minute order bounded in the event ledger. The observational baseline contrasts are exploratory and lack a simultaneous familywise interval.
+
+**Decision:** Do not advance the bare first outside-2σ fade as an execution candidate on this evidence. Any follow-up should state a new causal filter and evaluate it prospectively with protected data, rather than selecting the best observed segment or barrier.
+
+## C — First VWAP retest bounce (`vwap_first_retest_bounce`)
+
+**Observed behavior:** 132,202 of 138,674 qualifying first touches had full primary follow-up. A favorable 0.5σ move came first in 61,689: 46.7% (95% interval 46.2%–47.2%). Adverse came first in 62,010; 7,017 reached neither and 1,486 were ambiguous. Even assigning every ambiguous case to favorable yields 47.8%. The touch-bar approach-side close confirmation subset is 46.6% (68,640 evaluable), similar to the all-touch result. All outcomes start after the touch is observable. [Scorecards](tables/scorecards.csv), [subsets](tables/subsets.csv), [examples](tables/examples.csv).
+
+**Opposing evidence:** Context-matched C versus near approaches differs by only +0.2 points pooled; its interval spans zero and the final-period estimate is −0.2 points. First retests trail later retests by 3.8 points in the final period, though this remains an exploratory comparison. At the common 8-tick barrier, C trails near approaches by 2.6 points in the final period (conditional interval −5.2 to −0.1 points). The pooled primary rate declines from 47.0% in development to 46.1% in the final period. Near-approach and later-touch controls are observational and have imperfect overlap. [Baselines](tables/baselines.csv), [breakdowns](tables/breakdowns.csv).
+
+**Decision:** Do not promote the first-touch bounce or its simple touch-close confirmation as a validated setup. A distinct observable mechanism and protected test would be needed to revisit it.
+
+## What remains before a profitability claim
+
+Specify order type, fill logic at gaps and touched levels, spread, slippage, commission, latency, position size, overlap handling, and exits. Evaluate those rules on unadjusted prices, with a prespecified comparison family and dependence-aware multiple-comparison treatment if making formal incremental-edge claims. The eligibility filter selects retrospectively complete days and cannot serve as an entry-time signal. Product, timeframe, anchor, direction, and parameter breakdowns in this run are exploratory; the two timeframes and overlapping anchor views are correlated. See the [report](report.html), [protocol](protocol-1.0.0.md), [input verification](input-verification.json), and [run manifest](manifest.json).

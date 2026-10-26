@@ -1,0 +1,37 @@
+{
+  "schema_version": "study23.phase2-time-measurement/v1",
+  "run_id": "20261013T190208Z_phase2_gc_ob15m_v2",
+  "frozen_at": "2026-10-13T19:43:03.877891+00:00",
+  "post_policy_execution_declaration": true,
+  "policy_outputs_masks_or_selection_changed": false,
+  "source": {
+    "path": "additional/time-recovery/phase2_time_diagnostics.py",
+    "sha256": "b003fa4b7f3d3b5537731540b03f712c291f486d0013db678e52e17da131ee2f"
+  },
+  "inputs": [
+    {
+      "path": "phases/dev-validation/occurrence.jsonl.gz",
+      "sha256": "46ffc09049d080813b4efd62622cb2c801476895e7f8ce5f94ae25041ba2761e",
+      "bytes": 117603
+    },
+    {
+      "path": "phases/dev-validation/recovery.jsonl.gz",
+      "sha256": "c111fd502edf97037879eb9557f9a896cc58f17f34b4266a11841788e5c476b4",
+      "bytes": 145291
+    },
+    {
+      "path": "phases/later/occurrence.jsonl.gz",
+      "sha256": "6d7fb5f8941e77d1e8363d7400367aeeb7d4808a666b73a3f9420bd081f59d73",
+      "bytes": 62701
+    },
+    {
+      "path": "phases/later/recovery.jsonl.gz",
+      "sha256": "796d82120a1d0bcb99c10f97ebc731ef466968367bfbb3bf9922c1ec84c0902e",
+      "bytes": 78020
+    }
+  ],
+  "settings_sha256": "b17581173b66da111094674a083d786aafb4bca7825351ab3661d8b86d9e65b0",
+  "selection_sha256": "d7a6aafcbda07574b6abdccaabf727cc5ed48b164392249da74572ecb59d88f0",
+  "environment_lock_sha256": "b2c02f82320599b00cb3277479c660a9c56c37c6476bc423215c9cbb7ab0c645",
+  "method": "Elapsed time from first known protected one-tick breach to first known recovery. Source-OHLC time estimate plus conservative minute bounds. Unknown first times remain null; no breach is outside the recovery population. Mean delays conditional on known recovery timings, not a survival probability."
+}

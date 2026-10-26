@@ -27,6 +27,10 @@ import numpy as np
 import pyarrow as pa
 import pyarrow.parquet as pq
 
+from . import provenance as _provenance
+from .provenance import git_version as _git_version, sha256_file as _sha256
+from .publication_safety import check_absent, check_path, write_new_bytes
+
 from .continuous_phase1 import (
     DEFINITION_BATCH,
     EXPECTED_INTERVALS,
@@ -38,8 +42,6 @@ from .continuous_phase1 import (
     SOURCE_END_EXCLUSIVE,
     SOURCE_START,
     SessionCalendar,
-    _git_version,
-    _sha256,
     _text,
     iter_dbn_arrays,
     read_dbn_array,
@@ -238,21 +240,23 @@ def _timestamp_value(value: int) -> datetime:
 
 
 def _atomic_text(path: Path, content: str) -> None:
-    path.parent.mkdir(parents=True, exist_ok=True)
-    temporary = path.with_name(path.name + ".part")
-    temporary.write_text(content, encoding="utf-8")
-    os.replace(temporary, path)
+    write_new_bytes(path, content.encode("utf-8"), Path(path.absolute().anchor), error=Phase2Error)
+
+
+def _check_staging_path(path: Path, root: Path) -> None:
+    check_path(path, root, error=Phase2Error)
+    expected = root.resolve() / "data/curated" / f".{DATASET_NAME}.part"
+    if path.absolute() != expected or path.is_symlink() or path.resolve() != expected:
+        raise Phase2Error(f"refusing symlinked or unexpected staging path: {path}; expected {expected}")
+    if path.exists() and not path.is_dir():
+        raise Phase2Error(f"staging path is not a directory: {path}; inspect it manually")
 
 
 def _safe_remove(path: Path, root: Path) -> None:
-    resolved = path.resolve()
-    curated = (root / "data/curated").resolve()
-    if resolved == curated or curated not in resolved.parents:
-        raise Phase2Error(f"refusing unsafe removal: {resolved}")
-    if resolved.is_dir():
-        shutil.rmtree(resolved)
-    elif resolved.exists():
-        resolved.unlink()
+    # --force owns only this builder's exact staging directory, never final data.
+    _check_staging_path(path, root)
+    if path.exists():
+        shutil.rmtree(path)
 
 
 def verify_phase1(paths: Phase2Paths) -> tuple[dict[str, Any], str]:
@@ -830,16 +834,53 @@ def validate_outputs(
     return result
 
 
-def _prepare_build(paths: Phase2Paths, *, force: bool) -> None:
-    outputs = [paths.audit_output(), *(paths.product_output(product) for product in PRODUCTS)]
-    existing = [path for path in outputs if path.exists()]
-    if (paths.manifest.exists() or existing) and not force:
+def _provenance_output(paths: Phase2Paths, *, temporary: bool = False) -> Path:
+    return (paths.temp_root / "provenance" if temporary else
+            paths.root / "data/curated" / f".{DATASET_NAME}.provenance")
+
+
+def _check_publication_absent(paths: Phase2Paths) -> None:
+    destinations = [
+        paths.manifest,
+        paths.quality_report,
+        _provenance_output(paths),
+        paths.manifest.with_name(paths.manifest.name + ".part"),
+        paths.quality_report.with_name(paths.quality_report.name + ".part"),
+        paths.root / "data/curated" / f".{DATASET_NAME}.backup",
+        paths.audit_output(),
+        *(paths.product_output(product) for product in PRODUCTS),
+    ]
+    conflicts: set[Path] = set()
+    root = paths.root.resolve()
+    for destination in destinations:
+        check_path(destination, paths.root, error=Phase2Error)
+        if root not in destination.absolute().parents:
+            raise Phase2Error(f"publication destination is outside the project root: {destination}")
+        if destination.exists() or destination.is_symlink():
+            conflicts.add(destination)
+        for parent in destination.parents:
+            if parent == root:
+                break
+            if parent.is_symlink() or (parent.exists() and not parent.is_dir()):
+                conflicts.add(parent)
+    if conflicts:
         raise Phase2Error(
-            "a completed or partial Phase 2 build already exists; pass --force to replace only its known outputs"
+            "refusing existing immutable Phase 2 publication or recovery artifacts: "
+            + ", ".join(str(path) for path in sorted(conflicts))
+            + "; inspect partial output and recovery artifacts manually; --force recovers staging only"
         )
+
+
+def _prepare_build(paths: Phase2Paths, *, force: bool) -> None:
+    # Check final/recovery state before any staging removal, even with --force.
+    _check_publication_absent(paths)
+    _check_staging_path(paths.temp_root, paths.root)
     if paths.temp_root.exists():
         if not force:
-            raise Phase2Error(f"stale temporary Phase 2 build exists: {paths.temp_root}")
+            raise Phase2Error(
+                f"stale temporary Phase 2 build exists: {paths.temp_root}; "
+                "inspect it or use --force to recover only this staging directory"
+            )
         _safe_remove(paths.temp_root, paths.root)
     paths.temp_root.mkdir(parents=True)
 
@@ -852,34 +893,59 @@ def _publish(paths: Phase2Paths) -> None:
             for product in PRODUCTS
         ),
     ]
-    curated_root = paths.root / "data/curated"
-    backup_root = curated_root / f".{DATASET_NAME}.backup"
-    if backup_root.exists():
-        _safe_remove(backup_root, paths.root)
-    backed_up: list[tuple[Path, Path]] = []
-    published: list[Path] = []
+    if _provenance_output(paths, temporary=True).exists():
+        moves.append((_provenance_output(paths, temporary=True), _provenance_output(paths)))
+    # Repeat for direct calls and conflicts introduced after preparation. This is
+    # a bounded refusal check, not a lock against concurrent publishers.
+    _check_publication_absent(paths)
+    _check_staging_path(paths.temp_root, paths.root)
+    for source, _ in moves:
+        if source.is_symlink() or source.resolve() != source.absolute() or not source.exists():
+            raise Phase2Error(f"missing or symlinked staged publication output: {source}")
+    published: list[tuple[Path, Path, tuple[int, int]]] = []
+    created_parents: list[Path] = []
     try:
         for source, destination in moves:
-            destination.parent.mkdir(parents=True, exist_ok=True)
-            if destination.exists():
-                backup = backup_root / destination.relative_to(curated_root)
-                backup.parent.mkdir(parents=True, exist_ok=True)
-                os.replace(destination, backup)
-                backed_up.append((backup, destination))
+            missing: list[Path] = []
+            parent = destination.parent
+            while not parent.exists():
+                missing.append(parent)
+                parent = parent.parent
+            for parent in reversed(missing):
+                parent.mkdir()
+                created_parents.append(parent)
+            if destination.exists() or destination.is_symlink():
+                raise Phase2Error(f"publication destination appeared during publishing: {destination}")
+            identity = source.stat()
             os.replace(source, destination)
-            published.append(destination)
-    except Exception:
-        for destination in reversed(published):
-            if destination.exists():
-                _safe_remove(destination, paths.root)
-        for backup, destination in reversed(backed_up):
-            destination.parent.mkdir(parents=True, exist_ok=True)
-            os.replace(backup, destination)
+            published.append((source, destination, (identity.st_dev, identity.st_ino)))
+    except Exception as error:
+        # Restore only artifacts moved by this invocation. If restoration cannot
+        # be completed, leave the evidence in place for manual inspection.
+        for source, destination, identity in reversed(published):
+            try:
+                actual = destination.stat(follow_symlinks=False)
+                if (actual.st_dev, actual.st_ino) != identity or source.exists() or source.is_symlink():
+                    error.add_note(f"rollback retained conflicting evidence at {source} and {destination}")
+                    continue
+                os.replace(destination, source)
+            except OSError as rollback_error:
+                error.add_note(f"rollback retained {destination}: {rollback_error}")
+        for parent in reversed(created_parents):
+            try:
+                parent.rmdir()  # Never remove pre-existing directories or sibling contents.
+            except OSError:
+                pass
         raise
-    finally:
-        if backup_root.exists():
-            shutil.rmtree(backup_root)
-    shutil.rmtree(paths.temp_root)
+    # Remove only empty staging parents. Unexpected staged evidence is retained.
+    staging_parents = {paths.temp_root}
+    for source, _ in moves:
+        staging_parents.update(parent for parent in source.parents if paths.temp_root in parent.parents)
+    for parent in sorted(staging_parents, key=lambda item: len(item.parts), reverse=True):
+        try:
+            parent.rmdir()
+        except OSError:
+            pass
 
 
 def _output_files(paths: Phase2Paths) -> list[dict[str, Any]]:
@@ -999,6 +1065,9 @@ def build_manifest(
             **_git_version(paths.root),
             "builder": str(module_path.relative_to(paths.root)),
             "builder_sha256": _sha256(module_path),
+            "helper_source_sha256": {
+                "abacus_bhishma.provenance": _sha256(Path(_provenance.__file__)),
+            },
             "pyproject_sha256": _sha256(paths.root / "pyproject.toml"),
             "python": sys.version.split()[0],
             "databento": db.__version__,
@@ -1182,8 +1251,15 @@ def _report_markdown(
 
 
 def build(paths: Phase2Paths, *, force: bool, chunk_size: int) -> dict[str, Any]:
+    _check_publication_absent(paths)
     phase1_manifest, phase1_sha = verify_phase1(paths)
     _prepare_build(paths, force=force)
+    declared_sources = _provenance.publication_sources(Path(__file__), ("continuous_phase1.py", "provenance.py", "publication_safety.py", "paths.py"))
+    retained = _provenance.retain_sources(
+        _provenance_output(paths, temporary=True),
+        declared_sources,
+        artifact_id=DATASET_NAME, root=paths.root, error=Phase2Error,
+    )
     calendar = SessionCalendar.build(SOURCE_START, SOURCE_END_EXCLUSIVE)
     schedule, factor_table, factors = resolve_adjustments(paths, calendar, chunk_size=chunk_size)
     write_audit_outputs(paths, schedule, factor_table, temporary=True)
@@ -1197,6 +1273,8 @@ def build(paths: Phase2Paths, *, force: bool, chunk_size: int) -> dict[str, Any]
         chunk_size=chunk_size,
         recompute_references=True,
     )
+    _provenance.verify_retained_sources(
+        _provenance_output(paths, temporary=True), declared_sources, retained, error=Phase2Error)
     _publish(paths)
     validation = validate_outputs(
         paths,
@@ -1210,6 +1288,7 @@ def build(paths: Phase2Paths, *, force: bool, chunk_size: int) -> dict[str, Any]
     manifest = build_manifest(
         paths, phase1_manifest, phase1_sha, schedule, factor_table, validation
     )
+    manifest["retained_provenance"] = dict(retained, path=str(_provenance_output(paths).relative_to(paths.root)))
     _atomic_text(paths.manifest, json.dumps(manifest, indent=2, sort_keys=True) + "\n")
     _atomic_text(paths.quality_report, _report_markdown(paths, manifest, schedule))
     return manifest
@@ -1245,7 +1324,10 @@ def _parser() -> argparse.ArgumentParser:
     subparsers = parser.add_subparsers(dest="command", required=True)
     build_parser = subparsers.add_parser("build")
     build_parser.add_argument("--chunk-size", type=int, default=1_000_000)
-    build_parser.add_argument("--force", action="store_true")
+    build_parser.add_argument(
+        "--force", action="store_true",
+        help="recover only stale Phase 2 staging; final publication and recovery artifacts are never replaced",
+    )
     validate_parser = subparsers.add_parser("validate")
     validate_parser.add_argument("--chunk-size", type=int, default=1_000_000)
     return parser

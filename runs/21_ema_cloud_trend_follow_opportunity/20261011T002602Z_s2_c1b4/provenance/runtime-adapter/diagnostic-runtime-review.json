@@ -1,0 +1,209 @@
+{
+  "schema_version": 1,
+  "run_id": "20261011T002602Z_s2_c1b4",
+  "scope": "Read-only verifier runtime diagnosis; no frozen source edits, process interruption, research estimation or outcome execution.",
+  "process_snapshot": {
+    "pid": 67764,
+    "parent_pid": 67760,
+    "launch_utc": "2026-10-11T01:27:05.103Z",
+    "elapsed_at_ps": "00:06:08",
+    "cpu_time_at_ps": "00:06:01.55",
+    "cpu_percent_at_ps": 85.9,
+    "sample_datetime_utc": "2026-10-11T01:33:34.979Z",
+    "physical_footprint": "1.8G",
+    "peak_physical_footprint": "2.7G"
+  },
+  "sample_interpretation": {
+    "main_thread_samples": 805,
+    "timestamp_repr_samples": 717,
+    "strftime_samples": 697,
+    "finding": "Active main thread primarily formats successful _equal diagnostics; native timezone formatting repeatedly enters tzload/open/read. Native Arrow pool threads are idle. No evidence of a stopped/waiting process."
+  },
+  "synthetic_benchmark": {
+    "scope": "Synthetic success-path diagnostic benchmark only; no estimator or outcome rerun.",
+    "comparator_source_sha256": "d71c5c07fd7b3fa627ad4a3ef723e4e388ecfd9238ce1bb27db11b5cfda3110e",
+    "probe_source_sha256": "ec924d2e706b9f7474c64501fa6129e682d297a631b7d603cd566dc62b9c4c4e",
+    "measurements": [
+      {
+        "operation": "timestamp_equality_UTC_success",
+        "repeats": 2000,
+        "seconds": 0.24518845789134502,
+        "microseconds_per_operation": 122.59422894567251
+      },
+      {
+        "operation": "numeric_equality_success",
+        "repeats": 20000,
+        "seconds": 0.011484250193461776,
+        "microseconds_per_operation": 0.5742125096730888
+      },
+      {
+        "operation": "boolean_equality_success",
+        "repeats": 20000,
+        "seconds": 0.007299874909222126,
+        "microseconds_per_operation": 0.3649937454611063
+      },
+      {
+        "operation": "timestamp_repr_UTC_success_message",
+        "repeats": 2000,
+        "seconds": 0.24111766600981355,
+        "microseconds_per_operation": 120.55883300490677
+      }
+    ]
+  },
+  "ledger_work_estimates": [
+    {
+      "product": "ES",
+      "interval_minutes": 3,
+      "ledger_rows": {
+        "bars": 475140,
+        "technical": 950280,
+        "events": 5711,
+        "outcomes": 39977,
+        "pairs": 11318,
+        "union": 5514
+      },
+      "approximate_mapping_state_membership_nonmissing_timestamp_comparisons": 2850840
+    },
+    {
+      "product": "ES",
+      "interval_minutes": 5,
+      "ledger_rows": {
+        "bars": 285084,
+        "technical": 570168,
+        "events": 4785,
+        "outcomes": 38280,
+        "pairs": 9491,
+        "union": 4578
+      },
+      "approximate_mapping_state_membership_nonmissing_timestamp_comparisons": 1710504
+    },
+    {
+      "product": "GC",
+      "interval_minutes": 3,
+      "ledger_rows": {
+        "bars": 480360,
+        "technical": 960720,
+        "events": 1729,
+        "outcomes": 12103,
+        "pairs": 10057,
+        "union": 1687
+      },
+      "approximate_mapping_state_membership_nonmissing_timestamp_comparisons": 2882160
+    },
+    {
+      "product": "GC",
+      "interval_minutes": 5,
+      "ledger_rows": {
+        "bars": 288216,
+        "technical": 576432,
+        "events": 1439,
+        "outcomes": 11512,
+        "pairs": 8323,
+        "union": 1393
+      },
+      "approximate_mapping_state_membership_nonmissing_timestamp_comparisons": 1729296
+    },
+    {
+      "product": "NQ",
+      "interval_minutes": 3,
+      "ledger_rows": {
+        "bars": 475140,
+        "technical": 950280,
+        "events": 4914,
+        "outcomes": 34398,
+        "pairs": 12766,
+        "union": 4762
+      },
+      "approximate_mapping_state_membership_nonmissing_timestamp_comparisons": 2850840
+    },
+    {
+      "product": "NQ",
+      "interval_minutes": 5,
+      "ledger_rows": {
+        "bars": 285084,
+        "technical": 570168,
+        "events": 4109,
+        "outcomes": 32872,
+        "pairs": 10756,
+        "union": 3967
+      },
+      "approximate_mapping_state_membership_nonmissing_timestamp_comparisons": 1710504
+    }
+  ],
+  "estimated_full_runtime_minutes": [
+    45,
+    70
+  ],
+  "estimate_qualification": "Rough source/benchmark-based range, not an ETA guarantee. First-cell print is after all mapping/state/path/membership/union/flow/calendar/diagnostic/example checks. Later complete summary and uncertainty checks can change the estimate.",
+  "stage1_timing_bound": {
+    "prepared_utc": "2026-10-10T22:38:11.029825+00:00",
+    "finished_utc": "2026-10-10T22:49:46.337196+00:00",
+    "prepare_to_completion_seconds": 695.307371,
+    "qualification": "Upper bound includes unmeasured prepare-to-run gap, not an exact isolated verifier wall time."
+  },
+  "suggested_future_maintenance": "After completion or under a separately authorized new attempt, lazily construct _equal mismatch messages only when a comparison fails. Preserve checks/tolerances/null semantics and add meaningful diagnostics fixtures. Current attempt remains unchanged.",
+  "commands": [
+    {
+      "command": "ps -axo pid,ppid,etime,time,pcpu,pmem,rss,comm | rg \"(python|uv|run_stage2)\"",
+      "exit_code": 0,
+      "note": "Read-only approved process metadata; command names only, no process arguments."
+    },
+    {
+      "command": "sample 67764 1 1 -file /private/tmp/abacus-study21-stage2-verifier-sample.txt",
+      "exit_code": 0,
+      "note": "One-second read-only native stack sampling; no signal/interruption."
+    },
+    {
+      "command": "UV_CACHE_DIR=/private/tmp/abacus-study21-uv-cache ./scripts/uv run --locked --no-sync python work/21_ema_cloud_trend_follow_opportunity/stage2_preparation/C-final/runtime_probe.py > work/21_ema_cloud_trend_follow_opportunity/stage2_preparation/C-final/runtime-probe.json",
+      "exit_code": 0,
+      "note": "Fixed synthetic scalar success-comparison microbenchmark only."
+    }
+  ],
+  "identities": [
+    {
+      "path": "/Users/ppanati/Documents/projects/abacus/work/21_ema_cloud_trend_follow_opportunity/stage2_preparation/C-final/verifier-process-sample.txt",
+      "bytes": 121741,
+      "sha256": "4c16c78182c6a09009b29b42e564f951209eeebdf32ed31bae8f91317cf4e564"
+    },
+    {
+      "path": "/Users/ppanati/Documents/projects/abacus/work/21_ema_cloud_trend_follow_opportunity/stage2_preparation/C-final/runtime_probe.py",
+      "bytes": 1554,
+      "sha256": "ec924d2e706b9f7474c64501fa6129e682d297a631b7d603cd566dc62b9c4c4e"
+    },
+    {
+      "path": "/Users/ppanati/Documents/projects/abacus/work/21_ema_cloud_trend_follow_opportunity/stage2_preparation/C-final/runtime-probe.json",
+      "bytes": 887,
+      "sha256": "979bacf1adc64aaf4a61dbe6b5e50559d4636712b0d811776a1a8c19a474255c"
+    },
+    {
+      "path": "/Users/ppanati/Documents/projects/abacus/work/21_ema_cloud_trend_follow_opportunity/20261011T002602Z_s2_c1b4/evidence.manifest.json",
+      "bytes": 181177,
+      "sha256": "2da1911ec24918c93ff66390e9c0aa603220dc1b63cc393eda9f531d59dbf49d"
+    },
+    {
+      "path": "/Users/ppanati/Documents/projects/abacus/studies/21_ema_cloud_trend_follow_opportunity/src/reconcile.py",
+      "bytes": 45828,
+      "sha256": "d71c5c07fd7b3fa627ad4a3ef723e4e388ecfd9238ce1bb27db11b5cfda3110e"
+    },
+    {
+      "path": "/Users/ppanati/Documents/projects/abacus/studies/21_ema_cloud_trend_follow_opportunity/src/stage2_reconcile.py",
+      "bytes": 75869,
+      "sha256": "055cfaaba943f6b7db84991cb74d8d932989d3bc7ce5560716dab9b865cd0743"
+    },
+    {
+      "path": "/Users/ppanati/Documents/projects/abacus/studies/21_ema_cloud_trend_follow_opportunity/src/stage2_reference.py",
+      "bytes": 25718,
+      "sha256": "31b7b71b6cb368a86ffe9c3274ac69425beda19af135b213d5076ed71d4db529"
+    },
+    {
+      "path": "/Users/ppanati/Documents/projects/abacus/runs/21_ema_cloud_trend_follow_opportunity/20261010T221954Z_s1_8c6e_r3/provenance/reviews/coverage-adapter-before-execution.json",
+      "bytes": 68413,
+      "sha256": "7306c2f730c5965852b46a00a22fb169980e1a5ea0a1b1943d690f0bafa72466"
+    },
+    {
+      "path": "/Users/ppanati/Documents/projects/abacus/runs/21_ema_cloud_trend_follow_opportunity/20261010T221954Z_s1_8c6e_r3/provenance/reviews/coverage-adapter-completion.json",
+      "bytes": 1519,
+      "sha256": "0517fcd21888d19026e25e6bebdafc913c481f4050e2f8a17df38bc501a59d27"
+    }
+  ]
+}

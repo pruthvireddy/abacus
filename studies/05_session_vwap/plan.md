@@ -243,12 +243,12 @@ This verifies the manifest files, not a new exhaustive checksum validation of ev
 
 Authoritative local references:
 
-- [Release manifest](/Users/ppanati/Documents/projects/abacus-bhishma/catalog/datasets/session_anchored_vwap__1.0.0.release.json)
-- [5m manifest and year coverage](/Users/ppanati/Documents/projects/abacus-bhishma/catalog/datasets/session_anchored_vwap_5m_v1.json)
-- [Schema](/Users/ppanati/Documents/projects/abacus-bhishma/catalog/schemas/session_anchored_vwap__1.0.0.json)
-- [Indicator definitions and membership windows](/Users/ppanati/Documents/projects/abacus-bhishma/catalog/indicators/session_anchored_vwap__1.0.0.json)
-- [Published quality report](/Users/ppanati/Documents/projects/abacus-bhishma/reports/quality/session_anchored_vwap__1.0.0.md)
-- [Maintained feature loader](/Users/ppanati/Documents/projects/abacus-bhishma/src/abacus_bhishma/feature_loader.py)
-- [Unadjusted source manifest](/Users/ppanati/Documents/projects/abacus-bhishma/catalog/datasets/volume_lead_unadjusted_v1.json)
+- [Release manifest](../../catalog/datasets/session_anchored_vwap__1.0.0.release.json)
+- [5m manifest and year coverage](../../catalog/datasets/session_anchored_vwap_5m_v1.json)
+- [Schema](../../catalog/schemas/session_anchored_vwap__1.0.0.json)
+- [Indicator definitions and membership windows](../../catalog/indicators/session_anchored_vwap__1.0.0.json)
+- [Published quality report](../../reports/quality/session_anchored_vwap__1.0.0.md)
+- [Maintained feature loader](../../packages/bhishma/src/abacus_bhishma/feature_loader.py)
+- [Unadjusted source manifest](../../catalog/datasets/volume_lead_unadjusted_v1.json)
 
 The Abacus Bhishma publication is read-only throughout this work.

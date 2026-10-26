@@ -1,0 +1,53 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "report": {
+      "$ref": "https://abacus.local/narada/report.schema.json"
+    },
+    "provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "sourceSha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "assets": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "path": {
+                "type": "string",
+                "pattern": "^(figures/[A-Za-z0-9][A-Za-z0-9._-]{0,100}\\.(png|jpg|jpeg|webp)|downloads/[A-Za-z0-9][A-Za-z0-9._-]{0,100}\\.csv)$"
+              },
+              "sha256": {
+                "type": "string",
+                "pattern": "^[a-f0-9]{64}$"
+              }
+            },
+            "required": [
+              "path",
+              "sha256"
+            ]
+          },
+          "maxItems": 34,
+          "minItems": 0
+        }
+      },
+      "required": [
+        "sourceSha256",
+        "assets"
+      ]
+    }
+  },
+  "required": [
+    "report",
+    "provenance"
+  ],
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abacus.local/narada/bundle.schema.json",
+  "title": "Narada publication bundle"
+}

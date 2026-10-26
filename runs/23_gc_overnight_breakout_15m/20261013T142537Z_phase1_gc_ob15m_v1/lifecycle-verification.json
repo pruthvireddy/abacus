@@ -1,0 +1,48 @@
+{
+  "status": "passed",
+  "actual_tests": 12,
+  "failures": 0,
+  "errors": 0,
+  "skips": 0,
+  "scope": "Temporary synthetic read-only sealing preflight guards and report/disposition lifecycle guards; no actual study sealing/publication operation",
+  "command": {
+    "argv": [
+      "./scripts/uv",
+      "run",
+      "--locked",
+      "--no-sync",
+      "python",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "studies/23_gc_overnight_breakout_15m/tests",
+      "-p",
+      "test_lifecycle.py"
+    ],
+    "cwd": "/Users/ppanati/Documents/projects/abacus",
+    "environment": {
+      "UV_CACHE_DIR": "/private/tmp/abacus-study23-uv-cache"
+    }
+  },
+  "log": "lifecycle-tests.log",
+  "log_sha256": "c890db76650c86b9e4a3042e50e8fc427fa630c46e5c56a8792e49f0d2aec293",
+  "source_snapshots": [
+    {
+      "path": "verification-source/lifecycle/seal.py",
+      "bytes": 12678,
+      "sha256": "f41eae53e647ec17a7cbfb0762d8f7618b8ae2334b6d88490cc0cf5fa789189d"
+    },
+    {
+      "path": "verification-source/lifecycle/save_report.py",
+      "bytes": 9789,
+      "sha256": "da54903ccd9d3a56002a332d5fc122e2a48cc00f657493ad0d89a77393d5c4b1"
+    },
+    {
+      "path": "verification-source/lifecycle/tests/test_lifecycle.py",
+      "bytes": 9943,
+      "sha256": "01e3af8368fad1afafdda418ab9b59016327118854fa9ea610a7e994c78b9fca"
+    }
+  ],
+  "day_disposition_receipt": "independent-day-disposition-verification.json"
+}

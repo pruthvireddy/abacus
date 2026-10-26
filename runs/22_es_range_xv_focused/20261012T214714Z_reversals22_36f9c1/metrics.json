@@ -1,0 +1,114 @@
+{
+  "schema_version": 1,
+  "study_id": "22_es_range_xv_focused",
+  "run_id": "20261012T214714Z_reversals22_36f9c1",
+  "protocol_version": "0.3.0",
+  "metric_definitions": [
+    {
+      "id": "reversal_continuation",
+      "table": "tables/reversal_continuation.csv",
+      "estimate_column": "probability",
+      "numerator_column": "numerator",
+      "denominator_column": "denominator",
+      "unknown_column": "unknown_count",
+      "units": "ratio",
+      "horizons": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20
+      ],
+      "horizon_units": "additional completed same-colour candles after R",
+      "population": "known horizon outcomes; successes + observed failures; unknown not false"
+    },
+    {
+      "id": "reversal_f1_touch",
+      "table": "tables/reversal_retracement.csv",
+      "estimate_column": "touch_probability",
+      "numerator_column": "touch_numerator",
+      "denominator_column": "touch_denominator",
+      "unknown_column": "unknown_f1_count",
+      "units": "ratio"
+    },
+    {
+      "id": "reversal_f1_retrace_favorable_joint",
+      "table": "tables/reversal_retracement.csv",
+      "estimate_column": "joint_beyond_close_probability",
+      "numerator_column": "joint_beyond_close_numerator",
+      "denominator_column": "joint_beyond_close_denominator",
+      "unknown_column": "unknown_f1_count",
+      "units": "ratio"
+    },
+    {
+      "id": "reversal_f1_favorable_given_retrace",
+      "table": "tables/reversal_retracement.csv",
+      "estimate_column": "conditional_beyond_close_probability",
+      "numerator_column": "conditional_beyond_close_numerator",
+      "denominator_column": "conditional_beyond_close_denominator",
+      "unknown_column": "unknown_f1_count",
+      "units": "ratio"
+    }
+  ],
+  "tables": [
+    {
+      "path": "tables/reversal_summary.csv",
+      "bytes": 1347428,
+      "sha256": "fee7d3ccd15401c808853320dfa3184ae3ca23c9783b4be73b52da2f28e4a2c1",
+      "rows": 9720
+    },
+    {
+      "path": "tables/reversal_continuation.csv",
+      "bytes": 16221722,
+      "sha256": "6076f6cb40c6167bff0351f1911bbe749aa271740629da2c516ffb2fd7a6faa4",
+      "rows": 194400
+    },
+    {
+      "path": "tables/reversal_retracement.csv",
+      "bytes": 7070330,
+      "sha256": "dbb7d9075ed14b42319bff069bb39b50034a9b31e6a4e19bddb554d5f4267f39",
+      "rows": 38880
+    },
+    {
+      "path": "tables/coverage.csv",
+      "bytes": 9879,
+      "sha256": "d695e2b10c4299e1b59fbf5df777ec6707a1c7906a1eaacea5b1cbc7ba05fcc9",
+      "rows": 216
+    }
+  ],
+  "group_columns": [
+    "setting_ticks",
+    "year",
+    "timeframe_id",
+    "direction",
+    "prior_leg_bucket"
+  ],
+  "grouping_anchor": "R completion timestamp proxy and inferred session date year",
+  "uncertainty": "Empirical descriptive rates; no iid confidence intervals or predictive validation. Unknown outcomes explicitly retained.",
+  "undefined_estimates": "blank in CSV, null in publication",
+  "selected_depths_percent": [
+    25,
+    50,
+    75,
+    100
+  ],
+  "retrace_horizon": "immediate completed F1",
+  "retrace_reference": "R body from close toward open; inclusive level touch",
+  "favorable_reference": "strict F1.close beyond R.close in R direction",
+  "method": "Metadata-only index of already independently verified saved-table columns; no new estimates or research execution."
+}

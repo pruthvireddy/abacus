@@ -1,0 +1,426 @@
+{
+  "dataset_id": "verniman_daily_levels__4.0.0",
+  "version": "4.0.0",
+  "tables": {
+    "outlooks": [
+      {
+        "name": "outlook_id",
+        "arrow_type": "string",
+        "nullable": false
+      },
+      {
+        "name": "source_post_id",
+        "arrow_type": "string",
+        "nullable": false
+      },
+      {
+        "name": "content_sha256",
+        "arrow_type": "string",
+        "nullable": false
+      },
+      {
+        "name": "source_url",
+        "arrow_type": "string",
+        "nullable": false
+      },
+      {
+        "name": "title",
+        "arrow_type": "string",
+        "nullable": false
+      },
+      {
+        "name": "session_date_method",
+        "arrow_type": "string",
+        "nullable": false
+      },
+      {
+        "name": "timing_status",
+        "arrow_type": "string",
+        "nullable": false
+      },
+      {
+        "name": "extraction_version",
+        "arrow_type": "string",
+        "nullable": false
+      },
+      {
+        "name": "extraction_status",
+        "arrow_type": "string",
+        "nullable": false
+      },
+      {
+        "name": "content_kind",
+        "arrow_type": "string",
+        "nullable": false
+      },
+      {
+        "name": "source_agreement_status",
+        "arrow_type": "string",
+        "nullable": false
+      },
+      {
+        "name": "source_year_status",
+        "arrow_type": "string",
+        "nullable": false
+      },
+      {
+        "name": "crawl_date_warnings_json",
+        "arrow_type": "string",
+        "nullable": false
+      },
+      {
+        "name": "ledger_id",
+        "arrow_type": "string",
+        "nullable": false
+      },
+      {
+        "name": "body_text",
+        "arrow_type": "string",
+        "nullable": false
+      },
+      {
+        "name": "raw_html_path",
+        "arrow_type": "string",
+        "nullable": false
+      },
+      {
+        "name": "raw_html_sha256",
+        "arrow_type": "string",
+        "nullable": false
+      },
+      {
+        "name": "product",
+        "arrow_type": "string",
+        "nullable": true
+      },
+      {
+        "name": "contract",
+        "arrow_type": "string",
+        "nullable": true
+      },
+      {
+        "name": "session_date_source_text",
+        "arrow_type": "string",
+        "nullable": true
+      },
+      {
+        "name": "bullish_scenario_text",
+        "arrow_type": "string",
+        "nullable": true
+      },
+      {
+        "name": "bearish_scenario_text",
+        "arrow_type": "string",
+        "nullable": true
+      },
+      {
+        "name": "bullish_conditions",
+        "arrow_type": "string",
+        "nullable": true
+      },
+      {
+        "name": "bearish_conditions",
+        "arrow_type": "string",
+        "nullable": true
+      },
+      {
+        "name": "raw_atom_path",
+        "arrow_type": "string",
+        "nullable": true
+      },
+      {
+        "name": "raw_atom_sha256",
+        "arrow_type": "string",
+        "nullable": true
+      },
+      {
+        "name": "source_claimed_published",
+        "arrow_type": "string",
+        "nullable": true
+      },
+      {
+        "name": "source_claimed_updated",
+        "arrow_type": "string",
+        "nullable": true
+      },
+      {
+        "name": "source_claimed_published_eastern",
+        "arrow_type": "string",
+        "nullable": true
+      },
+      {
+        "name": "source_claimed_updated_eastern",
+        "arrow_type": "string",
+        "nullable": true
+      },
+      {
+        "name": "session_date",
+        "arrow_type": "date32[day]",
+        "nullable": true
+      },
+      {
+        "name": "body_contract_year",
+        "arrow_type": "int16",
+        "nullable": true
+      },
+      {
+        "name": "captured_at",
+        "arrow_type": "timestamp[us, tz=UTC]",
+        "nullable": false
+      },
+      {
+        "name": "raw_html_captured_at",
+        "arrow_type": "timestamp[us, tz=UTC]",
+        "nullable": false
+      },
+      {
+        "name": "raw_atom_captured_at",
+        "arrow_type": "timestamp[us, tz=UTC]",
+        "nullable": true
+      },
+      {
+        "name": "available_at",
+        "arrow_type": "timestamp[us, tz=UTC]",
+        "nullable": true
+      },
+      {
+        "name": "source_claimed_published_at",
+        "arrow_type": "timestamp[us, tz=UTC]",
+        "nullable": true
+      },
+      {
+        "name": "source_claimed_updated_at",
+        "arrow_type": "timestamp[us, tz=UTC]",
+        "nullable": true
+      },
+      {
+        "name": "parsed_branch_count",
+        "arrow_type": "int16",
+        "nullable": false
+      },
+      {
+        "name": "level_count",
+        "arrow_type": "int32",
+        "nullable": false
+      },
+      {
+        "name": "issue_count",
+        "arrow_type": "int32",
+        "nullable": false
+      }
+    ],
+    "levels": [
+      {
+        "name": "outlook_id",
+        "arrow_type": "string",
+        "nullable": false
+      },
+      {
+        "name": "product",
+        "arrow_type": "string",
+        "nullable": false
+      },
+      {
+        "name": "contract",
+        "arrow_type": "string",
+        "nullable": false
+      },
+      {
+        "name": "side",
+        "arrow_type": "string",
+        "nullable": false
+      },
+      {
+        "name": "role",
+        "arrow_type": "string",
+        "nullable": false
+      },
+      {
+        "name": "source_label",
+        "arrow_type": "string",
+        "nullable": false
+      },
+      {
+        "name": "source_text",
+        "arrow_type": "string",
+        "nullable": false
+      },
+      {
+        "name": "notation",
+        "arrow_type": "string",
+        "nullable": false
+      },
+      {
+        "name": "scenario_text",
+        "arrow_type": "string",
+        "nullable": false
+      },
+      {
+        "name": "timing_status",
+        "arrow_type": "string",
+        "nullable": false
+      },
+      {
+        "name": "conditions",
+        "arrow_type": "string",
+        "nullable": true
+      },
+      {
+        "name": "session_date",
+        "arrow_type": "date32[day]",
+        "nullable": false
+      },
+      {
+        "name": "ordinal",
+        "arrow_type": "int32",
+        "nullable": false
+      },
+      {
+        "name": "price_low",
+        "arrow_type": "decimal128(12, 2)",
+        "nullable": false
+      },
+      {
+        "name": "price_high",
+        "arrow_type": "decimal128(12, 2)",
+        "nullable": false
+      },
+      {
+        "name": "available_at",
+        "arrow_type": "timestamp[us, tz=UTC]",
+        "nullable": true
+      }
+    ],
+    "issues": [
+      {
+        "name": "issue_id",
+        "arrow_type": "string",
+        "nullable": false
+      },
+      {
+        "name": "severity",
+        "arrow_type": "string",
+        "nullable": false
+      },
+      {
+        "name": "scope",
+        "arrow_type": "string",
+        "nullable": false
+      },
+      {
+        "name": "code",
+        "arrow_type": "string",
+        "nullable": false
+      },
+      {
+        "name": "description",
+        "arrow_type": "string",
+        "nullable": false
+      },
+      {
+        "name": "outlook_id",
+        "arrow_type": "string",
+        "nullable": true
+      },
+      {
+        "name": "source_url",
+        "arrow_type": "string",
+        "nullable": true
+      },
+      {
+        "name": "side",
+        "arrow_type": "string",
+        "nullable": true
+      },
+      {
+        "name": "source_text",
+        "arrow_type": "string",
+        "nullable": true
+      },
+      {
+        "name": "session_date",
+        "arrow_type": "date32[day]",
+        "nullable": true
+      }
+    ],
+    "coverage": [
+      {
+        "name": "session_date",
+        "arrow_type": "date32[day]",
+        "nullable": false
+      },
+      {
+        "name": "status",
+        "arrow_type": "string",
+        "nullable": false
+      },
+      {
+        "name": "reason",
+        "arrow_type": "string",
+        "nullable": true
+      },
+      {
+        "name": "post_count",
+        "arrow_type": "int32",
+        "nullable": false
+      },
+      {
+        "name": "complete_post_count",
+        "arrow_type": "int32",
+        "nullable": false
+      },
+      {
+        "name": "partial_post_count",
+        "arrow_type": "int32",
+        "nullable": false
+      },
+      {
+        "name": "failed_post_count",
+        "arrow_type": "int32",
+        "nullable": false
+      },
+      {
+        "name": "non_outlook_post_count",
+        "arrow_type": "int32",
+        "nullable": false
+      },
+      {
+        "name": "level_count",
+        "arrow_type": "int32",
+        "nullable": false
+      },
+      {
+        "name": "issue_count",
+        "arrow_type": "int32",
+        "nullable": false
+      },
+      {
+        "name": "post_urls_json",
+        "arrow_type": "string",
+        "nullable": false
+      },
+      {
+        "name": "outlook_ids_json",
+        "arrow_type": "string",
+        "nullable": false
+      },
+      {
+        "name": "ledger_json",
+        "arrow_type": "string",
+        "nullable": false
+      }
+    ]
+  },
+  "available_at": "Always null; source claims and capture chronology do not prove historical availability.",
+  "session_date": "Dated crawl ledger, anchored to December 31, 2024; body M/D is cross-checked. Delivery-contract year never determines session year.",
+  "revision_identity": "SHA256(source_post_id + newline + SHA256(extracted visible source body UTF-8)).",
+  "extraction": "Only A/B plan branches; each ambiguous branch yields no numeric rows, with raw text and issues retained. Other valid branches remain.",
+  "ranges": "Singular labels with two endpoints denote zones; low/high are numeric bounds even when source endpoints descend. Lowercase-plural labels, e.g. PBTs and GAPs, denote ordered point sequences. A singular label followed by three or more full prices (each at least three digits) is an explicit point sequence with a warning; abbreviated singular multi-price sequences are refused. Abbreviated two-endpoint suffixes retain the leading digits of the preceding full price.",
+  "price_outlier_warning": "A source point more than max(500 points, 10% of the post median) from the median is flagged, never corrected.",
+  "missingness": "No interpolation. Zero extracted levels does not mean zero source targets. Missing date coverage means no post was observed, not proof that none was ever published.",
+  "source_certainty": "HTML/Atom agreement, metadata claims, parse success and historical availability are separate qualifications.",
+  "label_formats": "Original source labels are retained. Supported syntax includes mixed-case Soc/SoC compounds (including FOMC Soc and YPOC-FOMC Soc), Roll-GAP, HVE-1yrPOC, nonstandard ONl and explicit postfix support/resistance/magnet labels. Explicit plural labels can introduce full point prices joined by and. Unlabelled numeric prices and singular-labelled conjunctions remain unsupported.",
+  "branch_boundaries": "A/B branches end at the next labelled branch, Note/Reminder, Rollover week/note or FOMC days are paragraph opening, Market Movers or Follow heading. The full source body remains retained.",
+  "operative_contract_policy": "An affirmative statement quoting another contract today conflicts with the header; preserve the post and both branches as text but refuse numeric extraction.",
+  "contract_year_policy": "January\u2013October dated 2024 requires delivery year 2024; November\u2013December may use 2024 or 2025, preserving the stated contract. Conflicts remain raw with numeric extraction refused."
+}

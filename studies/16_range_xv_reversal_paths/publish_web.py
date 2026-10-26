@@ -1,0 +1,75 @@
+# Presentation-only exporter for 16_range_xv_reversal_paths. No analytical imports.
+SPEC = {'study_id': '16_range_xv_reversal_paths', 'source_run_id': '20261002T010500Z_ohlc200_161001', 'publication_id': '16-range-xv-reversal-paths-20261006-web', 'title': 'FX Range XV: lead-up adds no supported primary prediction', 'summary': 'Eight FX chart/direction populations retain separate continuation rates. Adding prior-leg length or richer history yields no supported primary log-loss improvement beyond reversal geometry and context.', 'selection': 'Publication-only choice', 'reason': 'Sole completed protocol 2.0.0 run directly covers the registered questions, including negative primary results and all nominees; no new reference is registered.', 'sources': ['report.md', 'config.json', 'manifest.json', 'inputs.lock.json', 'metrics.json', 'executable-protocol.md'], 'sections': [{'kind': 'text', 'id': 'question', 'title': 'Question and scope', 'body': 'Completed protocol 2.0.0 asks about reversal follow-through, three-bar landing and incremental prediction in 6B, 6E, 6J and 6S Range XV 4/5 charts. These are OHLC-only exports, July 2017–October 2026. Chart/direction populations remain separate.', 'source': 'report.md', 'anchor': 'Question and scope'}, {'kind': 'text', 'id': 'findings', 'title': 'Supported findings', 'body': 'The primary later F≥3 prediction result is negative: adding prior length or richer history gives no supported log-loss improvement beyond reversal geometry/context. Later length-two versus length-three contrasts remain inconclusive. A nominated colour-persistence association has a negative gross price mean; the other is inconclusive. A predicate with collapsed efficiency cutpoints adds no independent efficient-versus-choppy evidence.', 'source': 'report.md', 'anchor': 'Supported findings'}, {'kind': 'table', 'id': 'baseline', 'title': 'All-history follow-through: separate chart/direction cohorts', 'file': 'tables/continuation.csv', 'columns': [{'column': {'key': 'chart', 'label': 'chart'}, 'scale': 1}, {'column': {'key': 'direction', 'label': 'Direction (1 bullish, −1 bearish)'}, 'scale': 1}, {'column': {'key': 'p3_known_success', 'label': 'F≥3 successes', 'format': 'number', 'precision': 0}, 'scale': 1}, {'column': {'key': 'p3_n', 'label': 'Complete order-3 n', 'format': 'number', 'precision': 0}, 'scale': 1}, {'column': {'key': 'p3_dates', 'label': 'Dates', 'format': 'number', 'precision': 0}, 'scale': 1}, {'column': {'key': 'p3', 'label': 'F≥3 rate', 'format': 'percent', 'precision': 1}, 'scale': 1}, {'column': {'key': 'p3_low', 'label': '95% low', 'format': 'percent', 'precision': 1}, 'scale': 1}, {'column': {'key': 'p3_high', 'label': '95% high', 'format': 'percent', 'precision': 1}, 'scale': 1}], 'where': {'panel': ['all'], 'level': ['all']}, 'description': 'All saved rows'}, {'kind': 'table', 'id': 'prediction', 'title': 'Later primary F≥3: loss improvement versus B1', 'file': 'tables/model-paired-improvements.csv', 'columns': [{'column': {'key': 'chart', 'label': 'chart'}, 'scale': 1}, {'column': {'key': 'direction', 'label': 'Direction (1 bullish, −1 bearish)'}, 'scale': 1}, {'column': {'key': 'model', 'label': 'model'}, 'scale': 1}, {'column': {'key': 'n', 'label': 'Later evaluated n', 'format': 'number', 'precision': 0}, 'scale': 1}, {'column': {'key': 'dates', 'label': 'dates', 'format': 'number', 'precision': 0}, 'scale': 1}, {'column': {'key': 'improvement', 'label': 'Log-loss improvement', 'format': 'number', 'precision': 4}, 'scale': 1}, {'column': {'key': 'low', 'label': '95% low', 'format': 'number', 'precision': 4}, 'scale': 1}, {'column': {'key': 'high', 'label': '95% high', 'format': 'number', 'precision': 4}, 'scale': 1}, {'column': {'key': 'block5_low', 'label': 'Five-session low', 'format': 'number', 'precision': 4}, 'scale': 1}, {'column': {'key': 'block5_high', 'label': 'Five-session high', 'format': 'number', 'precision': 4}, 'scale': 1}], 'where': {'target': ['F3'], 'model': ['M1', 'M2'], 'baseline': ['B1'], 'metric': ['log_loss']}, 'description': 'All saved rows'}, {'kind': 'table', 'id': 'candidates', 'title': 'Nominated candidates: later colour and gross price', 'file': 'tables/candidate-evaluation.csv', 'columns': [{'column': {'key': 'candidate_id', 'label': 'candidate id'}, 'scale': 1}, {'column': {'key': 'chart', 'label': 'chart'}, 'scale': 1}, {'column': {'key': 'order_n', 'label': 'Colour cohort n', 'format': 'number', 'precision': 0}, 'scale': 1}, {'column': {'key': 'D_q_n', 'label': 'Strict price n', 'format': 'number', 'precision': 0}, 'scale': 1}, {'column': {'key': 'p3', 'label': 'F≥3 rate', 'format': 'percent', 'precision': 1}, 'scale': 1}, {'column': {'key': 'lift', 'label': 'Colour lift', 'format': 'number', 'precision': 1, 'unit': 'pp'}, 'scale': 100}, {'column': {'key': 'lift_low', 'label': '95% lift low', 'format': 'number', 'precision': 1, 'unit': 'pp'}, 'scale': 100}, {'column': {'key': 'lift_high', 'label': '95% lift high', 'format': 'number', 'precision': 1, 'unit': 'pp'}, 'scale': 100}, {'column': {'key': 'D_q_mean', 'label': 'Gross mean D3', 'format': 'number', 'precision': 2, 'unit': 'q'}, 'scale': 1}, {'column': {'key': 'D_q_low', 'label': '95% price low', 'format': 'number', 'precision': 2, 'unit': 'q'}, 'scale': 1}, {'column': {'key': 'D_q_high', 'label': '95% price high', 'format': 'number', 'precision': 2, 'unit': 'q'}, 'scale': 1}], 'where': {'split': ['later'], 'panel': [''], 'level': ['']}, 'description': 'Only the two locked nominees, all later main rows'}, {'kind': 'text', 'id': 'methods', 'title': 'Definitions and methods', 'body': 'R is a completed first opposite-colour bar after a known prior leg L; L and future F exclude R. A doji breaks the leg. Continuation F≥3 requires three physical followers completed through the next observed start, with its own denominator. The price reference enters at B1 open and marks at B4 open, including gaps and all B1–B3 colours; strict paths require positive durations. Baseline B1 uses reversal geometry and context, M1 adds L, M2 richer lead-up. Positive saved log-loss improvement means lower loss than B1. Saved 95% paired session-bootstrap bounds and five-session moving-block sensitivity are pointwise. Model selection used development/validation before later metrics, but earlier inspection prevents a pristine holdout claim. Candidate C0576 is bearish 6J 4, prior length one; C0592 additionally uses the frozen efficiency predicate. q for these 6J candidate price means is constant 0.0000005 native price units.', 'source': 'executable-protocol.md', 'anchor': 'Definitions and methods'}, {'kind': 'text', 'id': 'limitations', 'title': 'Limitations and uncertainty', 'body': 'Colour persistence is not execution or profitability. Clocks/completion, roll/adjustment history, spreads, fills and intrabar ordering are unverified. Correlated FX settings are not independent confirmations. 6S historical tick units change at trade date May 2, 2022; cross-era price comparisons must use constant q or raw price, never pooled historical ticks. Off-grid raw prices are retained. The selected baseline table uses bar order, not an execution cohort. Censoring and sparse support are explicit in full evidence; retained event backups are local and off-device backup was not verified.', 'source': 'report.md', 'anchor': 'Limitations and uncertainty'}]}
+EXPECTED = {'runs/16_range_xv_reversal_paths/20261002T010500Z_ohlc200_161001/tables/candidate-evaluation.csv': 'f13bd91b3a01290b44485afcc81e1606704c1ab09687ea00a83062950cbf2252', 'runs/16_range_xv_reversal_paths/20261002T010500Z_ohlc200_161001/tables/model-paired-improvements.csv': '1d7719c56e77758e41bbee788e3efa770113cc78e156e0cc051e2525ff200f77', 'runs/16_range_xv_reversal_paths/20261002T010500Z_ohlc200_161001/metrics.json': '8e130705c7090ca5a126b59ac76a433f68eab4bde7a8c389517caf58c4cb949e', 'runs/16_range_xv_reversal_paths/20261002T010500Z_ohlc200_161001/report.md': 'f7721cb81562e87697b274e632c8ddbe9dbe6d13cb62e357bb9bb34e1edc7a95', 'runs/16_range_xv_reversal_paths/20261002T010500Z_ohlc200_161001/config.json': '417590c727bc90f1da39bf6113008f529e6939a5fa7b10b753d350a6cf17a89b', 'runs/16_range_xv_reversal_paths/20261002T010500Z_ohlc200_161001/manifest.json': '093a06a4e164e1d8c3553085e631c0225e55e9a776df27e3790eadad68ac1508', 'runs/16_range_xv_reversal_paths/20261002T010500Z_ohlc200_161001/inputs.lock.json': 'c941be551e623a2f019ad9ccdd0968d3c8c9942428e49829ea4f940152702613', 'runs/16_range_xv_reversal_paths/20261002T010500Z_ohlc200_161001/executable-protocol.md': 'e68197a9b73e4f718afac8ffc20a13049e0e4e1944e37a41eb2f153143253de1', 'runs/16_range_xv_reversal_paths/20261002T010500Z_ohlc200_161001/tables/continuation.csv': '87a224e6b801e96e77934cf38a3adf94ab39e945c9b874d44a3befe6d5d9ce2b'}
+
+import argparse,csv,hashlib,json,math,shutil
+from pathlib import Path
+ROOT=Path(__file__).resolve().parents[2]
+def digest(p):return hashlib.sha256(p.read_bytes()).hexdigest()
+def transfer(raw,column,scale):
+ if raw=='':return None
+ if column.get('format'):
+  value=float(raw)*scale
+  if not math.isfinite(value):
+   raise ValueError(f"Non-finite value for column {column['key']}: {raw!r} at scale {scale!r}")
+  return value
+ if raw in ['True','False']:return raw=='True'
+ return raw.replace('_',' ') if column['key'] not in ['metric_id','metric_id_departure','metric_id_touch'] else raw
+
+def prepare(revision):
+ run=ROOT/'runs'/SPEC['study_id']/SPEC['source_run_id']
+ bindings=[];sections=[];sources=set(SPEC['sources']);claims=[]
+ for item in SPEC['sections']:
+  if item['kind']=='text':
+   sections.append({k:item[k] for k in ['kind','id','title','body']})
+   sources.add(item['source']);claims.append({'section':item['id'],'source':str((run/item['source']).relative_to(ROOT)),'heading_or_scope': {'scope': 'Selected saved document; authored abridgment', 'headings': [line.lstrip('#').strip() for line in (run/item['source']).read_text().splitlines() if line.startswith('#')]},'operation':'Authored abridgment preserving the saved meaning; definitions and result numbers are not recomputed.'})
+  else:
+   sources.add(item['file']);rows=list(csv.DictReader((run/item['file']).open()))
+   chosen=[(i,row) for i,row in enumerate(rows,1) if all(row[k] in values for k,values in item['where'].items())]
+   if not chosen or len(chosen)>100:
+    raise ValueError(f"Section {item['id']} from {item['file']} selects {len(chosen)} rows; expected 1 through 100")
+   output=[]
+   for source_row,row in chosen:
+    target={}
+    for field in item['columns']:
+     c=field['column'];k=c['key']
+     try:target[k]=transfer(row[k],c,field['scale'])
+     except ValueError as error:
+      raise ValueError(f"Section {item['id']} from {item['file']}, column {k}: {error}") from error
+     bindings.append({'section':item['id'],'output_row':len(output),'column':k,'source':str((run/item['file']).relative_to(ROOT)),'data_row_1_based':source_row,'source_column':k,'source_raw':row[k],'scale':field['scale'],'value':target[k]})
+    output.append(target)
+   sections.append({'kind':'table','id':item['id'],'title':item['title'],'columns':[f['column'] for f in item['columns']],'rows':output})
+ provenance=f"Study {SPEC['study_id']}; source run {SPEC['source_run_id']}. {SPEC['selection']}: {SPEC['reason']}\n\nPresentation revision {revision}, web-study-report-1.0. Saved numerical tables are the authority; only selected rows and columns are presented. No new statistics or research execution. The publication record identifies this JSON and its selected assets."
+ sections.append({'kind':'text','id':'sources-provenance','title':'Source and presentation provenance','body':provenance})
+ pub={'schemaVersion':'1.0','id':SPEC['publication_id'],'title':SPEC['title'],'summary':SPEC['summary'],'publishedAt':'2026-10-06T23:09:36Z','source':{'producer':'sahadeva','runId':SPEC['source_run_id']},'sections':sections}
+ artifacts=[]
+ for name in sorted(sources):
+  p=run/name;relative=str(p.relative_to(ROOT))
+  if digest(p)!=EXPECTED[relative]:
+   raise ValueError(f"Source artifact hash mismatch: {relative}")
+  artifacts.append({'path':relative,'sha256':digest(p)})
+ return pub,{'study_id':SPEC['study_id'],'source_run_id':SPEC['source_run_id'],'revision_id':revision,'sources':artifacts,'bindings':bindings,'claims':claims,'table_selections':[{'section':i['id'],'source':i['file'],'where':i['where'],'description':i['description']} for i in SPEC['sections'] if i['kind']=='table'],'figures':[]}
+
+def main(argv=None):
+ parser=argparse.ArgumentParser(description='Presentation only: select pinned saved evidence; never execute research.')
+ parser.add_argument('--revision',required=True);parser.add_argument('--check',action='store_true');args=parser.parse_args(argv)
+ if not __import__('re').fullmatch(r'[A-Za-z0-9_-]+',args.revision):
+  raise ValueError(f"Unsafe revision identifier: {args.revision!r}")
+ out=ROOT/'reports/exports'/SPEC['study_id']/SPEC['source_run_id']/args.revision
+ pub,mapping=prepare(args.revision)
+ if args.check:
+  if json.loads((out/'publication.json').read_text())!=pub:
+   raise ValueError(f"Publication does not match prepared saved evidence: {out/'publication.json'}")
+  if json.loads((out/'source-map.json').read_text())!=mapping:
+   raise ValueError(f"Source map does not match prepared saved evidence: {out/'source-map.json'}")
+  print(f"{SPEC['study_id']}: {len(mapping['bindings'])} saved-cell transfers and source hashes match.")
+ else:
+  out.mkdir(parents=True,exist_ok=False)
+  for name,value in [('publication.json',pub),('source-map.json',mapping)]:
+   (out/name).write_text(json.dumps(value,indent=2,ensure_ascii=False,allow_nan=False)+'\n')
+  (out/'provenance').mkdir();shutil.copyfile(__file__,out/'provenance/publish_web.py')
+  (out/'README.md').write_text(f"# {SPEC['title']}\n\n[Publication](publication.json) · [Source map](source-map.json) · [Manifest](manifest.json) · [Verification](verification.json)\n\n{SPEC['selection']}: {SPEC['reason']}\n\nBounded table-first presentation. Full tables and research figures remain in the saved run. No new calculations. Reproduce into a fresh revision and use a fresh publication ID for changed content.\n")
+  print(out.relative_to(ROOT))
+
+if __name__=='__main__':
+ main()

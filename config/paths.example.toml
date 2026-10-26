@@ -1,9 +1,10 @@
-# Copy to paths.local.toml and set locations on your machine. Local paths are
-# ignored by Git. Relative values resolve from the Abacus workspace root.
-# publication_root is the project containing BOTH catalog/ and data/, not data/.
+# Copy to paths.local.toml. Local paths are ignored by Git.
+# Relative values resolve from the Abacus workspace root.
+# The consolidated workspace contains BOTH catalog/ and data/.
+# Restore ignored bulk storage separately when setting up another machine.
 [paths]
-publication_root = "../abacus-bhishma"
-legacy_research_root = "../abacus-sahadeva"
+publication_root = "."
+legacy_research_root = "legacy/sahadeva"
 
 # Optional overrides: ABACUS_WORKSPACE_ROOT, ABACUS_PUBLICATION_ROOT,
 # ABACUS_LEGACY_RESEARCH_ROOT. Explicit builder --root/--project-root wins.

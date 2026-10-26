@@ -1,0 +1,456 @@
+{
+  "schemaVersion": "1.0",
+  "id": "session-vwap-vwap3-20261006-web05",
+  "title": "Session VWAP: returns, fades and first retests",
+  "summary": "ES, NQ and GC price-path evidence shows frequent return by window end, while extreme fades and first retest bounces do not demonstrate stable incremental advantage. These observations do not establish net profitability.",
+  "publishedAt": "2026-10-06T21:00:08Z",
+  "source": {
+    "producer": "sahadeva",
+    "runId": "20260923T015900Z_vwap3"
+  },
+  "sections": [
+    {
+      "id": "question",
+      "title": "Three questions about session VWAP",
+      "kind": "text",
+      "body": "Does price return after a meaningful departure, favor a fade after an extreme close, or bounce after its first causal retest? This report presents the three primary questions executed under protocol 1.0.0 on the pinned Session-Anchored VWAP 1.0.0 release, for ES, NQ and GC through September 18, 2026.\n\nEvidence status: price-path statistics; fills and execution costs remain unmodeled. The broader study also has exploratory A/C context and partial re-entry evidence in a separate run. Those findings are outside this publication. Cross acceptance/retests and outside-band continuation remain proposed."
+    },
+    {
+      "id": "findings",
+      "title": "Frequent returns do not establish an executable edge",
+      "kind": "text",
+      "body": "Return after departure is frequent by the observation window's end, but that deadline varies across views. It does not describe a common short holding period or guarantee an attainable fill.\n\nAt the primary barrier, outside-2σ fades and first retest bounces both have more adverse-first than favorable-first outcomes. The pooled fade contrast against lesser departures is small and reverses under the fixed eight-tick comparison. Retest bounces have no stable incremental advantage over near approaches. Neither candidate has a demonstrated incremental edge."
+    },
+    {
+      "id": "key-rates",
+      "title": "Primary outcomes at a glance",
+      "kind": "metrics",
+      "items": [
+        {
+          "label": "B · Return after departure",
+          "value": 0.7844046414197284,
+          "format": "percent",
+          "precision": 1,
+          "note": "33,327 / 42,487 evaluable events. Window end; 95% shared-session-date interval 77.7%–79.2%. Frozen VWAP contact; deadline-dependent."
+        },
+        {
+          "label": "A · First outside-2σ fade",
+          "value": 0.46811217114773057,
+          "format": "percent",
+          "precision": 1,
+          "note": "40,480 / 86,475 evaluable events. 30 minutes; 95% shared-session-date interval 46.2%–47.4%. Favorable-first at equal 0.5σ barriers; not a trade win rate."
+        },
+        {
+          "label": "C · First VWAP retest bounce",
+          "value": 0.46662682864101906,
+          "format": "percent",
+          "precision": 1,
+          "note": "61,689 / 132,202 evaluable events. 30 minutes; 95% shared-session-date interval 46.2%–47.2%. Favorable-first at equal 0.5σ barriers; not a trade win rate."
+        }
+      ]
+    },
+    {
+      "id": "denominators",
+      "title": "Read the denominators before comparing the rates",
+      "kind": "text",
+      "body": "The scorecard pools 42,546 overlapping product × date × timeframe × anchor/window views from 3,039 distinct product-sessions. Seven anchor/window views and two timeframes share price paths; they are not independent opportunities. The 95% percentile intervals resample shared session dates, keeping correlated views and products together.\n\nB measures frozen VWAP contact by window end. A and C measure favorable first passage before an equal adverse barrier within 30 elapsed minutes. Their evaluable denominators require a complete horizon; events too late for that horizon remain in event counts. Ambiguous and neither-barrier outcomes remain in the evaluable denominator. Do not compare these three rates as a profitability ranking."
+    },
+    {
+      "id": "primary-scorecard",
+      "title": "Selected primary scorecard",
+      "kind": "table",
+      "columns": [
+        {
+          "key": "candidate",
+          "label": "Candidate"
+        },
+        {
+          "key": "horizon",
+          "label": "Deadline"
+        },
+        {
+          "key": "events",
+          "label": "Events",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "evaluable",
+          "label": "Evaluable",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "successes",
+          "label": "Primary successes",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "rate",
+          "label": "Rate",
+          "format": "percent",
+          "precision": 1
+        },
+        {
+          "key": "ciLow",
+          "label": "95% low",
+          "format": "percent",
+          "precision": 1
+        },
+        {
+          "key": "ciHigh",
+          "label": "95% high",
+          "format": "percent",
+          "precision": 1
+        }
+      ],
+      "rows": [
+        {
+          "candidate": "B · Return after departure",
+          "horizon": "Window end",
+          "events": 42487,
+          "evaluable": 42487,
+          "successes": 33327,
+          "rate": 0.7844046414197284,
+          "ciLow": 0.7767020840613238,
+          "ciHigh": 0.7923065357683418
+        },
+        {
+          "candidate": "A · First outside-2σ fade",
+          "horizon": "30 minutes",
+          "events": 90938,
+          "evaluable": 86475,
+          "successes": 40480,
+          "rate": 0.46811217114773057,
+          "ciLow": 0.46242157080704316,
+          "ciHigh": 0.47436730143170647
+        },
+        {
+          "candidate": "C · First VWAP retest bounce",
+          "horizon": "30 minutes",
+          "events": 138674,
+          "evaluable": 132202,
+          "successes": 61689,
+          "rate": 0.46662682864101906,
+          "ciLow": 0.461888894244593,
+          "ciHigh": 0.47161729229662985
+        }
+      ]
+    },
+    {
+      "id": "barrier-definition",
+      "title": "What favorable, adverse and ambiguous mean",
+      "kind": "text",
+      "body": "A fades toward VWAP after the first fresh completed close outside 2σ in a rearmed excursion. C follows the departure's side after its first qualified retest. Both use distance equal to 0.5 × signal-time sigma, rounded upward to whole ticks and frozen at the signal.\n\nFavorable and adverse mean which equal-distance barrier is reached first after the next unadjusted one-minute open. Neither means no barrier within 30 minutes. If both opposing extremes cross within one one-minute bar and their order is unresolved, the outcome is ambiguous. A gap at a one-minute open can determine first passage. These are movement observations, not modeled stops, targets or fills."
+    },
+    {
+      "id": "barrier-figure",
+      "title": "The competing outcomes",
+      "kind": "figure",
+      "path": "figures/barrier-outcomes.png",
+      "alt": "Stacked bars for outside-2σ fades and first VWAP retest bounces. Adverse-first portions are slightly larger than favorable-first; neither and ambiguous remain visible. Exact counts follow in the table.",
+      "caption": "Saved primary A/C barrier illustration, faithfully rasterized with extra right margin for the existing denominator labels. Green: favorable first; red: adverse first; gray: neither; purple: ambiguous. Each bar uses its own evaluable denominator at equal 0.5σ barriers over 30 minutes. No uncertainty bands are shown; the scorecard carries the saved intervals."
+    },
+    {
+      "id": "barrier-counts",
+      "title": "All four classes remain in the denominator",
+      "kind": "table",
+      "columns": [
+        {
+          "key": "candidate",
+          "label": "Candidate"
+        },
+        {
+          "key": "evaluable",
+          "label": "Evaluable",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "favorable",
+          "label": "Favorable first",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "adverse",
+          "label": "Adverse first",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "neither",
+          "label": "Neither",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "ambiguous",
+          "label": "Ambiguous",
+          "format": "number",
+          "precision": 0
+        }
+      ],
+      "rows": [
+        {
+          "candidate": "A · First outside-2σ fade",
+          "evaluable": 86475,
+          "favorable": 40480,
+          "adverse": 41390,
+          "neither": 2677,
+          "ambiguous": 1928
+        },
+        {
+          "candidate": "C · First VWAP retest bounce",
+          "evaluable": 132202,
+          "favorable": 61689,
+          "adverse": 62010,
+          "neither": 7017,
+          "ambiguous": 1486
+        }
+      ]
+    },
+    {
+      "id": "baseline-context",
+      "title": "Matched comparisons are exploratory",
+      "kind": "text",
+      "body": "A is compared with fresh lesser 1–2σ departures; C with near approaches that stay outside the causal one-tick touch zone. Matching uses product, timeframe, anchor/window, direction, hour, anchor age and observable sigma bins learned from development. Control rates are weighted to matched treated events. The A populations still have disjoint starting-distance support.\n\nAll contrasts below are exploratory. Their 95% shared-date bootstrap intervals are conditional on observed matching overlap and weights; no simultaneous familywise interval was supplied. The difference is treated minus weighted control, in percentage points. A negative value favors the control. Fixed eight-tick results demonstrate barrier dependence, rather than selecting a preferred setting."
+    },
+    {
+      "id": "matched-baselines",
+      "title": "Selected matched baselines and contrary evidence",
+      "kind": "table",
+      "columns": [
+        {
+          "key": "comparison",
+          "label": "Comparison"
+        },
+        {
+          "key": "period",
+          "label": "Period"
+        },
+        {
+          "key": "barrier",
+          "label": "Symmetric barrier"
+        },
+        {
+          "key": "matched",
+          "label": "Matched treated",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "unmatched",
+          "label": "Unmatched treated",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "treatedRate",
+          "label": "Treated rate",
+          "format": "percent",
+          "precision": 1
+        },
+        {
+          "key": "controlRate",
+          "label": "Weighted control",
+          "format": "percent",
+          "precision": 1
+        },
+        {
+          "key": "difference",
+          "label": "Difference",
+          "format": "number",
+          "precision": 2,
+          "unit": "pp"
+        },
+        {
+          "key": "ciLow",
+          "label": "95% low",
+          "format": "number",
+          "precision": 2,
+          "unit": "pp"
+        },
+        {
+          "key": "ciHigh",
+          "label": "95% high",
+          "format": "number",
+          "precision": 2,
+          "unit": "pp"
+        }
+      ],
+      "rows": [
+        {
+          "comparison": "A vs lesser 1–2σ departures",
+          "period": "All years",
+          "barrier": "0.5σ",
+          "matched": 86452,
+          "unmatched": 23,
+          "treatedRate": 0.4680516355896914,
+          "controlRate": 0.4569338073853827,
+          "difference": 1.1117828204308686,
+          "ciLow": 0.292607297820678,
+          "ciHigh": 2.0439105666372934
+        },
+        {
+          "comparison": "C vs near approaches",
+          "period": "All years",
+          "barrier": "0.5σ",
+          "matched": 129650,
+          "unmatched": 2552,
+          "treatedRate": 0.46723486309294254,
+          "controlRate": 0.465391081638564,
+          "difference": 0.18437814543785053,
+          "ciLow": -1.325093251879542,
+          "ciHigh": 1.6375662665774608
+        },
+        {
+          "comparison": "A vs lesser 1–2σ departures",
+          "period": "2025–2026 to Sep 18",
+          "barrier": "0.5σ",
+          "matched": 27746,
+          "unmatched": 14,
+          "treatedRate": 0.45332660563684857,
+          "controlRate": 0.4415834011878283,
+          "difference": 1.1743204449020284,
+          "ciLow": -0.28087094133271817,
+          "ciHigh": 2.578592350873898
+        },
+        {
+          "comparison": "C vs near approaches",
+          "period": "2025–2026 to Sep 18",
+          "barrier": "0.5σ",
+          "matched": 41236,
+          "unmatched": 804,
+          "treatedRate": 0.46231448249102725,
+          "controlRate": 0.4641547133470246,
+          "difference": -0.18402308559972871,
+          "ciLow": -3.1722789297327956,
+          "ciHigh": 2.932449406181349
+        },
+        {
+          "comparison": "A vs lesser 1–2σ departures",
+          "period": "All years",
+          "barrier": "8 ticks",
+          "matched": 86452,
+          "unmatched": 23,
+          "treatedRate": 0.39700643131448665,
+          "controlRate": 0.4107437139222429,
+          "difference": -1.373728260775627,
+          "ciLow": -2.1222184342035275,
+          "ciHigh": -0.5353740478536794
+        },
+        {
+          "comparison": "C vs near approaches",
+          "period": "All years",
+          "barrier": "8 ticks",
+          "matched": 129650,
+          "unmatched": 2552,
+          "treatedRate": 0.4060624758966448,
+          "controlRate": 0.421688264025594,
+          "difference": -1.56257881289492,
+          "ciLow": -2.799837687759103,
+          "ciHigh": -0.3040201402969377
+        },
+        {
+          "comparison": "A vs lesser 1–2σ departures",
+          "period": "2025–2026 to Sep 18",
+          "barrier": "8 ticks",
+          "matched": 27746,
+          "unmatched": 14,
+          "treatedRate": 0.3514380451236214,
+          "controlRate": 0.3830174956995447,
+          "difference": -3.1579450575923254,
+          "ciLow": -4.455924251735503,
+          "ciHigh": -1.8182608793141832
+        },
+        {
+          "comparison": "C vs near approaches",
+          "period": "2025–2026 to Sep 18",
+          "barrier": "8 ticks",
+          "matched": 41236,
+          "unmatched": 804,
+          "treatedRate": 0.37877097681637406,
+          "controlRate": 0.4051912272161292,
+          "difference": -2.642025039975516,
+          "ciLow": -5.152692703709503,
+          "ciHigh": -0.0625945590900366
+        }
+      ]
+    },
+    {
+      "id": "methods",
+      "title": "Definitions, timing and reference prices",
+      "kind": "text",
+      "body": "B selects the first mature close in each view at least max(1σ, four ticks) from VWAP. Its frozen contact target is departure-time VWAP ± one tick. No departure is retained as a separate view state; a nonreturn remains a failure by the named deadline. Evolving VWAP contact is a distinct outcome and is not used for the headline rate.\n\nA uses a true published 2σ exit after a valid consecutive comparison, rather than treating an already-outside state as a fresh exit. It rearms after a completed close within inclusive ±1σ. C requires a meaningful departure, ten elapsed minutes of completed same-side closes, and the first causal touch of the open-known VWAP zone. An unqualified first contact consumes the departure. The touching bar's extremes do not count as post-signal movement.\n\nAnchors must be active, finite and have positive sigma after 30 minutes of accumulation. Signal information is available only at exclusive bar close. Paths begin at the following unadjusted one-minute open as an idealized reference; source gaps, contract rolls and session/window boundaries are not bridged. All session clocks follow America/New_York. Sigma is volume-weighted dispersion, not a normal-distribution containment guarantee."
+    },
+    {
+      "id": "coverage",
+      "title": "Coverage is retrospective and product-specific",
+      "kind": "text",
+      "body": "The pinned sample is discontinuous and differs by product. Eligibility selects complete product-days retrospectively; it is not an observable entry-time filter. The following saved 2026 rows illustrate candidate versus included days through September 18. Excluded unique days are distinct days; underlying exclusion reasons can overlap and must not be added as a total.\n\nDevelopment ends in 2023, validation covers 2024, and final evaluation starts in 2025. These are chronological labels; the final outcomes are not certified previously unseen. Two agreeing timeframes remain correlated views of the same history."
+    },
+    {
+      "id": "coverage-2026",
+      "title": "2026 eligibility example · through September 18",
+      "kind": "table",
+      "columns": [
+        {
+          "key": "product",
+          "label": "Product"
+        },
+        {
+          "key": "candidate",
+          "label": "Candidate days",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "included",
+          "label": "Included days",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "excluded",
+          "label": "Excluded unique days",
+          "format": "number",
+          "precision": 0
+        }
+      ],
+      "rows": [
+        {
+          "product": "ES",
+          "candidate": 187,
+          "included": 167,
+          "excluded": 20
+        },
+        {
+          "product": "NQ",
+          "candidate": 187,
+          "included": 172,
+          "excluded": 15
+        },
+        {
+          "product": "GC",
+          "candidate": 187,
+          "included": 86,
+          "excluded": 101
+        }
+      ]
+    },
+    {
+      "id": "limitations",
+      "title": "What the evidence leaves open",
+      "kind": "text",
+      "body": "No net trading conclusion follows from a return or barrier rate. Commission, spread/slippage, latency, order type, position size, overlap handling, touched-level fills and gap behavior remain unspecified. Full-horizon MFE/MAE may occur after a first barrier and cannot be assumed capturable by a stopped policy.\n\nA long window-end return rate is horizon dependent. Conditional waiting time among returners is not expected waiting time for all departures. Source one-minute bars cannot resolve intraminute ordering; ambiguity remains part of the outcome. Prespecified warm-up and barrier sensitivity tables are saved descriptions, not optimized settings. Broad segmentation and controls remain exploratory."
+    },
+    {
+      "id": "sources",
+      "title": "Source and publication provenance",
+      "kind": "text",
+      "body": "Study 05 · Session-anchored VWAP. Source run 20260923T015900Z_vwap3 is the registered research reference; executed protocol 1.0.0, pinned feature release 1.0.0. Primary metric IDs: b.all.primary, a.all.primary, c.all.primary. Supporting saved evidence: primary scorecards, matched baselines and the eligibility audit.\n\nThe source run records input reconciliation, denominator checks and deterministic example review. This publication checks transfer of saved values and figure identity; it does not repeat research execution or independently establish an edge. Presentation revision 20261006T210008Z_web05 uses web-study-report-1.0. The publication record below identifies this selected report and raster asset."
+    }
+  ]
+}

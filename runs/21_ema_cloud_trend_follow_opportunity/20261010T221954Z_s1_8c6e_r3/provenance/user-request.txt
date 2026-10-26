@@ -1,0 +1,311 @@
+Implement and execute Stage 1 of the
+“20/50 5minEMA Cloud Trend Follow Opportunity Study”
+in the Abacus repository.
+
+Workspace:
+/Users/ppanati/Documents/projects/abacus
+
+Study:
+studies/21_ema_cloud_trend_follow_opportunity/
+
+This instruction authorizes Stage 1 implementation, required data/feature preparation, numerical testing, historical execution, report preparation, and sealing a verified research run. It supersedes the planning-only scope in the study documents for Stage 1.
+
+Carry the work through to verified deliverables. Do not stop at a plan, scaffold, or sample calculation.
+
+1. READ THE AUTHORITATIVE CONTEXT
+
+Read before editing:
+- AGENTS.md
+- README.md
+- ARCHITECTURE.md
+- studies/AGENTS.md
+- packages/sahadeva/AGENTS.md
+- packages/bhishma/AGENTS.md
+- data/README.md
+- requests/README.md
+- runs/README.md
+- templates/README.md
+- docs/evidence-contract.md
+- apps/narada/AGENTS.md
+- docs/narada.md
+- studies/21_ema_cloud_trend_follow_opportunity/README.md
+- studies/21_ema_cloud_trend_follow_opportunity/plan.md
+- studies/21_ema_cloud_trend_follow_opportunity/notes.md
+- studies/21_ema_cloud_trend_follow_opportunity/reference/manifest.json
+- studies/21_ema_cloud_trend_follow_opportunity/reference/ema_cloud_trend_follower_user.pine
+
+Use plan version 0.1.0 as the scientific specification, with the scope below. Record the actual executed protocol and settings before scoring outcomes.
+
+Inspect existing work first. Preserve unrelated changes, published datasets, previous studies, historical evidence, and completed runs.
+
+2. USE MULTI-AGENT EXECUTION
+
+Keep one coordinating lead and use up to three concurrent subagents.
+
+Agent A — Data and reusable features:
+- Audit retained inputs and provenance.
+- Resolve calendar, aggregation, contract, gap and availability conventions.
+- Follow the Bhishma request workflow.
+- Implement required reusable bars/features in Bhishma.
+- Prepare a new immutable delivery if necessary.
+- Own relevant Bhishma implementation/tests and new request/release records.
+
+Agent B — Study engine and numerical tests:
+- Implement the study-local slow-touch state machine.
+- Implement forward outcomes, summaries and uncertainty.
+- Write synthetic fixtures and an independent scalar reference.
+- Own study event/outcome/statistical modules and their tests.
+
+Agent C — Reporting and independent reconciliation:
+- Establish report/table/source-binding contracts.
+- Implement rendering from saved evidence.
+- Prepare offline reports, figures, selected downloads and Narada source content.
+- Independently reconcile signal counts, outcomes and displayed values.
+- Own study reporting/publication modules and their tests.
+
+Lead agent:
+- Freeze interfaces and file ownership before parallel edits.
+- Coordinate dependencies and integration.
+- Own shared registry/navigation changes, execution orchestration and sealing.
+- Review scientific assumptions and all verification evidence.
+- Reassign available agents to independent review after their implementation tasks finish.
+
+Use subagents rather than creating separate user-owned chats. If subagent tools are unavailable, execute the same responsibilities sequentially and disclose that limitation.
+
+Do not let multiple agents edit the same files concurrently. Reporting must consume saved numerical evidence. Stop source mutations and capture the execution snapshot before historical scoring.
+
+3. STAGE 1 SCOPE
+
+Study all six combinations:
+- ES: 3m and 5m signal/outcome candles.
+- GC: 3m and 5m signal/outcome candles.
+- NQ: 3m and 5m signal/outcome candles.
+
+Keep the cloud on FIVE-MINUTE EMA20 and EMA50 closes for every combination.
+
+Use SLOW EMA touches only.
+
+Fixed inclusive minimum cloud widths, in raw price points:
+- ES: 2.4
+- GC: 2.0
+- NQ: 10.0
+
+Enable both Buy and Sell.
+Use one signal per selected-EMA pullback.
+Use zero cooldown.
+Observe all supported electronic-session bars.
+Reference price is the confirmed signal candle close.
+
+Primary horizon: 15 signal candles.
+Descriptive horizons: 5, 10, 15, 20, 30, 50, 100.
+Also compute H=12 for 5m candles to support the 60-active-minute comparison.
+
+Compute outcomes only for signals in 2018–2020.
+Use earlier bars only where needed for causal warmup.
+
+Do not execute:
+- The optional 2010–2017 outcome robustness extension.
+- Fast-touch outcome comparisons.
+- Thickness, ATR-gateway, horizon or cooldown optimization.
+- Outcome scoring for 2021 onward.
+- Trade simulations, stop/target policies or profitability estimates.
+- Narada public staging, public catalog changes or hosted deployment.
+
+Reserved outcomes must not leak through tables, examples, charts, debugging summaries or narrative. Input/schema/coverage audits may inspect later dates without calculating signal-conditioned outcomes.
+
+4. DATA PREPARATION
+
+Resolve paths through workspace configuration and documented environment overrides.
+
+Use pinned Bhishma public loaders and the retained unadjusted one-minute release as the primary price source. Verify actual consumed partition bytes, manifests, roll schedules and instrument identities.
+
+Build 3m and 5m bars independently from 1m. Do not derive 3m from 5m or Range XV.
+
+Use New York fixed-clock, half-open buckets:
+- 3m: :00, :03, …, :57.
+- 5m: :00, :05, …, :55.
+
+Aggregate first open, maximum high, minimum low, last close and summed volume. Preserve UTC identity, New York offset, modeled completion/available_at, source counts, missing offsets and contract lineage.
+
+A primary usable bucket must contain all expected source minutes and one contract. Preserve partial, empty and mixed buckets as quality records. Do not fabricate candles or fill missing prices.
+
+Reconcile rebuilt 5m bars against the retained adjusted 5m delivery on compatible support using the exact adjustment translation. Do not treat adjusted prices as observed execution prices.
+
+Build five-minute EMA20/EMA50 and Wilder ATR14 with the plan’s declared seeds, availability and warmup rules. ATR supports normalization; it is not an entry gateway in Stage 1.
+
+Use unadjusted same-contract feature histories.
+Reset at contract switches and unknown feature-history gaps.
+Require 250 consecutive usable 5m observations after reset.
+Carry state across known scheduled closures within the same contract.
+
+Audit warmup/feature coverage before scoring outcomes. Do not silently relax quality rules if coverage is sparse. Record any necessary material protocol amendment before outcome inspection.
+
+Known prerequisite issues from planning:
+- A configured raw volume-rank-0 mapping file was missing.
+- Phase 2 tests could not find an ES roll-1 point-in-time definition pair.
+
+Investigate these safely. Determine whether verified published inputs provide sufficient provenance for this study despite unrelated source-reconstruction test failures. Explain that distinction with evidence.
+
+Do not invent missing mappings, rebuild existing releases, or claim unavailable checks passed. If an essential study input remains unavailable, complete unaffected implementation/testing and provide a precise blocker record without fabricated findings.
+
+5. SIGNAL TIMING AND STATE
+
+On 5m signal candles:
+Use that completed candle’s current close-derived EMA cloud.
+
+On 3m signal candles:
+Use the latest valid scheduled 5m cloud completed at the 3m candle’s OPEN. Freeze that level for the whole touch test.
+
+Example:
+09:33–09:36 uses the cloud completed at 09:30, not the cloud completing at 09:35.
+
+Require:
+- The mapped source is the latest expected completed scheduled slot.
+- Valid source/warmup.
+- Matching source and signal contracts.
+
+A missing/partial latest source slot makes mapped features undefined immediately. Never carry an older ready cloud across a missing slot or roll. Retain invalid/reset records during mapping.
+
+Signal rules:
+- Bullish: EMA20 > EMA50.
+- Bearish: EMA20 < EMA50.
+- Equality: no directional event.
+- Full candle strictly above the bullish cloud arms Buy.
+- Full candle strictly below the bearish cloud arms Sell.
+- Inclusive slow touch: low <= EMA50 <= high.
+- Accept only with valid data, matching direction, pre-bar armed state and fixed width gateway.
+- Any penetration of the selected slow EMA consumes the setup, including rejected touches and gaps through the level.
+- A fast-only touch does not consume the slow setup.
+- Rearm only after a new full departure outside the entire cloud.
+- Clear armed state on invalid features, direction change or reset.
+
+Preserve the source’s inclusive threshold tolerance. Do not round EMAs or widths to ticks.
+
+Save raw technical candidates, pre/post state, suppressions and accepted events BEFORE future-path exclusions.
+
+6. FORWARD OUTCOMES
+
+Exclude the signal candle.
+
+For the following H scheduled chart slots:
+E = unadjusted signal close
+U = highest future high
+L = lowest future low
+C_H = terminal close
+d = +1 Buy, -1 Sell
+
+Buy:
+MFE = max(0, U-E)
+MAE = max(0, E-L)
+
+Sell:
+MFE = max(0, E-L)
+MAE = max(0, U-E)
+
+Signed terminal delta = d × (C_H-E).
+
+Compute favorable/neutral/adverse close shares and MFE>MAE share with declared tie handling.
+
+Allow overlapping observations. Opposite signals do not terminate them.
+
+Do not compress unknown missing chart slots. Record nominal active minutes and actual elapsed time. Censor horizons crossing contract switches, missing/partial required bars, the development endpoint or other declared invalid boundaries.
+
+Keep shorter completed horizons where valid.
+Undefined outcomes remain null, never zero.
+Future-path exclusions must not change signal acceptance or later pullback state.
+Keep state continuous across years and split boundaries.
+
+Report raw points separately by product and ATR-normalized outcomes where valid. MAE/MFE are price-path observations, not executable profits or optimized stops/targets.
+
+7. ANALYSIS AND REPORT
+
+Follow the plan’s summary and uncertainty definitions:
+- Accepted/completed/censored counts.
+- Contributing sessions and weeks.
+- Means, medians, quantiles and exact deciles.
+- MFE, MAE and signed terminal movement.
+- Favorable/neutral/adverse close shares.
+- MFE>MAE share.
+- Event-weighted and session-balanced results.
+- All/Buy/Sell views.
+- Annual, weekly/monthly, session and time-of-day stability.
+- Same-horizon and equal-active-minute comparisons.
+- Paired calendar-block bootstrap uncertainty.
+- Sparse-support and missingness qualifications.
+
+Freeze quantile, calendar-stratum, bootstrap and example-selection definitions before inspecting outcomes.
+
+Produce the Stage 1 tables:
+- S1-T00: coverage and quality.
+- S1-T01: signal flow and exclusions.
+- S1-T02: horizon scorecard.
+- S1-T03: excursion quantiles/deciles.
+- S1-T04: annual/session stability.
+- S1-T05: weekly/monthly summaries.
+- S1-T06: deterministic example selections.
+
+Generate horizon curves, common-scale MAE/MFE distributions, calendar stability and representative event illustrations from saved evidence.
+
+Retain negative and inconclusive findings. Do not choose favorable hours, examples or horizons after seeing results.
+
+8. VERIFICATION
+
+Implement meaningful fixtures for aggregation, lineage, EMA/ATR initialization, warmup, threshold boundaries, awkward 3m/5m alignment, missing features, prefix invariance, pullback consumption, direction changes, rolls, closures, DST, entry-bar exclusion, long/short excursion formulas, overlapping observations and split censoring.
+
+Reconcile:
+- Candidates → accepted → completed/censored counts.
+- Scalar reference → engine outcomes.
+- Event ledgers → summary tables.
+- Tables → figures, claims, public cells and downloads.
+
+Register the new owned numerical suite in config/workspace-checks.json. Update planning-only registry assertions when executable code exists. Preserve the default six-step gate.
+
+Use the existing locked environment without sync. Run focused owned tests and required workspace checks. Report failures, skips, missing prerequisites and unexecuted checks accurately.
+
+Retain actual test results and scientific verification receipts tied to the executed source/input/output identities. The existing numerical-test recorder does not yet support study 21; do not pretend its current interface does.
+
+9. ARTIFACTS AND SEALING
+
+Stage under:
+work/21_ema_cloud_trend_follow_opportunity/<unique-run-id>/
+
+Retain:
+- Frozen protocol/config and input lock.
+- Coverage/exclusion records.
+- Technical candidate, event and outcome ledgers.
+- Metrics and all required tables.
+- Figures.
+- report.md and offline report.html.
+- Dated advice with exact evidence references.
+- Actual commands, environment inventory and retained uv.lock.
+- Git revision, dirty status and executed source snapshots.
+- Check records and artifact hashes.
+- External-ledger locators, schemas, row counts and verified checksums.
+- Narada schemaVersion 1.1 publication.json.
+- Selected raster figures and summary CSV downloads.
+- Private claim/cell/figure source bindings.
+
+Prepare and reconcile publication content BEFORE sealing. Validate it against the existing Narada contract, using a read-only publisher dry-run where available. Respect current asset/table/download limits.
+
+Do not stage public Narada bundles or deploy.
+
+Adopt abacus.evidence/v1 correctly. Keep study-specific metadata in inventoried companion files. Validate the explicit bundle target; separately verify external ledger bytes.
+
+Seal only after required scientific, numerical, provenance and artifact checks succeed:
+runs/21_ema_cloud_trend_follow_opportunity/<unique-run-id>/
+
+Never overwrite a completed run. Preserve unsuccessful diagnostic attempts with their status.
+
+Update study documentation and navigation to reflect actual evidence, then regenerate/check the research index.
+
+10. FINAL DELIVERY
+
+Return:
+- A concise Stage 1 findings summary with uncertainty and limitations.
+- Links to the offline report, selected figures, tables and Narada-ready source.
+- Run ID, frozen protocol and input identities.
+- Verification results, including qualifications and unexecuted checks.
+- Any essential blockers.
+- A brief Stage 2 handoff identifying the preserved slow baseline and reusable inputs.
+
+Stage 1 is complete only when its authorized calculation, independent verification, report preparation and evidence sealing are complete, or when a genuine essential blocker is clearly documented. Do not claim success from tests alone.

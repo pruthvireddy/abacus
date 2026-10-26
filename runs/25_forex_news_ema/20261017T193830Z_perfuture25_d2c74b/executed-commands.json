@@ -1,0 +1,109 @@
+[
+  {
+    "argv": [
+      "./scripts/uv",
+      "run",
+      "--locked",
+      "--no-sync",
+      "python",
+      "-B",
+      "studies/25_forex_news_ema/per_future.py",
+      "freeze",
+      "work/25_forex_news_ema/20261017T193830Z_perfuture25_d2c74b",
+      "--workspace",
+      "."
+    ],
+    "cwd": "/Users/ppanati/Documents/projects/abacus",
+    "environment": {
+      "UV_CACHE_DIR": "/private/tmp/abacus-forex25-uv-cache"
+    }
+  },
+  {
+    "argv": [
+      "./scripts/uv",
+      "run",
+      "--locked",
+      "--no-sync",
+      "python",
+      "-B",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "work/25_forex_news_ema/20261017T193830Z_perfuture25_d2c74b/producer/tests",
+      "-v"
+    ],
+    "cwd": "/Users/ppanati/Documents/projects/abacus",
+    "environment": {
+      "UV_CACHE_DIR": "/private/tmp/abacus-forex25-uv-cache"
+    }
+  },
+  {
+    "argv": [
+      "./scripts/uv",
+      "run",
+      "--locked",
+      "--no-sync",
+      "python",
+      "-B",
+      "work/25_forex_news_ema/20261017T193830Z_perfuture25_d2c74b/producer/per_future.py",
+      "compute",
+      "work/25_forex_news_ema/20261017T193830Z_perfuture25_d2c74b"
+    ],
+    "cwd": "/Users/ppanati/Documents/projects/abacus",
+    "environment": {
+      "UV_CACHE_DIR": "/private/tmp/abacus-forex25-uv-cache"
+    }
+  },
+  {
+    "argv": [
+      "./scripts/uv",
+      "run",
+      "--locked",
+      "--no-sync",
+      "python",
+      "-B",
+      "work/25_forex_news_ema/20261017T193830Z_perfuture25_d2c74b/producer/per_future_verify.py",
+      "work/25_forex_news_ema/20261017T193830Z_perfuture25_d2c74b"
+    ],
+    "cwd": "/Users/ppanati/Documents/projects/abacus",
+    "environment": {
+      "UV_CACHE_DIR": "/private/tmp/abacus-forex25-uv-cache"
+    }
+  },
+  {
+    "argv": [
+      "./scripts/uv",
+      "run",
+      "--locked",
+      "--no-sync",
+      "python",
+      "-B",
+      "work/25_forex_news_ema/20261017T193830Z_perfuture25_d2c74b/producer/per_future_publication_verify.py",
+      "work/25_forex_news_ema/20261017T193830Z_perfuture25_d2c74b"
+    ],
+    "cwd": "/Users/ppanati/Documents/projects/abacus",
+    "environment": {
+      "UV_CACHE_DIR": "/private/tmp/abacus-forex25-uv-cache"
+    }
+  },
+  {
+    "argv": [
+      "./scripts/uv",
+      "run",
+      "--locked",
+      "--no-sync",
+      "python",
+      "-B",
+      "studies/25_forex_news_ema/per_future.py",
+      "seal",
+      "work/25_forex_news_ema/20261017T193830Z_perfuture25_d2c74b",
+      "--workspace",
+      "."
+    ],
+    "cwd": "/Users/ppanati/Documents/projects/abacus",
+    "environment": {
+      "UV_CACHE_DIR": "/private/tmp/abacus-forex25-uv-cache"
+    }
+  }
+]

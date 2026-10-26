@@ -1,0 +1,38 @@
+independent dev-validation: 0/550 episodes
+independent dev-validation: 100/550 episodes
+independent dev-validation: 200/550 episodes
+independent dev-validation: 300/550 episodes
+independent dev-validation: 400/550 episodes
+independent dev-validation: 500/550 episodes
+independent later: 0/330 episodes
+independent later: 100/330 episodes
+independent later: 200/330 episodes
+independent later: 300/330 episodes
+independent all actual-entry/paired/interval/event/level tables
+independent transitions and actualevent cohorts
+independent actual-account ledger/cohorts/capacity
+independent fixed cost/order/resolution sensitivities
+independent fixed sensitivity gross-zero-cost passed
+independent fixed sensitivity net-zero-ticks passed
+independent fixed sensitivity net-two-ticks passed
+independent fixed sensitivity high-first-one-tick passed
+independent fixed sensitivity low-first-one-tick passed
+independent fixed sensitivity source-fifteen-minute-ohlc passed
+Traceback (most recent call last):
+  File "/Users/ppanati/Documents/projects/abacus/studies/23_gc_overnight_breakout_15m/phase2_verify.py", line 1482, in <module>
+    if __name__=="__main__":main()
+                            ^^^^^^
+  File "/Users/ppanati/Documents/projects/abacus/studies/23_gc_overnight_breakout_15m/phase2_verify.py", line 1443, in main
+    receipt["sensitivities"]=verify_sensitivities(stage,tables,contexts,baseline,combined,pin)
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ppanati/Documents/projects/abacus/studies/23_gc_overnight_breakout_15m/phase2_verify.py", line 1141, in verify_sensitivities
+    comparisons+=compare_record(indexed[(key,p)],expected,"sensitivity:"+name+":"+key+":"+p)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ppanati/Documents/projects/abacus/studies/23_gc_overnight_breakout_15m/phase2_verify.py", line 1255, in compare_record
+    count+=compare_record(actual[key],value,path+":"+key)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ppanati/Documents/projects/abacus/studies/23_gc_overnight_breakout_15m/phase2_verify.py", line 1263, in compare_record
+    equal(actual.get(key),value,path+":"+key)
+  File "/Users/ppanati/Documents/projects/abacus/studies/23_gc_overnight_breakout_15m/phase2_verify.py", line 1474, in equal
+    raise ValueError(f"{path}: expected {expected!r}, got {actual!r}")
+ValueError: sensitivity:passive-touch:validated_native:one_contract:source_ohlc:2018-03-08:24:passive-q025-touch:trade:gap_entry: expected False, got True

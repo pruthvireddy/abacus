@@ -1,0 +1,102 @@
+{
+  "recorded_at": "2026-10-08T23:20:50.912689+00:00",
+  "commands": [
+    {
+      "cwd": "/Users/ppanati/Documents/projects/abacus",
+      "command": ".venv/bin/python studies/20_camarilla_ema_cloud_reversals/run.py freeze --work work/20_camarilla_ema_cloud_reversals/20261008T220932Z_cb2711",
+      "evidence": "freeze.json"
+    },
+    {
+      "cwd": "/Users/ppanati/Documents/projects/abacus",
+      "command": ".venv/bin/python studies/20_camarilla_ema_cloud_reversals/run.py audit --work work/20_camarilla_ema_cloud_reversals/20261008T220932Z_cb2711 --reuse-audit work/20_camarilla_ema_cloud_reversals/20261008T213540Z_2a83fb",
+      "evidence": "input-audit-complete.json; inputs.lock.json: all input hashes reverified, no outcomes reused"
+    },
+    {
+      "cwd": "/Users/ppanati/Documents/projects/abacus",
+      "command": ".venv/bin/python -m unittest discover -s studies/20_camarilla_ema_cloud_reversals/tests -v",
+      "evidence": "numerical-tests-before-scoring.log: 40 passed (also invoked automatically by score)"
+    },
+    {
+      "cwd": "/Users/ppanati/Documents/projects/abacus",
+      "command": ".venv/bin/python studies/20_camarilla_ema_cloud_reversals/run.py score --work work/20_camarilla_ema_cloud_reversals/20261008T220932Z_cb2711",
+      "evidence": "scoring-complete.json"
+    },
+    {
+      "cwd": "/Users/ppanati/Documents/projects/abacus",
+      "command": "OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 .venv/bin/python studies/20_camarilla_ema_cloud_reversals/run.py summarize --work work/20_camarilla_ema_cloud_reversals/20261008T220932Z_cb2711",
+      "evidence": "summarization-complete.json"
+    },
+    {
+      "cwd": "/Users/ppanati/Documents/projects/abacus",
+      "command": ".venv/bin/python studies/20_camarilla_ema_cloud_reversals/examples.py --work work/20_camarilla_ema_cloud_reversals/20261008T220932Z_cb2711",
+      "evidence": "example-selection.json"
+    },
+    {
+      "cwd": "/Users/ppanati/Documents/projects/abacus",
+      "command": "./scripts/uv run --with matplotlib==3.10.8 python studies/20_camarilla_ema_cloud_reversals/figures.py --work work/20_camarilla_ema_cloud_reversals/20261008T220932Z_cb2711",
+      "evidence": "figure-environment.json"
+    },
+    {
+      "cwd": "/Users/ppanati/Documents/projects/abacus",
+      "command": ".venv/bin/python studies/20_camarilla_ema_cloud_reversals/run.py report --work work/20_camarilla_ema_cloud_reversals/20261008T220932Z_cb2711",
+      "evidence": "report.md; report.html; publication.json; publication-source-map.json"
+    },
+    {
+      "cwd": "/Users/ppanati/Documents/projects/abacus",
+      "command": ".venv/bin/python studies/20_camarilla_ema_cloud_reversals/run.py verify --work work/20_camarilla_ema_cloud_reversals/20261008T220932Z_cb2711",
+      "evidence": "verification.json: passed"
+    },
+    {
+      "cwd": "/Users/ppanati/Documents/projects/abacus/apps/narada",
+      "command": "PATH=/Users/ppanati/.nvm/versions/node/v24.18.0/bin:$PATH npm run report:publish -- --report ../../work/20_camarilla_ema_cloud_reversals/20261008T220932Z_cb2711/publication.json --dry-run",
+      "evidence": "narada-dry-run.log"
+    },
+    {
+      "cwd": "/Users/ppanati/Documents/projects/abacus/apps/narada",
+      "command": "PATH=/Users/ppanati/.nvm/versions/node/v24.18.0/bin:$PATH npm run report:publish -- --report ../../work/20_camarilla_ema_cloud_reversals/20261008T220932Z_cb2711/publication.json",
+      "evidence": "narada-publish.log; local bundle staging only"
+    },
+    {
+      "cwd": "/Users/ppanati/Documents/projects/abacus/apps/narada",
+      "command": "PATH=/Users/ppanati/.nvm/versions/node/v24.18.0/bin:$PATH npm run verify",
+      "evidence": "narada-verify.log"
+    },
+    {
+      "cwd": "/Users/ppanati/Documents/projects/abacus/apps/narada",
+      "command": "PATH=/Users/ppanati/.nvm/versions/node/v24.18.0/bin:$PATH npm test",
+      "evidence": "narada-test.log"
+    },
+    {
+      "cwd": "/Users/ppanati/Documents/projects/abacus/apps/narada",
+      "command": "PATH=/Users/ppanati/.nvm/versions/node/v24.18.0/bin:$PATH npm run lint",
+      "evidence": "narada-lint.log"
+    },
+    {
+      "cwd": "/Users/ppanati/Documents/projects/abacus/apps/narada",
+      "command": "PATH=/Users/ppanati/.nvm/versions/node/v24.18.0/bin:$PATH npm run build",
+      "evidence": "narada-build.log"
+    },
+    {
+      "cwd": "/Users/ppanati/Documents/projects/abacus/apps/narada",
+      "command": "PATH=/Users/ppanati/.nvm/versions/node/v24.18.0/bin:$PATH PORT=4174 npm run preview > ../../work/20_camarilla_ema_cloud_reversals/20261008T220932Z_cb2711/narada-preview.log 2>&1",
+      "evidence": "website-verification.json; preview-desktop.jpg; preview-mobile.jpg"
+    },
+    {
+      "cwd": "/Users/ppanati/Documents/projects/abacus",
+      "command": ".venv/bin/python studies/20_camarilla_ema_cloud_reversals/verify_preview.py --work work/20_camarilla_ema_cloud_reversals/20261008T220932Z_cb2711 --url http://127.0.0.1:4174 --browser-download /Users/ppanati/Downloads/final-horizons.csv",
+      "evidence": "download-verification.json"
+    },
+    {
+      "cwd": "/Users/ppanati/Documents/projects/abacus",
+      "command": ".venv/bin/python studies/20_camarilla_ema_cloud_reversals/run.py seal --work work/20_camarilla_ema_cloud_reversals/20261008T220932Z_cb2711",
+      "evidence": "Unique immutable manifest and copied artifacts confirm this final transition; command recorded before invoking the transition."
+    }
+  ],
+  "initial_input_audit": {
+    "cwd": "/Users/ppanati/Documents/projects/abacus",
+    "command": ".venv/bin/python studies/20_camarilla_ema_cloud_reversals/run.py audit --work work/20_camarilla_ema_cloud_reversals/20261008T213540Z_2a83fb",
+    "qualification": "Original full input audit reused only after 111 exact input hashes were reverified. Initial scoring invalidated by a synthetic GC equality regression before return summaries; no historical outcomes carried forward."
+  },
+  "reproduction": "bash runs/20_camarilla_ema_cloud_reversals/20261008T220932Z_cb2711/reproduce.sh",
+  "qualification": "Records the successful authoritative pipeline; report/layout preparation and validation iterations preceded the final passing artifacts. Optional thread environment variables constrain performance only. Post-seal navigation/export checks live separately so the run remains immutable."
+}

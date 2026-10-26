@@ -1,0 +1,278 @@
+{
+  "schema_version": 1,
+  "status": "passed",
+  "reviewer_version": 2,
+  "reviewer_version_reason": "The original verifier was frozen before execution. Version 2 independently corrects its source EMA sampler to explicit minute aliases; it was not used to produce crossing outcomes.",
+  "scope": "Independent saved-bar event/panel/table reconstruction, ATR input alignment/ranks/bins and bounded source EMA samples; no trade-profitability validation.",
+  "verifier_sha256": "55724af1860dfc8bd10b57098e0d0ede148aed6456348b2de7a1111d97853811",
+  "bars_checked": 2935674,
+  "crossings_checked": 63404,
+  "panel_rows_checked": 43652,
+  "tables_checked": {
+    "summary": 420,
+    "yearly": 2748,
+    "monthly": 20818,
+    "month_of_year": 5024,
+    "distribution": 7887
+  },
+  "cohort_unique_dates": {
+    "all_available": 1650,
+    "common_calendar": 1243,
+    "matched_dates": 357
+  },
+  "coverage_and_audit_checks": {
+    "release_audit_rows": 12750,
+    "coverage_cells": 512,
+    "samples": {
+      "ES/2m": {
+        "eligible_sessions": 1037,
+        "common_calendar_sessions": 1037,
+        "calendar_months": 64,
+        "no_sample_months": 0
+      },
+      "ES/5m": {
+        "eligible_sessions": 1037,
+        "common_calendar_sessions": 1037,
+        "calendar_months": 64,
+        "no_sample_months": 0
+      },
+      "GC/2m": {
+        "eligible_sessions": 825,
+        "common_calendar_sessions": 418,
+        "calendar_months": 128,
+        "no_sample_months": 15
+      },
+      "GC/5m": {
+        "eligible_sessions": 825,
+        "common_calendar_sessions": 418,
+        "calendar_months": 128,
+        "no_sample_months": 15
+      },
+      "NQ/2m": {
+        "eligible_sessions": 1177,
+        "common_calendar_sessions": 1177,
+        "calendar_months": 64,
+        "no_sample_months": 0
+      },
+      "NQ/5m": {
+        "eligible_sessions": 1177,
+        "common_calendar_sessions": 1177,
+        "calendar_months": 64,
+        "no_sample_months": 0
+      }
+    }
+  },
+  "daily_context_checks": {
+    "ES": {
+      "sessions": 1037,
+      "minimum_valid_rank_history": 252,
+      "daily_rows": 7344,
+      "initial_or_missing_atr_rows": 13
+    },
+    "GC": {
+      "sessions": 825,
+      "minimum_valid_rank_history": 252,
+      "daily_rows": 13011,
+      "initial_or_missing_atr_rows": 13
+    },
+    "NQ": {
+      "sessions": 1177,
+      "minimum_valid_rank_history": 252,
+      "daily_rows": 6887,
+      "initial_or_missing_atr_rows": 13
+    }
+  },
+  "ema_source_samples": [
+    {
+      "product": "ES",
+      "timeframe": "2m",
+      "session_date": "2021-06-28",
+      "bars_checked": 690,
+      "preceding_observed_bars": 3415,
+      "max_ema_absolute_difference": 1.8189894035458565e-12
+    },
+    {
+      "product": "ES",
+      "timeframe": "2m",
+      "session_date": "2024-03-05",
+      "bars_checked": 690,
+      "preceding_observed_bars": 3450,
+      "max_ema_absolute_difference": 1.8189894035458565e-12
+    },
+    {
+      "product": "ES",
+      "timeframe": "2m",
+      "session_date": "2026-09-18",
+      "bars_checked": 690,
+      "preceding_observed_bars": 3450,
+      "max_ema_absolute_difference": 2.7284841053187847e-12
+    },
+    {
+      "product": "ES",
+      "timeframe": "5m",
+      "session_date": "2021-06-28",
+      "bars_checked": 276,
+      "preceding_observed_bars": 1365,
+      "max_ema_absolute_difference": 1.8189894035458565e-12
+    },
+    {
+      "product": "ES",
+      "timeframe": "5m",
+      "session_date": "2024-03-05",
+      "bars_checked": 276,
+      "preceding_observed_bars": 1380,
+      "max_ema_absolute_difference": 1.8189894035458565e-12
+    },
+    {
+      "product": "ES",
+      "timeframe": "5m",
+      "session_date": "2026-09-18",
+      "bars_checked": 276,
+      "preceding_observed_bars": 1380,
+      "max_ema_absolute_difference": 1.8189894035458565e-12
+    },
+    {
+      "product": "GC",
+      "timeframe": "2m",
+      "session_date": "2016-02-11",
+      "bars_checked": 690,
+      "preceding_observed_bars": 3444,
+      "max_ema_absolute_difference": 9.094947017729282e-13
+    },
+    {
+      "product": "GC",
+      "timeframe": "2m",
+      "session_date": "2021-08-16",
+      "bars_checked": 690,
+      "preceding_observed_bars": 3449,
+      "max_ema_absolute_difference": 9.094947017729282e-13
+    },
+    {
+      "product": "GC",
+      "timeframe": "2m",
+      "session_date": "2026-09-18",
+      "bars_checked": 690,
+      "preceding_observed_bars": 3450,
+      "max_ema_absolute_difference": 1.8189894035458565e-12
+    },
+    {
+      "product": "GC",
+      "timeframe": "5m",
+      "session_date": "2016-02-11",
+      "bars_checked": 276,
+      "preceding_observed_bars": 1380,
+      "max_ema_absolute_difference": 9.094947017729282e-13
+    },
+    {
+      "product": "GC",
+      "timeframe": "5m",
+      "session_date": "2021-08-16",
+      "bars_checked": 276,
+      "preceding_observed_bars": 1380,
+      "max_ema_absolute_difference": 9.094947017729282e-13
+    },
+    {
+      "product": "GC",
+      "timeframe": "5m",
+      "session_date": "2026-09-18",
+      "bars_checked": 276,
+      "preceding_observed_bars": 1380,
+      "max_ema_absolute_difference": 1.8189894035458565e-12
+    },
+    {
+      "product": "NQ",
+      "timeframe": "2m",
+      "session_date": "2021-06-28",
+      "bars_checked": 690,
+      "preceding_observed_bars": 3415,
+      "max_ema_absolute_difference": 7.275957614183426e-12
+    },
+    {
+      "product": "NQ",
+      "timeframe": "2m",
+      "session_date": "2024-02-02",
+      "bars_checked": 690,
+      "preceding_observed_bars": 3450,
+      "max_ema_absolute_difference": 7.275957614183426e-12
+    },
+    {
+      "product": "NQ",
+      "timeframe": "2m",
+      "session_date": "2026-09-18",
+      "bars_checked": 690,
+      "preceding_observed_bars": 3449,
+      "max_ema_absolute_difference": 7.275957614183426e-12
+    },
+    {
+      "product": "NQ",
+      "timeframe": "5m",
+      "session_date": "2021-06-28",
+      "bars_checked": 276,
+      "preceding_observed_bars": 1365,
+      "max_ema_absolute_difference": 3.637978807091713e-12
+    },
+    {
+      "product": "NQ",
+      "timeframe": "5m",
+      "session_date": "2024-02-02",
+      "bars_checked": 276,
+      "preceding_observed_bars": 1380,
+      "max_ema_absolute_difference": 7.275957614183426e-12
+    },
+    {
+      "product": "NQ",
+      "timeframe": "5m",
+      "session_date": "2026-09-18",
+      "bars_checked": 276,
+      "preceding_observed_bars": 1380,
+      "max_ema_absolute_difference": 7.275957614183426e-12
+    }
+  ],
+  "artifacts": [
+    {
+      "path": "bar_evidence.parquet",
+      "sha256": "33911577b9b587aa3f44a7927a1bdd2123722b92d0605184fded0770a746a736",
+      "bytes": 151795407
+    },
+    {
+      "path": "crossings.csv",
+      "sha256": "7141c02a834a3d82b18c57e034a5046fcb5dc36cc70120e58dcddd3533e9ad1d",
+      "bytes": 9963585
+    },
+    {
+      "path": "daily_panel.csv",
+      "sha256": "86f0a3c40d0917ceb2fdc512b14126d66a8246c407e7ad10bd858fa162a8d726",
+      "bytes": 8704714
+    },
+    {
+      "path": "tables/coverage.csv",
+      "sha256": "5eebe2e0e0ff58ec2b29ec9ed688f7e7d72f4e5649e17812e616f6213b39c80d",
+      "bytes": 25951
+    },
+    {
+      "path": "tables/distribution.csv",
+      "sha256": "5952e36b73159f30b2428ced73f6d753123341a1076e4c9b9b017105e980c882",
+      "bytes": 591311
+    },
+    {
+      "path": "tables/month_of_year.csv",
+      "sha256": "c1d9ddac270045959f328068404bad43f5d6939a4c2817b57c3b84257d517174",
+      "bytes": 739167
+    },
+    {
+      "path": "tables/monthly.csv",
+      "sha256": "3b4dd7b9a83566f8218807ea27ea2991c6e7d87294d44afc015791ee0a0ce100",
+      "bytes": 2863038
+    },
+    {
+      "path": "tables/summary.csv",
+      "sha256": "814367e2585c36e74a5f305e0516736a18d0fc53af06430fc12ab4a25adad3ce",
+      "bytes": 80934
+    },
+    {
+      "path": "tables/yearly.csv",
+      "sha256": "98a0a5ab511a966363aff23603ff0448b03b1b161e7081df322a170bf0df83fe",
+      "bytes": 414941
+    }
+  ]
+}

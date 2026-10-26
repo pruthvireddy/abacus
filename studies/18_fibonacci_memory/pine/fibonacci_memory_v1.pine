@@ -1,0 +1,623 @@
+//@version=6
+indicator("Fibonacci Memory v1 — Opportunity Statistics", shorttitle="FibMem v1", overlay=true, max_lines_count=120, max_labels_count=120, max_boxes_count=40, max_bars_back=500)
+
+// Implementation prototype, 2026-10-06. No orders and no optimized settings.
+// Confirmed pivots -> next-bar-eligible ladder -> close-confirmed first touch
+// -> next open reference -> H full bars -> one bounded completed cohort.
+// All event/anchor mutations happen at bar close. A touch candle is never part
+// of its own forward path. Chart OHLC cannot establish every intrabar ordering.
+
+const int OPEN = 0
+const int TARGET = 1
+const int STOP = 2
+const int TIMEOUT = 3
+const int AMBIGUOUS = 4
+const int BUCKETS = 5
+
+gImpulse = "Impulse"
+pivLen = input.int(12, "Swing Length", minval=4, maxval=50, group=gImpulse)
+minLeg = input.float(2.0, "Minimum Leg Size (ATR)", minval=0.5, step=0.5, group=gImpulse)
+
+gEvent = "Opportunity measurement"
+touchTol = input.float(0.15, "Touch Tolerance (ATR)", minval=0.0, maxval=1.0, step=0.05, group=gEvent, tooltip="Uses ATR(14) from BEFORE the touch candle. This ATR is frozen for the event.")
+horizon = input.int(16, "Observation Window (Bars)", minval=1, maxval=100, group=gEvent, tooltip="Entry at the next chart bar's open. Entry bar is observation bar 1. Full-window excursions continue after a hypothetical exit.")
+targetAtr = input.float(1.0, "Target Distance (ATR)", minval=0.05, maxval=10.0, step=0.05, group=gEvent)
+stopAtr = input.float(0.5, "Stop Distance (ATR)", minval=0.05, maxval=10.0, step=0.05, group=gEvent)
+costTicks = input.float(0.0, "Estimated Round-trip Cost (Ticks)", minval=0.0, step=0.25, group=gEvent, tooltip="An estimated combined cost deducted once from each payoff. Zero means costs are excluded; this is not a fill/slippage model.")
+
+gMemory = "Statistics"
+memoryN = input.int(200, "Completed Events per Bucket and Direction", minval=10, maxval=500, group=gMemory, tooltip="Latest completed records per side. Combined pools up to twice this many records and recalculates every statistic.")
+panelSide = input.string("Combined", "Statistics Direction", options=["Long", "Short", "Combined"], group=gMemory)
+minN = input.int(30, "Minimum Completed Events for Emphasis", minval=2, maxval=1000, group=gMemory, tooltip="Controls display emphasis only. It does not establish reliability or independence.")
+
+gVisual = "Visuals"
+showExt = input.bool(true, "Continuation Extensions (Ungraded)", group=gVisual)
+showPocket = input.bool(true, "Shade Golden Pocket", group=gVisual)
+extendRight = input.int(25, "Extend Levels Right (Bars)", minval=5, maxval=80, group=gVisual)
+showPanel = input.bool(true, "Statistics Panel", group=gVisual)
+showMarkers = input.bool(true, "Signal / Outcome Markers", group=gVisual, tooltip="Touch signals and later outcome confirmations are different markers. Multiple same-type outcomes on one bar share a marker; every event is retained.")
+bullCol = input.color(#00897b, "Bullish Impulse", group=gVisual)
+bearCol = input.color(#e4002b, "Bearish Impulse", group=gVisual)
+goldCol = input.color(#c77800, "Golden Pocket", group=gVisual)
+extCol = input.color(#5e35b1, "Extensions", group=gVisual)
+neutralCol = input.color(#37474f, "Neutral Levels", group=gVisual)
+
+gDebug = "Validation"
+runSelfChecks = input.bool(false, "Run Deterministic Engine Self-checks", group=gDebug, tooltip="Runs synthetic checks using the production numerical helpers on the first loaded bar. A failure raises a named runtime error. Does not add synthetic events to chart statistics.")
+
+// Frozen fields are assigned once in f_event / f_enter. Only the observation
+// state and its extrema change afterward. A completed Event is never mutated.
+type Event
+    int swingId = 0
+    string swingKey = ""
+    int anchorABar = 0
+    int anchorBBar = 0
+    int bucket = 0
+    int direction = 1
+    int signalBar = 0
+    int entryBar = na
+    int completedBar = na
+    float zoneLo = na
+    float zoneHi = na
+    float atr0 = na
+    int windowBars = 16
+    float targetAtr = 1.0
+    float stopAtr = 0.5
+    float costTicks = 0.0
+    float tickSize = na
+    float entry = na
+    float entryDistanceAtr = na
+    float riskPts = na
+    float targetPrice = na
+    float stopPrice = na
+    float costR = na
+    float windowMfePrice = 0.0
+    float windowMaePrice = 0.0
+    int outcome = 0
+    int firstBarrierBar = na
+    int barsToBarrier = na
+    float netRLo = na
+    float netRHi = na
+    float preTargetMaeLo = na
+    float preTargetMaeHi = na
+    float preStopMfeLo = na
+    float preStopMfeHi = na
+
+type Cohort
+    array<Event> rows
+    int cursor = 0
+
+type Summary
+    int n = 0
+    int wins = 0
+    int stops = 0
+    int timeouts = 0
+    int ambiguous = 0
+    int swings = 0
+    float medianMfe = na
+    float medianMae = na
+    float p90Mae = na
+    float probabilityLo = na
+    float probabilityHi = na
+    float wilsonLo = na
+    float wilsonHi = na
+    float medianTargetBars = na
+    float meanNetRLo = na
+    float meanNetRHi = na
+    float medianPreTargetLo = na
+    float medianPreTargetHi = na
+    float medianPreStopLo = na
+    float medianPreStopHi = na
+
+// BEGIN PORTABLE KERNEL
+// These helpers are also executed by the restricted synthetic-test adapter.
+// That adapter is not a TradingView compiler or a chart-runtime substitute.
+f_swing_key(int direction, int aBar, int bBar) =>
+    str.tostring(direction) + ":" + str.tostring(aBar) + ":" + str.tostring(bBar)
+
+f_level(int direction, float a, float b, float ratio, bool extension) =>
+    float width = math.abs(b - a)
+    extension ? a + direction * width * ratio : b - direction * width * ratio
+
+f_zone(int direction, float a, float b, int bucket) =>
+    float r1 = bucket == 0 ? 0.236 : bucket == 1 ? 0.382 : bucket == 2 ? 0.5 : bucket == 3 ? 0.618 : 0.786
+    float r2 = bucket == 3 ? 0.65 : r1
+    float p1 = f_level(direction, a, b, r1, false)
+    float p2 = f_level(direction, a, b, r2, false)
+    [math.min(p1, p2), math.max(p1, p2)]
+
+f_touch(int direction, int confirmedBar, int currentBar, bool used, float zoneLo, float zoneHi, float atr0, float tolerance, float previousClose, float barLow, float barHigh) =>
+    bool valid = not na(confirmedBar) and currentBar > confirmedBar and not used and not na(atr0) and atr0 > 0 and not na(previousClose)
+    float lower = zoneLo - atr0 * tolerance
+    float upper = zoneHi + atr0 * tolerance
+    bool approached = direction == 1 ? previousClose > upper : previousClose < lower
+    valid and approached and barLow <= upper and barHigh >= lower
+
+f_event(int swingId, string swingKey, int aBar, int bBar, int bucket, int direction, int signalBar, float zoneLo, float zoneHi, float atr0, int windowBars, float targetDistance, float stopDistance, float costs, float tickSize) =>
+    Event e = Event.new()
+    e.swingId := swingId
+    e.swingKey := swingKey
+    e.anchorABar := aBar
+    e.anchorBBar := bBar
+    e.bucket := bucket
+    e.direction := direction
+    e.signalBar := signalBar
+    e.zoneLo := zoneLo
+    e.zoneHi := zoneHi
+    e.atr0 := atr0
+    e.windowBars := windowBars
+    e.targetAtr := targetDistance
+    e.stopAtr := stopDistance
+    e.costTicks := costs
+    e.tickSize := tickSize
+    e
+
+f_enter(Event e, float entryOpen, int entryBar) =>
+    e.entry := entryOpen
+    e.entryBar := entryBar
+    e.riskPts := e.stopAtr * e.atr0
+    e.targetPrice := entryOpen + e.direction * e.targetAtr * e.atr0
+    e.stopPrice := entryOpen - e.direction * e.riskPts
+    e.costR := e.costTicks * e.tickSize / e.riskPts
+    float closestZonePrice = math.max(e.zoneLo, math.min(e.zoneHi, entryOpen))
+    e.entryDistanceAtr := e.direction * (entryOpen - closestZonePrice) / e.atr0
+    e
+
+f_step(Event e, int currentBar, float barOpen, float barHigh, float barLow, float barClose) =>
+    int changed = OPEN
+    // A pending touch cannot enter or observe its own signal candle.
+    if currentBar > e.signalBar and na(e.completedBar)
+        if na(e.entry)
+            f_enter(e, barOpen, currentBar)
+        float priorMfe = e.windowMfePrice
+        float priorMae = e.windowMaePrice
+        float favorableOpen = math.max(0.0, e.direction * (barOpen - e.entry))
+        float adverseOpen = math.max(0.0, -e.direction * (barOpen - e.entry))
+        float favorable = math.max(0.0, e.direction == 1 ? barHigh - e.entry : e.entry - barLow)
+        float adverse = math.max(0.0, e.direction == 1 ? e.entry - barLow : barHigh - e.entry)
+        int age = currentBar - e.entryBar + 1
+        if e.outcome == OPEN
+            bool targetAtOpen = e.direction * (barOpen - e.targetPrice) >= 0
+            bool stopAtOpen = e.direction * (barOpen - e.stopPrice) <= 0
+            bool targetTouched = favorable >= e.targetAtr * e.atr0
+            bool stopTouched = adverse >= e.riskPts
+            bool exitedAtOpen = false
+            if targetAtOpen
+                e.outcome := TARGET
+                e.netRLo := e.targetAtr / e.stopAtr - e.costR
+                e.netRHi := e.netRLo
+                exitedAtOpen := true
+            else if stopAtOpen
+                e.outcome := STOP
+                e.netRLo := e.direction * (barOpen - e.entry) / e.riskPts - e.costR
+                e.netRHi := e.netRLo
+                exitedAtOpen := true
+            else if targetTouched and stopTouched
+                e.outcome := AMBIGUOUS
+                e.netRLo := -1.0 - e.costR
+                e.netRHi := e.targetAtr / e.stopAtr - e.costR
+            else if targetTouched
+                e.outcome := TARGET
+                e.netRLo := e.targetAtr / e.stopAtr - e.costR
+                e.netRHi := e.netRLo
+            else if stopTouched
+                e.outcome := STOP
+                e.netRLo := -1.0 - e.costR
+                e.netRHi := e.netRLo
+            if e.outcome != OPEN
+                changed := e.outcome
+                e.firstBarrierBar := currentBar
+                e.barsToBarrier := age
+                if e.outcome == TARGET
+                    e.preTargetMaeLo := math.max(priorMae, adverseOpen) / e.atr0
+                    e.preTargetMaeHi := exitedAtOpen ? e.preTargetMaeLo : math.max(math.max(priorMae, adverseOpen), adverse) / e.atr0
+                if e.outcome == STOP
+                    e.preStopMfeLo := math.max(priorMfe, favorableOpen) / e.atr0
+                    e.preStopMfeHi := exitedAtOpen ? e.preStopMfeLo : math.max(math.max(priorMfe, favorableOpen), favorable) / e.atr0
+        // Full-window extrema are independent of the first-barrier outcome.
+        e.windowMfePrice := math.max(priorMfe, favorable)
+        e.windowMaePrice := math.max(priorMae, adverse)
+        if age >= e.windowBars
+            if e.outcome == OPEN
+                e.outcome := TIMEOUT
+                e.netRLo := e.direction * (barClose - e.entry) / e.riskPts - e.costR
+                e.netRHi := e.netRLo
+            e.completedBar := currentBar
+    changed
+
+f_remember(Cohort cohort, Event completed, int capacity) =>
+    if cohort.rows.size() < capacity
+        cohort.rows.push(completed)
+    else
+        cohort.rows.set(cohort.cursor, completed)
+        cohort.cursor := (cohort.cursor + 1) % capacity
+    cohort.rows.size()
+
+f_percentile(array<float> values, float fraction) =>
+    float result = na
+    int count = values.size()
+    if count > 0
+        array<float> ordered = array.copy(values)
+        ordered.sort()
+        float rank = (count - 1) * fraction
+        int lower = int(math.floor(rank))
+        int upper = int(math.ceil(rank))
+        result := ordered.get(lower) + (ordered.get(upper) - ordered.get(lower)) * (rank - lower)
+    result
+
+f_wilson(int wins, int count) =>
+    float lower = na
+    float upper = na
+    if count > 0
+        float p = float(wins) / count
+        float z = 1.959963984540054
+        float z2 = z * z
+        float denominator = 1.0 + z2 / count
+        float center = (p + z2 / (2.0 * count)) / denominator
+        float half = z * math.sqrt(p * (1.0 - p) / count + z2 / (4.0 * count * count)) / denominator
+        lower := math.max(0.0, center - half)
+        upper := math.min(1.0, center + half)
+    [lower, upper]
+
+f_summary(Cohort longCohort, Cohort shortCohort, string side) =>
+    Summary s = Summary.new()
+    array<Event> pool = array.new<Event>()
+    if side != "Short"
+        for e in longCohort.rows
+            pool.push(e)
+    if side != "Long"
+        for e in shortCohort.rows
+            pool.push(e)
+    s.n := pool.size()
+    if s.n > 0
+        array<float> mfes = array.new<float>()
+        array<float> maes = array.new<float>()
+        array<float> targetTimes = array.new<float>()
+        array<float> preTargetLo = array.new<float>()
+        array<float> preTargetHi = array.new<float>()
+        array<float> preStopLo = array.new<float>()
+        array<float> preStopHi = array.new<float>()
+        array<int> swingIds = array.new<int>()
+        float netLo = 0.0
+        float netHi = 0.0
+        for e in pool
+            mfes.push(e.windowMfePrice / e.atr0)
+            maes.push(e.windowMaePrice / e.atr0)
+            swingIds.push(e.swingId)
+            netLo += e.netRLo
+            netHi += e.netRHi
+            if e.outcome == TARGET
+                s.wins += 1
+                targetTimes.push(float(e.barsToBarrier))
+                preTargetLo.push(e.preTargetMaeLo)
+                preTargetHi.push(e.preTargetMaeHi)
+            else if e.outcome == STOP
+                s.stops += 1
+                preStopLo.push(e.preStopMfeLo)
+                preStopHi.push(e.preStopMfeHi)
+            else if e.outcome == TIMEOUT
+                s.timeouts += 1
+            else if e.outcome == AMBIGUOUS
+                s.ambiguous += 1
+        swingIds.sort()
+        int previousId = na
+        for i = 0 to swingIds.size() - 1
+            int identity = swingIds.get(i)
+            if i == 0 or identity != previousId
+                s.swings += 1
+            previousId := identity
+        s.medianMfe := f_percentile(mfes, 0.5)
+        s.medianMae := f_percentile(maes, 0.5)
+        s.p90Mae := f_percentile(maes, 0.9)
+        s.medianTargetBars := f_percentile(targetTimes, 0.5)
+        s.medianPreTargetLo := f_percentile(preTargetLo, 0.5)
+        s.medianPreTargetHi := f_percentile(preTargetHi, 0.5)
+        s.medianPreStopLo := f_percentile(preStopLo, 0.5)
+        s.medianPreStopHi := f_percentile(preStopHi, 0.5)
+        s.probabilityLo := float(s.wins) / s.n
+        s.probabilityHi := float(s.wins + s.ambiguous) / s.n
+        s.meanNetRLo := netLo / s.n
+        s.meanNetRHi := netHi / s.n
+        if s.ambiguous == 0
+            [wilsonLo, wilsonHi] = f_wilson(s.wins, s.n)
+            s.wilsonLo := wilsonLo
+            s.wilsonHi := wilsonHi
+    s
+// END PORTABLE KERNEL
+
+f_number(float value) =>
+    na(value) ? "—" : str.tostring(value, "#.##")
+
+f_percent(float value) =>
+    na(value) ? "—" : str.tostring(value * 100.0, "#.#") + "%"
+
+f_range(float lower, float upper) =>
+    na(lower) or na(upper) ? "—" : math.abs(upper - lower) < 0.0000001 ? f_number(lower) : f_number(lower) + "…" + f_number(upper)
+
+f_probability(Summary s) =>
+    s.n == 0 ? "—" : s.ambiguous == 0 ? f_percent(s.probabilityLo) : f_percent(s.probabilityLo) + "…" + f_percent(s.probabilityHi)
+
+f_bucket_name(int bucket) =>
+    bucket == 0 ? "0.236" : bucket == 1 ? "0.382" : bucket == 2 ? "0.500" : bucket == 3 ? "0.618–0.650" : "0.786"
+
+f_bucket_from_line(int index) =>
+    index == 1 ? 0 : index == 2 ? 1 : index == 3 ? 2 : index == 4 or index == 5 ? 3 : index == 6 ? 4 : -1
+
+f_pending(array<Event> observations, int bucket, string side) =>
+    int count = 0
+    for e in observations
+        if e.bucket == bucket and (side == "Combined" or side == "Long" and e.direction == 1 or side == "Short" and e.direction == -1)
+            count += 1
+    count
+
+f_tooltip(Summary s, int pending) =>
+    string tooltipText = "Completed N=" + str.tostring(s.n) + " · distinct swings=" + str.tostring(s.swings) + " · pending=" + str.tostring(pending)
+    tooltipText += "\nTarget=" + str.tostring(s.wins) + " · stop=" + str.tostring(s.stops) + " · timeout=" + str.tostring(s.timeouts) + " · ambiguous=" + str.tostring(s.ambiguous)
+    tooltipText += "\nAll displayed statistics use the same retained completed cohort."
+    tooltipText += "\nWindow MFE/MAE: full " + str.tostring(horizon) + " bars, including movement after a hypothetical exit; ATR frozen before touch."
+    tooltipText += "\nPercentiles: sorted linear interpolation at rank (N−1) × p."
+    tooltipText += s.n == 0 ? "\nWilson 95%: —" : s.ambiguous > 0 ? "\nProbability range is ordering uncertainty, NOT a confidence interval. Wilson withheld." : "\nApprox. Wilson 95%: " + f_percent(s.wilsonLo) + "…" + f_percent(s.wilsonHi)
+    tooltipText += "\nWilson does not correct dependence between swings/days. Sample threshold is display behavior only."
+    tooltipText += "\nMedian MAE before target (bounds, ATR): " + f_range(s.medianPreTargetLo, s.medianPreTargetHi)
+    tooltipText += "\nMedian MFE before stop (bounds, ATR): " + f_range(s.medianPreStopLo, s.medianPreStopHi)
+    tooltipText += "\nTarget bars: target-first only, entry bar=1. Mean net R includes timeouts and ambiguous payoff bounds."
+    tooltipText += "\nCost: " + f_number(costTicks) + " ticks round trip" + (costTicks == 0 ? " — ZERO COST; costs excluded." : ".")
+    tooltipText
+
+// Optional tests execute the actual helpers inside Pine, isolated from history.
+f_expect(bool passed, string name) =>
+    if not passed
+        runtime.error("Fibonacci Memory self-check failed: " + name)
+    true
+
+f_fixture(int direction, int bars) =>
+    f_event(1, f_swing_key(direction, 10, 20), 10, 20, 0, direction, 0, 99.0, 101.0, 2.0, bars, 1.0, 0.5, 0.0, 0.25)
+
+f_self_checks() =>
+    f_expect(math.abs(f_level(1, 100.0, 120.0, 1.272, true) - 125.44) < 0.000001, "up extension")
+    f_expect(math.abs(f_level(-1, 120.0, 100.0, 1.272, true) - 94.56) < 0.000001, "down extension")
+    f_expect(f_swing_key(1, 10, 20) != f_swing_key(1, 11, 21), "equal prices, different anchor bars")
+    f_expect(not f_touch(1, 5, 5, false, 99.0, 101.0, 2.0, 0.15, 102.0, 100.0, 103.0), "confirmation-bar unavailable")
+    f_expect(f_touch(1, 5, 6, false, 99.0, 101.0, 2.0, 0.15, 102.0, 100.0, 103.0), "next-bar eligible")
+    f_expect(not f_touch(1, 5, 6, true, 99.0, 101.0, 2.0, 0.15, 102.0, 100.0, 103.0), "duplicate touch")
+    Event longEvent = f_fixture(1, 2)
+    f_step(longEvent, 0, 100.0, 1000.0, 0.0, 100.0)
+    f_expect(na(longEvent.entry) and longEvent.windowMfePrice == 0, "signal candle excluded")
+    f_step(longEvent, 1, 100.0, 103.0, 99.5, 101.0)
+    f_expect(longEvent.outcome == TARGET and na(longEvent.completedBar), "target before window maturity")
+    f_expect(longEvent.preTargetMaeLo == 0 and longEvent.preTargetMaeHi == 0.25, "pre-target bounds")
+    f_step(longEvent, 2, 100.0, 100.5, 97.0, 98.0)
+    f_expect(longEvent.netRLo == 2 and longEvent.windowMaePrice == 3 and longEvent.completedBar == 2, "fixed payoff, full-window adverse move")
+    Event shortEvent = f_fixture(-1, 1)
+    f_step(shortEvent, 1, 100.0, 100.5, 97.0, 99.0)
+    f_expect(shortEvent.outcome == TARGET and shortEvent.windowMfePrice == 3 and shortEvent.windowMaePrice == 0.5, "short symmetry")
+    Event ambiguousEvent = f_fixture(1, 1)
+    f_step(ambiguousEvent, 1, 100.0, 103.0, 98.0, 101.0)
+    f_expect(ambiguousEvent.outcome == AMBIGUOUS and ambiguousEvent.netRLo == -1 and ambiguousEvent.netRHi == 2, "same-bar ambiguity")
+    Event gapEvent = f_fixture(1, 2)
+    f_step(gapEvent, 1, 100.0, 100.5, 99.5, 100.0)
+    f_step(gapEvent, 2, 98.0, 103.0, 97.0, 102.0)
+    f_expect(gapEvent.outcome == STOP and gapEvent.netRLo == -2 and gapEvent.preStopMfeLo == gapEvent.preStopMfeHi, "stop gap precedes later target")
+    Event timeoutEvent = f_fixture(1, 1)
+    f_step(timeoutEvent, 1, 100.0, 101.0, 99.5, 100.25)
+    f_expect(timeoutEvent.outcome == TIMEOUT and timeoutEvent.netRLo == 0.25, "timeout close and H=1")
+    Cohort longs = Cohort.new(array.new<Event>())
+    Cohort shorts = Cohort.new(array.new<Event>())
+    f_remember(longs, longEvent, 2)
+    f_remember(longs, ambiguousEvent, 2)
+    f_remember(longs, timeoutEvent, 2)
+    Event retainedFirst = longs.rows.get(0)
+    f_expect(longs.rows.size() == 2 and retainedFirst.outcome == TIMEOUT, "ring eviction")
+    f_remember(shorts, shortEvent, 2)
+    Summary pooled = f_summary(longs, shorts, "Combined")
+    f_expect(pooled.n == 3 and pooled.wins == 1 and pooled.timeouts == 1 and pooled.ambiguous == 1, "pooled denominator")
+    f_expect(math.abs(pooled.meanNetRLo - 1.25 / 3.0) < 0.000001 and na(pooled.wilsonLo), "ambiguity payoff and Wilson withheld")
+    array<float> values = array.from(0.0, 10.0)
+    f_expect(f_percentile(values, 0.5) == 5 and f_percentile(values, 0.9) == 9, "linear percentiles")
+    [wilsonLo, wilsonHi] = f_wilson(0, 10)
+    f_expect(wilsonLo < 0.0000001 and math.abs(wilsonHi - 0.2775327998628892) < 0.000001, "Wilson zero wins")
+    true
+
+if barstate.isfirst and runSelfChecks
+    f_self_checks()
+
+atrV = ta.atr(14)
+ph = ta.pivothigh(high, pivLen, pivLen)
+pl = ta.pivotlow(low, pivLen, pivLen)
+
+var array<Event> active = array.new<Event>()
+var array<Cohort> cohorts = array.new<Cohort>()
+var array<Summary> summaries = array.new<Summary>()
+var array<bool> touched = array.new<bool>(BUCKETS, false)
+if barstate.isfirst
+    for i = 0 to BUCKETS * 2 - 1
+        cohorts.push(Cohort.new(array.new<Event>()))
+    for i = 0 to BUCKETS - 1
+        summaries.push(Summary.new())
+
+var float swHi = na
+var float swLo = na
+var int swHiBar = na
+var int swLoBar = na
+var int swHiTime = na
+var int swLoTime = na
+var int legDir = 0
+var float legA = na
+var float legB = na
+var int legABar = na
+var int legBBar = na
+var int legATime = na
+var int legBTime = na
+var int legConfirmedBar = na
+var int swingId = 0
+var string swingKey = ""
+
+bool newImpulse = false
+bool signalLong = false
+bool signalShort = false
+bool targetOutcome = false
+bool stopOutcome = false
+bool ambiguousOutcome = false
+
+if barstate.isconfirmed
+    // Phase 1: old signals enter at this open, and all old events observe this
+    // completed bar. New swing acceptance below never cancels these records.
+    if active.size() > 0
+        for q = active.size() - 1 to 0
+            Event e = active.get(q)
+            int changed = f_step(e, bar_index, open, high, low, close)
+            targetOutcome := targetOutcome or changed == TARGET
+            stopOutcome := stopOutcome or changed == STOP
+            ambiguousOutcome := ambiguousOutcome or changed == AMBIGUOUS
+            if not na(e.completedBar)
+                int cohortIndex = e.bucket * 2 + (e.direction == 1 ? 0 : 1)
+                f_remember(cohorts.get(cohortIndex), e, memoryN)
+                active.remove(q)
+    // At most 5 registrations per bar, H<=100: active storage <=5*(H+1).
+    if active.size() > BUCKETS * (horizon + 1)
+        runtime.error("Active observation bound exceeded.")
+
+    // Phase 2: current candle uses ONLY the ladder established before it.
+    // The previous close is compared to the same frozen zone, not another
+    // bar's potentially different ladder. ATR[1] predates the touch candle.
+    if legDir != 0 and not na(atrV[1]) and atrV[1] > 0
+        for bucket = 0 to BUCKETS - 1
+            [zoneLo, zoneHi] = f_zone(legDir, legA, legB, bucket)
+            if f_touch(legDir, legConfirmedBar, bar_index, touched.get(bucket), zoneLo, zoneHi, atrV[1], touchTol, close[1], low, high)
+                Event observation = f_event(swingId, swingKey, legABar, legBBar, bucket, legDir, bar_index, zoneLo, zoneHi, atrV[1], horizon, targetAtr, stopAtr, costTicks, syminfo.mintick)
+                active.push(observation)
+                touched.set(bucket, true)
+                signalLong := signalLong or legDir == 1
+                signalShort := signalShort or legDir == -1
+
+    // Phase 3: newly confirmed pivots may replace the official ladder.
+    // Anchor bar identities, not endpoint price drift, determine a new swing.
+    if not na(ph)
+        swHi := ph
+        swHiBar := bar_index - pivLen
+        swHiTime := time[pivLen]
+    if not na(pl)
+        swLo := pl
+        swLoBar := bar_index - pivLen
+        swLoTime := time[pivLen]
+    if not na(swHi) and not na(swLo) and not na(atrV) and atrV > 0 and swHi - swLo >= atrV * minLeg
+        int candidateDir = swLoBar < swHiBar ? 1 : swHiBar < swLoBar ? -1 : 0
+        if candidateDir != 0
+            int candidateABar = candidateDir == 1 ? swLoBar : swHiBar
+            int candidateBBar = candidateDir == 1 ? swHiBar : swLoBar
+            string candidateKey = f_swing_key(candidateDir, candidateABar, candidateBBar)
+            if candidateKey != swingKey
+                swingId += 1
+                swingKey := candidateKey
+                legDir := candidateDir
+                legA := candidateDir == 1 ? swLo : swHi
+                legB := candidateDir == 1 ? swHi : swLo
+                legABar := candidateABar
+                legBBar := candidateBBar
+                legATime := candidateDir == 1 ? swLoTime : swHiTime
+                legBTime := candidateDir == 1 ? swHiTime : swLoTime
+                legConfirmedBar := bar_index
+                touched.fill(false)
+                newImpulse := true
+
+    // Sorting/aggregation occurs only at the chart edge on a completed bar.
+    // The live table reuses this cache instead of sorting on every tick.
+    if barstate.islast or barstate.islastconfirmedhistory
+        for bucket = 0 to BUCKETS - 1
+            summaries.set(bucket, f_summary(cohorts.get(bucket * 2), cohorts.get(bucket * 2 + 1), panelSide))
+
+// Signals mark the touch's closing decision; T/S/? mark later outcome bars.
+// These are aggregate bar markers, not event counts or entry fill markers.
+plotshape(showMarkers and signalLong, title="Long first-touch signal", style=shape.triangleup, location=location.belowbar, color=bullCol, size=size.tiny, text="L")
+plotshape(showMarkers and signalShort, title="Short first-touch signal", style=shape.triangledown, location=location.abovebar, color=bearCol, size=size.tiny, text="S")
+plotshape(showMarkers and targetOutcome, title="Target-first confirmation", style=shape.circle, location=location.abovebar, color=bullCol, size=size.tiny, text="T")
+plotshape(showMarkers and stopOutcome, title="Stop-first confirmation", style=shape.square, location=location.belowbar, color=bearCol, size=size.tiny, text="X")
+plotshape(showMarkers and ambiguousOutcome, title="Same-bar ambiguous outcome", style=shape.diamond, location=location.abovebar, color=goldCol, size=size.tiny, text="?")
+
+var array<line> ladderLines = array.new<line>()
+var array<label> ladderLabels = array.new<label>()
+var box pocket = na
+var line impulseLine = na
+var label impulseLabel = na
+var array<float> ratios = array.from(0.0, 0.236, 0.382, 0.5, 0.618, 0.65, 0.786, 1.0, 1.272, 1.618, 2.0)
+var array<string> ratioNames = array.from("0", "0.236", "0.382", "0.500", "0.618", "0.650", "0.786", "1", "1.272", "1.618", "2")
+
+if barstate.islast
+    while ladderLines.size() > 0
+        line.delete(ladderLines.pop())
+    while ladderLabels.size() > 0
+        label.delete(ladderLabels.pop())
+    box.delete(pocket)
+    line.delete(impulseLine)
+    label.delete(impulseLabel)
+    if legDir != 0
+        color directionColor = legDir == 1 ? bullCol : bearCol
+        // Time coordinates preserve distant pivot origins without the
+        // bar_index drawing-distance restriction. Availability starts later.
+        impulseLine := line.new(legATime, legA, legBTime, legB, xloc=xloc.bar_time, color=color.new(directionColor, 20), style=line.style_dashed, width=2)
+        string impulseText = (legDir == 1 ? "▲ " : "▼ ") + "Confirmed swing #" + str.tostring(swingId)
+        impulseLabel := label.new(legBTime, legB, impulseText, xloc=xloc.bar_time, style=legDir == 1 ? label.style_label_down : label.style_label_up, color=color.new(color.black, 100), textcolor=directionColor, size=size.small, tooltip="Pivots are drawn at their original candles. Ladder confirmed on bar " + str.tostring(legConfirmedBar) + "; eligible from the NEXT bar. No live endpoint extension.")
+        int x1 = math.max(legConfirmedBar, bar_index - 480)
+        int x2 = bar_index + extendRight
+        if showPocket
+            [pocketLo, pocketHi] = f_zone(legDir, legA, legB, 3)
+            pocket := box.new(x1, pocketHi, x2, pocketLo, border_color=na, bgcolor=color.new(goldCol, 75))
+        for i = 0 to ratios.size() - 1
+            bool extension = i > 7
+            if not extension or showExt
+                float price = f_level(legDir, legA, legB, ratios.get(i), extension)
+                int bucket = f_bucket_from_line(i)
+                color baseColor = extension ? extCol : i == 4 or i == 5 ? goldCol : i == 0 or i == 7 ? directionColor : neutralCol
+                string tag = ratioNames.get(i) + "  " + str.tostring(price, format.mintick)
+                string tip = extension ? "Continuation extension; ungraded." : bucket < 0 ? "Impulse endpoint; excluded from statistics." : "First-touch opportunity statistics."
+                bool ready = false
+                if bucket >= 0
+                    Summary s = summaries.get(bucket)
+                    ready := s.n >= minN
+                    tag += s.n > 0 ? " · " + f_probability(s) + " N=" + str.tostring(s.n) : ""
+                    tip := f_bucket_name(bucket) + " · " + panelSide + "\n" + f_tooltip(s, f_pending(active, bucket, panelSide))
+                    if bucket == 3
+                        tip += "\nBoth pocket lines share ONE statistical bucket."
+                // Emphasis communicates sample size, never a composite score.
+                ladderLines.push(line.new(x1, price, x2, price, color=color.new(baseColor, ready ? 15 : 50), width=ready ? 2 : 1, style=extension ? line.style_dotted : line.style_solid))
+                ladderLabels.push(label.new(x2, price, tag, style=label.style_label_left, color=color.new(color.black, 100), textcolor=baseColor, size=size.small, tooltip=tip))
+
+var table panel = table.new(position.top_right, 8, 8, bgcolor=color.new(#171207, 4), frame_color=color.new(goldCol, 20), frame_width=1, border_color=color.new(goldCol, 85), border_width=1)
+if barstate.isfirst
+    table.merge_cells(panel, 0, 0, 7, 0)
+    table.merge_cells(panel, 0, 7, 7, 7)
+if barstate.islast
+    if showPanel
+        table.cell(panel, 0, 0, "FIB MEMORY v1 · " + syminfo.ticker + " · " + panelSide, bgcolor=goldCol, text_color=color.white, text_size=size.small, text_halign=text.align_left)
+        array<string> headers = array.from("Zone", "N", "Win MFE", "Win MAE", "MAE P90", "Target first", "Bars to T", "Net R")
+        for column = 0 to 7
+            string headTip = column == 2 or column == 3 or column == 4 ? "Full-window excursion in frozen ATR units; includes movement after hypothetical exit." : column == 5 ? "W/N. With ambiguity: W/N to (W+A)/N. Timeouts are included." : column == 6 ? "Median among target-first events only. Entry bar=1." : column == 7 ? "Mean hypothetical payoff after cost, in initial-risk units. Ambiguous outcomes retain bounds." : "Latest completed cohort; pending rows are excluded."
+            table.cell(panel, column, 1, headers.get(column), text_color=color.new(color.white, 10), text_size=size.tiny, tooltip=headTip)
+        int totalPending = 0
+        for bucket = 0 to BUCKETS - 1
+            Summary s = summaries.get(bucket)
+            int pending = f_pending(active, bucket, panelSide)
+            totalPending += pending
+            string tip = f_tooltip(s, pending)
+            color ink = s.n >= minN ? color.white : color.new(color.white, 35)
+            color zoneInk = bucket == 3 ? goldCol : ink
+            int row = bucket + 2
+            table.cell(panel, 0, row, f_bucket_name(bucket), text_color=zoneInk, text_size=size.small, text_halign=text.align_left, tooltip=tip)
+            table.cell(panel, 1, row, str.tostring(s.n), text_color=ink, text_size=size.small, tooltip=tip)
+            table.cell(panel, 2, row, f_number(s.medianMfe), text_color=ink, text_size=size.small, tooltip=tip)
+            table.cell(panel, 3, row, f_number(s.medianMae), text_color=ink, text_size=size.small, tooltip=tip)
+            table.cell(panel, 4, row, f_number(s.p90Mae), text_color=ink, text_size=size.small, tooltip=tip)
+            table.cell(panel, 5, row, f_probability(s), text_color=ink, text_size=size.small, tooltip=tip)
+            table.cell(panel, 6, row, f_number(s.medianTargetBars), text_color=ink, text_size=size.small, tooltip=tip)
+            table.cell(panel, 7, row, f_range(s.meanNetRLo, s.meanNetRHi), text_color=ink, text_size=size.small, tooltip=tip)
+        string footer = "H=" + str.tostring(horizon) + " · T/S=" + f_number(targetAtr) + "/" + f_number(stopAtr) + " ATR · last " + str.tostring(memoryN) + "/side · pending " + str.tostring(totalPending)
+        footer += costTicks == 0 ? " · ZERO COST" : " · cost " + f_number(costTicks) + " ticks"
+        footer += runSelfChecks ? " · self-checks enabled" : ""
+        table.cell(panel, 0, 7, footer, text_color=color.new(color.white, 20), text_size=size.tiny, text_halign=text.align_left, tooltip="Next-open hypothetical reference; no orders. Entry bar counts as 1. Combined pools retained records, up to 2 × memory capacity per bucket. Chart history and inputs determine the sample. Intrabar exits are evaluated on chart OHLC; ambiguity is preserved.")
+    else
+        table.clear(panel, 0, 0, 7, 7)
+
+alertcondition(newImpulse, "New Confirmed Impulse", "A confirmed impulse established a fixed Fibonacci ladder; touch eligibility starts next bar.")
+alertcondition(signalLong or signalShort, "First-touch Opportunity", "A first eligible Fibonacci touch confirmed at bar close. Hypothetical reference is the next bar's open.")
+alertcondition(targetOutcome, "Target-first Outcome", "A previous hypothetical opportunity reached its target first. This is an outcome confirmation.")
+alertcondition(stopOutcome, "Stop-first Outcome", "A previous hypothetical opportunity reached its stop first. This is an outcome confirmation.")

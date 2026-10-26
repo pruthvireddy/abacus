@@ -1,0 +1,251 @@
+// This Pine Script® code is subject to the terms of the Mozilla Public License 2.0 at https://mozilla.org/MPL/2.0/ MPL-2.0
+//@version=6
+indicator("GC EMA Band | Long MAE/MFE Study", shorttitle = "GC Band MAE/MFE", overlay = false, max_polylines_count = 2)
+
+// --- Constants ---
+const int BASE_LENGTH = 225
+const int TREND_LENGTH = 135
+const int MAX_HORIZON = 100
+const int SHORT_HORIZON = 5
+const color BULL_COLOR = #00E676
+const color BEAR_COLOR = #FF5252
+const color TABLE_BG = #161616
+const color TABLE_BORDER = #2E2E2E
+const color TABLE_HEADER = #808080
+const color TABLE_TEXT = #DBDBDB
+
+// --- Inputs ---
+const string BAND_GROUP = "Bands"
+int lookbackInput = input.int(225, "Deviation lookback (bars)", minval = 2, maxval = 5000, group = BAND_GROUP, tooltip = "Rolling population standard deviation of close minus the 225 EMA; matches the original GC EMA band.")
+float innerMultInput = input.float(2.0, "Inner band (sigma)", minval = 0.1, maxval = 10.0, step = 0.1, group = BAND_GROUP, tooltip = "Distance of the inner band from the base EMA in residual standard deviations.")
+float outerMultInput = input.float(3.0, "Outer band (sigma)", minval = 0.1, maxval = 20.0, step = 0.1, group = BAND_GROUP, tooltip = "Distance of the outer band from the base EMA. A bar whose low is at or below this lower band signals a long.")
+
+const string STUDY_GROUP = "Event study / cooldown"
+int cooldownInput = input.int(10, "Cooldown after accepted touch (candles)", options = [0, 5, 10, 20], group = STUDY_GROUP, tooltip = "Ignore the next N completed 5-minute candles after each accepted signal. A touch on candle N+1 can qualify. The cooldown begins on the signal candle, not the next-open entry candle. Zero reproduces the prior every-touch study.")
+int comparisonHorizonInput = input.int(20, "Holding / comparison horizon (candles)", options = [5, 20, 30, 40, 50, 100], group = STUDY_GROUP, tooltip = "The comparison table uses this holding horizon. For the selected cooldown, a sell triangle also appears when this many completed candles have elapsed since the next-open entry (entry candle is candle 1). The hypothetical exit is at that candle's close.")
+bool showSellMarkersInput = input.bool(true, "Show holding-end sell triangles", group = STUDY_GROUP, tooltip = "Draw a tiny downward triangle above each completed selected-cooldown event when its selected holding period ends. These are visual signals only, not executed orders.")
+
+const string STYLE_GROUP = "Style"
+color upperColorInput = input.color(#EF5350, "Upper bands", group = STYLE_GROUP, tooltip = "Color of the original upper EMA bands on the price chart.")
+color lowerColorInput = input.color(#26A69A, "Lower bands", group = STYLE_GROUP, tooltip = "Color of the original lower EMA bands on the price chart.")
+color mfeColorInput = input.color(#089981, "MFE / entry", group = STYLE_GROUP, tooltip = "Color of average maximum favorable excursion and next-open entry markers.")
+color maeColorInput = input.color(#f23645, "MAE", group = STYLE_GROUP, tooltip = "Color of average maximum adverse excursion in the horizon chart.")
+color sellColorInput = input.color(#f23645, "Sell triangle", group = STYLE_GROUP, tooltip = "Color of the tiny holding-period-end sell triangles on the price chart.")
+bool shadeBandsInput = input.bool(true, "Shade between bands", group = STYLE_GROUP, tooltip = "Keep the original shading between inner and outer price bands.")
+int fillTransparencyInput = input.int(90, "Shading transparency", minval = 0, maxval = 100, group = STYLE_GROUP, tooltip = "Transparency of the price-band shading; 100 hides it.")
+int chartSpacingInput = input.int(6, "Horizon chart spacing (bars)", minval = 1, maxval = 20, group = STYLE_GROUP, tooltip = "Horizontal width of each candle-horizon step in the separate MAE/MFE pane. This is a horizon diagram, not a historical time series.")
+
+// --- Study State ---
+type StudyState
+    array<float> entryPricesArray
+    array<float> minLowsArray
+    array<float> maxHighsArray
+    array<int> agesArray
+    array<float> maeTotalsArray
+    array<float> mfeTotalsArray
+    array<float> closeTotalsArray
+    array<int> winTotalsArray
+    array<int> samplesArray
+    int lastSignalIndex
+
+newStudyState() =>
+    StudyState.new(array.new<float>(), array.new<float>(), array.new<float>(), array.new<int>(), array.new<float>(MAX_HORIZON, 0.0), array.new<float>(MAX_HORIZON, 0.0), array.new<float>(MAX_HORIZON, 0.0), array.new<int>(MAX_HORIZON, 0), array.new<int>(MAX_HORIZON, 0), -MAX_HORIZON - 1)
+
+// --- Validation ---
+if barstate.isfirst and outerMultInput <= innerMultInput
+    runtime.error("Outer band (sigma) must be greater than Inner band (sigma).")
+if barstate.isfirst and timeframe.in_seconds() != 300
+    runtime.error("Use this event study on a standard 5-minute chart.")
+
+// --- Original GC EMA Bands ---
+float emaBase = ta.ema(close, BASE_LENGTH)
+float emaTrend = ta.ema(close, TREND_LENGTH)
+color emaColor = emaTrend >= emaBase ? BULL_COLOR : BEAR_COLOR
+float residual = close - emaBase
+float sigma = ta.stdev(residual, lookbackInput, biased = true)
+bool bandsReady = bar_index >= math.max(BASE_LENGTH, lookbackInput) - 1 and not na(sigma)
+float upperInner = bandsReady ? emaBase + innerMultInput * sigma : na
+float upperOuter = bandsReady ? emaBase + outerMultInput * sigma : na
+float lowerInner = bandsReady ? emaBase - innerMultInput * sigma : na
+float lowerOuter = bandsReady ? emaBase - outerMultInput * sigma : na
+
+// --- Four Parallel, Independent Cooldown Studies ---
+// A touch is confirmed at its bar close; the hypothetical entry is the next bar's open.
+// Cooldown counts completed signal candles after an ACCEPTED touch. Overlapping active
+// outcomes remain independent; a new touch is ignored until the cooldown has expired.
+bool touchSignal = bandsReady and low <= lowerOuter and barstate.isconfirmed
+int selectedStudyIndex = cooldownInput == 0 ? 0 : cooldownInput == 5 ? 1 : cooldownInput == 10 ? 2 : 3
+var array<StudyState> studiesArray = array.new<StudyState>()
+if barstate.isfirst
+    for studyIndex = 0 to 3
+        array.push(studiesArray, newStudyState())
+
+bool selectedSignal = false
+bool selectedExit = false
+if barstate.isconfirmed
+    for studyIndex = 0 to 3
+        int cooldownBars = switch studyIndex
+            0 => 0
+            1 => 5
+            2 => 10
+            => 20
+        StudyState study = array.get(studiesArray, studyIndex)
+
+        // First enter on the bar after an accepted signal, never at the touch low.
+        if study.lastSignalIndex == bar_index - 1
+            array.push(study.entryPricesArray, open)
+            array.push(study.minLowsArray, open)
+            array.push(study.maxHighsArray, open)
+            array.push(study.agesArray, 0)
+
+        int eventIndex = 0
+        while eventIndex < array.size(study.entryPricesArray)
+            float entryPrice = array.get(study.entryPricesArray, eventIndex)
+            float eventLow = math.min(array.get(study.minLowsArray, eventIndex), low)
+            float eventHigh = math.max(array.get(study.maxHighsArray, eventIndex), high)
+            int eventAge = array.get(study.agesArray, eventIndex) + 1
+            int horizonIndex = eventAge - 1
+            array.set(study.minLowsArray, eventIndex, eventLow)
+            array.set(study.maxHighsArray, eventIndex, eventHigh)
+            array.set(study.agesArray, eventIndex, eventAge)
+
+            // GC points per troy ounce; MAE <= 0 and MFE >= 0.
+            array.set(study.maeTotalsArray, horizonIndex, array.get(study.maeTotalsArray, horizonIndex) + math.min(0.0, eventLow - entryPrice))
+            array.set(study.mfeTotalsArray, horizonIndex, array.get(study.mfeTotalsArray, horizonIndex) + math.max(0.0, eventHigh - entryPrice))
+            array.set(study.closeTotalsArray, horizonIndex, array.get(study.closeTotalsArray, horizonIndex) + close - entryPrice)
+            array.set(study.winTotalsArray, horizonIndex, array.get(study.winTotalsArray, horizonIndex) + (close > entryPrice ? 1 : 0))
+            array.set(study.samplesArray, horizonIndex, array.get(study.samplesArray, horizonIndex) + 1)
+
+            // One marker at the close of the selected holding candle; count the entry bar as 1.
+            if studyIndex == selectedStudyIndex and eventAge == comparisonHorizonInput
+                selectedExit := true
+
+            if eventAge == MAX_HORIZON
+                array.remove(study.entryPricesArray, eventIndex)
+                array.remove(study.minLowsArray, eventIndex)
+                array.remove(study.maxHighsArray, eventIndex)
+                array.remove(study.agesArray, eventIndex)
+            else
+                eventIndex += 1
+
+        // Qualify the current signal only AFTER updating existing entries. The next
+        // cooldown begins here; ignored touches do not reset it.
+        if touchSignal and bar_index - study.lastSignalIndex > cooldownBars
+            study.lastSignalIndex := bar_index
+            if studyIndex == selectedStudyIndex
+                selectedSignal := true
+
+StudyState selectedStudy = array.get(studiesArray, selectedStudyIndex)
+array<float> maeTotalsArray = selectedStudy.maeTotalsArray
+array<float> mfeTotalsArray = selectedStudy.mfeTotalsArray
+array<float> closeTotalsArray = selectedStudy.closeTotalsArray
+array<int> winTotalsArray = selectedStudy.winTotalsArray
+array<int> samplesArray = selectedStudy.samplesArray
+
+// --- Visuals: Original Bands and Filled Zones on the Price Chart ---
+plot(emaBase, "BASE", color = emaColor, linewidth = 4, force_overlay = true)
+upperInnerPlotId = plot(upperInner, "Upper inner band", color = upperColorInput, force_overlay = true)
+upperOuterPlotId = plot(upperOuter, "Upper outer band", color = upperColorInput, force_overlay = true)
+lowerInnerPlotId = plot(lowerInner, "Lower inner band", color = lowerColorInput, force_overlay = true)
+lowerOuterPlotId = plot(lowerOuter, "Lower outer band", color = lowerColorInput, force_overlay = true)
+fill(upperInnerPlotId, upperOuterPlotId, color = shadeBandsInput ? color.new(upperColorInput, fillTransparencyInput) : na, title = "Upper extension zone")
+fill(lowerInnerPlotId, lowerOuterPlotId, color = shadeBandsInput ? color.new(lowerColorInput, fillTransparencyInput) : na, title = "Lower extension zone")
+plot(selectedSignal[1] and barstate.isconfirmed ? open : na, "Selected-cooldown next-open long", color = mfeColorInput, linewidth = 3, style = plot.style_circles, force_overlay = true)
+plotshape(showSellMarkersInput and selectedExit, title = "Selected holding period ends — hypothetical sell at close", style = shape.triangledown, location = location.abovebar, color = sellColorInput, textcolor = chart.fg_color, size = size.tiny, force_overlay = true)
+hline(0, "Entry / zero excursion", color = TABLE_HEADER, linestyle = hline.style_dotted)
+
+// --- Horizon Diagram: X = Number of Entry Candles; Y = Average Excursion in GC Points ---
+var polyline mfeLineId = na
+var polyline maeLineId = na
+var array<label> horizonLabelsArray = array.new<label>()
+if barstate.islast
+    if not na(mfeLineId)
+        polyline.delete(mfeLineId)
+    if not na(maeLineId)
+        polyline.delete(maeLineId)
+    for horizonLabelId in horizonLabelsArray
+        label.delete(horizonLabelId)
+    array.clear(horizonLabelsArray)
+    array<chart.point> mfePointsArray = array.new<chart.point>()
+    array<chart.point> maePointsArray = array.new<chart.point>()
+    for candle = 1 to MAX_HORIZON
+        int horizonIndex = candle - 1
+        int sampleCount = array.get(samplesArray, horizonIndex)
+        if sampleCount > 0 and (candle == 1 or candle % 5 == 0)
+            int xCoord = bar_index - (MAX_HORIZON - candle) * chartSpacingInput
+            float meanMfe = array.get(mfeTotalsArray, horizonIndex) / sampleCount
+            float meanMae = array.get(maeTotalsArray, horizonIndex) / sampleCount
+            array.push(mfePointsArray, chart.point.from_index(xCoord, meanMfe))
+            array.push(maePointsArray, chart.point.from_index(xCoord, meanMae))
+            if candle == SHORT_HORIZON or candle == 20 or candle == 30 or candle == 40 or candle == 50 or candle == MAX_HORIZON
+                label horizonLabelId = label.new(xCoord, meanMfe, str.tostring(candle) + " bars", style = candle == MAX_HORIZON ? label.style_label_up : label.style_label_down, color = #00000000, textcolor = mfeColorInput, size = size.tiny)
+                array.push(horizonLabelsArray, horizonLabelId)
+    if array.size(mfePointsArray) > 1
+        mfeLineId := polyline.new(mfePointsArray, line_color = mfeColorInput, line_width = 3)
+        maeLineId := polyline.new(maePointsArray, line_color = maeColorInput, line_width = 3)
+
+// --- 5-, 20-, 30-, 40-, 50- and 100-Candle Results for Selected Cooldown ---
+var table resultsTable = table.new(position.middle_left, 6, 8, bgcolor = TABLE_BG, frame_color = TABLE_BORDER, frame_width = 1, border_color = TABLE_BORDER, border_width = 1)
+if barstate.islast
+    table.cell(resultsTable, 0, 0, "CANDLES", text_color = TABLE_HEADER, bgcolor = TABLE_BG, text_size = size.tiny)
+    table.cell(resultsTable, 1, 0, "SAMPLES", text_color = TABLE_HEADER, bgcolor = TABLE_BG, text_size = size.tiny)
+    table.cell(resultsTable, 2, 0, "AVG MFE", text_color = mfeColorInput, bgcolor = TABLE_BG, text_size = size.tiny)
+    table.cell(resultsTable, 3, 0, "AVG MAE", text_color = maeColorInput, bgcolor = TABLE_BG, text_size = size.tiny)
+    table.cell(resultsTable, 4, 0, "AVG CLOSE Δ", text_color = TABLE_HEADER, bgcolor = TABLE_BG, text_size = size.tiny)
+    table.cell(resultsTable, 5, 0, "CLOSE > ENTRY", text_color = TABLE_HEADER, bgcolor = TABLE_BG, text_size = size.tiny)
+    for row = 1 to 6
+        int horizon = switch row
+            1 => SHORT_HORIZON
+            2 => 20
+            3 => 30
+            4 => 40
+            5 => 50
+            => MAX_HORIZON
+        int horizonIndex = horizon - 1
+        int sampleCount = array.get(samplesArray, horizonIndex)
+        float avgMfe = sampleCount > 0 ? array.get(mfeTotalsArray, horizonIndex) / sampleCount : na
+        float avgMae = sampleCount > 0 ? array.get(maeTotalsArray, horizonIndex) / sampleCount : na
+        float avgClose = sampleCount > 0 ? array.get(closeTotalsArray, horizonIndex) / sampleCount : na
+        float winPercent = sampleCount > 0 ? 100.0 * array.get(winTotalsArray, horizonIndex) / sampleCount : na
+        table.cell(resultsTable, 0, row, str.tostring(horizon), text_color = TABLE_TEXT, bgcolor = TABLE_BG, text_size = size.small)
+        table.cell(resultsTable, 1, row, str.tostring(sampleCount), text_color = TABLE_TEXT, bgcolor = TABLE_BG, text_size = size.small)
+        table.cell(resultsTable, 2, row, sampleCount > 0 ? str.tostring(avgMfe, "#.##") : "—", text_color = mfeColorInput, bgcolor = TABLE_BG, text_size = size.small)
+        table.cell(resultsTable, 3, row, sampleCount > 0 ? str.tostring(avgMae, "#.##") : "—", text_color = maeColorInput, bgcolor = TABLE_BG, text_size = size.small)
+        table.cell(resultsTable, 4, row, sampleCount > 0 ? str.tostring(avgClose, "#.##") : "—", text_color = avgClose >= 0 ? mfeColorInput : maeColorInput, bgcolor = TABLE_BG, text_size = size.small)
+        table.cell(resultsTable, 5, row, sampleCount > 0 ? str.tostring(winPercent, "#.0") + "%" : "—", text_color = TABLE_TEXT, bgcolor = TABLE_BG, text_size = size.small)
+    table.cell(resultsTable, 0, 7, "GC POINTS", text_color = TABLE_HEADER, bgcolor = TABLE_BG, text_size = size.tiny)
+    table.cell(resultsTable, 1, 7, "Signal: low ≤ lower outer", text_color = TABLE_HEADER, bgcolor = TABLE_BG, text_size = size.tiny)
+    table.cell(resultsTable, 2, 7, "Entry: next open", text_color = TABLE_HEADER, bgcolor = TABLE_BG, text_size = size.tiny)
+    table.cell(resultsTable, 3, 7, "Extremes: high / low", text_color = TABLE_HEADER, bgcolor = TABLE_BG, text_size = size.tiny)
+    table.cell(resultsTable, 4, 7, "No fees / slippage", text_color = TABLE_HEADER, bgcolor = TABLE_BG, text_size = size.tiny)
+    table.cell(resultsTable, 5, 7, "Cooldown: " + str.tostring(cooldownInput) + " bars", text_color = TABLE_HEADER, bgcolor = TABLE_BG, text_size = size.tiny)
+
+// --- Side-by-Side Comparison at One Holding Horizon ---
+var table compareTable = table.new(position.top_right, 6, 5, bgcolor = TABLE_BG, frame_color = TABLE_BORDER, frame_width = 1, border_color = TABLE_BORDER, border_width = 1)
+if barstate.islast
+    table.cell(compareTable, 0, 0, "COOL / " + str.tostring(comparisonHorizonInput) + " BARS", text_color = TABLE_HEADER, bgcolor = TABLE_BG, text_size = size.tiny)
+    table.cell(compareTable, 1, 0, "SAMPLES", text_color = TABLE_HEADER, bgcolor = TABLE_BG, text_size = size.tiny)
+    table.cell(compareTable, 2, 0, "WIN %", text_color = TABLE_HEADER, bgcolor = TABLE_BG, text_size = size.tiny)
+    table.cell(compareTable, 3, 0, "AVG CLOSE Δ", text_color = TABLE_HEADER, bgcolor = TABLE_BG, text_size = size.tiny)
+    table.cell(compareTable, 4, 0, "AVG MFE", text_color = mfeColorInput, bgcolor = TABLE_BG, text_size = size.tiny)
+    table.cell(compareTable, 5, 0, "AVG MAE", text_color = maeColorInput, bgcolor = TABLE_BG, text_size = size.tiny)
+    int comparisonIndex = comparisonHorizonInput - 1
+    for row = 1 to 4
+        int cooldownBars = switch row
+            1 => 0
+            2 => 5
+            3 => 10
+            => 20
+        StudyState comparedStudy = array.get(studiesArray, row - 1)
+        int sampleCount = array.get(comparedStudy.samplesArray, comparisonIndex)
+        float winPercent = sampleCount > 0 ? 100.0 * array.get(comparedStudy.winTotalsArray, comparisonIndex) / sampleCount : na
+        float avgClose = sampleCount > 0 ? array.get(comparedStudy.closeTotalsArray, comparisonIndex) / sampleCount : na
+        float avgMfe = sampleCount > 0 ? array.get(comparedStudy.mfeTotalsArray, comparisonIndex) / sampleCount : na
+        float avgMae = sampleCount > 0 ? array.get(comparedStudy.maeTotalsArray, comparisonIndex) / sampleCount : na
+        color rowBg = cooldownBars == cooldownInput ? color.new(mfeColorInput, 88) : TABLE_BG
+        table.cell(compareTable, 0, row, str.tostring(cooldownBars) + " bars", text_color = cooldownBars == cooldownInput ? mfeColorInput : TABLE_TEXT, bgcolor = rowBg, text_size = size.small)
+        table.cell(compareTable, 1, row, str.tostring(sampleCount), text_color = TABLE_TEXT, bgcolor = rowBg, text_size = size.small)
+        table.cell(compareTable, 2, row, sampleCount > 0 ? str.tostring(winPercent, "#.0") + "%" : "—", text_color = TABLE_TEXT, bgcolor = rowBg, text_size = size.small)
+        table.cell(compareTable, 3, row, sampleCount > 0 ? str.tostring(avgClose, "#.##") : "—", text_color = avgClose >= 0 ? mfeColorInput : maeColorInput, bgcolor = rowBg, text_size = size.small)
+        table.cell(compareTable, 4, row, sampleCount > 0 ? str.tostring(avgMfe, "#.##") : "—", text_color = mfeColorInput, bgcolor = rowBg, text_size = size.small)
+        table.cell(compareTable, 5, row, sampleCount > 0 ? str.tostring(avgMae, "#.##") : "—", text_color = maeColorInput, bgcolor = rowBg, text_size = size.small)

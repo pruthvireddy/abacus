@@ -1,0 +1,3 @@
+# Interpretation — 2026-10-23 — 3-minute EMA6
+
+This study describes crossing frequency for the corrected 6-period EMA of 3-minute closing prices; it does not establish an entry rule or profitability. Use the yearly/monthly denominators, matched-date cohort and distribution before translating an average into an expectation for one day. Prior ATR regime is available before the session; eventual range/ATR is known after the session. Uneven, retrospective input eligibility limits generalization. The 3-minute VWAP is a study-local derivation from pinned minute inputs. Any execution strategy or broader data-eligibility study requires a new protocol and run.

@@ -1,0 +1,755 @@
+{
+  "schema_version": 1,
+  "method": "Frozen preceding 15m EMA20/50 direction; entry at its close; each H observes event bar through Hth next confirmed chart bar; no stop/target, fee, slippage or overlapping-observation suppression.",
+  "study_start_inclusive_ny": "2025-10-17T00:00:00-04:00",
+  "study_end_exclusive_ny": "2026-10-17T00:00:00-04:00",
+  "table_timezone": "America/Chicago",
+  "period_owner": "entry close/event timestamp",
+  "units": "pips (0.0001); 2 6E standard ticks per pip",
+  "price_audit": [
+    {
+      "file": "/Users/ppanati/Documents/projects/tv-indicators/forex_news/6e_news_study/prices_recent_native.csv",
+      "sha256": "4f64f497bae15e1648734e319edf91d8238eef13618f39d84776bfe569664cbe",
+      "rows": 20908,
+      "first_bar_utc": "2025-11-30T23:00:00+00:00",
+      "last_bar_utc": "2026-10-16T20:45:00+00:00",
+      "overlap_bars": 0,
+      "offset_to_anchor": 0.0,
+      "native_ema_recurrence": {
+        "native_fast": {
+          "length": 20,
+          "pairs": 20888,
+          "maximum_abs_error": 0.0
+        },
+        "native_slow": {
+          "length": 50,
+          "pairs": 20858,
+          "maximum_abs_error": 0.0
+        }
+      }
+    },
+    {
+      "file": "/Users/ppanati/Documents/projects/tv-indicators/forex_news/6e_news_study/prices_replay_2025-12-01_native.csv",
+      "sha256": "8285e8b9cf656055897d6ec070f2f5541bec9245be7662a50527d024eaf421aa",
+      "rows": 3190,
+      "first_bar_utc": "2025-10-12T22:45:00+00:00",
+      "last_bar_utc": "2025-12-01T04:45:00+00:00",
+      "overlap_bars": 24,
+      "offset_to_anchor": -2.220446049250313e-16,
+      "native_ema_recurrence": {
+        "native_fast": {
+          "length": 20,
+          "pairs": 3189,
+          "maximum_abs_error": 2.220446049250313e-16
+        },
+        "native_slow": {
+          "length": 50,
+          "pairs": 3189,
+          "maximum_abs_error": 2.220446049250313e-16
+        }
+      }
+    },
+    {
+      "continuous_ema_seed_utc": "2025-10-12T22:45:00+00:00",
+      "seed_source": "prices_replay_2025-12-01_native.csv",
+      "explanation": "Native older EMA seed, recursively continued through merged OHLC; recent export independently warm-started and initially has blank EMAs.",
+      "total_bars": 24074,
+      "study_bars": 23685
+    }
+  ],
+  "calendar_audit": {
+    "source": "/Users/ppanati/Documents/projects/tv-indicators/forex_news/6e_news_study/calendar_classification.json",
+    "sha256": "d6e51ae1e867561a82f67a78ae7859db307fc99f449c20942721c5fe8ea3ec1b",
+    "provider": "TradingView historical economic calendar (archived)",
+    "provider_coverage_note": "The final chart indicator uses the audited archive for history through 2026-10-17, and ForexFactory thereafter. An earlier ForexFactory-only build had correct statistics arithmetic but inaccurate historical event coverage and was replaced.",
+    "selected_categories": [
+      "us_cpi",
+      "us_employment_report",
+      "us_fomc_decision",
+      "us_fomc_press_conference",
+      "us_ism_manufacturing",
+      "us_sp_pmi_flash"
+    ],
+    "selected_component_rows": 215,
+    "unique_event_timestamps": 64,
+    "duplicate_source_rows_removed": 0,
+    "excluded_source_rows": [],
+    "simultaneous_component_rows_collapsed": 151,
+    "no_isolation_filter": true
+  },
+  "embedded_archive_audit": {
+    "available": true,
+    "classified_input_sha256": "d6e51ae1e867561a82f67a78ae7859db307fc99f449c20942721c5fe8ea3ec1b",
+    "generated_archive_sha256": "e9c16aa60559651961c470e999049777b6eb8682b8e0cf6e93c2dae8c4d17f6f",
+    "indicator_sha256": "b18a6ea42e742665b6cbc6a9849360420d02ddf84a4d8b17c24eb41976f49fa0",
+    "distinct_title_components": 461,
+    "compact_records": 228,
+    "all_category_timestamps": 158,
+    "default_us_timestamps": 126,
+    "exact_source_component_equality": true,
+    "exact_compact_count_equality": true,
+    "exact_embedded_pine_record_equality": true,
+    "all_timestamps_on_15m_grid": true
+  },
+  "accepted_observations": 64,
+  "skipped_observations": [],
+  "direction_counts": {
+    "Long": 22,
+    "Short": 42
+  },
+  "overall": [
+    {
+      "horizon_bars": 5,
+      "signals": 64,
+      "closed": 64,
+      "pending": 0,
+      "average_mfe_pips": 24.46875000000001,
+      "average_mae_pips": 16.242187500000068,
+      "average_close_pips": 6.929687500000017,
+      "favorable_close_percent": 56.25,
+      "mfe_above_mae_percent": 57.8125
+    },
+    {
+      "horizon_bars": 10,
+      "signals": 64,
+      "closed": 64,
+      "pending": 0,
+      "average_mfe_pips": 27.64843749999999,
+      "average_mae_pips": 18.73437500000009,
+      "average_close_pips": 6.023437499999944,
+      "favorable_close_percent": 54.6875,
+      "mfe_above_mae_percent": 57.8125
+    },
+    {
+      "horizon_bars": 15,
+      "signals": 64,
+      "closed": 64,
+      "pending": 0,
+      "average_mfe_pips": 29.117187500000107,
+      "average_mae_pips": 21.843750000000092,
+      "average_close_pips": 3.929687499999931,
+      "favorable_close_percent": 57.8125,
+      "mfe_above_mae_percent": 56.25
+    },
+    {
+      "horizon_bars": 50,
+      "signals": 64,
+      "closed": 64,
+      "pending": 0,
+      "average_mfe_pips": 32.53906250000004,
+      "average_mae_pips": 28.71875000000013,
+      "average_close_pips": 0.8281250000000824,
+      "favorable_close_percent": 53.125,
+      "mfe_above_mae_percent": 51.5625
+    },
+    {
+      "horizon_bars": 100,
+      "signals": 64,
+      "closed": 64,
+      "pending": 0,
+      "average_mfe_pips": 42.882812500000014,
+      "average_mae_pips": 40.96875000000003,
+      "average_close_pips": -0.18749999999997935,
+      "favorable_close_percent": 53.125,
+      "mfe_above_mae_percent": 46.875
+    }
+  ],
+  "monthly_h5_all": [
+    {
+      "month_chicago": "2025-10",
+      "horizon_bars": 5,
+      "signals": 4,
+      "closed": 4,
+      "pending": 0,
+      "average_mfe_pips": 14.374999999999805,
+      "average_mae_pips": 36.12499999999963,
+      "average_close_pips": -24.49999999999952,
+      "favorable_close_percent": 25.0,
+      "mfe_above_mae_percent": 25.0
+    },
+    {
+      "month_chicago": "2025-11",
+      "horizon_bars": 5,
+      "signals": 3,
+      "closed": 3,
+      "pending": 0,
+      "average_mfe_pips": 12.000000000000158,
+      "average_mae_pips": 21.833333333332778,
+      "average_close_pips": -11.166666666665806,
+      "favorable_close_percent": 33.33333333333333,
+      "mfe_above_mae_percent": 33.33333333333333
+    },
+    {
+      "month_chicago": "2025-12",
+      "horizon_bars": 5,
+      "signals": 6,
+      "closed": 6,
+      "pending": 0,
+      "average_mfe_pips": 22.66666666666676,
+      "average_mae_pips": 18.166666666666885,
+      "average_close_pips": 10.500000000000325,
+      "favorable_close_percent": 50.0,
+      "mfe_above_mae_percent": 66.66666666666666
+    },
+    {
+      "month_chicago": "2026-01",
+      "horizon_bars": 5,
+      "signals": 6,
+      "closed": 6,
+      "pending": 0,
+      "average_mfe_pips": 8.499999999999803,
+      "average_mae_pips": 27.58333333333307,
+      "average_close_pips": -15.916666666666579,
+      "favorable_close_percent": 16.666666666666664,
+      "mfe_above_mae_percent": 16.666666666666664
+    },
+    {
+      "month_chicago": "2026-02",
+      "horizon_bars": 5,
+      "signals": 4,
+      "closed": 4,
+      "pending": 0,
+      "average_mfe_pips": 36.50000000000042,
+      "average_mae_pips": 9.124999999999828,
+      "average_close_pips": 19.374999999999808,
+      "favorable_close_percent": 75.0,
+      "mfe_above_mae_percent": 75.0
+    },
+    {
+      "month_chicago": "2026-03",
+      "horizon_bars": 5,
+      "signals": 6,
+      "closed": 6,
+      "pending": 0,
+      "average_mfe_pips": 28.41666666666705,
+      "average_mae_pips": 14.166666666666956,
+      "average_close_pips": 18.83333333333274,
+      "favorable_close_percent": 66.66666666666666,
+      "mfe_above_mae_percent": 66.66666666666666
+    },
+    {
+      "month_chicago": "2026-04",
+      "horizon_bars": 5,
+      "signals": 6,
+      "closed": 6,
+      "pending": 0,
+      "average_mfe_pips": 14.749999999999671,
+      "average_mae_pips": 12.333333333333826,
+      "average_close_pips": 0.5833333333334542,
+      "favorable_close_percent": 66.66666666666666,
+      "mfe_above_mae_percent": 66.66666666666666
+    },
+    {
+      "month_chicago": "2026-05",
+      "horizon_bars": 5,
+      "signals": 4,
+      "closed": 4,
+      "pending": 0,
+      "average_mfe_pips": 13.000000000000234,
+      "average_mae_pips": 12.625000000001108,
+      "average_close_pips": 3.4999999999990594,
+      "favorable_close_percent": 75.0,
+      "mfe_above_mae_percent": 50.0
+    },
+    {
+      "month_chicago": "2026-06",
+      "horizon_bars": 5,
+      "signals": 6,
+      "closed": 6,
+      "pending": 0,
+      "average_mfe_pips": 32.74999999999991,
+      "average_mae_pips": 18.666666666666462,
+      "average_close_pips": 12.583333333333611,
+      "favorable_close_percent": 50.0,
+      "mfe_above_mae_percent": 50.0
+    },
+    {
+      "month_chicago": "2026-07",
+      "horizon_bars": 5,
+      "signals": 6,
+      "closed": 6,
+      "pending": 0,
+      "average_mfe_pips": 31.50000000000023,
+      "average_mae_pips": 17.333333333333275,
+      "average_close_pips": 11.333333333333934,
+      "favorable_close_percent": 66.66666666666666,
+      "mfe_above_mae_percent": 66.66666666666666
+    },
+    {
+      "month_chicago": "2026-08",
+      "horizon_bars": 5,
+      "signals": 4,
+      "closed": 4,
+      "pending": 0,
+      "average_mfe_pips": 24.37499999999981,
+      "average_mae_pips": 8.00000000000023,
+      "average_close_pips": 14.24999999999954,
+      "favorable_close_percent": 50.0,
+      "mfe_above_mae_percent": 50.0
+    },
+    {
+      "month_chicago": "2026-09",
+      "horizon_bars": 5,
+      "signals": 6,
+      "closed": 6,
+      "pending": 0,
+      "average_mfe_pips": 36.08333333333324,
+      "average_mae_pips": 4.666666666666893,
+      "average_close_pips": 19.166666666666035,
+      "favorable_close_percent": 83.33333333333334,
+      "mfe_above_mae_percent": 100.0
+    },
+    {
+      "month_chicago": "2026-10",
+      "horizon_bars": 5,
+      "signals": 3,
+      "closed": 3,
+      "pending": 0,
+      "average_mfe_pips": 42.99999999999971,
+      "average_mae_pips": 10.99999999999953,
+      "average_close_pips": 28.000000000000615,
+      "favorable_close_percent": 66.66666666666666,
+      "mfe_above_mae_percent": 66.66666666666666
+    }
+  ],
+  "monthly_h5_displayed_last8": [
+    {
+      "month_chicago": "2026-03",
+      "horizon_bars": 5,
+      "signals": 6,
+      "closed": 6,
+      "pending": 0,
+      "average_mfe_pips": 28.41666666666705,
+      "average_mae_pips": 14.166666666666956,
+      "average_close_pips": 18.83333333333274,
+      "favorable_close_percent": 66.66666666666666,
+      "mfe_above_mae_percent": 66.66666666666666
+    },
+    {
+      "month_chicago": "2026-04",
+      "horizon_bars": 5,
+      "signals": 6,
+      "closed": 6,
+      "pending": 0,
+      "average_mfe_pips": 14.749999999999671,
+      "average_mae_pips": 12.333333333333826,
+      "average_close_pips": 0.5833333333334542,
+      "favorable_close_percent": 66.66666666666666,
+      "mfe_above_mae_percent": 66.66666666666666
+    },
+    {
+      "month_chicago": "2026-05",
+      "horizon_bars": 5,
+      "signals": 4,
+      "closed": 4,
+      "pending": 0,
+      "average_mfe_pips": 13.000000000000234,
+      "average_mae_pips": 12.625000000001108,
+      "average_close_pips": 3.4999999999990594,
+      "favorable_close_percent": 75.0,
+      "mfe_above_mae_percent": 50.0
+    },
+    {
+      "month_chicago": "2026-06",
+      "horizon_bars": 5,
+      "signals": 6,
+      "closed": 6,
+      "pending": 0,
+      "average_mfe_pips": 32.74999999999991,
+      "average_mae_pips": 18.666666666666462,
+      "average_close_pips": 12.583333333333611,
+      "favorable_close_percent": 50.0,
+      "mfe_above_mae_percent": 50.0
+    },
+    {
+      "month_chicago": "2026-07",
+      "horizon_bars": 5,
+      "signals": 6,
+      "closed": 6,
+      "pending": 0,
+      "average_mfe_pips": 31.50000000000023,
+      "average_mae_pips": 17.333333333333275,
+      "average_close_pips": 11.333333333333934,
+      "favorable_close_percent": 66.66666666666666,
+      "mfe_above_mae_percent": 66.66666666666666
+    },
+    {
+      "month_chicago": "2026-08",
+      "horizon_bars": 5,
+      "signals": 4,
+      "closed": 4,
+      "pending": 0,
+      "average_mfe_pips": 24.37499999999981,
+      "average_mae_pips": 8.00000000000023,
+      "average_close_pips": 14.24999999999954,
+      "favorable_close_percent": 50.0,
+      "mfe_above_mae_percent": 50.0
+    },
+    {
+      "month_chicago": "2026-09",
+      "horizon_bars": 5,
+      "signals": 6,
+      "closed": 6,
+      "pending": 0,
+      "average_mfe_pips": 36.08333333333324,
+      "average_mae_pips": 4.666666666666893,
+      "average_close_pips": 19.166666666666035,
+      "favorable_close_percent": 83.33333333333334,
+      "mfe_above_mae_percent": 100.0
+    },
+    {
+      "month_chicago": "2026-10",
+      "horizon_bars": 5,
+      "signals": 3,
+      "closed": 3,
+      "pending": 0,
+      "average_mfe_pips": 42.99999999999971,
+      "average_mae_pips": 10.99999999999953,
+      "average_close_pips": 28.000000000000615,
+      "favorable_close_percent": 66.66666666666666,
+      "mfe_above_mae_percent": 66.66666666666666
+    }
+  ],
+  "checks": {
+    "entry_candle_extremes_excluded": true,
+    "frozen_entry_direction": true,
+    "long_and_short_excursion_signs": true,
+    "entry_period_ownership": true,
+    "incomplete_horizon_excluded": true,
+    "simultaneous_components_collapse": true,
+    "one_observation_per_timestamp": true,
+    "all_entries_precede_event_bar": true,
+    "all_directions_match_preceding_cloud": true
+  },
+  "native_indicator_comparison": {
+    "path": "/Users/ppanati/Downloads/CME_6E1!, 15 (6).csv",
+    "sha256": "493bd9973bcc671a6d6d6c15409da2cb1ecece093bc2647dac5c02895a91f463",
+    "coverage": {
+      "native_export_first_bar_utc": "2025-11-30T23:00:00+00:00",
+      "native_export_last_bar_utc": "2026-10-16T20:45:00+00:00",
+      "native_rows": 20908,
+      "raw_selected_entries": 57,
+      "measured_entries": 57,
+      "archived_selected_events_with_entry_bar_in_export": 57,
+      "shared_calendar_event_times": 57,
+      "native_only_event_times": [],
+      "archived_only_event_times": [],
+      "shared_direction_disagreements": [],
+      "max_abs_native_vs_archived_entry_ohlc_difference": 0.0,
+      "max_abs_native_vs_stitched_ema_difference_at_entries": 0.00014696825237248134
+    },
+    "method": "Native exported News measured side fixes entry timestamps and sides; independent Python OHLC slicing supplies all horizon excursions.",
+    "checks": {
+      "entry_side_matches_same_bar_ema_cloud": true,
+      "news_timestamp_equals_entry_close": true,
+      "one_entry_per_timestamp": true,
+      "exact_archived_event_timestamp_set": true,
+      "all_shared_directions_match_archive": true,
+      "all_shared_horizon_values_match_archive": true
+    },
+    "archive_parity": {
+      "required": true,
+      "passed": true,
+      "compared_horizon_fields": 1140,
+      "mismatches": []
+    },
+    "direction_counts": {
+      "Long": 18,
+      "Short": 39
+    },
+    "overall": [
+      {
+        "horizon_bars": 5,
+        "signals": 57,
+        "closed": 57,
+        "pending": 0,
+        "average_mfe_pips": 25.83333333333335,
+        "average_mae_pips": 14.552631578947498,
+        "average_close_pips": 10.087719298245554,
+        "favorable_close_percent": 59.64912280701754,
+        "mfe_above_mae_percent": 61.40350877192983
+      },
+      {
+        "horizon_bars": 10,
+        "signals": 57,
+        "closed": 57,
+        "pending": 0,
+        "average_mfe_pips": 29.263157894736814,
+        "average_mae_pips": 17.16666666666678,
+        "average_close_pips": 8.807017543859576,
+        "favorable_close_percent": 57.89473684210527,
+        "mfe_above_mae_percent": 61.40350877192983
+      },
+      {
+        "horizon_bars": 15,
+        "signals": 57,
+        "closed": 57,
+        "pending": 0,
+        "average_mfe_pips": 30.912280701754487,
+        "average_mae_pips": 20.657894736842223,
+        "average_close_pips": 6.236842105263074,
+        "favorable_close_percent": 61.40350877192983,
+        "mfe_above_mae_percent": 59.64912280701754
+      },
+      {
+        "horizon_bars": 50,
+        "signals": 57,
+        "closed": 57,
+        "pending": 0,
+        "average_mfe_pips": 34.42105263157897,
+        "average_mae_pips": 28.377192982456307,
+        "average_close_pips": 2.0087719298245936,
+        "favorable_close_percent": 57.89473684210527,
+        "mfe_above_mae_percent": 54.385964912280706
+      },
+      {
+        "horizon_bars": 100,
+        "signals": 57,
+        "closed": 57,
+        "pending": 0,
+        "average_mfe_pips": 45.50877192982457,
+        "average_mae_pips": 40.44736842105267,
+        "average_close_pips": 1.7982456140350258,
+        "favorable_close_percent": 52.63157894736842,
+        "mfe_above_mae_percent": 49.122807017543856
+      }
+    ],
+    "monthly_h5": [
+      {
+        "month_chicago": "2025-12",
+        "horizon_bars": 5,
+        "signals": 6,
+        "closed": 6,
+        "pending": 0,
+        "average_mfe_pips": 22.66666666666676,
+        "average_mae_pips": 18.166666666666885,
+        "average_close_pips": 10.500000000000325,
+        "favorable_close_percent": 50.0,
+        "mfe_above_mae_percent": 66.66666666666666
+      },
+      {
+        "month_chicago": "2026-01",
+        "horizon_bars": 5,
+        "signals": 6,
+        "closed": 6,
+        "pending": 0,
+        "average_mfe_pips": 8.499999999999803,
+        "average_mae_pips": 27.58333333333307,
+        "average_close_pips": -15.916666666666579,
+        "favorable_close_percent": 16.666666666666664,
+        "mfe_above_mae_percent": 16.666666666666664
+      },
+      {
+        "month_chicago": "2026-02",
+        "horizon_bars": 5,
+        "signals": 4,
+        "closed": 4,
+        "pending": 0,
+        "average_mfe_pips": 36.50000000000042,
+        "average_mae_pips": 9.124999999999828,
+        "average_close_pips": 19.374999999999808,
+        "favorable_close_percent": 75.0,
+        "mfe_above_mae_percent": 75.0
+      },
+      {
+        "month_chicago": "2026-03",
+        "horizon_bars": 5,
+        "signals": 6,
+        "closed": 6,
+        "pending": 0,
+        "average_mfe_pips": 28.41666666666705,
+        "average_mae_pips": 14.166666666666956,
+        "average_close_pips": 18.83333333333274,
+        "favorable_close_percent": 66.66666666666666,
+        "mfe_above_mae_percent": 66.66666666666666
+      },
+      {
+        "month_chicago": "2026-04",
+        "horizon_bars": 5,
+        "signals": 6,
+        "closed": 6,
+        "pending": 0,
+        "average_mfe_pips": 14.749999999999671,
+        "average_mae_pips": 12.333333333333826,
+        "average_close_pips": 0.5833333333334542,
+        "favorable_close_percent": 66.66666666666666,
+        "mfe_above_mae_percent": 66.66666666666666
+      },
+      {
+        "month_chicago": "2026-05",
+        "horizon_bars": 5,
+        "signals": 4,
+        "closed": 4,
+        "pending": 0,
+        "average_mfe_pips": 13.000000000000234,
+        "average_mae_pips": 12.625000000001108,
+        "average_close_pips": 3.4999999999990594,
+        "favorable_close_percent": 75.0,
+        "mfe_above_mae_percent": 50.0
+      },
+      {
+        "month_chicago": "2026-06",
+        "horizon_bars": 5,
+        "signals": 6,
+        "closed": 6,
+        "pending": 0,
+        "average_mfe_pips": 32.74999999999991,
+        "average_mae_pips": 18.666666666666462,
+        "average_close_pips": 12.583333333333611,
+        "favorable_close_percent": 50.0,
+        "mfe_above_mae_percent": 50.0
+      },
+      {
+        "month_chicago": "2026-07",
+        "horizon_bars": 5,
+        "signals": 6,
+        "closed": 6,
+        "pending": 0,
+        "average_mfe_pips": 31.50000000000023,
+        "average_mae_pips": 17.333333333333275,
+        "average_close_pips": 11.333333333333934,
+        "favorable_close_percent": 66.66666666666666,
+        "mfe_above_mae_percent": 66.66666666666666
+      },
+      {
+        "month_chicago": "2026-08",
+        "horizon_bars": 5,
+        "signals": 4,
+        "closed": 4,
+        "pending": 0,
+        "average_mfe_pips": 24.37499999999981,
+        "average_mae_pips": 8.00000000000023,
+        "average_close_pips": 14.24999999999954,
+        "favorable_close_percent": 50.0,
+        "mfe_above_mae_percent": 50.0
+      },
+      {
+        "month_chicago": "2026-09",
+        "horizon_bars": 5,
+        "signals": 6,
+        "closed": 6,
+        "pending": 0,
+        "average_mfe_pips": 36.08333333333324,
+        "average_mae_pips": 4.666666666666893,
+        "average_close_pips": 19.166666666666035,
+        "favorable_close_percent": 83.33333333333334,
+        "mfe_above_mae_percent": 100.0
+      },
+      {
+        "month_chicago": "2026-10",
+        "horizon_bars": 5,
+        "signals": 3,
+        "closed": 3,
+        "pending": 0,
+        "average_mfe_pips": 42.99999999999971,
+        "average_mae_pips": 10.99999999999953,
+        "average_close_pips": 28.000000000000615,
+        "favorable_close_percent": 66.66666666666666,
+        "mfe_above_mae_percent": 66.66666666666666
+      }
+    ],
+    "monthly_h5_displayed_last8": [
+      {
+        "month_chicago": "2026-03",
+        "horizon_bars": 5,
+        "signals": 6,
+        "closed": 6,
+        "pending": 0,
+        "average_mfe_pips": 28.41666666666705,
+        "average_mae_pips": 14.166666666666956,
+        "average_close_pips": 18.83333333333274,
+        "favorable_close_percent": 66.66666666666666,
+        "mfe_above_mae_percent": 66.66666666666666
+      },
+      {
+        "month_chicago": "2026-04",
+        "horizon_bars": 5,
+        "signals": 6,
+        "closed": 6,
+        "pending": 0,
+        "average_mfe_pips": 14.749999999999671,
+        "average_mae_pips": 12.333333333333826,
+        "average_close_pips": 0.5833333333334542,
+        "favorable_close_percent": 66.66666666666666,
+        "mfe_above_mae_percent": 66.66666666666666
+      },
+      {
+        "month_chicago": "2026-05",
+        "horizon_bars": 5,
+        "signals": 4,
+        "closed": 4,
+        "pending": 0,
+        "average_mfe_pips": 13.000000000000234,
+        "average_mae_pips": 12.625000000001108,
+        "average_close_pips": 3.4999999999990594,
+        "favorable_close_percent": 75.0,
+        "mfe_above_mae_percent": 50.0
+      },
+      {
+        "month_chicago": "2026-06",
+        "horizon_bars": 5,
+        "signals": 6,
+        "closed": 6,
+        "pending": 0,
+        "average_mfe_pips": 32.74999999999991,
+        "average_mae_pips": 18.666666666666462,
+        "average_close_pips": 12.583333333333611,
+        "favorable_close_percent": 50.0,
+        "mfe_above_mae_percent": 50.0
+      },
+      {
+        "month_chicago": "2026-07",
+        "horizon_bars": 5,
+        "signals": 6,
+        "closed": 6,
+        "pending": 0,
+        "average_mfe_pips": 31.50000000000023,
+        "average_mae_pips": 17.333333333333275,
+        "average_close_pips": 11.333333333333934,
+        "favorable_close_percent": 66.66666666666666,
+        "mfe_above_mae_percent": 66.66666666666666
+      },
+      {
+        "month_chicago": "2026-08",
+        "horizon_bars": 5,
+        "signals": 4,
+        "closed": 4,
+        "pending": 0,
+        "average_mfe_pips": 24.37499999999981,
+        "average_mae_pips": 8.00000000000023,
+        "average_close_pips": 14.24999999999954,
+        "favorable_close_percent": 50.0,
+        "mfe_above_mae_percent": 50.0
+      },
+      {
+        "month_chicago": "2026-09",
+        "horizon_bars": 5,
+        "signals": 6,
+        "closed": 6,
+        "pending": 0,
+        "average_mfe_pips": 36.08333333333324,
+        "average_mae_pips": 4.666666666666893,
+        "average_close_pips": 19.166666666666035,
+        "favorable_close_percent": 83.33333333333334,
+        "mfe_above_mae_percent": 100.0
+      },
+      {
+        "month_chicago": "2026-10",
+        "horizon_bars": 5,
+        "signals": 3,
+        "closed": 3,
+        "pending": 0,
+        "average_mfe_pips": 42.99999999999971,
+        "average_mae_pips": 10.99999999999953,
+        "average_close_pips": 28.000000000000615,
+        "favorable_close_percent": 66.66666666666666,
+        "mfe_above_mae_percent": 66.66666666666666
+      }
+    ]
+  },
+  "limitations": [
+    "Associated excursions after scheduled releases do not estimate causality.",
+    "Observation windows can overlap and are not separate executable trades.",
+    "Back-adjusted continuous futures prices; no assumed fill improvement."
+  ]
+}

@@ -1,0 +1,873 @@
+//@version=6
+indicator("EMA Cloud Trend Follower", overlay=true, behind_chart=false)
+
+// EMA cloud, confirmed touch signals and point-based studies.
+// All volume-profile, HVN and session-level modules have been removed.
+
+// EMA Cloud
+grp_ema_cloud = "EMA CLOUD"
+ema_cloud_show = input.bool(true, "Show", inline="ema_cloud_1", group=grp_ema_cloud)
+ema_cloud_tf = input.timeframe("5", "TF", inline="ema_cloud_1", group=grp_ema_cloud)
+ema_cloud_fast_len = input.int(20, "Fast", inline="ema_cloud_2", group=grp_ema_cloud, minval=1)
+ema_cloud_slow_len = input.int(50, "Slow", inline="ema_cloud_2", group=grp_ema_cloud, minval=1)
+ema_cloud_up = input.color(color.new(color.green, 85), "Up", inline="ema_cloud_3", group=grp_ema_cloud)
+ema_cloud_down = input.color(color.new(color.red, 85), "Down", inline="ema_cloud_3", group=grp_ema_cloud)
+ema_cloud_boundaries = input.bool(false, "Show EMA boundaries", group=grp_ema_cloud)
+ema_cloud_confirmed = input.bool(true, "Use confirmed higher-timeframe bars", group=grp_ema_cloud,
+     tooltip="When TF is higher than the chart timeframe, uses the previous completed TF bar's EMAs. Values update when the next TF bar begins. Disable to use developing TF values. At the chart timeframe, EMAs use the current bar; lower timeframes use the last available intrabar.")
+
+// Distances are raw price points: 7432.40 - 7430.00 = 2.40.
+grp_ema_table = "EMA Cloud - Values table"
+ema_table_show = input.bool(true, "Show EMA values table", group=grp_ema_table, display=display.none, tooltip="Hide or show this table independently. Signal settings remain active.")
+ema_table_corner = input.string("Top Right", "Position", options=["Top Left", "Top Right", "Bottom Left", "Bottom Right"], group=grp_ema_table, active=ema_table_show, display=display.none)
+ema_table_size = input.string("Small", "Text size", options=["Tiny", "Small", "Normal"], group=grp_ema_table, active=ema_table_show, display=display.none)
+ema_point_decimals = input.int(2, "Point decimals", minval=0, maxval=8, group=grp_ema_table, display=display.none,
+     tooltip="Display precision only. EMAs, thickness, thresholds and statistics use raw price values, without conversion to ticks or pips or rounding to the tick grid.")
+
+grp_ema_thickness = "EMA Cloud - Asset thickness (points)"
+ema_thickness_gc = input.float(2.40, "GC", minval=0.0, step=0.10, group=grp_ema_thickness, display=display.none,
+     tooltip="Minimum cloud thickness for GC and MGC futures, in raw price points.")
+ema_thickness_es = input.float(2.40, "ES / fallback", minval=0.0, step=0.10, group=grp_ema_thickness, display=display.none,
+     tooltip="Minimum cloud thickness for ES and MES, and the fallback for every other symbol. Asset selection uses the chart's futures root.")
+ema_thickness_nq = input.float(2.40, "NQ", minval=0.0, step=0.10, group=grp_ema_thickness, display=display.none,
+     tooltip="Minimum cloud thickness for NQ and MNQ futures, in raw price points. Thresholds are inclusive and checked on the selected EMA's touch bar.")
+
+grp_ema_signals = "EMA Cloud - Touch signals"
+ema_buy_enabled = input.bool(true, "Enable Buy", inline="ema_signal_sides", group=grp_ema_signals, display=display.none)
+ema_sell_enabled = input.bool(true, "Enable Sell", inline="ema_signal_sides", group=grp_ema_signals, display=display.none)
+ema_entry_touch = input.string("Slow EMA", "Entry signal EMA", options=["Slow EMA", "Fast EMA"], group=grp_ema_signals, display=display.none,
+     tooltip="Choose which EMA the candle must touch to generate a Buy or Sell. Slow EMA is the deeper cloud boundary: lower in a bullish cloud and upper in a bearish cloud. Fast EMA is the first boundary reached from the trend side. With Slow selected, touching only Fast does not trigger or consume the pending pullback setup. Entry for the study remains the confirmed signal close.")
+ema_one_per_pullback = input.bool(true, "One signal per pullback", group=grp_ema_signals, display=display.none,
+     tooltip="On: a full confirmed candle above the bullish cloud (or below the bearish cloud) arms the next selected-EMA touch. Any penetration of that selected EMA consumes the setup, even if thickness or cooldown rejects it. A new full departure outside the entire cloud is needed to rearm. Off: each candle whose range includes the selected EMA can signal, including consecutive touches.")
+ema_cooldown = input.int(0, "Cooldown (chart bars)", minval=0, maxval=10000, group=grp_ema_signals, display=display.none,
+     tooltip="Skip this many full chart bars after an accepted signal. 0 permits the next bar; 15 permits bar 16. The checkbox below chooses a shared timer or separate Buy/Sell timers. This input controls chart markers, alerts and the right-hand horizon table.")
+ema_cooldown_shared = input.bool(true, "Cooldown applies to opposite direction too", group=grp_ema_signals, display=display.none,
+     tooltip="Checked: an accepted Buy or Sell blocks both directions for the chosen wait. Unchecked: Buy and Sell have separate cooldown timers, so an opposite signal can occur during the other side's cooldown. Also applies to every row of the cooldown comparison.")
+ema_signal_markers = input.bool(true, "Show small Buy / Sell markers", group=grp_ema_signals, display=display.none,
+     tooltip="Visual switch only. Enable Buy / Enable Sell control the signals, alerts and study samples. Signals confirm at the chart candle close. Use EMA TF equal to or above the chart TF for signals.")
+
+grp_ema_stats = "EMA Cloud - Point statistics"
+ema_stats_show = input.bool(true, "Show statistics table", group=grp_ema_stats, display=display.none, tooltip="Hide or show this table independently. Its selected horizon and signal filter still apply to the distribution when selected.")
+ema_stats_corner = input.string("Bottom Right", "Position", options=["Top Left", "Top Right", "Bottom Left", "Bottom Right"], group=grp_ema_stats, active=ema_stats_show, display=display.none,
+     tooltip="If both EMA tables choose the same corner, statistics move to the diagonally opposite corner.")
+ema_stats_size = input.string("Small", "Text size", options=["Tiny", "Small", "Normal"], group=grp_ema_stats, active=ema_stats_show, display=display.none)
+ema_stats_side = input.string("All", "Signals to display", options=["All", "Buy", "Sell"], group=grp_ema_stats, display=display.none,
+     tooltip="Filter all statistics tables to Buy, Sell or All. Opposite enabled signals still affect shared cooldown even when hidden by this display filter. Outcome statistics count only completed observations; the period table also counts generated signals.")
+ema_stats_horizon = input.int(10, "Measurement horizon (chart bars)", minval=1, maxval=1000, group=grp_ema_stats, display=display.none,
+     tooltip="Entry = confirmed signal close. Measure the following H chart bars, excluding the entry candle and including candle H. Avg close delta = direction-adjusted close at H minus entry, in points. Signals may overlap; opposite signals do not end an observation.")
+ema_stats_compare = input.bool(true, "Show comparison horizons", group=grp_ema_stats, display=display.none,
+     tooltip="Adds four configurable rows to the main horizon, similar to a horizon study. Rows are sorted and duplicate horizons are removed. Turn off for a single 10-bar row (or your chosen main horizon).")
+ema_stats_h1 = input.int(5, "Comparison 1", minval=1, maxval=1000, inline="ema_h12", group=grp_ema_stats, active=ema_stats_compare, display=display.none)
+ema_stats_h2 = input.int(15, "Comparison 2", minval=1, maxval=1000, inline="ema_h12", group=grp_ema_stats, active=ema_stats_compare, display=display.none)
+ema_stats_h3 = input.int(50, "Comparison 3", minval=1, maxval=1000, inline="ema_h34", group=grp_ema_stats, active=ema_stats_compare, display=display.none)
+ema_stats_h4 = input.int(100, "Comparison 4", minval=1, maxval=1000, inline="ema_h34", group=grp_ema_stats, active=ema_stats_compare, display=display.none)
+
+grp_ema_cd = "EMA Cloud - Cooldown comparison"
+ema_cd_show = input.bool(true, "Show cooldown comparison", group=grp_ema_cd, display=display.none, tooltip="Hide or show this table independently. The chart signal cooldown remains active.")
+ema_cd_corner = input.string("Bottom Left", "Position", options=["Top Left", "Top Right", "Bottom Left", "Bottom Right"], group=grp_ema_cd, active=ema_cd_show, display=display.none,
+     tooltip="Defaults to the left. If this corner is occupied by either existing EMA table, only this comparison moves to a free corner.")
+ema_cd_size = input.string("Small", "Text size", options=["Tiny", "Small", "Normal"], group=grp_ema_cd, active=ema_cd_show, display=display.none)
+ema_cd_horizon = input.int(15, "Study horizon (chart bars)", minval=1, maxval=1000, group=grp_ema_cd, active=ema_cd_show, display=display.none,
+     tooltip="Fixed observation length for every cooldown row. Entry = confirmed signal close; measure the following H chart bars including wicks and excluding the entry candle. This horizon is independent of the right-hand horizon table.")
+ema_cd_wait1 = input.int(0, "Wait 1", minval=0, maxval=10000, inline="ema_wait12", group=grp_ema_cd, active=ema_cd_show, display=display.none)
+ema_cd_wait2 = input.int(5, "Wait 2", minval=0, maxval=10000, inline="ema_wait12", group=grp_ema_cd, active=ema_cd_show, display=display.none)
+ema_cd_wait3 = input.int(10, "Wait 3", minval=0, maxval=10000, inline="ema_wait34", group=grp_ema_cd, active=ema_cd_show, display=display.none)
+ema_cd_wait4 = input.int(20, "Wait 4", minval=0, maxval=10000, inline="ema_wait34", group=grp_ema_cd, active=ema_cd_show, display=display.none)
+ema_cd_wait5 = input.int(50, "Wait 5", minval=0, maxval=10000, group=grp_ema_cd, active=ema_cd_show, display=display.none,
+     tooltip="Each wait independently filters the same qualified EMA touches, before the chart marker cooldown. Rows are sorted and duplicate waits removed. Wait N blocks N full chart bars.")
+ema_cd_best_metric = input.string("Avg close delta", "Best row by", options=["Avg close delta", "Favorable close %", "MFE > MAE %", "Avg MFE", "Lowest Avg MAE"], group=grp_ema_cd, active=ema_cd_show, display=display.none,
+     tooltip="Highlight the best observed row for this metric and the selected display side. Ties favor the shorter wait. Average close delta is the default ranking.")
+ema_cd_min_samples = input.int(1, "Minimum completed samples for best", minval=1, maxval=100000, group=grp_ema_cd, active=ema_cd_show, display=display.none)
+
+grp_ema_period = "EMA Cloud - Calendar period statistics"
+ema_period_show = input.bool(true, "Show period statistics", group=grp_ema_period, display=display.none, tooltip="Hide or show this table independently. Its selected horizon remains available to the distribution.")
+ema_period_unit = input.string("Week", "Aggregate by", options=["Day", "Week", "Month"], group=grp_ema_period, active=ema_period_show, display=display.none)
+ema_period_count = input.int(8, "Last N periods", minval=1, maxval=24, group=grp_ema_period, active=ema_period_show, display=display.none,
+     tooltip="Show the latest N consecutive calendar periods, newest first, including the current period and zero-signal periods. Periods before loaded chart history show dashes. The loaded-history summary includes all loaded periods, even those outside these N rows.")
+ema_period_horizon = input.int(15, "Measurement horizon (chart bars)", minval=1, maxval=1000, group=grp_ema_period, active=ema_period_show, display=display.none,
+     tooltip="Independent fixed horizon for this table. Uses accepted chart signals after the configured chart cooldown. Entry is the signal close; MFE/MAE use the following H bars' wicks and close delta uses candle H. Results remain in the signal's calendar period even when they complete in a later period.")
+ema_period_timezone = input.string("America/New_York", "Calendar time zone", options=["America/New_York", "Exchange", "UTC"], group=grp_ema_period, active=ema_period_show, display=display.none,
+     tooltip="Group by the signal candle's opening date in this time zone. Days start at midnight; weeks run Monday-Sunday; months start on the 1st. New York adjusts for daylight saving time. This is a calendar grouping, independent of futures session/trading-day labels and the chart's visual time zone.")
+ema_period_position = input.string("Middle Right", "Position", options=["Middle Right", "Middle Left", "Middle Center", "Top Left", "Top Center", "Top Right", "Bottom Left", "Bottom Center", "Bottom Right"], group=grp_ema_period, active=ema_period_show, display=display.none,
+     tooltip="Defaults between the existing right-hand tables. If this anchor is occupied by another visible EMA table, only the period table moves to a free anchor.")
+ema_period_size = input.string("Small", "Text size", options=["Tiny", "Small", "Normal"], group=grp_ema_period, active=ema_period_show, display=display.none)
+
+grp_ema_dist = "EMA Cloud - MAE / MFE distribution"
+ema_dist_show = input.bool(true, "Show distribution chart", group=grp_ema_dist, display=display.none,
+     tooltip="Independent visibility switch. Each existing table also has its own Show checkbox at the beginning of its input section.")
+ema_dist_source = input.string("Main statistics", "Horizon from", options=["Main statistics", "Calendar period statistics", "Custom"], group=grp_ema_dist, active=ema_dist_show, display=display.none,
+     tooltip="Follow the main Point statistics horizon, follow the Calendar period statistics horizon, or choose a custom horizon below. Always uses actual accepted chart signals after the configured chart cooldown, threshold and selected EMA touch, and the shared All/Buy/Sell display filter. Calendar source follows its horizon, not its visible period rows.")
+ema_dist_custom_horizon = input.int(15, "Custom horizon (chart bars)", minval=1, maxval=1000, group=grp_ema_dist, active=ema_dist_show and ema_dist_source == "Custom", display=display.none)
+ema_dist_limit = input.int(2000, "Last N completed signals", minval=1, maxval=10000, group=grp_ema_dist, active=ema_dist_show, display=display.none,
+     tooltip="Distribution sample window. Retains the latest N completed signals for the selected All/Buy/Sell side. Each side has its own window, so many Buy signals cannot evict the Sell distribution. Pending signals are excluded. Other tables retain their full loaded-history averages.")
+ema_dist_top_tail = input.bool(false, "Show top-tail cutoffs", group=grp_ema_dist, active=ema_dist_show, display=display.none,
+     tooltip="Off: P10/P20/.../P100 are ascending percentiles; P10 is the lower 10% cutoff. On: T10/T20/.../T100 are top-tail cutoffs; Top 10% starts at P90, Top 20% at P80, and Top 30% at P70. These are cutoff values, not averages of the top tail.")
+ema_dist_readout = input.bool(true, "Show exact decile values", group=grp_ema_dist, active=ema_dist_show, display=display.none)
+ema_dist_position = input.string("Middle Left", "Position", options=["Middle Left", "Middle Right", "Middle Center", "Top Left", "Top Center", "Top Right", "Bottom Left", "Bottom Center", "Bottom Right"], group=grp_ema_dist, active=ema_dist_show, display=display.none,
+     tooltip="Fixed on-screen miniature chart. If this anchor is occupied by a visible EMA table, only the distribution moves to a free anchor.")
+ema_dist_size = input.string("Tiny", "Text size", options=["Tiny", "Small", "Normal"], group=grp_ema_dist, active=ema_dist_show, display=display.none)
+ema_dist_width = input.float(28.0, "Chart width (% of pane)", minval=18.0, maxval=45.0, step=1.0, group=grp_ema_dist, active=ema_dist_show, display=display.none)
+ema_dist_height = input.float(16.0, "Curve area height (% of pane)", minval=8.0, maxval=30.0, step=1.0, group=grp_ema_dist, active=ema_dist_show, display=display.none,
+     tooltip="Curve area only; the title, legend and optional exact values add a few text rows. Both curves use the same point scale. Teal = MFE, red = MAE, amber = overlap within the miniature chart's display resolution.")
+
+// ─────────────────────────────────────────────────────────────────────────────
+// EMA CLOUD
+// ─────────────────────────────────────────────────────────────────────────────
+// Exact roots also cover continuous and dated contracts; unknown assets use ES.
+string ema_symbol_root = str.upper(syminfo.root)
+string ema_threshold_asset = ema_symbol_root == "GC" or ema_symbol_root == "MGC" ? "GC" : ema_symbol_root == "NQ" or ema_symbol_root == "MNQ" ? "NQ" : "ES"
+float ema_min_thickness = ema_threshold_asset == "GC" ? ema_thickness_gc : ema_threshold_asset == "NQ" ? ema_thickness_nq : ema_thickness_es
+
+string ema_cloud_resolved_tf = ema_cloud_tf == "" ? timeframe.period : ema_cloud_tf
+bool ema_cloud_is_htf = timeframe.in_seconds(ema_cloud_resolved_tf) > timeframe.in_seconds()
+float ema_cloud_fast = na
+float ema_cloud_slow = na
+if ema_cloud_confirmed and ema_cloud_is_htf
+    // Offset inside the requested context and look ahead only to confirmed data.
+    [ema_cloud_fast_closed, ema_cloud_slow_closed] = request.security(syminfo.tickerid, ema_cloud_resolved_tf,
+         [ta.ema(close, ema_cloud_fast_len)[1], ta.ema(close, ema_cloud_slow_len)[1]],
+         gaps=barmerge.gaps_off, lookahead=barmerge.lookahead_on)
+    ema_cloud_fast := ema_cloud_fast_closed
+    ema_cloud_slow := ema_cloud_slow_closed
+else
+    [ema_cloud_fast_live, ema_cloud_slow_live] = request.security(syminfo.tickerid, ema_cloud_resolved_tf,
+         [ta.ema(close, ema_cloud_fast_len), ta.ema(close, ema_cloud_slow_len)],
+         gaps=barmerge.gaps_off, lookahead=barmerge.lookahead_off)
+    ema_cloud_fast := ema_cloud_fast_live
+    ema_cloud_slow := ema_cloud_slow_live
+
+color ema_cloud_color = ema_cloud_fast >= ema_cloud_slow ? ema_cloud_up : ema_cloud_down
+color ema_cloud_boundary_color = ema_cloud_boundaries ? color.new(ema_cloud_color, 0) : na
+ema_cloud_fast_plot = plot(ema_cloud_show ? ema_cloud_fast : na, "EMA Cloud Fast",
+     color=ema_cloud_boundary_color, linewidth=1, editable=false, display=display.pane + display.data_window)
+ema_cloud_slow_plot = plot(ema_cloud_show ? ema_cloud_slow : na, "EMA Cloud Slow",
+     color=ema_cloud_boundary_color, linewidth=1, editable=false, display=display.pane + display.data_window)
+fill(ema_cloud_fast_plot, ema_cloud_slow_plot, color=ema_cloud_show ? ema_cloud_color : na,
+     title="EMA Cloud", editable=false, fillgaps=false)
+
+// ─────────────────────────────────────────────────────────────────────────────
+// EMA TOUCH SIGNALS AND FIXED-HORIZON STUDY (RAW PRICE POINTS)
+// ─────────────────────────────────────────────────────────────────────────────
+float ema_cloud_upper = math.max(ema_cloud_fast, ema_cloud_slow)
+float ema_cloud_lower = math.min(ema_cloud_fast, ema_cloud_slow)
+float ema_cloud_thickness = ema_cloud_upper - ema_cloud_lower
+bool ema_cloud_ready = not na(ema_cloud_fast) and not na(ema_cloud_slow)
+int ema_cloud_direction = not ema_cloud_ready ? 0 : ema_cloud_fast > ema_cloud_slow ? 1 : ema_cloud_fast < ema_cloud_slow ? -1 : 0
+float ema_entry_level = ema_entry_touch == "Slow EMA" ? ema_cloud_slow : ema_cloud_fast
+bool ema_cloud_is_ltf = timeframe.in_seconds(ema_cloud_resolved_tf) < timeframe.in_seconds()
+// Lower-TF last-intrabar sampling cannot reconstruct a reliable chart-bar touch.
+bool ema_signal_tf_ok = not ema_cloud_is_ltf
+// Tolerance only addresses binary float subtraction at the threshold boundary.
+float ema_threshold_epsilon = 1e-10 * math.max(1.0, math.abs(ema_min_thickness))
+bool ema_thickness_ok = ema_cloud_ready and ema_cloud_thickness + ema_threshold_epsilon >= ema_min_thickness
+
+ema_cooldown_pass(int last_any, int last_buy, int last_sell, int direction, int wait_bars, bool shared) =>
+    int last_relevant = shared ? last_any : direction == 1 ? last_buy : last_sell
+    na(last_relevant) or bar_index - last_relevant > wait_bars
+
+var bool ema_buy_armed = false
+var bool ema_sell_armed = false
+var int ema_last_signal_bar = na
+var int ema_last_buy_bar = na
+var int ema_last_sell_bar = na
+bool ema_buy_candidate = false
+bool ema_sell_candidate = false
+bool ema_buy_signal = false
+bool ema_sell_signal = false
+
+if barstate.isconfirmed
+    if not ema_cloud_ready or ema_cloud_direction != ema_cloud_direction[1]
+        ema_buy_armed := false
+        ema_sell_armed := false
+    bool ema_buy_touch = ema_cloud_direction == 1 and low <= ema_entry_level and high >= ema_entry_level
+    bool ema_sell_touch = ema_cloud_direction == -1 and low <= ema_entry_level and high >= ema_entry_level
+    bool ema_setup_ok = ema_signal_tf_ok and ema_thickness_ok
+    // All cooldown streams receive these same qualified, uncooled candidates.
+    ema_buy_candidate := ema_buy_enabled and ema_setup_ok and ema_buy_touch and (not ema_one_per_pullback or ema_buy_armed)
+    ema_sell_candidate := ema_sell_enabled and ema_setup_ok and ema_sell_touch and (not ema_one_per_pullback or ema_sell_armed)
+    ema_buy_signal := ema_buy_candidate and ema_cooldown_pass(ema_last_signal_bar, ema_last_buy_bar, ema_last_sell_bar, 1, ema_cooldown, ema_cooldown_shared)
+    ema_sell_signal := ema_sell_candidate and ema_cooldown_pass(ema_last_signal_bar, ema_last_buy_bar, ema_last_sell_bar, -1, ema_cooldown, ema_cooldown_shared)
+    if ema_buy_signal or ema_sell_signal
+        ema_last_signal_bar := bar_index
+        if ema_buy_signal
+            ema_last_buy_bar := bar_index
+        else
+            ema_last_sell_bar := bar_index
+    // Consume only penetration of the selected EMA, including rejected touches.
+    // A shallow Fast touch leaves a Slow setup armed. Rearm outside the whole cloud.
+    if ema_cloud_direction != 1 or low <= ema_entry_level
+        ema_buy_armed := false
+    if ema_cloud_direction != -1 or high >= ema_entry_level
+        ema_sell_armed := false
+    if ema_signal_tf_ok and ema_cloud_direction == 1 and low > ema_cloud_upper
+        ema_buy_armed := true
+    if ema_signal_tf_ok and ema_cloud_direction == -1 and high < ema_cloud_lower
+        ema_sell_armed := true
+
+plotshape(ema_signal_markers and ema_buy_signal, title="EMA Cloud Buy", style=shape.triangleup,
+     location=location.belowbar, color=color.teal, size=size.tiny, text="BUY", textcolor=color.teal)
+plotshape(ema_signal_markers and ema_sell_signal, title="EMA Cloud Sell", style=shape.triangledown,
+     location=location.abovebar, color=color.red, size=size.tiny, text="SELL", textcolor=color.red)
+alertcondition(ema_buy_signal, "EMA Cloud Buy", "EMA Cloud Trend Follower: BUY touch on {{ticker}} {{interval}}. Signal close {{close}}.")
+alertcondition(ema_sell_signal, "EMA Cloud Sell", "EMA Cloud Trend Follower: SELL touch on {{ticker}} {{interval}}. Signal close {{close}}.")
+
+// Data Window values are available at the cursor's bar, while Pine tables show
+// the latest bar (or latest replay bar). No tick-grid rounding is applied.
+plot(ema_cloud_upper, "Upper EMA (price)", display=display.data_window)
+plot(ema_cloud_lower, "Lower EMA (price)", display=display.data_window)
+plot(ema_cloud_thickness, "EMA cloud thickness (points)", display=display.data_window)
+plot(ema_entry_level, "Entry signal EMA (price)", display=display.data_window)
+plot(ema_min_thickness, "Active minimum thickness (points)", display=display.data_window)
+
+type EMATouchSample
+    int direction
+    int entryBar
+    float entry
+    float highest
+    float lowest
+
+type EMAHorizonStats
+    int samples = 0
+    float totalMfe = 0.0
+    float totalMae = 0.0
+    float totalCloseDelta = 0.0
+    int favorableCloses = 0
+    int mfeAboveMae = 0
+
+method record(EMAHorizonStats result, float mfe, float mae, float closeDelta) =>
+    result.samples += 1
+    result.totalMfe += mfe
+    result.totalMae += mae
+    result.totalCloseDelta += closeDelta
+    result.favorableCloses += closeDelta > 0 ? 1 : 0
+    float tie_epsilon = 1e-10 * math.max(1.0, math.max(mfe, mae))
+    result.mfeAboveMae += mfe - mae > tie_epsilon ? 1 : 0
+
+var array<int> ema_horizons = array.new_int()
+var array<EMAHorizonStats> ema_results = array.new<EMAHorizonStats>()
+var array<EMATouchSample> ema_pending = array.new<EMATouchSample>()
+
+if barstate.isfirst
+    array.push(ema_horizons, ema_stats_horizon)
+    if ema_stats_compare
+        array.push(ema_horizons, ema_stats_h1)
+        array.push(ema_horizons, ema_stats_h2)
+        array.push(ema_horizons, ema_stats_h3)
+        array.push(ema_horizons, ema_stats_h4)
+    array.sort(ema_horizons, order.ascending)
+    int dedup = array.size(ema_horizons) - 1
+    while dedup > 0
+        if array.get(ema_horizons, dedup) == array.get(ema_horizons, dedup - 1)
+            array.remove(ema_horizons, dedup)
+        dedup -= 1
+    // Per-horizon buckets: All = 0, Buy = 1, Sell = 2.
+    for slot = 0 to array.size(ema_horizons) * 3 - 1
+        array.push(ema_results, EMAHorizonStats.new())
+
+int ema_horizon_count = array.size(ema_horizons)
+int ema_max_horizon = array.get(ema_horizons, ema_horizon_count - 1)
+
+if barstate.isconfirmed
+    // Existing observations update first: the signal candle's earlier high/low
+    // cannot contribute to a sample entered at that candle's close.
+    int pending_index = array.size(ema_pending) - 1
+    while pending_index >= 0
+        EMATouchSample sample = array.get(ema_pending, pending_index)
+        int age = bar_index - sample.entryBar
+        sample.highest := math.max(sample.highest, high)
+        sample.lowest := math.min(sample.lowest, low)
+        for horizon_index = 0 to ema_horizon_count - 1
+            if age == array.get(ema_horizons, horizon_index)
+                float mfe = math.max(0.0, sample.direction == 1 ? sample.highest - sample.entry : sample.entry - sample.lowest)
+                float mae = math.max(0.0, sample.direction == 1 ? sample.entry - sample.lowest : sample.highest - sample.entry)
+                float close_delta = sample.direction * (close - sample.entry)
+                EMAHorizonStats all_result = array.get(ema_results, horizon_index * 3)
+                EMAHorizonStats side_result = array.get(ema_results, horizon_index * 3 + (sample.direction == 1 ? 1 : 2))
+                all_result.record(mfe, mae, close_delta)
+                side_result.record(mfe, mae, close_delta)
+        if age >= ema_max_horizon
+            array.remove(ema_pending, pending_index)
+        pending_index -= 1
+    if ema_buy_signal or ema_sell_signal
+        int direction = ema_buy_signal ? 1 : -1
+        array.push(ema_pending, EMATouchSample.new(direction, bar_index, close, close, close))
+
+// Independent cooldown streams, each observed at the same fixed horizon.
+type EMACooldownSample
+    int direction
+    int entryBar
+    float entry
+    int waitIndex
+
+var array<int> ema_cd_waits = array.new_int()
+var array<int> ema_cd_last_any = array.new_int()
+var array<int> ema_cd_last_buy = array.new_int()
+var array<int> ema_cd_last_sell = array.new_int()
+var array<EMAHorizonStats> ema_cd_results = array.new<EMAHorizonStats>()
+var array<EMACooldownSample> ema_cd_pending = array.new<EMACooldownSample>()
+
+if barstate.isfirst
+    array.push(ema_cd_waits, ema_cd_wait1)
+    array.push(ema_cd_waits, ema_cd_wait2)
+    array.push(ema_cd_waits, ema_cd_wait3)
+    array.push(ema_cd_waits, ema_cd_wait4)
+    array.push(ema_cd_waits, ema_cd_wait5)
+    array.sort(ema_cd_waits, order.ascending)
+    int wait_dedup = array.size(ema_cd_waits) - 1
+    while wait_dedup > 0
+        if array.get(ema_cd_waits, wait_dedup) == array.get(ema_cd_waits, wait_dedup - 1)
+            array.remove(ema_cd_waits, wait_dedup)
+        wait_dedup -= 1
+    for wait_index = 0 to array.size(ema_cd_waits) - 1
+        array.push(ema_cd_last_any, int(na))
+        array.push(ema_cd_last_buy, int(na))
+        array.push(ema_cd_last_sell, int(na))
+        for bucket = 0 to 2
+            array.push(ema_cd_results, EMAHorizonStats.new())
+
+int ema_cd_count = array.size(ema_cd_waits)
+// At age H these rolling H bars are exactly entry+1 through entry+H.
+// Calculate every bar, and only process FIFO observations when they mature.
+float ema_cd_window_high = ta.highest(high, ema_cd_horizon)
+float ema_cd_window_low = ta.lowest(low, ema_cd_horizon)
+if barstate.isconfirmed and ema_cd_show
+    while array.size(ema_cd_pending) > 0
+        EMACooldownSample sample = array.get(ema_cd_pending, 0)
+        int age = bar_index - sample.entryBar
+        if age < ema_cd_horizon
+            break
+        if age == ema_cd_horizon
+            float mfe = math.max(0.0, sample.direction == 1 ? ema_cd_window_high - sample.entry : sample.entry - ema_cd_window_low)
+            float mae = math.max(0.0, sample.direction == 1 ? sample.entry - ema_cd_window_low : ema_cd_window_high - sample.entry)
+            float close_delta = sample.direction * (close - sample.entry)
+            EMAHorizonStats all_result = array.get(ema_cd_results, sample.waitIndex * 3)
+            EMAHorizonStats side_result = array.get(ema_cd_results, sample.waitIndex * 3 + (sample.direction == 1 ? 1 : 2))
+            all_result.record(mfe, mae, close_delta)
+            side_result.record(mfe, mae, close_delta)
+        array.shift(ema_cd_pending)
+    if ema_buy_candidate or ema_sell_candidate
+        int direction = ema_buy_candidate ? 1 : -1
+        for wait_index = 0 to ema_cd_count - 1
+            int wait_bars = array.get(ema_cd_waits, wait_index)
+            bool accepted = ema_cooldown_pass(array.get(ema_cd_last_any, wait_index), array.get(ema_cd_last_buy, wait_index), array.get(ema_cd_last_sell, wait_index), direction, wait_bars, ema_cooldown_shared)
+            if accepted
+                array.set(ema_cd_last_any, wait_index, bar_index)
+                if direction == 1
+                    array.set(ema_cd_last_buy, wait_index, bar_index)
+                else
+                    array.set(ema_cd_last_sell, wait_index, bar_index)
+                array.push(ema_cd_pending, EMACooldownSample.new(direction, bar_index, close, wait_index))
+
+// Calendar studies use the actual accepted chart signals, not the independent
+// cooldown comparison streams. Local-midnight arithmetic preserves DST dates.
+string ema_period_zone = ema_period_timezone == "Exchange" ? syminfo.timezone : ema_period_timezone
+
+ema_period_start(int bar_time) =>
+    int local_year = year(bar_time, ema_period_zone)
+    int local_month = month(bar_time, ema_period_zone)
+    int local_day = dayofmonth(bar_time, ema_period_zone)
+    int monday_offset = (dayofweek(bar_time, ema_period_zone) + 5) % 7
+    int start_day = ema_period_unit == "Month" ? 1 : ema_period_unit == "Week" ? local_day - monday_offset : local_day
+    timestamp(ema_period_zone, local_year, local_month, start_day, 0, 0)
+
+ema_period_previous(int start_time) =>
+    int local_year = year(start_time, ema_period_zone)
+    int local_month = month(start_time, ema_period_zone)
+    int local_day = dayofmonth(start_time, ema_period_zone)
+    ema_period_unit == "Month" ? timestamp(ema_period_zone, local_year, local_month - 1, 1, 0, 0) : timestamp(ema_period_zone, local_year, local_month, local_day - (ema_period_unit == "Week" ? 7 : 1), 0, 0)
+
+type EMAPeriodBucket
+    int startTime
+    bool inHistory
+    int signalsAll = 0
+    int signalsBuy = 0
+    int signalsSell = 0
+    EMAHorizonStats allStats
+    EMAHorizonStats buyStats
+    EMAHorizonStats sellStats
+
+ema_period_new_bucket(int start_time, bool in_history) =>
+    EMAPeriodBucket.new(start_time, in_history, 0, 0, 0, EMAHorizonStats.new(), EMAHorizonStats.new(), EMAHorizonStats.new())
+
+method addSignal(EMAPeriodBucket bucket, int direction) =>
+    bucket.signalsAll += 1
+    bucket.signalsBuy += direction == 1 ? 1 : 0
+    bucket.signalsSell += direction == -1 ? 1 : 0
+
+method recordOutcome(EMAPeriodBucket bucket, int direction, float mfe, float mae, float close_delta) =>
+    bucket.allStats.record(mfe, mae, close_delta)
+    EMAHorizonStats side_stats = direction == 1 ? bucket.buyStats : bucket.sellStats
+    side_stats.record(mfe, mae, close_delta)
+
+ema_period_stats(EMAPeriodBucket bucket, int side) =>
+    side == 1 ? bucket.buyStats : side == 2 ? bucket.sellStats : bucket.allStats
+
+ema_period_signals(EMAPeriodBucket bucket, int side) =>
+    side == 1 ? bucket.signalsBuy : side == 2 ? bucket.signalsSell : bucket.signalsAll
+
+type EMAPeriodSample
+    int direction
+    int entryBar
+    float entry
+    EMAPeriodBucket entryPeriod
+
+var array<EMAPeriodBucket> ema_period_buckets = array.new<EMAPeriodBucket>()
+var array<EMAPeriodSample> ema_period_pending = array.new<EMAPeriodSample>()
+var int ema_period_first_time = time
+var int ema_period_first_key = ema_period_start(time)
+var int ema_period_latest_key = na
+var EMAPeriodBucket ema_period_loaded = ema_period_new_bucket(ema_period_first_key, true)
+int ema_period_current_key = ema_period_start(time)
+float ema_period_window_high = ta.highest(high, ema_period_horizon)
+float ema_period_window_low = ta.lowest(low, ema_period_horizon)
+
+if ema_period_show
+    if na(ema_period_latest_key) or ema_period_current_key != ema_period_latest_key
+        // Rebuild only the last N keys, even after long calendar gaps. Reuse
+        // surviving objects so signals completing across a boundary keep ownership.
+        array<EMAPeriodBucket> retained = array.new<EMAPeriodBucket>()
+        int period_key = ema_period_current_key
+        for period_index = 0 to ema_period_count - 1
+            EMAPeriodBucket bucket = na
+            if array.size(ema_period_buckets) > 0
+                for old_index = 0 to array.size(ema_period_buckets) - 1
+                    EMAPeriodBucket old_bucket = array.get(ema_period_buckets, old_index)
+                    if old_bucket.startTime == period_key
+                        bucket := old_bucket
+                        break
+            if na(bucket)
+                bucket := ema_period_new_bucket(period_key, period_key >= ema_period_first_key)
+            array.push(retained, bucket)
+            period_key := ema_period_previous(period_key)
+        ema_period_buckets := retained
+        ema_period_latest_key := ema_period_current_key
+    if barstate.isconfirmed
+        // A pending observation retains its entry-period object even when that
+        // row ages out. Its outcome still contributes to the loaded summary.
+        while array.size(ema_period_pending) > 0
+            EMAPeriodSample sample = array.get(ema_period_pending, 0)
+            int age = bar_index - sample.entryBar
+            if age < ema_period_horizon
+                break
+            if age == ema_period_horizon
+                float mfe = math.max(0.0, sample.direction == 1 ? ema_period_window_high - sample.entry : sample.entry - ema_period_window_low)
+                float mae = math.max(0.0, sample.direction == 1 ? sample.entry - ema_period_window_low : ema_period_window_high - sample.entry)
+                float close_delta = sample.direction * (close - sample.entry)
+                sample.entryPeriod.recordOutcome(sample.direction, mfe, mae, close_delta)
+                ema_period_loaded.recordOutcome(sample.direction, mfe, mae, close_delta)
+            array.shift(ema_period_pending)
+        if ema_buy_signal or ema_sell_signal
+            int direction = ema_buy_signal ? 1 : -1
+            EMAPeriodBucket entry_period = array.get(ema_period_buckets, 0)
+            entry_period.addSignal(direction)
+            ema_period_loaded.addSignal(direction)
+            array.push(ema_period_pending, EMAPeriodSample.new(direction, bar_index, close, entry_period))
+
+// Completed excursion pairs are retained in separate, bounded chronological
+// windows for All / Buy / Sell. Sort copies only when rendering percentiles.
+type EMADistributionBuffer
+    array<float> mfeValues
+    array<float> maeValues
+    int nextSlot = 0
+    int completed = 0
+
+method addPair(EMADistributionBuffer buffer, float mfe, float mae) =>
+    if array.size(buffer.mfeValues) < ema_dist_limit
+        array.push(buffer.mfeValues, mfe)
+        array.push(buffer.maeValues, mae)
+    else
+        array.set(buffer.mfeValues, buffer.nextSlot, mfe)
+        array.set(buffer.maeValues, buffer.nextSlot, mae)
+        buffer.nextSlot := (buffer.nextSlot + 1) % ema_dist_limit
+    buffer.completed += 1
+
+type EMADistributionSample
+    int direction
+    int entryBar
+    float entry
+
+int ema_dist_horizon = ema_dist_source == "Main statistics" ? ema_stats_horizon : ema_dist_source == "Calendar period statistics" ? ema_period_horizon : ema_dist_custom_horizon
+var array<EMADistributionBuffer> ema_dist_buffers = array.new<EMADistributionBuffer>()
+var array<EMADistributionSample> ema_dist_pending = array.new<EMADistributionSample>()
+if barstate.isfirst
+    for side = 0 to 2
+        array.push(ema_dist_buffers, EMADistributionBuffer.new(array.new_float(), array.new_float()))
+float ema_dist_window_high = ta.highest(high, ema_dist_horizon)
+float ema_dist_window_low = ta.lowest(low, ema_dist_horizon)
+if barstate.isconfirmed and ema_dist_show
+    while array.size(ema_dist_pending) > 0
+        EMADistributionSample sample = array.get(ema_dist_pending, 0)
+        int age = bar_index - sample.entryBar
+        if age < ema_dist_horizon
+            break
+        if age == ema_dist_horizon
+            float mfe = math.max(0.0, sample.direction == 1 ? ema_dist_window_high - sample.entry : sample.entry - ema_dist_window_low)
+            float mae = math.max(0.0, sample.direction == 1 ? sample.entry - ema_dist_window_low : ema_dist_window_high - sample.entry)
+            EMADistributionBuffer all_buffer = array.get(ema_dist_buffers, 0)
+            EMADistributionBuffer side_buffer = array.get(ema_dist_buffers, sample.direction == 1 ? 1 : 2)
+            all_buffer.addPair(mfe, mae)
+            side_buffer.addPair(mfe, mae)
+        array.shift(ema_dist_pending)
+    if ema_buy_signal or ema_sell_signal
+        array.push(ema_dist_pending, EMADistributionSample.new(ema_buy_signal ? 1 : -1, bar_index, close))
+
+// Pending samples are bounded by the longest horizon (maximum 1000 bars).
+// Completed results accumulate without retaining an ever-growing trade log.
+ema_corner(string choice) =>
+    switch choice
+        "Top Left" => position.top_left
+        "Bottom Left" => position.bottom_left
+        "Bottom Right" => position.bottom_right
+        "Top Center" => position.top_center
+        "Middle Left" => position.middle_left
+        "Middle Center" => position.middle_center
+        "Middle Right" => position.middle_right
+        "Bottom Center" => position.bottom_center
+        => position.top_right
+
+ema_opposite_corner(string choice) =>
+    switch choice
+        "Top Left" => "Bottom Right"
+        "Top Right" => "Bottom Left"
+        "Bottom Left" => "Top Right"
+        => "Top Left"
+
+ema_text_size(string choice) =>
+    choice == "Tiny" ? size.tiny : choice == "Normal" ? size.normal : size.small
+
+string ema_point_format = ema_point_decimals == 0 ? "0" : "0." + str.repeat("0", ema_point_decimals)
+ema_format_points(float value) =>
+    na(value) ? "—" : str.tostring(value, ema_point_format)
+
+ema_format_average(float total, int samples) =>
+    samples == 0 ? "—" : ema_format_points(total / samples)
+
+ema_format_percent(int count, int samples) =>
+    samples == 0 ? "—" : str.tostring(100.0 * count / samples, "0.0") + "%"
+
+ema_dist_quantile(array<float> sorted_values, float percentile) =>
+    int count = array.size(sorted_values)
+    float value = na
+    if count > 0
+        float rank = math.max(0.0, math.min(100.0, percentile)) / 100.0 * (count - 1)
+        int lower = int(math.floor(rank))
+        int upper = int(math.ceil(rank))
+        value := array.get(sorted_values, lower) + (rank - lower) * (array.get(sorted_values, upper) - array.get(sorted_values, lower))
+    value
+
+// Linear connections join the exact deciles, without a smoothing spline that
+// could overshoot sample extremes. Both curves share one raw-point axis.
+ema_dist_curve_value(array<float> deciles, float x_percent) =>
+    float location = math.max(0.0, math.min(100.0, x_percent)) / 10.0
+    int lower = int(math.floor(location))
+    int upper = math.min(10, lower + 1)
+    array.get(deciles, lower) + (location - lower) * (array.get(deciles, upper) - array.get(deciles, lower))
+
+ema_period_render_row(table target, int row, string label, EMAPeriodBucket bucket, int side, color row_bg, string text_size) =>
+    EMAHorizonStats result = ema_period_stats(bucket, side)
+    int signals = ema_period_signals(bucket, side)
+    color delta_color = result.samples == 0 or result.totalCloseDelta == 0 ? chart.fg_color : result.totalCloseDelta > 0 ? color.teal : color.red
+    string coverage = not bucket.inHistory ? "No chart history loaded for this period." : "Signals include pending observations. N counts only completed " + str.tostring(ema_period_horizon) + "-bar observations. Results are assigned to the signal candle's opening calendar period."
+    table.cell(target, 0, row, label, text_color=chart.fg_color, bgcolor=row_bg, text_size=text_size, tooltip=coverage)
+    table.cell(target, 1, row, bucket.inHistory ? str.tostring(signals) : "—", text_color=color.teal, bgcolor=row_bg, text_size=text_size, tooltip=coverage)
+    table.cell(target, 2, row, bucket.inHistory ? str.tostring(result.samples) : "—", text_color=chart.fg_color, bgcolor=row_bg, text_size=text_size, tooltip=coverage)
+    table.cell(target, 3, row, ema_format_average(result.totalMfe, result.samples), text_color=color.teal, bgcolor=row_bg, text_size=text_size)
+    table.cell(target, 4, row, ema_format_average(result.totalMae, result.samples), text_color=color.red, bgcolor=row_bg, text_size=text_size)
+    table.cell(target, 5, row, ema_format_average(result.totalCloseDelta, result.samples), text_color=delta_color, bgcolor=row_bg, text_size=text_size)
+    table.cell(target, 6, row, ema_format_percent(result.favorableCloses, result.samples), text_color=chart.fg_color, bgcolor=row_bg, text_size=text_size)
+    table.cell(target, 7, row, ema_format_percent(result.mfeAboveMae, result.samples), text_color=chart.fg_color, bgcolor=row_bg, text_size=text_size)
+
+ema_cd_score(EMAHorizonStats result, string metric) =>
+    float score = na
+    if result.samples > 0
+        score := switch metric
+            "Favorable close %" => 100.0 * result.favorableCloses / result.samples
+            "MFE > MAE %" => 100.0 * result.mfeAboveMae / result.samples
+            "Avg MFE" => result.totalMfe / result.samples
+            "Lowest Avg MAE" => -result.totalMae / result.samples
+            => result.totalCloseDelta / result.samples
+    score
+
+string ema_stats_resolved_corner = ema_table_show and ema_stats_corner == ema_table_corner ? ema_opposite_corner(ema_stats_corner) : ema_stats_corner
+// Existing tables keep their corner behavior. Only a colliding new table moves.
+string ema_cd_resolved_corner = ema_cd_corner
+bool ema_cd_corner_busy = (ema_table_show and ema_cd_corner == ema_table_corner) or (ema_stats_show and ema_cd_corner == ema_stats_resolved_corner)
+if ema_cd_corner_busy
+    array<string> corners = array.from("Bottom Left", "Top Left", "Bottom Right", "Top Right")
+    for corner_index = 0 to array.size(corners) - 1
+        string choice = array.get(corners, corner_index)
+        if (not ema_table_show or choice != ema_table_corner) and (not ema_stats_show or choice != ema_stats_resolved_corner)
+            ema_cd_resolved_corner := choice
+            break
+string ema_period_resolved_position = ema_period_position
+bool ema_period_anchor_busy = (ema_table_show and ema_period_position == ema_table_corner) or (ema_stats_show and ema_period_position == ema_stats_resolved_corner) or (ema_cd_show and ema_period_position == ema_cd_resolved_corner)
+if ema_period_anchor_busy
+    array<string> anchors = array.from("Middle Right", "Middle Left", "Top Center", "Bottom Center", "Middle Center", "Top Left", "Bottom Left", "Top Right", "Bottom Right")
+    for anchor_index = 0 to array.size(anchors) - 1
+        string choice = array.get(anchors, anchor_index)
+        if (not ema_table_show or choice != ema_table_corner) and (not ema_stats_show or choice != ema_stats_resolved_corner) and (not ema_cd_show or choice != ema_cd_resolved_corner)
+            ema_period_resolved_position := choice
+            break
+string ema_dist_resolved_position = ema_dist_position
+bool ema_dist_anchor_busy = (ema_table_show and ema_dist_position == ema_table_corner) or (ema_stats_show and ema_dist_position == ema_stats_resolved_corner) or (ema_cd_show and ema_dist_position == ema_cd_resolved_corner) or (ema_period_show and ema_dist_position == ema_period_resolved_position)
+if ema_dist_anchor_busy
+    array<string> anchors = array.from("Middle Left", "Top Left", "Middle Center", "Bottom Center", "Top Center", "Middle Right", "Bottom Left", "Top Right", "Bottom Right")
+    for anchor_index = 0 to array.size(anchors) - 1
+        string choice = array.get(anchors, anchor_index)
+        if (not ema_table_show or choice != ema_table_corner) and (not ema_stats_show or choice != ema_stats_resolved_corner) and (not ema_cd_show or choice != ema_cd_resolved_corner) and (not ema_period_show or choice != ema_period_resolved_position)
+            ema_dist_resolved_position := choice
+            break
+var table ema_values_table = table.new(ema_corner(ema_table_corner), 2, 8,
+     bgcolor=chart.bg_color, frame_color=color.new(chart.fg_color, 65), frame_width=1,
+     border_color=color.new(chart.fg_color, 85), border_width=1)
+var table ema_study_table = table.new(ema_corner(ema_stats_resolved_corner), 7, ema_horizon_count + 4,
+     bgcolor=chart.bg_color, frame_color=color.new(chart.fg_color, 65), frame_width=1,
+     border_color=color.new(chart.fg_color, 85), border_width=1)
+
+var table ema_cd_table = table.new(ema_corner(ema_cd_resolved_corner), 7, ema_cd_count + 4,
+     bgcolor=chart.bg_color, frame_color=color.new(chart.fg_color, 85), border_color=color.new(chart.fg_color, 85), border_width=1)
+var table ema_period_table = table.new(ema_corner(ema_period_resolved_position), 8, ema_period_count + 5,
+     bgcolor=chart.bg_color, frame_color=color.new(chart.fg_color, 65), frame_width=1,
+     border_color=color.new(chart.fg_color, 85), border_width=1)
+// The pixel grid is pane-anchored and never uses chart prices or bar positions.
+// This gives the mini graph a fixed position without changing the price scale.
+var table ema_dist_table = table.new(ema_corner(ema_dist_resolved_position), 82, 47,
+     bgcolor=chart.bg_color, frame_color=color.new(chart.fg_color, 65), frame_width=1, border_width=0)
+var int ema_dist_rendered_completed = -1
+var color ema_dist_rendered_bg = na
+var color ema_dist_rendered_fg = na
+
+if barstate.isfirst
+    table.merge_cells(ema_dist_table, 0, 0, 81, 0)
+    table.merge_cells(ema_dist_table, 0, 1, 27, 1)
+    table.merge_cells(ema_dist_table, 28, 1, 54, 1)
+    table.merge_cells(ema_dist_table, 55, 1, 81, 1)
+    table.merge_cells(ema_dist_table, 0, 2, 81, 2)
+    table.merge_cells(ema_dist_table, 0, 46, 81, 46)
+    for decile_index = 0 to 9
+        int start_col = 2 + decile_index * 8
+        int end_col = start_col + 7
+        for readout_row = 43 to 45
+            table.merge_cells(ema_dist_table, start_col, readout_row, end_col, readout_row)
+    table.merge_cells(ema_period_table, 0, 0, 7, 0)
+    table.merge_cells(ema_period_table, 0, ema_period_count + 3, 7, ema_period_count + 3)
+    table.merge_cells(ema_period_table, 0, ema_period_count + 4, 7, ema_period_count + 4)
+    table.merge_cells(ema_cd_table, 0, 0, 6, 0)
+    table.merge_cells(ema_cd_table, 0, ema_cd_count + 2, 6, ema_cd_count + 2)
+    table.merge_cells(ema_cd_table, 0, ema_cd_count + 3, 6, ema_cd_count + 3)
+    table.merge_cells(ema_values_table, 0, 0, 1, 0)
+    table.merge_cells(ema_study_table, 0, 0, 6, 0)
+    table.merge_cells(ema_study_table, 0, ema_horizon_count + 2, 6, ema_horizon_count + 2)
+    table.merge_cells(ema_study_table, 0, ema_horizon_count + 3, 6, ema_horizon_count + 3)
+
+if barstate.islast
+    color ema_header_bg = color.new(chart.fg_color, 92)
+    color ema_favorable_color = color.teal
+    color ema_adverse_color = color.red
+    string ema_values_text_size = ema_text_size(ema_table_size)
+    string ema_study_text_size = ema_text_size(ema_stats_size)
+    string ema_cd_text_size = ema_text_size(ema_cd_size)
+    string ema_cooldown_scope = ema_cooldown_shared ? "Shared" : "Same direction"
+    int ema_display_bucket = ema_stats_side == "Buy" ? 1 : ema_stats_side == "Sell" ? 2 : 0
+    string ema_tf_label = ema_cloud_tf == "" ? "Chart" : ema_cloud_tf
+    if ema_table_show
+        table.cell(ema_values_table, 0, 0, "EMA CLOUD · TF " + ema_tf_label, text_color=chart.fg_color, bgcolor=ema_header_bg, text_size=ema_values_text_size)
+        table.cell(ema_values_table, 0, 1, "Upper EMA", text_color=chart.fg_color, bgcolor=ema_header_bg, text_size=ema_values_text_size)
+        table.cell(ema_values_table, 1, 1, ema_format_points(ema_cloud_upper), text_color=chart.fg_color, text_size=ema_values_text_size)
+        table.cell(ema_values_table, 0, 2, "Lower EMA", text_color=chart.fg_color, bgcolor=ema_header_bg, text_size=ema_values_text_size)
+        table.cell(ema_values_table, 1, 2, ema_format_points(ema_cloud_lower), text_color=chart.fg_color, text_size=ema_values_text_size)
+        table.cell(ema_values_table, 0, 3, "Thickness (pt)", text_color=chart.fg_color, bgcolor=ema_header_bg, text_size=ema_values_text_size)
+        table.cell(ema_values_table, 1, 3, ema_format_points(ema_cloud_thickness), text_color=not ema_cloud_ready ? chart.fg_color : ema_thickness_ok ? ema_favorable_color : ema_adverse_color, text_size=ema_values_text_size,
+             tooltip="Upper EMA minus lower EMA in raw price points. This is not divided by tick or pip size.")
+        table.cell(ema_values_table, 0, 4, "Trend", text_color=chart.fg_color, bgcolor=ema_header_bg, text_size=ema_values_text_size)
+        string ema_trend_label = not ema_cloud_ready ? "Waiting" : ema_cloud_direction == 1 ? "Bullish" : ema_cloud_direction == -1 ? "Bearish" : "Neutral"
+        table.cell(ema_values_table, 1, 4, ema_trend_label, text_color=ema_cloud_direction == 1 ? ema_favorable_color : ema_cloud_direction == -1 ? ema_adverse_color : chart.fg_color, text_size=ema_values_text_size)
+        table.cell(ema_values_table, 0, 5, "Min gap (pt)", text_color=chart.fg_color, bgcolor=ema_header_bg, text_size=ema_values_text_size)
+        table.cell(ema_values_table, 1, 5, ema_format_points(ema_min_thickness), text_color=chart.fg_color, text_size=ema_values_text_size)
+        table.cell(ema_values_table, 0, 6, "Signal EMA", text_color=chart.fg_color, bgcolor=ema_header_bg, text_size=ema_values_text_size)
+        table.cell(ema_values_table, 1, 6, ema_entry_touch, text_color=chart.fg_color, text_size=ema_values_text_size,
+             tooltip="Selected entry EMA price: " + ema_format_points(ema_entry_level))
+        table.cell(ema_values_table, 0, 7, "Threshold asset", text_color=chart.fg_color, bgcolor=ema_header_bg, text_size=ema_values_text_size)
+        table.cell(ema_values_table, 1, 7, ema_threshold_asset, text_color=chart.fg_color, text_size=ema_values_text_size,
+             tooltip="Chart root: " + ema_symbol_root + ". GC/MGC uses GC; NQ/MNQ uses NQ; all other symbols fall back to ES.")
+    else
+        table.clear(ema_values_table, 0, 0, 1, 7)
+
+    if ema_stats_show
+        string ema_study_title = ema_entry_touch + " touches | " + ema_stats_side + " | Points | Cooldown " + str.tostring(ema_cooldown) + " (" + ema_cooldown_scope + ")"
+        table.cell(ema_study_table, 0, 0, ema_study_title, text_color=chart.fg_color, bgcolor=ema_header_bg, text_size=ema_study_text_size)
+        table.cell(ema_study_table, 0, 1, "Bars", text_color=chart.fg_color, bgcolor=ema_header_bg, text_size=ema_study_text_size, tooltip="Observation length in chart bars, starting after the signal close.")
+        table.cell(ema_study_table, 1, 1, "N", text_color=chart.fg_color, bgcolor=ema_header_bg, text_size=ema_study_text_size, tooltip="Completed observations only. Longer horizons can have fewer completed samples near the end of chart history.")
+        table.cell(ema_study_table, 2, 1, "AVG MFE (pt)", text_color=ema_favorable_color, bgcolor=ema_header_bg, text_size=ema_study_text_size, tooltip="Average largest favorable distance from the signal close during the following H bars. Always a positive magnitude or zero.")
+        table.cell(ema_study_table, 3, 1, "AVG MAE (pt)", text_color=ema_adverse_color, bgcolor=ema_header_bg, text_size=ema_study_text_size, tooltip="Average largest adverse distance from the signal close during the following H bars. Always a positive magnitude or zero.")
+        table.cell(ema_study_table, 4, 1, "AVG CLOSE Δ (pt)", text_color=chart.fg_color, bgcolor=ema_header_bg, text_size=ema_study_text_size, tooltip="Buy: horizon close minus signal close. Sell: signal close minus horizon close. This measures the average directional closing change.")
+        table.cell(ema_study_table, 5, 1, "FAVORABLE CLOSE", text_color=chart.fg_color, bgcolor=ema_header_bg, text_size=ema_study_text_size, tooltip="Percentage of completed observations with positive directional close delta. Breakeven is not favorable.")
+        table.cell(ema_study_table, 6, 1, "MFE > MAE", text_color=chart.fg_color, bgcolor=ema_header_bg, text_size=ema_study_text_size, tooltip="Percentage of completed observations whose MFE strictly exceeded MAE. Ties do not count.")
+        for horizon_index = 0 to ema_horizon_count - 1
+            int row = horizon_index + 2
+            int horizon = array.get(ema_horizons, horizon_index)
+            EMAHorizonStats result = array.get(ema_results, horizon_index * 3 + ema_display_bucket)
+            color row_bg = horizon == ema_stats_horizon ? color.new(chart.fg_color, 95) : chart.bg_color
+            color delta_color = result.samples == 0 or result.totalCloseDelta == 0 ? chart.fg_color : result.totalCloseDelta > 0 ? ema_favorable_color : ema_adverse_color
+            table.cell(ema_study_table, 0, row, str.tostring(horizon), text_color=chart.fg_color, bgcolor=row_bg, text_size=ema_study_text_size)
+            table.cell(ema_study_table, 1, row, str.tostring(result.samples), text_color=chart.fg_color, bgcolor=row_bg, text_size=ema_study_text_size)
+            table.cell(ema_study_table, 2, row, ema_format_average(result.totalMfe, result.samples), text_color=ema_favorable_color, bgcolor=row_bg, text_size=ema_study_text_size)
+            table.cell(ema_study_table, 3, row, ema_format_average(result.totalMae, result.samples), text_color=ema_adverse_color, bgcolor=row_bg, text_size=ema_study_text_size)
+            table.cell(ema_study_table, 4, row, ema_format_average(result.totalCloseDelta, result.samples), text_color=delta_color, bgcolor=row_bg, text_size=ema_study_text_size)
+            table.cell(ema_study_table, 5, row, ema_format_percent(result.favorableCloses, result.samples), text_color=chart.fg_color, bgcolor=row_bg, text_size=ema_study_text_size)
+            table.cell(ema_study_table, 6, row, ema_format_percent(result.mfeAboveMae, result.samples), text_color=chart.fg_color, bgcolor=row_bg, text_size=ema_study_text_size)
+        int ema_open_count = 0
+        if array.size(ema_pending) > 0
+            for sample_index = 0 to array.size(ema_pending) - 1
+                EMATouchSample sample = array.get(ema_pending, sample_index)
+                if ema_display_bucket == 0 or (ema_display_bucket == 1 and sample.direction == 1) or (ema_display_bucket == 2 and sample.direction == -1)
+                    ema_open_count += 1
+        string ema_footer = "Entry: signal close | Entry bar excluded | Open at " + str.tostring(ema_max_horizon) + " bars: " + str.tostring(ema_open_count)
+        table.cell(ema_study_table, 0, ema_horizon_count + 2, ema_footer, text_color=color.new(chart.fg_color, 20), bgcolor=ema_header_bg, text_size=ema_study_text_size)
+        string ema_context = not ema_signal_tf_ok ? "Signals paused: choose EMA TF equal to or above chart TF" : ema_cloud_is_htf and not ema_cloud_confirmed ? "Developing HTF: signals and statistics can change after reload" : "Confirmed chart-close signals | Loaded chart history"
+        table.cell(ema_study_table, 0, ema_horizon_count + 3, ema_context, text_color=not ema_signal_tf_ok ? ema_adverse_color : color.new(chart.fg_color, 20), bgcolor=ema_header_bg, text_size=ema_study_text_size)
+    else
+        table.clear(ema_study_table, 0, 0, 6, ema_horizon_count + 3)
+
+    if ema_cd_show
+        string cd_title = "Cooldown @ " + str.tostring(ema_cd_horizon) + " bars | " + ema_stats_side + " | " + ema_entry_touch + " | " + ema_cooldown_scope + " | Points"
+        table.cell(ema_cd_table, 0, 0, cd_title, text_color=chart.fg_color, bgcolor=ema_header_bg, text_size=ema_cd_text_size)
+        table.cell(ema_cd_table, 0, 1, "Wait", text_color=chart.fg_color, bgcolor=ema_header_bg, text_size=ema_cd_text_size, tooltip="Full chart bars blocked after an accepted signal. Each row has an independent accepted signal stream.")
+        table.cell(ema_cd_table, 1, 1, "N", text_color=chart.fg_color, bgcolor=ema_header_bg, text_size=ema_cd_text_size, tooltip="Completed observations at the fixed study horizon.")
+        table.cell(ema_cd_table, 2, 1, "AVG MFE (pt)", text_color=ema_favorable_color, bgcolor=ema_header_bg, text_size=ema_cd_text_size)
+        table.cell(ema_cd_table, 3, 1, "AVG MAE (pt)", text_color=ema_adverse_color, bgcolor=ema_header_bg, text_size=ema_cd_text_size)
+        table.cell(ema_cd_table, 4, 1, "AVG CLOSE Δ (pt)", text_color=chart.fg_color, bgcolor=ema_header_bg, text_size=ema_cd_text_size)
+        table.cell(ema_cd_table, 5, 1, "FAVORABLE CLOSE", text_color=chart.fg_color, bgcolor=ema_header_bg, text_size=ema_cd_text_size)
+        table.cell(ema_cd_table, 6, 1, "MFE > MAE", text_color=chart.fg_color, bgcolor=ema_header_bg, text_size=ema_cd_text_size)
+        int best_index = na
+        float best_score = na
+        for wait_index = 0 to ema_cd_count - 1
+            EMAHorizonStats result = array.get(ema_cd_results, wait_index * 3 + ema_display_bucket)
+            if result.samples >= ema_cd_min_samples
+                float score = ema_cd_score(result, ema_cd_best_metric)
+                float tie_epsilon = na(best_score) ? 0.0 : 1e-10 * math.max(1.0, math.max(math.abs(score), math.abs(best_score)))
+                if na(best_index) or score > best_score + tie_epsilon
+                    best_index := wait_index
+                    best_score := score
+        for wait_index = 0 to ema_cd_count - 1
+            int row = wait_index + 2
+            EMAHorizonStats result = array.get(ema_cd_results, wait_index * 3 + ema_display_bucket)
+            bool is_best = not na(best_index) and wait_index == best_index
+            color row_bg = is_best ? color.new(ema_favorable_color, 90) : chart.bg_color
+            color delta_color = result.samples == 0 or result.totalCloseDelta == 0 ? chart.fg_color : result.totalCloseDelta > 0 ? ema_favorable_color : ema_adverse_color
+            table.cell(ema_cd_table, 0, row, str.tostring(array.get(ema_cd_waits, wait_index)), text_color=chart.fg_color, bgcolor=row_bg, text_size=ema_cd_text_size)
+            table.cell(ema_cd_table, 1, row, str.tostring(result.samples), text_color=chart.fg_color, bgcolor=row_bg, text_size=ema_cd_text_size)
+            table.cell(ema_cd_table, 2, row, ema_format_average(result.totalMfe, result.samples), text_color=ema_favorable_color, bgcolor=row_bg, text_size=ema_cd_text_size)
+            table.cell(ema_cd_table, 3, row, ema_format_average(result.totalMae, result.samples), text_color=ema_adverse_color, bgcolor=row_bg, text_size=ema_cd_text_size)
+            table.cell(ema_cd_table, 4, row, ema_format_average(result.totalCloseDelta, result.samples), text_color=delta_color, bgcolor=row_bg, text_size=ema_cd_text_size)
+            table.cell(ema_cd_table, 5, row, ema_format_percent(result.favorableCloses, result.samples), text_color=chart.fg_color, bgcolor=row_bg, text_size=ema_cd_text_size)
+            table.cell(ema_cd_table, 6, row, ema_format_percent(result.mfeAboveMae, result.samples), text_color=chart.fg_color, bgcolor=row_bg, text_size=ema_cd_text_size)
+        string best_label = na(best_index) ? "Best: waiting for enough completed samples" : "Best observed: Wait " + str.tostring(array.get(ema_cd_waits, best_index))
+        table.cell(ema_cd_table, 0, ema_cd_count + 2, best_label + " | " + ema_cd_best_metric + " | N ≥ " + str.tostring(ema_cd_min_samples), text_color=chart.fg_color, bgcolor=ema_header_bg, text_size=ema_cd_text_size)
+        table.cell(ema_cd_table, 0, ema_cd_count + 3, "Independent waits | Entry: signal close | Loaded chart history", text_color=color.new(chart.fg_color, 20), bgcolor=ema_header_bg, text_size=ema_cd_text_size)
+    else
+        table.clear(ema_cd_table, 0, 0, 6, ema_cd_count + 3)
+
+    if ema_period_show
+        string period_text_size = ema_text_size(ema_period_size)
+        string period_name = ema_period_unit == "Day" ? "Daily" : ema_period_unit == "Week" ? "Weekly" : "Monthly"
+        string period_title = period_name + " | Last " + str.tostring(ema_period_count) + " | " + ema_stats_side + " | Cooldown " + str.tostring(ema_cooldown) + " (" + ema_cooldown_scope + ") | H=" + str.tostring(ema_period_horizon) + " | Points"
+        table.cell(ema_period_table, 0, 0, period_title, text_color=chart.fg_color, bgcolor=ema_header_bg, text_size=period_text_size)
+        table.cell(ema_period_table, 0, 1, str.upper(ema_period_unit) + " START", text_color=chart.fg_color, bgcolor=ema_header_bg, text_size=period_text_size,
+             tooltip="Signal candle opening date in " + ema_period_zone + ". Calendar weeks begin Monday, days at midnight, months on the 1st.")
+        table.cell(ema_period_table, 1, 1, "SIGNALS", text_color=ema_favorable_color, bgcolor=ema_header_bg, text_size=period_text_size,
+             tooltip="Accepted chart signals at the configured chart cooldown, including pending observations. Uses the same All/Buy/Sell display filter as the other tables.")
+        table.cell(ema_period_table, 2, 1, "N", text_color=chart.fg_color, bgcolor=ema_header_bg, text_size=period_text_size,
+             tooltip="Completed observations at this table's measurement horizon. Pending observations are excluded from all averages and percentages.")
+        table.cell(ema_period_table, 3, 1, "AVG MFE (pt)", text_color=ema_favorable_color, bgcolor=ema_header_bg, text_size=period_text_size)
+        table.cell(ema_period_table, 4, 1, "AVG MAE (pt)", text_color=ema_adverse_color, bgcolor=ema_header_bg, text_size=period_text_size)
+        table.cell(ema_period_table, 5, 1, "AVG CLOSE Δ (pt)", text_color=chart.fg_color, bgcolor=ema_header_bg, text_size=period_text_size)
+        table.cell(ema_period_table, 6, 1, "FAVORABLE CLOSE", text_color=chart.fg_color, bgcolor=ema_header_bg, text_size=period_text_size)
+        table.cell(ema_period_table, 7, 1, "MFE > MAE", text_color=chart.fg_color, bgcolor=ema_header_bg, text_size=period_text_size)
+        ema_period_render_row(ema_period_table, 2, "Σ loaded", ema_period_loaded, ema_display_bucket, color.new(chart.fg_color, 95), period_text_size)
+        for period_index = 0 to ema_period_count - 1
+            EMAPeriodBucket bucket = array.get(ema_period_buckets, period_index)
+            string period_label = str.format_time(bucket.startTime, ema_period_unit == "Month" ? "yyyy-MM" : "yyyy-MM-dd", ema_period_zone)
+            color row_bg = period_index == 0 ? color.new(ema_favorable_color, 90) : chart.bg_color
+            ema_period_render_row(ema_period_table, period_index + 3, period_label, bucket, ema_display_bucket, row_bg, period_text_size)
+        string calendar_scope = ema_period_unit == "Week" ? "Mon–Sun" : ema_period_unit == "Day" ? "Midnight–midnight" : "Calendar months"
+        table.cell(ema_period_table, 0, ema_period_count + 3, calendar_scope + " | " + ema_period_zone + " | N = completed " + str.tostring(ema_period_horizon) + "-bar horizons | Entry period", text_color=color.new(chart.fg_color, 20), bgcolor=ema_header_bg, text_size=period_text_size)
+        table.cell(ema_period_table, 0, ema_period_count + 4, "Loaded from " + str.format_time(ema_period_first_time, "yyyy-MM-dd HH:mm", ema_period_zone) + " | Edge periods may be partial | Σ includes older periods", text_color=color.new(chart.fg_color, 20), bgcolor=ema_header_bg, text_size=period_text_size)
+    else
+        table.clear(ema_period_table, 0, 0, 7, ema_period_count + 4)
+
+    if ema_dist_show
+        EMADistributionBuffer buffer = array.get(ema_dist_buffers, ema_display_bucket)
+        // Completed observations change only at bar close. Keep the mini graph
+        // stable between completions; redraw also when chart colors change.
+        if buffer.completed != ema_dist_rendered_completed or chart.bg_color != ema_dist_rendered_bg or chart.fg_color != ema_dist_rendered_fg
+            array<float> sorted_mfe = array.copy(buffer.mfeValues)
+            array<float> sorted_mae = array.copy(buffer.maeValues)
+            array.sort(sorted_mfe, order.ascending)
+            array.sort(sorted_mae, order.ascending)
+            int count = array.size(sorted_mfe)
+            array<float> mfe_deciles = array.new_float(11, na)
+            array<float> mae_deciles = array.new_float(11, na)
+            for decile_index = 0 to 10
+                float percentile = ema_dist_top_tail ? 100.0 - decile_index * 10.0 : decile_index * 10.0
+                array.set(mfe_deciles, decile_index, ema_dist_quantile(sorted_mfe, percentile))
+                array.set(mae_deciles, decile_index, ema_dist_quantile(sorted_mae, percentile))
+            float point_max = count == 0 ? 1.0 : math.max(1e-8, math.max(array.max(sorted_mfe), array.max(sorted_mae))) * 1.05
+            // For a zero-only sample, use a readable 0..1 axis with both paths at 0.
+            point_max := count > 0 and array.max(sorted_mfe) == 0 and array.max(sorted_mae) == 0 ? 1.0 : point_max
+            string dist_text_size = ema_text_size(ema_dist_size)
+            string title = "MAE / MFE " + (ema_dist_top_tail ? "top-tail cutoffs" : "percentiles") + " | H=" + str.tostring(ema_dist_horizon) + " | " + ema_stats_side + " | N=" + str.tostring(count)
+            table.cell(ema_dist_table, 0, 0, title, text_color=chart.fg_color, bgcolor=ema_header_bg, text_size=dist_text_size)
+            table.cell(ema_dist_table, 0, 1, "MFE · avg " + (count == 0 ? "—" : ema_format_points(array.avg(sorted_mfe))), text_color=ema_favorable_color, bgcolor=chart.bg_color, text_size=dist_text_size)
+            table.cell(ema_dist_table, 28, 1, "MAE · avg " + (count == 0 ? "—" : ema_format_points(array.avg(sorted_mae))), text_color=ema_adverse_color, bgcolor=chart.bg_color, text_size=dist_text_size)
+            table.cell(ema_dist_table, 55, 1, "Overlap", text_color=color.orange, bgcolor=chart.bg_color, text_size=dist_text_size,
+                 tooltip="Amber means both curves occupy the same miniature-chart cell. Exact values can differ within the display resolution; see the numeric deciles below.")
+            string context = count == 0 ? "Waiting for completed " + str.tostring(ema_dist_horizon) + "-bar observations" : "Chart cooldown " + str.tostring(ema_cooldown) + " (" + ema_cooldown_scope + ") | Latest " + str.tostring(count) + " of " + str.tostring(buffer.completed) + " completed"
+            table.cell(ema_dist_table, 0, 2, context, text_color=color.new(chart.fg_color, 20), bgcolor=chart.bg_color, text_size=dist_text_size)
+            float axis_width = ema_dist_width * 0.12
+            float cell_width = ema_dist_width * 0.88 / 81.0
+            float cell_height = ema_dist_height / 40.0
+            color grid_color = color.from_gradient(3.0, 0.0, 100.0, chart.bg_color, chart.fg_color)
+            for pixel_row = 0 to 39
+                bool y_tick = pixel_row == 0 or pixel_row == 10 or pixel_row == 20 or pixel_row == 30 or pixel_row == 39
+                string y_label = y_tick ? ema_format_points(point_max * (39 - pixel_row) / 39.0) : ""
+                table.cell(ema_dist_table, 0, pixel_row + 3, y_label, width=axis_width, height=cell_height, text_color=color.new(chart.fg_color, 20), text_size=dist_text_size, bgcolor=chart.bg_color, text_halign=text.align_right)
+            for pixel_col = 0 to 80
+                float x_left = math.max(0.0, (pixel_col - 0.5) * 1.25)
+                float x_right = math.min(100.0, (pixel_col + 0.5) * 1.25)
+                float mfe_left = count == 0 ? na : (1.0 - ema_dist_curve_value(mfe_deciles, x_left) / point_max) * 39.0
+                float mfe_right = count == 0 ? na : (1.0 - ema_dist_curve_value(mfe_deciles, x_right) / point_max) * 39.0
+                float mae_left = count == 0 ? na : (1.0 - ema_dist_curve_value(mae_deciles, x_left) / point_max) * 39.0
+                float mae_right = count == 0 ? na : (1.0 - ema_dist_curve_value(mae_deciles, x_right) / point_max) * 39.0
+                int mfe_low_row = count == 0 ? -1 : int(math.floor(math.min(mfe_left, mfe_right)))
+                int mfe_high_row = count == 0 ? -1 : int(math.floor(math.max(mfe_left, mfe_right)))
+                int mae_low_row = count == 0 ? -1 : int(math.floor(math.min(mae_left, mae_right)))
+                int mae_high_row = count == 0 ? -1 : int(math.floor(math.max(mae_left, mae_right)))
+                for pixel_row = 0 to 39
+                    bool mfe_pixel = count > 0 and pixel_row >= mfe_low_row and pixel_row <= mfe_high_row
+                    bool mae_pixel = count > 0 and pixel_row >= mae_low_row and pixel_row <= mae_high_row
+                    bool grid_line = pixel_row == 0 or pixel_row == 10 or pixel_row == 20 or pixel_row == 30 or pixel_row == 39 or pixel_col % 8 == 0
+                    color pixel_color = mfe_pixel and mae_pixel ? color.orange : mfe_pixel ? ema_favorable_color : mae_pixel ? ema_adverse_color : grid_line ? grid_color : chart.bg_color
+                    table.cell(ema_dist_table, pixel_col + 1, pixel_row + 3, "", width=cell_width, height=cell_height, bgcolor=pixel_color)
+            table.cell(ema_dist_table, 0, 43, "Points", text_color=color.new(chart.fg_color, 20), bgcolor=chart.bg_color, text_size=dist_text_size)
+            table.cell(ema_dist_table, 1, 43, "0", text_color=color.new(chart.fg_color, 20), bgcolor=chart.bg_color, text_size=dist_text_size)
+            if ema_dist_readout
+                table.cell(ema_dist_table, 0, 44, "MFE", text_color=ema_favorable_color, bgcolor=chart.bg_color, text_size=dist_text_size)
+                table.cell(ema_dist_table, 0, 45, "MAE", text_color=ema_adverse_color, bgcolor=chart.bg_color, text_size=dist_text_size)
+            for decile_index = 1 to 10
+                int start_col = 2 + (decile_index - 1) * 8
+                string label = (ema_dist_top_tail ? "T" : "P") + str.tostring(decile_index * 10)
+                int actual_percentile = ema_dist_top_tail ? 100 - decile_index * 10 : decile_index * 10
+                string meaning = ema_dist_top_tail ? "Top " + str.tostring(decile_index * 10) + "% cutoff = P" + str.tostring(actual_percentile) : "P" + str.tostring(actual_percentile) + " = lower " + str.tostring(actual_percentile) + "% cutoff"
+                string values = meaning + "\nMFE: " + ema_format_points(array.get(mfe_deciles, decile_index)) + " pt\nMAE: " + ema_format_points(array.get(mae_deciles, decile_index)) + " pt\nLinear connections between exact decile points."
+                table.cell(ema_dist_table, start_col, 43, label, text_color=chart.fg_color, bgcolor=chart.bg_color, text_size=dist_text_size, tooltip=values, text_halign=text.align_right)
+                if ema_dist_readout
+                    table.cell(ema_dist_table, start_col, 44, ema_format_points(array.get(mfe_deciles, decile_index)), text_color=ema_favorable_color, bgcolor=chart.bg_color, text_size=dist_text_size, tooltip=values, text_halign=text.align_right)
+                    table.cell(ema_dist_table, start_col, 45, ema_format_points(array.get(mae_deciles, decile_index)), text_color=ema_adverse_color, bgcolor=chart.bg_color, text_size=dist_text_size, tooltip=values, text_halign=text.align_right)
+            string convention = ema_dist_top_tail ? "T10 = P90; T20 = P80; T30 = P70 | Cutoffs in points" : "P10 = lower 10% cutoff | Top 10% starts at P90 | Points"
+            table.cell(ema_dist_table, 0, 46, convention, text_color=color.new(chart.fg_color, 20), bgcolor=ema_header_bg, text_size=dist_text_size)
+            ema_dist_rendered_completed := buffer.completed
+            ema_dist_rendered_bg := chart.bg_color
+            ema_dist_rendered_fg := chart.fg_color
+    else
+        table.clear(ema_dist_table, 0, 0, 81, 46)

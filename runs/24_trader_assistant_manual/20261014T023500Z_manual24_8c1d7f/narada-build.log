@@ -1,0 +1,50 @@
+
+> @abacus/narada@0.1.0 prebuild
+> npm run verify
+
+
+> @abacus/narada@0.1.0 verify
+> node scripts/verify.mjs
+
+Verified 22 studies, 88 publications, 129 raster assets and 201 selected CSVs.
+
+> @abacus/narada@0.1.0 build
+> next build
+
+▲ Next.js 16.2.10 (Turbopack)
+
+  Creating an optimized production build ...
+✓ Compiled successfully in 1096ms
+  Running TypeScript ...
+  Finished TypeScript in 1233ms ...
+  Collecting page data using 6 workers ...
+  Generating static pages using 6 workers (0/113) ...
+  Generating static pages using 6 workers (28/113) 
+  Generating static pages using 6 workers (56/113) 
+  Generating static pages using 6 workers (84/113) 
+✓ Generating static pages using 6 workers (113/113) in 1356ms
+  Finalizing page optimization ...
+
+Route (app)
+┌ ○ /
+├ ○ /_not-found
+├ ● /reports/[id]
+│ ├ /reports/trader-assistant-manual-20261013-companion-v1
+│ ├ /reports/gc-overnight-breakout-15m-phase2-protected-entry-20261013-r1
+│ ├ /reports/gc-overnight-breakout-15m-phase2-session-transitions-20261013-r1
+│ └ [+85 more paths]
+└ ● /studies/[slug]
+  ├ /studies/reversal-follow-through
+  ├ /studies/followthrough-candle-adverse
+  ├ /studies/multi-rxv-alignment
+  └ [+19 more paths]
+
+
+○  (Static)  prerendered as static content
+●  (SSG)     prerendered as static HTML (uses generateStaticParams)
+
+
+> @abacus/narada@0.1.0 postbuild
+> node scripts/verify-export.mjs
+
+Verified library, 22 study routes, 88 publication routes and 1007 bounded page payloads in out/.

@@ -1,0 +1,50 @@
+
+> @abacus/narada@0.1.0 prebuild
+> npm run verify
+
+
+> @abacus/narada@0.1.0 verify
+> node scripts/verify.mjs
+
+Verified 19 studies, 25 publications, 29 raster assets and 14 selected CSVs.
+
+> @abacus/narada@0.1.0 build
+> next build
+
+▲ Next.js 16.2.10 (Turbopack)
+
+  Creating an optimized production build ...
+✓ Compiled successfully in 916ms
+  Running TypeScript ...
+  Finished TypeScript in 934ms ...
+  Collecting page data using 6 workers ...
+  Generating static pages using 6 workers (0/47) ...
+  Generating static pages using 6 workers (11/47) 
+  Generating static pages using 6 workers (23/47) 
+  Generating static pages using 6 workers (35/47) 
+✓ Generating static pages using 6 workers (47/47) in 434ms
+  Finalizing page optimization ...
+
+Route (app)
+┌ ○ /
+├ ○ /_not-found
+├ ● /reports/[id]
+│ ├ /reports/camarilla-ema-20261008t220932z-cb2711
+│ ├ /reports/value-area-fade-tracker-20261007-source-review-r2
+│ ├ /reports/12-gc-ema-band-excursions-20261007-evidence
+│ └ [+22 more paths]
+└ ● /studies/[slug]
+  ├ /studies/reversal-follow-through
+  ├ /studies/followthrough-candle-adverse
+  ├ /studies/multi-rxv-alignment
+  └ [+16 more paths]
+
+
+○  (Static)  prerendered as static content
+●  (SSG)     prerendered as static HTML (uses generateStaticParams)
+
+
+> @abacus/narada@0.1.0 postbuild
+> node scripts/verify-export.mjs
+
+Verified library, 19 study routes, 25 publication routes and 413 bounded page payloads in out/.

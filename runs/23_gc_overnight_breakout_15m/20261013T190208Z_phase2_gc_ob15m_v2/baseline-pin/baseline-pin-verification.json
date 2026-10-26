@@ -1,0 +1,49 @@
+{
+  "status": "passed",
+  "baseline_pin_sha256": "af2e9541a663b4b87f024621736c771d8ed33487955a5574e62dbb2fdb27b225",
+  "actual_tests": 7,
+  "failures": 0,
+  "skips": 0,
+  "commands": [
+    {
+      "argv": [
+        "./scripts/uv",
+        "run",
+        "--locked",
+        "--no-sync",
+        "python",
+        "studies/23_gc_overnight_breakout_15m/phase2_baseline_pin.py",
+        "--workspace",
+        ".",
+        "--stage",
+        "work/23_gc_overnight_breakout_15m/20261013T180939Z_phase2_gc_ob15m_v1"
+      ],
+      "cwd": "/Users/ppanati/Documents/projects/abacus",
+      "environment": {
+        "UV_CACHE_DIR": "/private/tmp/abacus-study23-uv-cache"
+      }
+    }
+  ],
+  "source_snapshots": [
+    {
+      "path": "baseline-pin/source/studies/23_gc_overnight_breakout_15m/phase2_baseline_pin.py",
+      "bytes": 15135,
+      "sha256": "552b1f03cccfff65a4b60668c813cc591dd9ea158e3126470945458e80b6338a"
+    },
+    {
+      "path": "baseline-pin/source/studies/23_gc_overnight_breakout_15m/tests/test_phase2_baseline_pin.py",
+      "bytes": 4700,
+      "sha256": "c0cc697722628e1508c060f74c8b113f833579d6e9df41f14498de49d1798555"
+    }
+  ],
+  "earlier_attempt": {
+    "status": "failed",
+    "reason": "Audit implementation incorrectly equated Narada canonical report content hash with rawproducerfile hash; corrected identity check compares unchangedobjects and correctprovenancehash; no Phase1bytes changed"
+  },
+  "network": {
+    "web_tool": "inaccessible",
+    "sandbox_curl": "DNSblocked",
+    "actual_live_gate": "authorized anonymous curl outside network sandbox;15exactpublicbaselinefiles passed"
+  },
+  "phase2_outcomes_computed": false
+}

@@ -1,0 +1,116 @@
+{
+  "schema_version": "1.0.0",
+  "study_id": "15_vwap_excursion_response",
+  "run_id": "20260929T234000Z_a15f",
+  "storage_configuration": "legacy_research_root/work/<study>/<run> resolved through Abacus configuration",
+  "workspace_relative_locator": "data/research/sahadeva/15_vwap_excursion_response/20260929T234000Z_a15f",
+  "resolved_locator_at_seal": "/Users/ppanati/Documents/projects/abacus/data/research/sahadeva/15_vwap_excursion_response/20260929T234000Z_a15f",
+  "retained_manifest_sha256": "95ada097735d4ec4801e3964e971aa87377e7c518fdc3bbc861c18c0830d87bf",
+  "files": [
+    {
+      "file": "candidates.csv.gz",
+      "rows": 143384,
+      "bytes": 1745150,
+      "sha256": "488c50191df58c019233cd3577a1b6ecff6a6f4d8fcbd48fab7bf5b110ee0d19",
+      "schema_version": "1.0.0",
+      "format": "csv.gz"
+    },
+    {
+      "file": "candidates.parquet",
+      "rows": 143384,
+      "bytes": 2660942,
+      "sha256": "b9b6f69253c80faa398b37b408cc3ff73986b482d95bee8f1e3f7b3d9306fc91",
+      "schema_version": "1.0.0",
+      "format": "parquet"
+    },
+    {
+      "file": "departure-horizons.csv.gz",
+      "rows": 336960,
+      "bytes": 28127319,
+      "sha256": "cade4f39a24cbf487e3f3e98d764943f42a18fb860704e7798447a3c4d741486",
+      "schema_version": "1.0.0",
+      "format": "csv.gz"
+    },
+    {
+      "file": "departure-horizons.parquet",
+      "rows": 336960,
+      "bytes": 50624222,
+      "sha256": "8909c0bd25a0a9a291886cf09517a717ec0d6cf3b442e1c34efd59561a5865d0",
+      "schema_version": "1.0.0",
+      "format": "parquet"
+    },
+    {
+      "file": "parents.csv.gz",
+      "rows": 42096,
+      "bytes": 793113,
+      "sha256": "c2fe9a2c2d014ef5645d8d72cdabcf83998155577f947e2309be9f04314ef08e",
+      "schema_version": "1.0.0",
+      "format": "csv.gz"
+    },
+    {
+      "file": "parents.parquet",
+      "rows": 42096,
+      "bytes": 1135465,
+      "sha256": "b0ba9e170b1918e805d97fe64a0cd04b0037de27b19b30b1f528c660481d822b",
+      "schema_version": "1.0.0",
+      "format": "parquet"
+    },
+    {
+      "file": "thresholds.csv.gz",
+      "rows": 67392,
+      "bytes": 3308173,
+      "sha256": "389594fbdc7d7c6987f55ce3bd93aa1c9a9a41c192c67f3855b3ff5fac0eb584",
+      "schema_version": "1.0.0",
+      "format": "csv.gz"
+    },
+    {
+      "file": "thresholds.parquet",
+      "rows": 67392,
+      "bytes": 4778474,
+      "sha256": "9eb8e0658a35428869eb04a37f80d9cef08bd1b6c4afebf9e47f07abdaf94817",
+      "schema_version": "1.0.0",
+      "format": "parquet"
+    },
+    {
+      "file": "touch-horizons.csv.gz",
+      "rows": 179215,
+      "bytes": 19024886,
+      "sha256": "81d9b7c79e89ea71ed836397d3fc4518bf5d867f6facfd68817c33a4fb29b69f",
+      "schema_version": "1.0.0",
+      "format": "csv.gz"
+    },
+    {
+      "file": "touch-horizons.parquet",
+      "rows": 179215,
+      "bytes": 33741328,
+      "sha256": "6b58744f4aa2d90561f78e4ba333c14dbf7d504ca345f8934e3f7e830f9c6883",
+      "schema_version": "1.0.0",
+      "format": "parquet"
+    },
+    {
+      "file": "touches.csv.gz",
+      "rows": 35843,
+      "bytes": 3071036,
+      "sha256": "3b561df05d32c847f6fe360ea4c15ed1db016a4f5f45a3de21f6b89a573cfe55",
+      "schema_version": "1.0.0",
+      "format": "csv.gz"
+    },
+    {
+      "file": "touches.parquet",
+      "rows": 35843,
+      "bytes": 4960004,
+      "sha256": "2b1145f834042511dd8a6350c5e7d4020986b0af452419772a7c72ca2306ad5a",
+      "schema_version": "1.0.0",
+      "format": "parquet"
+    }
+  ],
+  "retention": "Permanent research evidence; preserve independently of work/ cleanup. No automatic deletion.",
+  "backup_status": "Local retained copy verified. Staged copy also remains. No off-device backup was performed or verified.",
+  "foreign_keys": {
+    "thresholds.parent_id": "parents.parent_id",
+    "touches.parent_id": "parents.parent_id",
+    "departure-horizons.event_id": "thresholds.event_id",
+    "touch-horizons.event_id": "touches.event_id"
+  },
+  "column_semantics": "UTC timestamps; raw price points; *_ticks min ticks; *_sigma frozen event sigma; nullable forward outcomes. See config/protocol and report schema."
+}

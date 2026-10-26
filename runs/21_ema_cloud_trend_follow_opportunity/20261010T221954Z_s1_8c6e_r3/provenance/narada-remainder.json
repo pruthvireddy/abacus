@@ -1,0 +1,135 @@
+{
+  "schema_version": 1,
+  "requested": {
+    "profiles": [],
+    "checks": [
+      "narada-test",
+      "narada-lint",
+      "narada-build"
+    ]
+  },
+  "selection": [
+    "narada-test",
+    "narada-lint",
+    "narada-build"
+  ],
+  "checks": [
+    {
+      "id": "narada-test",
+      "owner": "narada",
+      "kind": "command",
+      "argv": [
+        "npm",
+        "test"
+      ],
+      "cwd": "/Users/ppanati/Documents/projects/abacus/apps/narada",
+      "scope": [
+        "App-owned content/code and independent Node environment; build may update ignored .next/out only."
+      ],
+      "environment_overrides": {},
+      "prerequisites": [
+        {
+          "kind": "node-major",
+          "major": 24,
+          "description": "Node 24 selected on PATH, independent of the Python workspace."
+        },
+        {
+          "kind": "executable",
+          "name": "npm",
+          "description": "npm available on PATH; dependencies are never installed by the harness."
+        },
+        {
+          "kind": "directory",
+          "path": "apps/narada/node_modules",
+          "description": "Existing app dependencies from its unchanged npm lockfile."
+        }
+      ],
+      "outcome": "passed",
+      "exit_code": 0,
+      "duration_seconds": 1.121251,
+      "missing_prerequisites": [],
+      "unittest": null
+    },
+    {
+      "id": "narada-lint",
+      "owner": "narada",
+      "kind": "command",
+      "argv": [
+        "npm",
+        "run",
+        "lint"
+      ],
+      "cwd": "/Users/ppanati/Documents/projects/abacus/apps/narada",
+      "scope": [
+        "App-owned content/code and independent Node environment; build may update ignored .next/out only."
+      ],
+      "environment_overrides": {},
+      "prerequisites": [
+        {
+          "kind": "node-major",
+          "major": 24,
+          "description": "Node 24 selected on PATH, independent of the Python workspace."
+        },
+        {
+          "kind": "executable",
+          "name": "npm",
+          "description": "npm available on PATH; dependencies are never installed by the harness."
+        },
+        {
+          "kind": "directory",
+          "path": "apps/narada/node_modules",
+          "description": "Existing app dependencies from its unchanged npm lockfile."
+        }
+      ],
+      "outcome": "passed",
+      "exit_code": 0,
+      "duration_seconds": 1.946066,
+      "missing_prerequisites": [],
+      "unittest": null
+    },
+    {
+      "id": "narada-build",
+      "owner": "narada",
+      "kind": "command",
+      "argv": [
+        "npm",
+        "run",
+        "build"
+      ],
+      "cwd": "/Users/ppanati/Documents/projects/abacus/apps/narada",
+      "scope": [
+        "App-owned content/code and independent Node environment; build may update ignored .next/out only."
+      ],
+      "environment_overrides": {},
+      "prerequisites": [
+        {
+          "kind": "node-major",
+          "major": 24,
+          "description": "Node 24 selected on PATH, independent of the Python workspace."
+        },
+        {
+          "kind": "executable",
+          "name": "npm",
+          "description": "npm available on PATH; dependencies are never installed by the harness."
+        },
+        {
+          "kind": "directory",
+          "path": "apps/narada/node_modules",
+          "description": "Existing app dependencies from its unchanged npm lockfile."
+        }
+      ],
+      "outcome": "passed",
+      "exit_code": 0,
+      "duration_seconds": 4.107343,
+      "missing_prerequisites": [],
+      "unittest": null
+    }
+  ],
+  "outcome": "passed",
+  "exit_code": 0,
+  "limitations": [
+    "Only selected checks were executed.",
+    "Unittest counts come from the child TestResult; command checks have no test counts.",
+    "Configured-input diagnostics do not verify every partition or reproduce research."
+  ]
+}

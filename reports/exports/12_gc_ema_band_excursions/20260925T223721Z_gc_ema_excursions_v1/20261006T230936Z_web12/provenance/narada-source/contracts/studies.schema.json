@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abacus.local/narada/studies.schema.json",
+  "title": "Narada authored study catalog",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "studies"],
+  "properties": {
+    "schemaVersion": { "const": "1.0" },
+    "studies": {
+      "type": "array", "maxItems": 200,
+      "items": {
+        "type": "object", "additionalProperties": false,
+        "required": ["studyId", "slug", "title", "summary", "topic", "products", "evidenceStatus", "featuredPublicationId", "featuredSourceRunId"],
+        "properties": {
+          "studyId": { "type": "string", "pattern": "^[a-z0-9]+(?:_[a-z0-9]+)*$", "maxLength": 100 },
+          "slug": { "$ref": "#/$defs/slug" },
+          "title": { "$ref": "#/$defs/title" },
+          "summary": { "$ref": "#/$defs/prose" },
+          "topic": { "type": "string", "minLength": 1, "maxLength": 80 },
+          "products": { "type": "array", "minItems": 1, "maxItems": 20, "uniqueItems": true, "items": { "type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9 .-]{0,39}$" } },
+          "evidenceStatus": { "$ref": "#/$defs/prose" },
+          "featuredPublicationId": { "$ref": "#/$defs/slug" },
+          "featuredSourceRunId": { "$ref": "#/$defs/run" },
+          "relatedPublications": {
+            "type": "array", "maxItems": 20,
+            "items": {
+              "type": "object", "additionalProperties": false,
+              "required": ["publicationId", "sourceRunId", "relationship", "label"],
+              "properties": {
+                "publicationId": { "$ref": "#/$defs/slug" },
+                "sourceRunId": { "$ref": "#/$defs/run" },
+                "relationship": { "enum": ["other-run", "exploratory-supplement", "presentation-revision"] },
+                "label": { "$ref": "#/$defs/title" }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "slug": { "type": "string", "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$", "maxLength": 80 },
+    "run": { "type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,159}$" },
+    "title": { "type": "string", "minLength": 1, "maxLength": 160 },
+    "prose": { "type": "string", "minLength": 1, "maxLength": 800 }
+  }
+}

@@ -1,0 +1,100 @@
+{
+  "schema_version": 1,
+  "study_id": "22_es_range_xv_focused",
+  "scope": "Read-only execution feasibility inventory; no source bytes mutated or historical research run",
+  "date": "2026-10-12",
+  "range_xv": {
+    "price_fields": [
+      "open",
+      "high",
+      "low",
+      "close"
+    ],
+    "volume_available": false,
+    "contract_roll_adjustment": "unverified",
+    "timezone": "inferred fixed UTC-04 export clock normalized to NY",
+    "bar_availability": "next-bar-start proxy; source order retained within identical seconds"
+  },
+  "trade_quote_inventory": {
+    "scanned_roots": [
+      "data/raw",
+      "data/staging",
+      "data/inbox"
+    ],
+    "files": [
+      "data/inbox/.DS_Store",
+      "data/raw/.DS_Store",
+      "data/raw/databento/.DS_Store",
+      "data/raw/tradingview/chart_exports/1d/20260924-8722875f919f/CBOE_DLY_GVZ, 1D_97b48.csv",
+      "data/raw/tradingview/chart_exports/1d/20260924-8722875f919f/CBOE_DLY_VXN, 1D_24419.csv",
+      "data/raw/tradingview/chart_exports/1d/20260924-8722875f919f/CME_MINI_ES1!, 1D_2a487.csv",
+      "data/raw/tradingview/chart_exports/1d/20260924-8722875f919f/CME_MINI_NQ1!, 1D_78788.csv",
+      "data/raw/tradingview/chart_exports/1d/20260924-8722875f919f/COMEX_GC1!, 1D_98abc.csv",
+      "data/raw/tradingview/chart_exports/1d/20260924-8722875f919f/COMEX_SI1!, 1D_b3290.csv",
+      "data/raw/tradingview/chart_exports/1d/20260924-8722875f919f/NYMEX_CL1!, 1D_5ccb5.csv",
+      "data/raw/tradingview/chart_exports/1d/20260924-8722875f919f/OANDA_XAUUSD, 1D_f22ba.csv",
+      "data/raw/tradingview/chart_exports/1d/20260924-8722875f919f/TVC_VIX, 1D_78d2e.csv",
+      "data/raw/tradingview/chart_exports/1d/20260924-8722875f919f/batch_manifest.json",
+      "data/staging/databento/GLBX.MDP3/ohlcv-1m/.DS_Store",
+      "data/staging/ema_cloud/20261010T215130Z_s1_8c6e/diagnostic.json"
+    ],
+    "tick_or_quote_files_found": []
+  },
+  "unadjusted_1m_release": {
+    "dataset_id": "volume_lead_unadjusted_v1",
+    "manifest": "catalog/datasets/volume_lead_unadjusted_v1.json",
+    "manifest_sha256": "00757f5fc8278e75744d7adfaddc688be588d619d82b1dc1811aa60f21b7e5d4",
+    "coverage_start": "2010-06-06T22:00:00.000000000Z",
+    "ES_curated_files_present": [
+      "data/curated/continuous/1m/product=ES/roll=volume_lead_v1/variant=unadjusted/year=2010/part-000.parquet",
+      "data/curated/continuous/1m/product=ES/roll=volume_lead_v1/variant=unadjusted/year=2011/part-000.parquet",
+      "data/curated/continuous/1m/product=ES/roll=volume_lead_v1/variant=unadjusted/year=2012/part-000.parquet",
+      "data/curated/continuous/1m/product=ES/roll=volume_lead_v1/variant=unadjusted/year=2013/part-000.parquet",
+      "data/curated/continuous/1m/product=ES/roll=volume_lead_v1/variant=unadjusted/year=2014/part-000.parquet",
+      "data/curated/continuous/1m/product=ES/roll=volume_lead_v1/variant=unadjusted/year=2015/part-000.parquet",
+      "data/curated/continuous/1m/product=ES/roll=volume_lead_v1/variant=unadjusted/year=2016/part-000.parquet",
+      "data/curated/continuous/1m/product=ES/roll=volume_lead_v1/variant=unadjusted/year=2017/part-000.parquet",
+      "data/curated/continuous/1m/product=ES/roll=volume_lead_v1/variant=unadjusted/year=2018/part-000.parquet",
+      "data/curated/continuous/1m/product=ES/roll=volume_lead_v1/variant=unadjusted/year=2019/part-000.parquet",
+      "data/curated/continuous/1m/product=ES/roll=volume_lead_v1/variant=unadjusted/year=2020/part-000.parquet",
+      "data/curated/continuous/1m/product=ES/roll=volume_lead_v1/variant=unadjusted/year=2021/part-000.parquet",
+      "data/curated/continuous/1m/product=ES/roll=volume_lead_v1/variant=unadjusted/year=2022/part-000.parquet",
+      "data/curated/continuous/1m/product=ES/roll=volume_lead_v1/variant=unadjusted/year=2023/part-000.parquet",
+      "data/curated/continuous/1m/product=ES/roll=volume_lead_v1/variant=unadjusted/year=2024/part-000.parquet",
+      "data/curated/continuous/1m/product=ES/roll=volume_lead_v1/variant=unadjusted/year=2025/part-000.parquet",
+      "data/curated/continuous/1m/product=ES/roll=volume_lead_v1/variant=unadjusted/year=2026/part-000.parquet"
+    ],
+    "declared_source_paths_present": [],
+    "coverage_end": "2026-09-18T20:59:00.000000000Z"
+  },
+  "decision": "Actual fill/P&L test is not defensible with these retained RXV inputs. A labelled OHLC price-path proxy anchored to F1.open, with fixed stop/target horizon, ambiguous-touch bounds and incomplete follow-up retained, is feasible. Do not label model marks as executable fills or net expectancy.",
+  "gaps": [
+    "ATAS export contract and roll mapping has not been established",
+    "No tick trade or quote order found in scanned roots",
+    "Exact R completion and sub-second order unavailable",
+    "1m bars do not resolve within-minute barrier order or quotes",
+    "No validated causal alignment between the ATAS candles and contract-level Databento release"
+  ],
+  "documents": [
+    {
+      "path": "data/range_xv/README.md",
+      "sha256": "f05665d5cf4a9f24947176373aa6c8278486643cbc85f293350a8681d313705c",
+      "bytes": 5179
+    },
+    {
+      "path": "docs/range-xv-long-history-20260924.md",
+      "sha256": "0d41ccd011f21cc166822d571665fa2234c26f4bc6acf1830c0b9ef11bd5b24c",
+      "bytes": 5749
+    },
+    {
+      "path": "studies/22_es_range_xv_focused/inputs.lock.json",
+      "sha256": "2f771ea490e464a946dd5af140f490453611c6853779db353b708df9215edbfc",
+      "bytes": 4254
+    },
+    {
+      "path": "catalog/datasets/volume_lead_unadjusted_v1.json",
+      "sha256": "00757f5fc8278e75744d7adfaddc688be588d619d82b1dc1811aa60f21b7e5d4",
+      "bytes": 23097
+    }
+  ]
+}

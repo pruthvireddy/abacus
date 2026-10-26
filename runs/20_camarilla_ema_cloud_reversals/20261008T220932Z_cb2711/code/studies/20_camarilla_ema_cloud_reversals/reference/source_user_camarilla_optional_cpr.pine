@@ -1,0 +1,924 @@
+//@version=6
+indicator("Camarilla Pivots + Optional CPR", "Camarilla Pivots", overlay=true, max_lines_count=500, max_labels_count=500, max_boxes_count=500, dynamic_requests=false)
+
+AUTO = "Auto"
+DAILY = "Daily"
+WEEKLY = "Weekly"
+MONTHLY = "Monthly"
+QUARTERLY = "Quarterly"
+YEARLY = "Yearly"
+BIYEARLY = "Biyearly"
+TRIYEARLY = "Triyearly"
+QUINQUENNIALLY = "Quinquennially"
+DECENNIALLY = "Decennially"
+
+ALERT_EVERYTIME = "Everytime"
+ALERT_ONCE_PER_BAR = "Once Per Bar"
+ALERT_ONCE_PER_BAR_CLOSE = "Once Per Bar Close"
+
+pivot_time_frame = input.string(title="Pivots Timeframe", defval=AUTO, options=[AUTO, DAILY, WEEKLY, MONTHLY, QUARTERLY, YEARLY, BIYEARLY, TRIYEARLY, QUINQUENNIALLY, DECENNIALLY], group="Camarilla")
+p_look_back = input.int(title="Number of Pivots Back", defval=1, minval=1, maxval=5000, group="Camarilla")
+is_daily_based = input.bool(title="Use Daily-based Values", defval=true, tooltip="When this option is unchecked, Pivot Points will use intraday data while calculating on intraday charts. If Extended Hours are displayed on the chart, they will be taken into account during the pivot level calculation. If intraday OHLC values are different from daily-based values (normal for stocks), the pivot levels will also differ.", group="Camarilla")
+enable_CPR = input.bool(title="Show CPR (Central Pivot Range)", defval=false, group="Central Pivot Range")
+cpr_linestyle = input.string(defval = line.style_dashed, title = "CPR Line Style", options = [line.style_dashed, line.style_dotted, line.style_solid], group="Central Pivot Range")
+cpr_linewidth = input.int(title="CPR Line Width", defval=1, minval=1, maxval=100, group="Central Pivot Range")
+cpr_look_back = input.int(title="Number of CPR Back", defval=3, minval=1, maxval=5000, group="Central Pivot Range")
+show_next_period = input.bool(title="Show Next Period's Pivots", defval=false, group="Next Period")
+show_next_period_cpr = input.bool(title="Show Next Period's CPR", defval=false, group="Next Period", tooltip="'Show CPR' must be checked.")
+enable_timereq = input.bool(title="Only after 50% of current period is complete", defval=true, group="Next Period", tooltip="There might not be enough data in the beginning of the session to show accurate pivots for the next period.")
+nextperiod_offset = input.int(title="Offset X", defval=15, group="Next Period")
+
+show_labels = input.bool(title="Show Labels", defval=true, group="labels", inline="showlabels")
+show_prices = input.bool(title="Show Prices", defval=false, group="labels", inline="showlabels")
+show_timeframe_in_labels = input.bool(title="Show timeframe in labels", defval=true, group="labels")
+position_labels = input.string("Right", "Labels Position", options=["Left", "Right"], group="labels")
+position_pivot_label = input.string("Left", "Pivot/CPR Label Position", options=["Left", "Right"], group="labels")
+line_width = input.int(title="Line Width", defval=1, minval=1, maxval=100, group="levels", inline="pivotstyle")
+line_style = input.string(defval = line.style_solid, title = "Line Style", options = [line.style_dashed, line.style_dotted, line.style_solid], group="levels", inline="pivotstyle")
+
+l3_l4_zone_show = input.bool(false, "L3 L4 Zone", inline="L3/L4 Zone", group="Zones")
+l3_l4_zone_color = input.color(color.new(#31E981, 60), "", inline="L3/L4 Zone", group="Zones")
+h3_h4_zone_show = input.bool(false, "H3 H4 Zone", inline="H3/H4 Zone", group="Zones")
+h3_h4_zone_color = input.color(color.new(#F23645, 60), "", inline="H3/H4 Zone", group="Zones")
+l4_l6_zone_show = input.bool(false, "L4 L6 Zone", inline="L4/L6 Zone", group="Zones")
+l4_l6_zone_color = input.color(color.new(#9C27B0, 60), "", inline="L4/L6 Zone", group="Zones")
+h4_h6_zone_show = input.bool(false, "H4 H6 Zone", inline="H4/H6 Zone", group="Zones")
+h4_h6_zone_color = input.color(color.new(#9C27B0, 60), "", inline="H4/H6 Zone", group="Zones")
+show_only_zones = input.bool(false, "Show only zones (hide lines)", group="Zones")
+
+mid_line_width = input.int(title="Line Width", defval=1, minval=1, maxval=100, group="Midlines", inline="midstyle")
+mid_line_style = input.string(defval = line.style_dotted, title = "Line Style", options = [line.style_dashed, line.style_dotted, line.style_solid], group="Midlines", inline="midstyle")
+
+look_back = math.max(p_look_back, cpr_look_back)
+var DEF_COLOR = #31E981
+var DEF_COLOR1 = color.new(#31E981, 70)
+var DEF_COLOR2 = color.new(#31E981, 40)
+var DEF_COLORP = #3179F5
+var DEF_COLOR_MID = #31E981
+var DEF_COLOR1_MID = color.new(#31E981, 40)
+var arr_time = array.new_int()
+var p = array.new_float()
+p_color = input.color(DEF_COLORP, "P‏  ‏  ‏", inline="P", group="levels")
+p_show = input.bool(true, "", inline="P", group="levels")
+var cpr_tc = array.new_float()
+var cpr_bc = array.new_float()
+var cp = array.new_float()
+
+var p_next = array.new_float(1)
+var cpr_tc_next = array.new_float(1)
+var cpr_bc_next = array.new_float(1)
+var cp_next = array.new_float(1)
+var r1_next = array.new_float(1)
+var s1_next = array.new_float(1)
+var r2_next = array.new_float(1)
+var s2_next = array.new_float(1)
+var r3_next = array.new_float(1)
+var s3_next = array.new_float(1)
+var r4_next = array.new_float(1)
+var s4_next = array.new_float(1)
+var r5_next = array.new_float(1)
+var s5_next = array.new_float(1)
+var r6_next = array.new_float(1)
+var s6_next = array.new_float(1)
+
+cpr_tc_color = input.color(#3179F5, "‏  ‏  ‏  ‏  ‏  ‏  ‏  ‏TC", inline="P", group="levels")
+cpr_tc_show = input.bool(true, "", inline="P", group="levels")
+cpr_bc_color = input.color(#3179F5, "‏  ‏  ‏  ‏  ‏  ‏  ‏  ‏BC", inline="P", group="levels")
+cpr_bc_show = input.bool(true, "", inline="P", group="levels")
+cp_color = input.color(#245FC4, "CP", inline="CP", group="levels")
+cp_show = input.bool(true, "", inline="CP", group="levels")
+var r1 = array.new_float()
+var s1 = array.new_float()
+s1_color = input.color(DEF_COLOR1, "L1", inline="L1/H1" , group="levels")
+s1_show = input.bool(true, "", inline="L1/H1", group="levels")
+r1_color = input.color(DEF_COLOR1, "‏  ‏  ‏  ‏  ‏  ‏  ‏  ‏H1", inline="L1/H1", group="levels")
+r1_show = input.bool(true, "", inline="L1/H1", group="levels")
+var r2 = array.new_float()
+var s2 = array.new_float()
+s2_color = input.color(DEF_COLOR2, "L2", inline="L2/H2", group="levels")
+s2_show = input.bool(true, "", inline="L2/H2", group="levels")
+r2_color = input.color(DEF_COLOR2, "‏  ‏  ‏  ‏  ‏  ‏  ‏  ‏H2", inline="L2/H2", group="levels")
+r2_show = input.bool(true, "", inline="L2/H2", group="levels")
+var r3 = array.new_float()
+var s3 = array.new_float()
+s3_color = input.color(DEF_COLOR, "L3", inline="L3/H3", group="levels")
+s3_show = input.bool(true, "", inline="L3/H3", group="levels")
+r3_color = input.color(DEF_COLOR, "‏  ‏  ‏  ‏  ‏  ‏  ‏  ‏H3", inline="L3/H3", group="levels")
+r3_show = input.bool(true, "", inline="L3/H3", group="levels")
+var r4 = array.new_float()
+var s4 = array.new_float()
+s4_color = input.color(DEF_COLOR, "L4", inline="L4/H4", group="levels")
+s4_show = input.bool(true, "", inline="L4/H4", group="levels")
+r4_color = input.color(DEF_COLOR, "‏  ‏  ‏  ‏  ‏  ‏  ‏  ‏H4", inline="L4/H4", group="levels")
+r4_show = input.bool(true, "", inline="L4/H4", group="levels")
+var r5 = array.new_float()
+var s5 = array.new_float()
+s5_color = input.color(DEF_COLOR, "L5", inline="L5/H5", group="levels")
+s5_show = input.bool(true, "", inline="L5/H5", group="levels")
+r5_color = input.color(DEF_COLOR, "‏  ‏  ‏  ‏  ‏  ‏  ‏  ‏H5", inline="L5/H5", group="levels")
+r5_show = input.bool(true, "", inline="L5/H5", group="levels")
+var r6 = array.new_float()
+var s6 = array.new_float()
+s6_color = input.color(DEF_COLOR, "L6", inline="L6/H6", group="levels")
+s6_show = input.bool(true, "", inline="L6/H6", group="levels")
+r6_color = input.color(DEF_COLOR, "‏  ‏  ‏  ‏  ‏  ‏  ‏  ‏H6", inline="L6/H6", group="levels")
+r6_show = input.bool(true, "", inline="L6/H6", group="levels")
+
+var r5r6mid = array.new_float()
+var s5s6mid = array.new_float()
+var r4r5mid = array.new_float()
+var s4s5mid = array.new_float()
+var r3r4mid = array.new_float()
+var s3s4mid = array.new_float()
+var r2r3mid = array.new_float()
+var s2s3mid = array.new_float()
+
+s5s6mid_color = input.color(DEF_COLOR_MID, "L5 L6 Mid", inline="56mid", group="Midlines")
+s5s6mid_show = input.bool(false, "", inline="56mid", group="Midlines")
+r5r6mid_color = input.color(DEF_COLOR_MID, "H5 H6 Mid", inline="56mid", group="Midlines")
+r5r6mid_show = input.bool(false, "", inline="56mid", group="Midlines")
+s4s5mid_color = input.color(DEF_COLOR_MID, "L4 L5 Mid", inline="45mid", group="Midlines")
+s4s5mid_show = input.bool(false, "", inline="45mid", group="Midlines")
+r4r5mid_color = input.color(DEF_COLOR_MID, "H4 H5 Mid", inline="45mid", group="Midlines")
+r4r5mid_show = input.bool(false, "", inline="45mid", group="Midlines")
+s3s4mid_color = input.color(DEF_COLOR_MID, "L3 L4 Mid", inline="34mid", group="Midlines")
+s3s4mid_show = input.bool(false, "", inline="34mid", group="Midlines")
+r3r4mid_color = input.color(DEF_COLOR_MID, "H3 H4 Mid", inline="34mid", group="Midlines")
+r3r4mid_show = input.bool(false, "", inline="34mid", group="Midlines")
+s2s3mid_color = input.color(DEF_COLOR1_MID, "L2 L3 Mid", inline="23mid", group="Midlines")
+s2s3mid_show = input.bool(false, "", inline="23mid", group="Midlines")
+r2r3mid_color = input.color(DEF_COLOR1_MID, "H2 H3 Mid", inline="23mid", group="Midlines")
+r2r3mid_show = input.bool(false, "", inline="23mid", group="Midlines")
+
+enable_compact_mode = input.bool(false, "Enable Compact Mode", group="Compact Mode")
+compact_mode_width = input.int(4, "Compact Mode Width", minval=1, maxval=50, tooltip="Horizontal width of the compact pivots (in bars).", group="Compact Mode")
+compact_mode_offset = input.int(16, "Compact Mode Offset", minval=0, maxval=50, tooltip="Number of empty bars between the latest candle and the compact pivots.", group="Compact Mode")
+
+pivotX_open = float(na)
+pivotX_open := nz(pivotX_open[1], open)
+pivotX_high = float(na)
+pivotX_high := nz(pivotX_high[1], high)
+pivotX_low = float(na)
+pivotX_low := nz(pivotX_low[1], low)
+pivotX_close = float(na)
+pivotX_close := nz(pivotX_close[1], close)
+pivotX_prev_open = float(na)
+pivotX_prev_open := nz(pivotX_prev_open[1])
+pivotX_prev_high = float(na)
+pivotX_prev_high := nz(pivotX_prev_high[1])
+pivotX_prev_low = float(na)
+pivotX_prev_low := nz(pivotX_prev_low[1])
+pivotX_prev_close = float(na)
+pivotX_prev_close := nz(pivotX_prev_close[1])
+
+alert_p = input.bool(false, "P", inline="P", group="Activated Alerts")
+alert_cp = input.bool(false, "CP", inline="CP", group="Activated Alerts")
+alert_s1 = input.bool(false, "L1", inline="L1/H1", group="Activated Alerts")
+alert_r1 = input.bool(false, "H1", inline="L1/H1", group="Activated Alerts")
+alert_s2 = input.bool(false, "L2", inline="L2/H2", group="Activated Alerts")
+alert_r2 = input.bool(false, "H2", inline="L2/H2", group="Activated Alerts")
+alert_s3 = input.bool(false, "L3", inline="L3/H3", group="Activated Alerts")
+alert_r3 = input.bool(false, "H3", inline="L3/H3", group="Activated Alerts")
+alert_s4 = input.bool(false, "L4", inline="L4/H4", group="Activated Alerts")
+alert_r4 = input.bool(false, "H4", inline="L4/H4", group="Activated Alerts")
+alert_s5 = input.bool(false, "L5", inline="L5/H5", group="Activated Alerts")
+alert_r5 = input.bool(false, "H5", inline="L5/H5", group="Activated Alerts")
+alert_s6 = input.bool(false, "L6", inline="L6/H6", group="Activated Alerts")
+alert_r6 = input.bool(false, "H6", inline="L6/H6", group="Activated Alerts")
+alert_input = input.string(title="Alert Frequency", defval=ALERT_ONCE_PER_BAR, options=[ALERT_EVERYTIME, ALERT_ONCE_PER_BAR, ALERT_ONCE_PER_BAR_CLOSE], group = "Activated Alerts", tooltip="After you change alert options here you must add a new alert in Trading View and select 'Camarilla Pivots' under condition. You can also right click on a pivot and select 'Add alert..'")
+alert_frequency = alert_input == ALERT_ONCE_PER_BAR ? alert.freq_once_per_bar : alert_input == ALERT_ONCE_PER_BAR_CLOSE ? alert.freq_once_per_bar_close : alert.freq_all
+
+get_pivot_resolution() =>
+    resolution = "M"
+    if pivot_time_frame == AUTO
+        if timeframe.isintraday
+            resolution := timeframe.multiplier <= 15 ? "D" : "W"
+        else if timeframe.isweekly or timeframe.ismonthly
+            resolution := "12M"
+    else if pivot_time_frame == DAILY
+        resolution := "D"
+    else if pivot_time_frame == WEEKLY
+        resolution := "W"
+    else if pivot_time_frame == MONTHLY
+        resolution := "M"
+    else if pivot_time_frame == QUARTERLY
+        resolution := "3M"
+    else if pivot_time_frame == YEARLY or pivot_time_frame == BIYEARLY or pivot_time_frame == TRIYEARLY or pivot_time_frame == QUINQUENNIALLY or pivot_time_frame == DECENNIALLY
+        resolution := "12M"
+    resolution
+
+get_pivot_timeframe_label() =>
+    switch pivot_time_frame
+        DAILY => "1D"
+        WEEKLY => "1W"
+        MONTHLY => "1M"
+        QUARTERLY => "3M"
+        YEARLY => "1Y"
+        BIYEARLY => "2Y"
+        TRIYEARLY => "3Y"
+        QUINQUENNIALLY => "5Y"
+        DECENNIALLY => "10Y"
+        =>
+            switch get_pivot_resolution()
+                "D" => "1D"
+                "W" => "1W"
+                "3M" => "3M"
+                "12M" => "1Y"
+                => "1M"
+
+format_pivot_label(txt, y) =>
+    label_text = show_labels ? txt + (show_timeframe_in_labels ? " (" + get_pivot_timeframe_label() + ")" : "") : ""
+    price_text = show_prices ? (show_labels and show_timeframe_in_labels ? str.format(" • {0}", math.round_to_mintick(y)) : str.format(" ({0})", math.round_to_mintick(y))) : ""
+    label_text + price_text
+
+var lines = array.new_line()
+var labels = array.new_label()
+var boxes = array.new_box()
+
+get_compact_bounds() =>
+    left_index = last_bar_index + compact_mode_offset + 1
+    right_index = left_index + compact_mode_width
+    [left_index, right_index]
+
+draw_compact_zone(upper_level, lower_level, col, left_index, right_index) =>
+    if array.size(upper_level) > 0 and array.size(lower_level) > 0
+        upper_value = array.get(upper_level, array.size(upper_level) - 1)
+        lower_value = array.get(lower_level, array.size(lower_level) - 1)
+        if not na(upper_value) and not na(lower_value)
+            array.push(boxes, box.new(left_index, upper_value, right_index, lower_value, xloc=xloc.bar_index, border_color=na, bgcolor=col))
+
+draw_compact_line(level, col, linestyle, linewidth, left_index, right_index) =>
+    if not show_only_zones and array.size(level) > 0
+        level_value = array.get(level, array.size(level) - 1)
+        if not na(level_value)
+            array.push(lines, line.new(left_index, level_value, right_index, level_value, color=col, xloc=xloc.bar_index, width=linewidth, style=linestyle))
+
+draw_compact_label(level, txt, txt_color, left_index, right_index) =>
+    if not show_only_zones and (show_labels or show_prices) and array.size(level) > 0
+        level_value = array.get(level, array.size(level) - 1)
+        if not na(level_value)
+            display_text = format_pivot_label(txt, level_value)
+            array.push(labels, label.new(x=right_index, y=level_value, text=display_text, textcolor=txt_color, style=label.style_label_left, color=#00000000, xloc=xloc.bar_index))
+
+draw_zone(i, upper_level, lower_level, col) =>
+    if not enable_compact_mode and array.size(arr_time) > 1
+        array.push(boxes, box.new(array.get(arr_time, i), array.get(upper_level, i), array.get(arr_time, i + 1), array.get(lower_level, i), xloc=xloc.bar_time, border_color=na, bgcolor=col))
+
+draw_zone_nextperiod(upper_level, lower_level, col) =>
+    if not enable_compact_mode and array.size(arr_time) > 1
+        res = get_pivot_resolution()
+        add = 0
+        if res == "D"
+            add := 86400
+        else if res == "W"
+            add := 604800
+        else if res == "M"
+            add := 2592000
+        else if res == "3M"
+            add := 7776000
+        else if res == "12M"
+            add := 31104000
+
+        offset = add*(nextperiod_offset/100)
+        st = array.get(arr_time, array.size(arr_time)-1) + offset*1000
+        endtime = st + add*1000
+        meet_timereq = not enable_timereq or timenow > (array.get(arr_time, array.size(arr_time)-2)+(add*1000)*0.5)
+        if meet_timereq
+            array.push(boxes, box.new(st, array.get(upper_level, 0), endtime, array.get(lower_level, 0), xloc=xloc.bar_time, border_color=na, bgcolor=col))
+
+draw_line(i, pivot, col, linestyle, linewidth) =>
+    if not enable_compact_mode and not show_only_zones and array.size(arr_time) > 1
+        array.push(lines, line.new(array.get(arr_time, i), array.get(pivot, i), array.get(arr_time, i + 1), array.get(pivot, i), color=col, xloc=xloc.bar_time, width=linewidth, style=linestyle))
+
+draw_line_nextperiod(level, col, linestyle, linewidth) =>
+    if not enable_compact_mode and not show_only_zones and array.size(arr_time) > 1
+        res = get_pivot_resolution()
+        add = 0
+        if res == "D"
+            add := 86400
+        else if res == "W"
+            add := 604800
+        else if res == "M"
+            add := 2592000
+        else if res == "3M"
+            add := 7776000
+        else if res == "12M"
+            add := 31104000
+
+        offset = add*(nextperiod_offset/100)
+        st = array.get(arr_time, array.size(arr_time)-1) + offset*1000
+        endtime = st + add*1000
+        meet_timereq = not enable_timereq or timenow > (array.get(arr_time, array.size(arr_time)-2)+(add*1000)*0.5)
+        if meet_timereq
+            array.push(lines, line.new(st, array.get(level, 0), endtime, array.get(level, 0), color=col, xloc=xloc.bar_time, width=linewidth, style=linestyle))
+
+draw_label(i, y, txt, txt_color) =>
+    if not enable_compact_mode and not show_only_zones and (show_labels or show_prices) and not na(y)
+        display_text = format_pivot_label(txt, y)
+        label_style = position_labels == "Left" ? label.style_label_right : label.style_label_left
+        x = position_labels == "Left" ? array.get(arr_time, i) : array.get(arr_time, i + 1)
+        if txt == "P" or txt == "TC" or txt == "BC"
+            label_style := position_pivot_label == "Left" ? label.style_label_right : label.style_label_left
+            x := position_pivot_label == "Left" ? array.get(arr_time, i) : array.get(arr_time, i + 1)
+        array.push(labels, label.new(x = x, y=y, text=display_text, textcolor=txt_color, style=label_style, color=#00000000, xloc=xloc.bar_time))
+
+draw_label_nextperiod(y, txt, txt_color) =>
+    if not enable_compact_mode and not show_only_zones and (show_labels or show_prices) and not na(y)
+        res = get_pivot_resolution()
+        add = 0
+        if res == "D"
+            add := 86400
+        else if res == "W"
+            add := 604800
+        else if res == "M"
+            add := 2592000
+        else if res == "3M"
+            add := 7776000
+        else if res == "12M"
+            add := 31104000
+
+        offset = add*(nextperiod_offset/100)
+        st = array.get(arr_time, array.size(arr_time)-1) + offset*1000
+        endtime = st + add*1000
+        display_text = format_pivot_label(txt, y)
+        label_style = position_labels == "Left" ? label.style_label_right : label.style_label_left
+        x = position_labels == "Left" ? st : endtime
+        if txt == "P" or txt == "TC" or txt == "BC"
+            label_style := position_pivot_label == "Left" ? label.style_label_right : label.style_label_left
+            x := position_pivot_label == "Left" ? st : endtime
+        meet_timereq = not enable_timereq or timenow > (array.get(arr_time, array.size(arr_time)-2)+(add*1000)*0.5)
+        if meet_timereq
+            array.push(labels, label.new(x = x, y=y, text=display_text, textcolor=txt_color, style=label_style, color=#00000000, xloc=xloc.bar_time))
+
+camarilla() =>
+    pivotX_Median = (pivotX_prev_high + pivotX_prev_low + pivotX_prev_close) / 3
+    pivot_range = pivotX_prev_high - pivotX_prev_low
+    array.push(p, pivotX_Median)
+    // CPR
+    bc_val = (pivotX_prev_high + pivotX_prev_low) / 2.0
+    tc_val = pivotX_Median - bc_val + pivotX_Median
+    array.push(cpr_tc, tc_val)
+    array.push(cpr_bc, bc_val)
+    array.push(cp, pivotX_prev_close)
+
+    array.push(r1, pivotX_prev_close + pivot_range * 1.1 / 12.0)
+    array.push(s1, pivotX_prev_close - pivot_range * 1.1 / 12.0)
+    r2_val = pivotX_prev_close + pivot_range * 1.1 / 6.0
+    array.push(r2, r2_val)
+    s2_val = pivotX_prev_close - pivot_range * 1.1 / 6.0
+    array.push(s2, s2_val)
+    r3_val = pivotX_prev_close + pivot_range * 1.1 / 4.0
+    s3_val = pivotX_prev_close - pivot_range * 1.1 / 4.0
+    array.push(r3, r3_val)
+    array.push(s3, s3_val)
+    r4_val = pivotX_prev_close + pivot_range * 1.1 / 2.0
+    s4_val = pivotX_prev_close - pivot_range * 1.1 / 2.0
+    array.push(r4, r4_val)
+    array.push(s4, s4_val)
+
+    r5_val = pivotX_prev_high / pivotX_prev_low * pivotX_prev_close
+    r6_val = r5_val + 1.168 * (r5_val - r4_val)
+    s6_val = pivotX_prev_close - (r6_val - pivotX_prev_close)
+	array.push(r5, r5_val)
+    s5_val = 2 * pivotX_prev_close - r5_val
+	array.push(s5, s5_val)
+    array.push(r6, r6_val)
+    array.push(s6, s6_val)
+
+    array.push(s2s3mid, (s2_val+s3_val) / 2.0)
+    array.push(r2r3mid, (r2_val+r3_val) / 2.0)
+    array.push(s3s4mid, (s3_val+s4_val) / 2.0)
+    array.push(r3r4mid, (r3_val+r4_val) / 2.0)
+    array.push(r4r5mid, (r4_val+r5_val) / 2.0)
+    array.push(s4s5mid, (s4_val+s5_val) / 2.0)
+    array.push(r5r6mid, (r5_val+r6_val) / 2.0)
+    array.push(s5s6mid, (s5_val+s6_val) / 2.0)
+
+calc_pivot() =>
+    camarilla()
+
+calc_next_pivot() =>
+    pivotX_Median = (pivotX_high + pivotX_low + close) / 3
+    pivot_range = pivotX_high - pivotX_low
+    array.set(p_next, 0, pivotX_Median)
+    // CPR
+    bc_val = (pivotX_high + pivotX_low) / 2.0
+    tc_val = pivotX_Median - bc_val + pivotX_Median
+    array.set(cpr_tc_next, 0, tc_val)
+    array.set(cpr_bc_next, 0, bc_val)
+    array.set(cp_next, 0, close)
+
+    array.set(r1_next, 0, close + pivot_range * 1.1 / 12.0)
+    array.set(s1_next, 0, close - pivot_range * 1.1 / 12.0)
+    array.set(r2_next, 0, close + pivot_range * 1.1 / 6.0)
+    array.set(s2_next, 0, close - pivot_range * 1.1 / 6.0)
+    array.set(r3_next, 0, close + pivot_range * 1.1 / 4.0)
+    array.set(s3_next, 0, close - pivot_range * 1.1 / 4.0)
+    r4_val = close + pivot_range * 1.1 / 2.0
+    array.set(r4_next, 0, r4_val)
+    array.set(s4_next, 0, close - pivot_range * 1.1 / 2.0)
+    r5_val = pivotX_high / pivotX_low * close
+    r6_val = r5_val + 1.168 * (r5_val - r4_val)
+    s6_val = close - (r6_val - close)
+	array.set(r5_next, 0, r5_val)
+	array.set(s5_next, 0, 2 * close - r5_val)
+    array.set(r6_next, 0, r6_val)
+    array.set(s6_next, 0, s6_val)
+
+resolution = get_pivot_resolution()
+
+SIMPLE_DIVISOR = -1
+custom_years_divisor = switch pivot_time_frame
+	BIYEARLY => 2
+	TRIYEARLY => 3
+	QUINQUENNIALLY => 5
+	DECENNIALLY => 10
+	=> SIMPLE_DIVISOR
+
+calc_high(prev, curr) =>
+    if na(prev) or na(curr)
+        nz(prev, nz(curr, na))
+    else
+        math.max(prev, curr)
+
+calc_low(prev, curr) =>
+    if not na(prev) and not na(curr)
+        math.min(prev, curr)
+    else
+        nz(prev, nz(curr, na))
+
+calc_OHLC_for_pivot(custom_years_divisor) =>
+    if custom_years_divisor == SIMPLE_DIVISOR
+        [open, high, low, close, open[1], high[1], low[1], close[1], time[1], time_close]
+    else
+        var prev_sec_open = float(na)
+        var prev_sec_high = float(na)
+        var prev_sec_low = float(na)
+        var prev_sec_close = float(na)
+        var prev_sec_time = int(na)
+        var curr_sec_open = float(na)
+        var curr_sec_high = float(na)
+        var curr_sec_low = float(na)
+        var curr_sec_close = float(na)
+        if year(time_close) % custom_years_divisor == 0
+        	curr_sec_open := open
+			curr_sec_high := high
+			curr_sec_low := low
+			curr_sec_close := close
+            prev_sec_high := high[1]
+            prev_sec_low := low[1]
+            prev_sec_close := close[1]
+            prev_sec_time := time[1]
+            for i = 2 to custom_years_divisor
+                prev_sec_open :=  nz(open[i], prev_sec_open)
+                prev_sec_high := calc_high(prev_sec_high, high[i])
+                prev_sec_low := calc_low(prev_sec_low, low[i])
+                prev_sec_time := nz(time[i], prev_sec_time)
+        [curr_sec_open, curr_sec_high, curr_sec_low, curr_sec_close, prev_sec_open, prev_sec_high, prev_sec_low, prev_sec_close, prev_sec_time, time_close]
+
+[sec_open, sec_high, sec_low, sec_close, prev_sec_open, prev_sec_high, prev_sec_low, prev_sec_close, prev_sec_time, sec_time] = request.security(syminfo.tickerid, resolution, calc_OHLC_for_pivot(custom_years_divisor), lookahead = barmerge.lookahead_on)
+sec_open_gaps_on = request.security(syminfo.tickerid, resolution, open, gaps = barmerge.gaps_on, lookahead = barmerge.lookahead_on)
+
+is_change_years = custom_years_divisor > 0 and ta.change(time(resolution)) != 0 and year(time_close) % custom_years_divisor == 0
+
+var is_change = false
+var uses_current_bar = false
+var change_time = int(na)
+is_time_change = (ta.change(time(resolution)) != 0 and custom_years_divisor == SIMPLE_DIVISOR) or is_change_years
+if is_time_change
+    change_time := time
+
+var start_time = time
+var was_last_premarket = false
+var start_calculate_in_premarket = false
+
+is_last_premarket = barstate.islast and session.ispremarket and time_close > sec_time and not was_last_premarket
+
+if is_last_premarket
+    was_last_premarket := true
+    start_calculate_in_premarket := true
+if session.ismarket
+    was_last_premarket := false
+
+without_time_change = barstate.islast and array.size(arr_time) == 0
+is_can_calc_pivot = (not uses_current_bar and is_time_change and session.ismarket) or (ta.change(sec_open) != 0 and not start_calculate_in_premarket) or is_last_premarket or (uses_current_bar and not na(sec_open_gaps_on)) or without_time_change
+enough_bars_for_calculate = prev_sec_time >= start_time or is_daily_based
+
+if is_can_calc_pivot and enough_bars_for_calculate
+    if array.size(arr_time) == 0 and is_daily_based
+        pivotX_prev_open := prev_sec_open[1]
+        pivotX_prev_high := prev_sec_high[1]
+        pivotX_prev_low := prev_sec_low[1]
+        pivotX_prev_close := prev_sec_close[1]
+        pivotX_open := sec_open[1]
+        pivotX_high := sec_high[1]
+        pivotX_low := sec_low[1]
+        pivotX_close := sec_close[1]
+        array.push(arr_time, start_time)
+        calc_pivot()
+
+    if is_daily_based
+    	if is_last_premarket
+            pivotX_prev_open := sec_open
+            pivotX_prev_high := sec_high
+            pivotX_prev_low := sec_low
+            pivotX_prev_close := sec_close
+            pivotX_open := open
+            pivotX_high := high
+            pivotX_low := low
+            pivotX_close := close
+        else
+			pivotX_prev_open := prev_sec_open
+			pivotX_prev_high := prev_sec_high
+			pivotX_prev_low := prev_sec_low
+			pivotX_prev_close := prev_sec_close
+			pivotX_open := sec_open
+			pivotX_high := sec_high
+			pivotX_low := sec_low
+            pivotX_close := sec_close
+    else
+        pivotX_prev_high := pivotX_high
+        pivotX_prev_low := pivotX_low
+        pivotX_prev_open := pivotX_open
+        pivotX_prev_close := close[1]
+        pivotX_open := open
+        pivotX_high := high
+        pivotX_low := low
+        pivotX_close := close
+
+    if barstate.islast and not is_change and array.size(arr_time) > 0 and not without_time_change
+        array.set(arr_time, array.size(arr_time) - 1, change_time)
+    else if without_time_change
+        array.push(arr_time, start_time)
+    else
+        array.push(arr_time, nz(change_time, time))
+
+    calc_pivot()
+
+    if array.size(arr_time) > look_back
+        if array.size(arr_time) > 0
+            array.shift(arr_time)
+        if array.size(p) > 0 and p_show
+            array.shift(p)
+        if array.size(cpr_tc) > 0 and enable_CPR and cpr_tc_show
+            array.shift(cpr_tc)
+        if array.size(cpr_bc) > 0 and enable_CPR and cpr_bc_show
+            array.shift(cpr_bc)
+        if array.size(cp) > 0
+            array.shift(cp)
+        if array.size(r1) > 0 and r1_show
+            array.shift(r1)
+        if array.size(s1) > 0 and s1_show
+            array.shift(s1)
+        if array.size(r2) > 0 and r2_show
+            array.shift(r2)
+        if array.size(s2) > 0 and s2_show
+            array.shift(s2)
+        if array.size(r3) > 0 and (r3_show or h3_h4_zone_show)
+            array.shift(r3)
+        if array.size(s3) > 0 and (s3_show or l3_l4_zone_show)
+            array.shift(s3)
+        if array.size(r4) > 0 and (r4_show or h3_h4_zone_show or h4_h6_zone_show)
+            array.shift(r4)
+        if array.size(s4) > 0 and (s4_show or l3_l4_zone_show or l4_l6_zone_show)
+            array.shift(s4)
+        if array.size(r5) > 0 and r5_show
+            array.shift(r5)
+        if array.size(s5) > 0 and s5_show
+            array.shift(s5)
+        if array.size(r6) > 0 and (r6_show or h4_h6_zone_show)
+            array.shift(r6)
+        if array.size(s6) > 0 and (s6_show or l4_l6_zone_show)
+            array.shift(s6)
+        if array.size(r2r3mid) > 0 and r2r3mid_show
+            array.shift(r2r3mid)
+        if array.size(s2s3mid) > 0 and s2s3mid_show
+            array.shift(s2s3mid)
+        if array.size(r3r4mid) > 0 and r3r4mid_show
+            array.shift(r3r4mid)
+        if array.size(s3s4mid) > 0 and s3s4mid_show
+            array.shift(s3s4mid)
+        if array.size(r4r5mid) > 0 and r4r5mid_show
+            array.shift(r4r5mid)
+        if array.size(s4s5mid) > 0 and s4s5mid_show
+            array.shift(s4s5mid)
+        if array.size(r5r6mid) > 0 and r5r6mid_show
+            array.shift(r5r6mid)
+        if array.size(s5s6mid) > 0 and s5s6mid_show
+            array.shift(s5s6mid)
+    is_change := true
+else if not is_daily_based
+    pivotX_high := math.max(pivotX_high, high)
+    pivotX_low := math.min(pivotX_low, low)
+
+if not enable_compact_mode and (show_next_period or show_next_period_cpr)
+    calc_next_pivot()
+
+if barstate.islast and not is_daily_based and array.size(arr_time) == 0
+    runtime.error("Not enough intraday data to calculate Pivot Points. Lower the Pivots Timeframe or turn on the 'Use Daily-based Values' option in the indicator settings.")
+
+tf_label = pivot_time_frame
+if pivot_time_frame == AUTO
+    if timeframe.isintraday
+        tf_label := timeframe.multiplier <= 15 ? "Daily" : "Weekly"
+    else if timeframe.isweekly or timeframe.ismonthly
+        tf_label := "Yearly"
+    else
+        tf_label := "Monthly"
+
+if array.size(arr_time) > 0
+    if array.size(p) > 0
+        if ta.cross( array.get(p, array.size(p) - 1 ), close ) and alert_p
+            alert("Price crossed over camarilla P (" + tf_label + ")", alert_frequency)
+
+    if array.size(cp) > 0
+        if ta.cross( array.get(cp, array.size(cp) - 1 ), close ) and alert_cp
+            alert("Price crossed over camarilla CP (" + tf_label + ")", alert_frequency)
+
+    if array.size(s1) > 0
+        if ta.cross( array.get(s1, array.size(s1) - 1 ), close ) and alert_s1
+            alert("Price crossed over camarilla L1 (" + tf_label + ")", alert_frequency)
+
+    if array.size(s2) > 0
+        if ta.cross( array.get(s2, array.size(s2) - 1 ), close ) and alert_s2
+            alert("Price crossed over camarilla L2 (" + tf_label + ")", alert_frequency)
+
+    if array.size(s3) > 0
+        if ta.cross( array.get(s3, array.size(s3) - 1 ), close ) and alert_s3
+            alert("Price crossed over camarilla L3 (" + tf_label + ")", alert_frequency)
+
+    if array.size(s4) > 0
+        if ta.cross( array.get(s4, array.size(s4) - 1 ), close ) and alert_s4
+            alert("Price crossed over camarilla L4 (" + tf_label + ")", alert_frequency)
+
+    if array.size(s5) > 0
+        if ta.cross( array.get(s5, array.size(s5) - 1 ), close ) and alert_s5
+            alert("Price crossed over camarilla L5 (" + tf_label + ")", alert_frequency)
+
+    if array.size(s6) > 0
+        if ta.cross( array.get(s6, array.size(s6) - 1 ), close ) and alert_s6
+            alert("Price crossed over camarilla L6 (" + tf_label + ")", alert_frequency)
+
+    if array.size(r1) > 0
+        if ta.cross( array.get(r1, array.size(r1) - 1 ), close ) and alert_r1
+            alert("Price crossed over camarilla H1 (" + tf_label + ")", alert_frequency)
+
+    if array.size(r2) > 0
+        if ta.cross( array.get(r2, array.size(r2) - 1 ), close ) and alert_r2
+            alert("Price crossed over camarilla H2 (" + tf_label + ")", alert_frequency)
+
+    if array.size(r3) > 0
+        if ta.cross( array.get(r3, array.size(r3) - 1 ), close ) and alert_r3
+            alert("Price crossed over camarilla H3 (" + tf_label + ")", alert_frequency)
+
+    if array.size(r4) > 0
+        if ta.cross( array.get(r4, array.size(r4) - 1 ), close ) and alert_r4
+            alert("Price crossed over camarilla H4 (" + tf_label + ")", alert_frequency)
+
+    if array.size(r5) > 0
+        if ta.cross( array.get(r5, array.size(r5) - 1 ), close ) and alert_r5
+            alert("Price crossed over camarilla H5 (" + tf_label + ")", alert_frequency)
+
+    if array.size(r6) > 0
+        if ta.cross( array.get(r6, array.size(r6) - 1 ), close ) and alert_r6
+            alert("Price crossed over camarilla H6 (" + tf_label + ")", alert_frequency)
+
+if barstate.islast and array.size(arr_time) > 0 and (is_change or enable_compact_mode)
+    if is_change
+        is_change := false
+        if custom_years_divisor > 0
+            last_pivot_time = array.get(arr_time, array.size(arr_time) - 1)
+            pivot_timeframe = str.tostring(12 * custom_years_divisor) + "M"
+            estimate_pivot_time = last_pivot_time + timeframe.in_seconds(pivot_timeframe) * 1000
+            array.push(arr_time, estimate_pivot_time)
+        else
+            array.push(arr_time, time_close(resolution))
+
+    while array.size(lines) > 0
+        line.delete(array.shift(lines))
+    while array.size(labels) > 0
+        label.delete(array.shift(labels))
+    while array.size(boxes) > 0
+        box.delete(array.shift(boxes))
+
+    if enable_compact_mode
+        [compact_left_time, compact_right_time] = get_compact_bounds()
+
+        if l3_l4_zone_show
+            draw_compact_zone(s3, s4, l3_l4_zone_color, compact_left_time, compact_right_time)
+        if h3_h4_zone_show
+            draw_compact_zone(r4, r3, h3_h4_zone_color, compact_left_time, compact_right_time)
+        if l4_l6_zone_show
+            draw_compact_zone(s4, s6, l4_l6_zone_color, compact_left_time, compact_right_time)
+        if h4_h6_zone_show
+            draw_compact_zone(r6, r4, h4_h6_zone_color, compact_left_time, compact_right_time)
+
+        if p_show
+            draw_compact_line(p, p_color, enable_CPR ? cpr_linestyle : line_style, enable_CPR ? cpr_linewidth : line_width, compact_left_time, compact_right_time)
+            draw_compact_label(p, "P", p_color, compact_left_time, compact_right_time)
+        if enable_CPR and cpr_tc_show
+            draw_compact_line(cpr_tc, cpr_tc_color, cpr_linestyle, cpr_linewidth, compact_left_time, compact_right_time)
+            draw_compact_label(cpr_tc, "TC", cpr_tc_color, compact_left_time, compact_right_time)
+        if enable_CPR and cpr_bc_show
+            draw_compact_line(cpr_bc, cpr_bc_color, cpr_linestyle, cpr_linewidth, compact_left_time, compact_right_time)
+            draw_compact_label(cpr_bc, "BC", cpr_bc_color, compact_left_time, compact_right_time)
+        if cp_show
+            draw_compact_line(cp, cp_color, line_style, line_width, compact_left_time, compact_right_time)
+            draw_compact_label(cp, "CP", cp_color, compact_left_time, compact_right_time)
+
+        if r1_show
+            draw_compact_line(r1, r1_color, line_style, line_width, compact_left_time, compact_right_time)
+            draw_compact_label(r1, "H1", r1_color, compact_left_time, compact_right_time)
+        if s1_show
+            draw_compact_line(s1, s1_color, line_style, line_width, compact_left_time, compact_right_time)
+            draw_compact_label(s1, "L1", s1_color, compact_left_time, compact_right_time)
+        if r2_show
+            draw_compact_line(r2, r2_color, line_style, line_width, compact_left_time, compact_right_time)
+            draw_compact_label(r2, "H2", r2_color, compact_left_time, compact_right_time)
+        if s2_show
+            draw_compact_line(s2, s2_color, line_style, line_width, compact_left_time, compact_right_time)
+            draw_compact_label(s2, "L2", s2_color, compact_left_time, compact_right_time)
+        if r3_show
+            draw_compact_line(r3, r3_color, line_style, line_width, compact_left_time, compact_right_time)
+            draw_compact_label(r3, "H3", r3_color, compact_left_time, compact_right_time)
+        if s3_show
+            draw_compact_line(s3, s3_color, line_style, line_width, compact_left_time, compact_right_time)
+            draw_compact_label(s3, "L3", s3_color, compact_left_time, compact_right_time)
+        if r4_show
+            draw_compact_line(r4, r4_color, line_style, line_width, compact_left_time, compact_right_time)
+            draw_compact_label(r4, "H4", r4_color, compact_left_time, compact_right_time)
+        if s4_show
+            draw_compact_line(s4, s4_color, line_style, line_width, compact_left_time, compact_right_time)
+            draw_compact_label(s4, "L4", s4_color, compact_left_time, compact_right_time)
+        if r5_show
+            draw_compact_line(r5, r5_color, line_style, line_width, compact_left_time, compact_right_time)
+            draw_compact_label(r5, "H5", r5_color, compact_left_time, compact_right_time)
+        if s5_show
+            draw_compact_line(s5, s5_color, line_style, line_width, compact_left_time, compact_right_time)
+            draw_compact_label(s5, "L5", s5_color, compact_left_time, compact_right_time)
+        if r6_show
+            draw_compact_line(r6, r6_color, line_style, line_width, compact_left_time, compact_right_time)
+            draw_compact_label(r6, "H6", r6_color, compact_left_time, compact_right_time)
+        if s6_show
+            draw_compact_line(s6, s6_color, line_style, line_width, compact_left_time, compact_right_time)
+            draw_compact_label(s6, "L6", s6_color, compact_left_time, compact_right_time)
+
+        if r2r3mid_show
+            draw_compact_line(r2r3mid, r2r3mid_color, mid_line_style, mid_line_width, compact_left_time, compact_right_time)
+        if s2s3mid_show
+            draw_compact_line(s2s3mid, s2s3mid_color, mid_line_style, mid_line_width, compact_left_time, compact_right_time)
+        if r3r4mid_show
+            draw_compact_line(r3r4mid, r3r4mid_color, mid_line_style, mid_line_width, compact_left_time, compact_right_time)
+        if s3s4mid_show
+            draw_compact_line(s3s4mid, s3s4mid_color, mid_line_style, mid_line_width, compact_left_time, compact_right_time)
+        if r4r5mid_show
+            draw_compact_line(r4r5mid, r4r5mid_color, mid_line_style, mid_line_width, compact_left_time, compact_right_time)
+        if s4s5mid_show
+            draw_compact_line(s4s5mid, s4s5mid_color, mid_line_style, mid_line_width, compact_left_time, compact_right_time)
+        if r5r6mid_show
+            draw_compact_line(r5r6mid, r5r6mid_color, mid_line_style, mid_line_width, compact_left_time, compact_right_time)
+        if s5s6mid_show
+            draw_compact_line(s5s6mid, s5s6mid_color, mid_line_style, mid_line_width, compact_left_time, compact_right_time)
+
+    for i = 0 to array.size(arr_time) - 2
+        if enable_compact_mode
+            break
+        if array.size(s3) > 0 and array.size(s4) > 0 and l3_l4_zone_show and p_look_back > array.size(arr_time)-2-i
+            draw_zone(i, s3, s4, l3_l4_zone_color)
+        if array.size(r3) > 0 and array.size(r4) > 0 and h3_h4_zone_show and p_look_back > array.size(arr_time)-2-i
+            draw_zone(i, r4, r3, h3_h4_zone_color)
+        if array.size(s4) > 0 and array.size(s6) > 0 and l4_l6_zone_show and p_look_back > array.size(arr_time)-2-i
+            draw_zone(i, s4, s6, l4_l6_zone_color)
+        if array.size(r4) > 0 and array.size(r6) > 0 and h4_h6_zone_show and p_look_back > array.size(arr_time)-2-i
+            draw_zone(i, r6, r4, h4_h6_zone_color)
+        if array.size(p) > 0 and p_show and ((not enable_CPR and p_look_back > array.size(arr_time)-2-i) or cpr_look_back < array.size(arr_time)-1-i)
+            draw_line(i, p, p_color,line_style, line_width)
+            draw_label(i, array.get(p, i), "P", p_color)
+        if array.size(p) > 0 and p_show and enable_CPR and cpr_look_back > array.size(arr_time)-2-i
+            draw_line(i, p, p_color, cpr_linestyle, cpr_linewidth)
+            draw_label(i, array.get(p, i), "P", p_color)
+        if array.size(cpr_tc) > 0 and enable_CPR and cpr_tc_show and cpr_look_back > array.size(arr_time)-2-i
+            draw_line(i, cpr_tc, cpr_tc_color, cpr_linestyle, enable_CPR ? cpr_linewidth : line_width)
+            draw_label(i, array.get(cpr_tc, i), "TC", cpr_tc_color)
+        if array.size(cpr_bc) > 0 and enable_CPR and cpr_bc_show and cpr_look_back > array.size(arr_time)-2-i
+            draw_line(i, cpr_bc, cpr_bc_color, cpr_linestyle, enable_CPR ? cpr_linewidth : line_width)
+            draw_label(i, array.get(cpr_bc, i), "BC", cpr_bc_color)
+        if array.size(cp) > 0 and cp_show and p_look_back > array.size(arr_time)-2-i
+            draw_line(i, cp, cp_color, line_style, line_width)
+            draw_label(i, array.get(cp, i), "CP", cp_color)
+        if array.size(r1) > 0 and r1_show and p_look_back > array.size(arr_time)-2-i
+            draw_line(i, r1, r1_color, line_style, line_width)
+            draw_label(i, array.get(r1, i), "H1", r1_color)
+        if array.size(s1) > 0 and s1_show and p_look_back > array.size(arr_time)-2-i
+            draw_line(i, s1, s1_color, line_style, line_width)
+            draw_label(i, array.get(s1, i), "L1", s1_color)
+        if array.size(r2) > 0 and r2_show and p_look_back > array.size(arr_time)-2-i
+            draw_line(i, r2, r2_color, line_style, line_width)
+            draw_label(i, array.get(r2, i), "H2", r2_color)
+        if array.size(s2) > 0 and s2_show and p_look_back > array.size(arr_time)-2-i
+            draw_line(i, s2, s2_color, line_style, line_width)
+            draw_label(i, array.get(s2, i), "L2", s2_color)
+        if array.size(r3) > 0 and r3_show and p_look_back > array.size(arr_time)-2-i
+            draw_line(i, r3, r3_color, line_style, line_width)
+            draw_label(i, array.get(r3, i), "H3", r3_color)
+        if array.size(s3) > 0 and s3_show and p_look_back > array.size(arr_time)-2-i
+            draw_line(i, s3, s3_color, line_style, line_width)
+            draw_label(i, array.get(s3, i), "L3", s3_color)
+        if array.size(r4) > 0 and r4_show and p_look_back > array.size(arr_time)-2-i
+            draw_line(i, r4, r4_color, line_style, line_width)
+            draw_label(i, array.get(r4, i), "H4", r4_color)
+        if array.size(s4) > 0 and s4_show and p_look_back > array.size(arr_time)-2-i
+            draw_line(i, s4, s4_color, line_style, line_width)
+            draw_label(i, array.get(s4, i), "L4", s4_color)
+        if array.size(r5) > 0 and r5_show and p_look_back > array.size(arr_time)-2-i
+            draw_line(i, r5, r5_color, line_style, line_width)
+            draw_label(i, array.get(r5, i), "H5", r5_color)
+        if array.size(s5) > 0 and s5_show and p_look_back > array.size(arr_time)-2-i
+            draw_line(i, s5, s5_color, line_style, line_width)
+            draw_label(i, array.get(s5, i), "L5", s5_color)
+        if array.size(r6) > 0 and r6_show and p_look_back > array.size(arr_time)-2-i
+            draw_line(i, r6, r6_color, line_style, line_width)
+            draw_label(i, array.get(r6, i), "H6", r6_color)
+        if array.size(s6) > 0 and s6_show and p_look_back > array.size(arr_time)-2-i
+            draw_line(i, s6, s6_color, line_style, line_width)
+            draw_label(i, array.get(s6, i), "L6", s6_color)
+        if array.size(r2r3mid) > 0 and r2r3mid_show and p_look_back > array.size(arr_time)-2-i
+            draw_line(i, r2r3mid, r2r3mid_color, mid_line_style, mid_line_width)
+        if array.size(s2s3mid) > 0 and s2s3mid_show and p_look_back > array.size(arr_time)-2-i
+            draw_line(i, s2s3mid, s2s3mid_color, mid_line_style, mid_line_width)
+        if array.size(r3r4mid) > 0 and r3r4mid_show and p_look_back > array.size(arr_time)-2-i
+            draw_line(i, r3r4mid, r3r4mid_color, mid_line_style, mid_line_width)
+            //draw_label(i, array.get(r3r4mid, i), "H3/H4 mid", r3r4mid_color)
+        if array.size(s3s4mid) > 0 and s3s4mid_show and p_look_back > array.size(arr_time)-2-i
+            draw_line(i, s3s4mid, s3s4mid_color, mid_line_style, mid_line_width)
+        if array.size(r4r5mid) > 0 and r4r5mid_show and p_look_back > array.size(arr_time)-2-i
+            draw_line(i, r4r5mid, r4r5mid_color, mid_line_style, mid_line_width)
+        if array.size(s4s5mid) > 0 and s4s5mid_show and p_look_back > array.size(arr_time)-2-i
+            draw_line(i, s4s5mid, s4s5mid_color, mid_line_style, mid_line_width)
+        if array.size(r5r6mid) > 0 and r5r6mid_show and p_look_back > array.size(arr_time)-2-i
+            draw_line(i, r5r6mid, r5r6mid_color, mid_line_style, mid_line_width)
+        if array.size(s5s6mid) > 0 and s5s6mid_show and p_look_back > array.size(arr_time)-2-i
+            draw_line(i, s5s6mid, s5s6mid_color, mid_line_style, mid_line_width)
+
+    if not enable_compact_mode and show_next_period
+        if l3_l4_zone_show
+            draw_zone_nextperiod(s3_next, s4_next, l3_l4_zone_color)
+        if h3_h4_zone_show
+            draw_zone_nextperiod(r4_next, r3_next, h3_h4_zone_color)
+        if l4_l6_zone_show
+            draw_zone_nextperiod(s4_next, s6_next, l4_l6_zone_color)
+        if h4_h6_zone_show
+            draw_zone_nextperiod(r6_next, r4_next, h4_h6_zone_color)
+        if array.size(p_next) > 0 and p_show and not show_next_period_cpr
+            draw_line_nextperiod(p_next, p_color, line_style, line_width)
+            draw_label_nextperiod(array.get(p_next, 0), "P", p_color)
+        if array.size(cp_next) > 0 and cp_show
+            draw_line_nextperiod(cp_next, cp_color, line_style, line_width)
+            draw_label_nextperiod(array.get(cp_next, 0), "CP", cp_color)
+        if array.size(r1_next) > 0 and r1_show
+            draw_line_nextperiod(r1_next, r1_color, line_style, line_width)
+            draw_label_nextperiod(array.get(r1_next, 0), "H1", r1_color)
+        if array.size(s1_next) > 0 and s1_show
+            draw_line_nextperiod(s1_next, s1_color, line_style, line_width)
+            draw_label_nextperiod(array.get(s1_next, 0), "L1", s1_color)
+        if array.size(r2_next) > 0 and r2_show
+            draw_line_nextperiod(r2_next, r2_color, line_style, line_width)
+            draw_label_nextperiod(array.get(r2_next, 0), "H2", r2_color)
+        if array.size(s2_next) > 0 and s2_show
+            draw_line_nextperiod(s2_next, s2_color, line_style, line_width)
+            draw_label_nextperiod(array.get(s2_next, 0), "L2", s2_color)
+        if array.size(r3_next) > 0 and r3_show
+            draw_line_nextperiod(r3_next, r3_color, line_style, line_width)
+            draw_label_nextperiod(array.get(r3_next, 0), "H3", r3_color)
+        if array.size(s3_next) > 0 and s3_show
+            draw_line_nextperiod(s3_next, s3_color, line_style, line_width)
+            draw_label_nextperiod(array.get(s3_next, 0), "L3", s3_color)
+        if array.size(r4_next) > 0 and r4_show
+            draw_line_nextperiod(r4_next, r4_color, line_style, line_width)
+            draw_label_nextperiod(array.get(r4_next, 0), "H4", r4_color)
+        if array.size(s4_next) > 0 and s4_show
+            draw_line_nextperiod(s4_next, s4_color, line_style, line_width)
+            draw_label_nextperiod(array.get(s4_next, 0), "L4", s4_color)
+        if array.size(r5_next) > 0 and r5_show
+            draw_line_nextperiod(r5_next, r5_color, line_style, line_width)
+            draw_label_nextperiod(array.get(r5_next, 0), "H5", r5_color)
+        if array.size(s5_next) > 0 and s5_show
+            draw_line_nextperiod(s5_next, s5_color, line_style, line_width)
+            draw_label_nextperiod(array.get(s5_next, 0), "L5", s5_color)
+        if array.size(r6_next) > 0 and r6_show
+            draw_line_nextperiod(r6_next, r6_color, line_style, line_width)
+            draw_label_nextperiod(array.get(r6_next, 0), "H6", r6_color)
+        if array.size(s6_next) > 0 and s6_show
+            draw_line_nextperiod(s6_next, s6_color, line_style, line_width)
+            draw_label_nextperiod(array.get(s6_next, 0), "L6", s6_color)
+
+    if not enable_compact_mode and show_next_period_cpr
+        if array.size(p_next) > 0 and p_show and enable_CPR
+            draw_line_nextperiod(p_next, p_color, cpr_linestyle, cpr_linewidth)
+            draw_label_nextperiod(array.get(p_next, 0), "P", p_color)
+        if array.size(cpr_tc_next) > 0 and cpr_tc_show and enable_CPR
+            draw_line_nextperiod(cpr_tc_next, cpr_tc_color, cpr_linestyle, cpr_linewidth)
+            draw_label_nextperiod(array.get(cpr_tc_next, 0), "TC", cpr_tc_color)
+        if array.size(cpr_bc_next) > 0 and cpr_bc_show and enable_CPR
+            draw_line_nextperiod(cpr_bc_next, cpr_bc_color, cpr_linestyle, cpr_linewidth)
+            draw_label_nextperiod(array.get(cpr_bc_next, 0), "BC", cpr_bc_color)

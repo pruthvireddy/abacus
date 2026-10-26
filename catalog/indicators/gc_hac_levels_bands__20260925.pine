@@ -1,0 +1,749 @@
+//@version=6
+indicator(
+     "GC HAC Levels-Bands",
+     shorttitle = "GC HAC Levels-Bands",
+     overlay = true,
+     max_lines_count = 28,
+     max_labels_count = 500)
+
+// This indicator combines three independent modules:
+// 1. Slow EMA Levels reproduces the HAC EMA module for selected source charts.
+// 2. HTF Levels reproduces Phase 1 of HAC LPT Elite for selected source charts.
+// 3. EMA deviation bands measure close minus the chart-timeframe 225-bar BASE.
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Shared visual helpers
+// ─────────────────────────────────────────────────────────────────────────────
+var array<line> levelLines = array.new<line>(28, na)
+var array<label> levelLabels = array.new<label>(28, na)
+varip array<int> levelLastAlertBars = array.new<int>(28, na)
+var string slowEmaLineTypeSetting = "Solid"
+var string htfLineTypeSetting = "Solid"
+float emaLabelVerticalOffset = math.max(ta.atr(14) * 0.10, syminfo.mintick * 2.0)
+float htfLabelVerticalOffset = math.max(ta.atr(14) * 0.12, syminfo.mintick * 3.0)
+
+f_update_level(
+     int slot,
+     bool enabled,
+     float levelValue,
+     string levelText,
+     color levelColor,
+     int levelWidth,
+     int labelOffset,
+     bool stopLineAtLabel) =>
+    line currentLine = array.get(levelLines, slot)
+    label currentLabel = array.get(levelLabels, slot)
+
+    if enabled and barstate.islast and not na(levelValue)
+        int lineEndBar = stopLineAtLabel ? bar_index + labelOffset : bar_index + 1
+        string lineExtension = stopLineAtLabel ? extend.left : extend.both
+        string configuredLineType = slot < 4 ? slowEmaLineTypeSetting : htfLineTypeSetting
+        string renderedLineStyle = configuredLineType == "Dotted" ? line.style_dotted : configuredLineType == "Dashed" ? line.style_dashed : line.style_solid
+
+        if na(currentLine)
+            currentLine := line.new(
+                 bar_index,
+                 levelValue,
+                 lineEndBar,
+                 levelValue,
+                 xloc = xloc.bar_index,
+                 extend = lineExtension,
+                 color = levelColor,
+                 width = levelWidth,
+                 style = renderedLineStyle,
+                 force_overlay = true)
+            array.set(levelLines, slot, currentLine)
+        else
+            line.set_xy1(currentLine, bar_index, levelValue)
+            line.set_xy2(currentLine, lineEndBar, levelValue)
+            line.set_extend(currentLine, lineExtension)
+            line.set_color(currentLine, levelColor)
+            line.set_width(currentLine, levelWidth)
+            line.set_style(currentLine, renderedLineStyle)
+
+        // EMA text stays close above its line; HTF text gets extra clearance below.
+        float renderedLabelValue = levelValue + (slot < 4 ? emaLabelVerticalOffset : -htfLabelVerticalOffset)
+        string renderedText = stopLineAtLabel ? levelText : levelText + "  •  " + str.tostring(levelValue, format.mintick)
+        string renderedStyle = stopLineAtLabel ? label.style_none : label.style_label_right
+        color renderedBackground = stopLineAtLabel ? color.new(levelColor, 100) : levelColor
+        color renderedTextColor = stopLineAtLabel ? levelColor : color.white
+
+        if na(currentLabel)
+            currentLabel := label.new(
+                 bar_index + labelOffset,
+                 renderedLabelValue,
+                 renderedText,
+                 xloc = xloc.bar_index,
+                 style = renderedStyle,
+                 color = renderedBackground,
+                 textcolor = renderedTextColor,
+                 size = size.small,
+                 textalign = text.align_right,
+                 force_overlay = true)
+            array.set(levelLabels, slot, currentLabel)
+        else
+            label.set_xy(currentLabel, bar_index + labelOffset, renderedLabelValue)
+            label.set_text(currentLabel, renderedText)
+            label.set_style(currentLabel, renderedStyle)
+            label.set_color(currentLabel, renderedBackground)
+            label.set_textcolor(currentLabel, renderedTextColor)
+            label.set_textalign(currentLabel, text.align_right)
+    else if barstate.islast and (not enabled or na(levelValue))
+        if not na(currentLine)
+            line.delete(currentLine)
+            array.set(levelLines, slot, na)
+        if not na(currentLabel)
+            label.delete(currentLabel)
+            array.set(levelLabels, slot, na)
+
+f_check_level_alert(
+     int slot,
+     bool enabled,
+     float levelValue,
+     string levelFamily,
+     string sourceTimeframe,
+     string levelName,
+     string levelState,
+     string triggerMode,
+     int proximityTicks,
+     int cooldownBars,
+     bool confirmOnClose) =>
+    float tolerance = syminfo.mintick * proximityTicks
+    float distancePoints = math.abs(close - levelValue)
+    float distanceTicks = syminfo.mintick > 0.0 ? distancePoints / syminfo.mintick : na
+    bool crossedAbove = ta.crossover(close, levelValue)
+    bool crossedBelow = ta.crossunder(close, levelValue)
+    bool touchingZone = high >= levelValue - tolerance and low <= levelValue + tolerance
+    bool nearZone = math.abs(close - levelValue) <= tolerance
+    bool newTouch = touchingZone and not touchingZone[1]
+    bool newNear = nearZone and not nearZone[1]
+    bool eventNow = switch triggerMode
+        "Close cross only" => crossedAbove or crossedBelow
+        "Proximity entry" => newNear
+        => crossedAbove or crossedBelow or newTouch
+
+    int lastAlertBar = array.get(levelLastAlertBars, slot)
+    bool cooldownReady = na(lastAlertBar) or bar_index - lastAlertBar >= cooldownBars
+    bool barReady = not confirmOnClose or barstate.isconfirmed
+    bool shouldAlert = enabled and barstate.isrealtime and not na(levelValue) and eventNow and cooldownReady and barReady
+    string alertFragment = ""
+
+    if shouldAlert
+        float previousDelta = close[1] - levelValue[1]
+        string approachSide = na(previousDelta) ?
+             (close >= levelValue ? "from above" : "from below") :
+             previousDelta > 0.0 ? "from above" :
+             previousDelta < 0.0 ? "from below" :
+             (close >= levelValue ? "from above" : "from below")
+        string eventText = crossedAbove ? "Price crossed above" : crossedBelow ? "Price crossed below" :
+             triggerMode == "Proximity entry" ? "Price entered proximity " + approachSide :
+             "Price touched the proximity zone " + approachSide
+        alertFragment := "\n\n" + sourceTimeframe + " " + levelFamily + " — " + levelName +
+             (levelState == "" ? "" : "\nEMA regime: " + levelState) +
+             "\nEvent: " + eventText +
+             "\nLevel price: " + str.tostring(levelValue, format.mintick) +
+             "\nDistance: " + str.tostring(distancePoints, format.mintick) + " points (" + str.tostring(distanceTicks, "0.0") + " ticks)"
+        array.set(levelLastAlertBars, slot, bar_index)
+
+    alertFragment
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Slow EMA Levels
+// ─────────────────────────────────────────────────────────────────────────────
+const int EMA_TIMEFRAME_MULTIPLIER = 15
+const int SLOW_EMA_LENGTH = 15
+const int TREND_EMA_LENGTH = 9
+const color HAC_EMA_BULLISH_COLOR = #00E676
+const color HAC_EMA_BEARISH_COLOR = #FF5252
+
+string SLOW_EMA_GROUP = "Slow EMA Levels"
+
+bool showSlowEma1m = input.bool(true, "1m", group = SLOW_EMA_GROUP, inline = "ema1m")
+color slowEma1mColor = input.color(#2962FF, "Color", group = SLOW_EMA_GROUP, inline = "ema1m")
+
+bool showSlowEma3m = input.bool(false, "3m", group = SLOW_EMA_GROUP, inline = "ema3m")
+color slowEma3mColor = input.color(#7B1FA2, "Color", group = SLOW_EMA_GROUP, inline = "ema3m")
+
+bool showSlowEma5m = input.bool(false, "5m", group = SLOW_EMA_GROUP, inline = "ema5m")
+color slowEma5mColor = input.color(#E91E63, "Color", group = SLOW_EMA_GROUP, inline = "ema5m")
+
+bool showSlowEma15m = input.bool(false, "15m", group = SLOW_EMA_GROUP, inline = "ema15m")
+color slowEma15mColor = input.color(#FF6D00, "Color", group = SLOW_EMA_GROUP, inline = "ema15m")
+
+int slowEmaWidth = input.int(2, "Line thickness", minval = 1, maxval = 5, group = SLOW_EMA_GROUP)
+string slowEmaLineType = input.string("Solid", "Line type", options = ["Solid", "Dashed", "Dotted"], group = SLOW_EMA_GROUP)
+int slowEmaProjectionOffset = input.int(150, "Projection offset (bars)", minval = 1, maxval = 500, group = SLOW_EMA_GROUP)
+
+slowEmaLineTypeSetting := slowEmaLineType
+
+// Continuous HAC EMA line matched to the current control indicator. The
+// visible 225-bar base is colored by the 135-bar trend regime.
+float hacEmaBase = ta.ema(close, SLOW_EMA_LENGTH * EMA_TIMEFRAME_MULTIPLIER)
+float hacEmaTrend = ta.ema(close, TREND_EMA_LENGTH * EMA_TIMEFRAME_MULTIPLIER)
+color hacEmaColor = hacEmaTrend >= hacEmaBase ? HAC_EMA_BULLISH_COLOR : HAC_EMA_BEARISH_COLOR
+
+plot(hacEmaBase, "BASE", color = hacEmaColor, linewidth = 4, force_overlay = true)
+
+// ─────────────────────────────────────────────────────────────────────────────
+// EMA deviation bands (chart timeframe)
+// Sigma is the population standard deviation of signed close-minus-EMA
+// residuals, measured about their rolling mean. The bands stay centered on
+// BASE. These are dispersion bands, not probability/confidence intervals.
+// ─────────────────────────────────────────────────────────────────────────────
+string EMA_BANDS_GROUP = "EMA Deviation Bands"
+bool showEmaBands = input.bool(
+     true, "Show bands", group = EMA_BANDS_GROUP,
+     tooltip = "Draws two band pairs around the colored 225-period BASE on the current chart timeframe. This display switch does not disable re-entry markers or band alert conditions.")
+int emaBandLookback = input.int(
+     225, "Deviation lookback (bars)", minval = 2, maxval = 5000, group = EMA_BANDS_GROUP,
+     tooltip = "Standard deviation of close minus BASE over this many chart bars. Shorter windows react faster; longer windows smooth the width. The BASE length stays at 225.")
+float emaBandInnerMult = input.float(2.0, "Inner band (sigma)", minval = 0.1, maxval = 10.0, step = 0.1, group = EMA_BANDS_GROUP)
+float emaBandOuterMult = input.float(3.0, "Outer band (sigma)", minval = 0.1, maxval = 20.0, step = 0.1, group = EMA_BANDS_GROUP)
+color emaBandUpperColor = input.color(#EF5350, "Upper bands", group = EMA_BANDS_GROUP, inline = "bandcolors")
+color emaBandLowerColor = input.color(#26A69A, "Lower bands", group = EMA_BANDS_GROUP, inline = "bandcolors")
+int emaBandLineWidth = input.int(1, "Band line thickness", minval = 1, maxval = 4, group = EMA_BANDS_GROUP)
+bool shadeEmaBands = input.bool(true, "Shade between inner and outer bands", group = EMA_BANDS_GROUP)
+int emaBandFillTransparency = input.int(90, "Shading transparency", minval = 0, maxval = 100, group = EMA_BANDS_GROUP)
+
+if barstate.isfirst and emaBandOuterMult <= emaBandInnerMult
+    runtime.error("EMA Deviation Bands: Outer band (sigma) must be greater than Inner band (sigma).")
+
+float emaBandResidual = close - hacEmaBase
+float emaBandSigma = ta.stdev(emaBandResidual, emaBandLookback, biased = true)
+// Require both an EMA-length history and a complete deviation window.
+bool emaBandReady = bar_index >= math.max(SLOW_EMA_LENGTH * EMA_TIMEFRAME_MULTIPLIER, emaBandLookback) - 1 and not na(emaBandSigma)
+float emaBandUpperInner = emaBandReady ? hacEmaBase + emaBandInnerMult * emaBandSigma : na
+float emaBandLowerInner = emaBandReady ? hacEmaBase - emaBandInnerMult * emaBandSigma : na
+float emaBandUpperOuter = emaBandReady ? hacEmaBase + emaBandOuterMult * emaBandSigma : na
+float emaBandLowerOuter = emaBandReady ? hacEmaBase - emaBandOuterMult * emaBandSigma : na
+
+emaBandUpperInnerPlot = plot(showEmaBands ? emaBandUpperInner : na, "Upper inner band", color = emaBandUpperColor, linewidth = emaBandLineWidth, force_overlay = true)
+emaBandUpperOuterPlot = plot(showEmaBands ? emaBandUpperOuter : na, "Upper outer band", color = emaBandUpperColor, linewidth = emaBandLineWidth, force_overlay = true)
+emaBandLowerInnerPlot = plot(showEmaBands ? emaBandLowerInner : na, "Lower inner band", color = emaBandLowerColor, linewidth = emaBandLineWidth, force_overlay = true)
+emaBandLowerOuterPlot = plot(showEmaBands ? emaBandLowerOuter : na, "Lower outer band", color = emaBandLowerColor, linewidth = emaBandLineWidth, force_overlay = true)
+fill(emaBandUpperInnerPlot, emaBandUpperOuterPlot, color = showEmaBands and shadeEmaBands ? color.new(emaBandUpperColor, emaBandFillTransparency) : na, title = "Upper extension zone")
+fill(emaBandLowerInnerPlot, emaBandLowerOuterPlot, color = showEmaBands and shadeEmaBands ? color.new(emaBandLowerColor, emaBandFillTransparency) : na, title = "Lower extension zone")
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Optional mean-reversion setups
+// Require a prior CLOSE outside the inner band and a confirmed close back
+// inside, moving toward BASE but not already reaching/passing the target.
+// These use only chart-timeframe data; no higher-timeframe confirmation.
+// ─────────────────────────────────────────────────────────────────────────────
+string EMA_BAND_SIGNALS_GROUP = "Band Re-entry Setups"
+bool showEmaBandSetups = input.bool(
+     true, "Show re-entry markers", group = EMA_BAND_SIGNALS_GROUP,
+     tooltip = "Turn off to hide all band signal triangles and their ATR numbers. Bullish: previous close below the lower inner band, then a higher close back inside but below BASE. Bearish: the reverse. Markers confirm only at candle close. A wick-only excursion does not qualify. Band alerts have their own enable switch.")
+int emaBandMarkerCooldownMinutes = input.int(
+     10, "Same-direction marker cooldown (minutes)", minval = 0, maxval = 1440, group = EMA_BAND_SIGNALS_GROUP,
+     tooltip = "Minimum elapsed time between displayed markers in the same direction. Long and short markers have independent timers. For example, a long marker at 10:00 permits the next long marker at 10:10 or later with a 10-minute cooldown. Suppressed signals do not restart the timer. Set 0 to show every qualifying marker. This setting affects chart markers only; band alert conditions are unchanged.")
+bool useEmaBandFlatFilter = input.bool(
+     true, "Require a relatively flat EMA", group = EMA_BAND_SIGNALS_GROUP,
+     tooltip = "Filters re-entry setups using the absolute movement of BASE over the slope lookback, divided by the current residual standard deviation. The bands remain visible in trends.")
+int emaBandSlopeLookback = input.int(10, "EMA slope lookback (bars)", minval = 1, maxval = 500, group = EMA_BAND_SIGNALS_GROUP)
+float emaBandMaxSlope = input.float(
+     0.25, "Maximum EMA movement (sigma)", minval = 0.0, maxval = 10.0, step = 0.05, group = EMA_BAND_SIGNALS_GROUP,
+     tooltip = "At 0.25, BASE may move no more than one quarter of the current residual standard deviation across the entire slope lookback. Lower values allow fewer setups. This is a starting setting to test, not an optimized threshold.")
+bool enableEmaBandAlerts = input.bool(
+     true, "Enable band alert conditions", group = EMA_BAND_SIGNALS_GROUP,
+     tooltip = "Makes Band long re-entry, Band short re-entry, and Band re-entry (either) eligible to fire when selected in TradingView's Create Alert dialog. These are separate from the original Smart Alerts / Any alert() function call. Always confirms on candle close.")
+
+string EMA_BAND_ATR_GROUP = "Signal ATR Values"
+bool showEmaBandAtrValues = input.bool(
+     true, "Show ATR pip values", group = EMA_BAND_ATR_GROUP,
+     tooltip = "Shows the signal candle's 1 ATR (14) in pips as a number above bearish markers and below bullish markers. Follows Show re-entry markers and the marker cooldown. Values are fixed at candle close. Keeps the latest 472 numbers.")
+float emaBandPipSize = input.float(
+     0.1, "Price move per pip", minval = 0.00000001, group = EMA_BAND_ATR_GROUP,
+     tooltip = "ATR in pips = ATR (14) divided by this value. The default conversion uses 0.1 price units per pip: an ATR of 2.5 displays 25. Change this to match your pip convention.")
+string emaBandAtrTextSizeInput = input.string(
+     "Small", "ATR text size", options = ["Tiny", "Small", "Normal", "Large", "Huge"], group = EMA_BAND_ATR_GROUP)
+float emaBandAtrTextSpacing = input.float(
+     0.25, "ATR text spacing", minval = 0.0, maxval = 5.0, step = 0.05, group = EMA_BAND_ATR_GROUP,
+     tooltip = "Gap from the signal candle's high or low, measured in ATR. Increase this if the number overlaps the marker at your chart zoom or text size.")
+
+float emaBandSlopeSigma = emaBandReady and emaBandSigma > 0.0 ? math.abs(hacEmaBase - hacEmaBase[emaBandSlopeLookback]) / emaBandSigma : na
+bool emaBandFlat = not na(emaBandSlopeSigma) and emaBandSlopeSigma <= emaBandMaxSlope
+bool emaBandSetupReady = emaBandReady and emaBandReady[1] and emaBandSigma > 0.0 and emaBandSigma[1] > 0.0 and barstate.isconfirmed and (not useEmaBandFlatFilter or emaBandFlat)
+bool emaBandLongReentry = emaBandSetupReady and close[1] < emaBandLowerInner[1] and close >= emaBandLowerInner and close < hacEmaBase and close > close[1]
+bool emaBandShortReentry = emaBandSetupReady and close[1] > emaBandUpperInner[1] and close <= emaBandUpperInner and close > hacEmaBase and close < close[1]
+
+// Throttle displayed markers independently by direction, using elapsed time.
+// Raw re-entry signals remain available to the separate band alert conditions.
+var int emaBandLastLongMarkerTime = na
+var int emaBandLastShortMarkerTime = na
+int emaBandMarkerTime = nz(time_close, time)
+int emaBandMarkerCooldownMs = emaBandMarkerCooldownMinutes * 60 * 1000
+bool emaBandLongMarkerReady = emaBandMarkerCooldownMinutes == 0 or na(emaBandLastLongMarkerTime) or emaBandMarkerTime - emaBandLastLongMarkerTime >= emaBandMarkerCooldownMs
+bool emaBandShortMarkerReady = emaBandMarkerCooldownMinutes == 0 or na(emaBandLastShortMarkerTime) or emaBandMarkerTime - emaBandLastShortMarkerTime >= emaBandMarkerCooldownMs
+bool emaBandLongMarker = showEmaBandSetups and emaBandLongReentry and emaBandLongMarkerReady
+bool emaBandShortMarker = showEmaBandSetups and emaBandShortReentry and emaBandShortMarkerReady
+
+if emaBandLongMarker
+    emaBandLastLongMarkerTime := emaBandMarkerTime
+if emaBandShortMarker
+    emaBandLastShortMarkerTime := emaBandMarkerTime
+
+plotshape(emaBandLongMarker, title = "Band long re-entry", style = shape.triangleup, location = location.belowbar, color = emaBandLowerColor, size = size.tiny, force_overlay = true)
+plotshape(emaBandShortMarker, title = "Band short re-entry", style = shape.triangledown, location = location.abovebar, color = emaBandUpperColor, size = size.tiny, force_overlay = true)
+
+// A dedicated queue preserves the 28 persistent HAC level labels. Delete the
+// oldest ATR number before adding another so total labels never exceed 500.
+const int EMA_BAND_ATR_LABEL_LIMIT = 472
+var array<label> emaBandAtrLabels = array.new<label>()
+float emaBandSignalAtr = ta.atr(14)
+float emaBandSignalAtrPips = emaBandSignalAtr / emaBandPipSize
+string emaBandAtrTextSize = switch emaBandAtrTextSizeInput
+    "Small" => size.small
+    "Normal" => size.normal
+    "Large" => size.large
+    "Huge" => size.huge
+    => size.tiny
+
+if showEmaBandAtrValues and (emaBandLongMarker or emaBandShortMarker) and not na(emaBandSignalAtr)
+    if array.size(emaBandAtrLabels) >= EMA_BAND_ATR_LABEL_LIMIT
+        label.delete(array.shift(emaBandAtrLabels))
+    float atrTextGap = math.max(emaBandSignalAtr * emaBandAtrTextSpacing, syminfo.mintick * 3.0)
+    float atrTextPrice = emaBandLongMarker ? low - atrTextGap : high + atrTextGap
+    color atrTextColor = emaBandLongMarker ? emaBandLowerColor : emaBandUpperColor
+    label atrNumber = label.new(
+         bar_index,
+         atrTextPrice,
+         str.tostring(emaBandSignalAtrPips, "0.#"),
+         xloc = xloc.bar_index,
+         yloc = yloc.price,
+         style = emaBandLongMarker ? label.style_label_up : label.style_label_down,
+         color = color.new(atrTextColor, 100),
+         textcolor = atrTextColor,
+         size = emaBandAtrTextSize,
+         textalign = text.align_center,
+         tooltip = "1 ATR (14) at signal close: " + str.tostring(emaBandSignalAtr, format.mintick) + " price units / " + str.tostring(emaBandPipSize, "0.########") + " per pip.",
+         force_overlay = true)
+    array.push(emaBandAtrLabels, atrNumber)
+
+// Diagnostics stay in the Data Window and do not change the chart scale.
+plot(emaBandReady ? emaBandSigma : na, "Band residual sigma", display = display.data_window)
+plot(emaBandSlopeSigma, "EMA movement (sigma)", display = display.data_window)
+
+alertcondition(enableEmaBandAlerts and emaBandLongReentry, title = "Band long re-entry", message = 'GC HAC Levels-Bands: Long re-entry confirmed on {{ticker}} ({{interval}}). Close: {{close}}. Current BASE reversion reference: {{plot("BASE")}}.')
+alertcondition(enableEmaBandAlerts and emaBandShortReentry, title = "Band short re-entry", message = 'GC HAC Levels-Bands: Short re-entry confirmed on {{ticker}} ({{interval}}). Close: {{close}}. Current BASE reversion reference: {{plot("BASE")}}.')
+alertcondition(enableEmaBandAlerts and (emaBandLongReentry or emaBandShortReentry), title = "Band re-entry (either)", message = 'GC HAC Levels-Bands: Band re-entry confirmed on {{ticker}} ({{interval}}). Close: {{close}}. Current BASE reversion reference: {{plot("BASE")}}.')
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Multi-timeframe EMA distance table
+// Each row evaluates the same 225-bar BASE and 135-bar trend regime inside
+// that row's own timeframe, independently of the chart timeframe.
+// ─────────────────────────────────────────────────────────────────────────────
+string EMA_DISTANCE_TABLE_GROUP = "EMA Distance Table"
+bool showEmaDistanceTable = input.bool(true, "Show table", group = EMA_DISTANCE_TABLE_GROUP)
+
+f_ema_distance_data() =>
+    float timeframeBase = ta.ema(close, SLOW_EMA_LENGTH * EMA_TIMEFRAME_MULTIPLIER)
+    float timeframeTrend = ta.ema(close, TREND_EMA_LENGTH * EMA_TIMEFRAME_MULTIPLIER)
+    float distanceFromPrice = math.abs(close - timeframeBase)
+    bool bullish = timeframeTrend >= timeframeBase
+    [timeframeBase, distanceFromPrice, bullish]
+
+f_ema_distance_text(float distanceFromPrice) =>
+    na(distanceFromPrice) ? "—" : str.tostring(distanceFromPrice, "0.0")
+
+f_ema_distance_color(float distanceFromPrice, bool bullish) =>
+    na(distanceFromPrice) ? color.new(color.gray, 60) : bullish ? HAC_EMA_BULLISH_COLOR : HAC_EMA_BEARISH_COLOR
+
+f_ema_distance_text_color(float distanceFromPrice, bool bullish) =>
+    na(distanceFromPrice) ? color.white : bullish ? color.black : color.white
+
+[emaBase1m, emaDistance1m, emaBullish1m] = request.security(
+     syminfo.tickerid,
+     "1",
+     f_ema_distance_data(),
+     gaps = barmerge.gaps_off,
+     lookahead = barmerge.lookahead_off)
+
+[emaBase3m, emaDistance3m, emaBullish3m] = request.security(
+     syminfo.tickerid,
+     "3",
+     f_ema_distance_data(),
+     gaps = barmerge.gaps_off,
+     lookahead = barmerge.lookahead_off)
+
+[emaBase5m, emaDistance5m, emaBullish5m] = request.security(
+     syminfo.tickerid,
+     "5",
+     f_ema_distance_data(),
+     gaps = barmerge.gaps_off,
+     lookahead = barmerge.lookahead_off)
+
+[emaBase15m, emaDistance15m, emaBullish15m] = request.security(
+     syminfo.tickerid,
+     "15",
+     f_ema_distance_data(),
+     gaps = barmerge.gaps_off,
+     lookahead = barmerge.lookahead_off)
+
+var table emaDistanceTable = table.new(
+     position.top_right,
+     2,
+     5,
+     frame_color = color.new(color.gray, 35),
+     frame_width = 1,
+     border_color = color.new(color.gray, 65),
+     border_width = 1,
+     force_overlay = true)
+
+if barstate.islast
+    if showEmaDistanceTable
+        table.cell(emaDistanceTable, 0, 0, "TF", text_color = color.white, text_size = size.small, bgcolor = #131722)
+        table.cell(emaDistanceTable, 1, 0, "Points Away", text_color = color.white, text_size = size.small, bgcolor = #131722)
+
+        table.cell(emaDistanceTable, 0, 1, "1m", text_color = color.white, text_size = size.small, bgcolor = #2A2E39)
+        table.cell(emaDistanceTable, 1, 1, f_ema_distance_text(emaDistance1m), text_color = f_ema_distance_text_color(emaDistance1m, emaBullish1m), text_size = size.small, bgcolor = f_ema_distance_color(emaDistance1m, emaBullish1m))
+
+        table.cell(emaDistanceTable, 0, 2, "3m", text_color = color.white, text_size = size.small, bgcolor = #2A2E39)
+        table.cell(emaDistanceTable, 1, 2, f_ema_distance_text(emaDistance3m), text_color = f_ema_distance_text_color(emaDistance3m, emaBullish3m), text_size = size.small, bgcolor = f_ema_distance_color(emaDistance3m, emaBullish3m))
+
+        table.cell(emaDistanceTable, 0, 3, "5m", text_color = color.white, text_size = size.small, bgcolor = #2A2E39)
+        table.cell(emaDistanceTable, 1, 3, f_ema_distance_text(emaDistance5m), text_color = f_ema_distance_text_color(emaDistance5m, emaBullish5m), text_size = size.small, bgcolor = f_ema_distance_color(emaDistance5m, emaBullish5m))
+
+        table.cell(emaDistanceTable, 0, 4, "15m", text_color = color.white, text_size = size.small, bgcolor = #2A2E39)
+        table.cell(emaDistanceTable, 1, 4, f_ema_distance_text(emaDistance15m), text_color = f_ema_distance_text_color(emaDistance15m, emaBullish15m), text_size = size.small, bgcolor = f_ema_distance_color(emaDistance15m, emaBullish15m))
+    else
+        table.clear(emaDistanceTable, 0, 0, 1, 4)
+
+float slowEma1m = request.security(
+     syminfo.tickerid,
+     str.tostring(1 * EMA_TIMEFRAME_MULTIPLIER),
+     ta.ema(close, SLOW_EMA_LENGTH),
+     gaps = barmerge.gaps_off,
+     lookahead = barmerge.lookahead_off)
+
+float slowEma3m = request.security(
+     syminfo.tickerid,
+     str.tostring(3 * EMA_TIMEFRAME_MULTIPLIER),
+     ta.ema(close, SLOW_EMA_LENGTH),
+     gaps = barmerge.gaps_off,
+     lookahead = barmerge.lookahead_off)
+
+float slowEma5m = request.security(
+     syminfo.tickerid,
+     str.tostring(5 * EMA_TIMEFRAME_MULTIPLIER),
+     ta.ema(close, SLOW_EMA_LENGTH),
+     gaps = barmerge.gaps_off,
+     lookahead = barmerge.lookahead_off)
+
+float slowEma15m = request.security(
+     syminfo.tickerid,
+     str.tostring(15 * EMA_TIMEFRAME_MULTIPLIER),
+     ta.ema(close, SLOW_EMA_LENGTH),
+     gaps = barmerge.gaps_off,
+     lookahead = barmerge.lookahead_off)
+
+f_update_level(0, showSlowEma1m, slowEma1m, "[1 min] Slow EMA", slowEma1mColor, slowEmaWidth, slowEmaProjectionOffset, true)
+f_update_level(1, showSlowEma3m, slowEma3m, "[3 min] Slow EMA", slowEma3mColor, slowEmaWidth, slowEmaProjectionOffset, true)
+f_update_level(2, showSlowEma5m, slowEma5m, "[5 min] Slow EMA", slowEma5mColor, slowEmaWidth, slowEmaProjectionOffset, true)
+f_update_level(3, showSlowEma15m, slowEma15m, "[15 min] Slow EMA", slowEma15mColor, slowEmaWidth, slowEmaProjectionOffset, true)
+
+// ─────────────────────────────────────────────────────────────────────────────
+// HTF Levels
+// ─────────────────────────────────────────────────────────────────────────────
+const int HTF_TARGET_FACTOR = 150
+const int HTF_RANGE_LOOKBACK = 300
+const float HTF_RANGE_UNIT = 0.20
+const float HTF_INNER_FACTOR = 0.59
+const float HTF_OUTER_FACTOR = 1.32
+
+const color HTF_OUTER_COLOR = #FF9800
+const color HTF_CENTER_COLOR = #2962FF
+const color HTF_LOWER_INNER_COLOR = #00E676
+const color HTF_UPPER_INNER_COLOR = #E040FB
+
+string HTF_LEVELS_GROUP = "HTF Levels"
+
+bool showHtf1m = input.bool(true, "1m", group = HTF_LEVELS_GROUP, inline = "htf1m")
+bool showHtf3m = input.bool(true, "3m", group = HTF_LEVELS_GROUP, inline = "htf3m")
+bool showHtf5m = input.bool(true, "5m", group = HTF_LEVELS_GROUP, inline = "htf5m")
+bool showHtf15m = input.bool(true, "15m", group = HTF_LEVELS_GROUP, inline = "htf15m")
+bool showOnlyClosestHtf = input.bool(
+     true,
+     "Show only closest level",
+     tooltip = "For each enabled timeframe, display exactly one HAC level: the member of that timeframe's five-level set that is closest to the latest chart price. Smart Alerts use these same independently selected levels.",
+     group = HTF_LEVELS_GROUP)
+bool keepClosestHtfInView = input.bool(
+     true,
+     "Keep closest levels in chart scale",
+     tooltip = "Includes the four selected HAC prices in normal chart auto-scale so off-screen higher-timeframe levels remain visible. Disable this if you prefer a tighter candle scale. TradingView's separate 'Scale price chart only' setting can override this behavior.",
+     group = HTF_LEVELS_GROUP)
+
+int htfLevelWidth = input.int(1, "Line thickness", minval = 1, maxval = 5, group = HTF_LEVELS_GROUP)
+string htfLineType = input.string("Solid", "Line type", options = ["Solid", "Dashed", "Dotted"], group = HTF_LEVELS_GROUP)
+int htfProjectionOffset = input.int(150, "Projection offset (bars)", minval = 1, maxval = 500, group = HTF_LEVELS_GROUP)
+
+htfLineTypeSetting := htfLineType
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Smart level alerts
+// ─────────────────────────────────────────────────────────────────────────────
+string SMART_ALERTS_GROUP = "Smart Alerts"
+bool enableSmartAlerts = input.bool(
+     true,
+     "Enable smart alerts",
+     tooltip = "Monitors the nearest HAC level from each 1m, 3m, 5m, and 15m set, plus all four projected EMAs and all four colored HAC EMA bases. Create one TradingView alert using GC HAC Levels-Bands → Any alert() function call.",
+     group = SMART_ALERTS_GROUP)
+string smartAlertTrigger = input.string(
+     "Touch or cross",
+     "Trigger",
+     options = ["Touch or cross", "Close cross only", "Proximity entry"],
+     tooltip = "Touch or cross uses the candle range plus the proximity distance. Close cross only requires the close to cross the level. Proximity entry triggers when the close first enters the proximity zone.",
+     group = SMART_ALERTS_GROUP)
+int smartAlertProximityTicks = input.int(
+     4,
+     "Proximity (ticks)",
+     minval = 0,
+     maxval = 1000,
+     tooltip = "Distance around each level used by Touch or cross and Proximity entry.",
+     group = SMART_ALERTS_GROUP)
+int smartAlertCooldownBars = input.int(
+     20,
+     "Cooldown (bars)",
+     minval = 1,
+     maxval = 10000,
+     tooltip = "Minimum number of chart bars before the same level can alert again.",
+     group = SMART_ALERTS_GROUP)
+bool smartAlertConfirmOnClose = input.bool(
+     true,
+     "Confirm on bar close",
+     tooltip = "Enabled avoids intrabar signals that may disappear before the candle closes.",
+     group = SMART_ALERTS_GROUP)
+
+f_htf_target_timeframe(int sourceMinutes) =>
+    float mappedMinutes = sourceMinutes * HTF_TARGET_FACTOR
+    mappedMinutes <= 1440.0 ?
+         str.tostring(math.max(1, math.round(mappedMinutes))) :
+         str.tostring(math.max(1, math.round(mappedMinutes / 1440.0))) + "D"
+
+f_htf_levels() =>
+    float rangeHigh = ta.highest(high, HTF_RANGE_LOOKBACK)
+    float rangeLow = ta.lowest(low, HTF_RANGE_LOOKBACK)
+    float center = (rangeHigh + rangeLow) * 0.5
+    float unit = (rangeHigh - rangeLow) * HTF_RANGE_UNIT
+    float upperOuter = center + unit * HTF_OUTER_FACTOR
+    float upperInner = center + unit * HTF_INNER_FACTOR
+    float lowerInner = center - unit * HTF_INNER_FACTOR
+    float lowerOuter = center - unit * HTF_OUTER_FACTOR
+    [upperOuter, center, lowerInner, lowerOuter, upperInner]
+
+f_closest_level_index(
+     float currentPrice,
+     float level0,
+     float level1,
+     float level2,
+     float level3,
+     float level4) =>
+    int closestIndex = -1
+    float closestDistance = na
+
+    float distance0 = math.abs(currentPrice - level0)
+    if not na(distance0)
+        closestIndex := 0
+        closestDistance := distance0
+
+    float distance1 = math.abs(currentPrice - level1)
+    if not na(distance1) and (na(closestDistance) or distance1 < closestDistance)
+        closestIndex := 1
+        closestDistance := distance1
+
+    float distance2 = math.abs(currentPrice - level2)
+    if not na(distance2) and (na(closestDistance) or distance2 < closestDistance)
+        closestIndex := 2
+        closestDistance := distance2
+
+    float distance3 = math.abs(currentPrice - level3)
+    if not na(distance3) and (na(closestDistance) or distance3 < closestDistance)
+        closestIndex := 3
+        closestDistance := distance3
+
+    float distance4 = math.abs(currentPrice - level4)
+    if not na(distance4) and (na(closestDistance) or distance4 < closestDistance)
+        closestIndex := 4
+        closestDistance := distance4
+
+    closestIndex
+
+f_selected_htf_value(
+     int closestIndex,
+     float level0,
+     float level1,
+     float level2,
+     float level3,
+     float level4) =>
+    switch closestIndex
+        0 => level0
+        1 => level1
+        2 => level2
+        3 => level3
+        4 => level4
+        => na
+
+f_selected_htf_name(int closestIndex) =>
+    switch closestIndex
+        0 => "Top 1"
+        1 => "Bottom 4"
+        2 => "Top 3"
+        3 => "Top 4 / Top 6"
+        4 => "Top 5"
+        => "No data"
+
+f_selected_htf_color(int closestIndex) =>
+    switch closestIndex
+        0 => HTF_OUTER_COLOR
+        1 => HTF_UPPER_INNER_COLOR
+        2 => HTF_CENTER_COLOR
+        3 => HTF_LOWER_INNER_COLOR
+        4 => HTF_OUTER_COLOR
+        => color.gray
+
+// When true prices coincide, shorter endpoints expose each timeframe's colored
+// tail and keep all four labels readable without vertically moving a level.
+f_closest_htf_offset(int baseOffset, int timeframeIndex) =>
+    float multiplier = switch timeframeIndex
+        0 => 1.00
+        1 => 0.82
+        2 => 0.64
+        => 0.46
+    math.max(1, int(math.round(baseOffset * multiplier)))
+
+[htf1mTop1, htf1mTop3, htf1mTop4Top6, htf1mTop5, htf1mBottom4] = request.security(
+     syminfo.tickerid,
+     f_htf_target_timeframe(1),
+     f_htf_levels(),
+     gaps = barmerge.gaps_off,
+     lookahead = barmerge.lookahead_off,
+     calc_bars_count = HTF_RANGE_LOOKBACK + 2)
+
+[htf3mTop1, htf3mTop3, htf3mTop4Top6, htf3mTop5, htf3mBottom4] = request.security(
+     syminfo.tickerid,
+     f_htf_target_timeframe(3),
+     f_htf_levels(),
+     gaps = barmerge.gaps_off,
+     lookahead = barmerge.lookahead_off,
+     calc_bars_count = HTF_RANGE_LOOKBACK + 2)
+
+[htf5mTop1, htf5mTop3, htf5mTop4Top6, htf5mTop5, htf5mBottom4] = request.security(
+     syminfo.tickerid,
+     f_htf_target_timeframe(5),
+     f_htf_levels(),
+     gaps = barmerge.gaps_off,
+     lookahead = barmerge.lookahead_off,
+     calc_bars_count = HTF_RANGE_LOOKBACK + 2)
+
+[htf15mTop1, htf15mTop3, htf15mTop4Top6, htf15mTop5, htf15mBottom4] = request.security(
+     syminfo.tickerid,
+     f_htf_target_timeframe(15),
+     f_htf_levels(),
+     gaps = barmerge.gaps_off,
+     lookahead = barmerge.lookahead_off,
+     calc_bars_count = HTF_RANGE_LOOKBACK + 2)
+
+int closestHtf1m = f_closest_level_index(close, htf1mTop1, htf1mBottom4, htf1mTop3, htf1mTop4Top6, htf1mTop5)
+int closestHtf3m = f_closest_level_index(close, htf3mTop1, htf3mBottom4, htf3mTop3, htf3mTop4Top6, htf3mTop5)
+int closestHtf5m = f_closest_level_index(close, htf5mTop1, htf5mBottom4, htf5mTop3, htf5mTop4Top6, htf5mTop5)
+int closestHtf15m = f_closest_level_index(close, htf15mTop1, htf15mBottom4, htf15mTop3, htf15mTop4Top6, htf15mTop5)
+
+float selectedHtf1m = f_selected_htf_value(closestHtf1m, htf1mTop1, htf1mBottom4, htf1mTop3, htf1mTop4Top6, htf1mTop5)
+float selectedHtf3m = f_selected_htf_value(closestHtf3m, htf3mTop1, htf3mBottom4, htf3mTop3, htf3mTop4Top6, htf3mTop5)
+float selectedHtf5m = f_selected_htf_value(closestHtf5m, htf5mTop1, htf5mBottom4, htf5mTop3, htf5mTop4Top6, htf5mTop5)
+float selectedHtf15m = f_selected_htf_value(closestHtf15m, htf15mTop1, htf15mBottom4, htf15mTop3, htf15mTop4Top6, htf15mTop5)
+
+string selectedHtf1mName = f_selected_htf_name(closestHtf1m)
+string selectedHtf3mName = f_selected_htf_name(closestHtf3m)
+string selectedHtf5mName = f_selected_htf_name(closestHtf5m)
+string selectedHtf15mName = f_selected_htf_name(closestHtf15m)
+
+color selectedHtf1mColor = f_selected_htf_color(closestHtf1m)
+color selectedHtf3mColor = f_selected_htf_color(closestHtf3m)
+color selectedHtf5mColor = f_selected_htf_color(closestHtf5m)
+color selectedHtf15mColor = f_selected_htf_color(closestHtf15m)
+
+// Transparent last-bar anchors make line-object prices participate in normal
+// auto-scale. They never move the true HAC values and draw no extra strokes.
+plot(showOnlyClosestHtf and keepClosestHtfInView and showHtf1m and barstate.islast ? selectedHtf1m : na, "Nearest 1m HAC scale anchor", color = color.new(selectedHtf1mColor, 99), editable = false, force_overlay = true)
+plot(showOnlyClosestHtf and keepClosestHtfInView and showHtf3m and barstate.islast ? selectedHtf3m : na, "Nearest 3m HAC scale anchor", color = color.new(selectedHtf3mColor, 99), editable = false, force_overlay = true)
+plot(showOnlyClosestHtf and keepClosestHtfInView and showHtf5m and barstate.islast ? selectedHtf5m : na, "Nearest 5m HAC scale anchor", color = color.new(selectedHtf5mColor, 99), editable = false, force_overlay = true)
+plot(showOnlyClosestHtf and keepClosestHtfInView and showHtf15m and barstate.islast ? selectedHtf15m : na, "Nearest 15m HAC scale anchor", color = color.new(selectedHtf15mColor, 99), editable = false, force_overlay = true)
+
+// Slot 4/9/14/19 becomes one stable dynamic object per timeframe in closest
+// mode. The remaining slots are kept only for the optional all-levels view.
+f_update_level(4, showHtf1m, showOnlyClosestHtf ? selectedHtf1m : htf1mTop1, showOnlyClosestHtf ? "[1 min] HTF " + selectedHtf1mName : "[1 min] HTF Top 1", showOnlyClosestHtf ? selectedHtf1mColor : HTF_OUTER_COLOR, htfLevelWidth, showOnlyClosestHtf ? f_closest_htf_offset(htfProjectionOffset, 0) : htfProjectionOffset, true)
+f_update_level(5, showHtf1m and not showOnlyClosestHtf, htf1mBottom4, "[1 min] HTF Bottom 4", HTF_UPPER_INNER_COLOR, htfLevelWidth, htfProjectionOffset, true)
+f_update_level(6, showHtf1m and not showOnlyClosestHtf, htf1mTop3, "[1 min] HTF Top 3", HTF_CENTER_COLOR, htfLevelWidth, htfProjectionOffset, true)
+f_update_level(7, showHtf1m and not showOnlyClosestHtf, htf1mTop4Top6, "[1 min] HTF Top 4 / Top 6", HTF_LOWER_INNER_COLOR, htfLevelWidth, htfProjectionOffset, true)
+f_update_level(8, showHtf1m and not showOnlyClosestHtf, htf1mTop5, "[1 min] HTF Top 5", HTF_OUTER_COLOR, htfLevelWidth, htfProjectionOffset, true)
+
+f_update_level(9, showHtf3m, showOnlyClosestHtf ? selectedHtf3m : htf3mTop1, showOnlyClosestHtf ? "[3 min] HTF " + selectedHtf3mName : "[3 min] HTF Top 1", showOnlyClosestHtf ? selectedHtf3mColor : HTF_OUTER_COLOR, htfLevelWidth, showOnlyClosestHtf ? f_closest_htf_offset(htfProjectionOffset, 1) : htfProjectionOffset, true)
+f_update_level(10, showHtf3m and not showOnlyClosestHtf, htf3mBottom4, "[3 min] HTF Bottom 4", HTF_UPPER_INNER_COLOR, htfLevelWidth, htfProjectionOffset, true)
+f_update_level(11, showHtf3m and not showOnlyClosestHtf, htf3mTop3, "[3 min] HTF Top 3", HTF_CENTER_COLOR, htfLevelWidth, htfProjectionOffset, true)
+f_update_level(12, showHtf3m and not showOnlyClosestHtf, htf3mTop4Top6, "[3 min] HTF Top 4 / Top 6", HTF_LOWER_INNER_COLOR, htfLevelWidth, htfProjectionOffset, true)
+f_update_level(13, showHtf3m and not showOnlyClosestHtf, htf3mTop5, "[3 min] HTF Top 5", HTF_OUTER_COLOR, htfLevelWidth, htfProjectionOffset, true)
+
+f_update_level(14, showHtf5m, showOnlyClosestHtf ? selectedHtf5m : htf5mTop1, showOnlyClosestHtf ? "[5 min] HTF " + selectedHtf5mName : "[5 min] HTF Top 1", showOnlyClosestHtf ? selectedHtf5mColor : HTF_OUTER_COLOR, htfLevelWidth, showOnlyClosestHtf ? f_closest_htf_offset(htfProjectionOffset, 2) : htfProjectionOffset, true)
+f_update_level(15, showHtf5m and not showOnlyClosestHtf, htf5mBottom4, "[5 min] HTF Bottom 4", HTF_UPPER_INNER_COLOR, htfLevelWidth, htfProjectionOffset, true)
+f_update_level(16, showHtf5m and not showOnlyClosestHtf, htf5mTop3, "[5 min] HTF Top 3", HTF_CENTER_COLOR, htfLevelWidth, htfProjectionOffset, true)
+f_update_level(17, showHtf5m and not showOnlyClosestHtf, htf5mTop4Top6, "[5 min] HTF Top 4 / Top 6", HTF_LOWER_INNER_COLOR, htfLevelWidth, htfProjectionOffset, true)
+f_update_level(18, showHtf5m and not showOnlyClosestHtf, htf5mTop5, "[5 min] HTF Top 5", HTF_OUTER_COLOR, htfLevelWidth, htfProjectionOffset, true)
+
+f_update_level(19, showHtf15m, showOnlyClosestHtf ? selectedHtf15m : htf15mTop1, showOnlyClosestHtf ? "[15 min] HTF " + selectedHtf15mName : "[15 min] HTF Top 1", showOnlyClosestHtf ? selectedHtf15mColor : HTF_OUTER_COLOR, htfLevelWidth, showOnlyClosestHtf ? f_closest_htf_offset(htfProjectionOffset, 3) : htfProjectionOffset, true)
+f_update_level(20, showHtf15m and not showOnlyClosestHtf, htf15mBottom4, "[15 min] HTF Bottom 4", HTF_UPPER_INNER_COLOR, htfLevelWidth, htfProjectionOffset, true)
+f_update_level(21, showHtf15m and not showOnlyClosestHtf, htf15mTop3, "[15 min] HTF Top 3", HTF_CENTER_COLOR, htfLevelWidth, htfProjectionOffset, true)
+f_update_level(22, showHtf15m and not showOnlyClosestHtf, htf15mTop4Top6, "[15 min] HTF Top 4 / Top 6", HTF_LOWER_INNER_COLOR, htfLevelWidth, htfProjectionOffset, true)
+f_update_level(23, showHtf15m and not showOnlyClosestHtf, htf15mTop5, "[15 min] HTF Top 5", HTF_OUTER_COLOR, htfLevelWidth, htfProjectionOffset, true)
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Unified smart alert engine
+// The master switch monitors one dynamically nearest HAC level per timeframe
+// plus every projected and colored MTF EMA target. Display settings are visual.
+// ─────────────────────────────────────────────────────────────────────────────
+string smartAlertEvents = ""
+
+smartAlertEvents := smartAlertEvents + f_check_level_alert(0, enableSmartAlerts, slowEma1m, "Projected EMA", "1m", "Slow EMA", "", smartAlertTrigger, smartAlertProximityTicks, smartAlertCooldownBars, smartAlertConfirmOnClose)
+smartAlertEvents := smartAlertEvents + f_check_level_alert(1, enableSmartAlerts, slowEma3m, "Projected EMA", "3m", "Slow EMA", "", smartAlertTrigger, smartAlertProximityTicks, smartAlertCooldownBars, smartAlertConfirmOnClose)
+smartAlertEvents := smartAlertEvents + f_check_level_alert(2, enableSmartAlerts, slowEma5m, "Projected EMA", "5m", "Slow EMA", "", smartAlertTrigger, smartAlertProximityTicks, smartAlertCooldownBars, smartAlertConfirmOnClose)
+smartAlertEvents := smartAlertEvents + f_check_level_alert(3, enableSmartAlerts, slowEma15m, "Projected EMA", "15m", "Slow EMA", "", smartAlertTrigger, smartAlertProximityTicks, smartAlertCooldownBars, smartAlertConfirmOnClose)
+
+smartAlertEvents := smartAlertEvents + f_check_level_alert(4, enableSmartAlerts and closestHtf1m == 0, htf1mTop1, "HAC Level", "1m", "Top 1", "", smartAlertTrigger, smartAlertProximityTicks, smartAlertCooldownBars, smartAlertConfirmOnClose)
+smartAlertEvents := smartAlertEvents + f_check_level_alert(5, enableSmartAlerts and closestHtf1m == 1, htf1mBottom4, "HAC Level", "1m", "Bottom 4", "", smartAlertTrigger, smartAlertProximityTicks, smartAlertCooldownBars, smartAlertConfirmOnClose)
+smartAlertEvents := smartAlertEvents + f_check_level_alert(6, enableSmartAlerts and closestHtf1m == 2, htf1mTop3, "HAC Level", "1m", "Top 3", "", smartAlertTrigger, smartAlertProximityTicks, smartAlertCooldownBars, smartAlertConfirmOnClose)
+smartAlertEvents := smartAlertEvents + f_check_level_alert(7, enableSmartAlerts and closestHtf1m == 3, htf1mTop4Top6, "HAC Level", "1m", "Top 4 / Top 6", "", smartAlertTrigger, smartAlertProximityTicks, smartAlertCooldownBars, smartAlertConfirmOnClose)
+smartAlertEvents := smartAlertEvents + f_check_level_alert(8, enableSmartAlerts and closestHtf1m == 4, htf1mTop5, "HAC Level", "1m", "Top 5", "", smartAlertTrigger, smartAlertProximityTicks, smartAlertCooldownBars, smartAlertConfirmOnClose)
+
+smartAlertEvents := smartAlertEvents + f_check_level_alert(9, enableSmartAlerts and closestHtf3m == 0, htf3mTop1, "HAC Level", "3m", "Top 1", "", smartAlertTrigger, smartAlertProximityTicks, smartAlertCooldownBars, smartAlertConfirmOnClose)
+smartAlertEvents := smartAlertEvents + f_check_level_alert(10, enableSmartAlerts and closestHtf3m == 1, htf3mBottom4, "HAC Level", "3m", "Bottom 4", "", smartAlertTrigger, smartAlertProximityTicks, smartAlertCooldownBars, smartAlertConfirmOnClose)
+smartAlertEvents := smartAlertEvents + f_check_level_alert(11, enableSmartAlerts and closestHtf3m == 2, htf3mTop3, "HAC Level", "3m", "Top 3", "", smartAlertTrigger, smartAlertProximityTicks, smartAlertCooldownBars, smartAlertConfirmOnClose)
+smartAlertEvents := smartAlertEvents + f_check_level_alert(12, enableSmartAlerts and closestHtf3m == 3, htf3mTop4Top6, "HAC Level", "3m", "Top 4 / Top 6", "", smartAlertTrigger, smartAlertProximityTicks, smartAlertCooldownBars, smartAlertConfirmOnClose)
+smartAlertEvents := smartAlertEvents + f_check_level_alert(13, enableSmartAlerts and closestHtf3m == 4, htf3mTop5, "HAC Level", "3m", "Top 5", "", smartAlertTrigger, smartAlertProximityTicks, smartAlertCooldownBars, smartAlertConfirmOnClose)
+
+smartAlertEvents := smartAlertEvents + f_check_level_alert(14, enableSmartAlerts and closestHtf5m == 0, htf5mTop1, "HAC Level", "5m", "Top 1", "", smartAlertTrigger, smartAlertProximityTicks, smartAlertCooldownBars, smartAlertConfirmOnClose)
+smartAlertEvents := smartAlertEvents + f_check_level_alert(15, enableSmartAlerts and closestHtf5m == 1, htf5mBottom4, "HAC Level", "5m", "Bottom 4", "", smartAlertTrigger, smartAlertProximityTicks, smartAlertCooldownBars, smartAlertConfirmOnClose)
+smartAlertEvents := smartAlertEvents + f_check_level_alert(16, enableSmartAlerts and closestHtf5m == 2, htf5mTop3, "HAC Level", "5m", "Top 3", "", smartAlertTrigger, smartAlertProximityTicks, smartAlertCooldownBars, smartAlertConfirmOnClose)
+smartAlertEvents := smartAlertEvents + f_check_level_alert(17, enableSmartAlerts and closestHtf5m == 3, htf5mTop4Top6, "HAC Level", "5m", "Top 4 / Top 6", "", smartAlertTrigger, smartAlertProximityTicks, smartAlertCooldownBars, smartAlertConfirmOnClose)
+smartAlertEvents := smartAlertEvents + f_check_level_alert(18, enableSmartAlerts and closestHtf5m == 4, htf5mTop5, "HAC Level", "5m", "Top 5", "", smartAlertTrigger, smartAlertProximityTicks, smartAlertCooldownBars, smartAlertConfirmOnClose)
+
+smartAlertEvents := smartAlertEvents + f_check_level_alert(19, enableSmartAlerts and closestHtf15m == 0, htf15mTop1, "HAC Level", "15m", "Top 1", "", smartAlertTrigger, smartAlertProximityTicks, smartAlertCooldownBars, smartAlertConfirmOnClose)
+smartAlertEvents := smartAlertEvents + f_check_level_alert(20, enableSmartAlerts and closestHtf15m == 1, htf15mBottom4, "HAC Level", "15m", "Bottom 4", "", smartAlertTrigger, smartAlertProximityTicks, smartAlertCooldownBars, smartAlertConfirmOnClose)
+smartAlertEvents := smartAlertEvents + f_check_level_alert(21, enableSmartAlerts and closestHtf15m == 2, htf15mTop3, "HAC Level", "15m", "Top 3", "", smartAlertTrigger, smartAlertProximityTicks, smartAlertCooldownBars, smartAlertConfirmOnClose)
+smartAlertEvents := smartAlertEvents + f_check_level_alert(22, enableSmartAlerts and closestHtf15m == 3, htf15mTop4Top6, "HAC Level", "15m", "Top 4 / Top 6", "", smartAlertTrigger, smartAlertProximityTicks, smartAlertCooldownBars, smartAlertConfirmOnClose)
+smartAlertEvents := smartAlertEvents + f_check_level_alert(23, enableSmartAlerts and closestHtf15m == 4, htf15mTop5, "HAC Level", "15m", "Top 5", "", smartAlertTrigger, smartAlertProximityTicks, smartAlertCooldownBars, smartAlertConfirmOnClose)
+
+smartAlertEvents := smartAlertEvents + f_check_level_alert(24, enableSmartAlerts, emaBase1m, "Colored HAC EMA", "1m", "BASE", emaBullish1m ? "Bullish" : "Bearish", smartAlertTrigger, smartAlertProximityTicks, smartAlertCooldownBars, smartAlertConfirmOnClose)
+smartAlertEvents := smartAlertEvents + f_check_level_alert(25, enableSmartAlerts, emaBase3m, "Colored HAC EMA", "3m", "BASE", emaBullish3m ? "Bullish" : "Bearish", smartAlertTrigger, smartAlertProximityTicks, smartAlertCooldownBars, smartAlertConfirmOnClose)
+smartAlertEvents := smartAlertEvents + f_check_level_alert(26, enableSmartAlerts, emaBase5m, "Colored HAC EMA", "5m", "BASE", emaBullish5m ? "Bullish" : "Bearish", smartAlertTrigger, smartAlertProximityTicks, smartAlertCooldownBars, smartAlertConfirmOnClose)
+smartAlertEvents := smartAlertEvents + f_check_level_alert(27, enableSmartAlerts, emaBase15m, "Colored HAC EMA", "15m", "BASE", emaBullish15m ? "Bullish" : "Bearish", smartAlertTrigger, smartAlertProximityTicks, smartAlertCooldownBars, smartAlertConfirmOnClose)
+
+if smartAlertEvents != ""
+    string smartAlertMessage = "GC HAC Levels-Bands — Smart Alert" +
+         "\nSymbol: " + syminfo.tickerid +
+         "\nChart timeframe: " + timeframe.period +
+         "\nCurrent price: " + str.tostring(close, format.mintick) +
+         "\nTrigger: " + smartAlertTrigger +
+         (smartAlertTrigger == "Close cross only" ? "" : "\nProximity: " + str.tostring(smartAlertProximityTicks) + " ticks") +
+         "\nConfirmation: " + (smartAlertConfirmOnClose ? "bar close" : "intrabar") +
+         smartAlertEvents
+    alert(smartAlertMessage, alert.freq_all)

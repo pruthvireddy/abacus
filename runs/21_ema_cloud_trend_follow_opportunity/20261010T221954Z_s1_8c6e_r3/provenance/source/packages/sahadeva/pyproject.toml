@@ -1,0 +1,22 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "abacus-sahadeva"
+version = "0.1.0"
+description = "Research protocols and evidence integration for Abacus"
+requires-python = ">=3.11"
+dependencies = ["abacus-bhishma==0.1.0"]
+
+[project.scripts]
+abacus-research = "abacus_sahadeva.cli:main"
+
+[tool.uv.sources]
+abacus-bhishma = { workspace = true }
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+abacus_sahadeva = ["py.typed"]

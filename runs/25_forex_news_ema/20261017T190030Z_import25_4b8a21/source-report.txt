@@ -1,0 +1,133 @@
+Full-year historical reconstruction
+
+Older native EMA20/50 seeds were continued through merged native OHLC.
+Current exported prices anchor constant adjustment offsets on overlap.
+Every native selected entry direction agrees with the reconstruction.
+See reconstruction_audit.json for source hashes, offsets, and EMA checks.
+
+News EMA Move: currency futures test
+
+Rule: use EMA20/50 direction on the 15-minute candle closing at the
+scheduled release, enter at that close, and freeze the side. Measure
+the next H actual chart candles, including the release candle.
+
+News sample: U.S. employment, CPI, FOMC decision/projections, FOMC
+conference, flash PMI, and ISM manufacturing. One entry per timestamp.
+The same U.S. timestamps are tested across all supplied currencies.
+
+Common event timestamps: 64
+First event UTC: 2025-10-24T12:30:00+00:00
+Last event UTC: 2026-10-14T12:30:00+00:00
+
+Distances below are standard outright futures TICKS, not dollars.
+Close is the signed directional price change at H; positive is favorable.
+Ratio is average MFE / average MAE; it is not profit factor.
+
+H = 5 following 15-minute chart candles
+Symbol   N    Avg MFE   Avg MAE   Avg Close  Favorable %  MFE/MAE
+6E       64      48.94     32.48       13.86         56.2    1.506
+6B       64      29.00     21.87        6.00         56.2    1.326
+6J       64      21.62     24.20       -1.08         45.3    0.893
+6S       64      67.75     41.06       23.38         59.4    1.650
+6C       64      22.98     15.44        7.53         56.2    1.489
+6A       64      25.83     40.69      -11.42         40.6    0.635
+
+H = 10 following 15-minute chart candles
+Symbol   N    Avg MFE   Avg MAE   Avg Close  Favorable %  MFE/MAE
+6E       64      55.30     37.47       12.05         54.7    1.476
+6B       64      32.98     24.97        5.61         59.4    1.321
+6J       64      24.72     26.92        0.09         46.9    0.918
+6S       64      74.08     47.45       20.27         57.8    1.561
+6C       64      26.78     17.36        8.91         60.9    1.543
+6A       64      30.92     45.73       -8.72         43.8    0.676
+
+H = 15 following 15-minute chart candles
+Symbol   N    Avg MFE   Avg MAE   Avg Close  Favorable %  MFE/MAE
+6E       64      58.23     43.69        7.86         57.8    1.333
+6B       64      35.13     29.11        3.02         56.2    1.207
+6J       64      27.81     28.77        1.25         51.6    0.967
+6S       64      78.17     53.33       16.72         59.4    1.466
+6C       64      29.55     18.69        9.31         64.1    1.581
+6A       64      33.47     48.83      -11.66         35.9    0.685
+
+H = 50 following 15-minute chart candles
+Symbol   N    Avg MFE   Avg MAE   Avg Close  Favorable %  MFE/MAE
+6E       64      65.08     57.44        1.66         53.1    1.133
+6B       64      39.03     35.80        1.88         48.4    1.090
+6J       64      36.86     38.03        0.14         42.2    0.969
+6S       64      89.77     69.23       11.17         53.1    1.297
+6C       64      33.23     23.36        5.05         56.2    1.423
+6A       64      40.69     66.53      -16.61         34.4    0.612
+
+H = 100 following 15-minute chart candles
+Symbol   N    Avg MFE   Avg MAE   Avg Close  Favorable %  MFE/MAE
+6E       64      85.77     81.94       -0.37         53.1    1.047
+6B       64      54.03     52.36        1.98         48.4    1.032
+6J       64      50.73     81.33      -27.25         40.6    0.624
+6S       64     121.78    108.75        1.39         57.8    1.120
+6C       64      45.64     33.05        9.75         56.2    1.381
+6A       64      54.31     88.23      -30.16         39.1    0.616
+
+H = 5 detail by news category
+
+U.S. CPI / core CPI
+Symbol   N    Avg MFE   Avg MAE   Avg Close  Favorable %  MFE/MAE
+6E       12      47.17     27.83       18.92         50.0    1.695
+6B       12      23.92     25.50       -3.67         50.0    0.938
+6J       12      18.92     24.58        2.92         58.3    0.769
+6S       12      63.75     37.00       25.25         75.0    1.723
+6C       12      21.25     15.67       11.17         58.3    1.356
+6A       12      20.08     43.42       -9.75         41.7    0.463
+
+U.S. NFP / unemployment / earnings
+Symbol   N    Avg MFE   Avg MAE   Avg Close  Favorable %  MFE/MAE
+6E       12      58.00     38.75       11.67         58.3    1.497
+6B       12      23.17     37.75      -10.58         41.7    0.614
+6J       12      35.67     37.75       -2.83         41.7    0.945
+6S       12      85.75     56.00       19.42         58.3    1.531
+6C       12      33.42     17.67        9.83         50.0    1.892
+6A       12      31.00     50.25       -9.17         41.7    0.617
+
+FOMC decision / projections
+Symbol   N    Avg MFE   Avg MAE   Avg Close  Favorable %  MFE/MAE
+6E        8      79.37     47.50       29.87         62.5    1.671
+6B        8      55.25     16.62       34.50         75.0    3.323
+6J        8      17.75     38.37      -16.13         37.5    0.463
+6S        8     113.00     39.75       69.37         75.0    2.843
+6C        8      34.50     16.25       18.75         62.5    2.123
+6A        8      25.75     72.25      -50.00         25.0    0.356
+
+FOMC press conference
+Symbol   N    Avg MFE   Avg MAE   Avg Close  Favorable %  MFE/MAE
+6E        8      62.87     43.25       25.38         75.0    1.454
+6B        8      46.25     15.13       27.25         87.5    3.058
+6J        8      30.62     17.00       16.25         75.0    1.801
+6S        8      80.63     45.25       33.12         62.5    1.782
+6C        8      26.62     18.88        8.13         62.5    1.411
+6A        8      39.25     47.50       -7.00         50.0    0.826
+
+U.S. ISM manufacturing
+Symbol   N    Avg MFE   Avg MAE   Avg Close  Favorable %  MFE/MAE
+6E       12      36.58     15.42       15.67         66.7    2.373
+6B       12      25.17     10.92        9.50         66.7    2.305
+6J       12      15.58     14.50       -0.75         41.7    1.075
+6S       12      52.42     25.67       22.00         50.0    2.042
+6C       12      14.08     11.42        2.00         66.7    1.234
+6A       12      21.67     19.08       -3.83         33.3    1.135
+
+U.S. flash PMI
+Symbol   N    Avg MFE   Avg MAE   Avg Close  Favorable %  MFE/MAE
+6E       12      24.42     30.75       -9.17         33.3    0.794
+6B       12      14.75     21.33       -4.42         33.3    0.691
+6J       12      12.92     15.33       -5.17         25.0    0.842
+6S       12      30.33     43.67      -10.33         41.7    0.695
+6C       12      13.08     14.17       -0.75         41.7    0.924
+6A       12      21.67     24.42       -0.17         50.0    0.887
+
+All category/horizon values, including medians and percent-normalized
+distances, are in by_category.csv. Month/horizon values are in monthly.csv.
+
+No fees, spreads, slippage, stops, or targets are modeled. FOMC decision
+and conference windows can overlap; observations are not independent.
+The historical schedule includes later corrections. These descriptive
+results do not establish event causality or future profitability.

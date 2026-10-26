@@ -1,0 +1,97 @@
+{
+  "status": "pass",
+  "manifest_sha256": "4b022d387b6460a5e33c08507a46c6b5c62ed4c0b304fd6de869d8ec463ab33e",
+  "charts": {
+    "ES_4": {
+      "rows": 1281962,
+      "session_dates": 1783,
+      "signals": 408694,
+      "eligible_primary": 358629,
+      "signal_completion_excluded": 15437,
+      "horizon_or_completion_excluded": 34628,
+      "same_second_signals": 14122,
+      "larger_equal_second_ties": 106941
+    },
+    "ES_5": {
+      "rows": 885222,
+      "session_dates": 1783,
+      "signals": 281003,
+      "eligible_primary": 252760,
+      "signal_completion_excluded": 8673,
+      "horizon_or_completion_excluded": 19570,
+      "same_second_signals": 7359,
+      "larger_equal_second_ties": 71174
+    },
+    "ES_6": {
+      "rows": 647911,
+      "session_dates": 1783,
+      "signals": 205195,
+      "eligible_primary": 187508,
+      "signal_completion_excluded": 5511,
+      "horizon_or_completion_excluded": 12176,
+      "same_second_signals": 4195,
+      "larger_equal_second_ties": 0
+    },
+    "GC_6": {
+      "rows": 1661279,
+      "session_dates": 1780,
+      "signals": 516993,
+      "eligible_primary": 389726,
+      "signal_completion_excluded": 38434,
+      "horizon_or_completion_excluded": 80312,
+      "same_second_signals": 37109,
+      "larger_equal_second_ties": 104543
+    },
+    "GC_10": {
+      "rows": 737194,
+      "session_dates": 1780,
+      "signals": 229181,
+      "eligible_primary": 185535,
+      "signal_completion_excluded": 12273,
+      "horizon_or_completion_excluded": 26492,
+      "same_second_signals": 10964,
+      "larger_equal_second_ties": 0
+    },
+    "NQ_10": {
+      "rows": 4646126,
+      "session_dates": 1783,
+      "signals": 1436045,
+      "eligible_primary": 1116087,
+      "signal_completion_excluded": 79640,
+      "horizon_or_completion_excluded": 240318,
+      "same_second_signals": 78368,
+      "larger_equal_second_ties": 181985
+    },
+    "NQ_20": {
+      "rows": 1343643,
+      "session_dates": 1783,
+      "signals": 415188,
+      "eligible_primary": 373445,
+      "signal_completion_excluded": 10247,
+      "horizon_or_completion_excluded": 31496,
+      "same_second_signals": 8914,
+      "larger_equal_second_ties": 0
+    }
+  },
+  "gc_dates_absent_relative_to_es": {
+    "GC_6": [
+      "2021-04-02",
+      "2023-04-07",
+      "2026-04-03"
+    ],
+    "GC_10": [
+      "2021-04-02",
+      "2023-04-07",
+      "2026-04-03"
+    ]
+  },
+  "trace_count": 3,
+  "checks": [
+    "manifest hashes and row/status/date counts",
+    "session and source row continuity",
+    "signal/outcome ledger and denominator arithmetic",
+    "strict larger completion ordering",
+    "run-length distribution totals",
+    "manual source/enhanced row traces"
+  ]
+}

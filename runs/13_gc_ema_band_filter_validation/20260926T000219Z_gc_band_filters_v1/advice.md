@@ -1,0 +1,3 @@
+# Dated interpretation — 2026-09-25
+
+Upper-half signal closes were the best eligible 2025 filter and improved the prespecified descriptive score in 2026 YTD by +0.131σ. The 2026 score remains -0.179σ and the approximate interval for the improvement crosses zero. Keep the filter as an uncertain research candidate; do not promote it to live execution or a profitability claim. A later study should freeze the exact filtered signal, specify a realistic stop/target and costs, resolve ordering with finer data, and evaluate on genuinely later unseen dates. Retain the failures of the other eight prespecified filters in the primary table.

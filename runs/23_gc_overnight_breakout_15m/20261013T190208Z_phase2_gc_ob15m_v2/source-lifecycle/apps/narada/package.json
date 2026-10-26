@@ -1,0 +1,39 @@
+{
+  "name": "@abacus/narada",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=24 <25"
+  },
+  "scripts": {
+    "dev": "next dev",
+    "report:publish": "node scripts/publish.mjs",
+    "report:example": "node scripts/publish.mjs --report examples/report.json",
+    "verify": "node scripts/verify.mjs",
+    "prebuild": "npm run verify",
+    "build": "next build",
+    "postbuild": "node scripts/verify-export.mjs",
+    "preview": "node scripts/preview.mjs",
+    "smoke:preview": "node scripts/smoke-preview.mjs",
+    "audit:sources": "node scripts/audit-sources.mjs",
+    "test": "node --test tests/*.test.mjs",
+    "lint": "eslint src types scripts tests",
+    "release:prepare": "node scripts/release.mjs prepare",
+    "release": "node scripts/release.mjs"
+  },
+  "dependencies": {
+    "ajv": "8.17.1",
+    "next": "16.2.10",
+    "react": "19.2.4",
+    "react-dom": "19.2.4"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "eslint": "^9.0.0",
+    "eslint-config-next": "16.2.10",
+    "typescript": "^5.0.0"
+  }
+}

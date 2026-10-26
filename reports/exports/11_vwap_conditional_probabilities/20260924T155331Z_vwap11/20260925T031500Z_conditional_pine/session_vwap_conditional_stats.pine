@@ -1,0 +1,896 @@
+// This Pine Script® code is subject to the terms of the Mozilla Public License 2.0 at https://mozilla.org/MPL/2.0/
+//@version=6
+indicator("Session VWAP OE + VWAP Conditional Map", shorttitle="OE + VWAP Map", overlay=true, max_labels_count=500)
+
+// --- Constants ---
+MS_PER_DAY = 86400000
+
+// --- Inputs ---
+g_gen = "General Settings"
+tz  = input.string("America/New_York", "Timezone", group=g_gen)
+src = input.source(hlc3, "VWAP Source", group=g_gen)
+
+g_asia = "Asia Session"
+show_asia      = input.bool(true, "Show Visuals", group=g_asia, inline="a_vis")
+asia_col       = input.color(color.rgb(127, 23, 145), "", group=g_asia, inline="a_vis")
+asia_vwap_sess = input.session("2000-0000", "Asia VWAP Session", group=g_asia)
+asia_mult      = input.float(2.0, "Asia Sigma (σ)", minval=0.0, step=0.1, group=g_asia)
+asia_n         = input.int(10, "Sessions to Show", minval=1, group=g_asia)
+
+g_lon = "London Session"
+show_lon      = input.bool(true, "Show Visuals", group=g_lon, inline="l_vis")
+lon_col       = input.color(color.rgb(230, 81, 0), "", group=g_lon, inline="l_vis")
+lon_vwap_sess = input.session("0300-0800", "London VWAP Session", group=g_lon)
+lon_mult      = input.float(2.0, "London Sigma (σ)", minval=0.0, step=0.1, group=g_lon)
+lon_n         = input.int(10, "Sessions to Show", minval=1, group=g_lon)
+
+g_ny = "NY Session"
+show_ny      = input.bool(true, "Show Visuals", group=g_ny, inline="n_vis")
+ny_col       = input.color(color.rgb(5, 107, 20), "", group=g_ny, inline="n_vis")
+ny_vwap_sess = input.session("0930-1600", "NY VWAP Session", group=g_ny)
+ny_mult      = input.float(2.0, "NY Sigma (σ)", minval=0.0, step=0.1, group=g_ny)
+ny_n         = input.int(10, "Sessions to Show", minval=1, group=g_ny)
+
+g_sig = "Signal Marker Condition"
+sig_tf     = input.timeframe("", "Candle Timeframe", options=["", "1", "2", "5", "15", "30"], group=g_sig)
+sig_cond   = input.string("Candle Close", "Candle Condition", options=["Candle Close", "Wick"], group=g_sig)
+sig_offset = input.string("Current Candle", "Signal Placement", options=["Current Candle", "Next Candle"], group=g_sig)
+buy_col    = input.color(#089981, "Buy Signal Color", group=g_sig)
+sel_col    = input.color(#f23645, "Sell Signal Color", group=g_sig)
+
+g_conf = "Confluence Settings"
+show_confluence = input.bool(true, "Show Volume/Delta Confluence", group=g_conf)
+volMult         = input.float(2.0, "Volume Spike Multiplier", group=g_conf)
+deltaMult       = input.float(2.5, "Delta Surge Multiplier", group=g_conf)
+
+g_tick_set = "TICK / Settings"
+tickSource        = input.string("TICKQ", "TICK Source", options=["TICK", "TICKQ"], group=g_tick_set)
+tickRefresh       = input.string("Chart", "Refresh Frequency", options=["Chart", "1", "5S", "15S", "30S", "1S"], group=g_tick_set)
+tickUseExtremes   = input.bool(true, "Include High/Low Extremes", group=g_tick_set)
+tickPrintDayValue = input.bool(true, "Print NHOD/NLOD Value", group=g_tick_set)
+tickExt1          = input.int(800, "Extension 1", minval=1, group=g_tick_set)
+tickExt2          = input.int(1000, "Extension 2", minval=1, group=g_tick_set)
+tickExt3          = input.int(1200, "Extension 3", minval=1, group=g_tick_set)
+
+g_tick_style = "TICK / Style"
+tickPosColor = input.color(#f23645, "Positive TICK Color", inline="tick_colors", group=g_tick_style)
+tickNegColor = input.color(#089981, "Negative TICK Color", inline="tick_colors", group=g_tick_style)
+tickStyle    = input.string("Circles", "Marker Style", options=["Circles", "Triangles", "None"], group=g_tick_style)
+
+g_alert = "Alerts"
+alertTiming = input.string("Bar Close", "Alert Timing", options=["Bar Close", "Any Update"], group=g_alert)
+alertAsiaOE = input.bool(true, "Asia OE Signal", inline="a_alert", group=g_alert)
+alertAsiaTick = input.bool(true, "TICK Extreme", inline="a_alert", group=g_alert)
+alertLonOE = input.bool(true, "London OE Signal", inline="l_alert", group=g_alert)
+alertLonTick = input.bool(true, "TICK Extreme", inline="l_alert", group=g_alert)
+alertNyOE = input.bool(true, "NY OE Signal", inline="n_alert", group=g_alert)
+alertNyTick = input.bool(true, "TICK Extreme", inline="n_alert", group=g_alert)
+
+// --- Helpers ---
+f_in_session(string sess, string timezone) =>
+    not na(time(timeframe.period, sess, timezone))
+
+f_calc_values(bool inVwap, bool anchor, float mult) =>
+    var float pv  = 0.0
+    var float vv  = 0.0
+    var float p2v = 0.0
+    if anchor
+        pv := src * volume, vv := volume, p2v := src * src * volume
+    else if inVwap
+        pv += src * volume, vv += volume, p2v += src * src * volume
+    vwap = inVwap and vv > 0 ? pv / vv : na
+    v_sd = inVwap and vv > 0 and not anchor ? math.sqrt(math.max(0, (p2v / vv) - math.pow(vwap, 2))) : 0.0
+    up = not na(vwap) ? vwap + mult * v_sd : na
+    dn = not na(vwap) ? vwap - mult * v_sd : na
+    [vwap, up, dn, anchor]
+
+f_track_anchors(bool anchor, int limit) =>
+    var array<int> anchors = array.new_int()
+    if anchor
+        array.unshift(anchors, time)
+        if array.size(anchors) > limit
+            array.pop(anchors)
+    cutoff = array.size(anchors) == limit ? array.get(anchors, limit - 1) : array.size(anchors) > 0 ? array.get(anchors, array.size(anchors) - 1) : na
+    cutoff
+
+f_clean_p(bool show, bool anchor, float val) =>
+    show and not anchor and not (anchor[1] == true) ? val : na
+
+f_newlines(int count) =>
+    string result = ""
+    if count > 0
+        for i = 1 to count
+            result += "\n"
+    result
+
+// --- Session VWAPs ---
+aInV = f_in_session(asia_vwap_sess, tz), aAnc = aInV and not aInV[1]
+[aV, aU, aD, aA] = f_calc_values(aInV, aAnc, asia_mult)
+a_cutoff = f_track_anchors(aAnc, asia_n)
+
+lInV = f_in_session(lon_vwap_sess, tz), lAnc = lInV and not lInV[1]
+[lV, lU, lD, lA] = f_calc_values(lInV, lAnc, lon_mult)
+l_cutoff = f_track_anchors(lAnc, lon_n)
+
+nInV = f_in_session(ny_vwap_sess, tz), nAnc = nInV and not nInV[1]
+[nV, nU, nD, nA] = f_calc_values(nInV, nAnc, ny_mult)
+n_cutoff = f_track_anchors(nAnc, ny_n)
+
+// --- Signal Logic ---
+[req_c, req_h, req_l] = request.security(syminfo.tickerid, sig_tf, [close, high, low], barmerge.gaps_off, barmerge.lookahead_off)
+is_close = sig_cond == "Candle Close"
+
+a_buy_base = aInV and (is_close ? req_c < aD and req_c[1] >= aD[1] : req_l < aD and req_l[1] >= aD[1])
+a_sel_base = aInV and (is_close ? req_c > aU and req_c[1] <= aU[1] : req_h > aU and req_h[1] <= aU[1])
+
+l_buy_base = lInV and (is_close ? req_c < lD and req_c[1] >= lD[1] : req_l < lD and req_l[1] >= lD[1])
+l_sel_base = lInV and (is_close ? req_c > lU and req_c[1] <= lU[1] : req_h > lU and req_h[1] <= lU[1])
+
+n_buy_base = nInV and (is_close ? req_c < nD and req_c[1] >= nD[1] : req_l < nD and req_l[1] >= nD[1])
+n_sel_base = nInV and (is_close ? req_c > nU and req_c[1] <= nU[1] : req_h > nU and req_h[1] <= nU[1])
+
+offset_bars = sig_offset == "Next Candle" ? 1 : 0
+
+a_buy = a_buy_base[offset_bars]
+a_sel = a_sel_base[offset_bars]
+l_buy = l_buy_base[offset_bars]
+l_sel = l_sel_base[offset_bars]
+n_buy = n_buy_base[offset_bars]
+n_sel = n_sel_base[offset_bars]
+
+// --- Visibility Checks and Signal Markers ---
+show_asia_now = show_asia and not na(a_cutoff) and time >= a_cutoff
+show_lon_now  = show_lon and not na(l_cutoff) and time >= l_cutoff
+show_ny_now   = show_ny and not na(n_cutoff) and time >= n_cutoff
+
+asia_buy_now = show_asia_now and a_buy
+asia_sel_now = show_asia_now and a_sel
+lon_buy_now  = show_lon_now and l_buy
+lon_sel_now  = show_lon_now and l_sel
+ny_buy_now   = show_ny_now and n_buy
+ny_sel_now   = show_ny_now and n_sel
+
+current_buy_signal = asia_buy_now or lon_buy_now or ny_buy_now
+current_sel_signal = asia_sel_now or lon_sel_now or ny_sel_now
+
+plotshape(asia_buy_now, "Asia Buy", shape.triangleup, location.belowbar, buy_col, size=size.tiny)
+plotshape(asia_sel_now, "Asia Sell", shape.triangledown, location.abovebar, sel_col, size=size.tiny)
+plotshape(lon_buy_now, "London Buy", shape.triangleup, location.belowbar, buy_col, size=size.tiny)
+plotshape(lon_sel_now, "London Sell", shape.triangledown, location.abovebar, sel_col, size=size.tiny)
+plotshape(ny_buy_now, "NY Buy", shape.triangleup, location.belowbar, buy_col, size=size.tiny)
+plotshape(ny_sel_now, "NY Sell", shape.triangledown, location.abovebar, sel_col, size=size.tiny)
+
+// --- Session VWAP Plots ---
+FILL_T = 100
+ap_m = plot(f_clean_p(show_asia_now, aA, aV), "Asia VWAP", asia_col, 2, plot.style_linebr)
+ap_u = plot(f_clean_p(show_asia_now, aA, aU), "Asia Upper", color.new(asia_col, 50), 1, plot.style_linebr)
+ap_d = plot(f_clean_p(show_asia_now, aA, aD), "Asia Lower", color.new(asia_col, 50), 1, plot.style_linebr)
+fill(ap_m, ap_u, aU, aV, color.new(asia_col, FILL_T), color.new(asia_col, FILL_T), "Asia Fill U")
+fill(ap_m, ap_d, aV, aD, color.new(asia_col, FILL_T), color.new(asia_col, FILL_T), "Asia Fill D")
+
+lp_m = plot(f_clean_p(show_lon_now, lA, lV), "London VWAP", lon_col, 2, plot.style_linebr)
+lp_u = plot(f_clean_p(show_lon_now, lA, lU), "London Upper", color.new(lon_col, 50), 1, plot.style_linebr)
+lp_d = plot(f_clean_p(show_lon_now, lA, lD), "London Lower", color.new(lon_col, 50), 1, plot.style_linebr)
+fill(lp_m, lp_u, lU, lV, color.new(lon_col, FILL_T), color.new(lon_col, FILL_T), "London Fill U")
+fill(lp_m, lp_d, lV, lD, color.new(lon_col, FILL_T), color.new(lon_col, FILL_T), "London Fill D")
+
+np_m = plot(f_clean_p(show_ny_now, nA, nV), "NY VWAP", ny_col, 2, plot.style_linebr)
+np_u = plot(f_clean_p(show_ny_now, nA, nU), "NY Upper", color.new(ny_col, 50), 1, plot.style_linebr)
+np_d = plot(f_clean_p(show_ny_now, nA, nD), "NY Lower", color.new(ny_col, 50), 1, plot.style_linebr)
+fill(np_m, np_u, nU, nV, color.new(ny_col, FILL_T), color.new(ny_col, FILL_T), "NY Fill U")
+fill(np_m, np_d, nV, nD, color.new(ny_col, FILL_T), color.new(ny_col, FILL_T), "NY Fill D")
+
+// --- Delta and Volume Confluence ---
+any_signal = current_buy_signal or current_sel_signal
+is_near_signal = math.sum(any_signal ? 1 : 0, 4) > 0
+near_buy = math.sum(current_buy_signal ? 1 : 0, 4) > 0
+near_sel = math.sum(current_sel_signal ? 1 : 0, 4) > 0
+
+fp = request.footprint(1)
+barDelta = not na(fp) ? fp.delta() : 0.0
+dynDeltaThresh = ta.sma(math.abs(barDelta), 20) * deltaMult
+volThresh = ta.sma(volume, 20) * volMult
+
+has_delta_surge = not na(dynDeltaThresh) and math.abs(barDelta) >= dynDeltaThresh
+has_vol_spike = volume >= volThresh
+confluence_above = near_sel and not near_buy ? true : near_buy and not near_sel ? false : close <= open
+confluence_line_count = (has_delta_surge ? 1 : 0) + (has_vol_spike ? 1 : 0)
+show_confluence_label = show_confluence and is_near_signal and confluence_line_count > 0
+
+if show_confluence_label
+    string lblText = ""
+    if has_delta_surge
+        lblText += "Δ " + str.tostring(math.round(barDelta)) + "\n"
+    if has_vol_spike
+        lblText += "V " + str.tostring(volume, format.volume) + "\n"
+
+    lblColor = barDelta > 0 ? buy_col : sel_col
+    paddedText = confluence_above ? lblText + "\n" : "\n" + lblText
+
+    label.new(
+         bar_index,
+         na,
+         paddedText,
+         yloc=confluence_above ? yloc.abovebar : yloc.belowbar,
+         style=label.style_none,
+         color=#00000000,
+         textcolor=lblColor,
+         size=size.tiny)
+
+// --- TICK/TICKQ Bubble Logic ---
+parsedTickFreq = tickRefresh == "Chart" ? timeframe.period : tickRefresh
+[tickHigh, tickLow, tickClose] = request.security(tickSource, parsedTickFreq, [high, low, close])
+
+tickValue = tickUseExtremes ? math.abs(tickHigh) > math.abs(tickLow) ? tickHigh : tickLow : tickClose
+absTick = math.abs(tickValue)
+
+var float tickSessionHigh = 0.0
+var float tickSessionLow = 0.0
+isNewDay = nz(ta.change(time("D"))) != 0
+
+if isNewDay
+    tickSessionHigh := tickValue
+    tickSessionLow := tickValue
+else
+    tickSessionHigh := math.max(tickSessionHigh, tickValue)
+    tickSessionLow := math.min(tickSessionLow, tickValue)
+
+tickHighChange = ta.change(tickSessionHigh)
+tickLowChange = ta.change(tickSessionLow)
+isNewTickHigh = tickValue == tickSessionHigh and tickValue > tickExt1 and not isNewDay and tickHighChange != 0
+isNewTickLow = tickValue == tickSessionLow and tickValue < -tickExt1 and not isNewDay and tickLowChange != 0
+
+tickChar = tickStyle == "Circles" ? "●" : tickValue > 0 ? "▼" : "▲"
+tickDots = if tickStyle == "None" or absTick < tickExt1
+    ""
+else
+    absTick >= tickExt3 ? tickChar + "\n" + tickChar + "\n" + tickChar : absTick >= tickExt2 ? tickChar + "\n" + tickChar : tickChar
+
+if tickDots != "" or isNewTickHigh or isNewTickLow
+    tickAbove = tickValue > 0
+    triangleOnTickSide = tickAbove ? current_sel_signal : current_buy_signal
+    valuesOnTickSide = show_confluence_label and confluence_above == tickAbove
+
+    // Each occupied line becomes clearance between the candle and the TICK marker.
+    clearanceLines = (triangleOnTickSide ? 1 : 0) + (valuesOnTickSide ? confluence_line_count + 1 : 0)
+    collisionPad = f_newlines(clearanceLines)
+    tickValueText = str.tostring(tickValue, "#")
+    string tickLabelText = ""
+
+    if tickAbove
+        tickLabelText := (isNewTickHigh and tickPrintDayValue ? tickValueText + "\n\n\n" : "") + tickDots + collisionPad
+    else
+        tickLabelText := collisionPad + tickDots + (isNewTickLow and tickPrintDayValue ? "\n\n\n" + tickValueText : "")
+
+    if tickLabelText != ""
+        label.new(
+             bar_index,
+             tickAbove ? high : low,
+             tickLabelText,
+             color=#00000000,
+             style=tickAbove ? label.style_label_down : label.style_label_up,
+             textcolor=tickAbove ? tickPosColor : tickNegColor,
+             size=size.tiny)
+
+// --- Dynamic Alerts ---
+// Create one alert from TradingView using "Any alert() function call".
+// Signal alerts use the active session's OE signal; TICK alerts use the
+// session in which a new positive/negative extreme is recorded.
+alertOnClose = alertTiming == "Bar Close"
+alertFreq = alertOnClose ? alert.freq_once_per_bar_close : alert.freq_once_per_bar
+
+asiaOEBuyAlert = alertAsiaOE and asia_buy_now
+asiaOESellAlert = alertAsiaOE and asia_sel_now
+lonOEBuyAlert = alertLonOE and lon_buy_now
+lonOESellAlert = alertLonOE and lon_sel_now
+nyOEBuyAlert = alertNyOE and ny_buy_now
+nyOESellAlert = alertNyOE and ny_sel_now
+
+asiaTickBuyAlert = alertAsiaTick and aInV and isNewTickHigh
+asiaTickSellAlert = alertAsiaTick and aInV and isNewTickLow
+lonTickBuyAlert = alertLonTick and lInV and isNewTickHigh
+lonTickSellAlert = alertLonTick and lInV and isNewTickLow
+nyTickBuyAlert = alertNyTick and nInV and isNewTickHigh
+nyTickSellAlert = alertNyTick and nInV and isNewTickLow
+
+string alertMessage = ""
+if asiaOEBuyAlert
+    alertMessage += "Asia Session: OE Buy\n"
+if asiaOESellAlert
+    alertMessage += "Asia Session: OE Sell\n"
+if lonOEBuyAlert
+    alertMessage += "London Session: OE Buy\n"
+if lonOESellAlert
+    alertMessage += "London Session: OE Sell\n"
+if nyOEBuyAlert
+    alertMessage += "NY Session: OE Buy\n"
+if nyOESellAlert
+    alertMessage += "NY Session: OE Sell\n"
+if asiaTickBuyAlert
+    alertMessage += "Asia Session: " + tickSource + " Extreme Buy\n"
+if asiaTickSellAlert
+    alertMessage += "Asia Session: " + tickSource + " Extreme Sell\n"
+if lonTickBuyAlert
+    alertMessage += "London Session: " + tickSource + " Extreme Buy\n"
+if lonTickSellAlert
+    alertMessage += "London Session: " + tickSource + " Extreme Sell\n"
+if nyTickBuyAlert
+    alertMessage += "NY Session: " + tickSource + " Extreme Buy\n"
+if nyTickSellAlert
+    alertMessage += "NY Session: " + tickSource + " Extreme Sell\n"
+
+if alertMessage != ""
+    alert(alertMessage, alertFreq)
+
+plot(tickValue, "TICK Value", color.new(chart.fg_color, 100), display=display.data_window)
+
+// === VWAP conditional-statistics overlay: presentation of sealed study 11 ===
+// Source: run 20260924T155331Z_vwap11, protocol 1.0.0. No learning occurs on-chart.
+// Forecasts use completed 2m bars. The source indicator's OE, footprint, TICK,
+// and alert behavior above is intentionally unchanged.
+g_study = "VWAP Research / Conditional Statistics"
+studyOn = input.bool(true, "Show conditional panel", group=g_study)
+studyCurves = input.bool(true, "Show research-matched VWAP curves", group=g_study)
+studyLevels = input.bool(true, "Show two frozen destinations", group=g_study)
+studyAllowContinuous = input.bool(false, "Allow continuous futures as unverified proxy", group=g_study,
+     tooltip="Default off: continuous futures can change contract and historical adjustment coordinates. If enabled, rates and target states are illustrative only; avoid roll periods.")
+studyReference = input.string("Active session", "Departure reference", options=["Active session", "Globex day"], group=g_study,
+     tooltip="Question A/B can use the active Asia/London/NY VWAP or Globex day VWAP. Historical lookup cells pool anchors; the selected anchor is shown separately.")
+
+f_study_lookup(string key) =>
+    switch key
+        "A|ES|0|0" => "68.9%¦n=4,569¦A · ES 2m; Globex/Asia/London/NY anchors pooled. At-risk fresh departure checkpoints: current distance <0.75σ, elapsed without causal evolving-VWAP return <20m. Future event: frozen checkpoint VWAP ±1 tick contacted within 30 elapsed minutes. 3,147/4,569 = 68.9%; 95% shared-week interval 67.4%–70.4%. 4,569 rows; 4,255 episodes/events; 1,014 product-days; 266 shared weeks. Complete-day eligibility was retrospective. Product-wide secondary references (not this cell): evolving-only 30m 2.0%; frozen contact by variable window end 64.0%. Clock, anchor, and prior volatility are not jointly conditioned in this displayed raw cell. New path context improved evaluation Brier by only 0.5%; no pristine holdout. Chart feed/eligibility can differ from the pinned Databento release. Not a trade win rate."
+        "A|ES|0|1" => "62.1%¦n=3,468¦A · ES 2m; Globex/Asia/London/NY anchors pooled. At-risk fresh departure checkpoints: current distance <0.75σ, elapsed without causal evolving-VWAP return 20–39m. Future event: frozen checkpoint VWAP ±1 tick contacted within 30 elapsed minutes. 2,155/3,468 = 62.1%; 95% shared-week interval 60.4%–64.1%. 3,468 rows; 2,967 episodes/events; 953 product-days; 265 shared weeks. Complete-day eligibility was retrospective. Product-wide secondary references (not this cell): evolving-only 30m 2.0%; frozen contact by variable window end 64.0%. Clock, anchor, and prior volatility are not jointly conditioned in this displayed raw cell. New path context improved evaluation Brier by only 0.5%; no pristine holdout. Chart feed/eligibility can differ from the pinned Databento release. Not a trade win rate."
+        "A|ES|0|2" => "60.3%¦n=2,569¦A · ES 2m; Globex/Asia/London/NY anchors pooled. At-risk fresh departure checkpoints: current distance <0.75σ, elapsed without causal evolving-VWAP return 40–59m. Future event: frozen checkpoint VWAP ±1 tick contacted within 30 elapsed minutes. 1,548/2,569 = 60.3%; 95% shared-week interval 58.4%–62.4%. 2,569 rows; 2,147 episodes/events; 881 product-days; 265 shared weeks. Complete-day eligibility was retrospective. Product-wide secondary references (not this cell): evolving-only 30m 2.0%; frozen contact by variable window end 64.0%. Clock, anchor, and prior volatility are not jointly conditioned in this displayed raw cell. New path context improved evaluation Brier by only 0.5%; no pristine holdout. Chart feed/eligibility can differ from the pinned Databento release. Not a trade win rate."
+        "A|ES|0|3" => "52.6%¦n=5,079¦A · ES 2m; Globex/Asia/London/NY anchors pooled. At-risk fresh departure checkpoints: current distance <0.75σ, elapsed without causal evolving-VWAP return 60–119m. Future event: frozen checkpoint VWAP ±1 tick contacted within 30 elapsed minutes. 2,673/5,079 = 52.6%; 95% shared-week interval 50.8%–54.5%. 5,079 rows; 2,990 episodes/events; 979 product-days; 266 shared weeks. Complete-day eligibility was retrospective. Product-wide secondary references (not this cell): evolving-only 30m 2.0%; frozen contact by variable window end 64.0%. Clock, anchor, and prior volatility are not jointly conditioned in this displayed raw cell. New path context improved evaluation Brier by only 0.5%; no pristine holdout. Chart feed/eligibility can differ from the pinned Databento release. Not a trade win rate."
+        "A|ES|0|4" => "42.8%¦n=5,658¦A · ES 2m; Globex/Asia/London/NY anchors pooled. At-risk fresh departure checkpoints: current distance <0.75σ, elapsed without causal evolving-VWAP return 120–239m. Future event: frozen checkpoint VWAP ±1 tick contacted within 30 elapsed minutes. 2,421/5,658 = 42.8%; 95% shared-week interval 41.0%–44.8%. 5,658 rows; 2,312 episodes/events; 943 product-days; 263 shared weeks. Complete-day eligibility was retrospective. Product-wide secondary references (not this cell): evolving-only 30m 2.0%; frozen contact by variable window end 64.0%. Clock, anchor, and prior volatility are not jointly conditioned in this displayed raw cell. New path context improved evaluation Brier by only 0.5%; no pristine holdout. Chart feed/eligibility can differ from the pinned Databento release. Not a trade win rate."
+        "A|ES|0|5" => "35.6%¦n=4,689¦A · ES 2m; Globex/Asia/London/NY anchors pooled. At-risk fresh departure checkpoints: current distance <0.75σ, elapsed without causal evolving-VWAP return 240m+. Future event: frozen checkpoint VWAP ±1 tick contacted within 30 elapsed minutes. 1,667/4,689 = 35.6%; 95% shared-week interval 33.6%–37.6%. 4,689 rows; 1,166 episodes/events; 746 product-days; 257 shared weeks. Complete-day eligibility was retrospective. Product-wide secondary references (not this cell): evolving-only 30m 2.0%; frozen contact by variable window end 64.0%. Clock, anchor, and prior volatility are not jointly conditioned in this displayed raw cell. New path context improved evaluation Brier by only 0.5%; no pristine holdout. Chart feed/eligibility can differ from the pinned Databento release. Not a trade win rate."
+        "A|ES|1|0" => "41.8%¦n=11,524¦A · ES 2m; Globex/Asia/London/NY anchors pooled. At-risk fresh departure checkpoints: current distance 0.75–1.25σ, elapsed without causal evolving-VWAP return <20m. Future event: frozen checkpoint VWAP ±1 tick contacted within 30 elapsed minutes. 4,821/11,524 = 41.8%; 95% shared-week interval 40.6%–42.9%. 11,524 rows; 9,511 episodes/events; 1,037 product-days; 267 shared weeks. Complete-day eligibility was retrospective. Product-wide secondary references (not this cell): evolving-only 30m 2.0%; frozen contact by variable window end 64.0%. Clock, anchor, and prior volatility are not jointly conditioned in this displayed raw cell. New path context improved evaluation Brier by only 0.5%; no pristine holdout. Chart feed/eligibility can differ from the pinned Databento release. Not a trade win rate."
+        "A|ES|1|1" => "34.6%¦n=6,546¦A · ES 2m; Globex/Asia/London/NY anchors pooled. At-risk fresh departure checkpoints: current distance 0.75–1.25σ, elapsed without causal evolving-VWAP return 20–39m. Future event: frozen checkpoint VWAP ±1 tick contacted within 30 elapsed minutes. 2,265/6,546 = 34.6%; 95% shared-week interval 33.1%–35.9%. 6,546 rows; 5,313 episodes/events; 1,033 product-days; 267 shared weeks. Complete-day eligibility was retrospective. Product-wide secondary references (not this cell): evolving-only 30m 2.0%; frozen contact by variable window end 64.0%. Clock, anchor, and prior volatility are not jointly conditioned in this displayed raw cell. New path context improved evaluation Brier by only 0.5%; no pristine holdout. Chart feed/eligibility can differ from the pinned Databento release. Not a trade win rate."
+        "A|ES|1|2" => "30.6%¦n=4,823¦A · ES 2m; Globex/Asia/London/NY anchors pooled. At-risk fresh departure checkpoints: current distance 0.75–1.25σ, elapsed without causal evolving-VWAP return 40–59m. Future event: frozen checkpoint VWAP ±1 tick contacted within 30 elapsed minutes. 1,475/4,823 = 30.6%; 95% shared-week interval 29.0%–32.3%. 4,823 rows; 3,836 episodes/events; 1,012 product-days; 267 shared weeks. Complete-day eligibility was retrospective. Product-wide secondary references (not this cell): evolving-only 30m 2.0%; frozen contact by variable window end 64.0%. Clock, anchor, and prior volatility are not jointly conditioned in this displayed raw cell. New path context improved evaluation Brier by only 0.5%; no pristine holdout. Chart feed/eligibility can differ from the pinned Databento release. Not a trade win rate."
+        "A|ES|1|3" => "22.2%¦n=9,707¦A · ES 2m; Globex/Asia/London/NY anchors pooled. At-risk fresh departure checkpoints: current distance 0.75–1.25σ, elapsed without causal evolving-VWAP return 60–119m. Future event: frozen checkpoint VWAP ±1 tick contacted within 30 elapsed minutes. 2,151/9,707 = 22.2%; 95% shared-week interval 20.9%–23.4%. 9,707 rows; 4,637 episodes/events; 1,031 product-days; 267 shared weeks. Complete-day eligibility was retrospective. Product-wide secondary references (not this cell): evolving-only 30m 2.0%; frozen contact by variable window end 64.0%. Clock, anchor, and prior volatility are not jointly conditioned in this displayed raw cell. New path context improved evaluation Brier by only 0.5%; no pristine holdout. Chart feed/eligibility can differ from the pinned Databento release. Not a trade win rate."
+        "A|ES|1|4" => "13.5%¦n=10,846¦A · ES 2m; Globex/Asia/London/NY anchors pooled. At-risk fresh departure checkpoints: current distance 0.75–1.25σ, elapsed without causal evolving-VWAP return 120–239m. Future event: frozen checkpoint VWAP ±1 tick contacted within 30 elapsed minutes. 1,465/10,846 = 13.5%; 95% shared-week interval 12.7%–14.4%. 10,846 rows; 3,113 episodes/events; 1,010 product-days; 265 shared weeks. Complete-day eligibility was retrospective. Product-wide secondary references (not this cell): evolving-only 30m 2.0%; frozen contact by variable window end 64.0%. Clock, anchor, and prior volatility are not jointly conditioned in this displayed raw cell. New path context improved evaluation Brier by only 0.5%; no pristine holdout. Chart feed/eligibility can differ from the pinned Databento release. Not a trade win rate."
+        "A|ES|1|5" => "8.4%¦n=8,870¦A · ES 2m; Globex/Asia/London/NY anchors pooled. At-risk fresh departure checkpoints: current distance 0.75–1.25σ, elapsed without causal evolving-VWAP return 240m+. Future event: frozen checkpoint VWAP ±1 tick contacted within 30 elapsed minutes. 748/8,870 = 8.4%; 95% shared-week interval 7.6%–9.4%. 8,870 rows; 1,379 episodes/events; 786 product-days; 259 shared weeks. Complete-day eligibility was retrospective. Product-wide secondary references (not this cell): evolving-only 30m 2.0%; frozen contact by variable window end 64.0%. Clock, anchor, and prior volatility are not jointly conditioned in this displayed raw cell. New path context improved evaluation Brier by only 0.5%; no pristine holdout. Chart feed/eligibility can differ from the pinned Databento release. Not a trade win rate."
+        "A|ES|2|0" => "30.2%¦n=12,354¦A · ES 2m; Globex/Asia/London/NY anchors pooled. At-risk fresh departure checkpoints: current distance 1.25–2σ, elapsed without causal evolving-VWAP return <20m. Future event: frozen checkpoint VWAP ±1 tick contacted within 30 elapsed minutes. 3,733/12,354 = 30.2%; 95% shared-week interval 29.1%–31.4%. 12,354 rows; 9,888 episodes/events; 1,036 product-days; 267 shared weeks. Complete-day eligibility was retrospective. Product-wide secondary references (not this cell): evolving-only 30m 2.0%; frozen contact by variable window end 64.0%. Clock, anchor, and prior volatility are not jointly conditioned in this displayed raw cell. New path context improved evaluation Brier by only 0.5%; no pristine holdout. Chart feed/eligibility can differ from the pinned Databento release. Not a trade win rate."
+        "A|ES|2|1" => "18.6%¦n=9,624¦A · ES 2m; Globex/Asia/London/NY anchors pooled. At-risk fresh departure checkpoints: current distance 1.25–2σ, elapsed without causal evolving-VWAP return 20–39m. Future event: frozen checkpoint VWAP ±1 tick contacted within 30 elapsed minutes. 1,788/9,624 = 18.6%; 95% shared-week interval 17.6%–19.4%. 9,624 rows; 7,113 episodes/events; 1,037 product-days; 267 shared weeks. Complete-day eligibility was retrospective. Product-wide secondary references (not this cell): evolving-only 30m 2.0%; frozen contact by variable window end 64.0%. Clock, anchor, and prior volatility are not jointly conditioned in this displayed raw cell. New path context improved evaluation Brier by only 0.5%; no pristine holdout. Chart feed/eligibility can differ from the pinned Databento release. Not a trade win rate."
+        "A|ES|2|2" => "12.3%¦n=7,382¦A · ES 2m; Globex/Asia/London/NY anchors pooled. At-risk fresh departure checkpoints: current distance 1.25–2σ, elapsed without causal evolving-VWAP return 40–59m. Future event: frozen checkpoint VWAP ±1 tick contacted within 30 elapsed minutes. 907/7,382 = 12.3%; 95% shared-week interval 11.4%–13.2%. 7,382 rows; 5,236 episodes/events; 1,033 product-days; 267 shared weeks. Complete-day eligibility was retrospective. Product-wide secondary references (not this cell): evolving-only 30m 2.0%; frozen contact by variable window end 64.0%. Clock, anchor, and prior volatility are not jointly conditioned in this displayed raw cell. New path context improved evaluation Brier by only 0.5%; no pristine holdout. Chart feed/eligibility can differ from the pinned Databento release. Not a trade win rate."
+        "A|ES|2|3" => "7.7%¦n=14,953¦A · ES 2m; Globex/Asia/London/NY anchors pooled. At-risk fresh departure checkpoints: current distance 1.25–2σ, elapsed without causal evolving-VWAP return 60–119m. Future event: frozen checkpoint VWAP ±1 tick contacted within 30 elapsed minutes. 1,144/14,953 = 7.7%; 95% shared-week interval 7.1%–8.3%. 14,953 rows; 5,185 episodes/events; 1,037 product-days; 267 shared weeks. Complete-day eligibility was retrospective. Product-wide secondary references (not this cell): evolving-only 30m 2.0%; frozen contact by variable window end 64.0%. Clock, anchor, and prior volatility are not jointly conditioned in this displayed raw cell. New path context improved evaluation Brier by only 0.5%; no pristine holdout. Chart feed/eligibility can differ from the pinned Databento release. Not a trade win rate."
+        "A|ES|2|4" => "4.0%¦n=15,296¦A · ES 2m; Globex/Asia/London/NY anchors pooled. At-risk fresh departure checkpoints: current distance 1.25–2σ, elapsed without causal evolving-VWAP return 120–239m. Future event: frozen checkpoint VWAP ±1 tick contacted within 30 elapsed minutes. 608/15,296 = 4.0%; 95% shared-week interval 3.6%–4.4%. 15,296 rows; 3,141 episodes/events; 1,011 product-days; 266 shared weeks. Complete-day eligibility was retrospective. Product-wide secondary references (not this cell): evolving-only 30m 2.0%; frozen contact by variable window end 64.0%. Clock, anchor, and prior volatility are not jointly conditioned in this displayed raw cell. New path context improved evaluation Brier by only 0.5%; no pristine holdout. Chart feed/eligibility can differ from the pinned Databento release. Not a trade win rate."
+        "A|ES|2|5" => "2.1%¦n=9,029¦A · ES 2m; Globex/Asia/London/NY anchors pooled. At-risk fresh departure checkpoints: current distance 1.25–2σ, elapsed without causal evolving-VWAP return 240m+. Future event: frozen checkpoint VWAP ±1 tick contacted within 30 elapsed minutes. 192/9,029 = 2.1%; 95% shared-week interval 1.8%–2.6%. 9,029 rows; 1,247 episodes/events; 737 product-days; 260 shared weeks. Complete-day eligibility was retrospective. Product-wide secondary references (not this cell): evolving-only 30m 2.0%; frozen contact by variable window end 64.0%. Clock, anchor, and prior volatility are not jointly conditioned in this displayed raw cell. New path context improved evaluation Brier by only 0.5%; no pristine holdout. Chart feed/eligibility can differ from the pinned Databento release. Not a trade win rate."
+        "A|ES|3|0" => "22.2%¦n=4,045¦A · ES 2m; Globex/Asia/London/NY anchors pooled. At-risk fresh departure checkpoints: current distance 2σ+, elapsed without causal evolving-VWAP return <20m. Future event: frozen checkpoint VWAP ±1 tick contacted within 30 elapsed minutes. 898/4,045 = 22.2%; 95% shared-week interval 20.8%–23.7%. 4,045 rows; 3,493 episodes/events; 999 product-days; 267 shared weeks. Complete-day eligibility was retrospective. Product-wide secondary references (not this cell): evolving-only 30m 2.0%; frozen contact by variable window end 64.0%. Clock, anchor, and prior volatility are not jointly conditioned in this displayed raw cell. New path context improved evaluation Brier by only 0.5%; no pristine holdout. Chart feed/eligibility can differ from the pinned Databento release. Not a trade win rate."
+        "A|ES|3|1" => "8.9%¦n=3,677¦A · ES 2m; Globex/Asia/London/NY anchors pooled. At-risk fresh departure checkpoints: current distance 2σ+, elapsed without causal evolving-VWAP return 20–39m. Future event: frozen checkpoint VWAP ±1 tick contacted within 30 elapsed minutes. 328/3,677 = 8.9%; 95% shared-week interval 8.0%–10.0%. 3,677 rows; 2,817 episodes/events; 965 product-days; 267 shared weeks. Complete-day eligibility was retrospective. Product-wide secondary references (not this cell): evolving-only 30m 2.0%; frozen contact by variable window end 64.0%. Clock, anchor, and prior volatility are not jointly conditioned in this displayed raw cell. New path context improved evaluation Brier by only 0.5%; no pristine holdout. Chart feed/eligibility can differ from the pinned Databento release. Not a trade win rate."
+        "A|ES|3|2" => "6.2%¦n=2,633¦A · ES 2m; Globex/Asia/London/NY anchors pooled. At-risk fresh departure checkpoints: current distance 2σ+, elapsed without causal evolving-VWAP return 40–59m. Future event: frozen checkpoint VWAP ±1 tick contacted within 30 elapsed minutes. 162/2,633 = 6.2%; 95% shared-week interval 5.2%–7.1%. 2,633 rows; 1,978 episodes/events; 881 product-days; 264 shared weeks. Complete-day eligibility was retrospective. Product-wide secondary references (not this cell): evolving-only 30m 2.0%; frozen contact by variable window end 64.0%. Clock, anchor, and prior volatility are not jointly conditioned in this displayed raw cell. New path context improved evaluation Brier by only 0.5%; no pristine holdout. Chart feed/eligibility can differ from the pinned Databento release. Not a trade win rate."
+        "A|ES|3|3" => "2.8%¦n=4,814¦A · ES 2m; Globex/Asia/London/NY anchors pooled. At-risk fresh departure checkpoints: current distance 2σ+, elapsed without causal evolving-VWAP return 60–119m. Future event: frozen checkpoint VWAP ±1 tick contacted within 30 elapsed minutes. 135/4,814 = 2.8%; 95% shared-week interval 2.2%–3.5%. 4,814 rows; 2,147 episodes/events; 911 product-days; 266 shared weeks. Complete-day eligibility was retrospective. Product-wide secondary references (not this cell): evolving-only 30m 2.0%; frozen contact by variable window end 64.0%. Clock, anchor, and prior volatility are not jointly conditioned in this displayed raw cell. New path context improved evaluation Brier by only 0.5%; no pristine holdout. Chart feed/eligibility can differ from the pinned Databento release. Not a trade win rate."
+        "A|ES|3|4" => "2.1%¦n=3,056¦A · ES 2m; Globex/Asia/London/NY anchors pooled. At-risk fresh departure checkpoints: current distance 2σ+, elapsed without causal evolving-VWAP return 120–239m. Future event: frozen checkpoint VWAP ±1 tick contacted within 30 elapsed minutes. 63/3,056 = 2.1%; 95% shared-week interval 1.5%–2.7%. 3,056 rows; 1,109 episodes/events; 663 product-days; 258 shared weeks. Complete-day eligibility was retrospective. Product-wide secondary references (not this cell): evolving-only 30m 2.0%; frozen contact by variable window end 64.0%. Clock, anchor, and prior volatility are not jointly conditioned in this displayed raw cell. New path context improved evaluation Brier by only 0.5%; no pristine holdout. Chart feed/eligibility can differ from the pinned Databento release. Not a trade win rate."
+        "A|ES|3|5" => "0.9%¦n=772¦A · ES 2m; Globex/Asia/London/NY anchors pooled. At-risk fresh departure checkpoints: current distance 2σ+, elapsed without causal evolving-VWAP return 240m+. Future event: frozen checkpoint VWAP ±1 tick contacted within 30 elapsed minutes. 7/772 = 0.9%; 95% shared-week interval 0.3%–1.7%. 772 rows; 307 episodes/events; 253 product-days; 166 shared weeks. Complete-day eligibility was retrospective. Product-wide secondary references (not this cell): evolving-only 30m 2.0%; frozen contact by variable window end 64.0%. Clock, anchor, and prior volatility are not jointly conditioned in this displayed raw cell. New path context improved evaluation Brier by only 0.5%; no pristine holdout. Chart feed/eligibility can differ from the pinned Databento release. Not a trade win rate."
+        "A|GC|0|0" => "67.5%¦n=3,696¦A · GC 2m; Globex/Asia/London/NY anchors pooled. At-risk fresh departure checkpoints: current distance <0.75σ, elapsed without causal evolving-VWAP return <20m. Future event: frozen checkpoint VWAP ±1 tick contacted within 30 elapsed minutes. 2,494/3,696 = 67.5%; 95% shared-week interval 65.8%–69.2%. 3,696 rows; 3,398 episodes/events; 800 product-days; 349 shared weeks. Complete-day eligibility was retrospective. Product-wide secondary references (not this cell): evolving-only 30m 2.0%; frozen contact by variable window end 56.4%. Clock, anchor, and prior volatility are not jointly conditioned in this displayed raw cell. New path context improved evaluation Brier by only 0.5%; no pristine holdout. Chart feed/eligibility can differ from the pinned Databento release. Not a trade win rate."
+        "A|GC|0|1" => "59.2%¦n=2,945¦A · GC 2m; Globex/Asia/London/NY anchors pooled. At-risk fresh departure checkpoints: current distance <0.75σ, elapsed without causal evolving-VWAP return 20–39m. Future event: frozen checkpoint VWAP ±1 tick contacted within 30 elapsed minutes. 1,743/2,945 = 59.2%; 95% shared-week interval 57.4%–61.6%. 2,945 rows; 2,448 episodes/events; 791 product-days; 349 shared weeks. Complete-day eligibility was retrospective. Product-wide secondary references (not this cell): evolving-only 30m 2.0%; frozen contact by variable window end 56.4%. Clock, anchor, and prior volatility are not jointly conditioned in this displayed raw cell. New path context improved evaluation Brier by only 0.5%; no pristine holdout. Chart feed/eligibility can differ from the pinned Databento release. Not a trade win rate."
+        "A|GC|0|2" => "52.6%¦n=2,164¦A · GC 2m; Globex/Asia/London/NY anchors pooled. At-risk fresh departure checkpoints: current distance <0.75σ, elapsed without causal evolving-VWAP return 40–59m. Future event: frozen checkpoint VWAP ±1 tick contacted within 30 elapsed minutes. 1,138/2,164 = 52.6%; 95% shared-week interval 50.1%–54.7%. 2,164 rows; 1,765 episodes/events; 740 product-days; 341 shared weeks. Complete-day eligibility was retrospective. Product-wide secondary references (not this cell): evolving-only 30m 2.0%; frozen contact by variable window end 56.4%. Clock, anchor, and prior volatility are not jointly conditioned in this displayed raw cell. New path context improved evaluation Brier by only 0.5%; no pristine holdout. Chart feed/eligibility can differ from the pinned Databento release. Not a trade win rate."
+        "A|GC|0|3" => "47.3%¦n=4,489¦A · GC 2m; Globex/Asia/London/NY anchors pooled. At-risk fresh departure checkpoints: current distance <0.75σ, elapsed without causal evolving-VWAP return 60–119m. Future event: frozen checkpoint VWAP ±1 tick contacted within 30 elapsed minutes. 2,123/4,489 = 47.3%; 95% shared-week interval 45.3%–49.3%. 4,489 rows; 2,467 episodes/events; 793 product-days; 351 shared weeks. Complete-day eligibility was retrospective. Product-wide secondary references (not this cell): evolving-only 30m 2.0%; frozen contact by variable window end 56.4%. Clock, anchor, and prior volatility are not jointly conditioned in this displayed raw cell. New path context improved evaluation Brier by only 0.5%; no pristine holdout. Chart feed/eligibility can differ from the pinned Databento release. Not a trade win rate."
+        "A|GC|0|4" => "36.8%¦n=5,032¦A · GC 2m; Globex/Asia/London/NY anchors pooled. At-risk fresh departure checkpoints: current distance <0.75σ, elapsed without causal evolving-VWAP return 120–239m. Future event: frozen checkpoint VWAP ±1 tick contacted within 30 elapsed minutes. 1,853/5,032 = 36.8%; 95% shared-week interval 34.6%–39.1%. 5,032 rows; 1,779 episodes/events; 735 product-days; 337 shared weeks. Complete-day eligibility was retrospective. Product-wide secondary references (not this cell): evolving-only 30m 2.0%; frozen contact by variable window end 56.4%. Clock, anchor, and prior volatility are not jointly conditioned in this displayed raw cell. New path context improved evaluation Brier by only 0.5%; no pristine holdout. Chart feed/eligibility can differ from the pinned Databento release. Not a trade win rate."
+        "A|GC|0|5" => "22.6%¦n=5,346¦A · GC 2m; Globex/Asia/London/NY anchors pooled. At-risk fresh departure checkpoints: current distance <0.75σ, elapsed without causal evolving-VWAP return 240m+. Future event: frozen checkpoint VWAP ±1 tick contacted within 30 elapsed minutes. 1,207/5,346 = 22.6%; 95% shared-week interval 20.8%–24.6%. 5,346 rows; 938 episodes/events; 624 product-days; 315 shared weeks. Complete-day eligibility was retrospective. Product-wide secondary references (not this cell): evolving-only 30m 2.0%; frozen contact by variable window end 56.4%. Clock, anchor, and prior volatility are not jointly conditioned in this displayed raw cell. New path context improved evaluation Brier by only 0.5%; no pristine holdout. Chart feed/eligibility can differ from the pinned Databento release. Not a trade win rate."
+        "A|GC|1|0" => "39.7%¦n=8,703¦A · GC 2m; Globex/Asia/London/NY anchors pooled. At-risk fresh departure checkpoints: current distance 0.75–1.25σ, elapsed without causal evolving-VWAP return <20m. Future event: frozen checkpoint VWAP ±1 tick contacted within 30 elapsed minutes. 3,452/8,703 = 39.7%; 95% shared-week interval 38.5%–41.1%. 8,703 rows; 7,170 episodes/events; 825 product-days; 356 shared weeks. Complete-day eligibility was retrospective. Product-wide secondary references (not this cell): evolving-only 30m 2.0%; frozen contact by variable window end 56.4%. Clock, anchor, and prior volatility are not jointly conditioned in this displayed raw cell. New path context improved evaluation Brier by only 0.5%; no pristine holdout. Chart feed/eligibility can differ from the pinned Databento release. Not a trade win rate."
+        "A|GC|1|1" => "31.1%¦n=5,306¦A · GC 2m; Globex/Asia/London/NY anchors pooled. At-risk fresh departure checkpoints: current distance 0.75–1.25σ, elapsed without causal evolving-VWAP return 20–39m. Future event: frozen checkpoint VWAP ±1 tick contacted within 30 elapsed minutes. 1,649/5,306 = 31.1%; 95% shared-week interval 29.7%–32.5%. 5,306 rows; 4,213 episodes/events; 818 product-days; 354 shared weeks. Complete-day eligibility was retrospective. Product-wide secondary references (not this cell): evolving-only 30m 2.0%; frozen contact by variable window end 56.4%. Clock, anchor, and prior volatility are not jointly conditioned in this displayed raw cell. New path context improved evaluation Brier by only 0.5%; no pristine holdout. Chart feed/eligibility can differ from the pinned Databento release. Not a trade win rate."
+        "A|GC|1|2" => "26.4%¦n=3,905¦A · GC 2m; Globex/Asia/London/NY anchors pooled. At-risk fresh departure checkpoints: current distance 0.75–1.25σ, elapsed without causal evolving-VWAP return 40–59m. Future event: frozen checkpoint VWAP ±1 tick contacted within 30 elapsed minutes. 1,031/3,905 = 26.4%; 95% shared-week interval 25.0%–27.8%. 3,905 rows; 3,038 episodes/events; 806 product-days; 352 shared weeks. Complete-day eligibility was retrospective. Product-wide secondary references (not this cell): evolving-only 30m 2.0%; frozen contact by variable window end 56.4%. Clock, anchor, and prior volatility are not jointly conditioned in this displayed raw cell. New path context improved evaluation Brier by only 0.5%; no pristine holdout. Chart feed/eligibility can differ from the pinned Databento release. Not a trade win rate."
+        "A|GC|1|3" => "18.9%¦n=8,240¦A · GC 2m; Globex/Asia/London/NY anchors pooled. At-risk fresh departure checkpoints: current distance 0.75–1.25σ, elapsed without causal evolving-VWAP return 60–119m. Future event: frozen checkpoint VWAP ±1 tick contacted within 30 elapsed minutes. 1,558/8,240 = 18.9%; 95% shared-week interval 17.8%–20.2%. 8,240 rows; 3,614 episodes/events; 820 product-days; 355 shared weeks. Complete-day eligibility was retrospective. Product-wide secondary references (not this cell): evolving-only 30m 2.0%; frozen contact by variable window end 56.4%. Clock, anchor, and prior volatility are not jointly conditioned in this displayed raw cell. New path context improved evaluation Brier by only 0.5%; no pristine holdout. Chart feed/eligibility can differ from the pinned Databento release. Not a trade win rate."
+        "A|GC|1|4" => "11.0%¦n=9,403¦A · GC 2m; Globex/Asia/London/NY anchors pooled. At-risk fresh departure checkpoints: current distance 0.75–1.25σ, elapsed without causal evolving-VWAP return 120–239m. Future event: frozen checkpoint VWAP ±1 tick contacted within 30 elapsed minutes. 1,030/9,403 = 11.0%; 95% shared-week interval 10.0%–11.8%. 9,403 rows; 2,387 episodes/events; 805 product-days; 355 shared weeks. Complete-day eligibility was retrospective. Product-wide secondary references (not this cell): evolving-only 30m 2.0%; frozen contact by variable window end 56.4%. Clock, anchor, and prior volatility are not jointly conditioned in this displayed raw cell. New path context improved evaluation Brier by only 0.5%; no pristine holdout. Chart feed/eligibility can differ from the pinned Databento release. Not a trade win rate."
+        "A|GC|1|5" => "4.3%¦n=9,802¦A · GC 2m; Globex/Asia/London/NY anchors pooled. At-risk fresh departure checkpoints: current distance 0.75–1.25σ, elapsed without causal evolving-VWAP return 240m+. Future event: frozen checkpoint VWAP ±1 tick contacted within 30 elapsed minutes. 425/9,802 = 4.3%; 95% shared-week interval 3.8%–4.8%. 9,802 rows; 1,101 episodes/events; 679 product-days; 334 shared weeks. Complete-day eligibility was retrospective. Product-wide secondary references (not this cell): evolving-only 30m 2.0%; frozen contact by variable window end 56.4%. Clock, anchor, and prior volatility are not jointly conditioned in this displayed raw cell. New path context improved evaluation Brier by only 0.5%; no pristine holdout. Chart feed/eligibility can differ from the pinned Databento release. Not a trade win rate."
+        "A|GC|2|0" => "29.0%¦n=8,721¦A · GC 2m; Globex/Asia/London/NY anchors pooled. At-risk fresh departure checkpoints: current distance 1.25–2σ, elapsed without causal evolving-VWAP return <20m. Future event: frozen checkpoint VWAP ±1 tick contacted within 30 elapsed minutes. 2,531/8,721 = 29.0%; 95% shared-week interval 27.7%–30.2%. 8,721 rows; 6,995 episodes/events; 825 product-days; 356 shared weeks. Complete-day eligibility was retrospective. Product-wide secondary references (not this cell): evolving-only 30m 2.0%; frozen contact by variable window end 56.4%. Clock, anchor, and prior volatility are not jointly conditioned in this displayed raw cell. New path context improved evaluation Brier by only 0.5%; no pristine holdout. Chart feed/eligibility can differ from the pinned Databento release. Not a trade win rate."
+        "A|GC|2|1" => "17.8%¦n=6,580¦A · GC 2m; Globex/Asia/London/NY anchors pooled. At-risk fresh departure checkpoints: current distance 1.25–2σ, elapsed without causal evolving-VWAP return 20–39m. Future event: frozen checkpoint VWAP ±1 tick contacted within 30 elapsed minutes. 1,172/6,580 = 17.8%; 95% shared-week interval 16.8%–18.9%. 6,580 rows; 4,912 episodes/events; 825 product-days; 356 shared weeks. Complete-day eligibility was retrospective. Product-wide secondary references (not this cell): evolving-only 30m 2.0%; frozen contact by variable window end 56.4%. Clock, anchor, and prior volatility are not jointly conditioned in this displayed raw cell. New path context improved evaluation Brier by only 0.5%; no pristine holdout. Chart feed/eligibility can differ from the pinned Databento release. Not a trade win rate."
+        "A|GC|2|2" => "11.5%¦n=5,100¦A · GC 2m; Globex/Asia/London/NY anchors pooled. At-risk fresh departure checkpoints: current distance 1.25–2σ, elapsed without causal evolving-VWAP return 40–59m. Future event: frozen checkpoint VWAP ±1 tick contacted within 30 elapsed minutes. 584/5,100 = 11.5%; 95% shared-week interval 10.4%–12.4%. 5,100 rows; 3,632 episodes/events; 825 product-days; 356 shared weeks. Complete-day eligibility was retrospective. Product-wide secondary references (not this cell): evolving-only 30m 2.0%; frozen contact by variable window end 56.4%. Clock, anchor, and prior volatility are not jointly conditioned in this displayed raw cell. New path context improved evaluation Brier by only 0.5%; no pristine holdout. Chart feed/eligibility can differ from the pinned Databento release. Not a trade win rate."
+        "A|GC|2|3" => "6.5%¦n=10,160¦A · GC 2m; Globex/Asia/London/NY anchors pooled. At-risk fresh departure checkpoints: current distance 1.25–2σ, elapsed without causal evolving-VWAP return 60–119m. Future event: frozen checkpoint VWAP ±1 tick contacted within 30 elapsed minutes. 661/10,160 = 6.5%; 95% shared-week interval 5.9%–7.2%. 10,160 rows; 3,625 episodes/events; 824 product-days; 356 shared weeks. Complete-day eligibility was retrospective. Product-wide secondary references (not this cell): evolving-only 30m 2.0%; frozen contact by variable window end 56.4%. Clock, anchor, and prior volatility are not jointly conditioned in this displayed raw cell. New path context improved evaluation Brier by only 0.5%; no pristine holdout. Chart feed/eligibility can differ from the pinned Databento release. Not a trade win rate."
+        "A|GC|2|4" => "3.2%¦n=10,767¦A · GC 2m; Globex/Asia/London/NY anchors pooled. At-risk fresh departure checkpoints: current distance 1.25–2σ, elapsed without causal evolving-VWAP return 120–239m. Future event: frozen checkpoint VWAP ±1 tick contacted within 30 elapsed minutes. 348/10,767 = 3.2%; 95% shared-week interval 2.8%–3.7%. 10,767 rows; 2,169 episodes/events; 804 product-days; 354 shared weeks. Complete-day eligibility was retrospective. Product-wide secondary references (not this cell): evolving-only 30m 2.0%; frozen contact by variable window end 56.4%. Clock, anchor, and prior volatility are not jointly conditioned in this displayed raw cell. New path context improved evaluation Brier by only 0.5%; no pristine holdout. Chart feed/eligibility can differ from the pinned Databento release. Not a trade win rate."
+        "A|GC|2|5" => "1.2%¦n=9,639¦A · GC 2m; Globex/Asia/London/NY anchors pooled. At-risk fresh departure checkpoints: current distance 1.25–2σ, elapsed without causal evolving-VWAP return 240m+. Future event: frozen checkpoint VWAP ±1 tick contacted within 30 elapsed minutes. 111/9,639 = 1.2%; 95% shared-week interval 0.9%–1.5%. 9,639 rows; 953 episodes/events; 629 product-days; 328 shared weeks. Complete-day eligibility was retrospective. Product-wide secondary references (not this cell): evolving-only 30m 2.0%; frozen contact by variable window end 56.4%. Clock, anchor, and prior volatility are not jointly conditioned in this displayed raw cell. New path context improved evaluation Brier by only 0.5%; no pristine holdout. Chart feed/eligibility can differ from the pinned Databento release. Not a trade win rate."
+        "A|GC|3|0" => "22.0%¦n=2,642¦A · GC 2m; Globex/Asia/London/NY anchors pooled. At-risk fresh departure checkpoints: current distance 2σ+, elapsed without causal evolving-VWAP return <20m. Future event: frozen checkpoint VWAP ±1 tick contacted within 30 elapsed minutes. 581/2,642 = 22.0%; 95% shared-week interval 20.3%–24.0%. 2,642 rows; 2,307 episodes/events; 776 product-days; 347 shared weeks. Complete-day eligibility was retrospective. Product-wide secondary references (not this cell): evolving-only 30m 2.0%; frozen contact by variable window end 56.4%. Clock, anchor, and prior volatility are not jointly conditioned in this displayed raw cell. New path context improved evaluation Brier by only 0.5%; no pristine holdout. Chart feed/eligibility can differ from the pinned Databento release. Not a trade win rate."
+        "A|GC|3|1" => "8.3%¦n=2,105¦A · GC 2m; Globex/Asia/London/NY anchors pooled. At-risk fresh departure checkpoints: current distance 2σ+, elapsed without causal evolving-VWAP return 20–39m. Future event: frozen checkpoint VWAP ±1 tick contacted within 30 elapsed minutes. 174/2,105 = 8.3%; 95% shared-week interval 7.1%–9.5%. 2,105 rows; 1,682 episodes/events; 729 product-days; 338 shared weeks. Complete-day eligibility was retrospective. Product-wide secondary references (not this cell): evolving-only 30m 2.0%; frozen contact by variable window end 56.4%. Clock, anchor, and prior volatility are not jointly conditioned in this displayed raw cell. New path context improved evaluation Brier by only 0.5%; no pristine holdout. Chart feed/eligibility can differ from the pinned Databento release. Not a trade win rate."
+        "A|GC|3|2" => "4.1%¦n=1,471¦A · GC 2m; Globex/Asia/London/NY anchors pooled. At-risk fresh departure checkpoints: current distance 2σ+, elapsed without causal evolving-VWAP return 40–59m. Future event: frozen checkpoint VWAP ±1 tick contacted within 30 elapsed minutes. 60/1,471 = 4.1%; 95% shared-week interval 3.1%–5.3%. 1,471 rows; 1,124 episodes/events; 615 product-days; 312 shared weeks. Complete-day eligibility was retrospective. Product-wide secondary references (not this cell): evolving-only 30m 2.0%; frozen contact by variable window end 56.4%. Clock, anchor, and prior volatility are not jointly conditioned in this displayed raw cell. New path context improved evaluation Brier by only 0.5%; no pristine holdout. Chart feed/eligibility can differ from the pinned Databento release. Not a trade win rate."
+        "A|GC|3|3" => "2.1%¦n=2,567¦A · GC 2m; Globex/Asia/London/NY anchors pooled. At-risk fresh departure checkpoints: current distance 2σ+, elapsed without causal evolving-VWAP return 60–119m. Future event: frozen checkpoint VWAP ±1 tick contacted within 30 elapsed minutes. 55/2,567 = 2.1%; 95% shared-week interval 1.6%–2.8%. 2,567 rows; 1,221 episodes/events; 645 product-days; 324 shared weeks. Complete-day eligibility was retrospective. Product-wide secondary references (not this cell): evolving-only 30m 2.0%; frozen contact by variable window end 56.4%. Clock, anchor, and prior volatility are not jointly conditioned in this displayed raw cell. New path context improved evaluation Brier by only 0.5%; no pristine holdout. Chart feed/eligibility can differ from the pinned Databento release. Not a trade win rate."
+        "A|GC|3|4" => "1.7%¦n=1,920¦A · GC 2m; Globex/Asia/London/NY anchors pooled. At-risk fresh departure checkpoints: current distance 2σ+, elapsed without causal evolving-VWAP return 120–239m. Future event: frozen checkpoint VWAP ±1 tick contacted within 30 elapsed minutes. 32/1,920 = 1.7%; 95% shared-week interval 0.9%–2.5%. 1,920 rows; 708 episodes/events; 481 product-days; 279 shared weeks. Complete-day eligibility was retrospective. Product-wide secondary references (not this cell): evolving-only 30m 2.0%; frozen contact by variable window end 56.4%. Clock, anchor, and prior volatility are not jointly conditioned in this displayed raw cell. New path context improved evaluation Brier by only 0.5%; no pristine holdout. Chart feed/eligibility can differ from the pinned Databento release. Not a trade win rate."
+        "A|GC|3|5" => "0.3%¦n=994¦A · GC 2m; Globex/Asia/London/NY anchors pooled. At-risk fresh departure checkpoints: current distance 2σ+, elapsed without causal evolving-VWAP return 240m+. Future event: frozen checkpoint VWAP ±1 tick contacted within 30 elapsed minutes. 3/994 = 0.3%; 95% shared-week interval 0.0%–0.7%. 994 rows; 296 episodes/events; 260 product-days; 187 shared weeks. Complete-day eligibility was retrospective. Product-wide secondary references (not this cell): evolving-only 30m 2.0%; frozen contact by variable window end 56.4%. Clock, anchor, and prior volatility are not jointly conditioned in this displayed raw cell. New path context improved evaluation Brier by only 0.5%; no pristine holdout. Chart feed/eligibility can differ from the pinned Databento release. Not a trade win rate."
+        "A|NQ|0|0" => "67.1%¦n=5,623¦A · NQ 2m; Globex/Asia/London/NY anchors pooled. At-risk fresh departure checkpoints: current distance <0.75σ, elapsed without causal evolving-VWAP return <20m. Future event: frozen checkpoint VWAP ±1 tick contacted within 30 elapsed minutes. 3,772/5,623 = 67.1%; 95% shared-week interval 65.8%–68.5%. 5,623 rows; 5,162 episodes/events; 1,146 product-days; 273 shared weeks. Complete-day eligibility was retrospective. Product-wide secondary references (not this cell): evolving-only 30m 1.8%; frozen contact by variable window end 62.6%. Clock, anchor, and prior volatility are not jointly conditioned in this displayed raw cell. New path context improved evaluation Brier by only 0.5%; no pristine holdout. Chart feed/eligibility can differ from the pinned Databento release. Not a trade win rate."
+        "A|NQ|0|1" => "61.5%¦n=4,447¦A · NQ 2m; Globex/Asia/London/NY anchors pooled. At-risk fresh departure checkpoints: current distance <0.75σ, elapsed without causal evolving-VWAP return 20–39m. Future event: frozen checkpoint VWAP ±1 tick contacted within 30 elapsed minutes. 2,733/4,447 = 61.5%; 95% shared-week interval 59.6%–63.2%. 4,447 rows; 3,773 episodes/events; 1,116 product-days; 273 shared weeks. Complete-day eligibility was retrospective. Product-wide secondary references (not this cell): evolving-only 30m 1.8%; frozen contact by variable window end 62.6%. Clock, anchor, and prior volatility are not jointly conditioned in this displayed raw cell. New path context improved evaluation Brier by only 0.5%; no pristine holdout. Chart feed/eligibility can differ from the pinned Databento release. Not a trade win rate."
+        "A|NQ|0|2" => "57.5%¦n=3,387¦A · NQ 2m; Globex/Asia/London/NY anchors pooled. At-risk fresh departure checkpoints: current distance <0.75σ, elapsed without causal evolving-VWAP return 40–59m. Future event: frozen checkpoint VWAP ±1 tick contacted within 30 elapsed minutes. 1,947/3,387 = 57.5%; 95% shared-week interval 55.2%–59.4%. 3,387 rows; 2,753 episodes/events; 1,054 product-days; 273 shared weeks. Complete-day eligibility was retrospective. Product-wide secondary references (not this cell): evolving-only 30m 1.8%; frozen contact by variable window end 62.6%. Clock, anchor, and prior volatility are not jointly conditioned in this displayed raw cell. New path context improved evaluation Brier by only 0.5%; no pristine holdout. Chart feed/eligibility can differ from the pinned Databento release. Not a trade win rate."
+        "A|NQ|0|3" => "50.5%¦n=6,448¦A · NQ 2m; Globex/Asia/London/NY anchors pooled. At-risk fresh departure checkpoints: current distance <0.75σ, elapsed without causal evolving-VWAP return 60–119m. Future event: frozen checkpoint VWAP ±1 tick contacted within 30 elapsed minutes. 3,258/6,448 = 50.5%; 95% shared-week interval 48.7%–52.2%. 6,448 rows; 3,691 episodes/events; 1,130 product-days; 273 shared weeks. Complete-day eligibility was retrospective. Product-wide secondary references (not this cell): evolving-only 30m 1.8%; frozen contact by variable window end 62.6%. Clock, anchor, and prior volatility are not jointly conditioned in this displayed raw cell. New path context improved evaluation Brier by only 0.5%; no pristine holdout. Chart feed/eligibility can differ from the pinned Databento release. Not a trade win rate."
+        "A|NQ|0|4" => "41.4%¦n=7,080¦A · NQ 2m; Globex/Asia/London/NY anchors pooled. At-risk fresh departure checkpoints: current distance <0.75σ, elapsed without causal evolving-VWAP return 120–239m. Future event: frozen checkpoint VWAP ±1 tick contacted within 30 elapsed minutes. 2,930/7,080 = 41.4%; 95% shared-week interval 39.8%–43.0%. 7,080 rows; 2,743 episodes/events; 1,076 product-days; 273 shared weeks. Complete-day eligibility was retrospective. Product-wide secondary references (not this cell): evolving-only 30m 1.8%; frozen contact by variable window end 62.6%. Clock, anchor, and prior volatility are not jointly conditioned in this displayed raw cell. New path context improved evaluation Brier by only 0.5%; no pristine holdout. Chart feed/eligibility can differ from the pinned Databento release. Not a trade win rate."
+        "A|NQ|0|5" => "33.3%¦n=5,816¦A · NQ 2m; Globex/Asia/London/NY anchors pooled. At-risk fresh departure checkpoints: current distance <0.75σ, elapsed without causal evolving-VWAP return 240m+. Future event: frozen checkpoint VWAP ±1 tick contacted within 30 elapsed minutes. 1,934/5,816 = 33.3%; 95% shared-week interval 31.5%–34.9%. 5,816 rows; 1,364 episodes/events; 880 product-days; 270 shared weeks. Complete-day eligibility was retrospective. Product-wide secondary references (not this cell): evolving-only 30m 1.8%; frozen contact by variable window end 62.6%. Clock, anchor, and prior volatility are not jointly conditioned in this displayed raw cell. New path context improved evaluation Brier by only 0.5%; no pristine holdout. Chart feed/eligibility can differ from the pinned Databento release. Not a trade win rate."
+        "A|NQ|1|0" => "38.2%¦n=12,498¦A · NQ 2m; Globex/Asia/London/NY anchors pooled. At-risk fresh departure checkpoints: current distance 0.75–1.25σ, elapsed without causal evolving-VWAP return <20m. Future event: frozen checkpoint VWAP ±1 tick contacted within 30 elapsed minutes. 4,774/12,498 = 38.2%; 95% shared-week interval 37.2%–39.5%. 12,498 rows; 10,267 episodes/events; 1,177 product-days; 273 shared weeks. Complete-day eligibility was retrospective. Product-wide secondary references (not this cell): evolving-only 30m 1.8%; frozen contact by variable window end 62.6%. Clock, anchor, and prior volatility are not jointly conditioned in this displayed raw cell. New path context improved evaluation Brier by only 0.5%; no pristine holdout. Chart feed/eligibility can differ from the pinned Databento release. Not a trade win rate."
+        "A|NQ|1|1" => "32.1%¦n=7,473¦A · NQ 2m; Globex/Asia/London/NY anchors pooled. At-risk fresh departure checkpoints: current distance 0.75–1.25σ, elapsed without causal evolving-VWAP return 20–39m. Future event: frozen checkpoint VWAP ±1 tick contacted within 30 elapsed minutes. 2,399/7,473 = 32.1%; 95% shared-week interval 30.7%–33.3%. 7,473 rows; 6,034 episodes/events; 1,171 product-days; 273 shared weeks. Complete-day eligibility was retrospective. Product-wide secondary references (not this cell): evolving-only 30m 1.8%; frozen contact by variable window end 62.6%. Clock, anchor, and prior volatility are not jointly conditioned in this displayed raw cell. New path context improved evaluation Brier by only 0.5%; no pristine holdout. Chart feed/eligibility can differ from the pinned Databento release. Not a trade win rate."
+        "A|NQ|1|2" => "27.7%¦n=5,433¦A · NQ 2m; Globex/Asia/London/NY anchors pooled. At-risk fresh departure checkpoints: current distance 0.75–1.25σ, elapsed without causal evolving-VWAP return 40–59m. Future event: frozen checkpoint VWAP ±1 tick contacted within 30 elapsed minutes. 1,507/5,433 = 27.7%; 95% shared-week interval 26.3%–29.1%. 5,433 rows; 4,291 episodes/events; 1,151 product-days; 273 shared weeks. Complete-day eligibility was retrospective. Product-wide secondary references (not this cell): evolving-only 30m 1.8%; frozen contact by variable window end 62.6%. Clock, anchor, and prior volatility are not jointly conditioned in this displayed raw cell. New path context improved evaluation Brier by only 0.5%; no pristine holdout. Chart feed/eligibility can differ from the pinned Databento release. Not a trade win rate."
+        "A|NQ|1|3" => "19.7%¦n=11,344¦A · NQ 2m; Globex/Asia/London/NY anchors pooled. At-risk fresh departure checkpoints: current distance 0.75–1.25σ, elapsed without causal evolving-VWAP return 60–119m. Future event: frozen checkpoint VWAP ±1 tick contacted within 30 elapsed minutes. 2,238/11,344 = 19.7%; 95% shared-week interval 18.8%–20.7%. 11,344 rows; 5,327 episodes/events; 1,171 product-days; 273 shared weeks. Complete-day eligibility was retrospective. Product-wide secondary references (not this cell): evolving-only 30m 1.8%; frozen contact by variable window end 62.6%. Clock, anchor, and prior volatility are not jointly conditioned in this displayed raw cell. New path context improved evaluation Brier by only 0.5%; no pristine holdout. Chart feed/eligibility can differ from the pinned Databento release. Not a trade win rate."
+        "A|NQ|1|4" => "11.9%¦n=12,891¦A · NQ 2m; Globex/Asia/London/NY anchors pooled. At-risk fresh departure checkpoints: current distance 0.75–1.25σ, elapsed without causal evolving-VWAP return 120–239m. Future event: frozen checkpoint VWAP ±1 tick contacted within 30 elapsed minutes. 1,534/12,891 = 11.9%; 95% shared-week interval 11.1%–12.7%. 12,891 rows; 3,609 episodes/events; 1,150 product-days; 273 shared weeks. Complete-day eligibility was retrospective. Product-wide secondary references (not this cell): evolving-only 30m 1.8%; frozen contact by variable window end 62.6%. Clock, anchor, and prior volatility are not jointly conditioned in this displayed raw cell. New path context improved evaluation Brier by only 0.5%; no pristine holdout. Chart feed/eligibility can differ from the pinned Databento release. Not a trade win rate."
+        "A|NQ|1|5" => "7.6%¦n=10,705¦A · NQ 2m; Globex/Asia/London/NY anchors pooled. At-risk fresh departure checkpoints: current distance 0.75–1.25σ, elapsed without causal evolving-VWAP return 240m+. Future event: frozen checkpoint VWAP ±1 tick contacted within 30 elapsed minutes. 810/10,705 = 7.6%; 95% shared-week interval 6.9%–8.3%. 10,705 rows; 1,641 episodes/events; 941 product-days; 272 shared weeks. Complete-day eligibility was retrospective. Product-wide secondary references (not this cell): evolving-only 30m 1.8%; frozen contact by variable window end 62.6%. Clock, anchor, and prior volatility are not jointly conditioned in this displayed raw cell. New path context improved evaluation Brier by only 0.5%; no pristine holdout. Chart feed/eligibility can differ from the pinned Databento release. Not a trade win rate."
+        "A|NQ|2|0" => "27.0%¦n=12,802¦A · NQ 2m; Globex/Asia/London/NY anchors pooled. At-risk fresh departure checkpoints: current distance 1.25–2σ, elapsed without causal evolving-VWAP return <20m. Future event: frozen checkpoint VWAP ±1 tick contacted within 30 elapsed minutes. 3,460/12,802 = 27.0%; 95% shared-week interval 26.0%–27.9%. 12,802 rows; 10,258 episodes/events; 1,177 product-days; 273 shared weeks. Complete-day eligibility was retrospective. Product-wide secondary references (not this cell): evolving-only 30m 1.8%; frozen contact by variable window end 62.6%. Clock, anchor, and prior volatility are not jointly conditioned in this displayed raw cell. New path context improved evaluation Brier by only 0.5%; no pristine holdout. Chart feed/eligibility can differ from the pinned Databento release. Not a trade win rate."
+        "A|NQ|2|1" => "17.0%¦n=10,187¦A · NQ 2m; Globex/Asia/London/NY anchors pooled. At-risk fresh departure checkpoints: current distance 1.25–2σ, elapsed without causal evolving-VWAP return 20–39m. Future event: frozen checkpoint VWAP ±1 tick contacted within 30 elapsed minutes. 1,731/10,187 = 17.0%; 95% shared-week interval 16.1%–17.9%. 10,187 rows; 7,578 episodes/events; 1,177 product-days; 273 shared weeks. Complete-day eligibility was retrospective. Product-wide secondary references (not this cell): evolving-only 30m 1.8%; frozen contact by variable window end 62.6%. Clock, anchor, and prior volatility are not jointly conditioned in this displayed raw cell. New path context improved evaluation Brier by only 0.5%; no pristine holdout. Chart feed/eligibility can differ from the pinned Databento release. Not a trade win rate."
+        "A|NQ|2|2" => "11.7%¦n=7,919¦A · NQ 2m; Globex/Asia/London/NY anchors pooled. At-risk fresh departure checkpoints: current distance 1.25–2σ, elapsed without causal evolving-VWAP return 40–59m. Future event: frozen checkpoint VWAP ±1 tick contacted within 30 elapsed minutes. 928/7,919 = 11.7%; 95% shared-week interval 10.9%–12.6%. 7,919 rows; 5,670 episodes/events; 1,176 product-days; 273 shared weeks. Complete-day eligibility was retrospective. Product-wide secondary references (not this cell): evolving-only 30m 1.8%; frozen contact by variable window end 62.6%. Clock, anchor, and prior volatility are not jointly conditioned in this displayed raw cell. New path context improved evaluation Brier by only 0.5%; no pristine holdout. Chart feed/eligibility can differ from the pinned Databento release. Not a trade win rate."
+        "A|NQ|2|3" => "6.4%¦n=16,486¦A · NQ 2m; Globex/Asia/London/NY anchors pooled. At-risk fresh departure checkpoints: current distance 1.25–2σ, elapsed without causal evolving-VWAP return 60–119m. Future event: frozen checkpoint VWAP ±1 tick contacted within 30 elapsed minutes. 1,062/16,486 = 6.4%; 95% shared-week interval 5.9%–7.0%. 16,486 rows; 5,749 episodes/events; 1,177 product-days; 273 shared weeks. Complete-day eligibility was retrospective. Product-wide secondary references (not this cell): evolving-only 30m 1.8%; frozen contact by variable window end 62.6%. Clock, anchor, and prior volatility are not jointly conditioned in this displayed raw cell. New path context improved evaluation Brier by only 0.5%; no pristine holdout. Chart feed/eligibility can differ from the pinned Databento release. Not a trade win rate."
+        "A|NQ|2|4" => "3.6%¦n=17,523¦A · NQ 2m; Globex/Asia/London/NY anchors pooled. At-risk fresh departure checkpoints: current distance 1.25–2σ, elapsed without causal evolving-VWAP return 120–239m. Future event: frozen checkpoint VWAP ±1 tick contacted within 30 elapsed minutes. 630/17,523 = 3.6%; 95% shared-week interval 3.2%–4.0%. 17,523 rows; 3,589 episodes/events; 1,151 product-days; 273 shared weeks. Complete-day eligibility was retrospective. Product-wide secondary references (not this cell): evolving-only 30m 1.8%; frozen contact by variable window end 62.6%. Clock, anchor, and prior volatility are not jointly conditioned in this displayed raw cell. New path context improved evaluation Brier by only 0.5%; no pristine holdout. Chart feed/eligibility can differ from the pinned Databento release. Not a trade win rate."
+        "A|NQ|2|5" => "2.6%¦n=12,422¦A · NQ 2m; Globex/Asia/London/NY anchors pooled. At-risk fresh departure checkpoints: current distance 1.25–2σ, elapsed without causal evolving-VWAP return 240m+. Future event: frozen checkpoint VWAP ±1 tick contacted within 30 elapsed minutes. 319/12,422 = 2.6%; 95% shared-week interval 2.2%–2.9%. 12,422 rows; 1,545 episodes/events; 903 product-days; 270 shared weeks. Complete-day eligibility was retrospective. Product-wide secondary references (not this cell): evolving-only 30m 1.8%; frozen contact by variable window end 62.6%. Clock, anchor, and prior volatility are not jointly conditioned in this displayed raw cell. New path context improved evaluation Brier by only 0.5%; no pristine holdout. Chart feed/eligibility can differ from the pinned Databento release. Not a trade win rate."
+        "A|NQ|3|0" => "18.8%¦n=4,172¦A · NQ 2m; Globex/Asia/London/NY anchors pooled. At-risk fresh departure checkpoints: current distance 2σ+, elapsed without causal evolving-VWAP return <20m. Future event: frozen checkpoint VWAP ±1 tick contacted within 30 elapsed minutes. 783/4,172 = 18.8%; 95% shared-week interval 17.5%–20.0%. 4,172 rows; 3,607 episodes/events; 1,125 product-days; 273 shared weeks. Complete-day eligibility was retrospective. Product-wide secondary references (not this cell): evolving-only 30m 1.8%; frozen contact by variable window end 62.6%. Clock, anchor, and prior volatility are not jointly conditioned in this displayed raw cell. New path context improved evaluation Brier by only 0.5%; no pristine holdout. Chart feed/eligibility can differ from the pinned Databento release. Not a trade win rate."
+        "A|NQ|3|1" => "8.0%¦n=3,997¦A · NQ 2m; Globex/Asia/London/NY anchors pooled. At-risk fresh departure checkpoints: current distance 2σ+, elapsed without causal evolving-VWAP return 20–39m. Future event: frozen checkpoint VWAP ±1 tick contacted within 30 elapsed minutes. 320/3,997 = 8.0%; 95% shared-week interval 7.1%–8.9%. 3,997 rows; 3,059 episodes/events; 1,091 product-days; 273 shared weeks. Complete-day eligibility was retrospective. Product-wide secondary references (not this cell): evolving-only 30m 1.8%; frozen contact by variable window end 62.6%. Clock, anchor, and prior volatility are not jointly conditioned in this displayed raw cell. New path context improved evaluation Brier by only 0.5%; no pristine holdout. Chart feed/eligibility can differ from the pinned Databento release. Not a trade win rate."
+        "A|NQ|3|2" => "5.1%¦n=2,984¦A · NQ 2m; Globex/Asia/London/NY anchors pooled. At-risk fresh departure checkpoints: current distance 2σ+, elapsed without causal evolving-VWAP return 40–59m. Future event: frozen checkpoint VWAP ±1 tick contacted within 30 elapsed minutes. 151/2,984 = 5.1%; 95% shared-week interval 4.2%–5.9%. 2,984 rows; 2,190 episodes/events; 1,004 product-days; 273 shared weeks. Complete-day eligibility was retrospective. Product-wide secondary references (not this cell): evolving-only 30m 1.8%; frozen contact by variable window end 62.6%. Clock, anchor, and prior volatility are not jointly conditioned in this displayed raw cell. New path context improved evaluation Brier by only 0.5%; no pristine holdout. Chart feed/eligibility can differ from the pinned Databento release. Not a trade win rate."
+        "A|NQ|3|3" => "2.1%¦n=5,316¦A · NQ 2m; Globex/Asia/London/NY anchors pooled. At-risk fresh departure checkpoints: current distance 2σ+, elapsed without causal evolving-VWAP return 60–119m. Future event: frozen checkpoint VWAP ±1 tick contacted within 30 elapsed minutes. 114/5,316 = 2.1%; 95% shared-week interval 1.7%–2.6%. 5,316 rows; 2,403 episodes/events; 1,036 product-days; 273 shared weeks. Complete-day eligibility was retrospective. Product-wide secondary references (not this cell): evolving-only 30m 1.8%; frozen contact by variable window end 62.6%. Clock, anchor, and prior volatility are not jointly conditioned in this displayed raw cell. New path context improved evaluation Brier by only 0.5%; no pristine holdout. Chart feed/eligibility can differ from the pinned Databento release. Not a trade win rate."
+        "A|NQ|3|4" => "1.4%¦n=3,864¦A · NQ 2m; Globex/Asia/London/NY anchors pooled. At-risk fresh departure checkpoints: current distance 2σ+, elapsed without causal evolving-VWAP return 120–239m. Future event: frozen checkpoint VWAP ±1 tick contacted within 30 elapsed minutes. 54/3,864 = 1.4%; 95% shared-week interval 0.9%–1.8%. 3,864 rows; 1,341 episodes/events; 804 product-days; 268 shared weeks. Complete-day eligibility was retrospective. Product-wide secondary references (not this cell): evolving-only 30m 1.8%; frozen contact by variable window end 62.6%. Clock, anchor, and prior volatility are not jointly conditioned in this displayed raw cell. New path context improved evaluation Brier by only 0.5%; no pristine holdout. Chart feed/eligibility can differ from the pinned Databento release. Not a trade win rate."
+        "A|NQ|3|5" => "1.7%¦n=1,338¦A · NQ 2m; Globex/Asia/London/NY anchors pooled. At-risk fresh departure checkpoints: current distance 2σ+, elapsed without causal evolving-VWAP return 240m+. Future event: frozen checkpoint VWAP ±1 tick contacted within 30 elapsed minutes. 23/1,338 = 1.7%; 95% shared-week interval 0.9%–2.6%. 1,338 rows; 465 episodes/events; 388 product-days; 219 shared weeks. Complete-day eligibility was retrospective. Product-wide secondary references (not this cell): evolving-only 30m 1.8%; frozen contact by variable window end 62.6%. Clock, anchor, and prior volatility are not jointly conditioned in this displayed raw cell. New path context improved evaluation Brier by only 0.5%; no pristine holdout. Chart feed/eligibility can differ from the pinned Databento release. Not a trade win rate."
+        "B|ES|0" => "R 77.5% · X 18.0%\\nN 2.7% · ? 1.8%¦n=1,009¦B · ES 2m. Geometry share <0.25 = distance to return-zone edge / (return-zone distance + extension distance). Anchors pooled. Return target is frozen checkpoint VWAP ±1 tick; extension is 0.5σ outward from checkpoint close, rounded to whole ticks. Unequal distances: 50% is not neutral. 30-minute frozen-target race, including neither and same-minute ambiguity. R 782/1,009 (77.5%, CI 74.8%–80.1%); X 182/1,009 (18.0%, CI 15.8%–20.5%); N 27/1,009 (2.7%, CI 1.7%–3.8%); ? 18/1,009 (1.8%, CI 1.0%–2.6%); 1,009 rows; 957 episodes/events; 622 product-days; 247 shared weeks. Complete-day eligibility was retrospective. Raw cohort; clock/volatility are not jointly conditioned in the displayed cell. Added path context improved evaluation Brier by only 1.0%. All periods exploratory; chart feed may differ. Not a trade win rate."
+        "B|ES|1" => "R 62.3% · X 29.3%\\nN 7.5% · ? 0.9%¦n=4,441¦B · ES 2m. Geometry share 0.25–0.4 = distance to return-zone edge / (return-zone distance + extension distance). Anchors pooled. Return target is frozen checkpoint VWAP ±1 tick; extension is 0.5σ outward from checkpoint close, rounded to whole ticks. Unequal distances: 50% is not neutral. 30-minute frozen-target race, including neither and same-minute ambiguity. R 2,765/4,441 (62.3%, CI 60.8%–63.9%); X 1,303/4,441 (29.3%, CI 28.0%–30.8%); N 335/4,441 (7.5%, CI 6.5%–8.8%); ? 38/4,441 (0.9%, CI 0.6%–1.2%); 4,441 rows; 3,608 episodes/events; 1,017 product-days; 267 shared weeks. Complete-day eligibility was retrospective. Raw cohort; clock/volatility are not jointly conditioned in the displayed cell. Added path context improved evaluation Brier by only 1.0%. All periods exploratory; chart feed may differ. Not a trade win rate."
+        "B|ES|2" => "R 36.8% · X 41.7%\\nN 21.2% · ? 0.3%¦n=27,498¦B · ES 2m. Geometry share 0.4–0.6 = distance to return-zone edge / (return-zone distance + extension distance). Anchors pooled. Return target is frozen checkpoint VWAP ±1 tick; extension is 0.5σ outward from checkpoint close, rounded to whole ticks. Unequal distances: 50% is not neutral. 30-minute frozen-target race, including neither and same-minute ambiguity. R 10,112/27,498 (36.8%, CI 35.8%–37.7%); X 11,468/27,498 (41.7%, CI 40.8%–42.7%); N 5,834/27,498 (21.2%, CI 20.1%–22.3%); ? 84/27,498 (0.3%, CI 0.2%–0.4%); 27,498 rows; 11,810 episodes/events; 1,037 product-days; 267 shared weeks. Complete-day eligibility was retrospective. Raw cohort; clock/volatility are not jointly conditioned in the displayed cell. Added path context improved evaluation Brier by only 1.0%. All periods exploratory; chart feed may differ. Not a trade win rate."
+        "B|ES|3" => "R 14.4% · X 45.5%\\nN 40.0% · ? 0.1%¦n=84,137¦B · ES 2m. Geometry share 0.6–0.75 = distance to return-zone edge / (return-zone distance + extension distance). Anchors pooled. Return target is frozen checkpoint VWAP ±1 tick; extension is 0.5σ outward from checkpoint close, rounded to whole ticks. Unequal distances: 50% is not neutral. 30-minute frozen-target race, including neither and same-minute ambiguity. R 12,140/84,137 (14.4%, CI 14.0%–14.9%); X 38,267/84,137 (45.5%, CI 44.8%–46.1%); N 33,643/84,137 (40.0%, CI 39.0%–40.9%); ? 87/84,137 (0.1%, CI 0.1%–0.1%); 84,137 rows; 16,129 episodes/events; 1,037 product-days; 267 shared weeks. Complete-day eligibility was retrospective. Raw cohort; clock/volatility are not jointly conditioned in the displayed cell. Added path context improved evaluation Brier by only 1.0%. All periods exploratory; chart feed may differ. Not a trade win rate."
+        "B|ES|4" => "R 5.4% · X 50.5%\\nN 44.1% · ? 0.1%¦n=48,898¦B · ES 2m. Geometry share 0.75+ = distance to return-zone edge / (return-zone distance + extension distance). Anchors pooled. Return target is frozen checkpoint VWAP ±1 tick; extension is 0.5σ outward from checkpoint close, rounded to whole ticks. Unequal distances: 50% is not neutral. 30-minute frozen-target race, including neither and same-minute ambiguity. R 2,639/48,898 (5.4%, CI 5.1%–5.7%); X 24,683/48,898 (50.5%, CI 49.8%–51.2%); N 21,541/48,898 (44.1%, CI 43.3%–44.7%); ? 35/48,898 (0.1%, CI 0.0%–0.1%); 48,898 rows; 9,949 episodes/events; 1,037 product-days; 267 shared weeks. Complete-day eligibility was retrospective. Raw cohort; clock/volatility are not jointly conditioned in the displayed cell. Added path context improved evaluation Brier by only 1.0%. All periods exploratory; chart feed may differ. Not a trade win rate."
+        "B|GC|0" => "R 78.3% · X 16.0%\\nN 4.8% · ? 1.0%¦n=925¦B · GC 2m. Geometry share <0.25 = distance to return-zone edge / (return-zone distance + extension distance). Anchors pooled. Return target is frozen checkpoint VWAP ±1 tick; extension is 0.5σ outward from checkpoint close, rounded to whole ticks. Unequal distances: 50% is not neutral. 30-minute frozen-target race, including neither and same-minute ambiguity. R 724/925 (78.3%, CI 75.3%–81.0%); X 148/925 (16.0%, CI 13.5%–18.3%); N 44/925 (4.8%, CI 2.9%–6.6%); ? 9/925 (1.0%, CI 0.4%–1.6%); 925 rows; 854 episodes/events; 536 product-days; 299 shared weeks. Complete-day eligibility was retrospective. Raw cohort; clock/volatility are not jointly conditioned in the displayed cell. Added path context improved evaluation Brier by only 1.0%. All periods exploratory; chart feed may differ. Not a trade win rate."
+        "B|GC|1" => "R 56.4% · X 28.6%\\nN 14.4% · ? 0.6%¦n=3,801¦B · GC 2m. Geometry share 0.25–0.4 = distance to return-zone edge / (return-zone distance + extension distance). Anchors pooled. Return target is frozen checkpoint VWAP ±1 tick; extension is 0.5σ outward from checkpoint close, rounded to whole ticks. Unequal distances: 50% is not neutral. 30-minute frozen-target race, including neither and same-minute ambiguity. R 2,144/3,801 (56.4%, CI 54.4%–58.6%); X 1,087/3,801 (28.6%, CI 27.0%–30.2%); N 549/3,801 (14.4%, CI 12.4%–16.7%); ? 21/3,801 (0.6%, CI 0.3%–0.8%); 3,801 rows; 2,784 episodes/events; 812 product-days; 351 shared weeks. Complete-day eligibility was retrospective. Raw cohort; clock/volatility are not jointly conditioned in the displayed cell. Added path context improved evaluation Brier by only 1.0%. All periods exploratory; chart feed may differ. Not a trade win rate."
+        "B|GC|2" => "R 31.8% · X 38.0%\\nN 30.0% · ? 0.2%¦n=24,062¦B · GC 2m. Geometry share 0.4–0.6 = distance to return-zone edge / (return-zone distance + extension distance). Anchors pooled. Return target is frozen checkpoint VWAP ±1 tick; extension is 0.5σ outward from checkpoint close, rounded to whole ticks. Unequal distances: 50% is not neutral. 30-minute frozen-target race, including neither and same-minute ambiguity. R 7,646/24,062 (31.8%, CI 30.9%–32.7%); X 9,137/24,062 (38.0%, CI 37.0%–39.1%); N 7,224/24,062 (30.0%, CI 28.7%–31.5%); ? 55/24,062 (0.2%, CI 0.2%–0.3%); 24,062 rows; 8,862 episodes/events; 825 product-days; 356 shared weeks. Complete-day eligibility was retrospective. Raw cohort; clock/volatility are not jointly conditioned in the displayed cell. Added path context improved evaluation Brier by only 1.0%. All periods exploratory; chart feed may differ. Not a trade win rate."
+        "B|GC|3" => "R 11.9% · X 41.4%\\nN 46.6% · ? 0.1%¦n=69,193¦B · GC 2m. Geometry share 0.6–0.75 = distance to return-zone edge / (return-zone distance + extension distance). Anchors pooled. Return target is frozen checkpoint VWAP ±1 tick; extension is 0.5σ outward from checkpoint close, rounded to whole ticks. Unequal distances: 50% is not neutral. 30-minute frozen-target race, including neither and same-minute ambiguity. R 8,202/69,193 (11.9%, CI 11.4%–12.2%); X 28,676/69,193 (41.4%, CI 40.7%–42.1%); N 32,260/69,193 (46.6%, CI 45.8%–47.4%); ? 55/69,193 (0.1%, CI 0.1%–0.1%); 69,193 rows; 11,639 episodes/events; 825 product-days; 356 shared weeks. Complete-day eligibility was retrospective. Raw cohort; clock/volatility are not jointly conditioned in the displayed cell. Added path context improved evaluation Brier by only 1.0%. All periods exploratory; chart feed may differ. Not a trade win rate."
+        "B|GC|4" => "R 4.5% · X 49.8%\\nN 45.7% · ? 0.0%¦n=33,716¦B · GC 2m. Geometry share 0.75+ = distance to return-zone edge / (return-zone distance + extension distance). Anchors pooled. Return target is frozen checkpoint VWAP ±1 tick; extension is 0.5σ outward from checkpoint close, rounded to whole ticks. Unequal distances: 50% is not neutral. 30-minute frozen-target race, including neither and same-minute ambiguity. R 1,504/33,716 (4.5%, CI 4.2%–4.8%); X 16,787/33,716 (49.8%, CI 48.9%–50.7%); N 15,418/33,716 (45.7%, CI 44.8%–46.6%); ? 7/33,716 (0.0%, CI 0.0%–0.0%); 33,716 rows; 7,086 episodes/events; 825 product-days; 356 shared weeks. Complete-day eligibility was retrospective. Raw cohort; clock/volatility are not jointly conditioned in the displayed cell. Added path context improved evaluation Brier by only 1.0%. All periods exploratory; chart feed may differ. Not a trade win rate."
+        "B|NQ|0" => "R 78.9% · X 17.5%\\nN 3.0% · ? 0.6%¦n=1,277¦B · NQ 2m. Geometry share <0.25 = distance to return-zone edge / (return-zone distance + extension distance). Anchors pooled. Return target is frozen checkpoint VWAP ±1 tick; extension is 0.5σ outward from checkpoint close, rounded to whole ticks. Unequal distances: 50% is not neutral. 30-minute frozen-target race, including neither and same-minute ambiguity. R 1,007/1,277 (78.9%, CI 76.7%–81.2%); X 224/1,277 (17.5%, CI 15.5%–19.8%); N 38/1,277 (3.0%, CI 2.1%–4.0%); ? 8/1,277 (0.6%, CI 0.3%–1.1%); 1,277 rows; 1,198 episodes/events; 754 product-days; 269 shared weeks. Complete-day eligibility was retrospective. Raw cohort; clock/volatility are not jointly conditioned in the displayed cell. Added path context improved evaluation Brier by only 1.0%. All periods exploratory; chart feed may differ. Not a trade win rate."
+        "B|NQ|1" => "R 60.3% · X 31.1%\\nN 7.9% · ? 0.7%¦n=4,811¦B · NQ 2m. Geometry share 0.25–0.4 = distance to return-zone edge / (return-zone distance + extension distance). Anchors pooled. Return target is frozen checkpoint VWAP ±1 tick; extension is 0.5σ outward from checkpoint close, rounded to whole ticks. Unequal distances: 50% is not neutral. 30-minute frozen-target race, including neither and same-minute ambiguity. R 2,901/4,811 (60.3%, CI 58.7%–61.8%); X 1,497/4,811 (31.1%, CI 29.7%–32.4%); N 381/4,811 (7.9%, CI 6.8%–9.0%); ? 32/4,811 (0.7%, CI 0.5%–0.9%); 4,811 rows; 3,868 episodes/events; 1,144 product-days; 273 shared weeks. Complete-day eligibility was retrospective. Raw cohort; clock/volatility are not jointly conditioned in the displayed cell. Added path context improved evaluation Brier by only 1.0%. All periods exploratory; chart feed may differ. Not a trade win rate."
+        "B|NQ|2" => "R 36.5% · X 41.5%\\nN 21.8% · ? 0.3%¦n=28,681¦B · NQ 2m. Geometry share 0.4–0.6 = distance to return-zone edge / (return-zone distance + extension distance). Anchors pooled. Return target is frozen checkpoint VWAP ±1 tick; extension is 0.5σ outward from checkpoint close, rounded to whole ticks. Unequal distances: 50% is not neutral. 30-minute frozen-target race, including neither and same-minute ambiguity. R 10,455/28,681 (36.5%, CI 35.6%–37.4%); X 11,893/28,681 (41.5%, CI 40.5%–42.4%); N 6,250/28,681 (21.8%, CI 20.8%–22.9%); ? 83/28,681 (0.3%, CI 0.2%–0.4%); 28,681 rows; 12,267 episodes/events; 1,177 product-days; 273 shared weeks. Complete-day eligibility was retrospective. Raw cohort; clock/volatility are not jointly conditioned in the displayed cell. Added path context improved evaluation Brier by only 1.0%. All periods exploratory; chart feed may differ. Not a trade win rate."
+        "B|NQ|3" => "R 13.8% · X 45.0%\\nN 41.2% · ? 0.1%¦n=93,382¦B · NQ 2m. Geometry share 0.6–0.75 = distance to return-zone edge / (return-zone distance + extension distance). Anchors pooled. Return target is frozen checkpoint VWAP ±1 tick; extension is 0.5σ outward from checkpoint close, rounded to whole ticks. Unequal distances: 50% is not neutral. 30-minute frozen-target race, including neither and same-minute ambiguity. R 12,879/93,382 (13.8%, CI 13.3%–14.2%); X 41,986/93,382 (45.0%, CI 44.3%–45.6%); N 38,438/93,382 (41.2%, CI 40.3%–41.9%); ? 79/93,382 (0.1%, CI 0.1%–0.1%); 93,382 rows; 17,432 episodes/events; 1,177 product-days; 273 shared weeks. Complete-day eligibility was retrospective. Raw cohort; clock/volatility are not jointly conditioned in the displayed cell. Added path context improved evaluation Brier by only 1.0%. All periods exploratory; chart feed may differ. Not a trade win rate."
+        "B|NQ|4" => "R 5.2% · X 50.8%\\nN 43.9% · ? 0.1%¦n=64,004¦B · NQ 2m. Geometry share 0.75+ = distance to return-zone edge / (return-zone distance + extension distance). Anchors pooled. Return target is frozen checkpoint VWAP ±1 tick; extension is 0.5σ outward from checkpoint close, rounded to whole ticks. Unequal distances: 50% is not neutral. 30-minute frozen-target race, including neither and same-minute ambiguity. R 3,334/64,004 (5.2%, CI 5.0%–5.5%); X 32,509/64,004 (50.8%, CI 50.2%–51.5%); N 28,126/64,004 (43.9%, CI 43.2%–44.7%); ? 35/64,004 (0.1%, CI 0.0%–0.1%); 64,004 rows; 11,877 episodes/events; 1,177 product-days; 273 shared weeks. Complete-day eligibility was retrospective. Raw cohort; clock/volatility are not jointly conditioned in the displayed cell. Added path context improved evaluation Brier by only 1.0%. All periods exploratory; chart feed may differ. Not a trade win rate."
+        "C|ES|0" => "SPARSE¦n=97¦Suppressed: fewer than 100 historical observations in this product-specific conditional cell. No rate is displayed. 97 rows; 97 episodes/events; 88 product-days; 74 shared weeks. Complete-day eligibility was retrospective."
+        "C|ES|1" => "D 55.7% · S 36.4%\\nN 0.3% · ? 7.7%¦n=352¦C · ES 2m. Starting position: day middle, measured from frozen day VWAP across the frozen day/session corridor. Asia/London/NY sessions pooled. Cross must be completed, both anchors mature, corridor ≥8 ticks and ≥0.25 day σ. Nearer-boundary frequency is geometry, not evidence of VWAP attraction. 30-minute frozen-target race, including neither and same-minute ambiguity. D 196/352 (55.7%, CI 50.6%–61.1%); S 128/352 (36.4%, CI 30.8%–41.5%); N 1/352 (0.3%, CI 0.0%–0.9%); ? 27/352 (7.7%, CI 5.2%–10.4%); 352 rows; 352 episodes/events; 288 product-days; 190 shared weeks. Complete-day eligibility was retrospective. Raw cohort; clock/volatility are not jointly conditioned in the displayed cell. No added C path-context cell reached the 100-row development floor. All periods exploratory; chart feed may differ. Not a trade win rate."
+        "C|ES|2" => "D 32.7% · S 61.8%\\nN 1.5% · ? 4.0%¦n=1,049¦C · ES 2m. Starting position: session middle, measured from frozen day VWAP across the frozen day/session corridor. Asia/London/NY sessions pooled. Cross must be completed, both anchors mature, corridor ≥8 ticks and ≥0.25 day σ. Nearer-boundary frequency is geometry, not evidence of VWAP attraction. 30-minute frozen-target race, including neither and same-minute ambiguity. D 343/1,049 (32.7%, CI 30.0%–35.7%); S 648/1,049 (61.8%, CI 58.9%–64.6%); N 16/1,049 (1.5%, CI 0.8%–2.2%); ? 42/1,049 (4.0%, CI 3.0%–5.2%); 1,049 rows; 1,049 episodes/events; 642 product-days; 242 shared weeks. Complete-day eligibility was retrospective. Raw cohort; clock/volatility are not jointly conditioned in the displayed cell. No added C path-context cell reached the 100-row development floor. All periods exploratory; chart feed may differ. Not a trade win rate."
+        "C|ES|3" => "D 8.7% · S 87.9%\\nN 2.1% · ? 1.3%¦n=2,420¦C · ES 2m. Starting position: session quarter, measured from frozen day VWAP across the frozen day/session corridor. Asia/London/NY sessions pooled. Cross must be completed, both anchors mature, corridor ≥8 ticks and ≥0.25 day σ. Nearer-boundary frequency is geometry, not evidence of VWAP attraction. 30-minute frozen-target race, including neither and same-minute ambiguity. D 210/2,420 (8.7%, CI 7.6%–9.9%); S 2,126/2,420 (87.9%, CI 86.7%–89.1%); N 52/2,420 (2.1%, CI 1.6%–2.7%); ? 32/2,420 (1.3%, CI 0.9%–1.9%); 2,420 rows; 2,420 episodes/events; 870 product-days; 261 shared weeks. Complete-day eligibility was retrospective. Raw cohort; clock/volatility are not jointly conditioned in the displayed cell. No added C path-context cell reached the 100-row development floor. All periods exploratory; chart feed may differ. Not a trade win rate."
+        "C|GC|0" => "SPARSE¦n=52¦Suppressed: fewer than 100 historical observations in this product-specific conditional cell. No rate is displayed. 52 rows; 52 episodes/events; 48 product-days; 41 shared weeks. Complete-day eligibility was retrospective."
+        "C|GC|1" => "D 54.1% · S 40.4%\\nN 0.9% · ? 4.6%¦n=218¦C · GC 2m. Starting position: day middle, measured from frozen day VWAP across the frozen day/session corridor. Asia/London/NY sessions pooled. Cross must be completed, both anchors mature, corridor ≥8 ticks and ≥0.25 day σ. Nearer-boundary frequency is geometry, not evidence of VWAP attraction. 30-minute frozen-target race, including neither and same-minute ambiguity. D 118/218 (54.1%, CI 48.2%–60.8%); S 88/218 (40.4%, CI 33.6%–46.6%); N 2/218 (0.9%, CI 0.0%–2.3%); ? 10/218 (4.6%, CI 1.6%–8.0%); 218 rows; 218 episodes/events; 185 product-days; 137 shared weeks. Complete-day eligibility was retrospective. Raw cohort; clock/volatility are not jointly conditioned in the displayed cell. No added C path-context cell reached the 100-row development floor. All periods exploratory; chart feed may differ. Not a trade win rate."
+        "C|GC|2" => "D 32.3% · S 63.9%\\nN 1.9% · ? 1.9%¦n=725¦C · GC 2m. Starting position: session middle, measured from frozen day VWAP across the frozen day/session corridor. Asia/London/NY sessions pooled. Cross must be completed, both anchors mature, corridor ≥8 ticks and ≥0.25 day σ. Nearer-boundary frequency is geometry, not evidence of VWAP attraction. 30-minute frozen-target race, including neither and same-minute ambiguity. D 234/725 (32.3%, CI 29.6%–35.0%); S 463/725 (63.9%, CI 60.5%–67.4%); N 14/725 (1.9%, CI 1.0%–2.9%); ? 14/725 (1.9%, CI 1.0%–2.9%); 725 rows; 725 episodes/events; 449 product-days; 258 shared weeks. Complete-day eligibility was retrospective. Raw cohort; clock/volatility are not jointly conditioned in the displayed cell. No added C path-context cell reached the 100-row development floor. All periods exploratory; chart feed may differ. Not a trade win rate."
+        "C|GC|3" => "D 6.1% · S 87.8%\\nN 5.5% · ? 0.6%¦n=3,172¦C · GC 2m. Starting position: session quarter, measured from frozen day VWAP across the frozen day/session corridor. Asia/London/NY sessions pooled. Cross must be completed, both anchors mature, corridor ≥8 ticks and ≥0.25 day σ. Nearer-boundary frequency is geometry, not evidence of VWAP attraction. 30-minute frozen-target race, including neither and same-minute ambiguity. D 195/3,172 (6.1%, CI 5.3%–7.0%); S 2,786/3,172 (87.8%, CI 86.8%–88.9%); N 173/3,172 (5.5%, CI 4.7%–6.3%); ? 18/3,172 (0.6%, CI 0.3%–0.8%); 3,172 rows; 3,172 episodes/events; 778 product-days; 342 shared weeks. Complete-day eligibility was retrospective. Raw cohort; clock/volatility are not jointly conditioned in the displayed cell. No added C path-context cell reached the 100-row development floor. All periods exploratory; chart feed may differ. Not a trade win rate."
+        "C|NQ|0" => "D 78.1% · S 13.6%\\nN 0.0% · ? 8.3%¦n=228¦C · NQ 2m. Starting position: day quarter, measured from frozen day VWAP across the frozen day/session corridor. Asia/London/NY sessions pooled. Cross must be completed, both anchors mature, corridor ≥8 ticks and ≥0.25 day σ. Nearer-boundary frequency is geometry, not evidence of VWAP attraction. 30-minute frozen-target race, including neither and same-minute ambiguity. D 178/228 (78.1%, CI 73.0%–83.1%); S 31/228 (13.6%, CI 9.8%–18.9%); N 0/228 (0.0%, CI 0.0%–0.0%); ? 19/228 (8.3%, CI 5.1%–12.2%); 228 rows; 228 episodes/events; 198 product-days; 145 shared weeks. Complete-day eligibility was retrospective. Raw cohort; clock/volatility are not jointly conditioned in the displayed cell. No added C path-context cell reached the 100-row development floor. All periods exploratory; chart feed may differ. Not a trade win rate."
+        "C|NQ|1" => "D 57.8% · S 37.3%\\nN 0.0% · ? 4.9%¦n=590¦C · NQ 2m. Starting position: day middle, measured from frozen day VWAP across the frozen day/session corridor. Asia/London/NY sessions pooled. Cross must be completed, both anchors mature, corridor ≥8 ticks and ≥0.25 day σ. Nearer-boundary frequency is geometry, not evidence of VWAP attraction. 30-minute frozen-target race, including neither and same-minute ambiguity. D 341/590 (57.8%, CI 54.1%–62.2%); S 220/590 (37.3%, CI 33.1%–41.2%); N 0/590 (0.0%, CI 0.0%–0.0%); ? 29/590 (4.9%, CI 3.2%–6.7%); 590 rows; 590 episodes/events; 457 product-days; 241 shared weeks. Complete-day eligibility was retrospective. Raw cohort; clock/volatility are not jointly conditioned in the displayed cell. No added C path-context cell reached the 100-row development floor. All periods exploratory; chart feed may differ. Not a trade win rate."
+        "C|NQ|2" => "D 34.5% · S 61.2%\\nN 0.7% · ? 3.6%¦n=1,610¦C · NQ 2m. Starting position: session middle, measured from frozen day VWAP across the frozen day/session corridor. Asia/London/NY sessions pooled. Cross must be completed, both anchors mature, corridor ≥8 ticks and ≥0.25 day σ. Nearer-boundary frequency is geometry, not evidence of VWAP attraction. 30-minute frozen-target race, including neither and same-minute ambiguity. D 555/1,610 (34.5%, CI 32.5%–36.7%); S 985/1,610 (61.2%, CI 59.1%–63.2%); N 12/1,610 (0.7%, CI 0.3%–1.3%); ? 58/1,610 (3.6%, CI 2.8%–4.6%); 1,610 rows; 1,610 episodes/events; 840 product-days; 272 shared weeks. Complete-day eligibility was retrospective. Raw cohort; clock/volatility are not jointly conditioned in the displayed cell. No added C path-context cell reached the 100-row development floor. All periods exploratory; chart feed may differ. Not a trade win rate."
+        "C|NQ|3" => "D 8.5% · S 87.9%\\nN 2.7% · ? 0.9%¦n=4,565¦C · NQ 2m. Starting position: session quarter, measured from frozen day VWAP across the frozen day/session corridor. Asia/London/NY sessions pooled. Cross must be completed, both anchors mature, corridor ≥8 ticks and ≥0.25 day σ. Nearer-boundary frequency is geometry, not evidence of VWAP attraction. 30-minute frozen-target race, including neither and same-minute ambiguity. D 387/4,565 (8.5%, CI 7.7%–9.2%); S 4,012/4,565 (87.9%, CI 87.0%–88.8%); N 124/4,565 (2.7%, CI 2.2%–3.2%); ? 42/4,565 (0.9%, CI 0.7%–1.2%); 4,565 rows; 4,565 episodes/events; 1,132 product-days; 273 shared weeks. Complete-day eligibility was retrospective. Raw cohort; clock/volatility are not jointly conditioned in the displayed cell. No added C path-context cell reached the 100-row development floor. All periods exploratory; chart feed may differ. Not a trade win rate."
+        "U10|ES|0" => "SPARSE¦n=33¦Suppressed: fewer than 100 historical observations in this product-specific conditional cell. No rate is displayed. 33 rows; 33 episodes/events; 32 product-days; 29 shared weeks. Complete-day eligibility was retrospective."
+        "U10|ES|1" => "D 54.2% · S 27.1%\\nN 18.6% · ? 0.0%¦n=177¦C updated conditional · ES 2m, 10m after event, only original frozen races still unresolved. Current position day middle relative to original frozen targets; deadline remains the original event time +30m. Sessions pooled. D 96/177 (54.2%, CI 46.3%–62.1%); S 48/177 (27.1%, CI 20.5%–35.7%); N 33/177 (18.6%, CI 12.5%–25.1%); ? 0/177 (0.0%, CI 0.0%–0.0%); 177 rows; 177 episodes/events; 132 product-days; 98 shared weeks. Complete-day eligibility was retrospective. Raw cohort, not a new event and not a trading win rate. All periods exploratory; chart feed may differ."
+        "U10|ES|2" => "D 20.6% · S 45.1%\\nN 34.3% · ? 0.0%¦n=277¦C updated conditional · ES 2m, 10m after event, only original frozen races still unresolved. Current position session middle relative to original frozen targets; deadline remains the original event time +30m. Sessions pooled. D 57/277 (20.6%, CI 15.7%–25.9%); S 125/277 (45.1%, CI 38.7%–52.0%); N 95/277 (34.3%, CI 27.5%–40.1%); ? 0/277 (0.0%, CI 0.0%–0.0%); 277 rows; 277 episodes/events; 187 product-days; 137 shared weeks. Complete-day eligibility was retrospective. Raw cohort, not a new event and not a trading win rate. All periods exploratory; chart feed may differ."
+        "U10|ES|3" => "D 4.6% · S 77.7%\\nN 17.7% · ? 0.0%¦n=130¦C updated conditional · ES 2m, 10m after event, only original frozen races still unresolved. Current position session quarter relative to original frozen targets; deadline remains the original event time +30m. Sessions pooled. D 6/130 (4.6%, CI 1.5%–8.3%); S 101/130 (77.7%, CI 70.1%–84.5%); N 23/130 (17.7%, CI 10.6%–24.1%); ? 0/130 (0.0%, CI 0.0%–0.0%); 130 rows; 130 episodes/events; 99 product-days; 83 shared weeks. Complete-day eligibility was retrospective. Raw cohort, not a new event and not a trading win rate. All periods exploratory; chart feed may differ."
+        "U10|GC|0" => "SPARSE¦n=50¦Suppressed: fewer than 100 historical observations in this product-specific conditional cell. No rate is displayed. 50 rows; 50 episodes/events; 42 product-days; 39 shared weeks. Complete-day eligibility was retrospective."
+        "U10|GC|1" => "D 47.6% · S 24.1%\\nN 28.3% · ? 0.0%¦n=187¦C updated conditional · GC 2m, 10m after event, only original frozen races still unresolved. Current position day middle relative to original frozen targets; deadline remains the original event time +30m. Sessions pooled. D 89/187 (47.6%, CI 39.1%–55.6%); S 45/187 (24.1%, CI 17.9%–30.3%); N 53/187 (28.3%, CI 22.0%–35.4%); ? 0/187 (0.0%, CI 0.0%–0.0%); 187 rows; 187 episodes/events; 143 product-days; 120 shared weeks. Complete-day eligibility was retrospective. Raw cohort, not a new event and not a trading win rate. All periods exploratory; chart feed may differ."
+        "U10|GC|2" => "D 17.3% · S 37.4%\\nN 45.3% · ? 0.0%¦n=468¦C updated conditional · GC 2m, 10m after event, only original frozen races still unresolved. Current position session middle relative to original frozen targets; deadline remains the original event time +30m. Sessions pooled. D 81/468 (17.3%, CI 12.9%–21.7%); S 175/468 (37.4%, CI 31.7%–42.6%); N 212/468 (45.3%, CI 39.9%–50.6%); ? 0/468 (0.0%, CI 0.0%–0.0%); 468 rows; 468 episodes/events; 284 product-days; 196 shared weeks. Complete-day eligibility was retrospective. Raw cohort, not a new event and not a trading win rate. All periods exploratory; chart feed may differ."
+        "U10|GC|3" => "D 2.7% · S 63.8%\\nN 33.5% · ? 0.0%¦n=445¦C updated conditional · GC 2m, 10m after event, only original frozen races still unresolved. Current position session quarter relative to original frozen targets; deadline remains the original event time +30m. Sessions pooled. D 12/445 (2.7%, CI 1.2%–4.3%); S 284/445 (63.8%, CI 58.5%–68.4%); N 149/445 (33.5%, CI 28.9%–38.4%); ? 0/445 (0.0%, CI 0.0%–0.0%); 445 rows; 445 episodes/events; 258 product-days; 170 shared weeks. Complete-day eligibility was retrospective. Raw cohort, not a new event and not a trading win rate. All periods exploratory; chart feed may differ."
+        "U10|NQ|0" => "SPARSE¦n=98¦Suppressed: fewer than 100 historical observations in this product-specific conditional cell. No rate is displayed. 98 rows; 98 episodes/events; 79 product-days; 69 shared weeks. Complete-day eligibility was retrospective."
+        "U10|NQ|1" => "D 53.3% · S 29.2%\\nN 17.6% · ? 0.0%¦n=319¦C updated conditional · NQ 2m, 10m after event, only original frozen races still unresolved. Current position day middle relative to original frozen targets; deadline remains the original event time +30m. Sessions pooled. D 170/319 (53.3%, CI 47.2%–59.9%); S 93/319 (29.2%, CI 24.2%–34.8%); N 56/319 (17.6%, CI 13.5%–22.1%); ? 0/319 (0.0%, CI 0.0%–0.0%); 319 rows; 319 episodes/events; 244 product-days; 164 shared weeks. Complete-day eligibility was retrospective. Raw cohort, not a new event and not a trading win rate. All periods exploratory; chart feed may differ."
+        "U10|NQ|2" => "D 23.5% · S 43.8%\\nN 32.3% · ? 0.4%¦n=507¦C updated conditional · NQ 2m, 10m after event, only original frozen races still unresolved. Current position session middle relative to original frozen targets; deadline remains the original event time +30m. Sessions pooled. D 119/507 (23.5%, CI 18.9%–27.6%); S 222/507 (43.8%, CI 38.9%–48.5%); N 164/507 (32.3%, CI 28.0%–37.6%); ? 2/507 (0.4%, CI 0.0%–1.3%); 507 rows; 507 episodes/events; 325 product-days; 195 shared weeks. Complete-day eligibility was retrospective. Raw cohort, not a new event and not a trading win rate. All periods exploratory; chart feed may differ."
+        "U10|NQ|3" => "D 6.1% · S 73.6%\\nN 20.3% · ? 0.0%¦n=330¦C updated conditional · NQ 2m, 10m after event, only original frozen races still unresolved. Current position session quarter relative to original frozen targets; deadline remains the original event time +30m. Sessions pooled. D 20/330 (6.1%, CI 3.4%–8.8%); S 243/330 (73.6%, CI 68.4%–79.3%); N 67/330 (20.3%, CI 15.1%–25.2%); ? 0/330 (0.0%, CI 0.0%–0.0%); 330 rows; 330 episodes/events; 228 product-days; 160 shared weeks. Complete-day eligibility was retrospective. Raw cohort, not a new event and not a trading win rate. All periods exploratory; chart feed may differ."
+        "U20|ES|0" => "SPARSE¦n=16¦Suppressed: fewer than 100 historical observations in this product-specific conditional cell. No rate is displayed. 16 rows; 16 episodes/events; 15 product-days; 15 shared weeks. Complete-day eligibility was retrospective."
+        "U20|ES|1" => "SPARSE¦n=81¦Suppressed: fewer than 100 historical observations in this product-specific conditional cell. No rate is displayed. 81 rows; 81 episodes/events; 69 product-days; 59 shared weeks. Complete-day eligibility was retrospective."
+        "U20|ES|2" => "D 7.1% · S 31.4%\\nN 61.4% · ? 0.0%¦n=140¦C updated conditional · ES 2m, 20m after event, only original frozen races still unresolved. Current position session middle relative to original frozen targets; deadline remains the original event time +30m. Sessions pooled. D 10/140 (7.1%, CI 2.8%–12.4%); S 44/140 (31.4%, CI 23.2%–39.2%); N 86/140 (61.4%, CI 51.9%–69.9%); ? 0/140 (0.0%, CI 0.0%–0.0%); 140 rows; 140 episodes/events; 104 product-days; 89 shared weeks. Complete-day eligibility was retrospective. Raw cohort, not a new event and not a trading win rate. All periods exploratory; chart feed may differ."
+        "U20|ES|3" => "SPARSE¦n=45¦Suppressed: fewer than 100 historical observations in this product-specific conditional cell. No rate is displayed. 45 rows; 45 episodes/events; 38 product-days; 34 shared weeks. Complete-day eligibility was retrospective."
+        "U20|GC|0" => "SPARSE¦n=24¦Suppressed: fewer than 100 historical observations in this product-specific conditional cell. No rate is displayed. 24 rows; 24 episodes/events; 22 product-days; 21 shared weeks. Complete-day eligibility was retrospective."
+        "U20|GC|1" => "D 24.3% · S 7.4%\\nN 68.4% · ? 0.0%¦n=136¦C updated conditional · GC 2m, 20m after event, only original frozen races still unresolved. Current position day middle relative to original frozen targets; deadline remains the original event time +30m. Sessions pooled. D 33/136 (24.3%, CI 15.1%–32.6%); S 10/136 (7.4%, CI 3.1%–13.4%); N 93/136 (68.4%, CI 59.4%–76.3%); ? 0/136 (0.0%, CI 0.0%–0.0%); 136 rows; 136 episodes/events; 104 product-days; 88 shared weeks. Complete-day eligibility was retrospective. Raw cohort, not a new event and not a trading win rate. All periods exploratory; chart feed may differ."
+        "U20|GC|2" => "D 5.4% · S 17.2%\\nN 77.4% · ? 0.0%¦n=261¦C updated conditional · GC 2m, 20m after event, only original frozen races still unresolved. Current position session middle relative to original frozen targets; deadline remains the original event time +30m. Sessions pooled. D 14/261 (5.4%, CI 2.5%–8.9%); S 45/261 (17.2%, CI 12.3%–22.4%); N 202/261 (77.4%, CI 72.3%–83.0%); ? 0/261 (0.0%, CI 0.0%–0.0%); 261 rows; 261 episodes/events; 174 product-days; 132 shared weeks. Complete-day eligibility was retrospective. Raw cohort, not a new event and not a trading win rate. All periods exploratory; chart feed may differ."
+        "U20|GC|3" => "D 0.0% · S 37.6%\\nN 62.4% · ? 0.0%¦n=197¦C updated conditional · GC 2m, 20m after event, only original frozen races still unresolved. Current position session quarter relative to original frozen targets; deadline remains the original event time +30m. Sessions pooled. D 0/197 (0.0%, CI 0.0%–0.0%); S 74/197 (37.6%, CI 28.5%–44.7%); N 123/197 (62.4%, CI 55.1%–70.0%); ? 0/197 (0.0%, CI 0.0%–0.0%); 197 rows; 197 episodes/events; 131 product-days; 104 shared weeks. Complete-day eligibility was retrospective. Raw cohort, not a new event and not a trading win rate. All periods exploratory; chart feed may differ."
+        "U20|NQ|0" => "SPARSE¦n=45¦Suppressed: fewer than 100 historical observations in this product-specific conditional cell. No rate is displayed. 45 rows; 45 episodes/events; 42 product-days; 40 shared weeks. Complete-day eligibility was retrospective."
+        "U20|NQ|1" => "D 32.9% · S 11.2%\\nN 55.9% · ? 0.0%¦n=170¦C updated conditional · NQ 2m, 20m after event, only original frozen races still unresolved. Current position day middle relative to original frozen targets; deadline remains the original event time +30m. Sessions pooled. D 56/170 (32.9%, CI 25.0%–41.6%); S 19/170 (11.2%, CI 6.5%–17.1%); N 95/170 (55.9%, CI 46.6%–65.5%); ? 0/170 (0.0%, CI 0.0%–0.0%); 170 rows; 170 episodes/events; 127 product-days; 99 shared weeks. Complete-day eligibility was retrospective. Raw cohort, not a new event and not a trading win rate. All periods exploratory; chart feed may differ."
+        "U20|NQ|2" => "D 7.2% · S 23.0%\\nN 69.8% · ? 0.0%¦n=222¦C updated conditional · NQ 2m, 20m after event, only original frozen races still unresolved. Current position session middle relative to original frozen targets; deadline remains the original event time +30m. Sessions pooled. D 16/222 (7.2%, CI 3.5%–12.0%); S 51/222 (23.0%, CI 17.9%–29.3%); N 155/222 (69.8%, CI 63.3%–76.5%); ? 0/222 (0.0%, CI 0.0%–0.0%); 222 rows; 222 episodes/events; 153 product-days; 126 shared weeks. Complete-day eligibility was retrospective. Raw cohort, not a new event and not a trading win rate. All periods exploratory; chart feed may differ."
+        "U20|NQ|3" => "D 4.1% · S 58.2%\\nN 36.1% · ? 1.6%¦n=122¦C updated conditional · NQ 2m, 20m after event, only original frozen races still unresolved. Current position session quarter relative to original frozen targets; deadline remains the original event time +30m. Sessions pooled. D 5/122 (4.1%, CI 0.7%–9.9%); S 71/122 (58.2%, CI 47.3%–68.4%); N 44/122 (36.1%, CI 26.5%–45.3%); ? 2/122 (1.6%, CI 0.0%–5.2%); 122 rows; 122 episodes/events; 89 product-days; 76 shared weeks. Complete-day eligibility was retrospective. Raw cohort, not a new event and not a trading win rate. All periods exploratory; chart feed may differ."
+        => ""
+
+
+f_study_field(string key, int field) =>
+    array<string> parts = str.split(f_study_lookup(key), "¦")
+    array.size(parts) > field ? array.get(parts, field) : "—"
+
+f_study_round(float price) =>
+    math.floor(price / syminfo.mintick + 0.5) * syminfo.mintick
+
+f_study_vwap(bool active, bool reset) =>
+    var float totalVol = 0.0
+    var float mean = na
+    var float m2 = 0.0
+    float px = hlc3
+    if reset
+        totalVol := 0.0
+        mean := na
+        m2 := 0.0
+    if active and volume > 0
+        if totalVol == 0
+            totalVol := volume
+            mean := px
+        else
+            float nextVol = totalVol + volume
+            float delta = px - mean
+            float nextMean = mean + volume / nextVol * delta
+            m2 += volume * delta * (px - nextMean)
+            totalVol := nextVol
+            mean := nextMean
+    float vwap = active and totalVol > 0 ? mean : na
+    float sigma = active and totalVol > 0 ? math.sqrt(math.max(0.0, m2 / totalVol)) : na
+    [vwap, sigma]
+
+f_study_bin(float x, float b1, float b2, float b3) =>
+    x < b1 ? 0 : x < b2 ? 1 : x < b3 ? 2 : 3
+
+f_study_elapsed_bin(float mins) =>
+    mins < 20 ? 0 : mins < 40 ? 1 : mins < 60 ? 2 : mins < 120 ? 3 : mins < 240 ? 4 : 5
+
+f_study_geometry_bin(float share) =>
+    share < 0.25 ? 0 : share < 0.4 ? 1 : share < 0.6 ? 2 : share < 0.75 ? 3 : 4
+
+f_study_clock_remaining(int clockMinute, string anchor) =>
+    anchor == "globex" ? (clockMinute >= 1080 ? 2460 - clockMinute : 1020 - clockMinute) :
+     anchor == "asia" ? (clockMinute >= 1200 ? 1620 - clockMinute : 180 - clockMinute) :
+     anchor == "london" ? 540 - clockMinute : 960 - clockMinute
+
+string studyTz = "America/New_York"
+bool studyDayIn = f_in_session("1800-1700", studyTz)
+bool studyAsiaIn = f_in_session("2000-0300", studyTz)
+bool studyLondonIn = f_in_session("0300-0900", studyTz)
+bool studyNyIn = f_in_session("0930-1600", studyTz)
+bool studyDayReset = studyDayIn and hour(time, studyTz) == 18 and minute(time, studyTz) == 0
+bool studyAsiaReset = studyAsiaIn and hour(time, studyTz) == 20 and minute(time, studyTz) == 0
+bool studyLondonReset = studyLondonIn and hour(time, studyTz) == 3 and minute(time, studyTz) == 0
+bool studyNyReset = studyNyIn and hour(time, studyTz) == 9 and minute(time, studyTz) == 30
+
+var int studyDayStart = na
+var int studyAsiaStart = na
+var int studyLondonStart = na
+var int studyNyStart = na
+if studyDayReset
+    studyDayStart := time
+    studyAsiaStart := na
+    studyLondonStart := na
+    studyNyStart := na
+if studyAsiaReset
+    studyAsiaStart := time
+if studyLondonReset
+    studyLondonStart := time
+if studyNyReset
+    studyNyStart := time
+
+// The local anchors keep accumulating until 17:00, as in the pinned release.
+// They are only eligible for forecasts in their published membership windows.
+bool studyAsiaLife = studyDayIn and not na(studyAsiaStart)
+bool studyLondonLife = studyDayIn and not na(studyLondonStart)
+bool studyNyLife = studyDayIn and not na(studyNyStart)
+[studyDayVwap, studyDaySigma] = f_study_vwap(studyDayIn, studyDayReset)
+[studyAsiaVwap, studyAsiaSigma] = f_study_vwap(studyAsiaLife, studyAsiaReset)
+[studyLondonVwap, studyLondonSigma] = f_study_vwap(studyLondonLife, studyLondonReset)
+[studyNyVwap, studyNySigma] = f_study_vwap(studyNyLife, studyNyReset)
+
+string studyLocal = studyAsiaIn ? "asia" : studyLondonIn ? "london" : studyNyIn ? "ny" : ""
+float studyLocalVwap = studyAsiaIn ? studyAsiaVwap : studyLondonIn ? studyLondonVwap : studyNyIn ? studyNyVwap : na
+float studyLocalSigma = studyAsiaIn ? studyAsiaSigma : studyLondonIn ? studyLondonSigma : studyNyIn ? studyNySigma : na
+int studyLocalStart = studyAsiaIn ? studyAsiaStart : studyLondonIn ? studyLondonStart : studyNyIn ? studyNyStart : na
+float studyDayAge = not na(studyDayStart) ? (time_close - studyDayStart) / 60000.0 : na
+float studyLocalAge = not na(studyLocalStart) ? (time_close - studyLocalStart) / 60000.0 : na
+
+string studyProduct = syminfo.root
+bool studyProductOk = studyProduct == "ES" or studyProduct == "NQ" or studyProduct == "GC"
+bool studyTickOk = studyProduct == "GC" ? math.abs(syminfo.mintick - 0.1) < 0.000001 :
+     math.abs(syminfo.mintick - 0.25) < 0.000001
+bool studyContinuous = str.contains(syminfo.ticker, "!")
+bool studyDateOk = studyProduct == "GC" ? time >= timestamp(studyTz, 2016, 2, 10, 18, 0) :
+     time >= timestamp(studyTz, 2021, 6, 27, 18, 0)
+bool studyChartOk = timeframe.isminutes and timeframe.multiplier == 2 and syminfo.type == "futures" and
+     studyProductOk and studyTickOk and studyDateOk and (not studyContinuous or studyAllowContinuous) and
+     time_close - time == 120000 and minute(time, studyTz) % 2 == 0
+int studyClock = hour(time_close, studyTz) * 60 + minute(time_close, studyTz)
+bool studyContiguous = not na(time_close[1]) and time == time_close[1]
+var bool studyHistoryComplete = false
+if studyDayReset
+    studyHistoryComplete := true
+else if studyDayIn and (not studyDayIn[1] or not studyContiguous)
+    studyHistoryComplete := false
+
+string studyABAnchor = studyReference == "Globex day" ? "globex" : studyLocal
+float studyABVwap = studyReference == "Globex day" ? studyDayVwap : studyLocalVwap
+float studyABSigma = studyReference == "Globex day" ? studyDaySigma : studyLocalSigma
+float studyABAge = studyReference == "Globex day" ? studyDayAge : studyLocalAge
+bool studyABMember = studyReference == "Globex day" ? studyDayIn : studyLocal != ""
+int studyABRemaining = f_study_clock_remaining(studyClock, studyABAnchor)
+bool studyABValid = studyOn and studyChartOk and studyHistoryComplete and studyABMember and studyABAge >= 30 and
+     not na(studyABVwap) and not na(studyABSigma) and studyABSigma > 0
+bool studyCValid = studyOn and studyChartOk and studyHistoryComplete and studyLocal != "" and studyDayAge >= 30 and
+     studyLocalAge >= 30 and not na(studyDayVwap) and not na(studyLocalVwap) and
+     studyDaySigma > 0 and studyLocalSigma > 0
+
+plot(studyOn and studyCurves and studyHistoryComplete and studyDayAge >= 30 and studyDaySigma > 0 ? studyDayVwap : na,
+     "Research Globex day VWAP", color.new(color.aqua, 0), 2, plot.style_linebr)
+plot(studyOn and studyCurves and studyHistoryComplete and studyLocalAge >= 30 and studyLocalSigma > 0 ? studyLocalVwap : na,
+     "Research active session VWAP", color.new(color.yellow, 0), 2, plot.style_linebr)
+
+// One-minute OHLC is used only after a completed forecast bar. A missing
+// minute is UNAVAILABLE, never a price-path failure. Earlier chart history may
+// lack intrabars because TradingView limits lower-timeframe retrieval.
+[studyMinuteTs, studyMinuteOpen, studyMinuteHigh, studyMinuteLow] =
+     request.security_lower_tf(syminfo.tickerid, "1", [time, open, high, low])
+bool studyMinuteComplete = array.size(studyMinuteTs) == 2 and
+     array.size(studyMinuteOpen) == 2 and array.size(studyMinuteHigh) == 2 and
+     array.size(studyMinuteLow) == 2
+if studyMinuteComplete
+    studyMinuteComplete := array.get(studyMinuteTs, 0) == time and
+         array.get(studyMinuteTs, 1) == time + 60000
+if studyChartOk and studyDayIn and barstate.isconfirmed and not studyMinuteComplete
+    studyHistoryComplete := false
+
+// Question A/B: one fresh departure episode, regular 10-minute checkpoints.
+// The panel displays the latest checkpoint; the plotted series does not revise
+// older bar values when a newer checkpoint supersedes it.
+var bool studyArmed = false
+var bool studyEpisode = false
+var int studyEpisodeSide = 0
+var int studyDepartureAt = na
+var string studyEpisodeAnchor = ""
+var int studyABAt = na
+var int studyABDeadline = na
+var float studyABReturn = na
+var float studyABExtension = na
+var int studyABSide = 0
+var float studyABDistanceSigma = na
+var float studyABReturnTicks = na
+var int studyABExtensionTicks = na
+var int studyABElapsedMinutes = na
+var float studyABAnchorAge = na
+var string studyAKey = ""
+var string studyBKey = ""
+var string studyAState = "WAITING"
+var string studyBState = "WAITING"
+var bool studyABGap = false
+
+// Question C: one accepted event per fixed 30-minute lockout. Frozen targets
+// are not moved as either evolving VWAP changes.
+var int studyCLockUntil = na
+var int studyCAt = na
+var int studyCDeadline = na
+var float studyCDayTarget = na
+var float studyCSessionTarget = na
+var string studyCKey = ""
+var string studyCState = "WAITING"
+var string studyCSession = ""
+var float studyCPosition = na
+var float studyCWidthTicks = na
+var bool studyCGap = false
+var int studyCUpdate = 0
+
+if studyOn and studyChartOk and barstate.isconfirmed
+    // Resolve prior forecasts before constructing any new forecast. The signal
+    // bar therefore cannot count as its own future exposure.
+    if not studyContiguous
+        if not na(studyABAt) and time > studyABAt and
+             (studyAState == "ACTIVE" or studyBState == "ACTIVE")
+            studyAState := "UNAVAILABLE"
+            studyBState := "UNAVAILABLE"
+        if not na(studyCAt) and time > studyCAt and studyCState == "ACTIVE"
+            studyCState := "UNAVAILABLE"
+    bool abOpen = not na(studyABDeadline) and time < studyABDeadline and
+         (studyAState == "ACTIVE" or studyBState == "ACTIVE")
+    bool cOpen = not na(studyCDeadline) and time < studyCDeadline and studyCState == "ACTIVE"
+    if abOpen or cOpen
+        if not studyContiguous or not studyMinuteComplete
+            if abOpen
+                studyAState := "UNAVAILABLE"
+                studyBState := "UNAVAILABLE"
+            if cOpen
+                studyCState := "UNAVAILABLE"
+        else
+            for j = 0 to 1
+                float mo = array.get(studyMinuteOpen, j)
+                float mh = array.get(studyMinuteHigh, j)
+                float ml = array.get(studyMinuteLow, j)
+                if abOpen
+                    float returnLow = studyABReturn - syminfo.mintick
+                    float returnHigh = studyABReturn + syminfo.mintick
+                    bool exactContact = ml <= returnHigh and mh >= returnLow
+                    if studyAState == "ACTIVE" and exactContact
+                        studyAState := "REACHED"
+                    if studyBState == "ACTIVE"
+                        bool returnAtOpen = studyABSide > 0 ? mo <= returnHigh : mo >= returnLow
+                        bool extensionAtOpen = studyABSide > 0 ? mo >= studyABExtension : mo <= studyABExtension
+                        bool returnInMinute = studyABSide > 0 ? ml <= returnHigh : mh >= returnLow
+                        bool extensionInMinute = studyABSide > 0 ? mh >= studyABExtension : ml <= studyABExtension
+                        if returnAtOpen and extensionAtOpen
+                            studyBState := "AMBIGUOUS"
+                            studyABGap := true
+                        else if returnAtOpen
+                            studyBState := "RETURN FIRST"
+                            studyABGap := studyABSide > 0 ? mo < returnLow : mo > returnHigh
+                        else if extensionAtOpen
+                            studyBState := "EXTENSION FIRST"
+                            studyABGap := true
+                        else if returnInMinute and extensionInMinute
+                            studyBState := "AMBIGUOUS"
+                        else if returnInMinute
+                            studyBState := "RETURN FIRST"
+                        else if extensionInMinute
+                            studyBState := "EXTENSION FIRST"
+                if cOpen and studyCState == "ACTIVE"
+                    bool dayBelow = studyCDayTarget < studyCSessionTarget
+                    float lowerCenter = dayBelow ? studyCDayTarget : studyCSessionTarget
+                    float upperCenter = dayBelow ? studyCSessionTarget : studyCDayTarget
+                    bool lowerAtOpen = mo <= lowerCenter + syminfo.mintick
+                    bool upperAtOpen = mo >= upperCenter - syminfo.mintick
+                    bool lowerInMinute = ml <= lowerCenter + syminfo.mintick
+                    bool upperInMinute = mh >= upperCenter - syminfo.mintick
+                    if lowerAtOpen and upperAtOpen
+                        studyCState := "AMBIGUOUS"
+                        studyCGap := true
+                    else if lowerAtOpen
+                        studyCState := dayBelow ? "DAY FIRST" : "SESSION FIRST"
+                        studyCGap := mo < lowerCenter - syminfo.mintick
+                    else if upperAtOpen
+                        studyCState := dayBelow ? "SESSION FIRST" : "DAY FIRST"
+                        studyCGap := mo > upperCenter + syminfo.mintick
+                    else if lowerInMinute and upperInMinute
+                        studyCState := "AMBIGUOUS"
+                    else if lowerInMinute
+                        studyCState := dayBelow ? "DAY FIRST" : "SESSION FIRST"
+                    else if upperInMinute
+                        studyCState := dayBelow ? "SESSION FIRST" : "DAY FIRST"
+    if not na(studyABDeadline) and time_close >= studyABDeadline
+        if studyAState == "ACTIVE"
+            studyAState := "EXPIRED"
+        if studyBState == "ACTIVE"
+            studyBState := "NEITHER"
+    if not na(studyCDeadline) and time_close >= studyCDeadline and studyCState == "ACTIVE"
+        studyCState := "NEITHER"
+
+    // The update is a distinct, still-unresolved cohort and keeps the original
+    // C event deadline. No 10/20m rate is shown after a resolved race.
+    if studyCState == "ACTIVE" and not na(studyCAt)
+        int ageMinutes = int((time_close - studyCAt) / 60000)
+        int updateAge = ageMinutes >= 20 ? 20 : ageMinutes >= 10 ? 10 : 0
+        if updateAge > studyCUpdate
+            float frozenWidth = math.abs(studyCDayTarget - studyCSessionTarget)
+            float updatedPosition = frozenWidth > 0 ? math.abs(close - studyCDayTarget) / frozenWidth : na
+            if not na(updatedPosition) and updatedPosition >= 0 and updatedPosition < 1.000001
+                int positionBin = f_study_bin(updatedPosition, 0.25, 0.5, 0.75)
+                studyCKey := "U" + str.tostring(updateAge) + "|" + studyProduct + "|" + str.tostring(positionBin)
+            else
+                studyCKey := ""
+            studyCUpdate := updateAge
+
+    bool episodeTerminated = false
+    int currentSide = studyABValid ? (close > studyABVwap ? 1 : close < studyABVwap ? -1 : 0) : 0
+    bool beyond = studyABValid and currentSide != 0 and
+         math.abs(close - studyABVwap) >= math.max(studyABSigma, 4 * syminfo.mintick)
+    if not studyABValid or (studyEpisode and (studyEpisodeAnchor != studyABAnchor or not studyContiguous))
+        studyEpisode := false
+        studyArmed := false
+        episodeTerminated := true
+    else if studyEpisode
+        float previousCenter = f_study_round(studyABVwap[1])
+        float previousLow = previousCenter - syminfo.mintick
+        float previousHigh = previousCenter + syminfo.mintick
+        bool causalTouch = low <= previousHigh and high >= previousLow
+        bool causalGap = studyEpisodeSide > 0 ? open < previousLow and high < previousLow :
+             open > previousHigh and low > previousHigh
+        if causalTouch or causalGap or currentSide != studyEpisodeSide
+            studyEpisode := false
+            studyArmed := not beyond
+            episodeTerminated := true
+
+    if studyEpisode and studyMinuteComplete and studyClock % 10 == 0 and
+         time_close > studyDepartureAt and studyABRemaining >= 30
+        float returnCenter = f_study_round(studyABVwap)
+        float returnDistance = studyEpisodeSide > 0 ? close - returnCenter - syminfo.mintick :
+             returnCenter - syminfo.mintick - close
+        if returnDistance > 0
+            int extensionTicks = math.max(1, int(math.ceil(0.5 * studyABSigma / syminfo.mintick - 0.0000000001)))
+            float extensionDistance = extensionTicks * syminfo.mintick
+            int distanceBin = f_study_bin(math.abs(close - studyABVwap) / studyABSigma, 0.75, 1.25, 2.0)
+            int elapsedBin = f_study_elapsed_bin((time_close - studyDepartureAt) / 60000.0)
+            int geometryBin = f_study_geometry_bin(returnDistance / (returnDistance + extensionDistance))
+            studyAKey := "A|" + studyProduct + "|" + str.tostring(distanceBin) + "|" + str.tostring(elapsedBin)
+            studyBKey := "B|" + studyProduct + "|" + str.tostring(geometryBin)
+            studyABAt := time_close
+            studyABDeadline := time_close + 30 * 60000
+            studyABReturn := returnCenter
+            studyABExtension := close + studyEpisodeSide * extensionDistance
+            studyABSide := studyEpisodeSide
+            studyABDistanceSigma := math.abs(close - studyABVwap) / studyABSigma
+            studyABReturnTicks := returnDistance / syminfo.mintick
+            studyABExtensionTicks := extensionTicks
+            studyABElapsedMinutes := int((time_close - studyDepartureAt) / 60000)
+            studyABAnchorAge := studyABAge
+            studyAState := "ACTIVE"
+            studyBState := "ACTIVE"
+            studyABGap := false
+    if not studyEpisode and not episodeTerminated
+        if beyond and studyArmed
+            studyEpisode := true
+            studyArmed := false
+            studyEpisodeSide := currentSide
+            studyDepartureAt := time_close
+            studyEpisodeAnchor := studyABAnchor
+        else if not beyond
+            studyArmed := true
+
+    bool localContinuity = studyContiguous and studyLocal != "" and studyLocal == studyLocal[1]
+    bool crossDown = localContinuity and close < studyLocalVwap and close[1] >= studyLocalVwap[1]
+    bool crossUp = localContinuity and close > studyLocalVwap and close[1] <= studyLocalVwap[1]
+    if studyCValid and studyMinuteComplete and f_study_clock_remaining(studyClock, studyLocal) >= 30 and
+         (na(studyCLockUntil) or time_close >= studyCLockUntil) and (crossDown or crossUp)
+        float dayCenter = f_study_round(studyDayVwap)
+        float sessionCenter = f_study_round(studyLocalVwap)
+        bool downCorridor = dayCenter < sessionCenter and crossDown and
+             close < sessionCenter - syminfo.mintick and close > dayCenter + syminfo.mintick
+        bool upCorridor = dayCenter > sessionCenter and crossUp and
+             close > sessionCenter + syminfo.mintick and close < dayCenter - syminfo.mintick
+        float width = math.abs(dayCenter - sessionCenter)
+        if (downCorridor or upCorridor) and width >= 8 * syminfo.mintick and width >= 0.25 * studyDaySigma
+            float positionFromDay = math.abs(close - dayCenter) / width
+            int positionBin = f_study_bin(positionFromDay, 0.25, 0.5, 0.75)
+            studyCKey := "C|" + studyProduct + "|" + str.tostring(positionBin)
+            studyCAt := time_close
+            studyCDeadline := time_close + 30 * 60000
+            studyCLockUntil := studyCDeadline
+            studyCDayTarget := dayCenter
+            studyCSessionTarget := sessionCenter
+            studyCSession := studyLocal
+            studyCPosition := positionFromDay
+            studyCWidthTicks := width / syminfo.mintick
+            studyCState := "ACTIVE"
+            studyCGap := false
+            studyCUpdate := 0
+
+// Corridor destinations have display priority. An A/B checkpoint can continue
+// to be measured in the panel while its levels are hidden behind C's pair.
+bool studyCDisplay = not na(studyCDeadline) and time < studyCDeadline and studyCState == "ACTIVE"
+bool studyABDisplay = not studyCDisplay and not na(studyABDeadline) and time < studyABDeadline and
+     (studyAState == "ACTIVE" or studyBState == "ACTIVE")
+float studyTargetOne = studyCDisplay ? studyCDayTarget : studyABDisplay ? studyABReturn : na
+float studyTargetTwo = studyCDisplay ? studyCSessionTarget : studyABDisplay ? studyABExtension : na
+plot(studyOn and studyLevels ? studyTargetOne : na, "Frozen target 1: day / return", color.new(color.aqua, 0), 2, plot.style_linebr)
+plot(studyOn and studyLevels ? studyTargetTwo : na, "Frozen target 2: session / extension", color.new(color.fuchsia, 0), 2, plot.style_linebr)
+
+var table studyPanel = table.new(position.top_right, 4, 8, bgcolor=color.new(color.black, 15),
+     frame_color=color.new(color.gray, 40), frame_width=1)
+if barstate.islast and studyOn
+    string gate = not studyChartOk ? "UNAVAILABLE · check symbol / 2m / sample era" :
+         studyContinuous ? "CONTINUOUS PROXY · ROLL UNVERIFIED" : "2m raw contract · chart feed proxy"
+    bool abRecent = studyChartOk and not na(studyABDeadline) and time <= studyABDeadline + 10 * 60000
+    bool cRecent = studyChartOk and not na(studyCDeadline) and time <= studyCDeadline + 10 * 60000
+    string aValue = abRecent and studyAKey != "" ? f_study_field(studyAKey, 0) : "—"
+    string aSupport = abRecent and studyAKey != "" ? f_study_field(studyAKey, 1) : "—"
+    string aTip = abRecent and studyAKey != "" ? f_study_field(studyAKey, 2) +
+         " Live chart state at checkpoint: " + str.tostring(studyABDistanceSigma, "#.##") +
+         "σ from VWAP, " + str.tostring(studyABElapsedMinutes) + "m without causal return; anchor age " +
+         str.tostring(studyABAnchorAge, "#") + "m." : "No recent eligible completed checkpoint."
+    string bValue = abRecent and studyBKey != "" ? f_study_field(studyBKey, 0) : "—"
+    string bSupport = abRecent and studyBKey != "" ? f_study_field(studyBKey, 1) : "—"
+    string bTip = abRecent and studyBKey != "" ? f_study_field(studyBKey, 2) +
+         " Chart barriers: return " + str.tostring(studyABReturnTicks, "#.##") +
+         " ticks to zone edge, extension " + str.tostring(studyABExtensionTicks) + " ticks." :
+         "No recent eligible completed checkpoint."
+    string cValue = cRecent and studyCKey != "" ? f_study_field(studyCKey, 0) : "—"
+    string cSupport = cRecent and studyCKey != "" ? f_study_field(studyCKey, 1) : "—"
+    string cTip = cRecent and studyCKey != "" ? f_study_field(studyCKey, 2) +
+         " Chart corridor at event: " + str.tostring(studyCWidthTicks, "#.##") +
+         " ticks wide, position from day " + str.tostring(studyCPosition, "#.##") + "." :
+         cRecent ? "Updated location outside the supported frozen-corridor position bins; no rate shown." :
+         "No recent eligible mature corridor event."
+    string abWhen = not na(studyABAt) ? str.format_time(studyABAt, "MM-dd HH:mm", studyTz) + " → " + str.format_time(studyABDeadline, "HH:mm", studyTz) : "—"
+    string cWhen = not na(studyCAt) ? str.format_time(studyCAt, "MM-dd HH:mm", studyTz) + " → " + str.format_time(studyCDeadline, "HH:mm", studyTz) : "—"
+    color head = color.new(color.rgb(28, 43, 57), 0)
+    color body = color.new(color.rgb(15, 25, 33), 10)
+    table.cell(studyPanel, 0, 0, "VWAP · STUDY 11", text_color=color.white, bgcolor=head, text_size=size.small)
+    table.cell(studyPanel, 1, 0, studyProduct, text_color=color.aqua, bgcolor=head, text_size=size.small)
+    table.cell(studyPanel, 2, 0, "RETROSPECTIVE", text_color=color.orange, bgcolor=head, text_size=size.small)
+    table.cell(studyPanel, 3, 0, "30m", text_color=color.white, bgcolor=head, text_size=size.small)
+    table.cell(studyPanel, 0, 1, "A · frozen return", text_color=color.white, bgcolor=body, tooltip=aTip, text_size=size.small)
+    table.cell(studyPanel, 1, 1, aValue, text_color=color.aqua, bgcolor=body, tooltip=aTip, text_size=size.small)
+    table.cell(studyPanel, 2, 1, aSupport, text_color=color.silver, bgcolor=body, tooltip=aTip, text_size=size.small)
+    table.cell(studyPanel, 3, 1, abRecent ? studyAState : "WAITING", text_color=color.white, bgcolor=body, tooltip=aTip, text_size=size.small)
+    table.cell(studyPanel, 0, 2, "B · return / extend", text_color=color.white, bgcolor=body, tooltip=bTip, text_size=size.small)
+    table.cell(studyPanel, 1, 2, bValue, text_color=color.fuchsia, bgcolor=body, tooltip=bTip, text_size=size.small)
+    table.cell(studyPanel, 2, 2, bSupport, text_color=color.silver, bgcolor=body, tooltip=bTip, text_size=size.small)
+    table.cell(studyPanel, 3, 2, abRecent ? studyBState + (studyABGap ? " · GAP" : "") : "WAITING", text_color=color.white, bgcolor=body, tooltip=bTip, text_size=size.small)
+    table.cell(studyPanel, 0, 3, "C · day / reclaim", text_color=color.white, bgcolor=body, tooltip=cTip, text_size=size.small)
+    table.cell(studyPanel, 1, 3, cValue, text_color=color.yellow, bgcolor=body, tooltip=cTip, text_size=size.small)
+    table.cell(studyPanel, 2, 3, cSupport, text_color=color.silver, bgcolor=body, tooltip=cTip, text_size=size.small)
+    table.cell(studyPanel, 3, 3, cRecent ? studyCState + (studyCGap ? " · GAP" : "") : "WAITING", text_color=color.white, bgcolor=body, tooltip=cTip, text_size=size.small)
+    table.cell(studyPanel, 0, 4, "A/B checkpoint", text_color=color.silver, bgcolor=body, text_size=size.tiny)
+    table.cell(studyPanel, 1, 4, abRecent ? abWhen : "—", text_color=color.white, bgcolor=body, text_size=size.tiny)
+    table.cell(studyPanel, 2, 4, studyABAnchor, text_color=color.silver, bgcolor=body, text_size=size.tiny)
+    table.cell(studyPanel, 3, 4, abRecent ? str.tostring(studyABReturn, format.mintick) + " / " + str.tostring(studyABExtension, format.mintick) : "—", text_color=color.white, bgcolor=body, text_size=size.tiny)
+    table.cell(studyPanel, 0, 5, "C event / update", text_color=color.silver, bgcolor=body, text_size=size.tiny)
+    table.cell(studyPanel, 1, 5, cRecent ? cWhen : "—", text_color=color.white, bgcolor=body, text_size=size.tiny)
+    table.cell(studyPanel, 2, 5, studyCSession + (studyCUpdate > 0 ? " +" + str.tostring(studyCUpdate) + "m" : " event"), text_color=color.silver, bgcolor=body, text_size=size.tiny)
+    table.cell(studyPanel, 3, 5, cRecent ? str.tostring(studyCDayTarget, format.mintick) + " / " + str.tostring(studyCSessionTarget, format.mintick) : "—", text_color=color.white, bgcolor=body, text_size=size.tiny)
+    table.cell(studyPanel, 0, 6, "Geometry", text_color=color.silver, bgcolor=body, tooltip="R/X/D/S/N/? = return / extension / day / session / neither / same-minute ambiguous. Hover each rate for support.", text_size=size.tiny)
+    table.cell(studyPanel, 1, 6, abRecent ? str.tostring(studyABDistanceSigma, "#.##") + "σ · " + str.tostring(studyABElapsedMinutes) + "m" : "—", text_color=color.silver, bgcolor=body, text_size=size.tiny)
+    table.cell(studyPanel, 2, 6, abRecent ? "R " + str.tostring(studyABReturnTicks, "#.##") + "t / X " + str.tostring(studyABExtensionTicks) + "t" : "—", text_color=color.silver, bgcolor=body, text_size=size.tiny)
+    table.cell(studyPanel, 3, 6, cRecent ? "C " + str.tostring(studyCWidthTicks, "#.##") + "t · pos " + str.tostring(studyCPosition, "#.##") : "—", text_color=color.silver, bgcolor=body, text_size=size.tiny)
+    table.cell(studyPanel, 0, 7, gate, text_color=color.orange, bgcolor=head, text_size=size.tiny)
+    table.cell(studyPanel, 1, 7, "through 2026-09-18", text_color=color.orange, bgcolor=head, text_size=size.tiny)
+    table.cell(studyPanel, 2, 7, "No live calibration", text_color=color.orange, bgcolor=head, text_size=size.tiny)
+    table.cell(studyPanel, 3, 7, "Not P&L", text_color=color.orange, bgcolor=head, text_size=size.tiny)

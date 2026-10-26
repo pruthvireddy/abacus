@@ -1,0 +1,254 @@
+{
+  "study_id": "23_gc_overnight_breakout_15m",
+  "outcome_calculation": false,
+  "created_at": "2026-10-13T14:59:59.224412+00:00",
+  "requested_start": "2017-12-31T21:00:00+00:00",
+  "selected_endpoint_exclusive": "2026-09-18T21:00:00+00:00",
+  "first_observed_minute": "2018-01-01T23:00:00+00:00",
+  "last_observed_minute": "2026-09-18T20:59:00+00:00",
+  "last_modeled_available_at": "2026-09-18T21:00:00+00:00",
+  "selected_minute_rows": 3046589,
+  "expected_nominal_minutes": 3139500,
+  "missing_qualified_expected_minutes": 41537,
+  "missing_uncertified_holiday_nominal_minutes": 51398,
+  "outside_normal_schedule_rows": 24,
+  "source_checks": {
+    "status": "passed",
+    "rows": 3046589,
+    "identity_mismatches": 0,
+    "mapping_bound_failures": 0,
+    "roll_schedule_mismatches": 0,
+    "duplicate_timestamps": 0,
+    "invalid_ohlcv_rows": 0,
+    "tick_deviation_rows": 0,
+    "contract_count": 45,
+    "contract_multiplier_master_sentinel_values": [
+      2147483647
+    ]
+  },
+  "aggregation_check": {
+    "status": "passed",
+    "tolerance": 0,
+    "observed_bars": 205578,
+    "compared_fields": [
+      "open_fixed",
+      "high_fixed",
+      "low_fixed",
+      "close_fixed",
+      "volume",
+      "observed_count"
+    ],
+    "compared_cells": 1233468,
+    "mismatch_counts": {
+      "open_fixed": 0,
+      "high_fixed": 0,
+      "low_fixed": 0,
+      "close_fixed": 0,
+      "volume": 0,
+      "observed_count": 0
+    },
+    "alignment": "UTC/GMT+3 quarter-hour [open,close)",
+    "timestamp_is": "inclusive bar open",
+    "available_at": "modeled exclusive 15m close",
+    "vendor_receipt_latency_known": false
+  },
+  "eligible_days": 994,
+  "valid_ranges": 1106,
+  "annual": [
+    {
+      "year": 2018,
+      "broker_date_start": "2018-01-01",
+      "broker_date_end": "2018-12-31",
+      "actual_minute_start": "2018-01-01T23:00:00+00:00",
+      "actual_minute_end": "2018-12-31T20:59:00+00:00",
+      "partial_year": false,
+      "calendar_days": 365,
+      "eligible_days": 93,
+      "valid_ranges": 103,
+      "missing_range_days": 172,
+      "later_missing_trading_days": 66,
+      "calendar_uncertified_days": 18,
+      "range_roll_barriers": 1,
+      "first_loaded_day_exclusions": 1
+    },
+    {
+      "year": 2019,
+      "broker_date_start": "2019-01-01",
+      "broker_date_end": "2019-12-31",
+      "actual_minute_start": "2018-12-31T21:00:00+00:00",
+      "actual_minute_end": "2019-12-31T20:59:00+00:00",
+      "partial_year": false,
+      "calendar_days": 365,
+      "eligible_days": 117,
+      "valid_ranges": 127,
+      "missing_range_days": 151,
+      "later_missing_trading_days": 79,
+      "calendar_uncertified_days": 16,
+      "range_roll_barriers": 1,
+      "first_loaded_day_exclusions": 0
+    },
+    {
+      "year": 2020,
+      "broker_date_start": "2020-01-01",
+      "broker_date_end": "2020-12-31",
+      "actual_minute_start": "2019-12-31T21:00:00+00:00",
+      "actual_minute_end": "2020-12-31T20:59:00+00:00",
+      "partial_year": false,
+      "calendar_days": 366,
+      "eligible_days": 169,
+      "valid_ranges": 180,
+      "missing_range_days": 97,
+      "later_missing_trading_days": 28,
+      "calendar_uncertified_days": 16,
+      "range_roll_barriers": 0,
+      "first_loaded_day_exclusions": 0
+    },
+    {
+      "year": 2021,
+      "broker_date_start": "2021-01-01",
+      "broker_date_end": "2021-12-31",
+      "actual_minute_start": "2020-12-31T21:00:00+00:00",
+      "actual_minute_end": "2021-12-31T20:59:00+00:00",
+      "partial_year": false,
+      "calendar_days": 365,
+      "eligible_days": 102,
+      "valid_ranges": 114,
+      "missing_range_days": 163,
+      "later_missing_trading_days": 53,
+      "calendar_uncertified_days": 15,
+      "range_roll_barriers": 1,
+      "first_loaded_day_exclusions": 0
+    },
+    {
+      "year": 2022,
+      "broker_date_start": "2022-01-01",
+      "broker_date_end": "2022-12-31",
+      "actual_minute_start": "2021-12-31T21:00:00+00:00",
+      "actual_minute_end": "2022-12-30T21:59:00+00:00",
+      "partial_year": false,
+      "calendar_days": 365,
+      "eligible_days": 81,
+      "valid_ranges": 96,
+      "missing_range_days": 182,
+      "later_missing_trading_days": 63,
+      "calendar_uncertified_days": 14,
+      "range_roll_barriers": 1,
+      "first_loaded_day_exclusions": 0
+    },
+    {
+      "year": 2023,
+      "broker_date_start": "2023-01-01",
+      "broker_date_end": "2023-12-31",
+      "actual_minute_start": "2023-01-02T23:00:00+00:00",
+      "actual_minute_end": "2023-12-29T21:59:00+00:00",
+      "partial_year": false,
+      "calendar_days": 365,
+      "eligible_days": 57,
+      "valid_ranges": 69,
+      "missing_range_days": 207,
+      "later_missing_trading_days": 77,
+      "calendar_uncertified_days": 16,
+      "range_roll_barriers": 2,
+      "first_loaded_day_exclusions": 0
+    },
+    {
+      "year": 2024,
+      "broker_date_start": "2024-01-01",
+      "broker_date_end": "2024-12-31",
+      "actual_minute_start": "2024-01-01T23:00:00+00:00",
+      "actual_minute_end": "2024-12-31T20:59:00+00:00",
+      "partial_year": false,
+      "calendar_days": 366,
+      "eligible_days": 89,
+      "valid_ranges": 104,
+      "missing_range_days": 174,
+      "later_missing_trading_days": 61,
+      "calendar_uncertified_days": 17,
+      "range_roll_barriers": 1,
+      "first_loaded_day_exclusions": 0
+    },
+    {
+      "year": 2025,
+      "broker_date_start": "2025-01-01",
+      "broker_date_end": "2025-12-31",
+      "actual_minute_start": "2024-12-31T21:00:00+00:00",
+      "actual_minute_end": "2025-12-31T20:59:00+00:00",
+      "partial_year": false,
+      "calendar_days": 365,
+      "eligible_days": 178,
+      "valid_ranges": 195,
+      "missing_range_days": 77,
+      "later_missing_trading_days": 29,
+      "calendar_uncertified_days": 19,
+      "range_roll_barriers": 2,
+      "first_loaded_day_exclusions": 0
+    },
+    {
+      "year": 2026,
+      "broker_date_start": "2026-01-01",
+      "broker_date_end": "2026-09-18",
+      "actual_minute_start": "2025-12-31T21:00:00+00:00",
+      "actual_minute_end": "2026-09-18T20:59:00+00:00",
+      "partial_year": true,
+      "calendar_days": 261,
+      "eligible_days": 108,
+      "valid_ranges": 118,
+      "missing_range_days": 76,
+      "later_missing_trading_days": 43,
+      "calendar_uncertified_days": 11,
+      "range_roll_barriers": 1,
+      "first_loaded_day_exclusions": 0
+    }
+  ],
+  "raw_prerequisite_existence": [
+    {
+      "path": "data/staging/databento/GLBX.MDP3/ohlcv-1m/GLBX-20260920-577W4VCSK7/glbx-mdp3-20100606-20260919.ohlcv-1m.dbn",
+      "recorded_sha256": "134663bf0c2a7859cf7c1593ac7bea4fcf8b876bf10352ffba0c2ea5f383645d",
+      "exists": false,
+      "verification": "existence_only_not_byte_verified_not_used_for_reconstruction"
+    },
+    {
+      "path": "data/raw/databento/GLBX.MDP3/ohlcv-1m/GLBX-20260920-577W4VCSK7/glbx-mdp3-20100606-20260919.ohlcv-1m.dbn.zst",
+      "recorded_sha256": "94734fe1ea2d1c0e86605612a4a536935b194aa435f3d14a16788ab44b3a1899",
+      "exists": false,
+      "verification": "existence_only_not_byte_verified_not_used_for_reconstruction"
+    },
+    {
+      "path": "data/raw/databento/GLBX.MDP3/ohlcv-1m/GLBX-20260920-577W4VCSK7/GLBX-20260920-577W4VCSK7.zip",
+      "recorded_sha256": "8b1afd97a59b699918a7b9ac4f42b75750b8d1c6b4860836487c98a811eef7e4",
+      "exists": false,
+      "verification": "existence_only_not_byte_verified_not_used_for_reconstruction"
+    },
+    {
+      "path": "data/raw/databento/GLBX.MDP3/symbology/continuous/volume-rank-0/2010-06-06_2026-09-20.json",
+      "recorded_sha256": "2e0d48d93b1cf7a4c0556a9522f3de603ca06f36fd1bb692706db02033fef456",
+      "exists": false,
+      "verification": "existence_only_not_byte_verified_not_used_for_reconstruction"
+    },
+    {
+      "path": "data/raw/databento/GLBX.MDP3/definition/GLBX-20260920-QQQSGCKWES/GLBX-20260920-QQQSGCKWES.zip",
+      "recorded_sha256": "f7b161f56e9a2db8617e8748b68d46992c6a2d270916ab20c0828fb363acc0e1",
+      "exists": false,
+      "verification": "existence_only_not_byte_verified_not_used_for_reconstruction"
+    },
+    {
+      "path": "data/raw/databento/GLBX.MDP3/ohlcv-1m/GLBX-20260920-577W4VCSK7/condition.json",
+      "recorded_sha256": "5a72a88291b5f03e286ffd56334786e396a5a649cfdaeb178d41c62159ff030f",
+      "exists": false,
+      "verification": "existence_only_not_byte_verified_not_used_for_reconstruction"
+    },
+    {
+      "path": "data/raw/databento/GLBX.MDP3/definition/GLBX-20260920-QQQSGCKWES/condition.json",
+      "recorded_sha256": "5a72a88291b5f03e286ffd56334786e396a5a649cfdaeb178d41c62159ff030f",
+      "exists": false,
+      "verification": "existence_only_not_byte_verified_not_used_for_reconstruction"
+    }
+  ],
+  "limitations": [
+    "Annual historical holiday/early-close certification is unavailable; pinned rule-generated candidate sessions are conservatively excluded before orders.",
+    "Missing expected trade bars can mean no trades or delivery gaps; they are never filled or inferred as closures.",
+    "available_at is modeled candle completion, not measured live vendor/contract-mapping receipt latency.",
+    "Published leader mapping is retained historical symbology; its publication is not proof of real-time mapping availability.",
+    "Native TradingView parity, tick-level ordering, original raw reconstruction, and off-device backup are unverified."
+  ]
+}

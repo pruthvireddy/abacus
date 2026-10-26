@@ -1,0 +1,25 @@
+{
+  "documentation": {
+    "command": "python3 scripts/check-agent-docs.py",
+    "output": "Checked 23 active navigation guides: 0 error(s).",
+    "status": "pass"
+  },
+  "external_publication": false,
+  "focused_tests": {
+    "command": "UV_CACHE_DIR=.uv-cache OPENBLAS_NUM_THREADS=1 VECLIB_MAXIMUM_THREADS=1 OMP_NUM_THREADS=1 ./scripts/uv run --locked python -m unittest discover -s studies/16_range_xv_reversal_paths/tests -v",
+    "status": "pass",
+    "tests": 40,
+    "transcript": "provenance/final-tests.txt"
+  },
+  "gui_or_browser_used": false,
+  "numerical_verification_sha256": "bd9289857ab26de37727a01007c2ecfea0d84da41db48441870c8b95eab238a9",
+  "postseal_navigation_record": "studies/16_range_xv_reversal_paths/completion-verification.json",
+  "preseal_navigation": {
+    "command": "python3 scripts/build-research-index.py --check",
+    "output": "Research library is current.",
+    "status": "pass"
+  },
+  "report_verification_sha256": "edcba8a8d66967af8b5a4d684aedc871b0e0cae89dcfdf23f74cca855a0b29cd",
+  "status": "pass",
+  "workspace_gate": "Not applicable: no shared package/dependency/configuration/migration changes"
+}

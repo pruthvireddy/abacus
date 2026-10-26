@@ -1,0 +1,48 @@
+request:
+  id: gc_ema_deviation_bands__1.0.0
+  requesting_repository: {name: abacus, contact_or_owner: Sahadeva}
+  requested_on: '2026-09-25'
+  purpose: >-
+    Reusable causal GC five-minute EMA deviation bands for the long-only
+    outer-lower-band excursion study and later studies. Trading outcomes remain
+    in Sahadeva.
+base_data:
+  dataset: tv_indicators__dridr_ohlcv_5m__v1
+  variant: back_adjusted
+  products: [GC]
+  requested_timeframe: 5m
+  coverage: complete pinned source snapshot, 2010-06-06 through 2026-09-18
+  manifest: catalog/datasets/tv_indicators__dridr_ohlcv_5m__v1.json
+features:
+  - name: gc_hac_ema_deviation_bands
+    input_columns: [close]
+    output_columns: [ema_base_225, residual_sigma_225, lower_outer_3sigma]
+    parameters: {ema_length: 225, residual_lookback: 225, outer_sigma: 3.0}
+    formula: >-
+      EMA[0]=close[0]; EMA[t]=EMA[t-1]+2/226*(close[t]-EMA[t-1]);
+      residual[t]=close[t]-EMA[t]; sigma[t]=population standard deviation
+      of residual[t-224:t] about its own rolling mean; lower outer[t]=
+      EMA[t]-3*sigma[t]. Current completed close participates in all three.
+    calculation_scope: continuous observed five-minute bars across sessions,
+      contracts and source year partitions; no reset
+    warmup: first 224 bars null
+    causality: {causal: true, uses_future_data: false, available_at: five-minute bar close}
+    null_handling: propagate missing close; never synthesize missing bars
+research_labels: {requested: [], allow_forward_looking_columns: false}
+output:
+  feature_set_name: gc_ema_deviation_bands
+  feature_set_version: 1.0.0
+  format: parquet
+  compression: zstd
+  partition_by: [product, year]
+  overwrite_existing_version: false
+validation:
+  require_source_manifest_and_partition_hashes: true
+  require_unique_timestamp: true
+  require_strict_timestamp_order: true
+  require_no_lookahead_in_features: true
+  compare_with_pine_formula: catalog/indicators/gc_hac_levels_bands__20260925.pine
+delivery:
+  keep_inside_abacus_bhishma: true
+  copy_into_requesting_repository: false
+  return: [dataset_id, manifest_path, partition_hashes, row_counts, coverage, known_limitations]

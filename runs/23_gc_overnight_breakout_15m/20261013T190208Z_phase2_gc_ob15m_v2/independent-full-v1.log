@@ -1,0 +1,26 @@
+independent dev-validation: 0/550 episodes
+independent dev-validation: 100/550 episodes
+independent dev-validation: 200/550 episodes
+independent dev-validation: 300/550 episodes
+independent dev-validation: 400/550 episodes
+independent dev-validation: 500/550 episodes
+independent later: 0/330 episodes
+independent later: 100/330 episodes
+independent later: 200/330 episodes
+independent later: 300/330 episodes
+independent all actual-entry/paired/interval/event/level tables
+Traceback (most recent call last):
+  File "/Users/ppanati/Documents/projects/abacus/studies/23_gc_overnight_breakout_15m/phase2_verify.py", line 1478, in <module>
+    if __name__=="__main__":main()
+                            ^^^^^^
+  File "/Users/ppanati/Documents/projects/abacus/studies/23_gc_overnight_breakout_15m/phase2_verify.py", line 1433, in main
+    receipt["metrics"],tables=verify_saved_tables(stage,baseline,roster,combined,phase_records)
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ppanati/Documents/projects/abacus/studies/23_gc_overnight_breakout_15m/phase2_verify.py", line 895, in verify_saved_tables
+    for row in tables["trades"]:comparisons+=compare_record(row,normalized[row["trade_id"]],"trades")
+                                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ppanati/Documents/projects/abacus/studies/23_gc_overnight_breakout_15m/phase2_verify.py", line 1259, in compare_record
+    equal(actual.get(key),value,path+":"+key)
+  File "/Users/ppanati/Documents/projects/abacus/studies/23_gc_overnight_breakout_15m/phase2_verify.py", line 1473, in equal
+    raise ValueError(f"{path}: expected {expected!r}, got {actual!r}")
+ValueError: trades:observed_holding_minutes: expected 96.0, got None

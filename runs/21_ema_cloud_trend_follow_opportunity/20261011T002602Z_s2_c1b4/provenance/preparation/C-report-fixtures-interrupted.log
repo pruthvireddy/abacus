@@ -1,0 +1,85 @@
+/private/tmp/abacus-study21-plot-deps/matplotlib/projections/__init__.py:63: UserWarning: Unable to import Axes3D. This may be due to multiple versions of Matplotlib being installed (e.g. as a system package and as a pip package). As a result, the 3D projection is not available.
+  warnings.warn("Unable to import Axes3D. This may be due to multiple versions of "
+test_corrupt_public_numeric_cell_rejected_even_with_updated_publication_pin (test_stage2_reporting.Stage2FullReportTests.test_corrupt_public_numeric_cell_rejected_even_with_updated_publication_pin) ... ok
+test_download_original_string_mutation_is_rejected_with_fresh_byte_pins (test_stage2_reporting.Stage2FullReportTests.test_download_original_string_mutation_is_rejected_with_fresh_byte_pins) ... ok
+test_false_aggregate_headline_and_missing_claim_binding_are_rejected (test_stage2_reporting.Stage2FullReportTests.test_false_aggregate_headline_and_missing_claim_binding_are_rejected) ... ok
+test_rendered_six_pngs_all_public_cells_downloads_claims_and_coverage_bindings (test_stage2_reporting.Stage2FullReportTests.test_rendered_six_pngs_all_public_cells_downloads_claims_and_coverage_bindings) ... ok
+test_paths_are_capped_scoped_and_source_values_are_reconciled (test_stage2_reporting.Stage2SelectionTests.test_paths_are_capped_scoped_and_source_values_are_reconciled) ... Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/Users/ppanati/.local/share/uv/python/cpython-3.11.16-macos-aarch64-none/lib/python3.11/unittest/__main__.py", line 18, in <module>
+    main(module=None)
+  File "/Users/ppanati/.local/share/uv/python/cpython-3.11.16-macos-aarch64-none/lib/python3.11/unittest/main.py", line 102, in __init__
+    self.runTests()
+  File "/Users/ppanati/.local/share/uv/python/cpython-3.11.16-macos-aarch64-none/lib/python3.11/unittest/main.py", line 274, in runTests
+    self.result = testRunner.run(self.test)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ppanati/.local/share/uv/python/cpython-3.11.16-macos-aarch64-none/lib/python3.11/unittest/runner.py", line 217, in run
+    test(result)
+  File "/Users/ppanati/.local/share/uv/python/cpython-3.11.16-macos-aarch64-none/lib/python3.11/unittest/suite.py", line 84, in __call__
+    return self.run(*args, **kwds)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ppanati/.local/share/uv/python/cpython-3.11.16-macos-aarch64-none/lib/python3.11/unittest/suite.py", line 122, in run
+    test(result)
+  File "/Users/ppanati/.local/share/uv/python/cpython-3.11.16-macos-aarch64-none/lib/python3.11/unittest/suite.py", line 84, in __call__
+    return self.run(*args, **kwds)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ppanati/.local/share/uv/python/cpython-3.11.16-macos-aarch64-none/lib/python3.11/unittest/suite.py", line 122, in run
+    test(result)
+  File "/Users/ppanati/.local/share/uv/python/cpython-3.11.16-macos-aarch64-none/lib/python3.11/unittest/suite.py", line 84, in __call__
+    return self.run(*args, **kwds)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ppanati/.local/share/uv/python/cpython-3.11.16-macos-aarch64-none/lib/python3.11/unittest/suite.py", line 122, in run
+    test(result)
+  File "/Users/ppanati/.local/share/uv/python/cpython-3.11.16-macos-aarch64-none/lib/python3.11/unittest/case.py", line 678, in __call__
+    return self.run(*args, **kwds)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ppanati/.local/share/uv/python/cpython-3.11.16-macos-aarch64-none/lib/python3.11/unittest/case.py", line 623, in run
+    self._callTestMethod(testMethod)
+  File "/Users/ppanati/.local/share/uv/python/cpython-3.11.16-macos-aarch64-none/lib/python3.11/unittest/case.py", line 579, in _callTestMethod
+    if method() is not None:
+       ^^^^^^^^
+  File "/Users/ppanati/Documents/projects/abacus/studies/21_ema_cloud_trend_follow_opportunity/tests/test_stage2_reporting.py", line 97, in test_paths_are_capped_scoped_and_source_values_are_reconciled
+    synthetic_saved_stage(stage)
+  File "/Users/ppanati/Documents/projects/abacus/studies/21_ema_cloud_trend_follow_opportunity/tests/test_stage2_reporting.py", line 61, in synthetic_saved_stage
+    stability=coverage_columns(stability_branches(combined,sorted(sessions)),pd.concat(rosters,ignore_index=True))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ppanati/Documents/projects/abacus/studies/21_ema_cloud_trend_follow_opportunity/src/stage2_statistics.py", line 52, in stability_branches
+    return _concat([_wrap(inherited.stability(group, session_roster), branch, "S2-stability") for branch, group in _branches(outcomes)])
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ppanati/Documents/projects/abacus/studies/21_ema_cloud_trend_follow_opportunity/src/stage2_statistics.py", line 52, in <listcomp>
+    return _concat([_wrap(inherited.stability(group, session_roster), branch, "S2-stability") for branch, group in _branches(outcomes)])
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ppanati/Documents/projects/abacus/studies/21_ema_cloud_trend_follow_opportunity/src/statistics.py", line 120, in stability
+    row = key | dict(period_kind=kind, period=str(value)) | _summary(part, key["unit"])
+                                                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ppanati/Documents/projects/abacus/studies/21_ema_cloud_trend_follow_opportunity/src/statistics.py", line 53, in _summary
+    complete, good = _evaluable(group, unit)
+                     ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ppanati/Documents/projects/abacus/studies/21_ema_cloud_trend_follow_opportunity/src/statistics.py", line 44, in _evaluable
+    complete = group.loc[group.status.eq("completed")].copy()
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ppanati/Documents/projects/abacus/.venv/lib/python3.11/site-packages/pandas/core/series.py", line 6291, in eq
+    return self._flex_method(
+           ^^^^^^^^^^^^^^^^^^
+  File "/Users/ppanati/Documents/projects/abacus/.venv/lib/python3.11/site-packages/pandas/core/series.py", line 6281, in _flex_method
+    return op(self, other)
+           ^^^^^^^^^^^^^^^
+  File "/Users/ppanati/Documents/projects/abacus/.venv/lib/python3.11/site-packages/pandas/core/ops/common.py", line 76, in new_method
+    return method(self, other)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/Users/ppanati/Documents/projects/abacus/.venv/lib/python3.11/site-packages/pandas/core/arraylike.py", line 40, in __eq__
+    return self._cmp_method(other, operator.eq)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ppanati/Documents/projects/abacus/.venv/lib/python3.11/site-packages/pandas/core/series.py", line 6140, in _cmp_method
+    return self._construct_result(res_values, name=res_name)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ppanati/Documents/projects/abacus/.venv/lib/python3.11/site-packages/pandas/core/series.py", line 6252, in _construct_result
+    out = self._constructor(result, index=self.index, dtype=dtype, copy=False)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ppanati/Documents/projects/abacus/.venv/lib/python3.11/site-packages/pandas/core/series.py", line 597, in __init__
+    self._set_axis(0, index)
+  File "/Users/ppanati/Documents/projects/abacus/.venv/lib/python3.11/site-packages/pandas/core/generic.py", line 810, in _set_axis
+    @final
+
+KeyboardInterrupt

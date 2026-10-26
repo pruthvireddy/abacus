@@ -1,0 +1,198 @@
+{
+  "study_id": "21_ema_cloud_trend_follow_opportunity",
+  "stage": 2,
+  "protocol_version": "0.1.0-stage2.0",
+  "plan_version": "0.1.0",
+  "products": [
+    "ES",
+    "GC",
+    "NQ"
+  ],
+  "interval_minutes": [
+    3,
+    5
+  ],
+  "cloud_interval_minutes": 5,
+  "ema_lengths": [
+    20,
+    50
+  ],
+  "ema_seed": "first_close",
+  "atr_length": 14,
+  "atr_seed": "mean_first_14_true_ranges",
+  "warmup_observations": 250,
+  "warmup_sensitivity_observations": 500,
+  "minimum_width_points": {
+    "ES": 2.4,
+    "GC": 2.0,
+    "NQ": 10.0
+  },
+  "width_epsilon_scale": 1e-10,
+  "mfe_mae_tie_epsilon_scale": 1e-10,
+  "touch_mode": "independent_fast_slow",
+  "directions": [
+    "Buy",
+    "Sell"
+  ],
+  "one_per_pullback": true,
+  "cooldown_bars": 0,
+  "reference_price": "confirmed_signal_close_unadjusted",
+  "development_start_ny": "2018-01-01T00:00:00-05:00",
+  "development_endpoint_ny": "2021-01-01T00:00:00-05:00",
+  "warmup_start_session": "2017-01-01",
+  "primary_horizon_bars": 15,
+  "horizons_3m": [
+    5,
+    10,
+    15,
+    20,
+    30,
+    50,
+    100
+  ],
+  "horizons_5m": [
+    5,
+    10,
+    12,
+    15,
+    20,
+    30,
+    50,
+    100
+  ],
+  "calendar_policy": "normal_ny_18_to_17_weekday_session_retained_equity_pause_uncertified_holidays_unusable",
+  "quantile_method": "linear_rank_p_times_n_minus_1",
+  "calendar_timezone": "America/New_York",
+  "session_strata": {
+    "Asia": [
+      18,
+      24,
+      0,
+      3
+    ],
+    "Europe": [
+      3,
+      9
+    ],
+    "US": [
+      9,
+      16
+    ],
+    "Late": [
+      16,
+      18
+    ]
+  },
+  "hour_strata": "all_24_ny_hours_fixed_at_signal_open",
+  "bootstrap": {
+    "method": "paired_circular_calendar_week_moving_blocks",
+    "block_weeks": 4,
+    "sensitivity_block_weeks": [
+      1,
+      8
+    ],
+    "resamples": 10000,
+    "seed": 20261010,
+    "interval": "pointwise_percentile_95_and_six_primary_bonferroni",
+    "week_roster": "all_signal_open_calendar_weeks_intersecting_development",
+    "session_week_assignment": "whole_contributing_session_mean_at_ny_trading_date_monday_week",
+    "common_weights": "identical calendar blocks across both branches and all cells"
+  },
+  "sparse_support": {
+    "minimum_completed": 100,
+    "minimum_sessions": 30
+  },
+  "example_selection": {
+    "per_cell": 6,
+    "horizon": 15,
+    "direction": "All",
+    "classes": {
+      "high_adverse": "max completed MAE across branches; ties timestamp,event_id",
+      "rejected": "earliest directed technical candidate not accepted; ties timestamp,touch_mode,signal_idx",
+      "censored": "earliest H15 censored event; ties timestamp,event_id",
+      "unresolved": "earliest episode with first_fast_in_development true, strictly_later_slow_contact null and same_bar_slow_contact false; ties first fast timestamp,event_id,shared_episode_id",
+      "same_bar": "earliest scoped first-fast/first-slow same-bar accepted pair",
+      "different_time": "earliest scoped first-fast/first-slow different times, either ordering; ties first timestamp,first ID,second ID,shared ID"
+    },
+    "unavailable": "explicit row; no replacement",
+    "event_window_signal_slots": [
+      -10,
+      15
+    ],
+    "pair_windows": "two separate capped windows, explicit omitted gap; max52 rows before dedup",
+    "displayed_scope": "NY2018\u20132020 only",
+    "retrospective_labels": "never entry filters"
+  },
+  "reserved_outcomes_computed": false,
+  "public_staging_authorized": false,
+  "reconciliation_slice_start_ny": "2018-06-04T00:00:00-04:00",
+  "reconciliation_slice_end_ny": "2018-06-16T00:00:00-04:00",
+  "reconciliation_prefix_end_ny": "2018-06-29T23:59:59-04:00",
+  "touch_modes": [
+    "fast",
+    "slow"
+  ],
+  "baseline_run_id": "20261010T221954Z_s1_8c6e_r3",
+  "baseline_protocol_version": "0.1.0-stage1.2",
+  "scope": "2018\u20132020 New York signal-open development only; 2017 causal warmup",
+  "primary_comparison_family": {
+    "id": "S2-primary-six-h15-All-points-event-terminal-fast-minus-slow",
+    "size": 6,
+    "direction": "All",
+    "horizon": 15,
+    "unit": "points",
+    "support": "all",
+    "weighting": "event",
+    "metric": "terminal_delta",
+    "contrast": "fast_minus_slow",
+    "alpha": 0.05,
+    "pointwise_coverage": 0.95,
+    "bonferroni_marginal_coverage": 0.9916666666666667,
+    "bonferroni_quantile_tails": [
+      0.004166666666666667,
+      0.9958333333333333
+    ],
+    "primary_block_weeks": 4,
+    "sensitivity_block_weeks": [
+      1,
+      8
+    ]
+  },
+  "secondary_comparison_scope": {
+    "ci_horizons": "H15 and matched active-minute60/150 views",
+    "ci_support": [
+      "all",
+      "uninterrupted"
+    ],
+    "directions": [
+      "All",
+      "Buy",
+      "Sell"
+    ],
+    "units": [
+      "points",
+      "atr"
+    ],
+    "weighting": [
+      "event",
+      "session"
+    ],
+    "other_horizons": "descriptive point contrasts",
+    "same_session": "descriptive secondary",
+    "episode_matching": "retrospective first-accepted pairs; both events scoped and completed; no primary filtering"
+  },
+  "shared_episode": {
+    "departure_width_gateway": false,
+    "identity": "product/interval/contract/direction/first full departure timestamp",
+    "consecutive_departures": "retain ID",
+    "departure_after_non_departure": "new ID and closes preceding observed episode",
+    "reset": "terminates before reset bar",
+    "first_accepted": "full causal history; never replace warmup first counterpart",
+    "pair_outcome_scope": "both selected first events NY2018\u20132020 and complete at requested horizon",
+    "geometry_scope": "finite usable valid mapped range/EMAs; equality geometry remains defined",
+    "contact_scope": "scoped first fast only; same-bar and strictly-later geometric contact and accepted signal separately",
+    "absent_contact": "false only fully observed new-departure closure; missing/reset/endpoint yields null/unresolved",
+    "outside_scope_first_fast": "null descriptors; causal counterpart metadata retained"
+  },
+  "union_representative": "slow if dual accepted; otherwise sole accepted member; source_event_id retained; same-bar scientific equality required"
+}

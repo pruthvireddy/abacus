@@ -1,0 +1,19 @@
+....E.......
+======================================================================
+ERROR: setUpClass (test_continuous_phase2.RealRollIntegrationTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ppanati/Documents/projects/abacus/packages/bhishma/tests/test_continuous_phase2.py", line 159, in setUpClass
+    cls.schedule, cls.factors, cls.factor_arrays = resolve_adjustments(
+                                                   ^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ppanati/Documents/projects/abacus/packages/bhishma/src/abacus_bhishma/continuous_phase2.py", line 486, in resolve_adjustments
+    candidates = _reference_candidates(paths, transitions)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ppanati/Documents/projects/abacus/packages/bhishma/src/abacus_bhishma/continuous_phase2.py", line 378, in _reference_candidates
+    raise Phase2Error(
+abacus_bhishma.continuous_phase2.Phase2Error: ES roll 1: no point-in-time definition pair in the 10-day search window
+
+----------------------------------------------------------------------
+Ran 11 tests in 0.128s
+
+FAILED (errors=1)

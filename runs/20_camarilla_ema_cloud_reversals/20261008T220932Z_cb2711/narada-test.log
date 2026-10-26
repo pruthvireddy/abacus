@@ -1,0 +1,50 @@
+
+> @abacus/narada@0.1.0 test
+> node --test tests/*.test.mjs
+
+✔ versions 1.0 and 1.1 coexist without rewriting old publication bytes (33.614417ms)
+✔ version selection, unsafe URLs, references and source attribution are strict (1.199083ms)
+✔ download paths, unsupported types, missing files and source/file/directory symlinks are rejected (8.581958ms)
+✔ download hashes, UTF-8 structure, headers, row count and formulas are checked (5.805167ms)
+✔ per-file and total download budgets are independent of figure budgets (15.314291ms)
+✔ staged downloads verify their hashes and unselected source files never cross the boundary (7.757292ms)
+✔ explicit formats preserve scale, zero, missing values, and units (37.428583ms)
+✔ publication dates use UTC regardless of the reader time zone (10.359792ms)
+✔ strict contract rejects unknown containers, duplicate sections, undeclared row keys and invalid dates (5.552042ms)
+✔ dry run writes nothing and ordinary publication verifies (10.143375ms)
+✔ deterministic output and formatting-only idempotence (16.149458ms)
+✔ changed existing ID is rejected without damaging the published result (6.008334ms)
+✔ path traversal, symlink escape, and false raster signatures are rejected (2.958958ms)
+✔ modified assets, report content, stale files, and index drift fail verification (7.74225ms)
+✔ report and asset budgets reject oversized inputs (4.116458ms)
+✔ concurrent publication lock is respected and unrelated files are never copied (4.463375ms)
+✔ missing selected figure leaves existing publication bytes and index unchanged (6.019459ms)
+✔ an empty symlink output directory is rejected (2.665417ms)
+✔ index orders timestamps chronologically across optional milliseconds (8.115208ms)
+✔ release boundary admits selected pages/assets and rejects private or unknown output (29.237375ms)
+✔ exact inventory copy rejects symlinks, additions and modified bytes (45.479ms)
+✔ deployment format has explicit routes, attachment headers and a hard 404 (0.35575ms)
+✔ production stages without domains and preview never requests production (0.543708ms)
+✔ structured CLI output and protected binary responses are parsed without losing bytes (0.641417ms)
+✔ command failures propagate and preparation primitives do not call hosting (64.50425ms)
+✔ hosted verification checks exact bytes, CSV headers and real 404; rejects auth walls (11.809958ms)
+✔ table scroll region describes keyboard access while preserving scalar meanings and escaping text (11.899083ms)
+✔ table context remains visible, accessible and linked to an attributed reference (0.53ms)
+✔ selected downloads and references render safe links, visible scope and useful filenames (4.902042ms)
+✔ figures retain alternative text and caption with a visible full-size link (1.164417ms)
+✔ explicit catalog supports routes, lookup and distinct source relationships (1.9835ms)
+✔ duplicate identities, slugs and publication ownership fail (0.855875ms)
+✔ missing, repeated or wrongly attributed publication references fail (0.251666ms)
+✔ relationship labels must agree with source-run identity and allowed kinds (0.159542ms)
+✔ bounded authored fields reject paths, unsafe slugs and unexpected containers (0.171916ms)
+✔ catalog loader rejects oversized input and symlinks without workspace access (6.497417ms)
+✔ identity and product fields reject trailing whitespace and control characters (0.270375ms)
+✔ publication context separates featured content, related revision labels and missing IDs (0.346583ms)
+ℹ tests 38
+ℹ suites 0
+ℹ pass 38
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 298.113833

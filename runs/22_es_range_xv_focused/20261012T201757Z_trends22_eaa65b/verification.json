@@ -1,0 +1,93 @@
+{
+  "audit_version": "1.0.0",
+  "status": "pass",
+  "result": "passed",
+  "study_id": "22_es_range_xv_focused",
+  "run_id": "20261012T201757Z_trends22_eaa65b",
+  "verifier": {
+    "path": "studies/22_es_range_xv_focused/audit.py",
+    "sha256": "9000200c827a0d43c8d0984071ad9f7d582dca903eee7fd2330213b88e495e8b"
+  },
+  "settings_sha256": "6b5942c3d29546db95d0d14dc6b3cdd86e97ba0f4bb1298529bd224242997f84",
+  "inputs_lock_sha256": "2f771ea490e464a946dd5af140f490453611c6853779db353b708df9215edbfc",
+  "excluded_session": "2026-09-24",
+  "sources": [
+    {
+      "setting_ticks": 4,
+      "input_path": "data/range_xv/20191101_20260924/enhanced/ES_rangexv_4t_20191101_20260924.csv",
+      "input_sha256": "909e7a08fc067abbe64b11950f83a28595d9791aa832516f32cb29c059974a67",
+      "ledger_sha256": "09c110ee5a01ba61f50d4117961c6c39240656389a2313721e7bb34c5b0ab9e4",
+      "reconstructed_runs": 409144,
+      "input_rows": 1281962,
+      "eligible_bars": 1280131,
+      "eligible_doji_bars": 0,
+      "eligible_same_second_bars": 94596,
+      "eligible_directional_bars": 1280131,
+      "observed_run_candles": 1280131
+    },
+    {
+      "setting_ticks": 5,
+      "input_path": "data/range_xv/20191101_20260924/enhanced/ES_rangexv_5t_20191101_20260924.csv",
+      "input_sha256": "2bad06aee9fc19f6d188dcf8f5ca4079b16b5a4d7badaa28e68cb456d0ad6b34",
+      "ledger_sha256": "2bed2361b69d723016a37ce76070af0f9434f1123f2c1bd4738e8dad79a973f0",
+      "reconstructed_runs": 281463,
+      "input_rows": 885222,
+      "eligible_bars": 883406,
+      "eligible_doji_bars": 0,
+      "eligible_same_second_bars": 51141,
+      "eligible_directional_bars": 883406,
+      "observed_run_candles": 883406
+    },
+    {
+      "setting_ticks": 6,
+      "input_path": "data/range_xv/20191101_20260924/enhanced/ES_rangexv_6t_20191101_20260924.csv",
+      "input_sha256": "2ffb25f506d0a222020df30f9b23fcf65d811caa40add8455fe4c40e492e4212",
+      "ledger_sha256": "51d26b1030cdb6d0a75830b76bd6e0974a67bdb13915641f7a36f73ff7866687",
+      "reconstructed_runs": 205660,
+      "input_rows": 647911,
+      "eligible_bars": 646122,
+      "eligible_doji_bars": 0,
+      "eligible_same_second_bars": 30290,
+      "eligible_directional_bars": 646122,
+      "observed_run_candles": 646122
+    }
+  ],
+  "tables": {
+    "summary": {
+      "rows": 648,
+      "sha256": "491d69418e96de664f7d2e977a468cb9951083091623f301db845f98a16aed17"
+    },
+    "histogram": {
+      "rows": 6480,
+      "sha256": "426ec8129ceaa1f01e044d6f8a0874caa7fd34ab33374d6754b2ab01829ad7c4"
+    },
+    "survival": {
+      "rows": 3240,
+      "sha256": "92171e5960768d1b065c33f0e6a60149f480ed375d14a2ae20ae43597cafc41f"
+    },
+    "coverage": {
+      "rows": 216,
+      "sha256": "d695e2b10c4299e1b59fbf5df777ec6707a1c7906a1eaacea5b1cbc7ba05fcc9"
+    }
+  },
+  "artifact_hashes": {
+    "evidence/trends_4t.csv": "09c110ee5a01ba61f50d4117961c6c39240656389a2313721e7bb34c5b0ab9e4",
+    "evidence/trends_5t.csv": "2bed2361b69d723016a37ce76070af0f9434f1123f2c1bd4738e8dad79a973f0",
+    "evidence/trends_6t.csv": "51d26b1030cdb6d0a75830b76bd6e0974a67bdb13915641f7a36f73ff7866687",
+    "tables/trend_summary.csv": "491d69418e96de664f7d2e977a468cb9951083091623f301db845f98a16aed17",
+    "tables/trend_histogram.csv": "426ec8129ceaa1f01e044d6f8a0874caa7fd34ab33374d6754b2ab01829ad7c4",
+    "tables/trend_survival.csv": "92171e5960768d1b065c33f0e6a60149f480ed375d14a2ae20ae43597cafc41f",
+    "tables/coverage.csv": "d695e2b10c4299e1b59fbf5df777ec6707a1c7906a1eaacea5b1cbc7ba05fcc9",
+    "input-audit.json": "e69fe977189dc8b503c247a45d1addae14cd6820ef74109e0e4dab46d6bec273"
+  },
+  "verified_scope": [
+    "pinned enhanced-input bytes, complete source-row order and adjacent completion metadata",
+    "independent maximal directional-run reconstruction, doji handling and censor classification",
+    "every saved ledger identity, observed/exact length and termination availability",
+    "directional candle conservation across all observed runs",
+    "all source-bar coverage cells, pooled/yearly independent first-open window grouping",
+    "saved input-row, eligible-bar, eligible-doji and same-second counts",
+    "all exact-run summary estimates, integer histogram/tail numerators and denominators"
+  ],
+  "limits": "Descriptive source reproduction does not verify ATAS construction, inferred timezone, contract/roll treatment, market completeness or predictive validity."
+}

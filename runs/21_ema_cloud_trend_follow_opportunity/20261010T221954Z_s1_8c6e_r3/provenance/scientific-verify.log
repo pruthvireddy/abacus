@@ -1,0 +1,20 @@
+Traceback (most recent call last):
+  File "/Users/ppanati/Documents/projects/abacus/studies/21_ema_cloud_trend_follow_opportunity/run.py", line 223, in <module>
+    main()
+  File "/Users/ppanati/Documents/projects/abacus/studies/21_ema_cloud_trend_follow_opportunity/run.py", line 218, in main
+    {"summarize": summarize_stage, "render": render_stage,
+  File "/Users/ppanati/Documents/projects/abacus/studies/21_ema_cloud_trend_follow_opportunity/src/pipeline.py", line 138, in verify_stage
+    receipt = verify_bundle(stage)
+              ^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ppanati/Documents/projects/abacus/studies/21_ema_cloud_trend_follow_opportunity/src/reconcile.py", line 637, in verify_bundle
+    checks.append(reconcile_coverage(technical, native_five, stage / "tables/S1-T00_coverage.csv"))
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ppanati/Documents/projects/abacus/studies/21_ema_cloud_trend_follow_opportunity/src/reconcile.py", line 576, in reconcile_coverage
+    _cell(row[key], value, f"independent coverage {product}/{interval}/{row['year']}/{key}")
+  File "/Users/ppanati/Documents/projects/abacus/studies/21_ema_cloud_trend_follow_opportunity/src/reconcile.py", line 251, in _cell
+    _equal(actual, expected, context)
+  File "/Users/ppanati/Documents/projects/abacus/studies/21_ema_cloud_trend_follow_opportunity/src/reconcile.py", line 41, in _equal
+    _require(actual_missing and expected_missing, f"{context}: null mismatch {actual!r}/{expected!r}")
+  File "/Users/ppanati/Documents/projects/abacus/studies/21_ema_cloud_trend_follow_opportunity/src/reconcile.py", line 34, in _require
+    raise ValueError(message)
+ValueError: independent coverage ES/3/2018/feature_ready_slots: null mismatch 45541.0/None

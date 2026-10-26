@@ -1,0 +1,16 @@
+schema_version: 1
+study_id: 25_forex_news_ema
+protocol: saved-evidence-import-1
+calculation_scope: none
+source_project: tv-indicators/forex_news
+selected_analysis: cross_currency_news_study/extended_year
+cohort: common_events
+symbols: [6E, 6B, 6J, 6S, 6C, 6A]
+horizons_bars: [5, 10, 15, 50, 100]
+entry: completed 15-minute bar close at scheduled release
+direction: same completed bar EMA20 versus EMA50
+first_measured_bar: bar opening at release
+monthly_timezone: America/Chicago
+costs_modeled: false
+numerical_revalidation: false
+publication_id: forex-news-ema-20261017-v1

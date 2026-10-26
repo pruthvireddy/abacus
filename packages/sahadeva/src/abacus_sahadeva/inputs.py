@@ -1,4 +1,4 @@
-"""Read-only checks for research input pins and a small loader smoke check."""
+"""Read-only VWAP schema-version-1 input-pin and bounded sample checks."""
 
 from __future__ import annotations
 
@@ -54,10 +54,13 @@ def _json(path: Path) -> dict[str, Any]:
 
 
 def verify_inputs(paths: WorkspacePaths, inputs_lock: Path | str) -> dict[str, Any]:
-    """Check explicit pins in the workspace and original publication catalogs.
+    """Verify supported session_anchored_vwap lock and release identities.
 
-    This verifies manifests and the release audit/quality report. It does not
-    re-hash every data partition or re-run a feature build/validation pipeline.
+    The VWAP lock must use schema version 1 and an explicitly supported release
+    version. Check release, dataset, and related manifest/catalog hashes, plus
+    applicable audit and quality-report hashes. Arbitrary study locks are not
+    supported. This does not re-hash every data partition, reproduce features,
+    execute a study, or certify profitability.
     """
     lock_path = Path(inputs_lock)
     if not lock_path.is_absolute():
@@ -129,10 +132,11 @@ def verify_inputs(paths: WorkspacePaths, inputs_lock: Path | str) -> dict[str, A
 
 
 def read_samples(paths: WorkspacePaths, verified: dict[str, Any]) -> list[dict[str, Any]]:
-    """Read one session per product/timeframe through Bhishma's public loader.
+    """Hash one selected VWAP partition and read one session per product/timeframe.
 
-    The selected source partition is hashed before reading it. Other partitions
-    are not validated by this bounded integration check.
+    Read through Bhishma's public loader after checking the selected partition's
+    hash. Other partitions remain unverified by this bounded integration check;
+    it does not reproduce features or execute a study.
     """
     import pyarrow.parquet as pq
 

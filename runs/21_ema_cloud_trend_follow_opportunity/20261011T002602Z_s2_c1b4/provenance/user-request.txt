@@ -1,0 +1,363 @@
+Implement and execute Stage 2 of the
+“20/50 5minEMA Cloud Trend Follow Opportunity Study”
+in Abacus.
+
+Workspace:
+/Users/ppanati/Documents/projects/abacus
+
+Study:
+studies/21_ema_cloud_trend_follow_opportunity/
+
+Authoritative completed Stage 1 baseline:
+runs/21_ema_cloud_trend_follow_opportunity/20261010T221954Z_s1_8c6e_r3/
+
+This instruction authorizes Stage 2 implementation, numerical testing, 2018–2020 historical execution, independent verification, private report preparation and sealing a new research run.
+
+The objective is to compare independent FAST EMA20 and SLOW EMA50 touch opportunities while preserving Stage 1’s slow branch exactly.
+
+Carry the work through to verified deliverables. Do not stop at planning, scaffolding or sample calculations.
+
+1. READ AND PIN THE EXISTING EVIDENCE
+
+Read:
+- AGENTS.md, README.md and ARCHITECTURE.md.
+- studies/AGENTS.md.
+- packages/sahadeva/AGENTS.md.
+- packages/bhishma/AGENTS.md and data/README.md.
+- runs/README.md, templates/README.md and docs/evidence-contract.md.
+- apps/narada/AGENTS.md and docs/narada.md.
+- The study’s README.md, plan.md and notes.md.
+- Its preserved Pine source and reference manifest.
+- The completed Stage 1 run’s:
+  stage2-handoff.json
+  protocol.md
+  config.json
+  inputs.lock.json
+  events.manifest.json
+  manifest.json
+  report.md
+  advice.md
+  provenance/checks.json
+  relevant verification receipts and source snapshots.
+
+Use the sealed Stage 1 protocol 0.1.0-stage1.2 and executed settings as the authority for inherited numerical behavior. Use the plan’s Stage 2 section for the added comparisons.
+
+Verify the hashes declared in stage2-handoff.json and the relevant external-ledger bytes before relying on them.
+
+Inspect current implementation and workspace changes before editing. Current code includes documented verifier/caption repairs made after the frozen Stage 1 execution. Distinguish those repairs from the original executed source and immutable evidence.
+
+Never edit the completed Stage 1 run, its retained ledgers or its input release.
+
+2. USE MULTI-AGENT EXECUTION
+
+Keep one coordinating lead and use up to three concurrent subagents.
+
+Agent A — Inputs, event engine and baseline parity:
+- Verify reusable input delivery and baseline identities.
+- Implement the independent fast-touch stream.
+- Preserve slow state, event IDs and outcomes.
+- Implement geometry, accepted-membership and shared-episode metadata.
+- Own event/membership modules and their focused tests.
+
+Agent B — Comparisons and statistical evidence:
+- Implement branch summaries, union diagnostics and episode comparisons.
+- Implement paired bootstrap contrasts and multiplicity handling.
+- Own comparison/statistical modules, tables and their tests.
+- Preserve existing Stage 1 estimands and statistical conventions.
+
+Agent C — Independent verification and reporting:
+- Develop independent scalar/reference checks without delegating correctness to production code.
+- Reconcile events, outcomes, summaries, uncertainty and coverage.
+- Prepare reports, figures, selected downloads and Narada source content.
+- Own independent-check/reporting modules and their tests.
+
+Lead:
+- Freeze schemas, interfaces and disjoint file ownership before parallel edits.
+- Coordinate integration and resolve scientific ambiguities.
+- Own orchestration, shared registry/navigation edits, source freezing and sealing.
+- Review all parity and scientific verification evidence.
+
+Use subagents rather than creating separate user-owned chats.
+If subagent tools are unavailable, execute these responsibilities sequentially and disclose that limitation.
+
+Do not allow concurrent edits to the same files. Reassign completed agents to independent review. Freeze source bytes before historical scoring.
+
+3. REUSE STAGE 1 INPUTS AND SETTINGS
+
+Reuse:
+same_contract_ema_cloud version 1.0.0
+
+Manifest:
+catalog/datasets/same_contract_ema_cloud__1.0.0.json
+
+Expected manifest SHA-256:
+59010a558b4e727dbfaa37a64b4a209590288f23744127ab98747cd27ff56d44
+
+No feature-release rebuild is needed for adding a fast-touch event stream.
+
+Use the same six cells:
+ES, GC, NQ × 3m and 5m signal/outcome candles.
+
+Keep:
+- Five-minute EMA20/EMA50 cloud.
+- Unadjusted same-contract reference and path prices.
+- Fixed inclusive width minima:
+  ES 2.4 points
+  GC 2.0 points
+  NQ 10.0 points
+- Both Buy and Sell.
+- One signal per selected-EMA pullback.
+- Zero cooldown.
+- Stage 1 calendar exclusions, quality flags and coverage roster.
+- 250-bar warmup, seeds, reset and availability conventions.
+- Signal-close reference and entry-candle exclusion.
+- Existing null, censoring, overlap and attainment-time rules.
+
+Primary horizon: H=15.
+3m horizons: 5, 10, 15, 20, 30, 50, 100.
+5m horizons: 5, 10, 12, 15, 20, 30, 50, 100.
+
+Score only signal-open New York dates in 2018–2020.
+Paths must complete by the frozen development endpoint.
+2017 is causal warmup only.
+
+Do not compute:
+- 2010–2017 outcome extensions.
+- 2021+ signal-conditioned outcomes.
+- Width, ATR-gateway, horizon, session or cooldown optimization.
+- Combined fast/slow position policies.
+- Trade fills, stops, targets or profitability simulations.
+- Public Narada staging/catalog changes or deployment.
+
+Do not expose reserved outcomes through examples, diagnostics, charts or prose.
+
+Carry Stage 1’s qualifications concerning coverage, sparse early GC support, uncertified calendars, modeled availability and missing original reconstruction/arrival evidence. Do not reinterpret those qualifications as newly verified facts.
+
+4. REQUIRE EXACT SLOW-BASELINE PARITY
+
+Before interpreting fast outcomes, prove the Stage 2 slow branch reproduces the sealed Stage 1 baseline.
+
+Compare by stable scientific keys:
+- Technical candidates and accepted event IDs.
+- Slow pre/post armed state and suppression reasons.
+- Reference prices, directions, timestamps and feature identities.
+- Every outcome/horizon value and censoring reason.
+- Counts, summaries, quantiles, stability and uncertainty estimands.
+
+The baseline contains 5,257 accepted slow events and 5,238 completed H15 paths, but matching headline counts alone is insufficient.
+
+Produce a machine-readable parity receipt identifying the compared artifacts, hashes, fields, rows and tolerances.
+
+Preserve existing slow event IDs. Add fast IDs without collisions.
+Stage 2 wrapper fields, membership metadata and new table layouts may differ; explicitly exclude only declared non-scientific metadata from parity comparisons.
+
+Do not require byte-identical files after adding Stage 2 columns, but require exact inherited scientific values and explain any justified floating-point comparison tolerance.
+
+If slow parity fails, stop dependent interpretation and fix the implementation. A desired change to slow scientific behavior requires a separately identified baseline revision; do not quietly absorb it into Stage 2.
+
+5. IMPLEMENT INDEPENDENT FAST AND SLOW STREAMS
+
+Fast selects EMA20.
+Slow selects EMA50.
+
+Each stream owns its own armed/consumed state.
+
+For each stream:
+- Full strict departure outside the entire bullish cloud arms Buy.
+- Full strict departure outside the entire bearish cloud arms Sell.
+- Inclusive range touch is low <= selected EMA <= high.
+- Acceptance uses pre-bar state, direction, data eligibility and fixed width.
+- Any selected-EMA penetration consumes that stream’s setup, including width rejection or a gap through the level.
+- A new full-cloud departure rearms it.
+- Invalid data/features, equality, direction changes and contract resets clear state.
+
+A fast touch or rejection must not consume the slow setup.
+A slow-stream decision must not change fast state.
+Do not derive either stream by filtering the other’s accepted events.
+
+Preserve timing:
+- 5m candles use their current completed close-derived cloud.
+- 3m candles use the latest valid scheduled 5m cloud completed at their OPEN.
+- Missing/partial latest source slots invalidate features immediately.
+- Source and signal contracts must match.
+- Never carry stale features across an invalid slot or roll.
+
+Future path completion, opposite events, pairing labels and report filters must never alter acceptance.
+
+Reuse Stage 1’s forward-outcome formulas and scheduled-slot timeline.
+
+6. SEPARATE GEOMETRY, MEMBERSHIP, UNION AND EPISODES
+
+Save candle geometry independently:
+- Fast-only touch.
+- Slow-only touch.
+- Both-boundary touch.
+- Neither touch.
+- Undefined geometry when required data/features are unavailable.
+
+Separately save accepted-stream membership:
+- Fast accepted.
+- Slow accepted.
+- Both accepted.
+- Neither accepted, with reasons.
+
+A geometric dual touch can be accepted by only one stream because armed states differ.
+
+For the union:
+Use product, candle interval, direction and signal bar as the identity.
+Count a same-bar dual accepted event once and retain both branch IDs.
+Different signal times remain separate observations.
+Do not turn this union into an executable combined strategy.
+
+Same-bar dual accepted events share reference close, direction, ATR and future path. Their outcomes must agree exactly. Verify this directly.
+
+For episode matching, use a SEPARATE shared geometric episode ID:
+- First qualifying full-cloud departure starts an episode.
+- Consecutive departure bars retain its ID.
+- After any non-departure bar, the next full departure starts a new episode.
+- Direction, quality or contract resets terminate the episode.
+- Assign events to the active episode at signal time.
+- Pair the first accepted fast event with the first accepted slow event within that episode.
+- Never pair across episode/reset boundaries or alter branch state for matching.
+
+Retain same-bar, fast-before-slow, slow-before-fast and unpaired cases.
+
+Distinguish eventual geometric slow contact from eventual accepted slow signal. A width rejection can separate them.
+
+“Fast later reaches slow” is a retrospective descriptor, never a causal fast-entry filter. Episodes interrupted by missing data, resets or the endpoint require an unresolved/censored label rather than an assertion that slow was never reached.
+
+7. COMPARE OPPORTUNITY FREQUENCY AND PATH BEHAVIOR
+
+Produce standalone fast and slow scorecards, Buy/Sell/All views, distributions, stability and opportunity counts.
+
+Common support means the same eligible calendar/bar/feature roster. It does not mean intersecting accepted event timestamps, which would discard the differences being studied.
+
+Keep separate:
+- How frequently each stream signals.
+- Which populations each stream selects.
+- Their subsequent MAE/MFE and terminal movement.
+- Same-bar equality checks.
+- Retrospective episode-matched differences.
+- Union counts and overlap.
+
+These are observational branch comparisons, not randomized causal effects.
+
+Primary comparison family:
+Six pooled-direction H15 fast-minus-slow differences in event-weighted mean signed terminal delta, one per product/candle cell, in that product’s raw points.
+
+Use paired calendar-block resampling of both branch means; do not require event-level pairing for the primary contrast.
+
+Preserve:
+- The 157 Monday-week roster from 2018-01-01 through 2020-12-28.
+- Circular calendar-week moving blocks.
+- 10,000 replicates.
+- Seed 20261010.
+- Four-week primary blocks.
+- One/eight-week sensitivities.
+- Existing event-week and whole-session week assignment.
+
+Sample identical blocks across branches and cells. Preserve undefined draws and valid zero-event support; do not set an absent outcome mean to zero.
+
+Provide pointwise 95% intervals and Bonferroni familywise intervals for the six primary contrasts:
+99.1666667% marginal coverage per contrast.
+
+Freeze these definitions before fast historical scoring.
+Treat side, ATR-normalized, session and other-horizon contrasts as descriptive secondary evidence.
+
+Include event-weighted and session-balanced results and matched-duration views:
+- 60 active minutes: 3m H20 versus 5m H12.
+- 150 active minutes: 3m H50 versus 5m H30.
+- Uninterrupted-path views for actual clock-duration comparisons.
+
+Preserve sparse flags and missingness qualifications. Do not select a favorable side, hour or horizon after seeing results.
+
+8. PRODUCE A COMPLETE STAGE 2 REPORT
+
+Save Stage 2 versions of coverage, signal flow, horizon scorecards, quantiles, annual/session stability, weekly/monthly summaries and example selections.
+
+Add:
+- S2-T07: touch geometry and accepted membership.
+- S2-T08: branch contrasts and uncertainty.
+- S2-T09: shared-episode pairing.
+- S2-T10: union and overlap diagnostics.
+
+Also retain:
+- Slow-baseline parity receipt.
+- Input/coverage identity receipt.
+- Primary comparison-family definition.
+- Independent numerical and uncertainty reconciliation.
+
+Generate saved-evidence figures for:
+- Fast/slow MAE/MFE distributions.
+- Horizon responses.
+- Frequency versus outcome quality.
+- Calendar/coverage stability.
+- Representative same-bar and different-time episodes.
+
+Freeze deterministic example-selection rules before scoring. Include adverse, rejected, censored and unresolved examples.
+
+The report must explain:
+- Whether fast touches add opportunities.
+- How favorable and adverse movement differ.
+- Whether differences are stable across time and sides.
+- How overlap, population selection, coverage and uncertainty limit interpretation.
+
+Retain Stage 1’s negative/inconclusive findings. Stage 2 must not become a search for a more attractive narrative.
+
+9. VERIFY, PREPARE AND SEAL
+
+Add meaningful fixtures covering:
+- Independent arm/consume state and rejected-touch behavior.
+- Fast-only, slow-only, geometric dual and accepted dual cases.
+- Gaps, invalid features, direction changes and rolls.
+- Slow parity and collision-free IDs.
+- Union deduplication and same-bar outcome equality.
+- Shared episode boundaries, reversed ordering and interrupted episodes.
+- No retrospective pairing leakage.
+- Existing outcome/null/censoring semantics.
+- Paired resampling, exact week roster and primary multiplicity.
+- Ledger-to-table and table-to-report equality.
+
+Run the existing registered study suite in its own locked process without synchronization. Update explicit registry/check coverage only as required; preserve the default gate.
+
+Run required workspace checks for package/configuration changes. Report prerequisite failures, skips and unexecuted checks honestly. Do not rebuild immutable inputs to repair unrelated source-reconstruction tests.
+
+Retain independent scalar/full-ledger reconciliation and uncertainty verification receipts tied to exact Stage 2 sources and outputs.
+
+Stage at:
+work/21_ema_cloud_trend_follow_opportunity/<new-unique-run-id>/
+
+Retain frozen Stage 2 protocol/config, baseline/input pins, ledgers, metrics, tables, figures, reports, advice, actual commands, environment inventory, uv.lock, Git/dirty state, source snapshots, check records and hashes.
+
+Prepare BEFORE sealing:
+- report.md and offline report.html.
+- Narada schemaVersion 1.1 publication.json.
+- Selected raster figures and summary downloads.
+- Private claim/cell/figure source bindings.
+
+Validate publication content using the existing contract and read-only publisher dry-run. Respect current limits. Keep baseline attribution and cross-run source bindings explicit without inventing unsupported public reference fields.
+
+Do not stage public Narada bundles or deploy.
+
+Adopt abacus.evidence/v1 correctly. Verify declared bundle bytes and separately verify external ledger bytes.
+
+Seal only after required parity, numerical, scientific, provenance and publication-source checks pass:
+runs/21_ema_cloud_trend_follow_opportunity/<new-unique-run-id>/
+
+Never overwrite Stage 1 or a diagnostic attempt. Preserve failures and their disposition.
+
+Update study documentation and local navigation after verified completion. Keep Stage 1 explicitly linked; do not select a reference run merely by recency.
+
+10. FINAL DELIVERY
+
+Return:
+- Stage 2 findings with effect sizes, uncertainty and qualifications.
+- Exact Stage 1 baseline and new Stage 2 run IDs.
+- Slow-parity result and verification scope.
+- Fast/slow accepted/completed/censored counts.
+- Geometry, union and episode comparison results.
+- Links to reports, figures, tables and private Narada-ready source.
+- Check outcomes, limitations and any essential blockers.
+- A Stage 3 handoff identifying fixed baselines, reusable inputs and still-reserved outcome periods.
+
+Stage 2 is complete only when its authorized execution, independent verification, report preparation and evidence sealing are complete. Do not claim completion from passing tests alone.

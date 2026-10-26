@@ -1,0 +1,79 @@
+study_id: 14_asia_session_vp_levels
+protocol_version: 1.0.0
+protocol_status: frozen_before_outcomes
+authorized_scope: implementation_and_execution
+primary_execution_gate: passed_setup_1_answer_and_protocol_freeze
+product: NQ
+bar_interval: 1m
+timezone: America/New_York
+entry_window:
+  start_inclusive: "20:00"
+  end_exclusive: "00:00"
+overnight_profile_start: "18:00"
+primary_price_frame: unadjusted_selected_contract
+primary_snapshot: before_signal_candle
+entry_model: next_contiguous_1m_unadjusted_open
+primary_horizon_minutes: 30
+secondary_horizon_minutes: [5, 15, 60, 120]
+fixed_horizons_must_end_by_midnight: true
+separate_midnight_variable_horizon: true
+setup_1:
+  interpretation_status: user_confirmed_2026-09-29
+  primary: poc_entry_fade_of_return_leg
+  upper_excursion_entry: buy_long_at_next_open_after_poc_touch
+  lower_excursion_entry: sell_short_at_next_open_after_poc_touch
+  reentry_targeting_poc: outside_this_execution
+setup_2: developing_value_area_breakout_retest_continuation
+setup_3: preselected_composite_hvn_first_touch_fade
+breakout_buffer_ticks: 1
+touch_tolerance_ticks: 1
+breakout_to_trigger_expiry_minutes: 60
+primary_signal_lockout_minutes: 15
+secondary_signal_lockout_minutes: [0, 30]
+near_entry_sensitivity_points: 2
+vp:
+  row_ticks: 16
+  value_area_percent: 70
+hvn:
+  completed_sessions: 10
+  include_developing_session: true
+  row_ticks: 4
+  smoothing_requested_rows: 3
+  minimum_peak_percent_of_maximum: 20
+  peak_neighborhood_rows_each_side: 5
+  minimum_prominence_percent_of_peak: 10
+  zone_width_percent_of_prominence: 60
+  maximum_zone_ticks: 8
+  merge_gap_ticks: 8
+  reference_clearance_ticks: 8
+  zone_clearance_ticks: 8
+  rebuild_elapsed_minutes: 15
+  historical_seed: first_complete_futures_minute_close
+  maximum_selected_above: 2
+  maximum_selected_below: 2
+  enabled_references: [pdh_pdl, current_week, previous_week, previous_rth, overnight, developing_rth_when_displayed]
+splits:
+  historical_context_years: [2010, 2019]
+  development_years: [2020, 2023]
+  validation_years: [2024, 2025]
+  final_chronological_check_years: [2026, 2026]
+  final_year_is_ytd: true
+normalization: mean_true_range_prior_60_complete_minutes
+primary_threshold_race:
+  favorable_true_range_units: 1
+  adverse_true_range_units: 1
+secondary_threshold_points: [2, 4, 8, 12, 20]
+illustrative_round_trip_cost_ticks: [0, 1, 2, 4]
+commission_assumption: not_selected_no_net_claim
+controls: matched_causal_context_same_side_year_hour_and_development_volatility_quintile
+bootstrap:
+  moving_block_iso_weeks: 2
+  sensitivity_block_iso_weeks: 4
+  replicates: 2000
+  seed: 1414
+subgroup_interpretation_minimums:
+  events: 50
+  sessions: 30
+  weeks: 12
+execution_authorized: true
+publication_authorized: false

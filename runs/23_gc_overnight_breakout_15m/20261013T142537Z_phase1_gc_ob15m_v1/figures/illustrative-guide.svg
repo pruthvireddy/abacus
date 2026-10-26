@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="760" viewBox="0 0 1400 760">
+<rect width="100%" height="100%" fill="#fff"/>
+<text x="40.00" y="40.00" font-family="Arial,sans-serif" font-size="24" fill="#28323b" text-anchor="start" font-weight="bold">How the Phase 1 breakout is simulated</text>
+<text x="40.00" y="68.00" font-family="Arial,sans-serif" font-size="14" fill="#545963" text-anchor="start" font-weight="normal">Illustrative authored geometry, not observed market data; broker clock is fixed UTC+3</text>
+<text x="75.00" y="120.00" font-family="Arial,sans-serif" font-size="17" fill="#28323b" text-anchor="start" font-weight="bold">Long: survives, resets, then timed exit</text>
+<rect x="75.00" y="299.39" width="300.00" height="165.85" fill="#ece7f8" stroke="#6952a3"/>
+<line x1="75.00" y1="299.39" x2="675.00" y2="299.39" stroke="#6952a3" stroke-width="1"/>
+<text x="83.00" y="291.39" font-family="Arial,sans-serif" font-size="12" fill="#6952a3" text-anchor="start" font-weight="normal">Range high</text>
+<line x1="75.00" y1="382.32" x2="675.00" y2="382.32" stroke="#6952a3" stroke-width="1" stroke-dasharray="3 4"/>
+<text x="83.00" y="374.32" font-family="Arial,sans-serif" font-size="12" fill="#6952a3" text-anchor="start" font-weight="normal">Midpoint: visual only</text>
+<line x1="75.00" y1="465.24" x2="675.00" y2="465.24" stroke="#6952a3" stroke-width="1"/>
+<text x="83.00" y="457.24" font-family="Arial,sans-serif" font-size="12" fill="#6952a3" text-anchor="start" font-weight="normal">Range low</text>
+<line x1="375.00" y1="175.00" x2="375.00" y2="515.00" stroke="#444b55" stroke-width="1" stroke-dasharray="5 4"/>
+<text x="375.00" y="545.00" font-family="Arial,sans-serif" font-size="13" fill="#28323b" text-anchor="middle" font-weight="bold">07:00</text>
+<polyline points="75.00,386.46 167.31,311.83 259.62,452.80 351.92,324.27 375.00,324.27" fill="none" stroke="#246b61" stroke-width="2.3"/>
+<line x1="375.00" y1="324.27" x2="398.08" y2="282.80" stroke="#777d86" stroke-width="1" stroke-dasharray="2 5"/>
+<text x="408.08" y="264.80" font-family="Arial,sans-serif" font-size="12" fill="#246b61" text-anchor="start" font-weight="normal">Opening-gap fill</text>
+<polygon points="398.08,282.80 392.08,292.80 404.08,292.80" fill="#246b61"/>
+<line x1="375.00" y1="341.68" x2="444.23" y2="341.68" stroke="#aa6040" stroke-width="2" stroke-dasharray="8 4"/>
+<line x1="444.23" y1="325.10" x2="675.00" y2="325.10" stroke="#aa6040" stroke-width="2" stroke-dasharray="2 3"/>
+<text x="490.38" y="315.10" font-family="Arial,sans-serif" font-size="12" fill="#aa6040" text-anchor="start" font-weight="normal">Delayed reset: 1013.8</text>
+<text x="370.00" y="363.68" font-family="Arial,sans-serif" font-size="12" fill="#aa6040" text-anchor="end" font-weight="normal">Initial: 1009.8</text>
+<circle cx="675.00" cy="216.46" r="5" fill="#444b55"/>
+<text x="667.00" y="196.46" font-family="Arial,sans-serif" font-size="12" fill="#28323b" text-anchor="end" font-weight="normal">Timed exit</text>
+<text x="75.00" y="590.00" font-family="Arial,sans-serif" font-size="14" fill="#28323b" text-anchor="start" font-weight="normal">Only a surviving 07:00–07:15 candle resets the stop.</text>
+<text x="75.00" y="615.00" font-family="Arial,sans-serif" font-size="13" fill="#28323b" text-anchor="start" font-weight="normal">19:45 candle close queues market exit; normal fill at 20:00 open.</text>
+<polyline points="398.08,282.80 444.23,257.93 490.38,278.66 536.54,224.76 628.85,249.63 675.00,216.46" fill="none" stroke="#246b61" stroke-width="2.3"/>
+<text x="75.00" y="550.00" font-family="Arial,sans-serif" font-size="12" fill="#28323b" text-anchor="start" font-weight="normal">00:00</text>
+<text x="675.00" y="550.00" font-family="Arial,sans-serif" font-size="12" fill="#28323b" text-anchor="end" font-weight="normal">20:00</text>
+<text x="75.00" y="650.00" font-family="Arial,sans-serif" font-size="13" fill="#28323b" text-anchor="start" font-weight="normal">07:00: range available and standing stop orders become active.</text>
+<text x="75.00" y="675.00" font-family="Arial,sans-serif" font-size="13" fill="#28323b" text-anchor="start" font-weight="normal">07:15: indicator marker known; it cannot confer an earlier live fill.</text>
+<text x="755.00" y="120.00" font-family="Arial,sans-serif" font-size="17" fill="#28323b" text-anchor="start" font-weight="bold">Short: entry-candle stop precedes any reset</text>
+<rect x="755.00" y="299.39" width="300.00" height="165.85" fill="#ece7f8" stroke="#6952a3"/>
+<line x1="755.00" y1="299.39" x2="1355.00" y2="299.39" stroke="#6952a3" stroke-width="1"/>
+<text x="763.00" y="291.39" font-family="Arial,sans-serif" font-size="12" fill="#6952a3" text-anchor="start" font-weight="normal">Range high</text>
+<line x1="755.00" y1="382.32" x2="1355.00" y2="382.32" stroke="#6952a3" stroke-width="1" stroke-dasharray="3 4"/>
+<text x="763.00" y="374.32" font-family="Arial,sans-serif" font-size="12" fill="#6952a3" text-anchor="start" font-weight="normal">Midpoint: visual only</text>
+<line x1="755.00" y1="465.24" x2="1355.00" y2="465.24" stroke="#6952a3" stroke-width="1"/>
+<text x="763.00" y="457.24" font-family="Arial,sans-serif" font-size="12" fill="#6952a3" text-anchor="start" font-weight="normal">Range low</text>
+<line x1="1055.00" y1="175.00" x2="1055.00" y2="515.00" stroke="#444b55" stroke-width="1" stroke-dasharray="5 4"/>
+<text x="1055.00" y="545.00" font-family="Arial,sans-serif" font-size="13" fill="#28323b" text-anchor="middle" font-weight="bold">07:00</text>
+<line x1="1055.00" y1="424.61" x2="1124.23" y2="424.61" stroke="#aa6040" stroke-width="2" stroke-dasharray="8 4"/>
+<polygon points="1078.08,465.24 1072.08,455.24 1084.08,455.24" fill="#246b61"/>
+<text x="1070.08" y="495.24" font-family="Arial,sans-serif" font-size="12" fill="#246b61" text-anchor="end" font-weight="normal">Boundary-touch fill</text>
+<circle cx="1115.00" cy="424.61" r="5" fill="#aa6040"/>
+<text x="1128.23" y="429.61" font-family="Arial,sans-serif" font-size="12" fill="#aa6040" text-anchor="start" font-weight="normal">Initial stop exit: 989.8</text>
+<text x="755.00" y="590.00" font-family="Arial,sans-serif" font-size="14" fill="#28323b" text-anchor="start" font-weight="normal">An entry-candle loss cannot be rescued by a later reset.</text>
+<text x="755.00" y="615.00" font-family="Arial,sans-serif" font-size="13" fill="#28323b" text-anchor="start" font-weight="normal">First fill cancels the other order; this broker day is consumed.</text>
+<polyline points="755.00,386.46 847.31,311.83 939.62,452.80 1031.92,374.02 1055.00,374.02 1078.08,465.24 1091.92,490.12 1115.00,424.61" fill="none" stroke="#246b61" stroke-width="2.3"/>
+<text x="755.00" y="550.00" font-family="Arial,sans-serif" font-size="12" fill="#28323b" text-anchor="start" font-weight="normal">00:00</text>
+<text x="1355.00" y="550.00" font-family="Arial,sans-serif" font-size="12" fill="#28323b" text-anchor="end" font-weight="normal">20:00</text>
+<text x="755.00" y="650.00" font-family="Arial,sans-serif" font-size="13" fill="#28323b" text-anchor="start" font-weight="normal">07:00: range available and standing stop orders become active.</text>
+<text x="755.00" y="675.00" font-family="Arial,sans-serif" font-size="13" fill="#28323b" text-anchor="start" font-weight="normal">07:15: indicator marker known; it cannot confer an earlier live fill.</text>
+<text x="40.00" y="725.00" font-family="Arial,sans-serif" font-size="14" fill="#28323b" text-anchor="start" font-weight="normal">Authored price units. Dashed brown = initial stop; dotted brown = reset. Gray dots = explicit opening gap. Midpoint never traded.</text>
+</svg>

@@ -1,0 +1,29 @@
+{
+  "selector_version": "study21.supplemental-prefix/v2",
+  "products": [
+    "ES",
+    "GC",
+    "NQ"
+  ],
+  "interval_minutes": [
+    3,
+    5
+  ],
+  "causal_prefix_start_session": "2017-01-01",
+  "prefix_endpoint_ny": "2018-06-30T00:00:00-04:00",
+  "selected_signal_year_ny": 2018,
+  "accepted_events_per_cell": 5,
+  "selection_order": [
+    "signal_open_timestamp_ascending",
+    "event_id_ascending"
+  ],
+  "selection_uses_outcomes": false,
+  "horizons": "unchanged frozen config.json horizons_3m/horizons_5m",
+  "reason": "Prior five-per-cell attempt stopped because GC5 had fewer than five accepted development events in the same frozen prefix. This support-qualified successor preserves that failed attempt and uses every available event up to five, without outcome-conditioned selection.",
+  "parameter_changes": false,
+  "scientific_method_changes": false,
+  "reserved_outcomes_authorized": false,
+  "optional_2010_2017_outcomes_authorized": false,
+  "minimum_accepted_events_per_cell": 1,
+  "selection_count_rule": "first min(5, available) chronological accepted 2018 events per cell; at least one required"
+}

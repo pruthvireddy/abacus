@@ -1,0 +1,60 @@
+{
+  "schema_version": 1,
+  "requested": {
+    "profiles": [
+      "tooling"
+    ],
+    "checks": []
+  },
+  "selection": [
+    "workspace-utilities"
+  ],
+  "checks": [
+    {
+      "id": "workspace-utilities",
+      "owner": "workspace",
+      "kind": "unittest",
+      "argv": [
+        "/Library/Developer/CommandLineTools/usr/bin/python3",
+        "-B",
+        "/Users/ppanati/Documents/projects/abacus/scripts/unittest_child.py",
+        "--spec",
+        "{\"optimize\": false, \"pattern\": \"test*.py\", \"start_dir\": \"/Users/ppanati/Documents/projects/abacus/scripts/tests\"}",
+        "--result",
+        "/var/folders/8m/7y_qdqcn1fn6gkf6ggc_39bc0000gn/T/abacus-check-7eu_mz8g/unittest-result.json"
+      ],
+      "cwd": "/Users/ppanati/Documents/projects/abacus",
+      "scope": [
+        "Temporary miniature repositories and injected execution; never recursively run the real workspace suites."
+      ],
+      "environment_overrides": {},
+      "prerequisites": [],
+      "outcome": "passed",
+      "exit_code": 0,
+      "duration_seconds": 11.539401,
+      "missing_prerequisites": [],
+      "unittest": {
+        "counts": {
+          "discovered": 189,
+          "errors": 0,
+          "expected_failures": 0,
+          "failures": 0,
+          "skipped": 0,
+          "tests_run": 189,
+          "unexpected_successes": 0
+        },
+        "outcome": "passed",
+        "schema_version": 1,
+        "skips": [],
+        "successful_callbacks": 407
+      }
+    }
+  ],
+  "outcome": "passed",
+  "exit_code": 0,
+  "limitations": [
+    "Only selected checks were executed.",
+    "Unittest counts come from the child TestResult; command checks have no test counts.",
+    "Configured-input diagnostics do not verify every partition or reproduce research."
+  ]
+}

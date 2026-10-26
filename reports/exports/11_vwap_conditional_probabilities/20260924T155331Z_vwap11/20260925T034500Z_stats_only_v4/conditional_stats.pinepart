@@ -1,0 +1,434 @@
+
+// === Stats-only presentation of sealed VWAP study 11 ===
+// Source: run 20260924T155331Z_vwap11, protocol 1.0.0. No learning occurs on-chart.
+// Forecasts use completed 2m bars. VWAPs are calculated internally, not plotted.
+g_study = "VWAP Research / Conditional Statistics"
+studyOn = input.bool(true, "Show conditional panel", group=g_study)
+studyAllowContinuous = input.bool(false, "Allow continuous futures as unverified proxy", group=g_study,
+     tooltip="Default off: continuous futures can change contract and historical adjustment coordinates. If enabled, rates and target states are illustrative only; avoid roll periods.")
+studyReference = input.string("Active session", "Departure reference", options=["Active session", "Globex day"], group=g_study,
+     tooltip="Question A/B can use the active Asia/London/NY VWAP or Globex day VWAP. Historical lookup cells pool anchors; the selected anchor is shown separately.")
+
+// @STUDY_LOOKUP@
+
+f_study_field(string key, int field) =>
+    array<string> parts = str.split(f_study_lookup(key), "¦")
+    array.size(parts) > field ? array.get(parts, field) : "—"
+
+f_in_session(string sess, string timezone) =>
+    not na(time(timeframe.period, sess, timezone))
+
+f_study_round(float price) =>
+    math.floor(price / syminfo.mintick + 0.5) * syminfo.mintick
+
+f_study_vwap(bool active, bool reset) =>
+    var float totalVol = 0.0
+    var float mean = na
+    var float m2 = 0.0
+    float px = hlc3
+    if reset
+        totalVol := 0.0
+        mean := na
+        m2 := 0.0
+    if active and volume > 0
+        if totalVol == 0
+            totalVol := volume
+            mean := px
+        else
+            float nextVol = totalVol + volume
+            float delta = px - mean
+            float nextMean = mean + volume / nextVol * delta
+            m2 += volume * delta * (px - nextMean)
+            totalVol := nextVol
+            mean := nextMean
+    float vwap = active and totalVol > 0 ? mean : na
+    float sigma = active and totalVol > 0 ? math.sqrt(math.max(0.0, m2 / totalVol)) : na
+    [vwap, sigma]
+
+f_study_bin(float x, float b1, float b2, float b3) =>
+    x < b1 ? 0 : x < b2 ? 1 : x < b3 ? 2 : 3
+
+f_study_elapsed_bin(float mins) =>
+    mins < 20 ? 0 : mins < 40 ? 1 : mins < 60 ? 2 : mins < 120 ? 3 : mins < 240 ? 4 : 5
+
+f_study_geometry_bin(float share) =>
+    share < 0.25 ? 0 : share < 0.4 ? 1 : share < 0.6 ? 2 : share < 0.75 ? 3 : 4
+
+f_study_clock_remaining(int clockMinute, string anchor) =>
+    anchor == "globex" ? (clockMinute >= 1080 ? 2460 - clockMinute : 1020 - clockMinute) :
+     anchor == "asia" ? (clockMinute >= 1200 ? 1620 - clockMinute : 180 - clockMinute) :
+     anchor == "london" ? 540 - clockMinute : 960 - clockMinute
+
+string studyTz = "America/New_York"
+bool studyDayIn = f_in_session("1800-1700", studyTz)
+bool studyAsiaIn = f_in_session("2000-0300", studyTz)
+bool studyLondonIn = f_in_session("0300-0900", studyTz)
+bool studyNyIn = f_in_session("0930-1600", studyTz)
+bool studyDayReset = studyDayIn and hour(time, studyTz) == 18 and minute(time, studyTz) == 0
+bool studyAsiaReset = studyAsiaIn and hour(time, studyTz) == 20 and minute(time, studyTz) == 0
+bool studyLondonReset = studyLondonIn and hour(time, studyTz) == 3 and minute(time, studyTz) == 0
+bool studyNyReset = studyNyIn and hour(time, studyTz) == 9 and minute(time, studyTz) == 30
+
+var int studyDayStart = na
+var int studyAsiaStart = na
+var int studyLondonStart = na
+var int studyNyStart = na
+if studyDayReset
+    studyDayStart := time
+    studyAsiaStart := na
+    studyLondonStart := na
+    studyNyStart := na
+if studyAsiaReset
+    studyAsiaStart := time
+if studyLondonReset
+    studyLondonStart := time
+if studyNyReset
+    studyNyStart := time
+
+// The local anchors keep accumulating until 17:00, as in the pinned release.
+// They are only eligible for forecasts in their published membership windows.
+bool studyAsiaLife = studyDayIn and not na(studyAsiaStart)
+bool studyLondonLife = studyDayIn and not na(studyLondonStart)
+bool studyNyLife = studyDayIn and not na(studyNyStart)
+[studyDayVwap, studyDaySigma] = f_study_vwap(studyDayIn, studyDayReset)
+[studyAsiaVwap, studyAsiaSigma] = f_study_vwap(studyAsiaLife, studyAsiaReset)
+[studyLondonVwap, studyLondonSigma] = f_study_vwap(studyLondonLife, studyLondonReset)
+[studyNyVwap, studyNySigma] = f_study_vwap(studyNyLife, studyNyReset)
+// Pine requires a script output. This series is never visible or added to the
+// chart scale; the only visible output of this indicator is the table below.
+plot(studyDayVwap, "Internal day VWAP (hidden)", display=display.none)
+
+string studyLocal = studyAsiaIn ? "asia" : studyLondonIn ? "london" : studyNyIn ? "ny" : ""
+float studyLocalVwap = studyAsiaIn ? studyAsiaVwap : studyLondonIn ? studyLondonVwap : studyNyIn ? studyNyVwap : na
+float studyLocalSigma = studyAsiaIn ? studyAsiaSigma : studyLondonIn ? studyLondonSigma : studyNyIn ? studyNySigma : na
+int studyLocalStart = studyAsiaIn ? studyAsiaStart : studyLondonIn ? studyLondonStart : studyNyIn ? studyNyStart : na
+float studyDayAge = not na(studyDayStart) ? (time_close - studyDayStart) / 60000.0 : na
+float studyLocalAge = not na(studyLocalStart) ? (time_close - studyLocalStart) / 60000.0 : na
+
+string studyProduct = syminfo.root
+bool studyProductOk = studyProduct == "ES" or studyProduct == "NQ" or studyProduct == "GC"
+bool studyTickOk = studyProduct == "GC" ? math.abs(syminfo.mintick - 0.1) < 0.000001 :
+     math.abs(syminfo.mintick - 0.25) < 0.000001
+bool studyContinuous = str.contains(syminfo.ticker, "!")
+bool studyDateOk = studyProduct == "GC" ? time >= timestamp(studyTz, 2016, 2, 10, 18, 0) :
+     time >= timestamp(studyTz, 2021, 6, 27, 18, 0)
+bool studyChartOk = timeframe.isminutes and timeframe.multiplier == 2 and syminfo.type == "futures" and
+     studyProductOk and studyTickOk and studyDateOk and (not studyContinuous or studyAllowContinuous) and
+     time_close - time == 120000 and minute(time, studyTz) % 2 == 0
+int studyClock = hour(time_close, studyTz) * 60 + minute(time_close, studyTz)
+bool studyContiguous = not na(time_close[1]) and time == time_close[1]
+var bool studyHistoryComplete = false
+if studyDayReset
+    studyHistoryComplete := true
+else if studyDayIn and (not studyDayIn[1] or not studyContiguous)
+    studyHistoryComplete := false
+
+string studyABAnchor = studyReference == "Globex day" ? "globex" : studyLocal
+float studyABVwap = studyReference == "Globex day" ? studyDayVwap : studyLocalVwap
+float studyABSigma = studyReference == "Globex day" ? studyDaySigma : studyLocalSigma
+float studyABAge = studyReference == "Globex day" ? studyDayAge : studyLocalAge
+bool studyABMember = studyReference == "Globex day" ? studyDayIn : studyLocal != ""
+int studyABRemaining = f_study_clock_remaining(studyClock, studyABAnchor)
+bool studyABValid = studyOn and studyChartOk and studyHistoryComplete and studyABMember and studyABAge >= 30 and
+     not na(studyABVwap) and not na(studyABSigma) and studyABSigma > 0
+bool studyCValid = studyOn and studyChartOk and studyHistoryComplete and studyLocal != "" and studyDayAge >= 30 and
+     studyLocalAge >= 30 and not na(studyDayVwap) and not na(studyLocalVwap) and
+     studyDaySigma > 0 and studyLocalSigma > 0
+
+// One-minute OHLC is used only after a completed forecast bar. A missing
+// minute is UNAVAILABLE, never a price-path failure. Earlier chart history may
+// lack intrabars because TradingView limits lower-timeframe retrieval.
+[studyMinuteTs, studyMinuteOpen, studyMinuteHigh, studyMinuteLow] =
+     request.security_lower_tf(syminfo.tickerid, "1", [time, open, high, low])
+bool studyMinuteComplete = array.size(studyMinuteTs) == 2 and
+     array.size(studyMinuteOpen) == 2 and array.size(studyMinuteHigh) == 2 and
+     array.size(studyMinuteLow) == 2
+if studyMinuteComplete
+    studyMinuteComplete := array.get(studyMinuteTs, 0) == time and
+         array.get(studyMinuteTs, 1) == time + 60000
+if studyChartOk and studyDayIn and barstate.isconfirmed and not studyMinuteComplete
+    studyHistoryComplete := false
+
+// Question A/B: one fresh departure episode, regular 10-minute checkpoints.
+// The panel displays the latest checkpoint; the plotted series does not revise
+// older bar values when a newer checkpoint supersedes it.
+var bool studyArmed = false
+var bool studyEpisode = false
+var int studyEpisodeSide = 0
+var int studyDepartureAt = na
+var string studyEpisodeAnchor = ""
+var int studyABAt = na
+var int studyABDeadline = na
+var float studyABReturn = na
+var float studyABExtension = na
+var int studyABSide = 0
+var float studyABDistanceSigma = na
+var float studyABReturnTicks = na
+var int studyABExtensionTicks = na
+var int studyABElapsedMinutes = na
+var float studyABAnchorAge = na
+var string studyAKey = ""
+var string studyBKey = ""
+var string studyAState = "WAITING"
+var string studyBState = "WAITING"
+var bool studyABGap = false
+
+// Question C: one accepted event per fixed 30-minute lockout. Frozen targets
+// are not moved as either evolving VWAP changes.
+var int studyCLockUntil = na
+var int studyCAt = na
+var int studyCDeadline = na
+var float studyCDayTarget = na
+var float studyCSessionTarget = na
+var string studyCKey = ""
+var string studyCState = "WAITING"
+var string studyCSession = ""
+var float studyCPosition = na
+var float studyCWidthTicks = na
+var bool studyCGap = false
+var int studyCUpdate = 0
+
+if studyOn and studyChartOk and barstate.isconfirmed
+    // Resolve prior forecasts before constructing any new forecast. The signal
+    // bar therefore cannot count as its own future exposure.
+    if not studyContiguous
+        if not na(studyABAt) and time > studyABAt and
+             (studyAState == "ACTIVE" or studyBState == "ACTIVE")
+            studyAState := "UNAVAILABLE"
+            studyBState := "UNAVAILABLE"
+        if not na(studyCAt) and time > studyCAt and studyCState == "ACTIVE"
+            studyCState := "UNAVAILABLE"
+    bool abOpen = not na(studyABDeadline) and time < studyABDeadline and
+         (studyAState == "ACTIVE" or studyBState == "ACTIVE")
+    bool cOpen = not na(studyCDeadline) and time < studyCDeadline and studyCState == "ACTIVE"
+    if abOpen or cOpen
+        if not studyContiguous or not studyMinuteComplete
+            if abOpen
+                studyAState := "UNAVAILABLE"
+                studyBState := "UNAVAILABLE"
+            if cOpen
+                studyCState := "UNAVAILABLE"
+        else
+            for j = 0 to 1
+                float mo = array.get(studyMinuteOpen, j)
+                float mh = array.get(studyMinuteHigh, j)
+                float ml = array.get(studyMinuteLow, j)
+                if abOpen
+                    float returnLow = studyABReturn - syminfo.mintick
+                    float returnHigh = studyABReturn + syminfo.mintick
+                    bool exactContact = ml <= returnHigh and mh >= returnLow
+                    if studyAState == "ACTIVE" and exactContact
+                        studyAState := "REACHED"
+                    if studyBState == "ACTIVE"
+                        bool returnAtOpen = studyABSide > 0 ? mo <= returnHigh : mo >= returnLow
+                        bool extensionAtOpen = studyABSide > 0 ? mo >= studyABExtension : mo <= studyABExtension
+                        bool returnInMinute = studyABSide > 0 ? ml <= returnHigh : mh >= returnLow
+                        bool extensionInMinute = studyABSide > 0 ? mh >= studyABExtension : ml <= studyABExtension
+                        if returnAtOpen and extensionAtOpen
+                            studyBState := "AMBIGUOUS"
+                            studyABGap := true
+                        else if returnAtOpen
+                            studyBState := "RETURN FIRST"
+                            studyABGap := studyABSide > 0 ? mo < returnLow : mo > returnHigh
+                        else if extensionAtOpen
+                            studyBState := "EXTENSION FIRST"
+                            studyABGap := true
+                        else if returnInMinute and extensionInMinute
+                            studyBState := "AMBIGUOUS"
+                        else if returnInMinute
+                            studyBState := "RETURN FIRST"
+                        else if extensionInMinute
+                            studyBState := "EXTENSION FIRST"
+                if cOpen and studyCState == "ACTIVE"
+                    bool dayBelow = studyCDayTarget < studyCSessionTarget
+                    float lowerCenter = dayBelow ? studyCDayTarget : studyCSessionTarget
+                    float upperCenter = dayBelow ? studyCSessionTarget : studyCDayTarget
+                    bool lowerAtOpen = mo <= lowerCenter + syminfo.mintick
+                    bool upperAtOpen = mo >= upperCenter - syminfo.mintick
+                    bool lowerInMinute = ml <= lowerCenter + syminfo.mintick
+                    bool upperInMinute = mh >= upperCenter - syminfo.mintick
+                    if lowerAtOpen and upperAtOpen
+                        studyCState := "AMBIGUOUS"
+                        studyCGap := true
+                    else if lowerAtOpen
+                        studyCState := dayBelow ? "DAY FIRST" : "SESSION FIRST"
+                        studyCGap := mo < lowerCenter - syminfo.mintick
+                    else if upperAtOpen
+                        studyCState := dayBelow ? "SESSION FIRST" : "DAY FIRST"
+                        studyCGap := mo > upperCenter + syminfo.mintick
+                    else if lowerInMinute and upperInMinute
+                        studyCState := "AMBIGUOUS"
+                    else if lowerInMinute
+                        studyCState := dayBelow ? "DAY FIRST" : "SESSION FIRST"
+                    else if upperInMinute
+                        studyCState := dayBelow ? "SESSION FIRST" : "DAY FIRST"
+    if not na(studyABDeadline) and time_close >= studyABDeadline
+        if studyAState == "ACTIVE"
+            studyAState := "EXPIRED"
+        if studyBState == "ACTIVE"
+            studyBState := "NEITHER"
+    if not na(studyCDeadline) and time_close >= studyCDeadline and studyCState == "ACTIVE"
+        studyCState := "NEITHER"
+
+    // The update is a distinct, still-unresolved cohort and keeps the original
+    // C event deadline. No 10/20m rate is shown after a resolved race.
+    if studyCState == "ACTIVE" and not na(studyCAt)
+        int ageMinutes = int((time_close - studyCAt) / 60000)
+        int updateAge = ageMinutes >= 20 ? 20 : ageMinutes >= 10 ? 10 : 0
+        if updateAge > studyCUpdate
+            float frozenWidth = math.abs(studyCDayTarget - studyCSessionTarget)
+            float updatedPosition = frozenWidth > 0 ? math.abs(close - studyCDayTarget) / frozenWidth : na
+            if not na(updatedPosition) and updatedPosition >= 0 and updatedPosition < 1.000001
+                int positionBin = f_study_bin(updatedPosition, 0.25, 0.5, 0.75)
+                studyCKey := "U" + str.tostring(updateAge) + "|" + studyProduct + "|" + str.tostring(positionBin)
+            else
+                studyCKey := ""
+            studyCUpdate := updateAge
+
+    bool episodeTerminated = false
+    int currentSide = studyABValid ? (close > studyABVwap ? 1 : close < studyABVwap ? -1 : 0) : 0
+    bool beyond = studyABValid and currentSide != 0 and
+         math.abs(close - studyABVwap) >= math.max(studyABSigma, 4 * syminfo.mintick)
+    if not studyABValid or (studyEpisode and (studyEpisodeAnchor != studyABAnchor or not studyContiguous))
+        studyEpisode := false
+        studyArmed := false
+        episodeTerminated := true
+    else if studyEpisode
+        float previousCenter = f_study_round(studyABVwap[1])
+        float previousLow = previousCenter - syminfo.mintick
+        float previousHigh = previousCenter + syminfo.mintick
+        bool causalTouch = low <= previousHigh and high >= previousLow
+        bool causalGap = studyEpisodeSide > 0 ? open < previousLow and high < previousLow :
+             open > previousHigh and low > previousHigh
+        if causalTouch or causalGap or currentSide != studyEpisodeSide
+            studyEpisode := false
+            studyArmed := not beyond
+            episodeTerminated := true
+
+    if studyEpisode and studyMinuteComplete and studyClock % 10 == 0 and
+         time_close > studyDepartureAt and studyABRemaining >= 30
+        float returnCenter = f_study_round(studyABVwap)
+        float returnDistance = studyEpisodeSide > 0 ? close - returnCenter - syminfo.mintick :
+             returnCenter - syminfo.mintick - close
+        if returnDistance > 0
+            int extensionTicks = math.max(1, int(math.ceil(0.5 * studyABSigma / syminfo.mintick - 0.0000000001)))
+            float extensionDistance = extensionTicks * syminfo.mintick
+            int distanceBin = f_study_bin(math.abs(close - studyABVwap) / studyABSigma, 0.75, 1.25, 2.0)
+            int elapsedBin = f_study_elapsed_bin((time_close - studyDepartureAt) / 60000.0)
+            int geometryBin = f_study_geometry_bin(returnDistance / (returnDistance + extensionDistance))
+            studyAKey := "A|" + studyProduct + "|" + str.tostring(distanceBin) + "|" + str.tostring(elapsedBin)
+            studyBKey := "B|" + studyProduct + "|" + str.tostring(geometryBin)
+            studyABAt := time_close
+            studyABDeadline := time_close + 30 * 60000
+            studyABReturn := returnCenter
+            studyABExtension := close + studyEpisodeSide * extensionDistance
+            studyABSide := studyEpisodeSide
+            studyABDistanceSigma := math.abs(close - studyABVwap) / studyABSigma
+            studyABReturnTicks := returnDistance / syminfo.mintick
+            studyABExtensionTicks := extensionTicks
+            studyABElapsedMinutes := int((time_close - studyDepartureAt) / 60000)
+            studyABAnchorAge := studyABAge
+            studyAState := "ACTIVE"
+            studyBState := "ACTIVE"
+            studyABGap := false
+    if not studyEpisode and not episodeTerminated
+        if beyond and studyArmed
+            studyEpisode := true
+            studyArmed := false
+            studyEpisodeSide := currentSide
+            studyDepartureAt := time_close
+            studyEpisodeAnchor := studyABAnchor
+        else if not beyond
+            studyArmed := true
+
+    bool localContinuity = studyContiguous and studyLocal != "" and studyLocal == studyLocal[1]
+    bool crossDown = localContinuity and close < studyLocalVwap and close[1] >= studyLocalVwap[1]
+    bool crossUp = localContinuity and close > studyLocalVwap and close[1] <= studyLocalVwap[1]
+    if studyCValid and studyMinuteComplete and f_study_clock_remaining(studyClock, studyLocal) >= 30 and
+         (na(studyCLockUntil) or time_close >= studyCLockUntil) and (crossDown or crossUp)
+        float dayCenter = f_study_round(studyDayVwap)
+        float sessionCenter = f_study_round(studyLocalVwap)
+        bool downCorridor = dayCenter < sessionCenter and crossDown and
+             close < sessionCenter - syminfo.mintick and close > dayCenter + syminfo.mintick
+        bool upCorridor = dayCenter > sessionCenter and crossUp and
+             close > sessionCenter + syminfo.mintick and close < dayCenter - syminfo.mintick
+        float width = math.abs(dayCenter - sessionCenter)
+        if (downCorridor or upCorridor) and width >= 8 * syminfo.mintick and width >= 0.25 * studyDaySigma
+            float positionFromDay = math.abs(close - dayCenter) / width
+            int positionBin = f_study_bin(positionFromDay, 0.25, 0.5, 0.75)
+            studyCKey := "C|" + studyProduct + "|" + str.tostring(positionBin)
+            studyCAt := time_close
+            studyCDeadline := time_close + 30 * 60000
+            studyCLockUntil := studyCDeadline
+            studyCDayTarget := dayCenter
+            studyCSessionTarget := sessionCenter
+            studyCSession := studyLocal
+            studyCPosition := positionFromDay
+            studyCWidthTicks := width / syminfo.mintick
+            studyCState := "ACTIVE"
+            studyCGap := false
+            studyCUpdate := 0
+
+var table studyPanel = table.new(position.top_right, 4, 8, bgcolor=color.new(color.black, 15),
+     frame_color=color.new(color.gray, 40), frame_width=1)
+if barstate.islast and studyOn
+    string gate = not studyChartOk ? "UNAVAILABLE · check symbol / 2m / sample era" :
+         studyContinuous ? "CONTINUOUS PROXY · ROLL UNVERIFIED" : "2m raw contract · chart feed proxy"
+    string researchCaveat = " Exploratory raw cohort; retrospective complete-day filter. Chart feed can differ. Not a trade win rate."
+    bool abRecent = studyChartOk and not na(studyABDeadline) and time <= studyABDeadline + 10 * 60000
+    bool cRecent = studyChartOk and not na(studyCDeadline) and time <= studyCDeadline + 10 * 60000
+    string aValue = abRecent and studyAKey != "" ? f_study_field(studyAKey, 0) : "—"
+    string aSupport = abRecent and studyAKey != "" ? f_study_field(studyAKey, 1) : "—"
+    string aTip = abRecent and studyAKey != "" ? f_study_field(studyAKey, 2) +
+         " Live chart state at checkpoint: " + str.tostring(studyABDistanceSigma, "#.##") +
+         "σ from VWAP, " + str.tostring(studyABElapsedMinutes) + "m without causal return; anchor age " +
+         str.tostring(studyABAnchorAge, "#") + "m." + researchCaveat : "No recent eligible completed checkpoint."
+    string bValue = abRecent and studyBKey != "" ? f_study_field(studyBKey, 0) : "—"
+    string bSupport = abRecent and studyBKey != "" ? f_study_field(studyBKey, 1) : "—"
+    string bTip = abRecent and studyBKey != "" ? f_study_field(studyBKey, 2) +
+         " Chart barriers: return " + str.tostring(studyABReturnTicks, "#.##") +
+         " ticks to zone edge, extension " + str.tostring(studyABExtensionTicks) + " ticks." + researchCaveat :
+         "No recent eligible completed checkpoint."
+    string cValue = cRecent and studyCKey != "" ? f_study_field(studyCKey, 0) : "—"
+    string cSupport = cRecent and studyCKey != "" ? f_study_field(studyCKey, 1) : "—"
+    string cTip = cRecent and studyCKey != "" ? f_study_field(studyCKey, 2) +
+         " Chart corridor at event: " + str.tostring(studyCWidthTicks, "#.##") +
+         " ticks wide, position from day " + str.tostring(studyCPosition, "#.##") + "." + researchCaveat :
+         cRecent ? "Updated location outside the supported frozen-corridor position bins; no rate shown." :
+         "No recent eligible mature corridor event."
+    string abWhen = not na(studyABAt) ? str.format_time(studyABAt, "MM-dd HH:mm", studyTz) + " → " + str.format_time(studyABDeadline, "HH:mm", studyTz) : "—"
+    string cWhen = not na(studyCAt) ? str.format_time(studyCAt, "MM-dd HH:mm", studyTz) + " → " + str.format_time(studyCDeadline, "HH:mm", studyTz) : "—"
+    color head = color.new(color.rgb(28, 43, 57), 0)
+    color body = color.new(color.rgb(15, 25, 33), 10)
+    table.cell(studyPanel, 0, 0, "VWAP · STUDY 11", text_color=color.white, bgcolor=head, text_size=size.small)
+    table.cell(studyPanel, 1, 0, studyProduct, text_color=color.aqua, bgcolor=head, text_size=size.small)
+    table.cell(studyPanel, 2, 0, "RETROSPECTIVE", text_color=color.orange, bgcolor=head, text_size=size.small)
+    table.cell(studyPanel, 3, 0, "30m", text_color=color.white, bgcolor=head, text_size=size.small)
+    table.cell(studyPanel, 0, 1, "A · frozen return", text_color=color.white, bgcolor=body, tooltip=aTip, text_size=size.small)
+    table.cell(studyPanel, 1, 1, aValue, text_color=color.aqua, bgcolor=body, tooltip=aTip, text_size=size.small)
+    table.cell(studyPanel, 2, 1, aSupport, text_color=color.silver, bgcolor=body, tooltip=aTip, text_size=size.small)
+    table.cell(studyPanel, 3, 1, abRecent ? studyAState : "WAITING", text_color=color.white, bgcolor=body, tooltip=aTip, text_size=size.small)
+    table.cell(studyPanel, 0, 2, "B · return / extend", text_color=color.white, bgcolor=body, tooltip=bTip, text_size=size.small)
+    table.cell(studyPanel, 1, 2, bValue, text_color=color.fuchsia, bgcolor=body, tooltip=bTip, text_size=size.small)
+    table.cell(studyPanel, 2, 2, bSupport, text_color=color.silver, bgcolor=body, tooltip=bTip, text_size=size.small)
+    table.cell(studyPanel, 3, 2, abRecent ? studyBState + (studyABGap ? " · GAP" : "") : "WAITING", text_color=color.white, bgcolor=body, tooltip=bTip, text_size=size.small)
+    table.cell(studyPanel, 0, 3, "C · day / reclaim", text_color=color.white, bgcolor=body, tooltip=cTip, text_size=size.small)
+    table.cell(studyPanel, 1, 3, cValue, text_color=color.yellow, bgcolor=body, tooltip=cTip, text_size=size.small)
+    table.cell(studyPanel, 2, 3, cSupport, text_color=color.silver, bgcolor=body, tooltip=cTip, text_size=size.small)
+    table.cell(studyPanel, 3, 3, cRecent ? studyCState + (studyCGap ? " · GAP" : "") : "WAITING", text_color=color.white, bgcolor=body, tooltip=cTip, text_size=size.small)
+    table.cell(studyPanel, 0, 4, "A/B checkpoint", text_color=color.silver, bgcolor=body, text_size=size.tiny)
+    table.cell(studyPanel, 1, 4, abRecent ? abWhen : "—", text_color=color.white, bgcolor=body, text_size=size.tiny)
+    table.cell(studyPanel, 2, 4, studyABAnchor, text_color=color.silver, bgcolor=body, text_size=size.tiny)
+    table.cell(studyPanel, 3, 4, abRecent ? str.tostring(studyABReturn, format.mintick) + " / " + str.tostring(studyABExtension, format.mintick) : "—", text_color=color.white, bgcolor=body, text_size=size.tiny)
+    table.cell(studyPanel, 0, 5, "C event / update", text_color=color.silver, bgcolor=body, text_size=size.tiny)
+    table.cell(studyPanel, 1, 5, cRecent ? cWhen : "—", text_color=color.white, bgcolor=body, text_size=size.tiny)
+    table.cell(studyPanel, 2, 5, studyCSession + (studyCUpdate > 0 ? " +" + str.tostring(studyCUpdate) + "m" : " event"), text_color=color.silver, bgcolor=body, text_size=size.tiny)
+    table.cell(studyPanel, 3, 5, cRecent ? str.tostring(studyCDayTarget, format.mintick) + " / " + str.tostring(studyCSessionTarget, format.mintick) : "—", text_color=color.white, bgcolor=body, text_size=size.tiny)
+    table.cell(studyPanel, 0, 6, "Geometry", text_color=color.silver, bgcolor=body, tooltip="R/X/D/S/N/? = return / extension / day / session / neither / same-minute ambiguous. Hover each rate for support.", text_size=size.tiny)
+    table.cell(studyPanel, 1, 6, abRecent ? str.tostring(studyABDistanceSigma, "#.##") + "σ · " + str.tostring(studyABElapsedMinutes) + "m" : "—", text_color=color.silver, bgcolor=body, text_size=size.tiny)
+    table.cell(studyPanel, 2, 6, abRecent ? "R " + str.tostring(studyABReturnTicks, "#.##") + "t / X " + str.tostring(studyABExtensionTicks) + "t" : "—", text_color=color.silver, bgcolor=body, text_size=size.tiny)
+    table.cell(studyPanel, 3, 6, cRecent ? "C " + str.tostring(studyCWidthTicks, "#.##") + "t · pos " + str.tostring(studyCPosition, "#.##") : "—", text_color=color.silver, bgcolor=body, text_size=size.tiny)
+    table.cell(studyPanel, 0, 7, gate, text_color=color.orange, bgcolor=head, text_size=size.tiny)
+    table.cell(studyPanel, 1, 7, "through 2026-09-18", text_color=color.orange, bgcolor=head, text_size=size.tiny)
+    table.cell(studyPanel, 2, 7, "No live calibration", text_color=color.orange, bgcolor=head, text_size=size.tiny)
+    table.cell(studyPanel, 3, 7, "Not P&L", text_color=color.orange, bgcolor=head, text_size=size.tiny)

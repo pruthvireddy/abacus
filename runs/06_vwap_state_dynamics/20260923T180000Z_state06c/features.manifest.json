@@ -1,0 +1,90 @@
+{
+  "location": "features/",
+  "format": "Parquet",
+  "retention": "included_in_sealed_run",
+  "row_count": 367719,
+  "partitions": [
+    {
+      "path": "features/landmarks_ES_2m.parquet",
+      "rows": 79849,
+      "bytes": 12232440,
+      "sha256": "51268a4a325907b26739661a3a114e305b3eb24230ff61efe6451ac362eecd04"
+    },
+    {
+      "path": "features/landmarks_ES_5m.parquet",
+      "rows": 45628,
+      "bytes": 7308050,
+      "sha256": "add139271acbfb858237b19bc69c7e4c06f3547f3d4d167022d5c5bf25c7a88a"
+    },
+    {
+      "path": "features/landmarks_GC_2m.parquet",
+      "rows": 63525,
+      "bytes": 9837151,
+      "sha256": "4de273aa80b204b46c72c85e74a11453ad402bf868c8035b36999dfc78193699"
+    },
+    {
+      "path": "features/landmarks_GC_5m.parquet",
+      "rows": 36300,
+      "bytes": 5968253,
+      "sha256": "a0afe1f812565f8574da0735a1903b3e58224d174f673bbb575d1235f1ce9365"
+    },
+    {
+      "path": "features/landmarks_NQ_2m.parquet",
+      "rows": 90629,
+      "bytes": 14120087,
+      "sha256": "7cfb929f976c356ecd6a2d70b05bdb7de089fdfdc14cea60e79fee811a3286d9"
+    },
+    {
+      "path": "features/landmarks_NQ_5m.parquet",
+      "rows": 51788,
+      "bytes": 8536941,
+      "sha256": "40cb31844961f42a09a479402c00dcbcaa3c96e2ffe1197914e91ab4886396c7"
+    }
+  ],
+  "schema": {
+    "event_id": "string",
+    "product": "string",
+    "session_date": "string",
+    "year": "int64",
+    "split": "string",
+    "timeframe": "string",
+    "anchor": "string",
+    "landmark_ts": "timestamp[ns, tz=UTC]",
+    "local_time": "string",
+    "clock_window": "string",
+    "local_halfhour": "int64",
+    "feature_index": "int64",
+    "anchor_age_minutes": "double",
+    "raw_symbol": "string",
+    "instrument_id": "int64",
+    "price_adjustment": "int64",
+    "tick": "double",
+    "side": "int64",
+    "state": "string",
+    "above_count": "int64",
+    "below_count": "int64",
+    "equality_count": "int64",
+    "side_changes": "int64",
+    "longest_run": "int64",
+    "above_fraction": "double",
+    "below_fraction": "double",
+    "close": "double",
+    "vwap": "double",
+    "twap": "double",
+    "sigma": "double",
+    "signed_distance_ticks": "double",
+    "signed_distance_sigma": "double",
+    "price_slope": "double",
+    "vwap_slope": "double",
+    "price_slope_atr": "double",
+    "vwap_slope_atr": "double",
+    "price_slope_sigma": "double",
+    "vwap_slope_sigma": "double",
+    "vwap_acceleration": "double",
+    "prior_atr14": "double",
+    "vwap_minus_twap_ticks": "double",
+    "cumulative_volume": "double",
+    "recent_volume_share": "double",
+    "vwap_identity_error": "double"
+  }
+}

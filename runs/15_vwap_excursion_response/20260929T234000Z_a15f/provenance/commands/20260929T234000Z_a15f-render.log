@@ -1,0 +1,7 @@
+Traceback (most recent call last):
+  File "/Users/ppanati/Documents/projects/abacus/studies/15_vwap_excursion_response/render.py", line 4, in <module>
+    from src.reporting import render
+  File "/Users/ppanati/Documents/projects/abacus/studies/15_vwap_excursion_response/src/reporting.py", line 224
+    doc.para(f'{r.example_class}: {r.horizon_id}; {r.side} side. Signal/confirmation {pd.Timestamp(r.signal_close_time).tz_convert('America/New_York')}; entry {pd.Timestamp(r.entry_time).tz_convert('America/New_York')}; deadline {pd.Timestamp(r.deadline).tz_convert('America/New_York')} (New York time). Frozen sigma {number(r.sigma_signal)} points; signal VWAP {number(r.vwap_signal)}. Band thresholds = VWAP ± 2/2.5/3 × sigma. Exclusion: {r.exclusion_reason if pd.notna(r.exclusion_reason) else "none"}.')
+                                                                                                                                    ^^^^^^^
+SyntaxError: f-string: unmatched '('
