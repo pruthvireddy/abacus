@@ -166,13 +166,41 @@ from anonymous production verification. Consult the current
 
 ## Accepted production release
 
-Current release `20261026T045038Z_308eb567` is live at
+Current release `20261026T173757Z_a949ceeb` is live at
+[abacus-narada.vercel.app](https://abacus-narada.vercel.app), Vercel production
+(READY), from source commit
+`328b8458ba83efa5c11667d5b538b242a3c36387` after
+[source PR #1](https://github.com/pruthvireddy/abacus/pull/1) merged. It publishes
+the user-approved 24 studies and 97 reports, including the formerly local Trader
+Assistant manual and ES opening pivot cloud study, with 154 raster figures and
+237 selected CSVs. Search, shareable authored filters and three curated reading
+paths accompany the report reader. Canonical publication inputs, saved evidence,
+figures and CSVs remain unchanged. This uses the dedicated static project without
+a Git connection. See the
+[public release receipt](20261026T173757Z_a949ceeb/public-receipt.json). Detailed
+source locators and full HTTP/audit records remain retained locally.
+
+All four app gates passed, including 229 tests. Preview, staged production and
+anonymous production each matched all 2,570 exact static files, all selected CSV
+download headers and five hard 404s. The checked staged production artifact was
+promoted without rebuilding. Hosted desktop/mobile browser checks passed; local
+print-CSS and script-free HTML checks passed. Native paginated print/PDF and a
+separate browser-wide JavaScript-disabled session remain unverified. Integrity
+checks preserve canonical bytes and source identities; they do not revalidate
+research. The public receipt summarizes the verified HTTP and browser outcomes
+without publishing private source locators.
+The previous optimized release below remains the explicit rollback reference.
+
+## Previous optimized production release
+
+Previous optimized release `20261026T045038Z_308eb567` was accepted at
 [abacus-narada.vercel.app](https://abacus-narada.vercel.app), deployment
 `dpl_BwYJxUjWuzLUPVbQZQEpkdJeKPah` (READY, production), from source commit
 `7205ba71bd30d45395f82e87887222f1c34150a5`. This performance-only release
 preserves the accepted 22 studies and 94 publications, including all 229 CSVs
-and 147 raster figures. The separate local 24-study/97-report selection remains
-outside this deployment. See the [outcome](20261026T045038Z_308eb567/outcome.json).
+and 147 raster figures. At that checkpoint the separate local 24-study/97-report
+selection remained outside the deployment. See the
+[outcome](20261026T045038Z_308eb567/outcome.json).
 
 Generated report JSON is compacted from 114,007,369 to 54,944,824 bytes; all
 canonical bundles and parsed research values remain unchanged. Table filters
