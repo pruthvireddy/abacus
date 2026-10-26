@@ -31,25 +31,58 @@ establish profitability or reproduce every historical calculation.
 
 ## How the workspace fits together
 
-| Component | Responsibility | Start here |
+Abacus has three components: **Bhishma prepares dependable inputs, Sahadeva
+investigates research questions, and Narada publishes selected saved findings.**
+
+| Component and code | What it does | What it produces |
 |---|---|---|
-| **Bhishma — Data & Features** | Ingestion, validation, calendars, public loaders, immutable feature releases | [Package guide](packages/bhishma/README.md) |
-| **Sahadeva — Research & Analysis** | Study protocols, shared methods, saved results, interpretation | [Package guide](packages/sahadeva/README.md), [studies](studies/README.md) |
-| **Narada — Publishing** | Validate and render explicitly selected saved report bundles | [App guide](apps/narada/README.md), [publication contract](docs/narada.md) |
+| **[Bhishma — Data & Features](packages/bhishma/README.md)** · `packages/bhishma/` | Ingests source data, validates quality, applies calendar and bar-building rules, and prepares reusable features. | Versioned datasets and features, schemas, catalog manifests and checksums, accessed through public loaders. |
+| **[Sahadeva — Research & Analysis](packages/sahadeva/README.md)** · `packages/sahadeva/` and `studies/` | Defines study protocols, pins inputs, calculates events/outcomes and statistics, and interprets results. Study-specific logic lives beside its protocol; shared methods live in the package. | Saved metrics, tables and figures; frozen run evidence; dated strategy cards; explicitly selected report content for publication. |
+| **[Narada — Publishing](apps/narada/README.md)** · `apps/narada/` | Validates selected report content and asset hashes, stages immutable public bundles, and renders study/report pages in its independent Node environment. | Downloadable report bundles and a static research website, released to Vercel through the [release workflow](apps/narada/releases/README.md). |
+
+### Who passes what to whom
 
 ```mermaid
-flowchart LR
-    A[Source data] --> B[Bhishma releases]
-    B --> C[Sahadeva studies]
-    C --> D[Sealed run evidence]
-    D --> E[Selected saved reports]
-    E --> F[Narada website]
+flowchart TD
+    Inputs["Market data and source exports"]
+    Bhishma["Bhishma<br/>Data and Features"]
+    Sahadeva["Sahadeva<br/>Research and Analysis"]
+    Evidence["Sealed research evidence<br/>runs/"]
+    Strategies["Dated strategy cards<br/>strategies/"]
+    Reports["Selected saved publication source<br/>Report JSON, figures, CSVs and provenance"]
+    Narada["Narada<br/>Publishing"]
+    Website["Research journal on Vercel"]
+
+    Inputs -->|"Raw source inputs"| Bhishma
+    Bhishma -->|"Versioned bars and features<br/>Schemas, manifests and hashes via public loaders"| Sahadeva
+    Sahadeva -.->|"Reusable dataset or feature request"| Bhishma
+    Sahadeva -->|"Frozen inputs, settings, code and results"| Evidence
+    Evidence -->|"Exact evidence references"| Strategies
+    Sahadeva -->|"Explicitly choose saved content and assets"| Reports
+    Reports -->|"publication.json and declared assets"| Narada
+    Narada -->|"Verified static output<br/>Separate authorized release"| Website
 ```
 
-Narada builds independently from its saved public inputs. Website builds do not
-import Python research code or calculate study results. The
-[architecture](ARCHITECTURE.md) defines the authoritative ownership map, dependency
-boundaries, and artifact lifecycle; the [agent task map](AGENTS.md) routes maintenance.
+The main handoffs are:
+
+1. **Bhishma → Sahadeva:** a pinned data/feature release with its manifest and
+   hashes. A study uses Bhishma's loaders and records the exact input identities.
+   New reusable inputs start as a [dataset request](requests/README.md) from
+   Sahadeva to Bhishma.
+2. **Sahadeva → Narada:** an explicitly selected `publication.json`, declared
+   raster figures and summary CSVs, with source provenance. Sahadeva follows
+   Narada's [report contract](docs/narada.md) when preparing that handoff.
+   Prepare publication source before sealing a new run; later presentation-only
+   revisions use `reports/exports/` with their own provenance.
+3. **Narada → the website:** validated public bundles and verified static pages,
+   deployed through a separately authorized release. Narada builds from those
+   saved inputs independently of Python research execution.
+
+Alongside publication, Sahadeva retains completed evidence in [runs/](runs/README.md)
+and maintains current interpretations in [strategies/](strategies/README.md),
+with exact links back to that evidence. The [architecture](ARCHITECTURE.md)
+defines the authoritative ownership map and artifact lifecycle; the
+[agent task map](AGENTS.md) routes maintenance.
 
 ## Quick start
 
