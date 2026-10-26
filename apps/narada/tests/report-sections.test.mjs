@@ -18,6 +18,10 @@ function compile(relativePath) {
   const compiledModule = { exports: {} };
   const resolve = id => id === '@/lib/format' ? compile('../src/lib/format.ts')
     : id === '@/lib/table-filters' ? compile('../src/lib/table-filters.ts')
+      : id === '@/lib/table-share' ? compile('../src/lib/table-share.ts')
+        : id === './table-filters' ? compile('../src/lib/table-filters.ts')
+          : id === './section-link' ? compile('../src/components/section-link.tsx')
+            : id === './report-contents' ? compile('../src/components/report-contents.tsx')
       : id === '@/lib/saved-tables' ? compile('../src/lib/saved-tables.ts')
         : id === './report-table' ? compile('../src/components/report-table.tsx')
           : id === './filtered-report-table' ? compile('../src/components/filtered-report-table.tsx')
@@ -45,7 +49,7 @@ test('table scroll region describes keyboard access while preserving scalar mean
   assert.match(html, /aria-describedby="table-help-evidence" tabindex="0"/);
   assert.match(html, /left and right arrow keys/);
   assert.match(html, /Missing or blank cells display as Not available/);
-  assert.match(html, /<caption class="visually-hidden">Selected evidence<\/caption>/);
+  assert.match(html, /<caption class="table-caption">Selected evidence<\/caption>/);
   assert.match(html, />0\.0%<\/td>/);
   assert.match(html, />-1\.37<\/td>/);
   assert.match(html, /class="column-unit">pp<\/span>/);

@@ -3,6 +3,7 @@ import { createHash, randomUUID } from 'node:crypto';
 import { readFile, writeFile, mkdir, readdir, lstat, copyFile } from 'node:fs/promises';
 import { resolve, dirname, relative } from 'node:path';
 import { spawn } from 'node:child_process';
+import { pageRoutes } from './study-routes.mjs';
 
 export const hash = bytes => createHash('sha256').update(bytes).digest('hex');
 export const jsonBytes = value => Buffer.from(`${JSON.stringify(value, null, 2)}\n`);
@@ -64,7 +65,7 @@ export async function copyInventory(from, to, files) {
 }
 
 // Fail closed on new output kinds; adding a public feature requires explicit review.
-export function validateStaticFiles(files, catalog, publications) {
+export function validateStaticFiles(files, catalog, publications, options = {}) {
   const selected = new Set([
     'publications/index.json',
     ...publications.flatMap(bundle => [
@@ -73,11 +74,9 @@ export function validateStaticFiles(files, catalog, publications) {
     ]),
   ]);
   const pages = new Set([
-    '',
+    ...pageRoutes(catalog, publications, options).map(route => route.slice(1)),
     '404/',
     '_not-found/',
-    ...catalog.studies.map(study => `studies/${study.slug}/`),
-    ...publications.map(bundle => `reports/${bundle.report.id}/`),
   ]);
   const actual = new Set(files.map(file => file.path));
   for (const page of pages) {
@@ -101,7 +100,7 @@ export function validateStaticFiles(files, catalog, publications) {
 
 const escapeRegex = text => text.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 
-export function buildOutputConfig(catalog, publications) {
+export function buildOutputConfig(catalog, publications, options = {}) {
   const routes = [];
   for (const bundle of publications) {
     for (const download of bundle.report.downloads ?? []) {
@@ -117,11 +116,7 @@ export function buildOutputConfig(catalog, publications) {
     }
   }
   // Enumerate actual pages; an unknown study/report must never fall back to 200.
-  for (const route of [
-    '/',
-    ...catalog.studies.map(study => `/studies/${study.slug}/`),
-    ...publications.map(bundle => `/reports/${bundle.report.id}/`),
-  ]) {
+  for (const route of pageRoutes(catalog, publications, options)) {
     routes.push({
       src: `^${escapeRegex(route === '/' ? route : route.slice(0, -1))}/?$`,
       dest: `${route}index.html`,

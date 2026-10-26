@@ -1,5 +1,6 @@
 import assert from 'node:assert/strict';
 import { studyPublicationReferences } from './study-selections.mjs';
+import { pageRoutes as inventoryPageRoutes, studyPageRoutes } from './study-routes.mjs';
 import { createHash } from 'node:crypto';
 import { lstat, readFile, realpath } from 'node:fs/promises';
 import { basename, extname, relative, resolve, sep } from 'node:path';
@@ -41,15 +42,15 @@ const mediaTypes = {
   '.csv': 'text/csv',
 };
 
-function smokeCases(catalog, bundles, pageRoutes) {
-  assert(Array.isArray(pageRoutes) && pageRoutes.length > 0 && pageRoutes.length <= 7,
-    'Preview smoke requires one to seven explicit page routes.');
+function smokeCases(catalog, bundles, pageRoutes, allRoutes) {
+  assert(Array.isArray(pageRoutes) && pageRoutes.length > 0 && pageRoutes.length <= (allRoutes ? 1201 : 7),
+    allRoutes ? 'Complete preview inventory is bounded at 1,201 page routes.' : 'Preview smoke requires one to seven explicit page routes.');
   assert(new Set(pageRoutes).size === pageRoutes.length, 'Preview page routes must be unique.');
   const selectedIds = new Set(catalog.studies.flatMap(study => studyPublicationReferences(study).map(reference => reference.publicationId)));
   const selected = bundles.filter(bundle => selectedIds.has(bundle.report.id));
   const knownPages = new Set([
     '/',
-    ...catalog.studies.map(study => `/studies/${study.slug}/`),
+    ...studyPageRoutes(catalog),
     ...selected.map(bundle => `/reports/${bundle.report.id}/`),
   ]);
   for (const route of pageRoutes) {
@@ -78,6 +79,7 @@ function smokeCases(catalog, bundles, pageRoutes) {
     '/reports/narada-smoke-missing/',
     `/publications/${reports[0].report.id}/downloads/narada-smoke-missing.csv`,
     '/runs/narada-smoke-private/manifest.json',
+    ...(allRoutes && catalog.studies.length ? [`/studies/${catalog.studies[0].slug}/narada-smoke-missing/`, `/studies/narada-smoke-missing/evidence/`] : []),
   ];
   assert(!missing.some(path => knownPages.has(path)), 'Unknown-route smoke case has become an authored route.');
   return { cases, missing };
@@ -113,10 +115,12 @@ function checkHeaders(response, expectedType, filename, path) {
 }
 
 // The caller supplies transport explicitly. Tests never acquire a network default.
-export async function checkPreview({ origin, staticRoot, catalog, bundles, transport, pageRoutes = REPRESENTATIVE_PAGE_ROUTES }) {
+export async function checkPreview({ origin, staticRoot, catalog, bundles, transport, pageRoutes = REPRESENTATIVE_PAGE_ROUTES, allRoutes = false }) {
   const cleanOrigin = validatePreviewOrigin(origin);
   assert(typeof transport === 'function', 'Preview smoke requires an explicit transport.');
-  const { cases, missing } = smokeCases(catalog, bundles, pageRoutes);
+  assert(typeof allRoutes === 'boolean', 'Complete preview inventory selection must be a boolean.');
+  const routesToCheck = allRoutes ? inventoryPageRoutes(catalog, bundles) : pageRoutes;
+  const { cases, missing } = smokeCases(catalog, bundles, routesToCheck, allRoutes);
   const rootInfo = await lstat(staticRoot);
   assert(rootInfo.isDirectory() && !rootInfo.isSymbolicLink(), 'Preview static root must be a real directory.');
   const root = await realpath(staticRoot);
@@ -151,6 +155,6 @@ export async function checkPreview({ origin, staticRoot, catalog, bundles, trans
     }
     checks.push({ path: item.path, status: item.status, sha256: item.digest, contentType: item.contentType });
   }
-  return { origin: cleanOrigin, pagesChecked: pageRoutes.length, filesChecked: cases.length,
+  return { origin: cleanOrigin, pagesChecked: routesToCheck.length, filesChecked: cases.length,
     notFoundChecked: missing.length, requestsChecked: prepared.length * 2, checks };
 }

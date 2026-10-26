@@ -6,6 +6,7 @@ import { ReportTable } from "./report-table";
 import { FilteredReportTable } from "./filtered-report-table";
 import { initialSavedTable } from "@/lib/table-filters";
 import { PatternDefinitions, PatternPanel } from "./pattern-panel";
+import { SectionLink } from "./section-link";
 
 export function ReportSections({ sections, reportId, references, patterns, patternDefinitionsProvided = false, explainedPatternIds = [] }: { sections: ReportSection[]; reportId: string; references?: SourceReference[]; patterns?: ReportPattern[]; patternDefinitionsProvided?: boolean; explainedPatternIds?: string[] }) {
   const explainedPatterns = new Set(explainedPatternIds);
@@ -20,6 +21,7 @@ export function ReportSections({ sections, reportId, references, patterns, patte
       <div className="section-heading">
         <span className="section-number" aria-hidden="true">{String(index + 1).padStart(2, "0")}</span>
         <h2 id={`heading-${section.id}`}>{section.title}</h2>
+        <SectionLink sectionId={section.id} />
       </div>
       {pattern ? <PatternPanel pattern={pattern} instanceId={`pattern-section-${section.id}`} focus={section.patternFocus} symbolReportId={reportId} compact={compact} /> : null}
       <SectionContent section={section} reportId={reportId} />

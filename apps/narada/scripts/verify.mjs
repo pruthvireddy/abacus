@@ -10,7 +10,9 @@ try {
     throw new Error('Public directory must contain only the publications directory; unexpected public files would be deployed.');
   }
   const result = await verifyPublications();
-  const catalog = await readStudyCatalog(result.bundles.map(bundle => bundle.report));
+  const catalog = await readStudyCatalog(result.bundles.map(bundle => ({
+    ...bundle.report, sourceSha256: bundle.provenance.sourceSha256,
+  })), undefined, { bundles: result.bundles });
   console.log(`Verified ${catalog.studies.length} studies, ${result.reports} publications, ${result.assets} raster assets and ${result.downloads} selected CSVs.`);
 } catch (error) {
   console.error(error.message);

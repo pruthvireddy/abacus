@@ -215,3 +215,22 @@ test('a supplied local fixture server transport checks actual HTTP and rejects r
   redirect = true;
   await assert.rejects(checkPreview({ ...f.options, origin: localOrigin, transport }), /fetch failed/);
 });
+
+test('complete inventory checks all five study destinations and every selected report with bounded GET/HEAD requests', async t => {
+  const f = await fixture(t);
+  for (const destination of ['findings', 'explore', 'methods', 'evidence']) {
+    const route = `/studies/one/${destination}/`;
+    const file = `studies/one/${destination}/index.html`;
+    const bytes = Buffer.from(`<main>Saved ${destination}</main>`);
+    await mkdir(resolve(f.options.staticRoot, file, '..'), { recursive: true });
+    await writeFile(resolve(f.options.staticRoot, file), bytes);
+    f.files.set(route, [file, bytes, 'text/html']);
+  }
+  const result = await checkPreview({ ...f.options, allRoutes: true });
+  assert.deepEqual({ pages: result.pagesChecked, files: result.filesChecked, missing: result.notFoundChecked, requests: result.requestsChecked },
+    { pages: 8, files: 11, missing: 6, requests: 34 });
+  for (const destination of ['findings', 'explore', 'methods', 'evidence']) assert(result.checks.some(check => check.path === `/studies/one/${destination}/` && check.status === 200));
+  assert(result.checks.some(check => check.path === '/studies/one/narada-smoke-missing/' && check.status === 404));
+  await rm(resolve(f.options.staticRoot, 'studies/one/methods/index.html'));
+  await assert.rejects(checkPreview({ ...f.options, allRoutes: true }), /ENOENT/);
+});

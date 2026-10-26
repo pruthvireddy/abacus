@@ -200,8 +200,30 @@
                 }
               }
             }
+          },
+          "overview": {
+            "$ref": "#/$defs/overview"
+          },
+          "keywords": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 8,
+            "uniqueItems": true,
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 60
+            }
           }
         }
+      }
+    },
+    "readingPaths": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 6,
+      "items": {
+        "$ref": "#/$defs/readingPath"
       }
     }
   },
@@ -261,6 +283,340 @@
               },
               "label": {
                 "$ref": "#/$defs/title"
+              }
+            }
+          }
+        }
+      }
+    },
+    "overviewSource": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "publicationId",
+        "sourceRunId",
+        "sourceSha256",
+        "sectionId"
+      ],
+      "properties": {
+        "publicationId": {
+          "$ref": "#/$defs/slug"
+        },
+        "sourceRunId": {
+          "$ref": "#/$defs/run"
+        },
+        "sourceSha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "sectionId": {
+          "$ref": "#/$defs/slug"
+        }
+      }
+    },
+    "overviewClaim": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "text",
+        "source"
+      ],
+      "properties": {
+        "text": {
+          "$ref": "#/$defs/prose"
+        },
+        "source": {
+          "$ref": "#/$defs/overviewSource"
+        }
+      }
+    },
+    "overviewLink": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "label",
+        "source"
+      ],
+      "properties": {
+        "label": {
+          "$ref": "#/$defs/title"
+        },
+        "source": {
+          "$ref": "#/$defs/overviewSource"
+        }
+      }
+    },
+    "overviewSelection": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "kind",
+            "label"
+          ],
+          "properties": {
+            "kind": {
+              "const": "metric"
+            },
+            "label": {
+              "$ref": "#/$defs/title"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "kind",
+            "columnKey",
+            "where"
+          ],
+          "properties": {
+            "kind": {
+              "const": "table-cell"
+            },
+            "columnKey": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 80
+            },
+            "where": {
+              "type": "object",
+              "minProperties": 1,
+              "maxProperties": 12,
+              "propertyNames": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 80
+              },
+              "additionalProperties": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "maxLength": 1000
+                  },
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "boolean"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              }
+            }
+          }
+        }
+      ]
+    },
+    "overviewStatistic": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "label",
+            "context",
+            "source",
+            "selection"
+          ],
+          "properties": {
+            "label": {
+              "$ref": "#/$defs/title"
+            },
+            "context": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 600
+            },
+            "source": {
+              "$ref": "#/$defs/overviewSource"
+            },
+            "selection": {
+              "$ref": "#/$defs/overviewSelection"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "label",
+            "context",
+            "source",
+            "text"
+          ],
+          "properties": {
+            "label": {
+              "$ref": "#/$defs/title"
+            },
+            "context": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 600
+            },
+            "source": {
+              "$ref": "#/$defs/overviewSource"
+            },
+            "text": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 160
+            }
+          }
+        }
+      ]
+    },
+    "overview": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "question",
+        "takeaway",
+        "evidenceType",
+        "population",
+        "qualification",
+        "method",
+        "source",
+        "statistics",
+        "findings",
+        "limitations",
+        "links"
+      ],
+      "properties": {
+        "question": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 300
+        },
+        "takeaway": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 800
+        },
+        "evidenceType": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 120
+        },
+        "population": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 600
+        },
+        "period": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 300
+        },
+        "sampleScope": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 600
+        },
+        "qualification": {
+          "$ref": "#/$defs/prose"
+        },
+        "method": {
+          "$ref": "#/$defs/prose"
+        },
+        "source": {
+          "$ref": "#/$defs/overviewSource"
+        },
+        "statistics": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 4,
+          "items": {
+            "$ref": "#/$defs/overviewStatistic"
+          }
+        },
+        "findings": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 6,
+          "items": {
+            "$ref": "#/$defs/overviewClaim"
+          }
+        },
+        "limitations": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 6,
+          "items": {
+            "$ref": "#/$defs/overviewClaim"
+          }
+        },
+        "links": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 8,
+          "items": {
+            "$ref": "#/$defs/overviewLink"
+          }
+        },
+        "methodSource": {
+          "$ref": "#/$defs/overviewSource"
+        }
+      }
+    },
+    "readingPath": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "title",
+        "description",
+        "qualification",
+        "steps"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/slug"
+        },
+        "title": {
+          "$ref": "#/$defs/title"
+        },
+        "description": {
+          "$ref": "#/$defs/prose"
+        },
+        "qualification": {
+          "$ref": "#/$defs/prose"
+        },
+        "steps": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 6,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "studyId",
+              "destination",
+              "reason"
+            ],
+            "properties": {
+              "studyId": {
+                "type": "string",
+                "pattern": "^[a-z0-9]+(?:_[a-z0-9]+)*$",
+                "maxLength": 100
+              },
+              "destination": {
+                "enum": [
+                  "overview",
+                  "findings",
+                  "explore",
+                  "methods",
+                  "evidence"
+                ]
+              },
+              "reason": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 400
               }
             }
           }

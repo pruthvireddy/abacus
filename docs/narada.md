@@ -258,8 +258,8 @@ featured-publication link. Report bodies are rendered once by existing sections.
 
 Optional `publicationTabs` group two to twelve parallel saved reports from the
 same source run. Each explicitly selects a publication/run ID and unique label;
-the featured publication must be first. The study page displays that report's
-saved sections immediately. Ordinary route links styled as tabs select sibling
+the featured publication must be first. Explore lists the selected views, and
+ordinary report-route links styled as tabs select sibling
 reports, whose pages mark the current selection and retain the study link. This
 supports chart-specific reports without study-specific routes or client-side
 statistics. Tabs cannot repeat a related publication; omitted tabs retain the
@@ -297,6 +297,52 @@ attribution, private audits, local smoke, inventories and static-export checks;
 no research data or phase name is inferred by the app. These bounded navigation
 containers do not change report, table, selected CSV or static-page budgets.
 
+Optional `overview` metadata supplies an app-owned research brief in the existing
+catalog: question, takeaway, evidence type, population, period/sample scope,
+selected highlights, findings, limitations, method context and supporting report
+links. It abridges saved conclusions without changing research interpretation.
+The [overview resolver](../apps/narada/scripts/lib/study-overviews.mjs) checks each
+supporting publication/run/content-hash/section identity against selected staged
+bundles. Numerical highlights select an exact metric label or a single table cell
+with a unique typed row selector. The saved value, format, precision, units and
+notes are copied without aggregation; null, false and zero remain distinct.
+Supported authored scope facts replace metrics where appropriate, including
+qualitative reviews. Missing, ambiguous or stale references fail verification.
+An optional `methodSource` selects a separately pinned method section; otherwise
+method context links to the brief's supporting source. It uses the same identity
+and destination checks as other overview sources.
+
+These briefs and library cards render as static HTML. They do not fetch report
+JSON in the browser or carry full report tables in overview navigation state.
+All catalog entries expose Overview at `/studies/<slug>/`, then `/findings/`,
+`/explore/`, `/methods/` and `/evidence/` beneath that study. The shared shell uses
+native links and one current-page indication. Each destination has a distinct role;
+none mounts hidden report bodies. The 22-study verified published collection has
+reviewed briefs; two additional local entries retain metadata-based fallbacks in
+the same shell. Catalog presence and this local rollout do not authorize production
+selection or deployment.
+
+Explore keeps every selected immutable report reachable through the supplied
+phase/analysis/view hierarchy and preserves related-publication relationships.
+Evidence groups existing selected CSVs, references, content hashes and source-run
+identities by saved report, without combining populations. Methods link directly
+to pinned saved scope. Reports retain their own phase/analysis/product/chart
+navigation, contents and provenance, with routes back to Overview and Explore.
+
+The app-owned [route projection](../apps/narada/scripts/lib/study-routes.mjs) supplies
+all five destination paths to export verification, preview smoke and current
+release adapters. Frozen historical release inventories remain unchanged. Run the
+normal bounded smoke and `npm run smoke:preview -- --origin
+http://127.0.0.1:4173 --all-routes` against a running local preview to check the
+complete exported page inventory; neither creates a release.
+
+Legacy study fragments retain anchors that reveal visible links to their exact
+saved report sections through CSS `:target`. This covers sections, headings,
+downloads, references, notes and used pattern keys without a JavaScript redirect.
+The earlier overview section anchors remain navigation previews. The full library
+preserves catalog order and its explicitly curated four starting points. None of
+this changes report identities, source hashes, saved evidence or release records.
+
 After staging a new immutable report through the publisher, edit only this
 catalog to feature it or add a related reference. Keep study slugs stable. Run
 `npm run verify`, `npm test`, `npm run lint`, `npm run build`, then static preview
@@ -305,6 +351,87 @@ incorrect source attribution, unsafe fields and private path references. The
 static verifier checks homepage study links, study routes and every selected
 publication route. Catalog edits affect navigation, not research references or
 publication hashes. Current limits are 200 studies and 256 KiB of authored JSON.
+
+## Library discovery and report reading
+
+Discovery remains an enhancement to the complete static collection. The
+[small index projection](../apps/narada/src/lib/discovery.ts) uses only authored
+title, question, summary, takeaway, topic, instruments and optional study
+`keywords`. It does not read report tables, bodies, research files or private
+locators. Every card and study link renders without JavaScript; enhancement
+controls are disabled with a no-JavaScript explanation. Search matches every
+normalized substring term across the authored fields, ignoring case, accents,
+punctuation and repeated whitespace. Filters use OR within a category and AND
+between categories, alongside search; authored ordering is preserved. Evidence
+type comes only from explicit validated overview metadata, and missing values
+remain unclassified.
+
+`q` plus repeated `topic`, `instrument` and `type` parameters share the library
+state. They are validated against current catalog-derived choices and canonicalized.
+Limits are 120 query characters, eight selections per category and 2,048 encoded
+query-string characters including `?`. Unknown/stale parameters and duplicate
+choices are ignored; oversized input restores the browseable default. Reset
+removes discovery parameters. The first query edit pushes a history entry and
+continued typing replaces it until blur; selection/removal/reset actions push
+separate entries. Back/forward and refresh restore state. Typing preserves input
+focus. Examples are `/?q=VWAP&instrument=gc` and
+`/?topic=range+xv&instrument=nq`.
+
+Optional `keywords` are one to eight trimmed plain-text values of at most 60
+characters, unique without case distinctions. Optional top-level `readingPaths`
+uses the same authored catalog, not a second registry. Each of up to six paths
+has a title, explanation, qualification and two to six distinct existing-study
+steps. Each step declares a valid study destination and a reason. The validator
+checks references, uniqueness, bounds and safe text. Current authored paths
+connect VWAP, Range XV and session/event questions. Reading order preserves each
+study's evidence limits, negative findings and separate populations; it does not
+imply replication or a pooled result. [ReadingPaths](../apps/narada/src/components/reading-paths.tsx)
+renders ordinary study links and shareable homepage anchors, with qualifications
+visible beside the related questions.
+
+The [contents component](../apps/narada/src/components/report-contents.tsx) passes
+only section identities/titles to the client, rendering both a desktop rail and
+native mobile disclosure. Its current-section marker changes presentation only;
+it does not mutate history or scroll. [Section links](../apps/narada/src/components/section-link.tsx)
+are server-rendered native `#section-<id>` permalinks at each heading. Clipboard
+copying is shared by the desktop rail and mobile disclosure, targeting the
+currently tracked section and showing its title. Per-heading client components
+and props are unnecessary; native links remain available without the enhancement.
+Report bodies and order, existing anchors, figures, captions, alt text,
+download paths and provenance remain saved inputs. Essential download scope,
+units, population and source/run identities stay visible. Full report hash records
+remain in technical disclosures. Compact study Evidence directories link each
+download/reference to its exact immutable `#download-<id>` or `#reference-<id>`
+record, preserving every pin without repeating dense technical markup. Essential
+qualifications remain visible. External references and saved artifacts are labelled
+distinctly.
+
+[Table sharing](../apps/narada/src/lib/table-share.ts) identifies the immutable
+report in its path, the saved table with `table`, and typed display-filter values
+with URL-encoded `filters` JSON. Limits are 4,096 query characters, 2,048 filter-JSON
+characters and three declared row filters. Values preserve null, false, zero and
+string distinctions; the explicit All values selection differs from a missing
+authored default. Generated selected-row links validate against the loaded saved
+table. Opening a shared link leaves pending selections and authored default rows
+visible until the reader presses **Load table filters**. No report JSON is fetched
+just to restore the URL. After success, valid saved values apply; stale values
+are explained and defaults remain available. An already loaded table can apply
+a new pending link explicitly. Pagination stays at 100 rows, requests remain
+shared per report, and failures retain defaults and retry. Sharing/filtering
+selects saved rows without recalculating statistics.
+
+The [reader styles](../apps/narada/src/app/reader.css) and
+[table styles](../apps/narada/src/app/table-reader.css) provide print layouts for
+study summaries and reports. They retain findings, qualifications, captions,
+notes, evidence references and source identity while removing navigation and
+controls. Printed tables identify the actual displayed slice/page and selections,
+matching-row count and selected-table total; they do not claim complete-dataset
+coverage. Printing never fetches more rows. Browser print-CSS layout checks and
+native paged print/PDF inspection are distinct: a screen QA wrapper does not
+verify native pagination. Use the [app maintenance map](../apps/narada/README.md#maintenance-source-map)
+for focused discovery, reading-path, reader, and table-sharing tests. Record actual
+browser checks, request/index/JavaScript measurements and integrity comparisons;
+these are independent of research revalidation and hosted release authorization.
 
 ## Workflow
 
