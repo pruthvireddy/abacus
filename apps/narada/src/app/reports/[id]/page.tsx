@@ -36,10 +36,13 @@ export default async function PublicationPage({ params }: Props) {
   return (
     <>
       <SiteHeader title={report.title} />
-      <main id="main" className="shell report-main">
+      <main id="main" className="shell report-main report-reader">
         <article>
           {context ? <aside className="publication-context" aria-label="Study navigation">
+            <p className="brief-label">SAVED REPORT · {context.study.topic.replaceAll("_", " ")}</p>
             <a href={`/studies/${context.study.slug}/`}>← {context.study.title}</a>
+            <div className="report-study-links"><a href={`/studies/${context.study.slug}/`}>Study overview</a><a href={`/studies/${context.study.slug}/explore/`}>Back to Explore <span aria-hidden="true">↗</span></a><a href={`/studies/${context.study.slug}/evidence/`}>Study evidence</a></div>
+            {context.family || context.analysis || context.tab ? <p className="report-selection-context">{[context.family?.label, context.analysis?.label, context.tab?.label].filter(Boolean).join(" / ")}</p> : null}
             {context.relation ? <p>{context.relation.label} <a href={`/reports/${context.study.featuredPublicationId}/`}>Read the featured publication</a>.</p> : null}
           </aside> : null}
           {context?.study.phaseFamilies?.length ? <StudyPhaseNavigation families={context.study.phaseFamilies} currentFamilyId={context.family?.id} currentAnalysisId={context.analysis?.id} currentChartLabel={context.tab?.label} /> : null}

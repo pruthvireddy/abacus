@@ -79,8 +79,8 @@ test('inventory preserves original locale ordering, field ordering, hashes and s
   for (const [path, bytes] of sources) assert.deepEqual(await readFile(resolve(root, path)), bytes);
 });
 
-test('complete Build Output routes and serialized config retain their original order and bytes', () => {
-  const config = release.buildOutputConfig(catalog, publications);
+test('explicit legacy Build Output routes and serialized config retain their original order and bytes', () => {
+  const config = release.buildOutputConfig(catalog, publications, { legacyStudyRoutes: true });
   assert.deepEqual(config, expectedConfig);
   assert.equal(release.hash(release.jsonBytes(config)), '02daef440ecab01ea2dbd0fcc13ab76c064a9b7b04dcb928b96e7ba2af652735');
 });

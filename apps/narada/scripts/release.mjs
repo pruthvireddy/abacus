@@ -11,6 +11,7 @@ import { verifyPublications } from './lib/publication.mjs';
 import { readStudyCatalog } from './lib/studies.mjs';
 import { auditSources } from './audit-release-sources.mjs';
 import { verifyStaticPublicationJson } from './lib/static-json-delivery.mjs';
+import { pageRoutes, pageRouteFile } from './lib/study-routes.mjs';
 
 const app = resolve(import.meta.dirname, '..');
 const workspace = resolve(app, '../..');
@@ -102,17 +103,7 @@ async function prepare() {
     ], { cwd: workspace })).stdout.trim();
     const npm = (await run('npm', ['--version'])).stdout.trim();
     const vercel = (await run(cli, ['--version'])).stdout.trim();
-    const routes = [
-      { route: '/', file: 'index.html' },
-      ...catalog.studies.map(study => ({
-        route: `/studies/${study.slug}/`,
-        file: `studies/${study.slug}/index.html`,
-      })),
-      ...publications.bundles.map(bundle => ({
-        route: `/reports/${bundle.report.id}/`,
-        file: `reports/${bundle.report.id}/index.html`,
-      })),
-    ];
+    const routes = pageRoutes(catalog, publications.bundles).map(route => ({ route, file: pageRouteFile(route) }));
     const release = {
       schemaVersion: '1.0',
       releaseId: rid,

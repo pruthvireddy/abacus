@@ -2,6 +2,7 @@ import Ajv2020 from 'ajv/dist/2020.js';
 import { readFile, lstat } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import { publicationGroups, studyPublicationReferences, studyAnalyses, familyPublicationSelection } from './study-selections.mjs';
+import { overviewSources, validateOverviewReferences, resolveCatalogOverviews } from './study-overviews.mjs';
 export { publicationGroups, studyPublicationReferences, studyAnalyses, familyPublicationSelection };
 export const STUDY_CATALOG_MAX_BYTES = 256 * 1024;
 export const DEFAULT_STUDY_CATALOG = resolve(process.cwd(), 'content/studies.json');
@@ -18,6 +19,10 @@ function hasCatalogControl(text) {
     const code = character.codePointAt(0);
     return (code <= 31 || code === 127) && code !== 9 && code !== 10;
   });
+}
+function assertPublicCatalogText(text) {
+  assert(text.trim() === text && text.length > 0 && !hasCatalogControl(text), 'Catalog text must be nonblank and free of control characters.');
+  assert(!/(?:file:\/\/|\/Users\/|\/home\/|[A-Za-z]:\\|(?:^|\s)(?:studies|runs|reports\/exports)\/)/.test(text), 'Filesystem paths are not public catalog references.');
 }
 export const studyHref = slug => `/studies/${slug}/`;
 export const findStudy = (catalog, slug) => catalog.studies.find(study => study.slug === slug) ?? null;
@@ -65,14 +70,22 @@ export function validateStudyCatalog(catalog, publications) {
     const analyses = studyAnalyses(study);
     const families = study.phaseFamilies ?? [];
     for (const text of [study.studyId, study.slug, study.featuredPublicationId, study.featuredSourceRunId,
-      study.title, study.summary, study.topic, study.evidenceStatus, ...study.products,
+      study.title, study.summary, study.topic, study.evidenceStatus, ...study.products, ...(study.keywords ?? []),
       ...related.flatMap(p => [p.publicationId, p.sourceRunId, p.label]),
       ...tabs.flatMap(p => [p.publicationId, p.sourceRunId, p.label]),
       ...families.flatMap(family => [family.id, family.label]),
-      ...analyses.flatMap(analysis => [analysis.id, analysis.label, ...analysis.publicationTabs.flatMap(p => [p.publicationId, p.sourceRunId, p.label])])]) {
-      assert(text.trim() === text && text.length > 0 && !hasCatalogControl(text), 'Catalog text must be nonblank and free of control characters.');
-      assert(!/(?:file:\/\/|\/Users\/|\/home\/|[A-Za-z]:\\|(?:^|\s)(?:studies|runs|reports\/exports)\/)/.test(text), 'Filesystem paths are not public catalog references.');
+      ...analyses.flatMap(analysis => [analysis.id, analysis.label, ...analysis.publicationTabs.flatMap(p => [p.publicationId, p.sourceRunId, p.label])]),
+      ...(study.overview ? [study.overview.question, study.overview.takeaway, study.overview.evidenceType,
+        study.overview.population, study.overview.period, study.overview.sampleScope,
+        study.overview.qualification, study.overview.method,
+        ...study.overview.statistics.flatMap(item => [item.label, item.context, item.text, item.selection?.label, item.selection?.columnKey]),
+        ...study.overview.findings.map(item => item.text), ...study.overview.limitations.map(item => item.text),
+        ...study.overview.links.map(item => item.label), ...overviewSources(study.overview).flatMap(source => Object.values(source))]
+        .filter(text => text !== undefined) : [])]) {
+      assertPublicCatalogText(text);
     }
+    assert(new Set((study.keywords ?? []).map(keyword => keyword.toLowerCase())).size === (study.keywords ?? []).length,
+      'Study keywords must be unique without case distinctions.');
     if (tabs.length) {
       assert(tabs[0].publicationId === study.featuredPublicationId, 'The first publication tab must be the featured publication.');
       assert(new Set(tabs.map(tab => tab.publicationId)).size === tabs.length, 'Publication tabs must not repeat.');
@@ -113,14 +126,32 @@ export function validateStudyCatalog(catalog, publications) {
         assert(reference.relationship === 'presentation-revision' ? sameRun : !sameRun, 'Relationship must agree with source-run identity.');
       }
     }
+    validateOverviewReferences(study, publications);
+  }
+  const pathIds = new Set();
+  const pathTitles = new Set();
+  for (const path of catalog.readingPaths ?? []) {
+    for (const text of [path.id, path.title, path.description, path.qualification,
+      ...path.steps.flatMap(step => [step.studyId, step.destination, step.reason])]) assertPublicCatalogText(text);
+    assert(!pathIds.has(path.id), 'Reading path IDs must be unique.');
+    assert(!pathTitles.has(path.title), 'Reading path titles must be unique.');
+    pathIds.add(path.id);
+    pathTitles.add(path.title);
+    const stepIds = new Set();
+    for (const step of path.steps) {
+      assert(ids.has(step.studyId), `Reading path references an unknown study: ${step.studyId}.`);
+      assert(!stepIds.has(step.studyId), 'A reading path must not repeat a study.');
+      stepIds.add(step.studyId);
+    }
   }
   return catalog;
 }
-export async function readStudyCatalog(publications, file = DEFAULT_STUDY_CATALOG) {
+export async function readStudyCatalog(publications, file = DEFAULT_STUDY_CATALOG, options = {}) {
   const info = await lstat(file);
   assert(info.isFile() && !info.isSymbolicLink(), 'Study catalog must be a regular file.');
   assert(info.size <= STUDY_CATALOG_MAX_BYTES, 'Study catalog exceeds its byte budget.');
   const bytes = await readFile(file);
   assert(bytes.length <= STUDY_CATALOG_MAX_BYTES, 'Study catalog exceeds its byte budget.');
-  return validateStudyCatalog(JSON.parse(bytes.toString('utf8')), publications);
+  const catalog = validateStudyCatalog(JSON.parse(bytes.toString('utf8')), publications);
+  return resolveCatalogOverviews(catalog, options);
 }

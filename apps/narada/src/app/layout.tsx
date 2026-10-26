@@ -1,5 +1,8 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import "./discovery.css";
+import "./table-reader.css";
+import "./reader.css";
 
 export const metadata: Metadata = {
   title: { default: "Narada — Abacus publications", template: "%s — Narada" },

@@ -92,8 +92,14 @@ test('compact filtered sources still refuse canonical bundle expansion above 4 M
 // Execute the actual component and its handlers with a small hook lifecycle
 // fixture. DOM/layout and hydration remain covered by browser verification.
 const require = createRequire(import.meta.url);
-function controlHarness(initialProps, loadSavedTables) {
+function controlHarness(initialProps, loadSavedTables, { search = '' } = {}) {
   let slots = [], cursor = 0, effects = [], currentKey, epoch = 0, staleUpdates = 0;
+  const listeners = new Set();
+  const localWindow = {
+    location: { search },
+    addEventListener(name, listener) { if (name === 'popstate') listeners.add(listener); },
+    removeEventListener(name, listener) { if (name === 'popstate') listeners.delete(listener); },
+  };
   const hooks = {
     useState(initial) {
       const slot = slots[cursor++] ??= { value: typeof initial === 'function' ? initial() : initial };
@@ -110,6 +116,11 @@ function controlHarness(initialProps, loadSavedTables) {
         effects.push(() => { slot.cleanup?.(); slot.dependencies = dependencies; slot.cleanup = effect(); });
       }
     },
+    useSyncExternalStore(subscribe, snapshot) {
+      const slot = slots[cursor++] ??= {};
+      if (!slot.cleanup) slot.cleanup = subscribe(() => {});
+      return snapshot();
+    },
   };
   function compile(relativePath) {
     const source = readFileSync(new URL(relativePath, import.meta.url), 'utf8');
@@ -120,9 +131,10 @@ function controlHarness(initialProps, loadSavedTables) {
     const resolveImport = id => id === 'react' ? hooks
       : id === '@/lib/saved-tables' ? { loadSavedTables }
         : id === '@/lib/format' ? compile('../src/lib/format.ts')
-          : id === '@/lib/table-filters' ? compile('../src/lib/table-filters.ts')
+          : ['@/lib/table-filters', './table-filters'].includes(id) ? compile('../src/lib/table-filters.ts')
+            : id === '@/lib/table-share' ? compile('../src/lib/table-share.ts')
             : id === './report-table' ? { ReportTable: 'report-table' } : require(id);
-    new Function('require', 'module', 'exports', outputText)(resolveImport, compiled, compiled.exports);
+    new Function('require', 'module', 'exports', 'window', outputText)(resolveImport, compiled, compiled.exports, localWindow);
     return compiled.exports;
   }
   const { FilteredReportTable } = compile('../src/components/filtered-report-table.tsx');
@@ -138,6 +150,7 @@ function controlHarness(initialProps, loadSavedTables) {
       for (const effect of effects) effect();
       return table;
     },
+    setSearch(search) { localWindow.location.search = search; for (const listener of listeners) listener(); },
     unmount,
     get staleUpdates() { return staleUpdates; },
   };
@@ -197,11 +210,11 @@ test('reader loading failures retain exact defaults, expose a download fallback,
   let table = harness.render();
   assert.deepEqual(table.props.rows, props.initialSection.rows);
   assert.equal(controls(table, 'p').find(node => node.props.role === 'alert')?.props.className, 'table-load-error');
-  assert.equal(controls(table, 'a')[0].props.href, '/publications/saved-reader/report.json');
+  assert(controls(table, 'a').some(link => link.props.href === '/publications/saved-reader/report.json'));
   await controlButton(table, 'Try again').props.onClick();
   table = harness.render();
   assert.equal(attempts, 2);
-  assert.equal(controls(table, 'a').length, 0);
+  assert(!controls(table, 'a').some(link => link.props.href === '/publications/saved-reader/report.json'), 'The failed-load fallback disappears after success; section and selection links remain.');
   assert(controls(table, 'select').every(select => !select.props.disabled));
   harness.unmount();
 });
@@ -239,4 +252,64 @@ test('late loads cannot update a different report or an unmounted table', async 
   assert.equal(harness.staleUpdates, 0);
   const second = controlButton(table, 'Load table filters').props.onClick(); harness.unmount(); await second;
   assert.equal(harness.staleUpdates, 0);
+});
+
+const tableSearch = filters => `?${new URLSearchParams({ table: 'saved', filters: JSON.stringify(filters) })}`;
+function controlText(node) {
+  if (Array.isArray(node)) return node.map(controlText).join('');
+  if (typeof node === 'string' || typeof node === 'number') return String(node);
+  return node && typeof node === 'object' ? controlText(node.props?.children) : '';
+}
+
+test('a pending table link waits for activation, survives failure, and applies typed saved rows only after retry', async () => {
+  const { section, props } = controlFixture(); let attempts = 0;
+  const harness = controlHarness(props, async () => {
+    if (++attempts === 1) throw new Error('Unavailable');
+    return [section];
+  }, { search: tableSearch({ year: '2020' }) });
+  let table = harness.render();
+  assert.equal(attempts, 0, 'A pending query must never request report data on mount.');
+  assert.deepEqual(table.props.rows, props.initialSection.rows);
+  assert.match(controlText(table.props.controls), /linked selection is waiting/);
+  await controlButton(table, 'Load table filters').props.onClick(); table = harness.render();
+  assert.equal(attempts, 1);
+  assert.deepEqual(table.props.rows, props.initialSection.rows, 'The query cannot replace defaults on a failed load.');
+  assert.match(controlText(table.props.controls), /linked selection is waiting/);
+  await controlButton(table, 'Try again').props.onClick(); table = harness.render();
+  assert.equal(attempts, 2);
+  assert.equal(controls(table, 'select')[0].props.value, '2020');
+  assert.deepEqual(table.props.rows, section.rows.slice(2, 102), 'The numeric year is distinct from the string year.');
+  assert.match(controlText(table.props.controls), /Linked selections applied/);
+  controlButton(table, 'Next rows').props.onClick(); table = harness.render();
+  assert.deepEqual(table.props.rows, section.rows.slice(102, 107));
+  controlButton(table, 'Restore authored defaults').props.onClick(); table = harness.render();
+  assert.deepEqual(table.props.rows, props.initialSection.rows);
+  assert.equal(controls(table, 'select')[0].props.value, '"All years"');
+  harness.unmount();
+});
+
+test('stale and malformed linked values retain defaults; a new loaded-table link applies without another fetch', async () => {
+  const { section, props } = controlFixture(); let calls = 0;
+  const harness = controlHarness(props, async () => { calls++; return [section]; }, { search: tableSearch({ year: '"removed"' }) });
+  let table = harness.render(); assert.equal(calls, 0);
+  await controlButton(table, 'Load table filters').props.onClick(); table = harness.render();
+  assert.equal(calls, 1);
+  assert.deepEqual(table.props.rows, props.initialSection.rows);
+  assert.match(controlText(table.props.controls), /Some linked selections are unavailable/);
+  harness.setSearch(tableSearch({ year: 'null' })); table = harness.render();
+  assert.deepEqual(table.props.rows, props.initialSection.rows, 'Changing a URL does not silently replace displayed rows.');
+  await controlButton(table, 'Apply linked selections').props.onClick(); table = harness.render();
+  assert.equal(calls, 1, 'An already activated table reuses its saved data.');
+  assert.deepEqual(table.props.rows, [{ year: null, value: null }]);
+  harness.unmount();
+  const malformed = controlHarness(props, async () => { calls++; return [section]; }, { search: '?table=saved&filters=bad-json' });
+  table = malformed.render();
+  assert.equal(calls, 1);
+  assert.deepEqual(table.props.rows, props.initialSection.rows);
+  assert.match(controlText(table.props.controls), /linked table selection is invalid/);
+  await controlButton(table, 'Load table filters').props.onClick(); table = malformed.render();
+  assert.equal(calls, 2);
+  assert.deepEqual(table.props.rows, props.initialSection.rows);
+  assert.match(controlText(table.props.controls), /Authored defaults are shown/);
+  malformed.unmount();
 });

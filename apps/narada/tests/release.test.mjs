@@ -5,7 +5,7 @@ import { tmpdir } from 'node:os';
 import { resolve } from 'node:path';
 import { hash, inventory, inventoryHash, verifyInventory, copyInventory, validateStaticFiles, buildOutputConfig, deployArgs, deploymentResult, run, checkHosted, safeId, parseHttpResponse } from '../scripts/lib/release.mjs';
 const catalog={studies:[{slug:'one'}]},bundles=[{report:{id:'real',downloads:[{path:'downloads/summary.csv'}]},provenance:{assets:[{path:'downloads/summary.csv'}]}}];
-const names=['index.html','404.html','404/index.html','_not-found/index.html','studies/one/index.html','reports/real/index.html','publications/index.json','publications/real/report.json','publications/real/downloads/summary.csv'];
+const names=['index.html','404.html','404/index.html','_not-found/index.html',...['', 'findings/', 'explore/', 'methods/', 'evidence/'].map(path=>`studies/one/${path}index.html`),'reports/real/index.html','publications/index.json','publications/real/report.json','publications/real/downloads/summary.csv'];
 async function fixture(t) {
   const root=await mkdtemp(resolve(tmpdir(),'narada-release-'));t.after(()=>rm(root,{recursive:true,force:true}));
   for(const file of names){await mkdir(resolve(root,file,'..'),{recursive:true});await writeFile(resolve(root,file),file);}

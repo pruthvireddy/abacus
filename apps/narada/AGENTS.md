@@ -25,8 +25,8 @@ before changing the publication boundary.
   changing featured/related selections changes navigation, not research metadata
   or immutable `/reports/<id>/` content. The catalog schema is app-owned.
   Optional `publicationTabs` select distinct parallel reports from the featured
-  source run, with the featured publication first. Render its saved report on the
-  study page and use ordinary links to immutable sibling routes. Keep analytical
+  source run, with the featured publication first. Use the shared study shell and Explore directory, with ordinary links to
+  immutable saved report routes. Keep analytical
   groupings and chart meanings in the supplied reports, not the app.
   Optional `analyses` group parallel chart publications by an authored analysis
   label, with a single source run per group. It replaces top-level
@@ -42,6 +42,45 @@ before changing the publication boundary.
   Phase links preserve an existing condition ID and chart label when present,
   otherwise use the first authored condition or chart. All selections, audits,
   inventories and static checks use the shared authored-selection helpers.
+- Optional catalog `overview` metadata owns the library brief and study landing
+  sections. Its bounded prose abridges saved conclusions; exact metric/table-cell
+  selectors pin a selected publication, source run, content hash and section.
+  Resolve and validate these against staged app-owned bundles at build time.
+  Preserve saved scalar meanings, formats and qualifications. All study destinations link to full reports instead of embedding their bodies
+  or client table controls. Entries without authored overviews use their existing
+  summary/evidence fallback in the same shell. Preserve every selected report.
+- The shared `scripts/lib/study-routes.mjs` owns Overview, Findings, Explore,
+  Method & scope and Evidence route projections. Keep export checks, preview
+  smoke and reusable release allowlists aligned; never edit frozen release routes.
+  Native route links use `aria-current="page"`, not tab-widget behavior. Retain
+  legacy study fragments with explicit static links to saved report sections.
+  Run preview smoke with `--all-routes` for the complete catalog-derived inventory.
+  Evidence directories expose only already selected downloads/references and
+  preserve each report’s population, units, scope and source run. Compact entries
+  link to exact immutable report hash records; full reports retain all saved pins.
+  Keep essential interpretation limits visible beside the evidence.
+- Library discovery uses a bounded build-time projection of authored catalog
+  fields. Keep complete cards in static HTML; search/filter controls are a client
+  enhancement. Never search full reports, rows, research directories or private
+  locators. Preserve authored order and the documented all-term search and
+  OR-within/AND-between filter rule. Evidence-type filters use explicit overview
+  metadata, not evidence-status prose. Bound and validate URL state against the
+  current catalog, preserve native history/focus, and debounce count announcements.
+- Optional study `keywords` and top-level `readingPaths` belong in the same
+  app-owned catalog/schema/validator. Reading steps reference existing study IDs
+  and valid destinations, with authored reasons and visible qualifications.
+  Preserve negative/inconclusive findings; paths do not establish independent
+  replication, pooled results or a performance ranking.
+- Report contents pass only identities/titles to their shared client enhancement.
+  Keep heading permalinks server-rendered and clipboard copying in the shared
+  desktop/mobile contents control. Preserve ordinary anchors, no-JavaScript
+  contents and all saved section IDs. Tables expose typed saved-selection links only after
+  activation; opening pending links must not fetch data. Apply valid pending
+  values after successful loading, preserve defaults through failures, and explain
+  stale values. Keep shared requests, 100-row pages and null/false/zero meanings.
+  Print only the shown slice with active selections and source identity; never
+  load more data because a reader prints. Native pagination needs its own manual
+  check; a screen wrapper applying print CSS verifies layout only.
 - Support source contract versions 1.0 and 1.1 without rewriting old bundles.
   Table notes, references and selected CSVs use 1.1; follow the documented
   [evidence limits](../../docs/narada.md#selected-summary-downloads). Only declared
