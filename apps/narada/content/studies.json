@@ -190,6 +190,63 @@
         ],
         "period": "Saved test labels: August 20–September 4, 2026; development June 14–August 2 and validation August 4–18, with embargo dates.",
         "sampleScope": "Each asset/chart row retains its own eligible reversals; the selected rates are not a pooled market sample."
+      },
+      "researchPriority": {
+        "assessmentId": "rp-01-reversal-follow-through-20261026",
+        "rubricVersion": "1.0",
+        "rubricSha256": "5a777ecaff3dabcb5219ca7270a839fecff93eaa819f20374324e0f25e6730cf",
+        "reviewedAt": "2026-10-26",
+        "reviewer": "Codex (AI-assisted editorial review; human approval pending)",
+        "state": "assessed",
+        "score": 1,
+        "scope": "Selecting ES 4RXV and NQ 10RXV for reversal follow-through; GC 10RXV is context, not the requested missing GC 20RXV comparison.",
+        "rationale": "The development selection failed its declared later checks. Observable follow-through and excursions do not establish an incremental, executable advantage; the missing GC comparison cannot be supplied by another setting.",
+        "materiality": "The saved three-bar median adverse/favorable excursions are 9/11 ES ticks and 20/26 NQ ticks. These separate extrema are not a realizable spread or net return; materiality requires net ticks per original opportunity above a fixed same-product comparator.",
+        "supporting": [
+          {
+            "text": "Held-out ES 4RXV recorded 615/1,985 runs with at least three follow-through bars (31.0%); NQ 10RXV recorded 5,077/15,171 (33.5%). These establish the measured phenomenon, not a trade win rate.",
+            "source": {
+              "publicationId": "01-reversal-follow-through-20261006-web",
+              "sourceRunId": "20260906T_full_v3",
+              "sourceSha256": "ff06641e2bbfc065a05b33ab0d22f875c387d21357b797e1e0ad626ae9be8e29",
+              "sectionId": "test"
+            }
+          }
+        ],
+        "contrary": [
+          {
+            "text": "Neither ES nor NQ produced a clear winner under the prespecified validation and held-out significance checks; that primary failure remains a failure.",
+            "source": {
+              "publicationId": "01-reversal-follow-through-20261006-web",
+              "sourceRunId": "20260906T_full_v3",
+              "sourceSha256": "ff06641e2bbfc065a05b33ab0d22f875c387d21357b797e1e0ad626ae9be8e29",
+              "sectionId": "findings"
+            }
+          },
+          {
+            "text": "The requested GC 20RXV evidence was unavailable. Chart completion, source timing and executable fills/costs remain unresolved; chart settings share underlying trades.",
+            "source": {
+              "publicationId": "01-reversal-follow-through-20261006-web",
+              "sourceRunId": "20260906T_full_v3",
+              "sourceSha256": "ff06641e2bbfc065a05b33ab0d22f875c387d21357b797e1e0ad626ae9be8e29",
+              "sectionId": "limitations"
+            }
+          }
+        ],
+        "blocker": "A failed chart-selection screen and unverified completion/fill timing leave no supported material trading advantage.",
+        "nextTest": {
+          "description": "Only reopen one frozen chart-versus-comparator reversal rule on genuinely later, clock-verified completion data, with next-available executable fills, a fixed exit, costs and original opportunities retained.",
+          "supports": "Proposed prospective hurdle: at least one incremental net tick per original opportunity and a date-cluster 95% lower bound above zero, without selecting settings on the evaluation sample.",
+          "rejects": "Reject if later net performance fails that hurdle or the selected chart has no incremental advantage over its frozen comparator."
+        },
+        "reviewedStudySha256": "403e6999e6eed3a004edf373f51573a272e0c767dd12c70f2e101a40c3b46843",
+        "reviewedPublications": [
+          {
+            "publicationId": "01-reversal-follow-through-20261006-web",
+            "sourceRunId": "20260906T_full_v3",
+            "sourceSha256": "ff06641e2bbfc065a05b33ab0d22f875c387d21357b797e1e0ad626ae9be8e29"
+          }
+        ]
       }
     },
     {
@@ -387,6 +444,63 @@
           }
         ],
         "sampleScope": "The selected publication does not establish a complete calendar coverage period. Geometry and complete-leg duration have different denominators."
+      },
+      "researchPriority": {
+        "assessmentId": "rp-02-followthrough-candle-adverse-20261026",
+        "rubricVersion": "1.0",
+        "rubricSha256": "5a777ecaff3dabcb5219ca7270a839fecff93eaa819f20374324e0f25e6730cf",
+        "reviewedAt": "2026-10-26",
+        "reviewer": "Codex (AI-assisted editorial review; human approval pending)",
+        "state": "assessed",
+        "score": 1,
+        "scope": "Using adverse movement inside the eventually successful follow-through candle to motivate a live reversal entry or stop.",
+        "rationale": "The measured candle geometry is useful context, but the cohort is selected by a future successful close. It cannot support a live entry/stop advantage without including failed opportunities and path ordering.",
+        "materiality": "Conditioned medians are 3 ES 4RXV ticks and 6 NQ 10RXV ticks; their adverse p90 values are 11 and 25 ticks. Stop risk must be evaluated over all eligible signals, in net ticks after execution costs, rather than these success-conditioned summaries.",
+        "supporting": [
+          {
+            "text": "Saved successful-candle cohorts contain 12,624 ES 4RXV and 97,350 NQ 10RXV observations, with substantial adverse tails despite successful closes.",
+            "source": {
+              "publicationId": "02-followthrough-candle-adverse-20261006-web",
+              "sourceRunId": "20260906T_full_v7",
+              "sourceSha256": "a06252c3de1e0f8322c7fa2f993fec3ca063dfdc2dc64b1faf4620897592a727",
+              "sectionId": "geometry"
+            }
+          }
+        ],
+        "contrary": [
+          {
+            "text": "The adverse-candle cohort requires the next candle eventually to close in the reversal direction; that future condition is unavailable when entering.",
+            "source": {
+              "publicationId": "02-followthrough-candle-adverse-20261006-web",
+              "sourceRunId": "20260906T_full_v7",
+              "sourceSha256": "a06252c3de1e0f8322c7fa2f993fec3ca063dfdc2dc64b1faf4620897592a727",
+              "sectionId": "methods"
+            }
+          },
+          {
+            "text": "Duration is a raw timestamp proxy and within-bar stop/target ordering, fills and costs were not established. Separate chart sizes are dependent.",
+            "source": {
+              "publicationId": "02-followthrough-candle-adverse-20261006-web",
+              "sourceRunId": "20260906T_full_v7",
+              "sourceSha256": "a06252c3de1e0f8322c7fa2f993fec3ca063dfdc2dc64b1faf4620897592a727",
+              "sectionId": "limitations"
+            }
+          }
+        ],
+        "blocker": "Future-success selection excludes exactly the failures needed for an actionable stop or entry assessment.",
+        "nextTest": {
+          "description": "Freeze a causal reversal signal and one entry/exit/stop policy; replay all original opportunities, including unsuccessful candles, on verified finer paths with executable prices and costs.",
+          "supports": "Support only if the unconditional policy beats a same-product time-matched baseline by at least one net tick per opportunity with a date-cluster 95% lower bound above zero.",
+          "rejects": "Reject if the apparent protection disappears after unsuccessful candles, sequencing and costs enter the denominator."
+        },
+        "reviewedStudySha256": "faaee7134556400d89414781d67d905463291ea91cef351ef216ac0b2f294fcb",
+        "reviewedPublications": [
+          {
+            "publicationId": "02-followthrough-candle-adverse-20261006-web",
+            "sourceRunId": "20260906T_full_v7",
+            "sourceSha256": "a06252c3de1e0f8322c7fa2f993fec3ca063dfdc2dc64b1faf4620897592a727"
+          }
+        ]
       }
     },
     {
@@ -567,6 +681,72 @@
         ],
         "period": "Test-labelled rows: April 13–September 8, 2026; development August 2024–November 2025, then validation through April 10, 2026.",
         "sampleScope": "Each pair and outcome retains its own aligned and opposing eligible counts; paired settings are not independent opportunities."
+      },
+      "researchPriority": {
+        "assessmentId": "rp-03-multi-rxv-alignment-20261026",
+        "rubricVersion": "1.0",
+        "rubricSha256": "5a777ecaff3dabcb5219ca7270a839fecff93eaa819f20374324e0f25e6730cf",
+        "reviewedAt": "2026-10-26",
+        "reviewer": "Codex (AI-assisted editorial review; human approval pending)",
+        "state": "assessed",
+        "score": 2,
+        "scope": "Prior larger-chart alignment as a predictor of the next smaller-chart reversal bar; longer-run continuation is not promoted.",
+        "rationale": "Strictly earlier larger-chart state has a specific next-bar association. Its weak longer-run lift and absent price-policy evidence justify defining one discriminating test before broader follow-up.",
+        "materiality": "The ES 5-to-6 next-bar colour contrast is 3.19 percentage points, not a net return. A material result must produce incremental signed ticks after spread, fees, slippage and waiting relative to otherwise comparable smaller-chart reversals.",
+        "supporting": [
+          {
+            "text": "ES 5-to-6 held-out aligned versus opposing next-bar colour was 79.34% versus 76.15%, a 3.19-point difference (95% 1.62–4.70). GC 6-to-10 had a smaller positive next-bar contrast.",
+            "source": {
+              "publicationId": "03-multi-rxv-alignment-20261006-web",
+              "sourceRunId": "20260908T_multi_rxv_v1",
+              "sourceSha256": "3c379ce6536b4ee42738e266e69600cb9c403c698c881f25c377cc0db49d7699",
+              "sectionId": "alignment"
+            }
+          },
+          {
+            "text": "The larger chart must have completed strictly earlier; equal-second ambiguous alignments are excluded rather than assumed observable.",
+            "source": {
+              "publicationId": "03-multi-rxv-alignment-20261006-web",
+              "sourceRunId": "20260908T_multi_rxv_v1",
+              "sourceSha256": "3c379ce6536b4ee42738e266e69600cb9c403c698c881f25c377cc0db49d7699",
+              "sectionId": "methods"
+            }
+          }
+        ],
+        "contrary": [
+          {
+            "text": "ES three-bar lift was about 1.02 points with an interval spanning zero, and five-bar lift about 0.14 points with an interval spanning zero; GC longer-run lift also weakened.",
+            "source": {
+              "publicationId": "03-multi-rxv-alignment-20261006-web",
+              "sourceRunId": "20260908T_multi_rxv_v1",
+              "sourceSha256": "3c379ce6536b4ee42738e266e69600cb9c403c698c881f25c377cc0db49d7699",
+              "sectionId": "alignment"
+            }
+          },
+          {
+            "text": "Settings share the same price streams. Inferred sessions/completion proxies, missing chart combinations and absent execution/cost modelling limit the association.",
+            "source": {
+              "publicationId": "03-multi-rxv-alignment-20261006-web",
+              "sourceRunId": "20260908T_multi_rxv_v1",
+              "sourceSha256": "3c379ce6536b4ee42738e266e69600cb9c403c698c881f25c377cc0db49d7699",
+              "sectionId": "limitations"
+            }
+          }
+        ],
+        "blocker": "A colour association has not been converted to incremental net price payoff on genuinely uninspected data.",
+        "nextTest": {
+          "description": "Freeze ES 5-to-6 alignment and a single next-completed-bar exit; evaluate later verified completion/tick data against reversals matched on side, run length and clock, using available fills and all costs.",
+          "supports": "Support if incremental after-cost mean is at least one tick per original opportunity and its date-cluster 95% lower bound exceeds zero.",
+          "rejects": "Reject if colour lift survives but net price lift does not, or the effect disappears after matching and causal completion checks."
+        },
+        "reviewedStudySha256": "a902017af2da2bb36aa4b377dfa6e83744cd671d372babd2c740df8df53c41d8",
+        "reviewedPublications": [
+          {
+            "publicationId": "03-multi-rxv-alignment-20261006-web",
+            "sourceRunId": "20260908T_multi_rxv_v1",
+            "sourceSha256": "3c379ce6536b4ee42738e266e69600cb9c403c698c881f25c377cc0db49d7699"
+          }
+        ]
       }
     },
     {
@@ -747,6 +927,63 @@
         ],
         "period": "Saved test-labelled candle-quality contrasts cover April–September 2026.",
         "sampleScope": "Quality and comparison cohorts are conditional aligned populations. The pointwise intervals do not certify an independent feature-search result."
+      },
+      "researchPriority": {
+        "assessmentId": "rp-04-reversal-candle-quality-20261026",
+        "rubricVersion": "1.0",
+        "rubricSha256": "5a777ecaff3dabcb5219ca7270a839fecff93eaa819f20374324e0f25e6730cf",
+        "reviewedAt": "2026-10-26",
+        "reviewer": "Codex (AI-assisted editorial review; human approval pending)",
+        "state": "assessed",
+        "score": 1,
+        "scope": "The body/close-location/prior-extreme quality stack for aligned reversal continuation, rather than its best bar-colour cell.",
+        "rationale": "The quality stack improves some next-bar colour rates while saved signed price returns remain negative. This is substantial contrary evidence to promoting the stack as an entry filter.",
+        "materiality": "ES 5-to-6 stacked next-bar mean is about −0.48 ticks versus −0.40 for other aligned reversals, before costs. The 4.63-point colour lift is not an economic gain; materiality requires incremental net ticks under a fixed causal policy.",
+        "supporting": [
+          {
+            "text": "The ES 5-to-6 stacked cohort had 79.63% next-bar colour continuation versus 75.00%, a 4.63-point difference (95% 2.05–7.14).",
+            "source": {
+              "publicationId": "04-reversal-candle-quality-20261006-web",
+              "sourceRunId": "20260908T_reversal_quality_v1",
+              "sourceSha256": "951d94c40c718dfcddab3d8c5ced1e93ee975317f55ba3478b0b2f3345ac4a38",
+              "sectionId": "quality"
+            }
+          }
+        ],
+        "contrary": [
+          {
+            "text": "ES stacked signed next-bar mean remained negative and was not better than the other aligned cohort; GC 6-to-10 stacked mean was also negative.",
+            "source": {
+              "publicationId": "04-reversal-candle-quality-20261006-web",
+              "sourceRunId": "20260908T_reversal_quality_v1",
+              "sourceSha256": "951d94c40c718dfcddab3d8c5ced1e93ee975317f55ba3478b0b2f3345ac4a38",
+              "sectionId": "quality"
+            }
+          },
+          {
+            "text": "Shared chart histories, overlapping quality definitions, completion proxies and absent fills/costs prevent independent or executable-edge claims.",
+            "source": {
+              "publicationId": "04-reversal-candle-quality-20261006-web",
+              "sourceRunId": "20260908T_reversal_quality_v1",
+              "sourceSha256": "951d94c40c718dfcddab3d8c5ced1e93ee975317f55ba3478b0b2f3345ac4a38",
+              "sectionId": "limitations"
+            }
+          }
+        ],
+        "blocker": "The measured colour improvement coexists with negative price payoff; adding an attractive stop after inspection would be a new hypothesis.",
+        "nextTest": {
+          "description": "Reopen only with one prespecified entry/risk/exit rule, finer-data sequencing and an unfiltered aligned comparator on later untouched dates; retain all adverse paths.",
+          "supports": "Support only if both absolute and incremental net means meet a preregistered one-tick-per-opportunity hurdle with date-cluster lower bounds above zero.",
+          "rejects": "Reject if high colour continuation again coexists with nonpositive or inferior net payoff."
+        },
+        "reviewedStudySha256": "b39db8e8e66489ee5e9870ec78352323ee45f6d679712b51bad59ff6dfaaefb2",
+        "reviewedPublications": [
+          {
+            "publicationId": "04-reversal-candle-quality-20261006-web",
+            "sourceRunId": "20260908T_reversal_quality_v1",
+            "sourceSha256": "951d94c40c718dfcddab3d8c5ced1e93ee975317f55ba3478b0b2f3345ac4a38"
+          }
+        ]
       }
     },
     {
@@ -933,6 +1170,72 @@
           "sourceSha256": "98b55fe93fa06f7b2cae8d6e0d70afc3034c93543b4569a5dc1dcaef06349357",
           "sectionId": "methods"
         }
+      },
+      "researchPriority": {
+        "assessmentId": "rp-05-session-vwap-20261026",
+        "rubricVersion": "1.0",
+        "rubricSha256": "5a777ecaff3dabcb5219ca7270a839fecff93eaa819f20374324e0f25e6730cf",
+        "reviewedAt": "2026-10-26",
+        "reviewer": "Codex (AI-assisted editorial review; human approval pending)",
+        "state": "assessed",
+        "score": 1,
+        "scope": "The original first outside-2σ fade and first causal VWAP-touch bounce; later exploratory re-entry and uncomputed plan candidates are separate.",
+        "rationale": "The original fade and first-touch bounce show little stable advantage over their declared controls. Later-period uncertainty and reversal under a common tick barrier outweigh frequent VWAP returns.",
+        "materiality": "Half-sigma favorable-first rates near 46.8% do not include a complete executable payoff. Materiality is incremental net ticks per original episode versus matched departure/near-approach controls, with missed, neither and ambiguous outcomes retained.",
+        "supporting": [
+          {
+            "text": "The saved original cohorts contain 86,475 evaluable fade events and 132,202 first-touch events, with both favorable and adverse outcomes retained.",
+            "source": {
+              "publicationId": "session-vwap-vwap3-20261006-web05",
+              "sourceRunId": "20260923T015900Z_vwap3",
+              "sourceSha256": "98b55fe93fa06f7b2cae8d6e0d70afc3034c93543b4569a5dc1dcaef06349357",
+              "sectionId": "primary-scorecard"
+            }
+          },
+          {
+            "text": "The all-history half-sigma fade contrast versus lesser departures is about +1.11 percentage points, providing limited observational support.",
+            "source": {
+              "publicationId": "session-vwap-vwap3-20261006-web05",
+              "sourceRunId": "20260923T015900Z_vwap3",
+              "sourceSha256": "98b55fe93fa06f7b2cae8d6e0d70afc3034c93543b4569a5dc1dcaef06349357",
+              "sectionId": "matched-baselines"
+            }
+          }
+        ],
+        "contrary": [
+          {
+            "text": "Fade and bounce later-period intervals do not establish stable half-sigma lift. Fixed 8-tick contrasts are negative; the final fade contrast is about −3.16 points and bounce about −2.64 points.",
+            "source": {
+              "publicationId": "session-vwap-vwap3-20261006-web05",
+              "sourceRunId": "20260923T015900Z_vwap3",
+              "sourceSha256": "98b55fe93fa06f7b2cae8d6e0d70afc3034c93543b4569a5dc1dcaef06349357",
+              "sectionId": "matched-baselines"
+            }
+          },
+          {
+            "text": "Views share dates, products and anchors, eligibility is retrospective, and fills, costs and overlap are not an execution model. A frequent return is not a trading win rate.",
+            "source": {
+              "publicationId": "session-vwap-vwap3-20261006-web05",
+              "sourceRunId": "20260923T015900Z_vwap3",
+              "sourceSha256": "98b55fe93fa06f7b2cae8d6e0d70afc3034c93543b4569a5dc1dcaef06349357",
+              "sectionId": "limitations"
+            }
+          }
+        ],
+        "blocker": "The original controls provide weak or contrary incremental evidence, with barrier sensitivity and no protected costed policy validation.",
+        "nextTest": {
+          "description": "If reopened, freeze one original candidate, execution/exit rules and a common episode deadline; compare costed policies on later untouched data against the existing matched control, retaining no-trade and unresolved outcomes.",
+          "supports": "Support only if incremental net mean is at least one tick per original episode with a shared-date 95% lower bound above zero and no reversal under the prespecified fixed-tick robustness check.",
+          "rejects": "Reject if lift again vanishes or reverses with comparable barriers, or executable costs eliminate the incremental gain."
+        },
+        "reviewedStudySha256": "167bca3da38f55a9f9ed0949284b9ec0c613aacd540e2f3b4b1e73d5307b5f07",
+        "reviewedPublications": [
+          {
+            "publicationId": "session-vwap-vwap3-20261006-web05",
+            "sourceRunId": "20260923T015900Z_vwap3",
+            "sourceSha256": "98b55fe93fa06f7b2cae8d6e0d70afc3034c93543b4569a5dc1dcaef06349357"
+          }
+        ]
       }
     },
     {
@@ -1121,6 +1424,81 @@
           }
         ],
         "sampleScope": "The selected report does not provide a complete calendar coverage period. Residence, crossing and fair-price errors are separate questions with separate denominators."
+      },
+      "researchPriority": {
+        "assessmentId": "rp-06-vwap-state-dynamics-20261026",
+        "rubricVersion": "1.0",
+        "rubricSha256": "5a777ecaff3dabcb5219ca7270a839fecff93eaa819f20374324e0f25e6730cf",
+        "reviewedAt": "2026-10-26",
+        "reviewer": "Codex (AI-assisted editorial review; human approval pending)",
+        "state": "assessed",
+        "score": 3,
+        "scope": "Q1: completed-close persistent versus rotational VWAP state as an incremental predictor of future same-side residence after observable context matching.",
+        "rationale": "The specific context-matched residence association is large enough to warrant targeted follow-up. It does not establish a profitable continuation rule, and the study’s other comparisons do not inherit this priority.",
+        "materiality": "The matched Q1 contrast is 18.67 percentage points of future residence, not 18.67% return. Materiality requires an executable net-tick advantage above a geometry/clock/volatility-only policy, rather than forecasting residence of a moving reference alone.",
+        "supporting": [
+          {
+            "text": "Persistent versus rotational Q1 residence retained an 18.67-point contrast (95% 15.53–22.03) after the saved coarse context match.",
+            "source": {
+              "publicationId": "06-vwap-state-dynamics-20261006-web",
+              "sourceRunId": "20260923T180000Z_state06c",
+              "sourceSha256": "b7f9fed47d04784ce98f4b3f21d74c3e9ebc36861c7be664e252e0e3e3775331",
+              "sectionId": "matched"
+            }
+          },
+          {
+            "text": "The primary two-minute state uses completed past closes at fixed landmarks; future observation and warm-up are explicitly separated.",
+            "source": {
+              "publicationId": "06-vwap-state-dynamics-20261006-web",
+              "sourceRunId": "20260923T180000Z_state06c",
+              "sourceSha256": "b7f9fed47d04784ce98f4b3f21d74c3e9ebc36861c7be664e252e0e3e3775331",
+              "sectionId": "methods"
+            }
+          }
+        ],
+        "contrary": [
+          {
+            "text": "The large raw opposing-slope contrast shrinks to about 2.05 points after context matching; raw state differences can largely reflect geometry.",
+            "source": {
+              "publicationId": "06-vwap-state-dynamics-20261006-web",
+              "sourceRunId": "20260923T180000Z_state06c",
+              "sourceSha256": "b7f9fed47d04784ce98f4b3f21d74c3e9ebc36861c7be664e252e0e3e3775331",
+              "sectionId": "matched"
+            }
+          },
+          {
+            "text": "VWAP predicts the future mean better than TWAP overall, but the last-price baseline has much smaller absolute error. This does not support promoting VWAP as a uniquely superior executable anchor.",
+            "source": {
+              "publicationId": "06-vwap-state-dynamics-20261006-web",
+              "sourceRunId": "20260923T180000Z_state06c",
+              "sourceSha256": "b7f9fed47d04784ce98f4b3f21d74c3e9ebc36861c7be664e252e0e3e3775331",
+              "sectionId": "errors"
+            }
+          },
+          {
+            "text": "All dates were previously inspected; matching is observational and coarse, anchors and sensitivities are dependent, and costs/fills are unresolved.",
+            "source": {
+              "publicationId": "06-vwap-state-dynamics-20261006-web",
+              "sourceRunId": "20260923T180000Z_state06c",
+              "sourceSha256": "b7f9fed47d04784ce98f4b3f21d74c3e9ebc36861c7be664e252e0e3e3775331",
+              "sectionId": "limitations"
+            }
+          }
+        ],
+        "blocker": "No protected evaluation shows that residual residence information produces a material net price payoff beyond finer distance and clock controls.",
+        "nextTest": {
+          "description": "Freeze Q1 state thresholds and a single 30-minute next-available-entry/close-exit policy before new data; test later untouched dates against continuous-distance, clock, volatility and last-price baselines with realistic costs.",
+          "supports": "Support if Q1 adds forecast skill beyond those baselines and at least one incremental net tick per original landmark with a shared-date 95% lower bound above zero.",
+          "rejects": "Reject if the residence lift disappears with finer geometry controls or survives only as moving-reference behaviour without incremental net payoff."
+        },
+        "reviewedStudySha256": "219d540e105778078326c0174d5c37feeac6499d960c1974c30d153a2f42400e",
+        "reviewedPublications": [
+          {
+            "publicationId": "06-vwap-state-dynamics-20261006-web",
+            "sourceRunId": "20260923T180000Z_state06c",
+            "sourceSha256": "b7f9fed47d04784ce98f4b3f21d74c3e9ebc36861c7be664e252e0e3e3775331"
+          }
+        ]
       }
     },
     {
@@ -1295,6 +1673,72 @@
           }
         ],
         "sampleScope": "The selected report does not establish an exact calendar coverage period. Original opportunities and executed proxy trades remain distinct, especially for waiting policies."
+      },
+      "researchPriority": {
+        "assessmentId": "rp-07-range-xv-edge-candidates-20261026",
+        "rubricVersion": "1.0",
+        "rubricSha256": "5a777ecaff3dabcb5219ca7270a839fecff93eaa819f20374324e0f25e6730cf",
+        "reviewedAt": "2026-10-26",
+        "reviewer": "Codex (AI-assisted editorial review; human approval pending)",
+        "state": "assessed",
+        "score": 1,
+        "scope": "The frozen nine product-by-candidate comparisons: pullback resumption, wait-for-second-reversal exhaustion, and quiet-period breakout.",
+        "rationale": "None of the frozen primary comparisons passed. All nine saved means are negative after the declared two-tick haircut; favorable contrast point estimates do not rescue the failed primary family.",
+        "materiality": "Saved means after the two-tick screen range from about −1.08 to −3.15 ticks per original opportunity. A material follow-up needs positive executable net ticks and an incremental gain over the exact declared control, not a smaller loss.",
+        "supporting": [
+          {
+            "text": "Waiting after exhaustion has favorable point differences versus early entry in ES, NQ and GC, but every familywise interval includes zero.",
+            "source": {
+              "publicationId": "07-range-xv-edge-candidates-20261006-web",
+              "sourceRunId": "20260924T004900Z_rxv07",
+              "sourceSha256": "2e7430a9bd18f4c58d145e1448477b4673e5ce70d81297c1b6fd14fb34079520",
+              "sectionId": "contrasts"
+            }
+          }
+        ],
+        "contrary": [
+          {
+            "text": "No primary idea-by-product comparison passes the declared uncertainty and later-block requirements.",
+            "source": {
+              "publicationId": "07-range-xv-edge-candidates-20261006-web",
+              "sourceRunId": "20260924T004900Z_rxv07",
+              "sourceSha256": "2e7430a9bd18f4c58d145e1448477b4673e5ce70d81297c1b6fd14fb34079520",
+              "sectionId": "findings"
+            }
+          },
+          {
+            "text": "Every displayed primary candidate mean is negative after two ticks per executed round trip; wait-policy nontrades correctly remain zero in the original-opportunity denominator.",
+            "source": {
+              "publicationId": "07-range-xv-edge-candidates-20261006-web",
+              "sourceRunId": "20260924T004900Z_rxv07",
+              "sourceSha256": "2e7430a9bd18f4c58d145e1448477b4673e5ce70d81297c1b6fd14fb34079520",
+              "sectionId": "means"
+            }
+          },
+          {
+            "text": "Older export-clock cohorts and next-bar-start completion proxies remain the executed scope; a later clock correction does not validate fills or rerun quiet-period calibration.",
+            "source": {
+              "publicationId": "07-range-xv-edge-candidates-20261006-web",
+              "sourceRunId": "20260924T004900Z_rxv07",
+              "sourceSha256": "2e7430a9bd18f4c58d145e1448477b4673e5ce70d81297c1b6fd14fb34079520",
+              "sectionId": "limitations"
+            }
+          }
+        ],
+        "blocker": "Negative screened net means and failed familywise comparisons leave no supported candidate to promote.",
+        "nextTest": {
+          "description": "Only after a new mechanism is specified, freeze one candidate/control on corrected verified clocks and collect genuinely later tick-level evidence with realistic fills and costs; do not retune this failed family.",
+          "supports": "Support requires positive absolute net mean and at least one incremental net tick per original opportunity, with prespecified family-adjusted date-cluster lower bounds above zero.",
+          "rejects": "Reject if the candidate remains a smaller loss, its baseline contrast includes no improvement, or later-period gains depend on selected dates."
+        },
+        "reviewedStudySha256": "c61f7e4525b33de1dfe2cf1015b20b5ad04b5755e14b08bc67eaa960ef30d7b2",
+        "reviewedPublications": [
+          {
+            "publicationId": "07-range-xv-edge-candidates-20261006-web",
+            "sourceRunId": "20260924T004900Z_rxv07",
+            "sourceSha256": "2e7430a9bd18f4c58d145e1448477b4673e5ce70d81297c1b6fd14fb34079520"
+          }
+        ]
       }
     },
     {
@@ -1485,6 +1929,77 @@
         ],
         "period": "Selected chart histories span November 2019–September 2026, with incomplete paths excluded.",
         "sampleScope": "Each chart/direction row retains its own eligible C1 opportunities. Overall rows differ from the prior-run and clock-window cuts in the primary screen."
+      },
+      "researchPriority": {
+        "assessmentId": "rp-08-countertrend-bar-continuation-20261026",
+        "rubricVersion": "1.0",
+        "rubricSha256": "5a777ecaff3dabcb5219ca7270a839fecff93eaa819f20374324e0f25e6730cf",
+        "reviewedAt": "2026-10-26",
+        "reviewer": "Codex (AI-assisted editorial review; human approval pending)",
+        "state": "assessed",
+        "score": 1,
+        "scope": "Entering after first countertrend C1 to obtain both C2 and C3 in its direction, including the frozen prior-run and clock-window comparisons.",
+        "rationale": "The frozen primary screen found no positive winner. Frequent one-bar continuation does not establish incremental two-bar continuation or a costed entry advantage.",
+        "materiality": "ES 4RXV overall two-more rates are about 47.9% versus about 75% for C2 alone, but these are different bar-colour events. Materiality requires net ticks per C1 opportunity above the same-chart, side and clock all-prior-run baseline.",
+        "supporting": [
+          {
+            "text": "C2 alone follows ES 4RXV C1 in roughly three quarters of eligible opportunities; this documents short persistence, not the primary two-more event.",
+            "source": {
+              "publicationId": "08-countertrend-bar-continuation-20261006-web-r2",
+              "sourceRunId": "20260924T132916Z_ctbars_v1",
+              "sourceSha256": "e95d3e956310566038f9784ee61a9c41877a7e989821781fa7e265aa7aa45096",
+              "sectionId": "one-more"
+            }
+          }
+        ],
+        "contrary": [
+          {
+            "text": "No frozen primary comparison passed the positive familywise screen.",
+            "source": {
+              "publicationId": "08-countertrend-bar-continuation-20261006-web-r2",
+              "sourceRunId": "20260924T132916Z_ctbars_v1",
+              "sourceSha256": "e95d3e956310566038f9784ee61a9c41877a7e989821781fa7e265aa7aa45096",
+              "sectionId": "findings"
+            }
+          },
+          {
+            "text": "The screen uses all-prior-run rates on the same chart, side and clock as its baseline; 50% is not the baseline, and displayed overall rows are broader than the main prior-run screen.",
+            "source": {
+              "publicationId": "08-countertrend-bar-continuation-20261006-web-r2",
+              "sourceRunId": "20260924T132916Z_ctbars_v1",
+              "sourceSha256": "e95d3e956310566038f9784ee61a9c41877a7e989821781fa7e265aa7aa45096",
+              "sectionId": "methods"
+            }
+          },
+          {
+            "text": "Chart settings share price streams; exclusions and inferred clocks are retrospective, while completion, costs, stops and fills are unverified.",
+            "source": {
+              "publicationId": "08-countertrend-bar-continuation-20261006-web-r2",
+              "sourceRunId": "20260924T132916Z_ctbars_v1",
+              "sourceSha256": "e95d3e956310566038f9784ee61a9c41877a7e989821781fa7e265aa7aa45096",
+              "sectionId": "limitations"
+            }
+          }
+        ],
+        "blocker": "The incremental primary screen failed and no executable payoff attaches to either colour rate.",
+        "nextTest": {
+          "description": "Reopen only one frozen causal C1 setup against its all-prior-run comparator on later verified data; specify a common fixed exit and costed executable fills before looking at outcomes.",
+          "supports": "Support if absolute and incremental after-cost means exceed a preregistered one-tick-per-opportunity hurdle with corrected date-cluster lower bounds above zero.",
+          "rejects": "Reject if only C2 frequency is high, the primary two-more contrast remains unsupported, or net payoff is nonpositive."
+        },
+        "reviewedStudySha256": "425090cdb146bf8757430def3b3200c3d46ca107fea7c9918e76958734d2e9a9",
+        "reviewedPublications": [
+          {
+            "publicationId": "08-countertrend-bar-continuation-20261006-web-r2",
+            "sourceRunId": "20260924T132916Z_ctbars_v1",
+            "sourceSha256": "e95d3e956310566038f9784ee61a9c41877a7e989821781fa7e265aa7aa45096"
+          },
+          {
+            "publicationId": "08-countertrend-bar-continuation-20261006-web",
+            "sourceRunId": "20260924T132916Z_ctbars_v1",
+            "sourceSha256": "8143b10b2cb4a60068ac9a56b980ac76170fbe8bc28b2e4192ab5078466835f1"
+          }
+        ]
       }
     },
     {
@@ -1675,6 +2190,72 @@
           }
         ],
         "sampleScope": "The selected publication does not establish an exact calendar coverage period. Confirmed-event and original-opportunity populations must not be pooled."
+      },
+      "researchPriority": {
+        "assessmentId": "rp-09-range-xv-c2-confirmation-20261026",
+        "rubricVersion": "1.0",
+        "rubricSha256": "5a777ecaff3dabcb5219ca7270a839fecff93eaa819f20374324e0f25e6730cf",
+        "reviewedAt": "2026-10-26",
+        "reviewer": "Codex (AI-assisted editorial review; human approval pending)",
+        "state": "assessed",
+        "score": 1,
+        "scope": "Waiting for completed C2 confirmation after C1, judged as a price policy over every original C1 opportunity rather than a selected colour subset.",
+        "rationale": "Some conditional colour contrasts are positive, but saved waiting price means are negative and waiting loses opportunities. The evidence does not support promoting confirmation as an actionable improvement.",
+        "materiality": "The ES 4RXV bearish wait-minus-immediate price contrast is about −0.17 ticks (95% −0.25 to −0.08), before costs. Conditional C3/C4 success must be separated from net ticks per original C1 and the different physical horizons.",
+        "supporting": [
+          {
+            "text": "Some GC and bearish NQ 10RXV confirmed-colour comparisons pass the ordinary-pair screen; this is limited support for conditional bar behaviour.",
+            "source": {
+              "publicationId": "09-range-xv-c2-confirmation-20261006-web",
+              "sourceRunId": "20260924T141810Z_c2confirm_v1",
+              "sourceSha256": "954c83e702612ced19b74ffad7176591f602399141ccbc3272a24af4a7a4d2e1",
+              "sectionId": "confirmed"
+            }
+          }
+        ],
+        "contrary": [
+          {
+            "text": "Waiting price means are negative throughout the saved chart/side comparison; most wait-minus-immediate means are also negative.",
+            "source": {
+              "publicationId": "09-range-xv-c2-confirmation-20261006-web",
+              "sourceRunId": "20260924T141810Z_c2confirm_v1",
+              "sourceSha256": "954c83e702612ced19b74ffad7176591f602399141ccbc3272a24af4a7a4d2e1",
+              "sectionId": "price"
+            }
+          },
+          {
+            "text": "For ES 4RXV bearish C1, immediate two-bar colour success is about 47.36% of original opportunities, while waiting success is about 30.03%; conditioning on confirmation hides missed opportunities.",
+            "source": {
+              "publicationId": "09-range-xv-c2-confirmation-20261006-web",
+              "sourceRunId": "20260924T141810Z_c2confirm_v1",
+              "sourceSha256": "954c83e702612ced19b74ffad7176591f602399141ccbc3272a24af4a7a4d2e1",
+              "sectionId": "common-opportunity"
+            }
+          },
+          {
+            "text": "Ordinary controls can include older run ages; the later age-two diagnostic is exploratory. Costs, fills and exact completion remain unresolved, and Study 08 shares the underlying history.",
+            "source": {
+              "publicationId": "09-range-xv-c2-confirmation-20261006-web",
+              "sourceRunId": "20260924T141810Z_c2confirm_v1",
+              "sourceSha256": "954c83e702612ced19b74ffad7176591f602399141ccbc3272a24af4a7a4d2e1",
+              "sectionId": "limitations"
+            }
+          }
+        ],
+        "blocker": "Conditional colour lift does not overcome negative price proxies or establish a like-for-like executable waiting-policy gain.",
+        "nextTest": {
+          "description": "Freeze one age-matched comparison with one shared decision deadline, retaining every original C1 and zero no-confirmation trades; evaluate later tick data with exact completion, entry/exit and costs.",
+          "supports": "Support only if waiting has positive net mean and at least one incremental net tick per original C1 with a paired date-cluster 95% lower bound above zero.",
+          "rejects": "Reject if improved confirmed colour rates continue to coexist with negative net payoff or if waiting only shifts the horizon and denominator."
+        },
+        "reviewedStudySha256": "0b120acd4abc1488899f777c874c998a1a51a2166b346ceff5125374bc55b6ef",
+        "reviewedPublications": [
+          {
+            "publicationId": "09-range-xv-c2-confirmation-20261006-web",
+            "sourceRunId": "20260924T141810Z_c2confirm_v1",
+            "sourceSha256": "954c83e702612ced19b74ffad7176591f602399141ccbc3272a24af4a7a4d2e1"
+          }
+        ]
       }
     },
     {
@@ -1882,6 +2463,77 @@
           }
         ],
         "sampleScope": "The selected report does not establish a single common calendar period. Separate upstream observations and denominators remain separate; the overlay is not a pooled sample."
+      },
+      "researchPriority": {
+        "assessmentId": "rp-10-range-xv-session-overlay-20261026",
+        "rubricVersion": "1.0",
+        "rubricSha256": "5a777ecaff3dabcb5219ca7270a839fecff93eaa819f20374324e0f25e6730cf",
+        "reviewedAt": "2026-10-26",
+        "reviewer": "Codex (AI-assisted editorial review; human approval pending)",
+        "state": "assessed",
+        "score": 1,
+        "scope": "Using Asia/London/New York segmentation to identify an actionable improvement in the saved Studies 07–09 candidates.",
+        "rationale": "The session overlay does not rescue the failed price candidates. Colour-only segment standouts remain exploratory, depend on shared source histories and cannot be pooled into a trade edge.",
+        "materiality": "The relevant unit is net ticks per original opportunity within the same source study and segment. Study 07 uses a two-tick haircut; differing horizons, clocks and populations preclude ranking or pooling returns across Studies 07–09.",
+        "supporting": [
+          {
+            "text": "Some NQ 10RXV session colour contrasts are positive, including a roughly 0.94-point London bearish difference; these motivate context questions only.",
+            "source": {
+              "publicationId": "10-range-xv-session-overlay-20261006-web-r2",
+              "sourceRunId": "20260924T145715Z_session_v1",
+              "sourceSha256": "c433c3a3b915e4e4c4229c48d587e568ddd1d0fb99b0d04bfa44d1e40a4ba0e3",
+              "sectionId": "countertrend-example"
+            }
+          }
+        ],
+        "contrary": [
+          {
+            "text": "No Study 07 product/idea/session passes the price screen, and Study 09 waiting means remain negative in every chart/side/session.",
+            "source": {
+              "publicationId": "10-range-xv-session-overlay-20261006-web-r2",
+              "sourceRunId": "20260924T145715Z_session_v1",
+              "sourceSha256": "c433c3a3b915e4e4c4229c48d587e568ddd1d0fb99b0d04bfa44d1e40a4ba0e3",
+              "sectionId": "findings"
+            }
+          },
+          {
+            "text": "The overlay was specified after source results were inspected, retains separate ordinary and other-session baselines, and reuses saved ledgers rather than independent evidence.",
+            "source": {
+              "publicationId": "10-range-xv-session-overlay-20261006-web-r2",
+              "sourceRunId": "20260924T145715Z_session_v1",
+              "sourceSha256": "c433c3a3b915e4e4c4229c48d587e568ddd1d0fb99b0d04bfa44d1e40a4ba0e3",
+              "sectionId": "methods"
+            }
+          },
+          {
+            "text": "Source clocks, samples and horizons differ. Study 07 quiet-breakout calibration retains its older clock cohort; correlated settings and shared dates limit inference.",
+            "source": {
+              "publicationId": "10-range-xv-session-overlay-20261006-web-r2",
+              "sourceRunId": "20260924T145715Z_session_v1",
+              "sourceSha256": "c433c3a3b915e4e4c4229c48d587e568ddd1d0fb99b0d04bfa44d1e40a4ba0e3",
+              "sectionId": "limitations"
+            }
+          }
+        ],
+        "blocker": "Retrospective segmentation yields no supported costed price candidate and cannot manufacture fresh validation from reused observations.",
+        "nextTest": {
+          "description": "If a new mechanism justifies reopening, freeze one source candidate and one segment before genuinely later data; use corrected verified decision clocks, original opportunities and its exact same-study control with executable costs.",
+          "supports": "Support requires at least one incremental net tick per opportunity plus positive absolute net mean and prespecified date-cluster lower bounds above zero across the frozen later blocks.",
+          "rejects": "Reject if only colour or selected-session rates improve, if the costed price screen fails, or if the apparent gain requires mixing source cohorts."
+        },
+        "reviewedStudySha256": "3247a306fd660386678d70e4fcf85a9bd82a2d15042e88ef920d7b771dc57d8a",
+        "reviewedPublications": [
+          {
+            "publicationId": "10-range-xv-session-overlay-20261006-web-r2",
+            "sourceRunId": "20260924T145715Z_session_v1",
+            "sourceSha256": "c433c3a3b915e4e4c4229c48d587e568ddd1d0fb99b0d04bfa44d1e40a4ba0e3"
+          },
+          {
+            "publicationId": "10-range-xv-session-overlay-20261006-web",
+            "sourceRunId": "20260924T145715Z_session_v1",
+            "sourceSha256": "142efbff0c992616a7901175c1d7dc53ce9cc0c19334d9ce7483075f062740b9"
+          }
+        ]
       }
     },
     {
@@ -2064,6 +2716,72 @@
             }
           }
         ]
+      },
+      "researchPriority": {
+        "assessmentId": "rp-11-vwap-conditional-probabilities-20261026",
+        "rubricVersion": "1.0",
+        "rubricSha256": "5a777ecaff3dabcb5219ca7270a839fecff93eaa819f20374324e0f25e6730cf",
+        "reviewedAt": "2026-10-26",
+        "reviewer": "Codex (AI-assisted editorial review; human approval pending)",
+        "state": "assessed",
+        "score": 2,
+        "scope": "Added elapsed/path state for frozen-deadline departure-return forecasts above the geometry/clock baseline; not the entire chart-display prototype.",
+        "rationale": "Added A/B context produces a small measured forecast improvement, providing a specific mechanism to test. Sparse supported coverage, no C improvement and absent economic-policy evidence keep this at define-and-test.",
+        "materiality": "The added-context Brier improvements are roughly 0.5% for A and 1.0% for B on the chronological evaluation, not return percentages. Materiality requires a preregistered decision policy to earn incremental net ticks beyond geometry alone.",
+        "supporting": [
+          {
+            "text": "A/B added-context forecast errors are lower in the saved chronological evaluation; product-level Brier-difference intervals exclude zero, supporting a small predictive increment.",
+            "source": {
+              "publicationId": "11-vwap-conditional-probabilities-20261006-web",
+              "sourceRunId": "20260924T155331Z_vwap11",
+              "sourceSha256": "97eca10adb56b62d74bad7c53fd27460189af7b8fb7ada046ba41111cf34472f",
+              "sectionId": "models"
+            }
+          }
+        ],
+        "contrary": [
+          {
+            "text": "Specific added-context coverage is limited, and C falls back entirely to geometry with zero measured improvement.",
+            "source": {
+              "publicationId": "11-vwap-conditional-probabilities-20261006-web",
+              "sourceRunId": "20260924T155331Z_vwap11",
+              "sourceSha256": "97eca10adb56b62d74bad7c53fd27460189af7b8fb7ada046ba41111cf34472f",
+              "sectionId": "models"
+            }
+          },
+          {
+            "text": "Return-first, extension-first, neither and ambiguous all remain in the denominator; unequal target distances make a 50% winner benchmark invalid.",
+            "source": {
+              "publicationId": "11-vwap-conditional-probabilities-20261006-web",
+              "sourceRunId": "20260924T155331Z_vwap11",
+              "sourceSha256": "97eca10adb56b62d74bad7c53fd27460189af7b8fb7ada046ba41111cf34472f",
+              "sectionId": "competition"
+            }
+          },
+          {
+            "text": "Previously viewed history is exploratory. Repeated checkpoints, timeframes and episodes are dependent, while OHLC ambiguity, fills and net profitability remain unresolved.",
+            "source": {
+              "publicationId": "11-vwap-conditional-probabilities-20261006-web",
+              "sourceRunId": "20260924T155331Z_vwap11",
+              "sourceSha256": "97eca10adb56b62d74bad7c53fd27460189af7b8fb7ada046ba41111cf34472f",
+              "sectionId": "limitations"
+            }
+          }
+        ],
+        "blocker": "Small predictive gains have not been shown to support an economically useful policy on protected data with adequate forecast coverage.",
+        "nextTest": {
+          "description": "Freeze one A/B augmented forecast and an unchanged geometry-only policy, then record both timestamped forecasts on later unseen dates before applying one fixed executable entry/exit/cost rule.",
+          "supports": "Support if the augmented forecast retains a shared-week Brier improvement, useful preregistered coverage, and at least one incremental net tick per original eligible episode with a 95% lower bound above zero.",
+          "rejects": "Reject if calibration/coverage deteriorate or forecast skill has no incremental after-cost decision value; do not add context to C without a separate new study."
+        },
+        "reviewedStudySha256": "88f555a5d0a9bae8718412490e270d35907d982e9958a83c0f0aacec507c8805",
+        "reviewedPublications": [
+          {
+            "publicationId": "11-vwap-conditional-probabilities-20261006-web",
+            "sourceRunId": "20260924T155331Z_vwap11",
+            "sourceSha256": "97eca10adb56b62d74bad7c53fd27460189af7b8fb7ada046ba41111cf34472f"
+          }
+        ]
       }
     },
     {
@@ -2237,6 +2955,77 @@
               "sourceSha256": "66b3f1ef36cd913ebdd6f3509f2d4d41522b1d939fbe16f4c32f769af2b109d6",
               "sectionId": "exclusions"
             }
+          }
+        ]
+      },
+      "researchPriority": {
+        "assessmentId": "rp-12-gc-ema-band-excursions-20261026",
+        "rubricVersion": "1.0",
+        "rubricSha256": "5a777ecaff3dabcb5219ca7270a839fecff93eaa819f20374324e0f25e6730cf",
+        "reviewedAt": "2026-10-26",
+        "reviewer": "Codex (AI-assisted editorial review; human approval pending)",
+        "state": "assessed",
+        "score": 1,
+        "scope": "The unfiltered GC outer-lower-band long candidate at the displayed ten-bar cooldown and twenty-bar horizon; other grid cells are sensitivities.",
+        "rationale": "The excursion study documents path scale but no stable material long advantage. Later adverse movement is substantial and terminal movement remains uncertain; selecting a favorable MFE would invent an exit.",
+        "materiality": "At the fixed default, 2026 YTD mean MAE/MFE is 30.94/23.91 GC points on 245 complete paths; mean terminal move is −0.15 points (95% −5.15 to 4.86). Separate extrema cannot be subtracted into realized P&L.",
+        "supporting": [
+          {
+            "text": "2025 default terminal mean is +1.75 GC points on 207 valid paths, but its interval includes zero; this supplies limited, uncertain support for a bounce question.",
+            "source": {
+              "publicationId": "12-gc-ema-band-excursions-20261007-evidence",
+              "sourceRunId": "20260925T223721Z_gc_ema_excursions_v1",
+              "sourceSha256": "66b3f1ef36cd913ebdd6f3509f2d4d41522b1d939fbe16f4c32f769af2b109d6",
+              "sectionId": "terminal"
+            }
+          }
+        ],
+        "contrary": [
+          {
+            "text": "The 2026 default mean adverse excursion exceeds favorable excursion; the GC-point scale is far larger than 2025 and should not be pooled into a fixed risk rule.",
+            "source": {
+              "publicationId": "12-gc-ema-band-excursions-20261007-evidence",
+              "sourceRunId": "20260925T223721Z_gc_ema_excursions_v1",
+              "sourceSha256": "66b3f1ef36cd913ebdd6f3509f2d4d41522b1d939fbe16f4c32f769af2b109d6",
+              "sectionId": "yearly"
+            }
+          },
+          {
+            "text": "The 2026 default terminal mean is slightly negative with a wide interval despite a terminal-positive rate above half.",
+            "source": {
+              "publicationId": "12-gc-ema-band-excursions-20261007-evidence",
+              "sourceRunId": "20260925T223721Z_gc_ema_excursions_v1",
+              "sourceSha256": "66b3f1ef36cd913ebdd6f3509f2d4d41522b1d939fbe16f4c32f769af2b109d6",
+              "sectionId": "terminal"
+            }
+          },
+          {
+            "text": "The parameter grid is exploratory and dependent; adjusted history and eligibility are retrospective, and stops, ordering, fills, slippage and net profitability are untested.",
+            "source": {
+              "publicationId": "12-gc-ema-band-excursions-20261007-evidence",
+              "sourceRunId": "20260925T223721Z_gc_ema_excursions_v1",
+              "sourceSha256": "66b3f1ef36cd913ebdd6f3509f2d4d41522b1d939fbe16f4c32f769af2b109d6",
+              "sectionId": "limitations"
+            }
+          }
+        ],
+        "blocker": "There is no fixed executable exit or time-matched price baseline showing positive after-cost advantage; excursion maxima are unattainable hindsight exits.",
+        "nextTest": {
+          "description": "Only reopen after freezing a single exit policy at this same default, with finer paths for sequencing and unadjusted fills/costs, versus a time/volatility-matched GC baseline on genuinely later dates.",
+          "supports": "Support if absolute and incremental net means exceed a preregistered one-net-tick-per-opportunity hurdle with week-cluster 95% lower bounds above zero and acceptable preset adverse-risk limits.",
+          "rejects": "Reject if the bounce remains terminally uncertain or negative after costs, or apparent profit requires choosing exits from observed MAE/MFE."
+        },
+        "reviewedStudySha256": "6234599649924c5bf9b9fa46118fb0fb5f2e75d65a17050090ab6251d0c87b21",
+        "reviewedPublications": [
+          {
+            "publicationId": "12-gc-ema-band-excursions-20261007-evidence",
+            "sourceRunId": "20260925T223721Z_gc_ema_excursions_v1",
+            "sourceSha256": "66b3f1ef36cd913ebdd6f3509f2d4d41522b1d939fbe16f4c32f769af2b109d6"
+          },
+          {
+            "publicationId": "12-gc-ema-band-excursions-20261006-web",
+            "sourceRunId": "20260925T223721Z_gc_ema_excursions_v1",
+            "sourceSha256": "ad3bec5347a84161072906fca3302969ef78867fcc22a43061b7a7863a6b7584"
           }
         ]
       }
@@ -2417,6 +3206,63 @@
             }
           }
         ]
+      },
+      "researchPriority": {
+        "assessmentId": "rp-13-gc-ema-band-filter-validation-20261026",
+        "rubricVersion": "1.0",
+        "rubricSha256": "5a777ecaff3dabcb5219ca7270a839fecff93eaa819f20374324e0f25e6730cf",
+        "reviewedAt": "2026-10-26",
+        "reviewer": "Codex (AI-assisted editorial review; human approval pending)",
+        "state": "assessed",
+        "score": 2,
+        "scope": "The frozen upper-half-close filter selected in 2025 for GC lower-band longs, applied unchanged to the ten-bar cooldown/twenty-bar horizon chronological 2026 check.",
+        "rationale": "The simple causal filter improves the descriptive risk score directionally in both years, warranting a discriminating test. The 2026 interval spans zero, its score stays negative, and that year was previously viewed.",
+        "materiality": "The 2026 capped MFE-minus-MAE score improves by 0.131 signal sigma, from −0.309 to −0.179, with 182 filtered versus 245 baseline paths. This path-selection score is not realized return; materiality requires incremental net GC ticks under one executable policy.",
+        "supporting": [
+          {
+            "text": "The selected upper-half-close rule improved the 2025 score by 0.263 sigma and the unchanged 2026 score by 0.131 sigma, retaining the declared signal-time condition.",
+            "source": {
+              "publicationId": "13-gc-ema-band-filter-validation-20261006-web",
+              "sourceRunId": "20260926T000219Z_gc_band_filters_v1",
+              "sourceSha256": "517062e91f83a842f2f6ca30d2dd3d9494151a9244fdce82c63563d12bd0acc1",
+              "sectionId": "candidate-grid"
+            }
+          }
+        ],
+        "contrary": [
+          {
+            "text": "The 2026 score-difference interval is about −0.047 to +0.316 sigma, including no improvement, and the filtered score remains negative.",
+            "source": {
+              "publicationId": "13-gc-ema-band-filter-validation-20261006-web",
+              "sourceRunId": "20260926T000219Z_gc_band_filters_v1",
+              "sourceSha256": "517062e91f83a842f2f6ca30d2dd3d9494151a9244fdce82c63563d12bd0acc1",
+              "sectionId": "candidate-grid"
+            }
+          },
+          {
+            "text": "2026 unfiltered outcomes were already viewed in Study 12. Nine-filter selection, correlated sensitivities, retrospective adjusted history and absent stop/target ordering or costs prevent protected-validation or profitability claims.",
+            "source": {
+              "publicationId": "13-gc-ema-band-filter-validation-20261006-web",
+              "sourceRunId": "20260926T000219Z_gc_band_filters_v1",
+              "sourceSha256": "517062e91f83a842f2f6ca30d2dd3d9494151a9244fdce82c63563d12bd0acc1",
+              "sectionId": "limitations"
+            }
+          }
+        ],
+        "blocker": "An uncertain descriptive risk improvement has not survived genuinely uninspected evaluation or an executable costed return comparison.",
+        "nextTest": {
+          "description": "Freeze the exact upper-half-close rule and original default cooldown/horizon, plus one stop/exit policy, then compare with the unfiltered original-opportunity policy on later unseen finer-price data with costs and sequencing.",
+          "supports": "Support if risk reduction survives the frozen MFE-retention condition and incremental net expectancy is at least one GC tick per original opportunity with a paired-week 95% lower bound above zero.",
+          "rejects": "Reject if the gain interval still includes no material improvement at the planned sample size, favorable movement is sacrificed beyond the frozen retention limit, or costs leave nonpositive incremental net payoff."
+        },
+        "reviewedStudySha256": "43bcaf90ef258d702466992ac292374657b24be37d6edad2e23e65e1203d704d",
+        "reviewedPublications": [
+          {
+            "publicationId": "13-gc-ema-band-filter-validation-20261006-web",
+            "sourceRunId": "20260926T000219Z_gc_band_filters_v1",
+            "sourceSha256": "517062e91f83a842f2f6ca30d2dd3d9494151a9244fdce82c63563d12bd0acc1"
+          }
+        ]
       }
     },
     {
@@ -2584,6 +3430,63 @@
               "sourceSha256": "b4a93e50f26efa7fe12de5179aa74954f4dc74c8df6f1ee4f67f512e7bfd5876",
               "sectionId": "methods"
             }
+          }
+        ]
+      },
+      "researchPriority": {
+        "assessmentId": "rp-14-asia-session-vp-levels-20261026",
+        "rubricVersion": "1.0",
+        "rubricSha256": "5a777ecaff3dabcb5219ca7270a839fecff93eaa819f20374324e0f25e6730cf",
+        "reviewedAt": "2026-10-26",
+        "reviewer": "Codex (AI-assisted editorial review; human approval pending)",
+        "state": "assessed",
+        "score": 2,
+        "scope": "Original NQ Asia A–C research; the narrow follow-up candidate is short setup B, a developing value-boundary breakout/retest. Later D/E extensions are excluded from this public assessment.",
+        "rationale": "The short B retest has a specific matched favorable-excursion advantage worth defining as a trade policy. The original POC and HVN alternatives are inconclusive or adverse, and the B result has no saved costed payoff or terminal-return advantage. More MFE is an opportunity envelope, not capturable profit; this supports definition and testing rather than an execution claim.",
+        "materiality": "Use incremental net NQ points per filled short B setup and per eligible Asia session against the saved same-year/side/hour/volatility-matched control. The saved +2.76-point MFE contrast is not net expectancy. A future protocol should require a predeclared economically useful net hurdle, for example one NQ point per fill after spread, fees and slippage, with participation and risk reported.",
+        "supporting": [
+          {
+            "text": "The original 2024–2025 short B 30-minute comparison saves matched MFE +2.7588 NQ points, 95% interval [0.6428, 5.1007], across 540 complete matched events. This is a specific path difference against matched controls.",
+            "source": {
+              "publicationId": "14-asia-session-vp-levels-20261006-web",
+              "sourceRunId": "20260929T124500Z_asiavp_b2",
+              "sourceSha256": "b4a93e50f26efa7fe12de5179aa74954f4dc74c8df6f1ee4f67f512e7bfd5876",
+              "sectionId": "controls"
+            }
+          }
+        ],
+        "contrary": [
+          {
+            "text": "POC reversal remains inconclusive and short HVN fades show worse adverse excursion; these do not corroborate a universal Asia-level edge.",
+            "source": {
+              "publicationId": "14-asia-session-vp-levels-20261006-web",
+              "sourceRunId": "20260929T124500Z_asiavp_b2",
+              "sourceSha256": "b4a93e50f26efa7fe12de5179aa74954f4dc74c8df6f1ee4f67f512e7bfd5876",
+              "sectionId": "findings"
+            }
+          },
+          {
+            "text": "Profiles approximate bar volume; prior inspection, retrospective completeness, unresolved intrabar fills and absent independent execution/profile parity remain material limits. No costed stop/target policy is demonstrated.",
+            "source": {
+              "publicationId": "14-asia-session-vp-levels-20261006-web",
+              "sourceRunId": "20260929T124500Z_asiavp_b2",
+              "sourceSha256": "b4a93e50f26efa7fe12de5179aa74954f4dc74c8df6f1ee4f67f512e7bfd5876",
+              "sectionId": "limitations"
+            }
+          }
+        ],
+        "blocker": "A favorable-excursion difference has not been converted into causal, costed entry/exit expectancy; the validation history was previously inspected and the complete primary family does not support a general level strategy.",
+        "nextTest": {
+          "description": "Freeze only short B with one causal next-open entry, one stop/exit and a same-hour/volatility comparator, then evaluate genuinely new NQ history using original profile settings and conservative fills. Preserve all eligible sessions and missing outcomes; test the complete declared cost scenario.",
+          "supports": "Net points per fill exceed the frozen material hurdle with a week-clustered lower uncertainty bound above zero, positive incremental session expectancy, and no dependence on optimistic fill order.",
+          "rejects": "Net advantage is nonpositive, below the material hurdle, erased by realistic friction, or not reproducible from levels known before the touch."
+        },
+        "reviewedStudySha256": "337199973a2a5eb4f5fc1c61a6b1134274dc7a4f4cab71485a1ace9bec65ae4c",
+        "reviewedPublications": [
+          {
+            "publicationId": "14-asia-session-vp-levels-20261006-web",
+            "sourceRunId": "20260929T124500Z_asiavp_b2",
+            "sourceSha256": "b4a93e50f26efa7fe12de5179aa74954f4dc74c8df6f1ee4f67f512e7bfd5876"
           }
         ]
       }
@@ -2772,6 +3675,68 @@
               "sourceSha256": "57e68bbc8b09d745aacc39582f285718c445eb23f02a25a3fad2eb16aeda5592",
               "sectionId": "methods"
             }
+          }
+        ]
+      },
+      "researchPriority": {
+        "assessmentId": "rp-15-vwap-excursion-response-20261026",
+        "rubricVersion": "1.0",
+        "rubricSha256": "5a777ecaff3dabcb5219ca7270a839fecff93eaa819f20374324e0f25e6730cf",
+        "reviewedAt": "2026-10-26",
+        "reviewer": "Codex (AI-assisted editorial review; human approval pending)",
+        "state": "assessed",
+        "score": 2,
+        "scope": "Price-only VWAP excursion/response research across ES/NQ/GC and four anchors. The proposed discriminating candidate is GC Globex 2σ departure continuation over 10 two-minute candles, not a universal VWAP fade.",
+        "rationale": "Most equity-index directional means are inconclusive, while GC has modest positive 20-minute continuation means at several overlapping anchors. The Globex result is narrow enough to specify a test but small in outright price units and unsupported by saved execution, costs or a matched entry benchmark. Anchors and nested thresholds cannot be counted as replications.",
+        "materiality": "Judge net GC points per eligible continuation and incremental net points versus a same-anchor/time baseline, including genuine no-trades. The saved Globex mean is only +0.18 gross points over 20 minutes; a future materiality gate such as at least one native GC tick (0.1 point) incremental net expectancy must survive fully specified spread, commission and slippage.",
+        "supporting": [
+          {
+            "text": "At the primary 2σ departure and 20-minute horizon, GC Globex continuation has saved mean +0.18 points, 95% interval [0.04, 0.33], N=3,793. GC Asia/NY are also positive descriptively, with overlapping histories.",
+            "source": {
+              "publicationId": "15-vwap-excursion-response-20261007-evidence",
+              "sourceRunId": "20260929T234000Z_a15f",
+              "sourceSha256": "57e68bbc8b09d745aacc39582f285718c445eb23f02a25a3fad2eb16aeda5592",
+              "sectionId": "globex-response"
+            }
+          }
+        ],
+        "contrary": [
+          {
+            "text": "GC London continuation is near zero and most ES/NQ signed means include zero; return/touch frequencies do not establish a profitable fade.",
+            "source": {
+              "publicationId": "15-vwap-excursion-response-20261007-evidence",
+              "sourceRunId": "20260929T234000Z_a15f",
+              "sourceSha256": "57e68bbc8b09d745aacc39582f285718c445eb23f02a25a3fad2eb16aeda5592",
+              "sectionId": "findings"
+            }
+          },
+          {
+            "text": "Whole-day eligibility is retrospective; anchors overlap, thresholds nest and intervals are marginal. OHLC touches, missing paths and double-barrier ambiguity do not establish fills or net profitability.",
+            "source": {
+              "publicationId": "15-vwap-excursion-response-20261007-evidence",
+              "sourceRunId": "20260929T234000Z_a15f",
+              "sourceSha256": "57e68bbc8b09d745aacc39582f285718c445eb23f02a25a3fad2eb16aeda5592",
+              "sectionId": "limitations"
+            }
+          }
+        ],
+        "blocker": "No frozen executable trade policy, cost model or matched causal baseline exists, and the observed gross GC mean is small enough for ordinary friction to matter.",
+        "nextTest": {
+          "description": "Freeze GC Globex 2σ continuation with one 20-minute exit and causal entry, against a same-time/volatility comparator, on new data. Record spread, fees, adverse fills and unavailable paths; do not pool Asia/London/NY anchors or search horizons.",
+          "supports": "Incremental net expectancy clears the predeclared 0.1-point material gate with a week-clustered lower bound above zero and remains positive under adverse fill sensitivity.",
+          "rejects": "The small gross mean disappears after costs, fails against the comparator, is unstable across new calendar blocks, or depends on retrospective eligibility."
+        },
+        "reviewedStudySha256": "046d0ba18b1cfb741352aafd07b3ff307a5048fcfa44f1faeea2b0b5345ba8c6",
+        "reviewedPublications": [
+          {
+            "publicationId": "15-vwap-excursion-response-20261007-evidence",
+            "sourceRunId": "20260929T234000Z_a15f",
+            "sourceSha256": "57e68bbc8b09d745aacc39582f285718c445eb23f02a25a3fad2eb16aeda5592"
+          },
+          {
+            "publicationId": "15-vwap-excursion-response-20261006-web",
+            "sourceRunId": "20260929T234000Z_a15f",
+            "sourceSha256": "7ad5d7ed7e4e208bd48f2697f7f72090472aeb251261476b3c34a27336adba97"
           }
         ]
       }
@@ -2974,6 +3939,77 @@
             }
           }
         ]
+      },
+      "researchPriority": {
+        "assessmentId": "rp-16-range-xv-reversal-paths-20261026",
+        "rubricVersion": "1.0",
+        "rubricSha256": "5a777ecaff3dabcb5219ca7270a839fecff93eaa819f20374324e0f25e6730cf",
+        "reviewedAt": "2026-10-26",
+        "reviewer": "Codex (AI-assisted editorial review; human approval pending)",
+        "state": "assessed",
+        "score": 1,
+        "scope": "Incremental prediction from preceding Range XV leg length and richer lead-up features beyond the frozen reversal-geometry/context baseline, across eight currency-future charts.",
+        "rationale": "The primary later-period prediction comparison does not support incremental information from prior leg length or the richer lead-up model. Selected color-persistence patterns do not rescue this failure: one has adverse gross price movement and the additional efficiency cut collapses to the same population. Further feature search has little present priority.",
+        "materiality": "Materiality requires improvement over the B1 geometry/context baseline in later predictive loss and, separately, positive costed net R per causally executable event under a frozen risk/exit policy. Constant-2026 quote-equivalent q and candle-color frequencies are neither historical tick profit nor dollar P&L; no economic hurdle is met in the saved evidence.",
+        "supporting": [
+          {
+            "text": "A finite development/validation condition pool and locked later assessment make the tested incremental-information question identifiable; the baseline and selected conditions remain explicit.",
+            "source": {
+              "publicationId": "16-range-xv-reversal-paths-20261007-evidence",
+              "sourceRunId": "20261002T010500Z_ohlc200_161001",
+              "sourceSha256": "c774cf7e3667fa250a994ba45ce774e7039744ecf099edeb370dbf60c03fc6ec",
+              "sectionId": "methods"
+            }
+          }
+        ],
+        "contrary": [
+          {
+            "text": "The primary later-period M1/M2 F≥3 prediction improvements are unsupported beyond the B1 reversal-geometry/context baseline; richer history does not provide a supported positive gain.",
+            "source": {
+              "publicationId": "16-range-xv-reversal-paths-20261007-evidence",
+              "sourceRunId": "20261002T010500Z_ohlc200_161001",
+              "sourceSha256": "c774cf7e3667fa250a994ba45ce774e7039744ecf099edeb370dbf60c03fc6ec",
+              "sectionId": "findings"
+            }
+          },
+          {
+            "text": "The selected bearish 6J/4 prior-L=1 color pattern has negative gross three-bar price movement. The efficiency-qualified candidate adds no distinct population because its cut collapsed.",
+            "source": {
+              "publicationId": "16-range-xv-reversal-paths-20261007-evidence",
+              "sourceRunId": "20261002T010500Z_ohlc200_161001",
+              "sourceSha256": "c774cf7e3667fa250a994ba45ce774e7039744ecf099edeb370dbf60c03fc6ec",
+              "sectionId": "price-paths"
+            }
+          },
+          {
+            "text": "Completion clocks, contract rolls, historical tick changes, executable fills and price-path denominators remain qualified; quote-equivalent units cannot be treated as money.",
+            "source": {
+              "publicationId": "16-range-xv-reversal-paths-20261007-evidence",
+              "sourceRunId": "20261002T010500Z_ohlc200_161001",
+              "sourceSha256": "c774cf7e3667fa250a994ba45ce774e7039744ecf099edeb370dbf60c03fc6ec",
+              "sectionId": "limitations"
+            }
+          }
+        ],
+        "blocker": "The primary incremental prediction test failed, and the surviving exploratory color association is not a positive executable price effect.",
+        "nextTest": {
+          "description": "Pause broader model search. Reconsider only after independently establishing causal completion/contract timing; then freeze the unchanged B1-versus-L comparison and one costed risk policy on new history, with paired dependence-aware evaluation.",
+          "supports": "A materially positive later improvement over B1 and a separately prespecified positive incremental net-R hurdle both survive uncertainty and friction without selecting new cells.",
+          "rejects": "Incremental loss improvement again includes zero or is adverse, net expectancy is nonpositive, or the apparent signal remains only candle color with untradeable completion timing."
+        },
+        "reviewedStudySha256": "bd0cdd991c6b1e9c9d79d5ed73678ee23a53749f9787222fa1012da5ebee5705",
+        "reviewedPublications": [
+          {
+            "publicationId": "16-range-xv-reversal-paths-20261007-evidence",
+            "sourceRunId": "20261002T010500Z_ohlc200_161001",
+            "sourceSha256": "c774cf7e3667fa250a994ba45ce774e7039744ecf099edeb370dbf60c03fc6ec"
+          },
+          {
+            "publicationId": "16-range-xv-reversal-paths-20261006-web",
+            "sourceRunId": "20261002T010500Z_ohlc200_161001",
+            "sourceSha256": "a93b3902f709f770500cc376f229b085418442354328915cf6cbf038a9eadb41"
+          }
+        ]
       }
     },
     {
@@ -3166,6 +4202,67 @@
           "sourceSha256": "00fa38c40d9fa2c9dcb59336af66237b154a7bbb8878aa93175c48aed7366086",
           "sectionId": "methods"
         }
+      },
+      "researchPriority": {
+        "assessmentId": "rp-17-nq-advanced-amd-video-20261026",
+        "rubricVersion": "1.0",
+        "rubricSha256": "5a777ecaff3dabcb5219ca7270a839fecff93eaa819f20374324e0f25e6730cf",
+        "reviewedAt": "2026-10-26",
+        "reviewer": "Codex (AI-assisted editorial review; human approval pending)",
+        "state": "not_applicable",
+        "scope": "Qualitative source review of one selected NQ AMD educational week and its weekly-to-intraday decision process.",
+        "rationale": "This completed source review is useful educational context, but it is not an empirical edge candidate. The five illustrated days are selected examples, not an audited independent trade sample; a numerical research-priority score would suggest evidence that the study was not designed to produce.",
+        "materiality": "An educational decision-process review has no measured net-return materiality. Any later empirical candidate would need causal bias/entry/abstention definitions, net points or R, an explicit baseline and full costs before it can be assessed.",
+        "supporting": [
+          {
+            "text": "The review preserves conditional bias, confirmation and the permission to abstain, with source claims separated from observed chart responses and Abacus interpretation.",
+            "source": {
+              "publicationId": "nq-amd-source-review-20261007-references",
+              "sourceRunId": "20261005T172713Z_video17",
+              "sourceSha256": "00fa38c40d9fa2c9dcb59336af66237b154a7bbb8878aa93175c48aed7366086",
+              "sectionId": "findings"
+            }
+          }
+        ],
+        "contrary": [
+          {
+            "text": "The broader target was unmet; the no-trade Thursday and changed Friday bias remain visible rather than being counted as successful executed trades.",
+            "source": {
+              "publicationId": "nq-amd-source-review-20261007-references",
+              "sourceRunId": "20261005T172713Z_video17",
+              "sourceSha256": "00fa38c40d9fa2c9dcb59336af66237b154a7bbb8878aa93175c48aed7366086",
+              "sectionId": "shortfall"
+            }
+          },
+          {
+            "text": "No Abacus backtest, complete audited trade ledger, executable rule set or independently verified quarterly performance is established by the selected source examples.",
+            "source": {
+              "publicationId": "nq-amd-source-review-20261007-references",
+              "sourceRunId": "20261005T172713Z_video17",
+              "sourceSha256": "00fa38c40d9fa2c9dcb59336af66237b154a7bbb8878aa93175c48aed7366086",
+              "sectionId": "limitations"
+            }
+          }
+        ],
+        "blocker": "The work is qualitative and outside the empirical edge rubric, rather than weak numerical evidence.",
+        "nextTest": {
+          "description": "No trading experiment is implied by completion of this review. If a separate edge study is authorized, first operationalize one conditional-bias and abstention rule and test whether independent reviewers can reproduce its causal signals before a new-data costed comparison.",
+          "supports": "Only a reproducible rule and a separately defined material net advantage over an explicit baseline could support a future empirical assessment.",
+          "rejects": "Retrospective discretionary labels, irreproducible examples or absent executable definitions keep it outside the scoring rubric."
+        },
+        "reviewedStudySha256": "21d89c768c33c51bf5bf9a00fe33f098e2f3684d2b880bdba6b6eb629f2e70ae",
+        "reviewedPublications": [
+          {
+            "publicationId": "nq-amd-source-review-20261007-references",
+            "sourceRunId": "20261005T172713Z_video17",
+            "sourceSha256": "00fa38c40d9fa2c9dcb59336af66237b154a7bbb8878aa93175c48aed7366086"
+          },
+          {
+            "publicationId": "nq-amd-source-review-20261006-web17",
+            "sourceRunId": "20261005T172713Z_video17",
+            "sourceSha256": "b5a2c94cf2d1363fe6a537c2de00e2bbfcac32012afa110255b8553f96789b3c"
+          }
+        ]
       }
     },
     {
@@ -3346,6 +4443,71 @@
               "sourceSha256": "5fc7d1cce9c60e2c7403254f5a16fbec67e57818942eacd8afe284a8cf7bec64",
               "sectionId": "future"
             }
+          }
+        ]
+      },
+      "researchPriority": {
+        "assessmentId": "rp-19-value-area-fade-tracker-20261026",
+        "rubricVersion": "1.0",
+        "rubricSha256": "5a777ecaff3dabcb5219ca7270a839fecff93eaa819f20374324e0f25e6730cf",
+        "reviewedAt": "2026-10-26",
+        "reviewer": "Codex (AI-assisted editorial review; human approval pending)",
+        "state": "not_assessed",
+        "scope": "External first-touch developing value-area fade tracker, reviewed as overlapping cumulative snapshots rather than an Abacus backtest.",
+        "rationale": "The saved source review does not contain enough independent empirical evidence to rate a material edge. The 55- and 100-trade snapshots overlap, subset denominators and realized management are incomplete, and the raw ledger and causal profile/entry definitions are unavailable. Missing evidence is not a one-star empirical finding.",
+        "materiality": "The relevant units would be net R per executed trade and per eligible session under a fixed first-touch VAH/VAL-to-POC policy, compared with later touches or a matched no-filter rule. Reported win percentages do not determine payoff, costs or material net expectancy.",
+        "supporting": [
+          {
+            "text": "The source describes a first-touch value-area fade and reports growing cumulative samples and grade/context observations. These provide a concrete hypothesis to specify, not an independently verified result.",
+            "source": {
+              "publicationId": "value-area-fade-tracker-20261007-source-review-r2",
+              "sourceRunId": "20261007T143300Z_tracker19",
+              "sourceSha256": "5fc7d1cce9c60e2c7403254f5a16fbec67e57818942eacd8afe284a8cf7bec64",
+              "sectionId": "strategy"
+            }
+          }
+        ],
+        "contrary": [
+          {
+            "text": "The reported 55/100 snapshots are cumulative, joint favorable-context sample support is absent, and several denominators cannot be recovered from the source images.",
+            "source": {
+              "publicationId": "value-area-fade-tracker-20261007-source-review-r2",
+              "sourceRunId": "20261007T143300Z_tracker19",
+              "sourceSha256": "5fc7d1cce9c60e2c7403254f5a16fbec67e57818942eacd8afe284a8cf7bec64",
+              "sectionId": "limitations"
+            }
+          },
+          {
+            "text": "Fixed 1:1 versus running-winner management is unresolved; reported excursions and source comments do not establish realized reward/risk or net costs.",
+            "source": {
+              "publicationId": "value-area-fade-tracker-20261007-source-review-r2",
+              "sourceRunId": "20261007T143300Z_tracker19",
+              "sourceSha256": "5fc7d1cce9c60e2c7403254f5a16fbec67e57818942eacd8afe284a8cf7bec64",
+              "sectionId": "management"
+            }
+          },
+          {
+            "text": "The source retains opposing and inconclusive context claims, including unsupported same-type value-area alignment; stronger-looking selected grades cannot be treated as confirmations.",
+            "source": {
+              "publicationId": "value-area-fade-tracker-20261007-source-review-r2",
+              "sourceRunId": "20261007T143300Z_tracker19",
+              "sourceSha256": "5fc7d1cce9c60e2c7403254f5a16fbec67e57818942eacd8afe284a8cf7bec64",
+              "sectionId": "opposing"
+            }
+          }
+        ],
+        "blocker": "A dated auditable trade/opportunity ledger, executable developing-profile rules, realized payoff and the relevant denominators are missing.",
+        "nextTest": {
+          "description": "First obtain an auditable prospective opportunity ledger and freeze one causal first-touch VAH/VAL fade-to-POC rule with separate management variants, explicit stops/fills/costs and eligible no-trades. Compare it with later touches on a declared new interval.",
+          "supports": "Complete independent records reproduce the signals and show a predeclared material incremental net-R/session advantage with adequate nonoverlapping calendar support and uncertainty.",
+          "rejects": "The ledger or causal rules cannot be recovered, or fully costed expectancy is nonpositive, below the declared hurdle, or dependent on a tiny selected joint subgroup."
+        },
+        "reviewedStudySha256": "c7a45ed24897a2fd9fab155508f296b4008d78a8b411671404495b069f179376",
+        "reviewedPublications": [
+          {
+            "publicationId": "value-area-fade-tracker-20261007-source-review-r2",
+            "sourceRunId": "20261007T143300Z_tracker19",
+            "sourceSha256": "5fc7d1cce9c60e2c7403254f5a16fbec67e57818942eacd8afe284a8cf7bec64"
           }
         ]
       }
@@ -3544,6 +4706,72 @@
               "sourceSha256": "42871bb7930a0ba76ee03e5d568fd07cc578ed4259e3e53c0996156542670f28",
               "sectionId": "definitions"
             }
+          }
+        ]
+      },
+      "researchPriority": {
+        "assessmentId": "rp-20-camarilla-ema-cloud-reversals-20261026",
+        "rubricVersion": "1.0",
+        "rubricSha256": "5a777ecaff3dabcb5219ca7270a839fecff93eaa819f20374324e0f25e6730cf",
+        "reviewedAt": "2026-10-26",
+        "reviewer": "Codex (AI-assisted editorial review; human approval pending)",
+        "state": "assessed",
+        "score": 1,
+        "scope": "Primary R3/S3 EMA20/50 alignment versus no-filter comparisons in ES/NQ/GC: 15-bar paths and the frozen 3R assumed-cost trade policy.",
+        "rationale": "No primary final-evaluation contrast supports a positive alignment gain. Positive isolated alignment-policy means have intervals including zero, while NQ alignment has an adverse path contrast with block-sensitive familywise significance. The confluence grid and cost variants do not justify selecting a favorable cell after the primary failure.",
+        "materiality": "Use incremental net R per jointly scorable eligible session versus no filter, with participation and stand-alone net USD separate by product. The saved paired policy means are ES +0.0395, NQ −0.0571 and GC +0.0106 R/session, all with uncertainty spanning zero. A useful future hurdle must be fixed in session-R units and clear the USD10 plus adverse-tick assumptions and latency stress.",
+        "supporting": [
+          {
+            "text": "The saved fixed policy explicitly models one-position occupancy, 3R exits, conservative gaps/limits, USD10 round-trip fees and adverse ticks; positive stand-alone means can therefore be distinguished from the paired incremental question.",
+            "source": {
+              "publicationId": "camarilla-ema-20261008t220932z-cb2711",
+              "sourceRunId": "20261008T220932Z_cb2711",
+              "sourceSha256": "42871bb7930a0ba76ee03e5d568fd07cc578ed4259e3e53c0996156542670f28",
+              "sectionId": "policy"
+            }
+          }
+        ],
+        "contrary": [
+          {
+            "text": "All six final primary contrasts lack positive support; alignment path N is only ES 49/NQ 55/GC 40. NQ alignment-minus-none path delta is −1.0732 ATR with four-week family interval [−2.4065, −0.0147], sensitive to block choice.",
+            "source": {
+              "publicationId": "camarilla-ema-20261008t220932z-cb2711",
+              "sourceRunId": "20261008T220932Z_cb2711",
+              "sourceSha256": "42871bb7930a0ba76ee03e5d568fd07cc578ed4259e3e53c0996156542670f28",
+              "sectionId": "primary-contrasts"
+            }
+          },
+          {
+            "text": "The paired costed policy intervals include zero in every product. One-minute delay weakens NQ to a negative stand-alone mean and reduces GC; the nine fee/slip cases are sensitivities, not additional independent tests.",
+            "source": {
+              "publicationId": "camarilla-ema-20261008t220932z-cb2711",
+              "sourceRunId": "20261008T220932Z_cb2711",
+              "sourceSha256": "42871bb7930a0ba76ee03e5d568fd07cc578ed4259e3e53c0996156542670f28",
+              "sectionId": "sensitivities"
+            }
+          },
+          {
+            "text": "Original mapping-arrival timestamps, certified annual holidays and prospective execution parity remain unavailable. Prior repository history exposure and retrospective exclusions qualify the chronological evaluation.",
+            "source": {
+              "publicationId": "camarilla-ema-20261008t220932z-cb2711",
+              "sourceRunId": "20261008T220932Z_cb2711",
+              "sourceSha256": "42871bb7930a0ba76ee03e5d568fd07cc578ed4259e3e53c0996156542670f28",
+              "sectionId": "limitations"
+            }
+          }
+        ],
+        "blocker": "The tested alignment increment is unsupported, event support is sparse, and no positive economically reliable increment survives the declared comparison.",
+        "nextTest": {
+          "description": "Pause new confluence searches. Revisit the unchanged alignment-minus-none question only after causal mapping/level availability is recorded, with one product and material session-R hurdle frozen before a new evaluation period and adverse fee/fill/latency scenarios retained.",
+          "supports": "Paired incremental net R/session exceeds the frozen economically useful hurdle with a positive dependence-aware lower bound and remains positive after adverse latency/friction.",
+          "rejects": "The primary increment stays nonpositive or indistinguishable from zero, relies on sparse cells, or vanishes under conservative costs/availability."
+        },
+        "reviewedStudySha256": "8db177bd5de724db4923787b9b0db753b18c60cec524c5b30477604b1ff3863f",
+        "reviewedPublications": [
+          {
+            "publicationId": "camarilla-ema-20261008t220932z-cb2711",
+            "sourceRunId": "20261008T220932Z_cb2711",
+            "sourceSha256": "42871bb7930a0ba76ee03e5d568fd07cc578ed4259e3e53c0996156542670f28"
           }
         ]
       }
@@ -3977,6 +5205,256 @@
             }
           }
         ]
+      },
+      "researchPriority": {
+        "assessmentId": "rp-22-es-range-xv-focused-20261026",
+        "rubricVersion": "1.0",
+        "rubricSha256": "5a777ecaff3dabcb5219ca7270a839fecff93eaa819f20374324e0f25e6730cf",
+        "reviewedAt": "2026-10-26",
+        "reviewer": "Codex (AI-assisted editorial review; human approval pending)",
+        "state": "assessed",
+        "score": 1,
+        "scope": "ES Range XV 4/5/6 descriptive trend/reversal research, with actionable-edge judgment focused on the later A→one B→R next-open gross payoff proxy; settings remain separate.",
+        "rationale": "High continuation-color frequencies do not translate into favorable payoff. Both 1R and 2R overall gross OHLC payoff bounds are negative at all three chart sizes before any trading friction. The prior trend-length and reversal tables describe the same inspected market history and cannot serve as independent validation or rescue the payoff result.",
+        "materiality": "Judge costed net R per causally executable setup against a fixed baseline, not candle continuation percentage. The saved all-direction gross 1R means are about −0.0237R (4), −0.0213R (5) and −0.0186R (6); 2R is also negative. These small negative gross values have no friction reserve and no demonstrated economic hurdle.",
+        "supporting": [
+          {
+            "text": "The A→B→R pattern and next-open payoff convention are explicitly defined, with unknown paths, same-bar ordering bounds and the first frozen setup retained. This makes the adverse test interpretable.",
+            "source": {
+              "publicationId": "es-range-xv-pullback-payoff-4t-20261012-patterns-r1",
+              "sourceRunId": "20261012T230640Z_pullbacks22_4f3a92",
+              "sourceSha256": "e30babc4cd7642b6b2fcc736fa518ba93dc0febaae7736ea54f4dea6bdf9fe58",
+              "sectionId": "definition"
+            }
+          }
+        ],
+        "contrary": [
+          {
+            "text": "At size 4, both-direction gross mean-R bounds are [−0.023736, −0.023655] for 1R and [−0.033836, −0.033744] for 2R, before costs.",
+            "source": {
+              "publicationId": "es-range-xv-pullback-payoff-4t-20261012-patterns-r1",
+              "sourceRunId": "20261012T230640Z_pullbacks22_4f3a92",
+              "sourceSha256": "e30babc4cd7642b6b2fcc736fa518ba93dc0febaae7736ea54f4dea6bdf9fe58",
+              "sectionId": "overall-payoff"
+            }
+          },
+          {
+            "text": "Size 5 also has negative overall 1R/2R bounds; the result is not rescued by changing chart size.",
+            "source": {
+              "publicationId": "es-range-xv-pullback-payoff-5t-20261012-patterns-r1",
+              "sourceRunId": "20261012T230640Z_pullbacks22_4f3a92",
+              "sourceSha256": "6c52cba8b778209b247020f69bcfb444fd79037046bde8629f5b821f76d1bfaf",
+              "sectionId": "overall-payoff"
+            }
+          },
+          {
+            "text": "Size 6 overall 1R/2R bounds remain negative. Contract/roll identity, exact completion ticks and executable fills remain unverified; color continuation is descriptive.",
+            "source": {
+              "publicationId": "es-range-xv-pullback-payoff-6t-20261012-patterns-r1",
+              "sourceRunId": "20261012T230640Z_pullbacks22_4f3a92",
+              "sourceSha256": "7952fa5863a16b983d22fa32ec75d9265edfe82099fcbb5e8c3af1df3f6a6fd2",
+              "sectionId": "overall-payoff"
+            }
+          },
+          {
+            "text": "The inspected history, overlapping windows/charts and completion proxies do not establish untouched validation or an executable costed strategy.",
+            "source": {
+              "publicationId": "es-range-xv-pullback-payoff-4t-20261012-patterns-r1",
+              "sourceRunId": "20261012T230640Z_pullbacks22_4f3a92",
+              "sourceSha256": "e30babc4cd7642b6b2fcc736fa518ba93dc0febaae7736ea54f4dea6bdf9fe58",
+              "sectionId": "methods"
+            }
+          }
+        ],
+        "blocker": "Gross payoff is already adverse, with no independently reserved execution sample and no verified completion/contract timing.",
+        "nextTest": {
+          "description": "Pause pattern/horizon optimization. Only reconsider after tradable timestamps and contract mapping are independently available; freeze one chart size and unchanged setup with a complete costed policy and comparator on new history.",
+          "supports": "The conservative net-R/session and net-R/setup increments clear a predeclared material hurdle with a positive clustered lower bound, without selecting a later winning size or subgroup.",
+          "rejects": "Gross payoff remains negative, friction erases any change, or unresolved timing/ordering prevents identification of executable outcomes."
+        },
+        "reviewedStudySha256": "224925afc22416112b60de24461d64f457341e07d3932ba5f349aa9016b5c220",
+        "reviewedPublications": [
+          {
+            "publicationId": "es-range-xv-pullback-continuation-4t-20261012-patterns-r1",
+            "sourceRunId": "20261012T230640Z_pullbacks22_4f3a92",
+            "sourceSha256": "4ca2e0f44830440cda0fa3cd164178853883e120af8610061c9b9518d44a35dd"
+          },
+          {
+            "publicationId": "es-range-xv-pullback-continuation-5t-20261012-patterns-r1",
+            "sourceRunId": "20261012T230640Z_pullbacks22_4f3a92",
+            "sourceSha256": "5a5a34c59a46150d20c13387dc70b54c1454997cdeb2a9906e4386b2ee847c8d"
+          },
+          {
+            "publicationId": "es-range-xv-pullback-continuation-6t-20261012-patterns-r1",
+            "sourceRunId": "20261012T230640Z_pullbacks22_4f3a92",
+            "sourceSha256": "4668bfd545166b2cfa2eb03b13ae3bea117239b48b39184307ce8eb7a1f34c07"
+          },
+          {
+            "publicationId": "es-range-xv-pullback-retracement-4t-20261012-patterns-r1",
+            "sourceRunId": "20261012T230640Z_pullbacks22_4f3a92",
+            "sourceSha256": "3349e347617ef32c47cbd81ed55a61f1da1149b1a91b61c0e05b861d940f6e7d"
+          },
+          {
+            "publicationId": "es-range-xv-pullback-retracement-5t-20261012-patterns-r1",
+            "sourceRunId": "20261012T230640Z_pullbacks22_4f3a92",
+            "sourceSha256": "453d8424eda3fb7276a04e06e0cdca7ba165f0640a5508d06853de9b6842046f"
+          },
+          {
+            "publicationId": "es-range-xv-pullback-retracement-6t-20261012-patterns-r1",
+            "sourceRunId": "20261012T230640Z_pullbacks22_4f3a92",
+            "sourceSha256": "e88350df2ca96e5f2d51144bda47787019bf3e968b6190c0793376120e7c49ea"
+          },
+          {
+            "publicationId": "es-range-xv-pullback-payoff-4t-20261012-patterns-r1",
+            "sourceRunId": "20261012T230640Z_pullbacks22_4f3a92",
+            "sourceSha256": "e30babc4cd7642b6b2fcc736fa518ba93dc0febaae7736ea54f4dea6bdf9fe58"
+          },
+          {
+            "publicationId": "es-range-xv-pullback-payoff-5t-20261012-patterns-r1",
+            "sourceRunId": "20261012T230640Z_pullbacks22_4f3a92",
+            "sourceSha256": "6c52cba8b778209b247020f69bcfb444fd79037046bde8629f5b821f76d1bfaf"
+          },
+          {
+            "publicationId": "es-range-xv-pullback-payoff-6t-20261012-patterns-r1",
+            "sourceRunId": "20261012T230640Z_pullbacks22_4f3a92",
+            "sourceSha256": "7952fa5863a16b983d22fa32ec75d9265edfe82099fcbb5e8c3af1df3f6a6fd2"
+          },
+          {
+            "publicationId": "es-range-xv-reversal-continuation-4t-20261012-patterns-r1",
+            "sourceRunId": "20261012T214714Z_reversals22_36f9c1",
+            "sourceSha256": "32361659e5bf82c205fd80114e14d6d987c8d9db4770353c6d2fc9a5539f6b1d"
+          },
+          {
+            "publicationId": "es-range-xv-reversal-continuation-5t-20261012-patterns-r1",
+            "sourceRunId": "20261012T214714Z_reversals22_36f9c1",
+            "sourceSha256": "6a8b5be4e7c871e035f2cac981f07e2a3e933bd05c4d653f66f04682cd2e5ca5"
+          },
+          {
+            "publicationId": "es-range-xv-reversal-continuation-6t-20261012-patterns-r1",
+            "sourceRunId": "20261012T214714Z_reversals22_36f9c1",
+            "sourceSha256": "4d7caba92274fe6a76c7ab85e0605bed92495c0071ec8e99a7f5b11d1c31deb0"
+          },
+          {
+            "publicationId": "es-range-xv-reversal-retracement-4t-20261012-patterns-r1",
+            "sourceRunId": "20261012T214714Z_reversals22_36f9c1",
+            "sourceSha256": "67a5c59c5545a1d8b015aad293e8bb162fd71571f4bbe18d7911ee2639e892b8"
+          },
+          {
+            "publicationId": "es-range-xv-reversal-retracement-5t-20261012-patterns-r1",
+            "sourceRunId": "20261012T214714Z_reversals22_36f9c1",
+            "sourceSha256": "cd65c8fc637895af9403946619559c07d74d1215cdd9dc6e0b2c76cb699a3787"
+          },
+          {
+            "publicationId": "es-range-xv-reversal-retracement-6t-20261012-patterns-r1",
+            "sourceRunId": "20261012T214714Z_reversals22_36f9c1",
+            "sourceSha256": "8dd720c24cb1e905297144cf1973409d88d08382f02fe42323a1c0fe2799082f"
+          },
+          {
+            "publicationId": "es-range-xv-trend-length-4t-20261012-patterns-r1",
+            "sourceRunId": "20261012T201757Z_trends22_eaa65b",
+            "sourceSha256": "ea9690b11161a3831b85d00f43d5aab24d8e9067878ddcc43657028005785c13"
+          },
+          {
+            "publicationId": "es-range-xv-trend-length-5t-20261012-patterns-r1",
+            "sourceRunId": "20261012T201757Z_trends22_eaa65b",
+            "sourceSha256": "f4893761b824ae4fa61994856497f1923d47a34e6e7b1253814bdd89b9bc9816"
+          },
+          {
+            "publicationId": "es-range-xv-trend-length-6t-20261012-patterns-r1",
+            "sourceRunId": "20261012T201757Z_trends22_eaa65b",
+            "sourceSha256": "2a72997c4eff8afe2170ccbcf74f95e95a2635d1bddaf23ad6d9b6717c3d42fe"
+          },
+          {
+            "publicationId": "es-range-xv-pullback-continuation-4t-20261012",
+            "sourceRunId": "20261012T230640Z_pullbacks22_4f3a92",
+            "sourceSha256": "4fa2f0e3e74a74dfdd4c444088a3a109e552783cf907137776801ea811275293"
+          },
+          {
+            "publicationId": "es-range-xv-pullback-continuation-5t-20261012",
+            "sourceRunId": "20261012T230640Z_pullbacks22_4f3a92",
+            "sourceSha256": "d511cd40e60f897dedfcba727c1c135c05afaed22bc013da4bf084d8374a6190"
+          },
+          {
+            "publicationId": "es-range-xv-pullback-continuation-6t-20261012",
+            "sourceRunId": "20261012T230640Z_pullbacks22_4f3a92",
+            "sourceSha256": "f5033bc60a740cbb6266a8fd3716dc685adbd2fb3e38c29b9ff53f29288bdf67"
+          },
+          {
+            "publicationId": "es-range-xv-pullback-retracement-4t-20261012",
+            "sourceRunId": "20261012T230640Z_pullbacks22_4f3a92",
+            "sourceSha256": "999f25dd062c88ea5052060198bac01dadfb9ee08ebc601fe577abb1825677f6"
+          },
+          {
+            "publicationId": "es-range-xv-pullback-retracement-5t-20261012",
+            "sourceRunId": "20261012T230640Z_pullbacks22_4f3a92",
+            "sourceSha256": "c62245c4395b5984a02e789e88ef620d4036976c1cd75a7b408c981e91ea09d7"
+          },
+          {
+            "publicationId": "es-range-xv-pullback-retracement-6t-20261012",
+            "sourceRunId": "20261012T230640Z_pullbacks22_4f3a92",
+            "sourceSha256": "f1924f6e3b93a7b6f49b9af5735f2ab249bc6ab57c41abf0262ece7fcbdbdec7"
+          },
+          {
+            "publicationId": "es-range-xv-pullback-payoff-4t-20261012",
+            "sourceRunId": "20261012T230640Z_pullbacks22_4f3a92",
+            "sourceSha256": "dcf7b5a14d67d0940c30a929f676e895e3207ed78c7a399faf4b2fbd8716a009"
+          },
+          {
+            "publicationId": "es-range-xv-pullback-payoff-5t-20261012",
+            "sourceRunId": "20261012T230640Z_pullbacks22_4f3a92",
+            "sourceSha256": "666381c1f206a838161952dfef17907c2c35b448b899cb34d73eed0cc7d33201"
+          },
+          {
+            "publicationId": "es-range-xv-pullback-payoff-6t-20261012",
+            "sourceRunId": "20261012T230640Z_pullbacks22_4f3a92",
+            "sourceSha256": "61d059e9da8efed664f1e555d5535447a967356fa499a02298c3c85aedc104d9"
+          },
+          {
+            "publicationId": "es-range-xv-reversal-continuation-4t-20261012",
+            "sourceRunId": "20261012T214714Z_reversals22_36f9c1",
+            "sourceSha256": "b8942a9afea547cf325a2614f2ded1d11296124e8811e555ef68961d479a26c9"
+          },
+          {
+            "publicationId": "es-range-xv-reversal-continuation-5t-20261012",
+            "sourceRunId": "20261012T214714Z_reversals22_36f9c1",
+            "sourceSha256": "792f42be21b556ccc091dcb031497ad74fe5ac44b0543a285851ed42253f60a5"
+          },
+          {
+            "publicationId": "es-range-xv-reversal-continuation-6t-20261012",
+            "sourceRunId": "20261012T214714Z_reversals22_36f9c1",
+            "sourceSha256": "e20d00cddba4f6cd8cff72ca3060cbbdee9eacd457266c5b1d491657b79ca8c7"
+          },
+          {
+            "publicationId": "es-range-xv-reversal-retracement-4t-20261012",
+            "sourceRunId": "20261012T214714Z_reversals22_36f9c1",
+            "sourceSha256": "d21ea5ada69aa818c8c01216fc3332f0fe5626a1fe3d7b7f56162f770bf08210"
+          },
+          {
+            "publicationId": "es-range-xv-reversal-retracement-5t-20261012",
+            "sourceRunId": "20261012T214714Z_reversals22_36f9c1",
+            "sourceSha256": "f4fe255b46ae149b5b9fbd745ea19154bab15d0e24c055b791fcc1f8b62a8a42"
+          },
+          {
+            "publicationId": "es-range-xv-reversal-retracement-6t-20261012",
+            "sourceRunId": "20261012T214714Z_reversals22_36f9c1",
+            "sourceSha256": "d4ef47d992be42e1ef2fea0d00547160e209fb80d83bd00e34903296e20cc4bf"
+          },
+          {
+            "publicationId": "es-range-xv-trend-length-4t-20261012",
+            "sourceRunId": "20261012T201757Z_trends22_eaa65b",
+            "sourceSha256": "891519b1c99bd4cd5daafc79dfdaf71ef770f1fa5955f018c499ff52d68120fc"
+          },
+          {
+            "publicationId": "es-range-xv-trend-length-5t-20261012",
+            "sourceRunId": "20261012T201757Z_trends22_eaa65b",
+            "sourceSha256": "a0895eb72cf1db9047416deaf028536985e42db75e0ff123cbe44bfc9b7f39ad"
+          },
+          {
+            "publicationId": "es-range-xv-trend-length-6t-20261012",
+            "sourceRunId": "20261012T201757Z_trends22_eaa65b",
+            "sourceSha256": "7e2d5bfc915e3d76422fc546dc782472142f4b956cba9176ef714da5bf3c7329"
+          }
+        ]
       }
     },
     {
@@ -4350,6 +5828,215 @@
           "sourceSha256": "0766a6a25f1aed756f9873888d0bee4c4c1aedf1f5f40ed3fdeda501eefa039c",
           "sectionId": "masks"
         }
+      },
+      "researchPriority": {
+        "assessmentId": "rp-23-gc-overnight-breakout-15m-20261026",
+        "rubricVersion": "1.0",
+        "rubricSha256": "5a777ecaff3dabcb5219ca7270a839fecff93eaa819f20374324e0f25e6730cf",
+        "reviewedAt": "2026-10-26",
+        "reviewer": "Codex (AI-assisted editorial review; human approval pending)",
+        "state": "assessed",
+        "score": 2,
+        "scope": "Preserved Phase 1 fixed overnight-breakout baseline as a candidate for execution/financing validation. Four Phase 2 confirmed-reclaim replacements failed their primary selection; passive/protected families remain exploratory and Phase 3 is uncomputed.",
+        "rationale": "The unchanged baseline has positive standardized one-contract historical net dollars under declared costs, enough to justify a tightly defined feasibility check. It does not support an actionable account claim: partial 2026 contributes most of the positive total, missing opportunities remain unknown, native tick execution is unverified, and the original $10,000 account finances no whole-GC fills. Failed Phase 2 replacements stay failed.",
+        "materiality": "Materiality is financeable net USD per eligible broker day, under actual whole-contract margin/risk constraints and an unchanged baseline benchmark, with drawdown and missing-day exposure disclosed. The saved $201,045 completed-only one-contract total is neither a $10,000 account return nor full-roster expectancy. A future hurdle should be fixed before testing and exceed observed all-in execution costs with feasible position size.",
+        "supporting": [
+          {
+            "text": "The baseline saves 863 completed one-GC trades with $201,045 net under $2.50/side and one adverse tick/fill assumptions; accepted censored fills remain excluded explicitly from closed totals.",
+            "source": {
+              "publicationId": "gc-overnight-breakout-15m-phase1-20261013-v1",
+              "sourceRunId": "20261013T142537Z_phase1_gc_ob15m_v1",
+              "sourceSha256": "4c5395e60dceeb5ffadc462850b0e6b2db96d37e1031451bf45ead4179ee6e50",
+              "sectionId": "overview"
+            }
+          }
+        ],
+        "contrary": [
+          {
+            "text": "No confirmed-reclaim primary qualified under the frozen validation rule. Passive and protected policies are exploratory, with prior baseline exposure preventing pristine-holdout claims.",
+            "source": {
+              "publicationId": "gc-overnight-breakout-15m-phase2-20261013-v1-comparison-summary",
+              "sourceRunId": "20261013T190208Z_phase2_gc_ob15m_v2",
+              "sourceSha256": "0766a6a25f1aed756f9873888d0bee4c4c1aedf1f5f40ed3fdeda501eefa039c",
+              "sectionId": "decision"
+            }
+          },
+          {
+            "text": "2019 and 2023 have negative annual net dollars; partial 2026 contributes $117,305. Positive aggregate performance is concentrated and not consistent annual replication.",
+            "source": {
+              "publicationId": "gc-overnight-breakout-15m-phase1-20261013-v1",
+              "sourceRunId": "20261013T142537Z_phase1_gc_ob15m_v1",
+              "sourceSha256": "4c5395e60dceeb5ffadc462850b0e6b2db96d37e1031451bf45ead4179ee6e50",
+              "sectionId": "annual-table"
+            }
+          },
+          {
+            "text": "There are 17 censored accepted fills and 86 unknown first-fill opportunities. Incomplete input coverage, modeled availability, uncertified holidays and unverified tick/native parity qualify the selected historical sample.",
+            "source": {
+              "publicationId": "gc-overnight-breakout-15m-phase1-20261013-v1",
+              "sourceRunId": "20261013T142537Z_phase1_gc_ob15m_v1",
+              "sourceSha256": "4c5395e60dceeb5ffadc462850b0e6b2db96d37e1031451bf45ead4179ee6e50",
+              "sectionId": "inputs-and-limits"
+            }
+          },
+          {
+            "text": "The separate $10,000 source-account reproduction produces zero executable whole-GC fills. Standardized-contract results cannot be translated into attainable source-account returns.",
+            "source": {
+              "publicationId": "gc-overnight-breakout-15m-phase1-20261013-v1",
+              "sourceRunId": "20261013T142537Z_phase1_gc_ob15m_v1",
+              "sourceSha256": "4c5395e60dceeb5ffadc462850b0e6b2db96d37e1031451bf45ead4179ee6e50",
+              "sectionId": "source-account"
+            }
+          },
+          {
+            "text": "Protected price recovery differs from executed financial recovery, and unknown account outcomes remain unavailable rather than zero or a completed-only aggregate.",
+            "source": {
+              "publicationId": "gc-overnight-breakout-15m-phase2-20261013-v1-comparison-account-risk",
+              "sourceRunId": "20261013T190208Z_phase2_gc_ob15m_v2",
+              "sourceSha256": "2f6e315e6dd1cd41972f3829003436d8f01d8850bfc04814976d2641c18da98f",
+              "sectionId": "account-meaning"
+            }
+          }
+        ],
+        "blocker": "Execution feasibility and financeable capital are unresolved; complete-day standardized profits cannot identify full-roster attainable expectancy, and Phase 2 supplies no selected improvement.",
+        "nextTest": {
+          "description": "Before any new parameter search, freeze the unchanged Phase 1 baseline in a genuinely new, tick-observed or prospectively logged GC replay, with declared sufficient capital, whole-contract risk/margin, measured fee/spread/slippage and conservative missing-day accounting. Preserve primary and two-adverse-tick stress separately.",
+          "supports": "A financeable unchanged policy clears a predeclared net-USD/eligible-day hurdle with a positive week-clustered lower bound, acceptable declared drawdown, and no reliance on one short calendar segment or discarded unknowns.",
+          "rejects": "No feasible whole-contract sizing exists, net performance is nonpositive or concentrated in one segment, or realistic fills/missingness remove the material advantage. Reclaims remain rejected unless a new separately justified hypothesis is frozen."
+        },
+        "reviewedStudySha256": "b9b2bca35ef533ecd800f7b576f2bd3a20882d64c23a35401e249ab9ceb56599",
+        "reviewedPublications": [
+          {
+            "publicationId": "gc-overnight-breakout-15m-phase2-20261013-v1-comparison-summary",
+            "sourceRunId": "20261013T190208Z_phase2_gc_ob15m_v2",
+            "sourceSha256": "0766a6a25f1aed756f9873888d0bee4c4c1aedf1f5f40ed3fdeda501eefa039c"
+          },
+          {
+            "publicationId": "gc-overnight-breakout-15m-phase2-20261013-v1-comparison-year",
+            "sourceRunId": "20261013T190208Z_phase2_gc_ob15m_v2",
+            "sourceSha256": "96cdc7c5e25aa17363389cd209f66bc358882cc2f2a46ff9ffa327f292207287"
+          },
+          {
+            "publicationId": "gc-overnight-breakout-15m-phase2-20261013-v1-comparison-entry",
+            "sourceRunId": "20261013T190208Z_phase2_gc_ob15m_v2",
+            "sourceSha256": "d4c97e81f830d48253d3593fc527058be6669da878aa1084e536902ef7ac642b"
+          },
+          {
+            "publicationId": "gc-overnight-breakout-15m-phase2-20261013-v1-comparison-account-risk",
+            "sourceRunId": "20261013T190208Z_phase2_gc_ob15m_v2",
+            "sourceSha256": "2f6e315e6dd1cd41972f3829003436d8f01d8850bfc04814976d2641c18da98f"
+          },
+          {
+            "publicationId": "gc-overnight-breakout-15m-phase2-session-transitions-20261013-r1",
+            "sourceRunId": "20261013T190208Z_phase2_gc_ob15m_v2",
+            "sourceSha256": "0594e74e6c257b2983636118e6fe6d17d2214364b414c31f7e0621006fd5e5f3"
+          },
+          {
+            "publicationId": "gc-overnight-breakout-15m-phase1-20261013-v1",
+            "sourceRunId": "20261013T142537Z_phase1_gc_ob15m_v1",
+            "sourceSha256": "4c5395e60dceeb5ffadc462850b0e6b2db96d37e1031451bf45ead4179ee6e50"
+          },
+          {
+            "publicationId": "gc-overnight-breakout-15m-phase2-20261013-v1-boundary-reclaim-summary",
+            "sourceRunId": "20261013T190208Z_phase2_gc_ob15m_v2",
+            "sourceSha256": "0cfa208bae7857d35493d0ca52296d9a73ab10c93a8e21d6d78e4f06054c7dab"
+          },
+          {
+            "publicationId": "gc-overnight-breakout-15m-phase2-20261013-v1-boundary-reclaim-year",
+            "sourceRunId": "20261013T190208Z_phase2_gc_ob15m_v2",
+            "sourceSha256": "e0e488c968f4dfea162d91ac8241b3e287ea4086cac962d20249304587cd0100"
+          },
+          {
+            "publicationId": "gc-overnight-breakout-15m-phase2-20261013-v1-boundary-reclaim-entry",
+            "sourceRunId": "20261013T190208Z_phase2_gc_ob15m_v2",
+            "sourceSha256": "8a91decfff911c4ad7327c6e4ff0cdc7b84615fec3950754cea8fd21770cb9fb"
+          },
+          {
+            "publicationId": "gc-overnight-breakout-15m-phase2-20261013-v1-quarter-reclaim-summary",
+            "sourceRunId": "20261013T190208Z_phase2_gc_ob15m_v2",
+            "sourceSha256": "d3d1b2720ee3763c46aad7950cfe409669330353967ad683b07e414b0dde6c4f"
+          },
+          {
+            "publicationId": "gc-overnight-breakout-15m-phase2-20261013-v1-quarter-reclaim-year",
+            "sourceRunId": "20261013T190208Z_phase2_gc_ob15m_v2",
+            "sourceSha256": "6140acf0f4f905b3a9732d347d37c0ab64019e4c6384c15a1c409278d8591f42"
+          },
+          {
+            "publicationId": "gc-overnight-breakout-15m-phase2-20261013-v1-quarter-reclaim-entry",
+            "sourceRunId": "20261013T190208Z_phase2_gc_ob15m_v2",
+            "sourceSha256": "3d05dc95f9357caf38a0ea7d81baf5c301f4c4cd23e14e72d068fafb60785e19"
+          },
+          {
+            "publicationId": "gc-overnight-breakout-15m-phase2-20261013-v1-midpoint-reclaim-summary",
+            "sourceRunId": "20261013T190208Z_phase2_gc_ob15m_v2",
+            "sourceSha256": "4cee405545fcce640a6cf69dfd6f6869533b44e65ac6a3bc2784a2af069d425c"
+          },
+          {
+            "publicationId": "gc-overnight-breakout-15m-phase2-20261013-v1-midpoint-reclaim-year",
+            "sourceRunId": "20261013T190208Z_phase2_gc_ob15m_v2",
+            "sourceSha256": "d3cd831f90f96217ba2206cc4206d0a580438a48fba9819c28f559764ffd74fd"
+          },
+          {
+            "publicationId": "gc-overnight-breakout-15m-phase2-20261013-v1-midpoint-reclaim-entry",
+            "sourceRunId": "20261013T190208Z_phase2_gc_ob15m_v2",
+            "sourceSha256": "23ccd97f121c8e384efa2b70bfbb507715ce3e7c0a7bd00ca148a2d5d2b23db8"
+          },
+          {
+            "publicationId": "gc-overnight-breakout-15m-phase2-20261013-v1-threequarter-reclaim-summary",
+            "sourceRunId": "20261013T190208Z_phase2_gc_ob15m_v2",
+            "sourceSha256": "d73fe76ec0ea1e1c19aff9272050da138db2e5ff2ed37aa53ae32091ad55fd08"
+          },
+          {
+            "publicationId": "gc-overnight-breakout-15m-phase2-20261013-v1-threequarter-reclaim-year",
+            "sourceRunId": "20261013T190208Z_phase2_gc_ob15m_v2",
+            "sourceSha256": "ca73553e3cc585229dc59b082ff08c4efec7ac4850c14f9d42158f3e92085987"
+          },
+          {
+            "publicationId": "gc-overnight-breakout-15m-phase2-20261013-v1-threequarter-reclaim-entry",
+            "sourceRunId": "20261013T190208Z_phase2_gc_ob15m_v2",
+            "sourceSha256": "9b3e8696f85974ac8cc69f722052af490ad71273620157f3260dfa2360630e19"
+          },
+          {
+            "publicationId": "gc-overnight-breakout-15m-phase2-20261013-v1-passive-limits-summary",
+            "sourceRunId": "20261013T190208Z_phase2_gc_ob15m_v2",
+            "sourceSha256": "fb97a956ac887725bbf6dd001f728f5b7064607a841a6f13cb7a25fa9873e151"
+          },
+          {
+            "publicationId": "gc-overnight-breakout-15m-phase2-20261013-v1-passive-limits-year",
+            "sourceRunId": "20261013T190208Z_phase2_gc_ob15m_v2",
+            "sourceSha256": "d1261f65831f44c7d5095521749caaca2ceea71acf6a7395b5db22b40b0ea01a"
+          },
+          {
+            "publicationId": "gc-overnight-breakout-15m-phase2-20261013-v1-passive-limits-entry",
+            "sourceRunId": "20261013T190208Z_phase2_gc_ob15m_v2",
+            "sourceSha256": "784fb76f24ba8e840932caf5e76bbf961756069eaeef9fd690d410b7e2ea7e3d"
+          },
+          {
+            "publicationId": "gc-overnight-breakout-15m-phase2-20261013-v1-protected-occurrence",
+            "sourceRunId": "20261013T190208Z_phase2_gc_ob15m_v2",
+            "sourceSha256": "243462ed7437e881ce72eff84167287d7c09d50b42b6874868f0014f212dbab8"
+          },
+          {
+            "publicationId": "gc-overnight-breakout-15m-phase2-20261013-v1-protected-trades",
+            "sourceRunId": "20261013T190208Z_phase2_gc_ob15m_v2",
+            "sourceSha256": "ca71bd50fab71f1c2a3c7b68da52710bc82d6c5169024dc70431c46782d39de4"
+          },
+          {
+            "publicationId": "gc-overnight-breakout-15m-phase2-20261013-v1-protected-year",
+            "sourceRunId": "20261013T190208Z_phase2_gc_ob15m_v2",
+            "sourceSha256": "81d318227fc3e837c805cb1b9dd828f2e93e7e29409e5eec1d34c13064ad21a5"
+          },
+          {
+            "publicationId": "gc-overnight-breakout-15m-phase2-20261013-v1-protected-events",
+            "sourceRunId": "20261013T190208Z_phase2_gc_ob15m_v2",
+            "sourceSha256": "f4214b72d600dc9e54f40e09bdf46047dbcd72ee1736c38acd8b867e28ce7471"
+          },
+          {
+            "publicationId": "gc-overnight-breakout-15m-phase2-protected-entry-20261013-r1",
+            "sourceRunId": "20261013T190208Z_phase2_gc_ob15m_v2",
+            "sourceSha256": "75fd2dd437fccd576b28b55c5403c79c84f1342c5ecf339698df4132452ba15e"
+          }
+        ]
       }
     },
     {
@@ -4363,7 +6050,54 @@
       ],
       "evidenceStatus": "Qualitative external source review only; no computed market statistics, Abacus backtest, strategy implementation or verified profitability. The live source is not byte-pinned.",
       "featuredPublicationId": "trader-assistant-manual-20261013-companion-v1",
-      "featuredSourceRunId": "20261014T023500Z_manual24_8c1d7f"
+      "featuredSourceRunId": "20261014T023500Z_manual24_8c1d7f",
+      "researchPriority": {
+        "assessmentId": "rp-24-trader-assistant-manual-20261026",
+        "rubricVersion": "1.0",
+        "rubricSha256": "5a777ecaff3dabcb5219ca7270a839fecff93eaa819f20374324e0f25e6730cf",
+        "reviewedAt": "2026-10-26",
+        "reviewer": "Codex (AI-assisted editorial review; human approval pending)",
+        "state": "not_applicable",
+        "scope": "Qualitative twelve-chapter reading companion for the TraderAssistant manual, including risk/process explanations and original schematic illustrations.",
+        "rationale": "The saved work is a completed educational companion, not an empirical research candidate. Its source instructions and schematic trade lifecycle do not supply measured edge, a market sample or validated profitability, so a numerical trading-edge priority would be misleading.",
+        "materiality": "No empirical net-payoff materiality applies to an educational manual. Any future derived hypothesis would require explicit causal rules, a comparison, native execution costs and net points/R before assessment.",
+        "supporting": [
+          {
+            "text": "The companion explains how to read the source and distinguishes authored guidance and illustration from tested results.",
+            "source": {
+              "publicationId": "trader-assistant-manual-20261013-companion-v1",
+              "sourceRunId": "20261014T023500Z_manual24_8c1d7f",
+              "sourceSha256": "41a04cc82c8c8177e894dd16603be8a04a3b8eaf4ae08a6a6df33e192b12f2a0",
+              "sectionId": "reading"
+            }
+          }
+        ],
+        "contrary": [
+          {
+            "text": "The statistics chapter discusses interpretation within a manual; it does not provide a saved Abacus market-data backtest or performance validation.",
+            "source": {
+              "publicationId": "trader-assistant-manual-20261013-companion-v1",
+              "sourceRunId": "20261014T023500Z_manual24_8c1d7f",
+              "sourceSha256": "41a04cc82c8c8177e894dd16603be8a04a3b8eaf4ae08a6a6df33e192b12f2a0",
+              "sectionId": "chapter-9"
+            }
+          }
+        ],
+        "blocker": "Outside the empirical edge rubric; source-review completion and explanatory diagrams do not constitute trading evidence.",
+        "nextTest": {
+          "description": "No market experiment follows from this companion. If a specific new empirical question is authorized later, first freeze one implementable rule and benchmark independently of the manual examples.",
+          "supports": "A reproducible causal rule and separate saved costed evidence would permit a future empirical assessment.",
+          "rejects": "Educational explanation alone, unrecoverable rules or missing empirical observations leave it not applicable."
+        },
+        "reviewedStudySha256": "769ec717700c1217ddeca307ea85e905596517d6d513cbc6d58df78b255bd966",
+        "reviewedPublications": [
+          {
+            "publicationId": "trader-assistant-manual-20261013-companion-v1",
+            "sourceRunId": "20261014T023500Z_manual24_8c1d7f",
+            "sourceSha256": "41a04cc82c8c8177e894dd16603be8a04a3b8eaf4ae08a6a6df33e192b12f2a0"
+          }
+        ]
+      }
     },
     {
       "studyId": "25_forex_news_ema",
@@ -4604,6 +6338,111 @@
           "sourceSha256": "e9a58871f10a84631744a09369f92b50fa3d1f2e0bb8c7e27d07b7f1ca311e44",
           "sectionId": "method"
         }
+      },
+      "researchPriority": {
+        "assessmentId": "rp-25-forex-news-ema-20261026",
+        "rubricVersion": "1.0",
+        "rubricSha256": "5a777ecaff3dabcb5219ca7270a839fecff93eaa819f20374324e0f25e6730cf",
+        "reviewedAt": "2026-10-26",
+        "reviewer": "Codex (AI-assisted editorial review; human approval pending)",
+        "state": "assessed",
+        "score": 2,
+        "scope": "Contract-specific pre-news EMA20/50 direction and subsequent price paths across all six saved calendars/modes/horizons. A future single 6E U.S.-calendar H5 test is proposed for identification, not selected as the best currency or an already validated policy.",
+        "rationale": "Several currencies have positive short-horizon signed closes, but the result is mixed rather than a general news edge. 6A and 6J combined-calendar outcomes are adverse, and longer horizons do not reliably help. The narrow mechanism merits definition against an unconditional same-news benchmark; many descriptive cuts, overlapping shocks and one reconstructed year cannot establish incremental causal or net advantage.",
+        "materiality": "Use contract-native incremental net ticks per eligible release against a fixed same-calendar benchmark, then translate using verified native contract value and actual sizing. For 6E U.S.-only H5, the saved gross mean is 13.86 ticks with 32.48 ticks mean adverse excursion (N=64); neither excursion ratio nor favorable-close frequency establishes realized payoff. A future one native tick incremental net hurdle must clear measured news spread, adverse fills and fees.",
+        "supporting": [
+          {
+            "text": "The 6E U.S.-only H5 row saves N=64 and mean signed close +13.8594 ticks; the confirmed pre-release EMA direction and first subsequent candle convention are explicit.",
+            "source": {
+              "publicationId": "forex-news-6e-20261017-v2-r1",
+              "sourceRunId": "20261017T193830Z_perfuture25_d2c74b",
+              "sourceSha256": "e9a58871f10a84631744a09369f92b50fa3d1f2e0bb8c7e27d07b7f1ca311e44",
+              "sectionId": "overview"
+            }
+          }
+        ],
+        "contrary": [
+          {
+            "text": "6A combined-calendar signed closes are negative at all five horizons; its U.S.-only sample is also negative. A favorable domestic subset cannot rescue a universal claim.",
+            "source": {
+              "publicationId": "forex-news-6a-20261017-v2-r1",
+              "sourceRunId": "20261017T193830Z_perfuture25_d2c74b",
+              "sourceSha256": "d85c0695842e28371931ac90cd653458623f0be55eee19103a7d5f2d2379473d",
+              "sectionId": "overview"
+            }
+          },
+          {
+            "text": "6J combined-calendar means are negative at every saved horizon, including −14.98 ticks at H100; longer measurement does not provide general continuation.",
+            "source": {
+              "publicationId": "forex-news-6j-20261017-v2-r1",
+              "sourceRunId": "20261017T193830Z_perfuture25_d2c74b",
+              "sourceSha256": "2bfb2d15e25a0c847219f5876b5353e548a483f77abb5b1b42bfd0259f46ab7e",
+              "sectionId": "overview"
+            }
+          },
+          {
+            "text": "In the common 64 cohort every currency has negative flash-PMI H5 means; category denominators are small and no adjusted inference or holdout is supplied.",
+            "source": {
+              "publicationId": "forex-news-ema-20261017-v1",
+              "sourceRunId": "20261017T190030Z_import25_4b8a21",
+              "sourceSha256": "c9ffeadada08065de91bdb0533ffd590ed9c621b33f9315d3250ab90e78c80d3",
+              "sectionId": "category-reading"
+            }
+          },
+          {
+            "text": "Corrected historical calendars, retrospective availability, back-adjusted benchmarks, overlapping modes/windows and shared shocks remain. No executable fills, costs, stops, targets, uncertainty inference or independent holdout is tested.",
+            "source": {
+              "publicationId": "forex-news-6e-20261017-v2-r1",
+              "sourceRunId": "20261017T193830Z_perfuture25_d2c74b",
+              "sourceSha256": "e9a58871f10a84631744a09369f92b50fa3d1f2e0bb8c7e27d07b7f1ca311e44",
+              "sectionId": "limits"
+            }
+          }
+        ],
+        "blocker": "No causal same-news comparator or executable costed policy exists; the many overlapping descriptive views are not independent evidence and leave material net advantage unidentified.",
+        "nextTest": {
+          "description": "Freeze one instrument/calendar/horizon before any new observations, for example 6E U.S.-only H5, with confirmed pre-release EMA timing, a same-release unconditional benchmark, executable next price, fixed exit and measured news costs. Use genuinely new event dates with shared-shock/calendar clustering; retain all negative events and incomplete paths.",
+          "supports": "The frozen directional condition adds at least the prespecified material net-tick hurdle over its benchmark with a positive clustered lower bound and survives adverse news fills across new event types.",
+          "rejects": "Incremental net ticks are nonpositive/below hurdle, timing is not executable, the advantage depends on retrospective calendar corrections or a small chosen type/month, or new events repeat the negative-currency pattern."
+        },
+        "reviewedStudySha256": "c0d44b67e6662ee63c27a69f1799e497e728f9eccefcbfb75b3866a671a8819c",
+        "reviewedPublications": [
+          {
+            "publicationId": "forex-news-6e-20261017-v2-r1",
+            "sourceRunId": "20261017T193830Z_perfuture25_d2c74b",
+            "sourceSha256": "e9a58871f10a84631744a09369f92b50fa3d1f2e0bb8c7e27d07b7f1ca311e44"
+          },
+          {
+            "publicationId": "forex-news-6b-20261017-v2-r1",
+            "sourceRunId": "20261017T193830Z_perfuture25_d2c74b",
+            "sourceSha256": "1bdd8b462065030e3123c3d0f0882c0809ec9a1d0d8c239b3d421c9871c871ea"
+          },
+          {
+            "publicationId": "forex-news-6j-20261017-v2-r1",
+            "sourceRunId": "20261017T193830Z_perfuture25_d2c74b",
+            "sourceSha256": "2bfb2d15e25a0c847219f5876b5353e548a483f77abb5b1b42bfd0259f46ab7e"
+          },
+          {
+            "publicationId": "forex-news-6a-20261017-v2-r1",
+            "sourceRunId": "20261017T193830Z_perfuture25_d2c74b",
+            "sourceSha256": "d85c0695842e28371931ac90cd653458623f0be55eee19103a7d5f2d2379473d"
+          },
+          {
+            "publicationId": "forex-news-6c-20261017-v2-r1",
+            "sourceRunId": "20261017T193830Z_perfuture25_d2c74b",
+            "sourceSha256": "5b04704ed19f5223de8735b75e6bfd7293b6dbf02243ef973209be746cbc911d"
+          },
+          {
+            "publicationId": "forex-news-6s-20261017-v2-r1",
+            "sourceRunId": "20261017T193830Z_perfuture25_d2c74b",
+            "sourceSha256": "992bced1001a7a95a706b3a33edcd86835b158308cfdced161a91408875d390c"
+          },
+          {
+            "publicationId": "forex-news-ema-20261017-v1",
+            "sourceRunId": "20261017T190030Z_import25_4b8a21",
+            "sourceSha256": "c9ffeadada08065de91bdb0533ffd590ed9c621b33f9315d3250ab90e78c80d3"
+          }
+        ]
       }
     },
     {
@@ -4625,7 +6464,87 @@
           "relationship": "other-run",
           "label": "Initial run; target wording corrected in the featured reproduction"
         }
-      ]
+      ],
+      "researchPriority": {
+        "assessmentId": "rp-26-es-opening-pivot-cloud-20261026",
+        "rubricVersion": "1.0",
+        "rubricSha256": "5a777ecaff3dabcb5219ca7270a839fecff93eaa819f20374324e0f25e6730cf",
+        "reviewedAt": "2026-10-26",
+        "reviewer": "Codex (AI-assisted editorial review; human approval pending)",
+        "state": "assessed",
+        "score": 1,
+        "scope": "Primary early versus confirmed ES opening-pivot/EMA-cloud entries, mask A fixed 2R, retaining all 16 variants, negative findings and retrospective level-availability qualifications.",
+        "rationale": "The primary candidate loses after the saved costs under both entries; early entry is worse on average and its interval does not establish superiority. All fixed 2R variants lose. Less-negative filters and tiny cuts do not supply a profitable discovery. Moreover, the verified pre-open source-availability cohort is empty, so retrospective levels cannot be called prospective inputs.",
+        "materiality": "Use net USD per input-eligible session, including genuine no-trade zeros, and paired early-minus-confirmed dollars; distinguish unavailable level/target outcomes from zero. Saved pooled means are −$20.46/−$16.56 per session and the difference −$3.90 [−$9.99,$0.05]. A future material hurdle must be positive after $5 round-trip plus adverse-tick costs and feasible risk, not merely a smaller loss.",
+        "supporting": [
+          {
+            "text": "The frozen paired daily comparison retains genuine no-trades, conservative stop/target handling, explicit costs and all 16 variants, so the adverse primary outcome is interpretable.",
+            "source": {
+              "publicationId": "es-opening-pivot-cloud-26-v1-20261021t044616zreportfixv1",
+              "sourceRunId": "20261021T044616Z_reportfix_v1",
+              "sourceSha256": "6b708d04508a3728bb30ea5d98fbdea981b714dbb7f8c080c7dfaf912ee48b52",
+              "sectionId": "rules"
+            }
+          }
+        ],
+        "contrary": [
+          {
+            "text": "The pooled early/confirmed primary means are −$20.46/−$16.56 per eligible session; the 2026 temporal-test pair is also adverse. The saved primary interval does not establish early superiority.",
+            "source": {
+              "publicationId": "es-opening-pivot-cloud-26-v1-20261021t044616zreportfixv1",
+              "sourceRunId": "20261021T044616Z_reportfix_v1",
+              "sourceSha256": "6b708d04508a3728bb30ea5d98fbdea981b714dbb7f8c080c7dfaf912ee48b52",
+              "sectionId": "primary-table"
+            }
+          },
+          {
+            "text": "Every fixed 2R variant has negative costed mean. Correlated filter/cut views cannot promote a small favorable subset as independent support.",
+            "source": {
+              "publicationId": "es-opening-pivot-cloud-26-v1-20261021t044616zreportfixv1",
+              "sourceRunId": "20261021T044616Z_reportfix_v1",
+              "sourceSha256": "6b708d04508a3728bb30ea5d98fbdea981b714dbb7f8c080c7dfaf912ee48b52",
+              "sectionId": "variants-table"
+            }
+          },
+          {
+            "text": "All source-level available_at values are null and the verified pre-open availability cohort has zero sessions. Native parity and retrospective completeness remain qualified.",
+            "source": {
+              "publicationId": "es-opening-pivot-cloud-26-v1-20261021t044616zreportfixv1",
+              "sourceRunId": "20261021T044616Z_reportfix_v1",
+              "sourceSha256": "6b708d04508a3728bb30ea5d98fbdea981b714dbb7f8c080c7dfaf912ee48b52",
+              "sectionId": "limitations"
+            }
+          },
+          {
+            "text": "The report-fix run preserves the original 20 numerical ledgers; it is a presentation correction after outcome exposure, not independent replication.",
+            "source": {
+              "publicationId": "es-opening-pivot-cloud-26-v1-20261021t044616zreportfixv1",
+              "sourceRunId": "20261021T044616Z_reportfix_v1",
+              "sourceSha256": "6b708d04508a3728bb30ea5d98fbdea981b714dbb7f8c080c7dfaf912ee48b52",
+              "sectionId": "reproduction-context"
+            }
+          }
+        ],
+        "blocker": "Negative primary net expectancy and unverified real-time level availability provide no present supported material edge.",
+        "nextTest": {
+          "description": "Pause entry/filter optimization. Reconsider only when prospectively timestamped levels are available; freeze the unchanged primary paired policy on new ES sessions, declare a positive net-USD/session hurdle, risk limits and cost stress, and preserve all no-trade/missing cases.",
+          "supports": "Net USD/session clears the positive material hurdle with a positive lower uncertainty bound and early-minus-confirmed also supports the claimed increment under verified pre-open inputs and conservative fills.",
+          "rejects": "Net expectancy remains negative or economically trivial, early superiority remains unsupported, or source availability cannot be demonstrated before decisions."
+        },
+        "reviewedStudySha256": "ff57d5f955e64cb3fc42602aad40e0ddceca002a943330be3f9ab5e1db09113e",
+        "reviewedPublications": [
+          {
+            "publicationId": "es-opening-pivot-cloud-26-v1-20261021t044616zreportfixv1",
+            "sourceRunId": "20261021T044616Z_reportfix_v1",
+            "sourceSha256": "6b708d04508a3728bb30ea5d98fbdea981b714dbb7f8c080c7dfaf912ee48b52"
+          },
+          {
+            "publicationId": "es-opening-pivot-cloud-26-v1-20261021t042230zopeningpivotv1",
+            "sourceRunId": "20261021T042230Z_opening_pivot_v1",
+            "sourceSha256": "d9bdb938e252ec0a9ae1c763e4ce731c3e8963b2016c84ca427a6ff882eb7016"
+          }
+        ]
+      }
     }
   ],
   "readingPaths": [
@@ -4713,5 +6632,38 @@
         }
       ]
     }
-  ]
+  ],
+  "researchPriorityRubric": {
+    "version": "1.0",
+    "meaning": "How strongly does the saved evidence justify further focused investigation toward an actionable, material edge?",
+    "disclaimer": "A dated editorial research judgment, not a probability of profitability, paper-quality rating, or trading recommendation.",
+    "bands": [
+      {
+        "score": 1,
+        "label": "Pause",
+        "definition": "Little supported material advantage, substantial contrary evidence, or no convincing next experiment."
+      },
+      {
+        "score": 2,
+        "label": "Define and test",
+        "definition": "An interesting mechanism or insight, but substantial evidence gaps. A specific discriminating test could clarify it."
+      },
+      {
+        "score": 3,
+        "label": "Targeted follow-up",
+        "definition": "A credible, specific pattern warrants more work, but execution, costs, or protected validation remain unresolved."
+      },
+      {
+        "score": 4,
+        "label": "Strong candidate",
+        "definition": "An economically meaningful effect survives credible separated evaluation under explicit execution and cost assumptions. Remaining confirmation work is bounded."
+      },
+      {
+        "score": 5,
+        "label": "Highest priority",
+        "definition": "Robust, independently corroborated material evidence supports a clear next controlled validation step."
+      }
+    ],
+    "sourceSha256": "1e09a83602f3eb13951ebc3c9d93a39d81eab981c329e9b47c998d090a69137b"
+  }
 }

@@ -214,6 +214,9 @@
               "minLength": 1,
               "maxLength": 60
             }
+          },
+          "researchPriority": {
+            "$ref": "#/$defs/researchPriority"
           }
         }
       }
@@ -224,6 +227,68 @@
       "maxItems": 6,
       "items": {
         "$ref": "#/$defs/readingPath"
+      }
+    },
+    "researchPriorityRubric": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "version",
+        "sourceSha256",
+        "meaning",
+        "disclaimer",
+        "bands"
+      ],
+      "properties": {
+        "version": {
+          "type": "string",
+          "pattern": "^[0-9]+\\.[0-9]+$"
+        },
+        "sourceSha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "meaning": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 500
+        },
+        "disclaimer": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 500
+        },
+        "bands": {
+          "type": "array",
+          "minItems": 5,
+          "maxItems": 5,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "score",
+              "label",
+              "definition"
+            ],
+            "properties": {
+              "score": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 5
+              },
+              "label": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 60
+              },
+              "definition": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 500
+              }
+            }
+          }
+        }
       }
     }
   },
@@ -622,6 +687,324 @@
           }
         }
       }
+    },
+    "researchPriority": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "assessmentId",
+        "rubricVersion",
+        "rubricSha256",
+        "reviewedAt",
+        "reviewer",
+        "state",
+        "scope",
+        "rationale",
+        "materiality",
+        "supporting",
+        "contrary",
+        "blocker",
+        "nextTest",
+        "reviewedStudySha256",
+        "reviewedPublications"
+      ],
+      "properties": {
+        "assessmentId": {
+          "$ref": "#/$defs/slug"
+        },
+        "rubricVersion": {
+          "type": "string",
+          "pattern": "^[0-9]+\\.[0-9]+$"
+        },
+        "rubricSha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "reviewedAt": {
+          "type": "string",
+          "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"
+        },
+        "reviewer": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        },
+        "state": {
+          "enum": [
+            "assessed",
+            "not_assessed",
+            "needs_review",
+            "not_applicable"
+          ]
+        },
+        "score": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 5
+        },
+        "scope": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 1000
+        },
+        "rationale": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 1200
+        },
+        "materiality": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 1000
+        },
+        "supporting": {
+          "type": "array",
+          "maxItems": 6,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "text",
+              "source"
+            ],
+            "properties": {
+              "text": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 800
+              },
+              "source": {
+                "$ref": "#/$defs/overviewSource"
+              }
+            }
+          }
+        },
+        "contrary": {
+          "type": "array",
+          "maxItems": 6,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "text",
+              "source"
+            ],
+            "properties": {
+              "text": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 800
+              },
+              "source": {
+                "$ref": "#/$defs/overviewSource"
+              }
+            }
+          }
+        },
+        "blocker": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 1000
+        },
+        "nextTest": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "description",
+            "supports",
+            "rejects"
+          ],
+          "properties": {
+            "description": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1200
+            },
+            "supports": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1200
+            },
+            "rejects": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1200
+            }
+          }
+        },
+        "reviewedStudySha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "reviewedPublications": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 128,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "publicationId",
+              "sourceRunId",
+              "sourceSha256"
+            ],
+            "properties": {
+              "publicationId": {
+                "$ref": "#/$defs/slug"
+              },
+              "sourceRunId": {
+                "$ref": "#/$defs/run"
+              },
+              "sourceSha256": {
+                "type": "string",
+                "pattern": "^[a-f0-9]{64}$"
+              }
+            }
+          }
+        },
+        "reassessment": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "required",
+            "reason",
+            "markedAt"
+          ],
+          "properties": {
+            "required": {
+              "const": true
+            },
+            "reason": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1000
+            },
+            "markedAt": {
+              "type": "string",
+              "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"
+            }
+          }
+        },
+        "highPriorityEvidence": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "executionAndCosts",
+            "separatedEvaluation",
+            "materialEffect"
+          ],
+          "properties": {
+            "executionAndCosts": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "text",
+                "source"
+              ],
+              "properties": {
+                "text": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 800
+                },
+                "source": {
+                  "$ref": "#/$defs/overviewSource"
+                }
+              }
+            },
+            "separatedEvaluation": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "text",
+                "source"
+              ],
+              "properties": {
+                "text": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 800
+                },
+                "source": {
+                  "$ref": "#/$defs/overviewSource"
+                }
+              }
+            },
+            "materialEffect": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "text",
+                "source"
+              ],
+              "properties": {
+                "text": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 800
+                },
+                "source": {
+                  "$ref": "#/$defs/overviewSource"
+                }
+              }
+            },
+            "independentCorroboration": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "text",
+                "source"
+              ],
+              "properties": {
+                "text": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 800
+                },
+                "source": {
+                  "$ref": "#/$defs/overviewSource"
+                }
+              }
+            }
+          }
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "state": {
+                "const": "assessed"
+              }
+            },
+            "required": [
+              "state"
+            ]
+          },
+          "then": {
+            "required": [
+              "score"
+            ],
+            "properties": {
+              "score": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 5
+              }
+            }
+          },
+          "else": {
+            "not": {
+              "required": [
+                "score"
+              ],
+              "properties": {
+                "score": {}
+              }
+            }
+          }
+        }
+      ]
     }
   }
 }

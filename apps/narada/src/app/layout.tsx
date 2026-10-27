@@ -3,6 +3,7 @@ import "./globals.css";
 import "./discovery.css";
 import "./table-reader.css";
 import "./reader.css";
+import "./research-priority.css";
 
 export const metadata: Metadata = {
   title: { default: "Narada — Abacus publications", template: "%s — Narada" },

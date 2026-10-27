@@ -58,7 +58,7 @@ async function prepare() {
       });
     }
     const publications = await verifyPublications();
-    const catalog = await readStudyCatalog(publications.bundles.map(bundle => bundle.report));
+    const catalog = await readStudyCatalog(publications.bundles.map(bundle => bundle.report), undefined, { bundles: publications.bundles });
     const sources = await readJson(resolve(app, 'content/release-sources.json'));
     const audit = await auditSources(workspace, sources, publications.bundles, catalog);
     await saveNew(resolve(record, 'source-audit.json'), audit);

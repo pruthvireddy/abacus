@@ -72,7 +72,8 @@ test('all 22 published studies have overview metadata and the two local selectio
     assert(study);
     const html = renderCard(study);
     for (const text of [study.title, study.topic.replaceAll('_', ' '), study.products.join(' / '), study.summary, study.evidenceStatus]) assert(html.includes(escaped(text)), `Missing authored fallback text for ${slug}`);
-    assert.equal((html.match(/<a /g) ?? []).length, 1);
+    assert.equal((html.match(/<a /g) ?? []).length, 2);
+    assert(html.includes('href="/studies/' + study.slug + '/#research-priority"'));
     assert(html.includes(`href="/studies/${study.slug}/"`));
     assert(!html.includes('<dl'));
     assert(!html.includes('undefined'));

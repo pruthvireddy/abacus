@@ -86,6 +86,8 @@ export type Study = {
   relatedPublications?: RelatedPublication[];
   overview?: StudyOverview;
   resolvedOverview?: ResolvedStudyOverview;
+  researchPriority?: PublicResearchPriority;
+  resolvedResearchPriority?: ResolvedResearchPriority;
 };
 export type ReadingPathStep = { studyId: string; destination: StudyDestination; reason: string };
 export type ReadingPath = {
@@ -95,5 +97,42 @@ export type ReadingPath = {
   qualification: string;
   steps: ReadingPathStep[];
 };
-export type StudyCatalog = { schemaVersion: "1.0"; studies: Study[]; readingPaths?: ReadingPath[] };
+export type StudyCatalog = { schemaVersion: "1.0"; studies: Study[]; readingPaths?: ReadingPath[]; researchPriorityRubric?: ResearchPriorityRubric };
 export type StudyDestination = "overview" | "findings" | "explore" | "methods" | "evidence";
+
+export type ResearchPriorityState = "assessed" | "not_assessed" | "needs_review" | "not_applicable";
+export type ResearchPriorityEvidence = { text: string; source: OverviewSource };
+export type ResearchPriorityIdentity = { publicationId: string; sourceRunId: string; sourceSha256: string };
+export type PublicResearchPriority = {
+  assessmentId: string;
+  rubricVersion: string;
+  rubricSha256: string;
+  reviewedAt: string;
+  reviewer: string;
+  state: ResearchPriorityState;
+  score?: 1 | 2 | 3 | 4 | 5;
+  scope: string;
+  rationale: string;
+  materiality: string;
+  supporting: ResearchPriorityEvidence[];
+  contrary: ResearchPriorityEvidence[];
+  blocker: string;
+  nextTest: { description: string; supports: string; rejects: string };
+  highPriorityEvidence?: { executionAndCosts: ResearchPriorityEvidence; separatedEvaluation: ResearchPriorityEvidence; materialEffect: ResearchPriorityEvidence; independentCorroboration?: ResearchPriorityEvidence };
+  reviewedStudySha256: string;
+  reviewedPublications: ResearchPriorityIdentity[];
+  reassessment?: { required: true; reason: string; markedAt: string };
+};
+export type ResolvedResearchPriority = PublicResearchPriority & {
+  effectiveState: ResearchPriorityState;
+  staleReasons: string[];
+  supporting: Array<ResearchPriorityEvidence & { href: string }>;
+  contrary: Array<ResearchPriorityEvidence & { href: string }>;
+};
+export type ResearchPriorityRubric = {
+  version: string;
+  sourceSha256: string;
+  meaning: string;
+  disclaimer: string;
+  bands: Array<{ score: 1 | 2 | 3 | 4 | 5; label: string; definition: string }>;
+};

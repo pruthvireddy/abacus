@@ -3,8 +3,9 @@ import { readFile, lstat } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import { publicationGroups, studyPublicationReferences, studyAnalyses, familyPublicationSelection } from './study-selections.mjs';
 import { overviewSources, validateOverviewReferences, resolveCatalogOverviews } from './study-overviews.mjs';
+import { validatePriorityReferences, resolveCatalogPriorities } from './research-priorities.mjs';
 export { publicationGroups, studyPublicationReferences, studyAnalyses, familyPublicationSelection };
-export const STUDY_CATALOG_MAX_BYTES = 256 * 1024;
+export const STUDY_CATALOG_MAX_BYTES = 512 * 1024;
 export const DEFAULT_STUDY_CATALOG = resolve(process.cwd(), 'content/studies.json');
 const schema = JSON.parse(await readFile(resolve(process.cwd(), 'contracts/studies.schema.json'), 'utf8'));
 const ajv = new Ajv2020({ allErrors: true, strict: true });
@@ -144,6 +145,7 @@ export function validateStudyCatalog(catalog, publications) {
       stepIds.add(step.studyId);
     }
   }
+  validatePriorityReferences(catalog, publications, assertPublicCatalogText);
   return catalog;
 }
 export async function readStudyCatalog(publications, file = DEFAULT_STUDY_CATALOG, options = {}) {
@@ -152,6 +154,11 @@ export async function readStudyCatalog(publications, file = DEFAULT_STUDY_CATALO
   assert(info.size <= STUDY_CATALOG_MAX_BYTES, 'Study catalog exceeds its byte budget.');
   const bytes = await readFile(file);
   assert(bytes.length <= STUDY_CATALOG_MAX_BYTES, 'Study catalog exceeds its byte budget.');
-  const catalog = validateStudyCatalog(JSON.parse(bytes.toString('utf8')), publications);
-  return resolveCatalogOverviews(catalog, options);
+  // Operational callers already hold publisher-verified bundles, while the
+  // renderer uses public index records. Preserve exact content identity in both.
+  const supplied = new Map((options.bundles ?? []).map(bundle => [bundle.report.id, bundle.provenance.sourceSha256]));
+  const reports = publications.map(report => report.sourceSha256 === undefined && supplied.has(report.id)
+    ? { ...report, sourceSha256: supplied.get(report.id) } : report);
+  const catalog = validateStudyCatalog(JSON.parse(bytes.toString('utf8')), reports);
+  return resolveCatalogPriorities(await resolveCatalogOverviews(catalog, options), reports, options);
 }

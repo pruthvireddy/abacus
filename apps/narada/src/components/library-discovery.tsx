@@ -9,13 +9,29 @@ import {
 import type { DiscoveryCategory, DiscoveryEntry, DiscoveryState } from "@/lib/discovery";
 
 const CHANGE_EVENT = "narada-library-change";
-const categoryLabels: Record<DiscoveryCategory, string> = { topic: "Topic", instrument: "Instrument", type: "Evidence type" };
-const categories: DiscoveryCategory[] = ["topic", "instrument", "type"];
+const categoryLabels: Record<DiscoveryCategory, string> = { topic: "Topic", instrument: "Instrument", type: "Evidence type", priority: "Research priority" };
+const categories: DiscoveryCategory[] = ["topic", "instrument", "type", "priority"];
 const emptyServerSearch = () => "";
 const browserSearch = () => window.location.search;
 const enhancedSnapshot = () => true;
 const serverEnhancedSnapshot = () => false;
 const subscribeReady = () => () => {};
+
+// The card remains paired with its original study when discovery order changes.
+// Unmatched cards remain in the static collection, hidden only by enhancement.
+export function DiscoveryStudyCards({ entries, cards, matching }: { entries: DiscoveryEntry[]; cards: ReactNode[]; matching: string[] }) {
+  if (cards.length !== entries.length) throw new Error("Discovery entries and static study cards must have matching authored order.");
+  const bySlug = new Map(entries.map((entry, index) => [entry.slug, { entry, card: cards[index] }]));
+  const visible = new Set(matching);
+  if (bySlug.size !== entries.length || visible.size !== matching.length || matching.some(slug => !bySlug.has(slug))) {
+    throw new Error("Discovery study identities must be unique and known.");
+  }
+  const ordered = [...matching, ...entries.filter(entry => !visible.has(entry.slug)).map(entry => entry.slug)];
+  return <div className="study-grid discovery-grid">{ordered.map(slug => {
+    const item = bySlug.get(slug)!;
+    return <div className="discovery-card-slot" key={slug} data-study-slug={slug} hidden={!visible.has(slug)}>{item.card}</div>;
+  })}</div>;
+}
 
 export function LibraryDiscovery({ entries, children }: { entries: DiscoveryEntry[]; children: ReactNode }) {
   const queryEditing = useRef(false);
@@ -30,28 +46,27 @@ export function LibraryDiscovery({ entries, children }: { entries: DiscoveryEntr
   const options = useMemo(() => discoveryOptions(entries), [entries]);
   const state = useMemo(() => parseDiscoveryState(search, options), [search, options]);
   const matching = useMemo(() => matchingStudySlugs(entries, state), [entries, state]);
-  const visible = useMemo(() => new Set(matching), [matching]);
   const hasCriteria = hasDiscoveryCriteria(state);
+  const hasActiveState = hasCriteria || state.sort !== "authored";
   const canonical = serializeDiscoveryState(state, options);
   const cards = Children.toArray(children);
   const unclassified = entries.filter(entry => entry.evidenceType === null).length;
-  if (cards.length !== entries.length) throw new Error("Discovery entries and static study cards must have matching authored order.");
-  const [announcement, setAnnouncement] = useState(`${entries.length} studies available.`);
+  const [announcement, setAnnouncement] = useState(entries.length + " studies available.");
 
   useEffect(() => {
     if (search === canonical) return;
-    window.history.replaceState(null, "", `${window.location.pathname}${canonical}${window.location.hash}`);
+    window.history.replaceState(null, "", window.location.pathname + canonical + window.location.hash);
     window.dispatchEvent(new Event(CHANGE_EVENT));
   }, [search, canonical]);
   useEffect(() => {
-    const timer = window.setTimeout(() => setAnnouncement(`${matching.length} of ${entries.length} studies ${hasCriteria ? "match" : "available"}.`), 350);
+    const timer = window.setTimeout(() => setAnnouncement(matching.length + " of " + entries.length + " studies " + (hasCriteria ? "match" : "available") + "." + (state.sort === "priority" ? " Highest research priority first; ties keep authored order." : "")), 350);
     return () => window.clearTimeout(timer);
-  }, [matching.length, entries.length, hasCriteria]);
+  }, [matching.length, entries.length, hasCriteria, state.sort]);
 
   const update = (next: DiscoveryState, replace = false) => {
     const nextSearch = serializeDiscoveryState(next, options);
     if (window.location.search === nextSearch) return;
-    window.history[replace ? "replaceState" : "pushState"](null, "", `${window.location.pathname}${nextSearch}${window.location.hash}`);
+    window.history[replace ? "replaceState" : "pushState"](null, "", window.location.pathname + nextSearch + window.location.hash);
     window.dispatchEvent(new Event(CHANGE_EVENT));
   };
   const reset = () => { queryEditing.current = false; update(emptyDiscoveryState()); };
@@ -59,6 +74,7 @@ export function LibraryDiscovery({ entries, children }: { entries: DiscoveryEntr
     queryEditing.current = false;
     update({ ...state, [category]: state[category].filter(selection => selection !== value) });
   };
+  const selectionsText = [state.query ? "Search: " + state.query.trim() : "", ...categories.flatMap(category => state[category].map(value => categoryLabels[category] + ": " + options[category].find(option => option.value === value)?.label))].filter(Boolean).join("; ");
   return <div className="library-discovery" data-discovery-count={matching.length}>
     <form className="discovery-controls" role="search" aria-label="Search and filter studies" onSubmit={event => event.preventDefault()}>
       <fieldset disabled={!enhanced}>
@@ -74,16 +90,19 @@ export function LibraryDiscovery({ entries, children }: { entries: DiscoveryEntr
             update({ ...state, [category]: event.target.checked ? [...state[category], option.value] : state[category].filter(value => value !== option.value) });
           }} /><span>{option.label}</span></label>;
         })}</div></details>)}</div>
-        <div className="discovery-result-row"><p id="discovery-count"><strong>{matching.length}</strong> of {entries.length} studies</p><button type="button" className="discovery-reset" hidden={!hasCriteria} onClick={reset}>Reset all</button></div>
-        <p id="discovery-rule" className="discovery-rule">Every search word must match authored study text. Selections use OR within a category and AND between categories. Collection order stays authored.</p>
-        {hasCriteria ? <ul className="discovery-active" aria-label="Active search and filters">{state.query ? <li><button type="button" aria-label="Remove search query" onClick={() => { queryEditing.current = false; update({ ...state, query: "" }); }}>Search: {state.query.trim()} <span aria-hidden="true">×</span></button></li> : null}{categories.flatMap(category => state[category].map(value => <li key={`${category}:${value}`}><button type="button" aria-label={`Remove ${categoryLabels[category].toLowerCase()}: ${options[category].find(option => option.value === value)?.label}`} onClick={() => remove(category, value)}>{categoryLabels[category]}: {options[category].find(option => option.value === value)?.label}<span aria-hidden="true">×</span></button></li>))}</ul> : null}
+        <div className="discovery-result-row"><p id="discovery-count"><strong>{matching.length}</strong> of {entries.length} studies</p><div className="discovery-sort"><label htmlFor="study-sort">Order studies</label><select id="study-sort" name="sort" value={state.sort} onChange={event => {
+          queryEditing.current = false;
+          update({ ...state, sort: event.target.value === "priority" ? "priority" : "authored" });
+        }}><option value="authored">Authored collection order</option><option value="priority">Research priority — highest first</option></select></div><button type="button" className="discovery-reset" hidden={!hasActiveState} onClick={reset}>Reset all</button></div>
+        <p id="discovery-rule" className="discovery-rule">Every search word must match authored study text. Selections use OR within a category and AND between categories. Priority ordering uses current numeric assessments, then unscored studies; ties keep authored order. Sorting does not remove studies.</p>
+        {hasActiveState ? <ul className="discovery-active" aria-label="Active search, filters and order">{state.query ? <li><button type="button" aria-label="Remove search query" onClick={() => { queryEditing.current = false; update({ ...state, query: "" }); }}>Search: {state.query.trim()} <span aria-hidden="true">×</span></button></li> : null}{categories.flatMap(category => state[category].map(value => <li key={category + ":" + value}><button type="button" aria-label={"Remove " + categoryLabels[category].toLowerCase() + ": " + options[category].find(option => option.value === value)?.label} onClick={() => remove(category, value)}>{categoryLabels[category]}: {options[category].find(option => option.value === value)?.label}<span aria-hidden="true">×</span></button></li>))}{state.sort === "priority" ? <li><button type="button" aria-label="Restore authored collection order" onClick={() => { queryEditing.current = false; update({ ...state, sort: "authored" }); }}>Order: Highest priority first <span aria-hidden="true">×</span></button></li> : null}</ul> : null}
       </fieldset>
-      <noscript><p className="discovery-noscript">Search and filters need JavaScript. The complete collection and all study links are available below.</p></noscript>
+      <noscript><p className="discovery-noscript">Search, filters and ordering need JavaScript. The complete collection and all study links are available below in authored order.</p></noscript>
     </form>
     <p className="visually-hidden discovery-announcement" role="status" aria-live="polite" aria-atomic="true">{announcement}</p>
-    <p className="discovery-print-context">Library view: {matching.length} of {entries.length} studies.{hasCriteria ? ` Active selections: ${[state.query ? `Search: ${state.query.trim()}` : "", ...categories.flatMap(category => state[category].map(value => `${categoryLabels[category]}: ${options[category].find(option => option.value === value)?.label}`))].filter(Boolean).join("; ")}.` : " Authored collection order."}</p>
+    <p className="discovery-print-context">Library view: {matching.length} of {entries.length} studies. Order: {state.sort === "priority" ? "Highest research priority first; ties keep authored order" : "Authored collection order"}.{hasCriteria ? " Active selections: " + selectionsText + "." : " No filters applied."}</p>
     <div className="discovery-empty" hidden={matching.length !== 0}><h3>No studies match these selections.</h3><p>Try a broader phrase, remove a selection, or use Reset all above.</p></div>
-    <div className="study-grid discovery-grid">{cards.map((card, index) => <div className="discovery-card-slot" key={entries[index].slug} data-study-slug={entries[index].slug} hidden={!visible.has(entries[index].slug)}>{card}</div>)}</div>
+    <DiscoveryStudyCards entries={entries} cards={cards} matching={matching} />
     {unclassified ? <p className="discovery-metadata-note">{unclassified} {unclassified === 1 ? "study does" : "studies do"} not specify an evidence type. They remain available when no evidence-type filter is selected.</p> : null}
   </div>;
 }
