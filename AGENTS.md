@@ -16,6 +16,7 @@ is the authoritative placement map; the preservation rules below apply to every 
 | **Bhishma — Data & Features**: ingestion, reusable bars/features, schemas | [Bhishma guide](packages/bhishma/AGENTS.md), [data layers](data/README.md) | Code/tests: `packages/bhishma/`. Contracts/manifests: `catalog/`. Data: `data/inbox/`, `data/raw/`, `data/staging/`, `data/curated/`, `data/features/`. New publication work follows the release contract. | Focused package tests; workspace checks for package/configuration changes; release checks for new publications |
 | **Sahadeva — Research & Analysis**: study logic and shared methods | [Study agent guide](studies/AGENTS.md), [Sahadeva guide](packages/sahadeva/AGENTS.md), relevant study plan | One study's protocol/code/tests: `studies/<id>/`. Methods with demonstrated reuse: `packages/sahadeva/`. | Focused numerical tests and the study's declared checks |
 | **Sahadeva — Evidence & Advice**: results, reports, interpretation | [Sahadeva guide](packages/sahadeva/AGENTS.md), [run guide](runs/README.md), [artifact conventions](templates/README.md) | Stage new output: `work/`. Seal completed evidence/reports: new `runs/<study>/<run>/`. Current advice: `strategies/`. Later presentation exports: `reports/exports/`. | Relevant study checks; index freshness when navigation inputs change |
+| **Sahadeva — Research priority**: dated editorial triage and reassessment | [Priority rubric](strategies/research-priority-rubric.md), [strategy guide](strategies/README.md) | Current assessments: `strategies/research-priorities.json`; explicit standard-library projection: `scripts/project-research-priorities.py`; bounded saved presentation in Narada's existing catalog | Focused projector tests and `--profile research-priority`; app checks for projected UI changes; local reviewed-input hashing is separate |
 | **Sahadeva — Historical Inputs & Evidence**: find retained files | [Sahadeva guide](packages/sahadeva/AGENTS.md), [data layers](data/README.md) | ATAS exports: `data/range_xv/`. Retained historical working evidence: `data/research/sahadeva/`. Preserve these files; stage new experiments in `work/`. | Recorded hashes for integrity checks; the consuming study's input checks |
 | **Narada — Publishing**: webpage components and selected report publication | [Narada guide](apps/narada/AGENTS.md), [publication contract](docs/narada.md) | Renderer, components, publisher, and generated public bundles: `apps/narada/`. Source report content belongs to Sahadeva's run or presentation export. | App verify/test/lint/build; browser verification for UI changes |
 | Documentation and navigation | [Architecture](ARCHITECTURE.md), nearest component guide | Current guidance at its owner; generated research index under `reports/` via its script | Documentation checker; index check only for navigation changes |
@@ -82,6 +83,12 @@ When adding an owner, suite or maintained guide, update the one
 For navigation inputs, select `--profile metadata`; for adopted exact saved rows,
 select `--profile evidence-references`. Validate a future evidence bundle only
 with an explicit target using the [contract guide](docs/evidence-contract.md).
+Research-priority changes use the separate `--profile research-priority` check;
+it validates the registry and public projection, not scientific validity.
+`--check-reviewed-inputs` on the priority projector is an explicit local hash audit,
+never an implicit metadata or Narada build requirement. Follow the
+[rubric's reassessment workflow](strategies/research-priority-rubric.md#reassess-when-evidence-or-scope-changes)
+when scope, evidence or relevant unpublished findings change.
 Keep metadata validity, verified bytes, recorded checks and scientific validity
 distinct. Initial structured references do not cover every strategy-card claim.
 

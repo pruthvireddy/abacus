@@ -41,7 +41,7 @@ reference it directly; do not maintain competing copies of the same contract.
 | `packages/sahadeva/tests/` | Tests for those shared methods and integration |
 | `studies/<study-id>/` | Sahadeva study plan, settings, input lock, metadata, notes, and study-specific implementation/tests |
 | `runs/<study-id>/<run-id>/` | Sahadeva immutable completed research evidence, including preserved imported runs |
-| `strategies/` | Sahadeva dated current interpretations with exact links to evidence across runs |
+| `strategies/` | Sahadeva dated current interpretations and research-priority assessments with exact links to evidence across runs |
 | `apps/narada/` | Narada source, publication contracts/publisher, tests, selected public bundles, and independent npm lock |
 | `apps/narada/content/studies.json` | Narada's explicitly authored public study identities, stable slugs and featured/related publication selections; validated against staged bundles, never discovered from research directories |
 | `apps/narada/content/release-sources.json` | Private explicit sealed-run or presentation-revision locators for release provenance audits; never consumed by the website or uploaded |
@@ -102,6 +102,19 @@ Generate displayed values from that evidence rather than manually maintaining pa
 numbers. A completed run's manifest records its exact execution and artifact identities.
 Strategy cards hold the current synthesis, with dated decisions and precise run references;
 older run advice remains a record of the interpretation made at that time.
+
+Sahadeva's [research-priority registry](strategies/research-priorities.json) and
+[rubric](strategies/research-priority-rubric.md) own dated editorial triage of
+explicitly scoped candidates. The standard-library
+[projector](scripts/project-research-priorities.py) publishes bounded public
+fields into Narada's existing study catalog only when explicitly requested with
+`--write`. The app validates this saved projection using app-owned bundles; its
+Node build never imports Python, the registry or retained research directories.
+Local reviewed-material paths and notes stay outside the projection. Scope,
+complete selected-evidence coverage and rubric hashes detect stale judgments;
+new unprojected findings also require an explicit Needs review flag and manual
+reassessment. These are mutable current judgments, not sealed evidence or
+scientific revalidation. Preserve prior assessments in repository history.
 
 Future research bundles may explicitly adopt `abacus.evidence/v1`. The offline
 validator checks declared local artifact/provenance bytes and reports external

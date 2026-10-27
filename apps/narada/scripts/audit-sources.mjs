@@ -6,7 +6,7 @@ import { readStudyCatalog } from './lib/studies.mjs';
 
 try {
   const publications = await verifyPublications();
-  const catalog = await readStudyCatalog(publications.bundles.map(bundle => bundle.report));
+  const catalog = await readStudyCatalog(publications.bundles.map(bundle => bundle.report), undefined, { bundles: publications.bundles });
   const mapping = JSON.parse(await readFile(resolve('content/release-sources.json'), 'utf8'));
   const result = await auditSources(resolve('../..'), mapping, publications.bundles, catalog);
   console.log(`Source audit passed: ${result.publications.length} publications, ${result.hashedFiles.length} hashed files.`);

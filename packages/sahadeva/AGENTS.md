@@ -26,6 +26,15 @@ Read the relevant study's plan and pinned inputs before analytical work.
 - Develop new outputs under `work/`; seal verified evidence under a unique
   `runs/<study-id>/<run-id>/`, following the [run guide](../../runs/README.md).
   Keep current, dated interpretation in [strategy cards](../../strategies/README.md).
+- Own dated research-priority judgments in
+  [research-priorities.json](../../strategies/research-priorities.json), following
+  the [rubric](../../strategies/research-priority-rubric.md). Assess one named
+  candidate against its baseline and practical costs; retain failed primaries,
+  contrary evidence, timing limits and a proposed discriminating next test.
+  Preserve prior judgments in repository history. Explicitly mark Needs review
+  for relevant new unpublished findings; do not refresh hashes to imply review.
+  Publish only through the root standard-library projector's `--write` action.
+  Narada presents its bounded saved projection and owns no rating inference.
 - Sahadeva owns estimates, units, denominators, uncertainty, and conclusions.
   Narada owns the [publication schema](../../apps/narada/contracts/report.schema.json)
   and webpage presentation. Use that schema directly; do not copy it into this
@@ -115,3 +124,12 @@ for future opt-in bundles, exact strategy rows and task routing. Select root
 `--profile metadata` or `--profile evidence-references` according to the change;
 validate future bundles with an explicit target. Historical evidence remains
 unassessed under the new contract; integrity does not establish research validity.
+
+For priority maintenance, run `python3 scripts/project-research-priorities.py --check`
+or `./scripts/check-workspace --profile research-priority`, plus the focused
+`scripts/tests/test_research_priorities.py` suite. Exact selected report/section
+identity errors fail; changed authored scope, selected coverage or rubric produces
+Needs review without upgrading the dated score. The separate explicit
+`--check-reviewed-inputs` action checks recorded local material hashes and may need
+retained files unavailable in a source-only clone. It is not the app's dependency
+or a numerical validation gate.

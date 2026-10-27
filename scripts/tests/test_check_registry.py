@@ -490,7 +490,7 @@ class ActualRegistryTests(unittest.TestCase):
             self.assertEqual(record["env"], {"PYTHONPATH": "{root}/legacy/sahadeva/analysis/" + study + "/src"})
         self.assertEqual(len(registry_module.select_checks(registry, profiles=["studies"])), 20)
         self.assertEqual(sum(owner["kind"] == "study" for owner in registry["owners"].values()), 28)
-        self.assertEqual(len(registry_module.maintained_guides(registry)), 95)
+        self.assertEqual(len(registry_module.maintained_guides(registry)), 96)
         self.assertIn("docs/evidence-contract.md", registry_module.maintained_guides(registry))
         self.assertEqual(registry_module.coverage_errors(REPOSITORY, registry), [])
         self.assertEqual(registry_module.owner_for_context(registry, "18_fibonacci_memory")["id"], "study-18")
@@ -697,6 +697,30 @@ class ActualRegistryTests(unittest.TestCase):
             self.assertIn("docs/evidence-contract.md", context["read_first"])
             self.assertIn("scripts/check-evidence-bundle.py", context["entry_points"])
         self.assertEqual(registry["owners"]["study-18"]["kind"], "study")
+
+    def test_research_priority_is_explicit_and_keeps_metadata_and_default_unchanged(self):
+        registry = registry_module.load_registry(REPOSITORY)
+        self.assertEqual([check["id"] for check in
+                          registry_module.select_checks(registry, profiles=["research-priority"])],
+                         ["research-priority"])
+        self.assertEqual([check["id"] for check in registry_module.select_checks(registry)],
+                         ["agent-docs", "bhishma", "sahadeva", "legacy-01", "legacy-02", "vwap-doctor"])
+        self.assertEqual([check["id"] for check in
+                          registry_module.select_checks(registry, profiles=["metadata"])],
+                         ["navigation-metadata"])
+        check = next(check for check in registry["checks"] if check["id"] == "research-priority")
+        self.assertEqual(check["owner"], "sahadeva")
+        self.assertEqual(check["argv"],
+                         ["{python}", "scripts/project-research-priorities.py", "--check"])
+        self.assertEqual(check["env"], {})
+        self.assertNotIn("--write", check["argv"])
+        self.assertNotIn("--check-reviewed-inputs", check["argv"])
+        sahadeva = registry_module.owner_for_context(registry, "sahadeva")
+        self.assertIn("strategies/research-priority-rubric.md", sahadeva["guides"])
+        self.assertIn("strategies/research-priorities.json", sahadeva["entry_points"])
+        workspace = registry_module.owner_for_context(registry, "workspace")
+        self.assertTrue({"scripts/project-research-priorities.py", "scripts/research_priorities.py",
+                         "scripts/tests/test_research_priorities.py"}.issubset(workspace["entry_points"]))
 
 
 if __name__ == "__main__":

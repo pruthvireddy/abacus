@@ -1,6 +1,7 @@
-import type { Study } from "../../types/study";
+import type { ResearchPriorityRubric, Study } from "../../types/study";
 import { formatValue } from "@/lib/format";
 import { studyDestinationHref } from "../../scripts/lib/study-routes.mjs";
+import { ResearchPriorityAssessment } from "./research-priority";
 
 export function StudyStatistics({ study }: { study: Study }) {
   const overview = study.resolvedOverview;
@@ -33,11 +34,12 @@ export function OverviewSourceRecord({ study }: { study: Study }) {
   const uniqueSources = [...new Map(sources.map(source => [`${source.publicationId}:${source.sectionId}`, source])).values()];
   return <details className="overview-source-record"><summary>Overview sources & content identities</summary><ul>{uniqueSources.map(source => <li key={`${source.publicationId}:${source.sectionId}`}><a href={`/reports/${source.publicationId}/#section-${source.sectionId}`}>{source.publicationId} · {source.sectionId}</a><dl><div><dt>Source run</dt><dd>{source.sourceRunId}</dd></div><div><dt>Content SHA-256</dt><dd><code>{source.sourceSha256}</code></dd></div></dl><a href={`/publications/${source.publicationId}/report.json`}>Saved report JSON</a></li>)}</ul></details>;
 }
-export function StudyOverview({ study }: { study: Study }) {
+export function StudyOverview({ study, rubric }: { study: Study; rubric?: ResearchPriorityRubric }) {
   const overview = study.resolvedOverview;
   return <>
     <section className="study-takeaway" aria-label="Main takeaway"><p className="brief-label">MAIN TAKEAWAY</p><p>{overview?.takeaway ?? study.summary}</p><a href={overview?.href ?? `/reports/${study.featuredPublicationId}/`}>Read the supporting report <span aria-hidden="true">↗</span></a></section>
     <StudyStatistics study={study} /><StudyCoverage study={study} />
+    <ResearchPriorityAssessment study={study} rubric={rubric} />
     <div className="overview-body">
       <section className="overview-section" id="findings" aria-labelledby="findings-title"><div className="overview-section-heading"><span aria-hidden="true">01</span><h2 id="findings-title">What the study found</h2></div><StudyFindings study={study} brief /><a className="read-link destination-next" href={studyDestinationHref(study.slug, "findings")}>Read the findings <span aria-hidden="true">→</span></a></section>
       <section className="overview-section" id="explore" aria-labelledby="explore-title"><div className="overview-section-heading"><span aria-hidden="true">02</span><h2 id="explore-title">Where to go next</h2></div>{overview ? <ul className="explore-links">{overview.links.slice(0, 3).map((link, index) => <li key={index}><a href={link.href}>{link.label}<span aria-hidden="true">↗</span></a></li>)}</ul> : null}<a className="read-link" href={studyDestinationHref(study.slug, "explore")}>Explore the selected analyses and reports <span aria-hidden="true">→</span></a></section>

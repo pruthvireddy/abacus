@@ -171,6 +171,12 @@
       "checks": [
         "github-readiness"
       ]
+    },
+    "research-priority": {
+      "description": "Explicit read-only editorial registry/public projection identities and freshness; no research execution or retained-input audit.",
+      "checks": [
+        "research-priority"
+      ]
     }
   },
   "owners": {
@@ -217,7 +223,10 @@
         "scripts/study_provenance.py",
         "scripts/check-study-provenance.py",
         "scripts/tests/study_provenance_guards.py",
-        "scripts/check-github-readiness.py"
+        "scripts/check-github-readiness.py",
+        "scripts/project-research-priorities.py",
+        "scripts/research_priorities.py",
+        "scripts/tests/test_research_priorities.py"
       ],
       "related_checks": [
         "strategy-evidence-references",
@@ -226,7 +235,8 @@
         "numerical-record-guards-optimized",
         "study-execution-guards",
         "study-execution-guards-optimized",
-        "github-readiness"
+        "github-readiness",
+        "research-priority"
       ],
       "preservation": [
         "Checks are an explicit allowlist; do not execute research, migration, publication or release creation.",
@@ -297,13 +307,15 @@
       "description": "Sahadeva shared research integration and saved-evidence projection",
       "guides": [
         "packages/sahadeva/AGENTS.md",
-        "packages/sahadeva/README.md"
+        "packages/sahadeva/README.md",
+        "strategies/research-priority-rubric.md"
       ],
       "read_first": [
         "packages/sahadeva/AGENTS.md",
         "packages/sahadeva/README.md",
         "studies/AGENTS.md",
-        "docs/evidence-contract.md"
+        "docs/evidence-contract.md",
+        "strategies/research-priority-rubric.md"
       ],
       "entry_points": [
         "packages/sahadeva/src/abacus_sahadeva",
@@ -318,18 +330,21 @@
         "scripts/tests/study_provenance_guards.py",
         "packages/sahadeva/src/abacus_sahadeva/presentation_revision.py",
         "packages/sahadeva/tests/test_export_projection.py",
-        "packages/sahadeva/tests/test_export_guards.py"
+        "packages/sahadeva/tests/test_export_guards.py",
+        "strategies/research-priorities.json"
       ],
       "related_checks": [
         "navigation-metadata",
         "numerical-record-guards",
         "numerical-record-guards-optimized",
         "study-execution-guards",
-        "study-execution-guards-optimized"
+        "study-execution-guards-optimized",
+        "research-priority"
       ],
       "preservation": [
         "Tests use disposable fixtures; preserve saved research definitions and retained evidence.",
-        "Saved-output checks and exporter tests do not rerun or revalidate historical research."
+        "Saved-output checks and exporter tests do not rerun or revalidate historical research.",
+        "Current editorial priorities do not alter sealed evidence; preserve prior dated judgments in repository history and keep local reviewed-material paths out of the app projection."
       ]
     },
     "narada": {
@@ -3302,6 +3317,45 @@
       "scope": [
         "Tracked/nonignored working files, staged blobs and only HEAD-reachable history; redacted credential fingerprints, file sizes and local symlink portability.",
         "Does not write files, change the index, inspect unrelated refs, establish exhaustive secret absence or grant redistribution rights."
+      ]
+    },
+    {
+      "id": "research-priority",
+      "owner": "sahadeva",
+      "kind": "command",
+      "description": "Validate current editorial registry, exact selected public references and generated priority projection",
+      "cwd": ".",
+      "argv": [
+        "{python}",
+        "scripts/project-research-priorities.py",
+        "--check"
+      ],
+      "env": {},
+      "prerequisites": [
+        {
+          "kind": "file",
+          "path": "strategies/research-priorities.json",
+          "description": "Explicit dated current editorial registry; no automatic ratings or assessment writes."
+        },
+        {
+          "kind": "file",
+          "path": "strategies/research-priority-rubric.md",
+          "description": "Versioned rubric bytes used by current assessment freshness bindings."
+        },
+        {
+          "kind": "file",
+          "path": "apps/narada/content/studies.json",
+          "description": "Existing selected public catalog and generated bounded priority projection."
+        },
+        {
+          "kind": "file",
+          "path": "apps/narada/public/publications/index.json",
+          "description": "Explicit selected app-owned bundles and source identities; no private research scan."
+        }
+      ],
+      "scope": [
+        "Read-only registry/schema, full selected-report coverage, exact app-owned report/bundle/section identities and projection freshness.",
+        "No research calculations, scientific validation, local reviewed-material hashing, public staging, publication or release actions. The separate --check-reviewed-inputs audit requires its own explicit selection."
       ]
     }
   ]

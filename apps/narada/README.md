@@ -113,6 +113,7 @@ do not create a release or append an event to an existing release.
 | Static study destinations and legacy links | [study-routes.mjs](scripts/lib/study-routes.mjs), [study shell](src/components/study-shell.tsx), [report directory](src/components/study-directory.tsx) | [Routes](tests/study-routes.test.mjs), [presentation](tests/study-presentation.test.mjs); export/HTTP checks | Five catalog-derived pages, native links, explicit current selection and saved-section compatibility |
 | Authored navigation | [studies.mjs](scripts/lib/studies.mjs), [catalog](content/studies.json) | [Studies](tests/studies.test.mjs) | Stable slugs and explicit run/publication relationships |
 | Study briefs and selected highlights | [study-overviews.mjs](scripts/lib/study-overviews.mjs), [catalog schema](contracts/studies.schema.json) | [Overview selections](tests/study-overviews.test.mjs), [presentation](tests/study-presentation.test.mjs); build postcheck | Optional app-owned abridgments, exact saved cells and pinned publication/section identities; no new research calculations |
+| Research-priority presentation | [saved priority validator](scripts/lib/research-priorities.mjs), [ResearchPriority](src/components/research-priority.tsx), [display rules](src/lib/research-priority-display.mjs), [Sahadeva rubric](../../strategies/research-priority-rubric.md) | [Priority bindings](tests/research-priorities.test.mjs), [UI](tests/research-priority-ui.test.mjs), root [projector tests](../../scripts/tests/test_research_priorities.py) | Explicit offline projection; app-owned identity/freshness checks; no Python/research dependency in the build |
 | Library search, filters and shared URLs | [discovery.ts](src/lib/discovery.ts), [LibraryDiscovery](src/components/library-discovery.tsx), [discovery styles](src/app/discovery.css) | [Discovery](tests/discovery.test.mjs) | Bounded authored index; complete static cards; no report-body search or runtime API |
 | Curated reading paths | [catalog](content/studies.json), [schema](contracts/studies.schema.json), [validator](scripts/lib/studies.mjs), [ReadingPaths](src/components/reading-paths.tsx) | [Reading paths](tests/reading-paths.test.mjs) | Explicit study/destination references and editorial reasons; separate evidence qualifications |
 | Report contents, section links and print | [ReportContents](src/components/report-contents.tsx), [SectionLink](src/components/section-link.tsx), [reader styles](src/app/reader.css) | [Reader](tests/report-reader.test.mjs), [sections](tests/report-sections.test.mjs) | Native section anchors, small client identity/title props, visible source identity and print-specific layout |
@@ -422,6 +423,56 @@ Path and per-study qualifications remain visible. Homepage anchors such as
 `/#reading-path-vwap-behavior` share a path, and study pages link back to their
 path context. Adding a path changes navigation only; it does not select another
 publication or alter a saved conclusion.
+
+## Research priority
+
+Study cards and overviews present **Research priority** as a dated editorial
+assessment, with a text label alongside the stars. The explanation identifies
+the reviewed candidate, materiality, supporting and contrary saved report
+sections, main blocker and proposed next test. The [rubric](../../strategies/research-priority-rubric.md)
+defines 1 Pause, 2 Define and test, 3 Targeted follow-up, 4 Strong candidate and
+5 Highest priority. It is research triage, not a probability of profitability,
+paper-quality rating or trading advice. Not assessed, Needs review and Not
+applicable never appear as zero stars. Initial AI-assisted reviews remain
+explicitly pending human approval.
+
+Sahadeva owns [research-priorities.json](../../strategies/research-priorities.json).
+From the workspace root, `python3 scripts/project-research-priorities.py --check`
+validates its exact public report bindings and current catalog projection;
+`--write` explicitly updates only generated priority fields and their rubric in
+the existing catalog. Follow the rubric to reassess; do not edit the public
+rating separately. Local reviewed-material paths/notes stay outside the app.
+The full server-owned study catalog permits 200 studies within 512 KiB to retain
+bounded explanations. The client discovery index keeps its separate 48 KiB limit
+and carries only current priority state/score, not rationale or evidence arrays.
+
+The app independently checks selected publication/run/content/section identity.
+Bad or missing identities fail validation. Changed authored scope, the entire
+selected evidence set, the rubric or an explicit reassessment flag makes a
+still-valid historical assessment Needs review; its previous score/date remain
+context and do not participate in numeric ranking. New evidence never upgrades
+a score automatically. Relevant unpublished findings require Sahadeva to mark
+Needs review and conduct a manual reassessment. The separate root
+`--check-reviewed-inputs` audit hashes explicitly recorded local materials and
+is not an app build dependency. App verify/build remain Node-only and consume
+only app-owned catalog and publication bundles.
+
+The library's optional Research priority filter accepts `priority=1` through
+`priority=5`, `priority=not_assessed`, `priority=needs_review` and
+`priority=not_applicable`. Repeated selections use OR, combined with AND against
+other categories/search. `sort=priority` lists current numeric scores highest
+first, preserving authored order for ties and placing nonnumeric states after
+numeric assessments. Default order remains authored. For example:
+
+```text
+/?priority=2&instrument=gc
+/?priority=not_assessed
+/?sort=priority
+```
+
+The existing bounds, URL restoration, back/forward, focus, reset and no-JavaScript
+fallback rules also apply. Without JavaScript, the complete authored-order
+collection and server-rendered rating explanations remain available.
 
 ## Detailed report reader, table links and print
 

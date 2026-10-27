@@ -42,6 +42,19 @@ before changing the publication boundary.
   Phase links preserve an existing condition ID and chart label when present,
   otherwise use the first authored condition or chart. All selections, audits,
   inventories and static checks use the shared authored-selection helpers.
+- `researchPriority` and the public rubric in that catalog are generated from
+  Sahadeva's [current registry](../../strategies/research-priorities.json) by the
+  explicit [root projector](../../scripts/project-research-priorities.py).
+  Follow the [rubric](../../strategies/research-priority-rubric.md); do not author
+  judgments in app components or manually edit the generated projection.
+  Validate exact selected report/run/content/section identities at build time.
+  Scope, entire selected-report coverage, rubric changes or an explicit
+  reassessment flag produce Needs review; missing/bad identities are errors.
+  Retain the dated previous score as context, excluding stale/nonnumeric states
+  from numeric sorting. Never send rationale, evidence arrays, local paths or
+  reviewed notes to the discovery index; it carries only state and current score.
+  Keep the full server-owned catalog bounded at 512 KiB and discovery at 48 KiB.
+  Ordinary Node checks do not read Python, the registry or local research files.
 - Optional catalog `overview` metadata owns the library brief and study landing
   sections. Its bounded prose abridges saved conclusions; exact metric/table-cell
   selectors pin a selected publication, source run, content hash and section.

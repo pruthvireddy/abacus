@@ -350,7 +350,63 @@ checks. The validator rejects missing references, repeated identities/relationsh
 incorrect source attribution, unsafe fields and private path references. The
 static verifier checks homepage study links, study routes and every selected
 publication route. Catalog edits affect navigation, not research references or
-publication hashes. Current limits are 200 studies and 256 KiB of authored JSON.
+publication hashes. Current limits are 200 studies and 512 KiB of server-owned
+catalog JSON, including bounded generated editorial explanations. The separate
+client discovery index remains bounded at 48 KiB.
+
+## Research-priority ownership and projection
+
+Sahadeva owns the current [research-priority registry](../strategies/research-priorities.json)
+and [rubric](../strategies/research-priority-rubric.md). Narada presents their
+bounded saved projection in its existing catalog; it does not infer ratings from
+reports, evidence-status prose, filenames or statistical significance. The label
+means how strongly saved evidence supports focused investigation toward an
+actionable material edge. Stars are not profit probabilities, paper-quality
+ratings or recommendations. Not assessed, Needs review and Not applicable are
+nonnumeric states. Display reviewer/date and preserve the AI-assisted review's
+pending human approval.
+
+The explicit standard-library
+[projector](../scripts/project-research-priorities.py) reads only the declared
+registry, rubric, catalog and selected public bundles. Run it from the root:
+
+```sh
+python3 scripts/project-research-priorities.py --check
+python3 scripts/project-research-priorities.py --write
+./scripts/check-workspace --profile research-priority
+```
+
+`--check` validates exact report/run/content/section bindings and projection
+freshness without writing. `--write` changes only generated `researchPriority`
+fields and the public rubric; authored navigation, selections and reading paths
+remain in place. The app's verify/build independently validates app-owned saved
+bindings without importing Python, the registry, private locators or research
+directories. Keep local `reviewedMaterials` and review notes out of the public
+projection, and keep rationale/evidence arrays out of client discovery props.
+
+An assessment pins authored scope, the complete ordered selected-report set and
+rubric bytes. A still-valid dated judgment becomes Needs review when those
+bindings change; do not automatically upgrade it or silently refresh hashes.
+Missing/bad public identities are errors. For relevant unprojected findings or
+decisions, Sahadeva explicitly uses `--mark-needs-review STUDY_ID --reason "..."`
+then `--write`, retaining the old score/date as historical context. Reassessment
+requires reading the new supporting and contrary evidence and a new dated
+assessment ID. Preserve approved previous judgments in repository history;
+never alter sealed runs, original report content or historical release records.
+The separate `--check-reviewed-inputs` action audits only explicitly recorded
+local material hashes; a source-only clone may lack those retained inputs. It is
+not part of ordinary metadata validation or the app build, and does not execute
+research or establish scientific validity.
+
+Cards and study overviews retain useful explanations and ordinary links to
+supporting and contrary report sections without fetching table JSON. The
+optional library `priority` filter accepts integers 1–5 or the three nonnumeric
+states; repeated choices use OR within the category and AND with other criteria.
+`sort=priority` orders current numeric assessments highest first, preserves
+authored order for ties and places nonnumeric states afterward. Needs review
+uses no active numeric score. Default order stays authored, and static/no-JavaScript
+browsing retains the complete collection and rendered explanations. Examples:
+`/?priority=2&instrument=gc`, `/?priority=needs_review`, `/?sort=priority`.
 
 ## Library discovery and report reading
 
@@ -366,7 +422,7 @@ between categories, alongside search; authored ordering is preserved. Evidence
 type comes only from explicit validated overview metadata, and missing values
 remain unclassified.
 
-`q` plus repeated `topic`, `instrument` and `type` parameters share the library
+`q` plus repeated `topic`, `instrument`, `type` and `priority` parameters share the library
 state. They are validated against current catalog-derived choices and canonicalized.
 Limits are 120 query characters, eight selections per category and 2,048 encoded
 query-string characters including `?`. Unknown/stale parameters and duplicate
