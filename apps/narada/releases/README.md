@@ -166,7 +166,48 @@ from anonymous production verification. Consult the current
 
 ## Accepted production release
 
-Current release `20261026T173757Z_a949ceeb` is live at
+Current release `20261027T003702Z_cc56f115` is live at
+[abacus-narada.vercel.app](https://abacus-narada.vercel.app), production READY,
+after [source PR #3](https://github.com/pruthvireddy/abacus/pull/3) merged as
+`63b05dfa818e0bdaf271e4c195fd03f154747a12`. The prepared source commit was
+`2153fdcc062dcaa667ebb34190232694b808a6bc`; its app tree exactly matches merged
+main. The checked staged production artifact was promoted without rebuilding.
+The existing 24 studies, 97 reports, 154 raster figures, 237 selected CSVs and
+three reading paths are preserved. See the
+[public release receipt](20261027T003702Z_cc56f115/public-receipt.json).
+
+Research priority now appears as display-only accessible stars on study cards
+and overviews, with dated explanations, supporting and contrary evidence,
+candidate scope, blockers and proposed tests. The 24 assessments comprise
+thirteen 1/5, seven 2/5, one 3/5, one Not assessed and two Not applicable;
+none received four or five. Priority filters, shareable URLs and optional
+highest-first ordering use only current numeric assessments. Needs review
+retains prior dated reasoning while excluding the stale score from numeric
+filtering and ordering. These are honestly identified AI-assisted editorial
+judgments about further research, not profitability probabilities, trading
+recommendations or independent scientific validation.
+
+Node 24 verify, 249 tests without skips, lint, static build, compact JSON
+equivalence and the private source audit passed. Protected preview, staged
+production and anonymous production each matched all 2,570 exact static files,
+237 CSV byte/header checks and five hard 404s. Desktop/mobile preview and
+anonymous production browser checks passed with no application console errors.
+The bounded discovery index remains 17,477 bytes within its unchanged 48 KiB
+budget; local discovery/overview browser checks made no publication JSON
+requests. Saved research values and canonical publication assets are unchanged;
+integrity checks do not revalidate their scientific conclusions.
+
+Fresh native hosted downloads, browser-wide JavaScript-disabled mode,
+assistive-technology testing and native print/PDF were not repeated for this
+release; static HTML, server-render and existing regression checks are retained.
+Detailed source locators, full audits, deployment records and recovery snapshots
+remain local, with off-device recovery unverified. This public summary and receipt
+exclude those private records. The previous redesign release below is the
+explicit verified rollback reference.
+
+## Previous redesign production release
+
+Previous release `20261026T173757Z_a949ceeb` was live at
 [abacus-narada.vercel.app](https://abacus-narada.vercel.app), Vercel production
 (READY), from source commit
 `328b8458ba83efa5c11667d5b538b242a3c36387` after
@@ -189,7 +230,7 @@ separate browser-wide JavaScript-disabled session remain unverified. Integrity
 checks preserve canonical bytes and source identities; they do not revalidate
 research. The public receipt summarizes the verified HTTP and browser outcomes
 without publishing private source locators.
-The previous optimized release below remains the explicit rollback reference.
+The previous optimized release below was that release's explicit rollback reference.
 
 ## Previous optimized production release
 
