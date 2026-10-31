@@ -1,0 +1,716 @@
+{
+  "argv": [
+    "studies/30_verniman_pivot_statistics_es/verify_features.py",
+    "--output",
+    "work/30_verniman_pivot_statistics_es/feature-audit-v1"
+  ],
+  "checks": {
+    "all_minute_ohlcv_and_identities": {
+      "cells": 26104507,
+      "columns": [
+        "timestamp",
+        "session_date",
+        "instrument_id",
+        "raw_symbol",
+        "roll_id",
+        "source_batch",
+        "open",
+        "high",
+        "low",
+        "close",
+        "volume"
+      ],
+      "maximum_absolute_error": 0.0,
+      "rows": 2373137,
+      "status": "passed",
+      "tolerance": 0.0
+    },
+    "all_reused_3m_bars": {
+      "cells": 9653280,
+      "columns": [
+        "timestamp",
+        "open",
+        "high",
+        "low",
+        "close",
+        "volume",
+        "usable",
+        "available_at",
+        "session",
+        "contract_identity",
+        "known_closure_before",
+        "calendar_valid"
+      ],
+      "maximum_absolute_error": 0.0,
+      "rows": 804440,
+      "status": "passed",
+      "tolerance": 0.0
+    },
+    "all_reused_5m_bars_and_emas": {
+      "cells": 7722624,
+      "columns": [
+        "timestamp",
+        "open",
+        "high",
+        "low",
+        "close",
+        "volume",
+        "usable",
+        "available_at",
+        "session",
+        "contract_identity",
+        "known_closure_before",
+        "calendar_valid",
+        "ema20",
+        "ema50",
+        "consecutive_count",
+        "feature_reset"
+      ],
+      "maximum_absolute_error": 0.0,
+      "rows": 482664,
+      "status": "passed",
+      "tolerance": 0.0
+    },
+    "availability_1m": {
+      "interval_minutes": 1,
+      "rows": 2373137,
+      "status": "passed"
+    },
+    "availability_3m": {
+      "interval_minutes": 3,
+      "rows": 804440,
+      "status": "passed"
+    },
+    "availability_5m": {
+      "interval_minutes": 5,
+      "rows": 482664,
+      "status": "passed"
+    },
+    "completed_cloud_join": {
+      "cells": 2413320,
+      "columns": [
+        "ema20",
+        "ema50",
+        "cloud_ready"
+      ],
+      "joined_rows": 791485,
+      "maximum_absolute_error": 0.0,
+      "rows": 804440,
+      "status": "passed",
+      "tolerance": 0.0
+    },
+    "independent_ema6_full_history": {
+      "cells": 3217760,
+      "columns": [
+        "timestamp",
+        "ema6",
+        "ema6_consecutive_count",
+        "ema6_ready"
+      ],
+      "maximum_absolute_error": 0.0,
+      "rows": 804440,
+      "source_history_rows": 1160250,
+      "status": "passed",
+      "tolerance": 1e-10
+    },
+    "independent_globex_vwap": {
+      "cells": 9492548,
+      "columns": [
+        "usable",
+        "anchor_prefix_complete",
+        "vwap_valid",
+        "globex_vwap"
+      ],
+      "invalid_or_undefined_rows": 403872,
+      "maximum_absolute_error": 1.546140993013978e-11,
+      "rows": 2373137,
+      "sessions": 1737,
+      "status": "passed",
+      "tolerance": 1e-08,
+      "valid_vwap_rows": 1969265
+    },
+    "independent_native_aggregation": {
+      "bars": 10280,
+      "samples": [
+        {
+          "cells": 2275,
+          "columns": [
+            "open",
+            "high",
+            "low",
+            "close",
+            "volume"
+          ],
+          "interval_minutes": 3,
+          "maximum_absolute_error": 0.0,
+          "rows": 455,
+          "session_date": "2020-01-03",
+          "status": "passed",
+          "tolerance": 0.0
+        },
+        {
+          "cells": 1365,
+          "columns": [
+            "open",
+            "high",
+            "low",
+            "close",
+            "volume"
+          ],
+          "interval_minutes": 5,
+          "maximum_absolute_error": 0.0,
+          "rows": 273,
+          "session_date": "2020-01-03",
+          "status": "passed",
+          "tolerance": 0.0
+        },
+        {
+          "cells": 2275,
+          "columns": [
+            "open",
+            "high",
+            "low",
+            "close",
+            "volume"
+          ],
+          "interval_minutes": 3,
+          "maximum_absolute_error": 0.0,
+          "rows": 455,
+          "session_date": "2020-07-02",
+          "status": "passed",
+          "tolerance": 0.0
+        },
+        {
+          "cells": 1365,
+          "columns": [
+            "open",
+            "high",
+            "low",
+            "close",
+            "volume"
+          ],
+          "interval_minutes": 5,
+          "maximum_absolute_error": 0.0,
+          "rows": 273,
+          "session_date": "2020-07-02",
+          "status": "passed",
+          "tolerance": 0.0
+        },
+        {
+          "cells": 2275,
+          "columns": [
+            "open",
+            "high",
+            "low",
+            "close",
+            "volume"
+          ],
+          "interval_minutes": 3,
+          "maximum_absolute_error": 0.0,
+          "rows": 455,
+          "session_date": "2021-01-05",
+          "status": "passed",
+          "tolerance": 0.0
+        },
+        {
+          "cells": 1365,
+          "columns": [
+            "open",
+            "high",
+            "low",
+            "close",
+            "volume"
+          ],
+          "interval_minutes": 5,
+          "maximum_absolute_error": 0.0,
+          "rows": 273,
+          "session_date": "2021-01-05",
+          "status": "passed",
+          "tolerance": 0.0
+        },
+        {
+          "cells": 2300,
+          "columns": [
+            "open",
+            "high",
+            "low",
+            "close",
+            "volume"
+          ],
+          "interval_minutes": 3,
+          "maximum_absolute_error": 0.0,
+          "rows": 460,
+          "session_date": "2021-07-01",
+          "status": "passed",
+          "tolerance": 0.0
+        },
+        {
+          "cells": 1380,
+          "columns": [
+            "open",
+            "high",
+            "low",
+            "close",
+            "volume"
+          ],
+          "interval_minutes": 5,
+          "maximum_absolute_error": 0.0,
+          "rows": 276,
+          "session_date": "2021-07-01",
+          "status": "passed",
+          "tolerance": 0.0
+        },
+        {
+          "cells": 2300,
+          "columns": [
+            "open",
+            "high",
+            "low",
+            "close",
+            "volume"
+          ],
+          "interval_minutes": 3,
+          "maximum_absolute_error": 0.0,
+          "rows": 460,
+          "session_date": "2022-01-03",
+          "status": "passed",
+          "tolerance": 0.0
+        },
+        {
+          "cells": 1380,
+          "columns": [
+            "open",
+            "high",
+            "low",
+            "close",
+            "volume"
+          ],
+          "interval_minutes": 5,
+          "maximum_absolute_error": 0.0,
+          "rows": 276,
+          "session_date": "2022-01-03",
+          "status": "passed",
+          "tolerance": 0.0
+        },
+        {
+          "cells": 2300,
+          "columns": [
+            "open",
+            "high",
+            "low",
+            "close",
+            "volume"
+          ],
+          "interval_minutes": 3,
+          "maximum_absolute_error": 0.0,
+          "rows": 460,
+          "session_date": "2022-07-01",
+          "status": "passed",
+          "tolerance": 0.0
+        },
+        {
+          "cells": 1380,
+          "columns": [
+            "open",
+            "high",
+            "low",
+            "close",
+            "volume"
+          ],
+          "interval_minutes": 5,
+          "maximum_absolute_error": 0.0,
+          "rows": 276,
+          "session_date": "2022-07-01",
+          "status": "passed",
+          "tolerance": 0.0
+        },
+        {
+          "cells": 2300,
+          "columns": [
+            "open",
+            "high",
+            "low",
+            "close",
+            "volume"
+          ],
+          "interval_minutes": 3,
+          "maximum_absolute_error": 0.0,
+          "rows": 460,
+          "session_date": "2023-01-03",
+          "status": "passed",
+          "tolerance": 0.0
+        },
+        {
+          "cells": 1380,
+          "columns": [
+            "open",
+            "high",
+            "low",
+            "close",
+            "volume"
+          ],
+          "interval_minutes": 5,
+          "maximum_absolute_error": 0.0,
+          "rows": 276,
+          "session_date": "2023-01-03",
+          "status": "passed",
+          "tolerance": 0.0
+        },
+        {
+          "cells": 2300,
+          "columns": [
+            "open",
+            "high",
+            "low",
+            "close",
+            "volume"
+          ],
+          "interval_minutes": 3,
+          "maximum_absolute_error": 0.0,
+          "rows": 460,
+          "session_date": "2023-07-07",
+          "status": "passed",
+          "tolerance": 0.0
+        },
+        {
+          "cells": 1380,
+          "columns": [
+            "open",
+            "high",
+            "low",
+            "close",
+            "volume"
+          ],
+          "interval_minutes": 5,
+          "maximum_absolute_error": 0.0,
+          "rows": 276,
+          "session_date": "2023-07-07",
+          "status": "passed",
+          "tolerance": 0.0
+        },
+        {
+          "cells": 2300,
+          "columns": [
+            "open",
+            "high",
+            "low",
+            "close",
+            "volume"
+          ],
+          "interval_minutes": 3,
+          "maximum_absolute_error": 0.0,
+          "rows": 460,
+          "session_date": "2024-01-02",
+          "status": "passed",
+          "tolerance": 0.0
+        },
+        {
+          "cells": 1380,
+          "columns": [
+            "open",
+            "high",
+            "low",
+            "close",
+            "volume"
+          ],
+          "interval_minutes": 5,
+          "maximum_absolute_error": 0.0,
+          "rows": 276,
+          "session_date": "2024-01-02",
+          "status": "passed",
+          "tolerance": 0.0
+        },
+        {
+          "cells": 2300,
+          "columns": [
+            "open",
+            "high",
+            "low",
+            "close",
+            "volume"
+          ],
+          "interval_minutes": 3,
+          "maximum_absolute_error": 0.0,
+          "rows": 460,
+          "session_date": "2024-07-01",
+          "status": "passed",
+          "tolerance": 0.0
+        },
+        {
+          "cells": 1380,
+          "columns": [
+            "open",
+            "high",
+            "low",
+            "close",
+            "volume"
+          ],
+          "interval_minutes": 5,
+          "maximum_absolute_error": 0.0,
+          "rows": 276,
+          "session_date": "2024-07-01",
+          "status": "passed",
+          "tolerance": 0.0
+        },
+        {
+          "cells": 2300,
+          "columns": [
+            "open",
+            "high",
+            "low",
+            "close",
+            "volume"
+          ],
+          "interval_minutes": 3,
+          "maximum_absolute_error": 0.0,
+          "rows": 460,
+          "session_date": "2025-01-02",
+          "status": "passed",
+          "tolerance": 0.0
+        },
+        {
+          "cells": 1380,
+          "columns": [
+            "open",
+            "high",
+            "low",
+            "close",
+            "volume"
+          ],
+          "interval_minutes": 5,
+          "maximum_absolute_error": 0.0,
+          "rows": 276,
+          "session_date": "2025-01-02",
+          "status": "passed",
+          "tolerance": 0.0
+        },
+        {
+          "cells": 2300,
+          "columns": [
+            "open",
+            "high",
+            "low",
+            "close",
+            "volume"
+          ],
+          "interval_minutes": 3,
+          "maximum_absolute_error": 0.0,
+          "rows": 460,
+          "session_date": "2025-07-01",
+          "status": "passed",
+          "tolerance": 0.0
+        },
+        {
+          "cells": 1380,
+          "columns": [
+            "open",
+            "high",
+            "low",
+            "close",
+            "volume"
+          ],
+          "interval_minutes": 5,
+          "maximum_absolute_error": 0.0,
+          "rows": 276,
+          "session_date": "2025-07-01",
+          "status": "passed",
+          "tolerance": 0.0
+        },
+        {
+          "cells": 2300,
+          "columns": [
+            "open",
+            "high",
+            "low",
+            "close",
+            "volume"
+          ],
+          "interval_minutes": 3,
+          "maximum_absolute_error": 0.0,
+          "rows": 460,
+          "session_date": "2026-01-02",
+          "status": "passed",
+          "tolerance": 0.0
+        },
+        {
+          "cells": 1380,
+          "columns": [
+            "open",
+            "high",
+            "low",
+            "close",
+            "volume"
+          ],
+          "interval_minutes": 5,
+          "maximum_absolute_error": 0.0,
+          "rows": 276,
+          "session_date": "2026-01-02",
+          "status": "passed",
+          "tolerance": 0.0
+        },
+        {
+          "cells": 2300,
+          "columns": [
+            "open",
+            "high",
+            "low",
+            "close",
+            "volume"
+          ],
+          "interval_minutes": 3,
+          "maximum_absolute_error": 0.0,
+          "rows": 460,
+          "session_date": "2026-07-01",
+          "status": "passed",
+          "tolerance": 0.0
+        },
+        {
+          "cells": 1380,
+          "columns": [
+            "open",
+            "high",
+            "low",
+            "close",
+            "volume"
+          ],
+          "interval_minutes": 5,
+          "maximum_absolute_error": 0.0,
+          "rows": 276,
+          "session_date": "2026-07-01",
+          "status": "passed",
+          "tolerance": 0.0
+        }
+      ],
+      "selection": "first full-Globex-complete January/July session per year; no outcome selection",
+      "sessions": 14,
+      "status": "passed"
+    },
+    "minute_full_maturity_mapping": {
+      "rows": 2373137,
+      "status": "passed"
+    }
+  },
+  "created_at": "2026-10-31T16:05:52.109073+00:00",
+  "cwd": "/Users/pruthvi/Documents/projects/abacus",
+  "input_manifests": {
+    "retained_cloud_reference": {
+      "bytes": 103008,
+      "path": "catalog/datasets/same_contract_ema_cloud__1.1.0.json",
+      "sha256": "444043918c9b30a0d909e88328094b52936f6b379ce288b85afb6740aed0f838"
+    },
+    "retained_continuous_minutes": {
+      "bytes": 23097,
+      "path": "catalog/datasets/volume_lead_unadjusted_v1.json",
+      "sha256": "00757f5fc8278e75744d7adfaddc688be588d619d82b1dc1811aa60f21b7e5d4"
+    },
+    "session_indicators": {
+      "bytes": 11435,
+      "path": "catalog/datasets/es_contract_session_indicators__1.0.0.json",
+      "sha256": "54d4f39521151cb77dfeb4ed4ad8681031de979d5cc6fec8cbe462ac89739187"
+    }
+  },
+  "market_outcomes_read": false,
+  "pivot_levels_read": false,
+  "platform": "macOS-27.2-arm64-arm-64bit",
+  "python": "3.11.17 (main, Oct  1 2026, 00:48:48) [Clang 21.0.0 (clang-2100.3.34.2)]",
+  "qualifications": [
+    "Calendar rules remain qualified, not independently exchange-certified.",
+    "Actual feed receipt times and native chart equivalence are not established.",
+    "NumPy cumulative VWAP is compared within 1e-8 ES points for summation-order differences."
+  ],
+  "schema_version": "abacus.study30.independent-feature-verification/v1",
+  "scope": "All reused native values, EMA6 recurrence/readiness, one-minute source identity/VWAP, modeled timing and deterministic aggregation samples.",
+  "source_files_verified": [
+    {
+      "bytes": 5312783,
+      "path": "data/curated/continuous/1m/product=ES/roll=volume_lead_v1/variant=unadjusted/year=2020/part-000.parquet",
+      "sha256": "b134d42d8721fd1c458743682a0c119bf973f2576c2c9bc67a11def1f71ebe0c"
+    },
+    {
+      "bytes": 5108070,
+      "path": "data/curated/continuous/1m/product=ES/roll=volume_lead_v1/variant=unadjusted/year=2021/part-000.parquet",
+      "sha256": "721f8cf454096dc85477fd7df891d9a23230fa09e872c0bb56f2574d804a7560"
+    },
+    {
+      "bytes": 5560868,
+      "path": "data/curated/continuous/1m/product=ES/roll=volume_lead_v1/variant=unadjusted/year=2022/part-000.parquet",
+      "sha256": "55748a5064507eb37641a59bb1d3ebf0f1593bab793168328d07469c08710b6c"
+    },
+    {
+      "bytes": 5105561,
+      "path": "data/curated/continuous/1m/product=ES/roll=volume_lead_v1/variant=unadjusted/year=2023/part-000.parquet",
+      "sha256": "015e11fc39d48b40ef045ea5fb5556ef41e94e774456ea49725a7738da615d15"
+    },
+    {
+      "bytes": 5188628,
+      "path": "data/curated/continuous/1m/product=ES/roll=volume_lead_v1/variant=unadjusted/year=2024/part-000.parquet",
+      "sha256": "35caa6398de667f129f8fcb3a91f5545bd32fdf619ee7cd9cbe69a34f50d5d94"
+    },
+    {
+      "bytes": 5452536,
+      "path": "data/curated/continuous/1m/product=ES/roll=volume_lead_v1/variant=unadjusted/year=2025/part-000.parquet",
+      "sha256": "51ce31523819e66ca92fa2845fb77aea49dc7322b89d447d53a96280e4010a5c"
+    },
+    {
+      "bytes": 3988836,
+      "path": "data/curated/continuous/1m/product=ES/roll=volume_lead_v1/variant=unadjusted/year=2026/part-000.parquet",
+      "sha256": "e837be7469f8dd28af6430d4b8269c4d484a0695cb7a46f116619e08917ce98a"
+    },
+    {
+      "bytes": 12411,
+      "path": "data/curated/instruments/roll=volume_lead_v1/instrument_master.parquet",
+      "sha256": "2ead75515df44461e2abfa3699dac1c0afec0a112409aecb1d5bfdffb1b8051f"
+    }
+  ],
+  "sources": [
+    {
+      "bytes": 19904,
+      "path": "studies/30_verniman_pivot_statistics_es/verify_features.py",
+      "retained_path": "provenance/studies/30_verniman_pivot_statistics_es/verify_features.py",
+      "sha256": "1acd6e4623f3f2ca2c44d49da0d576d657d4f5629242a13abbe10d9fd72dea69"
+    },
+    {
+      "bytes": 6312,
+      "path": "studies/30_verniman_pivot_statistics_es/tests/test_verify_features.py",
+      "retained_path": "provenance/studies/30_verniman_pivot_statistics_es/tests/test_verify_features.py",
+      "sha256": "660734f8f3160da083ba447351ad439684549856072600948b970c9d0d43a941"
+    },
+    {
+      "bytes": 1901,
+      "path": "studies/30_verniman_pivot_statistics_es/inputs.lock.json",
+      "retained_path": "provenance/studies/30_verniman_pivot_statistics_es/inputs.lock.json",
+      "sha256": "524af6da86e00711b2d550ef5919937551783eb5cb725b592a6f5b5e3c6a94b2"
+    },
+    {
+      "bytes": 335045,
+      "path": "uv.lock",
+      "retained_path": "provenance/uv.lock",
+      "sha256": "b2c02f82320599b00cb3277479c660a9c56c37c6476bc423215c9cbb7ab0c645"
+    },
+    {
+      "bytes": 23119,
+      "path": "packages/bhishma/src/abacus_bhishma/es_contract_session_indicators.py",
+      "retained_path": "provenance/packages/bhishma/src/abacus_bhishma/es_contract_session_indicators.py",
+      "sha256": "7b95eece7aa182a66e301767d45ba2178133c1e729f2fec25e95a3be2f9f446a"
+    },
+    {
+      "bytes": 2555,
+      "path": "packages/bhishma/src/abacus_bhishma/ema_cloud_loader_v2.py",
+      "retained_path": "provenance/packages/bhishma/src/abacus_bhishma/ema_cloud_loader_v2.py",
+      "sha256": "e58042d7750fcaf0ae0efc2134780f5e1a4207033422228051350478b4731030"
+    },
+    {
+      "bytes": 12922,
+      "path": "packages/bhishma/src/abacus_bhishma/ema_cloud.py",
+      "retained_path": "provenance/packages/bhishma/src/abacus_bhishma/ema_cloud.py",
+      "sha256": "3d091fce42f53fe1905c2037b1f983f8db6e1ee720cbbab8a89b289cb224d30d"
+    },
+    {
+      "bytes": 6532,
+      "path": "packages/bhishma/src/abacus_bhishma/manifest_selection.py",
+      "retained_path": "provenance/packages/bhishma/src/abacus_bhishma/manifest_selection.py",
+      "sha256": "bdbf8c2c65759c1e2b2cb82f74b04c7aa18920dbc638af525446d9d3ec5c550d"
+    }
+  ],
+  "status": "passed"
+}

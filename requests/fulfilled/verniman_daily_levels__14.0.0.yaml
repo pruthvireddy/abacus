@@ -1,0 +1,59 @@
+request:
+  id: verniman_daily_levels__14.0.0
+  requester: workspace user
+  requested_on: '2026-10-30'
+  purpose: >-
+    Extract the explicitly supplied AI worries outlook and add its October 30,
+    2026 ES pivot and ordered targets to the consolidated historical master.
+inputs:
+  predecessor: catalog/datasets/verniman_daily_levels__13.0.0.json
+  historical_releases: retain the predecessor's exact pinned versions 1.0.0 through 12.0.0
+  prior_update: retain the predecessor's exact reviewed October 28 update
+  source_url: https://verniman.blogspot.com/2009/10/ai-worries_0248886265.html
+  source_scope: only the explicitly supplied post, its Atom entry and linked images
+  session_date: '2026-10-30'
+  contract: ESZ26
+  price_basis: exact unadjusted source contract points
+  exclusions: other missing dates, chart-only numbers, inferred levels and research execution
+output:
+  dataset: verniman_daily_levels
+  version: 14.0.0
+  destination: data/curated/external_levels/source=verniman/version=14.0.0/
+  organization: manifest-listed year-partitioned Parquet and inspectable CSV tables
+  tables: [outlooks, levels, coverage, issues, release_membership, source_coverage, observations, observation_levels]
+  viewing_only: daily_summary.csv
+  manifest: catalog/datasets/verniman_daily_levels__14.0.0.json
+  schema: catalog/schemas/verniman_daily_levels__14.0.0.json
+  quality_report: reports/quality/verniman_daily_levels__14.0.0.md
+  calendar: {start: '2016-01-01', end: '2026-10-30', inclusive: true}
+reconciliation:
+  preserve: >-
+    Keep versions 1.0.0 through 13.0.0 byte-identical. Retain every previous
+    canonical row, original source identity, membership, observation, qualification
+    and coverage observation. Add the fresh source under a separate update identity.
+  source_roles: >-
+    The shared HVE threshold is stored once for each economic side; retain
+    source labels, target order and bullish/bearish VIX/CVD conditions. Context
+    header levels remain in source text and do not become scenario targets.
+  date: >-
+    Use explicit body Outlook 10/30 and ESZ26 (Dec2026), corroborated by the
+    source update claim. The reused 2009 permalink/published year is not the
+    session year. HTML and Atom date, contract and A/B plan text must agree.
+timing:
+  timezone: America/New_York
+  available_at: null
+  status: historical_availability_unverified
+  source_claims: preserve original published/updated claims separately from capture clocks
+coverage:
+  october_29: outside this scoped collection; do not imply the source was checked
+  prior_gaps: preserve prior as-of observations without claiming they were recaptured
+validation:
+  extraction: independent literal source review and HTML/Atom agreement
+  publication: pinned input/output hashes, schema and relational checks, exact prices and null availability
+  preservation: prior release artifact hash inventory and semantic parity of all predecessor rows
+  tooling: focused consolidated/extraction tests and default workspace check gate
+  scientific_scope: source extraction and integrity only; no market or strategy validation
+retention:
+  raw: unique source capture batch with HTML, Atom, linked images and response metadata
+  staging: new preparation, independent source review and preservation receipts
+  release: unique immutable 14.0.0 release with retained code and environment lock

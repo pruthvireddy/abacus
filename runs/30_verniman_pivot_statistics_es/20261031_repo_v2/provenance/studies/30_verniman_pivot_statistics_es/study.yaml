@@ -1,0 +1,80 @@
+study_id: 30_verniman_pivot_statistics_es
+title: 'Verniman Pivot Statistics — ES'
+protocol_version: 1.0.0
+current_phase: 2
+execution_scope: repository_available_descriptive_workflow_through_local_narada
+external_acquisition: cancelled
+actual_retained_market_data_end: '2026-09-18'
+prefer_compatible_prebuilt_ohlcv: true
+future_measurements_status: approved_definitions_not_yet_execution_frozen
+products: [ES]
+timezone: America/New_York
+requested_start: '2020-01-01'
+requested_end: '2026-10-30'
+primary_pivot: single_unambiguous_source_price
+source_semantics: explicit_review_required
+contract_policy: exact_source_quoted_delivery_contract
+price_basis: unadjusted_same_contract
+historical_availability: unverified_preserve_null
+nominal_pivot_snapshot: '09:25'
+opening_snapshot: '09:30'
+rth: ['09:30', '16:00']
+segments:
+  opening_range: ['09:30', '10:30']
+  new_york_am: ['10:30', '12:30']
+  new_york_pm: ['12:30', '16:00']
+segment_assignment: three_minute_bar_open_half_open_interval
+event_available_at: three_minute_bar_close
+price_crossing_timeframe: 3m
+price_opening_seed: actual_0930_open
+crossing_rule: strict_side_change_with_last_strict_side_through_equality
+crossing_buffer_points: 0
+opening_counts_as_crossing: false
+ema_crossing_requires_actual_line_transition: true
+ema_already_aligned_is_separate: true
+episode_confirmation_window: start_inclusive_reverse_price_close_exclusive
+vwap:
+  anchor: '18:00_America_New_York'
+  input_interval: 1m
+  price: HLC3
+  weight: volume
+  zero_cumulative_volume: undefined
+ema:
+  source: full_electronic_session_same_contract_closes
+  recurrence: adjust_false_alpha_2_over_period_plus_1
+  seed: first_valid_same_contract_close
+  minimum_preceding_valid_bars_per_timeframe: 250
+  reset_at_rth_or_year_boundary: false
+  fast:
+    interval: 3m
+    period: 6
+  cloud:
+    interval: 5m
+    periods: [20, 50]
+line_slope_lookback_minutes: 15
+primary_horizon_minutes: 30
+fixed_horizons_minutes: [15, 30, 60]
+endpoint_horizons: [segment_end, rth_1600]
+fixed_horizon_after_rth: undefined_no_truncation
+reach_points: [5, 10, 20]
+first_retest_window_minutes: 30
+retest_source: first_subsequent_completed_3m_bar_containing_pivot
+retest_completion_cutoff: minimum_cross_plus_30m_and_1600
+retest_close_categories: [hold, failed, equal]
+event_panels: [all_crosses, first_per_day, first_per_segment]
+recent_windows_eligible_observed_sessions: [20, 60, 120]
+recent_windows_requested_cutoff: '2026-10-30'
+occupancy: completed_3m_close_counts_and_shares_not_exact_time
+bootstrap_replicates: 2000
+bootstrap_block_observed_sessions: 5
+bootstrap_seed: 20261031
+small_cell_distinct_days: 30
+declared_alignment_combinations: [ema_cloud_aligned, ema_vwap_aligned, ema_cloud_vwap_aligned]
+cloud_alignment_requires: same_direction_order_and_both_15m_ema_slopes
+actual_crossing_and_alignment_are_distinct: true
+statistics_computed: false
+market_outcomes_executed: false
+trade_simulation: false
+profitability_validation: false
+narada_publication: false
+deployment: false

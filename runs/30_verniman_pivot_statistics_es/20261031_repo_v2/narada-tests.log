@@ -1,0 +1,345 @@
+
+> @abacus/narada@0.1.0 test
+> node --test tests/*.test.mjs
+
+✔ private source ownership resolves an explicit report nested inside a phase family without changing bytes (54.711208ms)
+✔ a same-run chart tab retains its explicit study attribution without a revision label (33.570208ms)
+✔ independent status receipts require exact report/map/run identities and retained checker bytes (55.131417ms)
+✔ independent receipt mismatches and unsupported status-only versions fail closed (217.993708ms)
+✔ independent source-map and final global receipt identity mismatches are refused (155.565833ms)
+✔ new sealed-run publication sources retain their separate publication and evidence manifest identities (19.747792ms)
+✔ multiple saved report directories share one sealed run while preserving separate publication pins (25.579417ms)
+▶ publication directories reject arbitrary paths, other IDs, revision mappings and missing run identity
+  ✔ <anonymous> (7.79525ms)
+  ✔ /absolute (6.762291ms)
+  ✔ ../outside (6.705458ms)
+  ✔ publications (6.630584ms)
+  ✔ publications/other-id (6.943416ms)
+  ✔ publications/synthetic-publication/extra (6.324917ms)
+  ✔ publications/synthetic-publication/ (7.713084ms)
+  ✔ publications\synthetic-publication (7.562916ms)
+  ✔ null (7.155375ms)
+✔ publication directories reject arbitrary paths, other IDs, revision mappings and missing run identity (80.22575ms)
+✔ per-publication source directories reject symlinked selected roots and ancestors before reading (18.240167ms)
+▶ sealed-run mappings fail closed on ambiguous sources, invalid locators, attribution and missing verification
+  ✔ both (5.161ms)
+  ✔ neither (5.726542ms)
+  ✔ wrong-depth (5.943958ms)
+  ✔ wrong-run (8.181125ms)
+  ✔ wrong-evidence-study (7.675875ms)
+  ✔ missing-verification (7.92775ms)
+  ✔ superseded (7.373625ms)
+✔ sealed-run mappings fail closed on ambiguous sources, invalid locators, attribution and missing verification (48.551916ms)
+✔ a publication selected inside an analysis group retains explicit study attribution (8.252667ms)
+✔ ordinary passed records preserve exact inventory order, attribution and qualifications (9.985708ms)
+▶ source mappings require exact selected-index coverage and supported version
+  ✔ missing (6.375416ms)
+  ✔ extra (5.020666ms)
+  ✔ duplicate (4.274875ms)
+  ✔ version (5.460084ms)
+✔ source mappings require exact selected-index coverage and supported version (21.502541ms)
+✔ revision locators reject absolute, traversal, dot, separator and wrong-depth forms (49.286ms)
+▶ every declared source, output and asset locator is checked before reading
+  ✔ source (70.815583ms)
+  ✔ output (79.377917ms)
+  ✔ asset (78.040042ms)
+✔ every declared source, output and asset locator is checked before reading (228.593334ms)
+✔ source publication must equal staged content (5.567583ms)
+✔ canonical signed-zero serialization retains exact source-byte pins without masking other numeric differences (11.921041ms)
+▶ publication, source-run and study attribution must agree
+  ✔ publication_id (5.256375ms)
+  ✔ source_run_id (4.650458ms)
+  ✔ study_id (4.894083ms)
+✔ publication, source-run and study attribution must agree (15.045625ms)
+✔ changed saved sources, revision outputs and declared selected assets fail closed (32.944875ms)
+✔ publication and source-map outputs must be declared in the retained manifest (11.327958ms)
+▶ declared source, output and asset identities require nonempty valid SHA-256 pins
+  ✔ source (31.927542ms)
+  ✔ output (36.430458ms)
+  ✔ asset (41.060125ms)
+✔ declared source, output and asset identities require nonempty valid SHA-256 pins (109.704375ms)
+▶ missing and nonregular selected files are rejected across each read boundary
+  ✔ missing (36.809875ms)
+  ✔ directory (30.096375ms)
+✔ missing and nonregular selected files are rejected across each read boundary (67.162125ms)
+✔ file symlinks are rejected before JSON parsing or retained-byte access (43.304458ms)
+✔ symlinked ancestors of revision, source and asset files are rejected (41.0895ms)
+✔ safe retained snapshot filenames with bracketed app routes remain accepted (10.282041ms)
+✔ checks-only verification requires a nonempty array of explicitly passed checks (36.278041ms)
+✔ explicit passed verification accepts historical descriptive checks without imposing a new schema (7.909416ms)
+✔ superseded presentation status retains its catalog qualification only for a presentation revision (10.993875ms)
+✔ explicit failed and unknown results cannot be rescued by positive checks (35.957584ms)
+✔ Phase 2 fallback preserves its inherited qualification and hashes the consumed record (34.2025ms)
+✔ undeclared Phase 2 fallback is checked before parsing and missing fallback fails (12.408208ms)
+✔ future study 08/09 exporter and shared-helper snapshots are covered by generic output hashes (33.207958ms)
+✔ importing the audit is side-effect free and independent of Python or CLI dispatch (43.366917ms)
+✔ the build-resolved index includes only explicit authored search fields and keeps publication data out (1.086375ms)
+✔ case, accents, punctuation and whitespace have predictable AND-term matching across authored fields (0.376791ms)
+✔ filters use OR within a category and AND across categories and search, preserving authored order (0.187083ms)
+✔ shared URLs canonicalize valid catalog selections, duplicates and unknown parameters without inventing values (0.186083ms)
+✔ bounded URL state ignores stale or oversized input and retains query whitespace while typing (0.34425ms)
+✔ the encoded URL boundary includes its leading question mark and round-trips at exactly 2048 characters (0.262125ms)
+✔ restoring successive history URLs reproduces counts and authored result order (0.095792ms)
+✔ server rendering retains every study and usable ordinary links without JavaScript (4.748458ms)
+✖ the actual catalog index remains bounded and excludes raw report sections and source locators (1.973375ms)
+✔ priority values use an exact allowlist while score/state filters combine with search and authored filters (0.346375ms)
+✔ current scores sort highest first with authored ties; stale and absent scores remain nonnumeric (0.204208ms)
+✔ the client index includes only current score/state and excludes assessment explanations and references (0.254083ms)
+✔ actual rendered card slots reorder the matching studies while preserving every card identity (0.7775ms)
+✔ priority selection, sorting, reset and history URLs restore exact counts and stable ordering (0.138084ms)
+✔ versions 1.0 and 1.1 coexist without rewriting old publication bytes (82.076833ms)
+✔ version selection, unsafe URLs, references and source attribution are strict (1.781667ms)
+✔ download paths, unsupported types, missing files and source/file/directory symlinks are rejected (19.171875ms)
+✔ download hashes, UTF-8 structure, headers, row count and formulas are checked (15.669333ms)
+✔ per-file and total download budgets are independent of figure budgets (25.784541ms)
+✔ staged downloads verify their hashes and unselected source files never cross the boundary (10.884ms)
+✔ filtered tables require bounded declared columns, unique filters and existing exact defaults (19.096375ms)
+✔ source budgets remain 96 KiB for ordinary reports and permit exact 2 MiB only with saved row filters (18.3445ms)
+✔ filtered publications retain larger saved tables and immutable canonical identities (501.157708ms)
+✔ filtered selected CSVs allow 15000 saved rows while ordinary CSVs remain limited to 1000 (325.223ms)
+✔ compact filtered sources still refuse canonical bundle expansion above 4 MiB (323.780208ms)
+✔ saved table controls wait for a reader action and preserve default rows throughout loading (59.12925ms)
+✔ reader loading failures retain exact defaults, expose a download fallback, and allow retry (14.025833ms)
+✔ loaded selectors preserve typed saved values, nulls, row order and bounded pagination (12.170542ms)
+✔ late loads cannot update a different report or an unmounted table (14.203541ms)
+✔ a pending table link waits for activation, survives failure, and applies typed saved rows only after retry (11.0805ms)
+✔ stale and malformed linked values retain defaults; a new loaded-table link applies without another fetch (17.406542ms)
+✔ explicit formats preserve scale, zero, missing values, and units (21.481416ms)
+✔ publication dates use UTC regardless of the reader time zone (4.862958ms)
+✔ reference URLs reject ASCII controls, whitespace and backslashes (0.852833ms)
+✔ CSV retains tab, LF and CR but rejects its established forbidden controls (0.754917ms)
+✔ catalog text retains internal tab and LF while rejecting CR and other ASCII controls (2.09475ms)
+✔ patterns are explicit saved presentation geometry; validation leaves scalar results unchanged (6.225417ms)
+✔ pattern and variant references fail closed for missing, duplicated and reversed identities (1.252ms)
+✔ geometry is bounded and OHLC ordered without admitting raw SVG or arbitrary drawing content (0.974875ms)
+✔ patterns keep fixed item and text budgets and remain opt-in only on version 1.1 (0.871416ms)
+✔ preview origins admit only explicit clean HTTP loopback origins (1.3855ms)
+✔ local smoke checks bounded app-owned bytes and GET/HEAD headers without changing output (27.131208ms)
+✔ explicit smoke selections include same-run publication tabs (20.917459ms)
+✔ explicit smoke selections include a chart selected through an analysis group (15.730542ms)
+✔ explicit smoke selections resolve charts across two phase families through the same authored selection helper (18.35375ms)
+✔ preview smoke rejects incorrect GET bytes, media headers and HEAD bodies (103.279166ms)
+✔ selected CSV attachment filenames and nosniff are checked for GET and HEAD (26.095167ms)
+✔ unknown study, report, asset and private routes must return the exported 404 rather than 200 fallbacks (43.597042ms)
+✔ redirect status, redirect metadata and a changed response URL fail closed (13.81375ms)
+✔ invalid cases, selected hashes and export file boundaries fail before transport (14.62475ms)
+✖ a supplied local fixture server transport checks actual HTTP and rejects redirects (11.6625ms)
+✔ complete inventory checks all five study destinations and every selected report with bounded GET/HEAD requests (14.365375ms)
+✔ strict contract rejects unknown containers, duplicate sections, undeclared row keys and invalid dates (6.828083ms)
+✔ dry run writes nothing and ordinary publication verifies (22.305375ms)
+✔ deterministic output and formatting-only idempotence (36.00075ms)
+✔ changed existing ID is rejected without damaging the published result (15.833208ms)
+✔ path traversal, symlink escape, and false raster signatures are rejected (9.652208ms)
+✔ modified assets, report content, stale files, and index drift fail verification (19.556042ms)
+✔ report and asset budgets reject oversized inputs (6.537666ms)
+✔ bounded compact summaries allow canonical bundle formatting above the former 128 KiB limit (59.238667ms)
+✔ canonical bundles above 192 KiB are refused even when compact authored content fits 96 KiB (27.336792ms)
+✔ concurrent publication lock is respected and unrelated files are never copied (6.102291ms)
+✔ missing selected figure leaves existing publication bytes and index unchanged (5.755ms)
+✔ an empty symlink output directory is rejected (2.587917ms)
+✔ index orders timestamps chronologically across optional milliseconds (8.149875ms)
+✔ reading paths extend the same optional catalog without changing identities, selections or order (2.784333ms)
+✔ missing studies, repeated steps, duplicate paths and invalid destinations fail closed (0.605209ms)
+✔ bounded reading-path text rejects missing qualifications, private locators and control characters (0.557375ms)
+✔ optional authored keywords are bounded plain text with case-insensitive uniqueness (0.433417ms)
+✔ the authored reading paths resolve to real static study destinations within the catalog budget (224.143708ms)
+✔ gate accepts exact passed artifact and supplied origin without inspecting JSON kind or timestamps (12.560125ms)
+✔ any matching passing event suffices after a failed event (11.517541ms)
+✔ browser gate without an origin retains the original optional-origin predicate (26.083334ms)
+✔ missing, failed and mismatched gates reject without changing bytes (51.865833ms)
+✔ malformed matching JSON and missing event directory retain their underlying errors (8.593292ms)
+✔ malformed unrelated files are ignored by the exact filename suffix (6.334875ms)
+✔ helper import from an unrelated directory has no CLI, subprocess or filesystem side effects (47.173291ms)
+✔ release helper export surface and insertion-order JSON bytes remain identical (1.059584ms)
+✔ inventory preserves original locale ordering, field ordering, hashes and source bytes (21.625083ms)
+✔ explicit legacy Build Output routes and serialized config retain their original order and bytes (0.527ms)
+✔ deployment argument arrays and parsed deployment fields remain identical (0.201041ms)
+✔ protected HTTP parser skips proxy and interim headers while preserving binary bytes (0.866583ms)
+✔ local command execution preserves strings, binary output and original failure payloads (166.804875ms)
+✔ release boundary admits selected pages/assets and rejects private or unknown output (40.335875ms)
+✔ exact inventory copy rejects symlinks, additions and modified bytes (78.275708ms)
+✔ deployment format has explicit routes, attachment headers and a hard 404 (0.341666ms)
+✔ production stages without domains and preview never requests production (0.259541ms)
+✔ structured CLI output and protected binary responses are parsed without losing bytes (0.340375ms)
+✔ command failures propagate and preparation primitives do not call hosting (76.136542ms)
+✔ hosted verification checks exact bytes, CSV headers and real 404; rejects auth walls (22.199875ms)
+✔ desktop contents and closed mobile disclosure preserve ordinary section/evidence links without report payloads (3.841875ms)
+✔ section headings retain native direct links without per-heading client controls (0.173583ms)
+✔ table scroll region describes keyboard access while preserving scalar meanings and escaping text (10.499708ms)
+✔ table context remains visible, accessible and linked to an attributed reference (0.709458ms)
+✔ selected downloads and references render safe links, visible scope and useful filenames (4.331792ms)
+✔ figures retain alternative text and caption with a visible full-size link (1.241166ms)
+✔ publication tabs use ordinary accessible links with exactly one current chart (1.541625ms)
+✔ shared publication content renders saved values once with downloads and provenance (51.363334ms)
+✔ analysis links retain a corresponding chart and keep every immutable report reachable (2.535208ms)
+✔ analysis navigation falls back to the single saved baseline while retaining later-run report choices (2.031417ms)
+✔ phase links preserve a declared condition and view with accessible native fallback links (3.056292ms)
+✔ phase, condition and chart styles permit long labels to wrap within the viewport (0.292625ms)
+✔ filtered tables render a bounded authored default without sending all rows to the client (3.972ms)
+✔ section schematics explain the measured part before saved statistics with unique accessible SVG IDs (2.890209ms)
+✔ only an explicit overview is rendered at the top and diagram text is escaped (43.857708ms)
+✔ coincident price levels have separate callouts and body bands use the other side (5.277209ms)
+✔ repeated panels share one SVG geometry definition and retain unique accessible instances (36.656958ms)
+✔ body and risk band labels stay in the margin above candle painting with separate callouts (4.833708ms)
+✔ RXV-style candles stay slim, centred and tall while all explicit price marks remain visible (5.474375ms)
+✔ absent and explicit nonnumeric states remain valid without zero scores (40.251084ms)
+✔ missing/incorrect identities and unsafe metadata fail independently of freshness (20.195083ms)
+✔ valid historical assessments need review after scope, evidence set, rubric or explicit flag changes (9.394125ms)
+✔ four/five require explicit gate evidence; five additionally requires independent corroboration (10.435667ms)
+✖ app-owned resolution verifies source sections/content and leaves historical scores available (201.291083ms)
+✔ scope hash ignores generated/resolved assessments while binding authored questions (1.059375ms)
+✔ cross-language binding vector preserves typed numeric selectors and Unicode (0.179ms)
+✔ operational callers retain exact identities from supplied verified bundles (4.994167ms)
+✔ server priority labels expose the whole score and band while stars remain decorative (3.612ms)
+✔ absent and explicit nonnumeric states never masquerade as zero-star ratings (1.18525ms)
+✔ stale assessments show Needs review and preserve a clearly dated previous score and reasoning (10.476166ms)
+✔ the compact assessment retains scope, materiality, both evidence sides, next criteria and identity pins (1.761542ms)
+✔ cards and overview preserve existing findings and qualifications beside server-rendered priority (3.761334ms)
+✔ rubric meaning and all authored definitions are available through a static native disclosure (0.486959ms)
+✔ explicit stronger-score evidence is server-rendered with its saved support and identity (2.101333ms)
+✔ saved table controls share one immutable JSON fetch and retain exact saved rows (40.0765ms)
+✔ failed saved-table loads can retry while changed identities, errors and oversized bytes fail closed (24.46475ms)
+✔ delivery preserves JSON values and key order including Unicode, null, booleans and numbers (1.02ms)
+✔ nonpublisher spellings refuse silent key, UTF-8 or numeric normalization (0.685167ms)
+✔ compaction changes only selected export reports and returns both byte identities (76.714583ms)
+✔ verification is read-only and requires exact compact bytes, including no trailing newline (22.342292ms)
+✔ all report values are preflighted before any report is rewritten (23.229042ms)
+✔ strict explicit index rejects traversal, duplicate IDs and exported index drift (13.181166ms)
+✔ unselected files and selected assets are never transformed or discovered (11.551375ms)
+✔ identical or nested roots cannot transform canonical inputs (8.260833ms)
+✔ root, ancestor and selected-directory symlinks are refused (10.430958ms)
+✔ report and index symlinks are refused without changing canonical bytes (11.731708ms)
+✔ hard-linked report outputs are refused before a canonical inode could be changed (9.831667ms)
+✔ bounded source/index reads and regular file requirements fail closed (13.424333ms)
+✔ CLI only transforms supplied output and rejects malformed arguments before mutation (702.840083ms)
+✔ rendered HTML and serialized React payloads accept their exact bounds and refuse one byte above (0.852166ms)
+✔ dense saved-table rendering fits while invalid byte counts and unsupported types remain separate (0.721208ms)
+✔ explicit catalog supports routes, lookup and distinct source relationships (2.641125ms)
+✔ duplicate identities, slugs and publication ownership fail (0.617292ms)
+✔ missing, repeated or wrongly attributed publication references fail (0.282625ms)
+✔ relationship labels must agree with source-run identity and allowed kinds (0.190125ms)
+✔ bounded authored fields reject paths, unsafe slugs and unexpected containers (0.254541ms)
+✔ catalog loader rejects oversized input and symlinks without workspace access (9.462459ms)
+✔ identity and product fields reject trailing whitespace and control characters (0.30675ms)
+✔ publication context separates featured content, related revision labels and missing IDs (0.184875ms)
+✔ authored publication tabs preserve the default report and sibling study context (0.185875ms)
+✔ publication tabs reject missing, repeated, private and wrongly attributed selections (0.766292ms)
+✔ analysis groups own distinct runs while retaining explicit chart labels and featured attribution (0.4085ms)
+✔ a single saved baseline remains an analysis beside a later run without a fabricated sibling report (0.156625ms)
+✔ analysis groups reject duplicate ownership, mismatched defaults, unsafe labels and mixed source runs (0.608625ms)
+✔ bounded phase families retain all explicit reports, per-analysis runs and legacy lookup (0.23575ms)
+✔ phase analysis IDs are scoped while publication ownership stays unique across the entire study (0.145791ms)
+✔ eight retained groups and seven new conditions fit without raising the legacy eight-group cap (0.245917ms)
+✔ phase families reject ambiguous, oversized, unsafe and wrongly attributed selections (0.631291ms)
+✔ optional bounded overview metadata preserves existing studies and rejects malformed fields (3.683625ms)
+✔ overview sources must belong to the authored study and pin the saved run and content identity (0.496291ms)
+✔ exact metrics and table cells retain null, zero, precision, units and source attribution without mutation (0.711334ms)
+✔ an optional method source resolves its own pinned section and rejects missing or stale sources (0.268375ms)
+✔ missing and ambiguous report, section, metric, row and column selectors fail instead of guessing (1.121291ms)
+✔ qualitative overviews resolve supported scope facts without manufacturing performance values (0.341708ms)
+✔ catalog loader resolves exact staged content at build time and rejects changed bytes and linked bundles (24.869542ms)
+✖ all 22 published studies have overview metadata and the two local selections retain explicit complete fallbacks (1.114791ms)
+✔ cards and statistic panels preserve zero, null, saved qualifiers and exact source links (11.254542ms)
+✔ qualitative briefs use reviewed scope facts without performance placeholders or invented scores (0.911875ms)
+✔ study destination links identify exactly one current static page and keep ordinary link semantics (1.204625ms)
+✔ the common shell retains study context without repeating the main takeaway on every destination (2.2555ms)
+✔ overview, findings and methods retain precise support while keeping detailed report bodies separate (7.244375ms)
+✔ the Explore directory preserves every authored navigation shape and earlier-run relationship (3.881541ms)
+✔ the evidence directory preserves per-report populations, units, scope and identities with isolated anchor IDs (3.505875ms)
+✔ legacy study fragments retain visible native links to the same saved report sections and evidence (0.727ms)
+✔ the shared inventory enumerates five static destinations in authored study order (1.017167ms)
+✔ route generation rejects private, malformed and unsupported destinations instead of inventing routes (0.267666ms)
+✔ release adapter admits exactly the new inventory while explicit legacy generation stays available (1.4905ms)
+✔ legacy fragment inventory preserves sections, headings, evidence, notes and used pattern keys without full report bodies (0.182709ms)
+✔ saved row selection preserves order, nulls, zeros and typed values without aggregation (0.937375ms)
+✔ initial saved table uses only declared defaults and never exceeds one 100-row page (0.522292ms)
+✔ table links identify report and table and round-trip typed selections and explicit All (1.748709ms)
+✔ stale selections retain defaults while valid saved values and empty selections survive (0.159375ms)
+✔ malformed, ambiguous, unsafe and oversized parameters fail closed (0.799542ms)
+✔ pending links do not fetch; explicit shared loading retries and restores exact saved rows (15.194875ms)
+✔ server rendering retains default rows and a truthful print slice without fetching or applying links (46.291167ms)
+ℹ tests 249
+ℹ suites 0
+ℹ pass 245
+ℹ fail 4
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1651.553833
+
+✖ failing tests:
+
+test at tests/discovery.test.mjs:152:1
+✖ the actual catalog index remains bounded and excludes raw report sections and source locators (1.973375ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  3 !== 2
+  
+      at TestContext.<anonymous> (file:///Users/pruthvi/Documents/projects/abacus/apps/narada/tests/discovery.test.mjs:159:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1402:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:974:18)
+      at Test.postRun (node:internal/test_runner/test:1542:19)
+      at Test.run (node:internal/test_runner/test:1467:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 3,
+    expected: 2,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/preview-smoke.test.mjs:194:1
+✖ a supplied local fixture server transport checks actual HTTP and rejects redirects (11.6625ms)
+  Error: listen EPERM: operation not permitted 127.0.0.1
+      at Server.setupListenHandle [as _listen2] (node:net:2368:21)
+      at listenInCluster (node:net:2499:12)
+      at node:net:2728:7
+      at process.processTicksAndRejections (node:internal/process/task_queues:90:21) {
+    code: 'EPERM',
+    errno: -1,
+    syscall: 'listen',
+    address: '127.0.0.1'
+  }
+
+test at tests/research-priorities.test.mjs:64:1
+✖ app-owned resolution verifies source sections/content and leaves historical scores available (201.291083ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert(c.studies.every(s => s.resolvedResearchPriority))
+  
+      at TestContext.<anonymous> (file:///Users/pruthvi/Documents/projects/abacus/apps/narada/tests/research-priorities.test.mjs:66:3)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests/study-presentation.test.mjs:67:1
+✖ all 22 published studies have overview metadata and the two local selections retain explicit complete fallbacks (1.114791ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+    [
+      'es-opening-pivot-cloud',
+      'trader-assistant-manual',
+  +   'verniman-pivot-statistics-es'
+    ]
+  
+      at TestContext.<anonymous> (file:///Users/pruthvi/Documents/projects/abacus/apps/narada/tests/study-presentation.test.mjs:69:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1402:25)
+      at Test.start (node:internal/test_runner/test:1262:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:387:17) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [ 'es-opening-pivot-cloud', 'trader-assistant-manual', 'verniman-pivot-statistics-es' ],
+    expected: [ 'es-opening-pivot-cloud', 'trader-assistant-manual' ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }

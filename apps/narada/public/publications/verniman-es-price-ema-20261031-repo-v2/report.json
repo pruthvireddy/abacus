@@ -1,0 +1,1449 @@
+{
+  "provenance": {
+    "assets": [
+      {
+        "path": "downloads/price-ema.csv",
+        "sha256": "5f4ec151443ab82c06f56488ac4c4cee5e898e3561cac80c598dcf33be9aef49"
+      }
+    ],
+    "sourceSha256": "1e89c966d3fe69acdd4635d893de2c0c0fe31e035f6435da087c10c55bc91d26"
+  },
+  "report": {
+    "downloads": [
+      {
+        "columns": [
+          "period_kind",
+          "period",
+          "panel",
+          "condition",
+          "condition_value",
+          "events",
+          "days",
+          "returned_without_new_cross",
+          "actual_confirmed",
+          "return_censored",
+          "mean_penetration_points",
+          "mean_confirmation_lag_minutes"
+        ],
+        "description": "Exact saved summary strings from this report's first table, across its saved filter choices; no raw event or market-price ledger.",
+        "id": "summary",
+        "label": "Price breaks and EMA6 crossings · selected saved summaries",
+        "mediaType": "text/csv",
+        "path": "downloads/price-ema.csv",
+        "population": "Selected retrospectively eligible ES days and events using the source-quoted delivery contract. Repeated-event panels and calendar windows overlap.",
+        "rowCount": 60,
+        "scope": "Selected bounded summaries only. Counts and denominators retain their table-specific meaning; this is not net P&L or an independently verified trading edge.",
+        "sha256": "5f4ec151443ab82c06f56488ac4c4cee5e898e3561cac80c598dcf33be9aef49",
+        "source": {
+          "artifact": "tables/publication-price-ema.csv",
+          "runId": "20261031_repo_v2",
+          "sha256": "5f4ec151443ab82c06f56488ac4c4cee5e898e3561cac80c598dcf33be9aef49"
+        },
+        "units": "ES points for distance/return fields; rate/share columns are ratios, where 0.42 means 42%. Blank is unavailable; zero is observed zero."
+      }
+    ],
+    "id": "verniman-es-price-ema-20261031-repo-v2",
+    "notes": [
+      "Repository-retained ES data only; requested coverage ends 2026-10-30, while retained market data ends 2026-09-18. Missing dates/contracts and retrospective full-day eligibility limit generalization.",
+      "Historical pivot available_at remains unverified. Nominal 09:25 timing does not establish a historically executable pre-open signal.",
+      "Returned-without-EMA and eventual confirmation labels are known later. Already-aligned EMA6 is distinct from an actual new line crossing.",
+      "Signed displacement and excursions describe price paths. No entries, fills, costs or net profitability are tested. Broad slices are exploratory."
+    ],
+    "publishedAt": "2026-10-31T16:28:48Z",
+    "schemaVersion": "1.1",
+    "sections": [
+      {
+        "body": "Requested ES calendar: 2020-01-01–2026-10-30. This release uses only repository-retained pivots and exact-contract OHLCV; retained market data ends 2026-09-18. The actual eligible dates and coverage limits are saved in the source run.\n\nRepository-retained ES data only; requested coverage ends 2026-10-30, while retained market data ends 2026-09-18. Missing dates/contracts and retrospective full-day eligibility limit generalization.\n\nHistorical pivot available_at remains unverified. Nominal 09:25 timing does not establish a historically executable pre-open signal.\n\nReturned-without-EMA and eventual confirmation labels are known later. Already-aligned EMA6 is distinct from an actual new line crossing.\n\nSigned displacement and excursions describe price paths. No entries, fills, costs or net profitability are tested. Broad slices are exploratory.",
+        "id": "scope",
+        "kind": "text",
+        "title": "Price breaks and EMA6 crossings"
+      },
+      {
+        "body": "An actual EMA6 pivot crossing requires a strict side change on a completed three-minute close. Already aligned is not a new crossing. Returned without a new EMA crossing is a label known only at the reverse price close. Censored episodes have not demonstrated a return. Measured penetration describes shallowness without a fitted shallow/deep cutoff.",
+        "id": "reading",
+        "kind": "text",
+        "title": "Read signal-time state separately from later path"
+      },
+      {
+        "columns": [
+          {
+            "key": "period_kind",
+            "label": "Time grouping"
+          },
+          {
+            "key": "period",
+            "label": "Time period"
+          },
+          {
+            "key": "panel",
+            "label": "Event sample"
+          },
+          {
+            "key": "condition",
+            "label": "Context"
+          },
+          {
+            "key": "condition_value",
+            "label": "State"
+          },
+          {
+            "format": "number",
+            "key": "events",
+            "label": "Selected events",
+            "precision": 0
+          },
+          {
+            "format": "number",
+            "key": "days",
+            "label": "Distinct days",
+            "precision": 0
+          },
+          {
+            "format": "number",
+            "key": "returned_without_new_cross",
+            "label": "Returned before new EMA cross",
+            "precision": 0
+          },
+          {
+            "format": "number",
+            "key": "actual_confirmed",
+            "label": "Actual EMA confirmations",
+            "precision": 0
+          },
+          {
+            "format": "number",
+            "key": "return_censored",
+            "label": "Return not observed",
+            "precision": 0
+          },
+          {
+            "format": "number",
+            "key": "mean_penetration_points",
+            "label": "Mean episode depth",
+            "precision": 2,
+            "unit": "ES points"
+          },
+          {
+            "format": "number",
+            "key": "mean_confirmation_lag_minutes",
+            "label": "Mean wait for EMA crossing",
+            "precision": 2
+          }
+        ],
+        "description": "Saved descriptive summaries. Filters select existing rows; counts, denominators and estimates are never recomputed in the browser.",
+        "id": "episodes",
+        "kind": "table",
+        "notes": [
+          "Sparse means fewer than 30 supporting distinct days. Null means unavailable; zero is observed zero. Periods and event panels overlap and cannot be added.",
+          "Episode labels are future-conditioned descriptions. An initially aligned EMA6 must not be merged with initially opposite EMA6 merely because neither makes a new crossing before return.",
+          "Return-censored means no reverse price cross before the observed endpoint. The same episode may already be EMA-confirmed; return censoring and confirmation censoring differ and their counts can overlap."
+        ],
+        "rowFilters": [
+          {
+            "defaultValue": "overall",
+            "key": "period_kind",
+            "label": "Calendar"
+          },
+          {
+            "defaultValue": "all_crosses",
+            "key": "panel",
+            "label": "Event panel"
+          },
+          {
+            "defaultValue": "ema_state_at_cross",
+            "key": "condition",
+            "label": "Grouping"
+          }
+        ],
+        "rows": [
+          {
+            "actual_confirmed": 1837,
+            "condition": "all",
+            "condition_value": "all",
+            "days": 695,
+            "events": 4059,
+            "mean_confirmation_lag_minutes": 3.783886771910724,
+            "mean_penetration_points": 13.578344419807834,
+            "panel": "all_crosses",
+            "period": "all",
+            "period_kind": "overall",
+            "return_censored": 695,
+            "returned_without_new_cross": 1989
+          },
+          {
+            "actual_confirmed": 0,
+            "condition": "ema_state_at_cross",
+            "condition_value": "already_aligned",
+            "days": 512,
+            "events": 1114,
+            "mean_confirmation_lag_minutes": null,
+            "mean_penetration_points": 13.116247755834815,
+            "panel": "all_crosses",
+            "period": "all",
+            "period_kind": "overall",
+            "return_censored": 200,
+            "returned_without_new_cross": 914
+          },
+          {
+            "actual_confirmed": 1370,
+            "condition": "ema_state_at_cross",
+            "condition_value": "opposite",
+            "days": 669,
+            "events": 2478,
+            "mean_confirmation_lag_minutes": 5.073722627737227,
+            "mean_penetration_points": 13.053773204196938,
+            "panel": "all_crosses",
+            "period": "all",
+            "period_kind": "overall",
+            "return_censored": 400,
+            "returned_without_new_cross": 1075
+          },
+          {
+            "actual_confirmed": 467,
+            "condition": "ema_state_at_cross",
+            "condition_value": "same_close_actual_crossing",
+            "days": 281,
+            "events": 467,
+            "mean_confirmation_lag_minutes": 0,
+            "mean_penetration_points": 17.46413276231263,
+            "panel": "all_crosses",
+            "period": "all",
+            "period_kind": "overall",
+            "return_censored": 95,
+            "returned_without_new_cross": 0
+          },
+          {
+            "actual_confirmed": 0,
+            "condition": "initial_confirmation_state",
+            "condition_value": "already_aligned",
+            "days": 512,
+            "events": 1114,
+            "mean_confirmation_lag_minutes": null,
+            "mean_penetration_points": 13.116247755834815,
+            "panel": "all_crosses",
+            "period": "all",
+            "period_kind": "overall",
+            "return_censored": 200,
+            "returned_without_new_cross": 914
+          },
+          {
+            "actual_confirmed": 1370,
+            "condition": "initial_confirmation_state",
+            "condition_value": "initially_unconfirmed",
+            "days": 669,
+            "events": 2478,
+            "mean_confirmation_lag_minutes": 5.073722627737227,
+            "mean_penetration_points": 13.053773204196938,
+            "panel": "all_crosses",
+            "period": "all",
+            "period_kind": "overall",
+            "return_censored": 400,
+            "returned_without_new_cross": 1075
+          },
+          {
+            "actual_confirmed": 467,
+            "condition": "initial_confirmation_state",
+            "condition_value": "same_close_actual_crossing",
+            "days": 281,
+            "events": 467,
+            "mean_confirmation_lag_minutes": 0,
+            "mean_penetration_points": 17.46413276231263,
+            "panel": "all_crosses",
+            "period": "all",
+            "period_kind": "overall",
+            "return_censored": 95,
+            "returned_without_new_cross": 0
+          },
+          {
+            "actual_confirmed": 1370,
+            "condition": "confirmation_kind",
+            "condition_value": "delayed",
+            "days": 577,
+            "events": 1370,
+            "mean_confirmation_lag_minutes": 5.073722627737227,
+            "mean_penetration_points": 21.057299270072996,
+            "panel": "all_crosses",
+            "period": "all",
+            "period_kind": "overall",
+            "return_censored": 367,
+            "returned_without_new_cross": 0
+          },
+          {
+            "actual_confirmed": 467,
+            "condition": "confirmation_kind",
+            "condition_value": "same_close",
+            "days": 281,
+            "events": 467,
+            "mean_confirmation_lag_minutes": 0,
+            "mean_penetration_points": 17.46413276231263,
+            "panel": "all_crosses",
+            "period": "all",
+            "period_kind": "overall",
+            "return_censored": 95,
+            "returned_without_new_cross": 0
+          },
+          {
+            "actual_confirmed": 0,
+            "condition": "confirmation_kind",
+            "condition_value": "unknown",
+            "days": 519,
+            "events": 2222,
+            "mean_confirmation_lag_minutes": null,
+            "mean_penetration_points": 8.150427542754274,
+            "panel": "all_crosses",
+            "period": "all",
+            "period_kind": "overall",
+            "return_censored": 233,
+            "returned_without_new_cross": 1989
+          },
+          {
+            "actual_confirmed": 385,
+            "condition": "all",
+            "condition_value": "all",
+            "days": 695,
+            "events": 695,
+            "mean_confirmation_lag_minutes": 4.535064935064935,
+            "mean_penetration_points": 17.94172661870502,
+            "panel": "first_per_day",
+            "period": "all",
+            "period_kind": "overall",
+            "return_censored": 108,
+            "returned_without_new_cross": 300
+          },
+          {
+            "actual_confirmed": 0,
+            "condition": "ema_state_at_cross",
+            "condition_value": "already_aligned",
+            "days": 39,
+            "events": 39,
+            "mean_confirmation_lag_minutes": null,
+            "mean_penetration_points": 19.576923076923006,
+            "panel": "first_per_day",
+            "period": "all",
+            "period_kind": "overall",
+            "return_censored": 7,
+            "returned_without_new_cross": 32
+          },
+          {
+            "actual_confirmed": 317,
+            "condition": "ema_state_at_cross",
+            "condition_value": "opposite",
+            "days": 588,
+            "events": 588,
+            "mean_confirmation_lag_minutes": 5.507886435331231,
+            "mean_penetration_points": 16.997448979591823,
+            "panel": "first_per_day",
+            "period": "all",
+            "period_kind": "overall",
+            "return_censored": 85,
+            "returned_without_new_cross": 268
+          },
+          {
+            "actual_confirmed": 68,
+            "condition": "ema_state_at_cross",
+            "condition_value": "same_close_actual_crossing",
+            "days": 68,
+            "events": 68,
+            "mean_confirmation_lag_minutes": 0,
+            "mean_penetration_points": 25.16911764705879,
+            "panel": "first_per_day",
+            "period": "all",
+            "period_kind": "overall",
+            "return_censored": 16,
+            "returned_without_new_cross": 0
+          },
+          {
+            "actual_confirmed": 0,
+            "condition": "initial_confirmation_state",
+            "condition_value": "already_aligned",
+            "days": 39,
+            "events": 39,
+            "mean_confirmation_lag_minutes": null,
+            "mean_penetration_points": 19.576923076923006,
+            "panel": "first_per_day",
+            "period": "all",
+            "period_kind": "overall",
+            "return_censored": 7,
+            "returned_without_new_cross": 32
+          },
+          {
+            "actual_confirmed": 317,
+            "condition": "initial_confirmation_state",
+            "condition_value": "initially_unconfirmed",
+            "days": 588,
+            "events": 588,
+            "mean_confirmation_lag_minutes": 5.507886435331231,
+            "mean_penetration_points": 16.997448979591823,
+            "panel": "first_per_day",
+            "period": "all",
+            "period_kind": "overall",
+            "return_censored": 85,
+            "returned_without_new_cross": 268
+          },
+          {
+            "actual_confirmed": 68,
+            "condition": "initial_confirmation_state",
+            "condition_value": "same_close_actual_crossing",
+            "days": 68,
+            "events": 68,
+            "mean_confirmation_lag_minutes": 0,
+            "mean_penetration_points": 25.16911764705879,
+            "panel": "first_per_day",
+            "period": "all",
+            "period_kind": "overall",
+            "return_censored": 16,
+            "returned_without_new_cross": 0
+          },
+          {
+            "actual_confirmed": 317,
+            "condition": "confirmation_kind",
+            "condition_value": "delayed",
+            "days": 317,
+            "events": 317,
+            "mean_confirmation_lag_minutes": 5.507886435331231,
+            "mean_penetration_points": 28.235015772870646,
+            "panel": "first_per_day",
+            "period": "all",
+            "period_kind": "overall",
+            "return_censored": 82,
+            "returned_without_new_cross": 0
+          },
+          {
+            "actual_confirmed": 68,
+            "condition": "confirmation_kind",
+            "condition_value": "same_close",
+            "days": 68,
+            "events": 68,
+            "mean_confirmation_lag_minutes": 0,
+            "mean_penetration_points": 25.16911764705879,
+            "panel": "first_per_day",
+            "period": "all",
+            "period_kind": "overall",
+            "return_censored": 16,
+            "returned_without_new_cross": 0
+          },
+          {
+            "actual_confirmed": 0,
+            "condition": "confirmation_kind",
+            "condition_value": "unknown",
+            "days": 310,
+            "events": 310,
+            "mean_confirmation_lag_minutes": null,
+            "mean_penetration_points": 5.83064516129031,
+            "panel": "first_per_day",
+            "period": "all",
+            "period_kind": "overall",
+            "return_censored": 10,
+            "returned_without_new_cross": 300
+          },
+          {
+            "actual_confirmed": 652,
+            "condition": "all",
+            "condition_value": "all",
+            "days": 695,
+            "events": 1245,
+            "mean_confirmation_lag_minutes": 4.877300613496932,
+            "mean_penetration_points": 15.932530120481916,
+            "panel": "first_per_section",
+            "period": "all",
+            "period_kind": "overall",
+            "return_censored": 206,
+            "returned_without_new_cross": 567
+          },
+          {
+            "actual_confirmed": 0,
+            "condition": "ema_state_at_cross",
+            "condition_value": "already_aligned",
+            "days": 77,
+            "events": 78,
+            "mean_confirmation_lag_minutes": null,
+            "mean_penetration_points": 16.42307692307688,
+            "panel": "first_per_section",
+            "period": "all",
+            "period_kind": "overall",
+            "return_censored": 15,
+            "returned_without_new_cross": 63
+          },
+          {
+            "actual_confirmed": 564,
+            "condition": "ema_state_at_cross",
+            "condition_value": "opposite",
+            "days": 641,
+            "events": 1079,
+            "mean_confirmation_lag_minutes": 5.638297872340425,
+            "mean_penetration_points": 15.082252085264123,
+            "panel": "first_per_section",
+            "period": "all",
+            "period_kind": "overall",
+            "return_censored": 170,
+            "returned_without_new_cross": 504
+          },
+          {
+            "actual_confirmed": 88,
+            "condition": "ema_state_at_cross",
+            "condition_value": "same_close_actual_crossing",
+            "days": 88,
+            "events": 88,
+            "mean_confirmation_lag_minutes": 0,
+            "mean_penetration_points": 25.923295454545425,
+            "panel": "first_per_section",
+            "period": "all",
+            "period_kind": "overall",
+            "return_censored": 21,
+            "returned_without_new_cross": 0
+          },
+          {
+            "actual_confirmed": 0,
+            "condition": "initial_confirmation_state",
+            "condition_value": "already_aligned",
+            "days": 77,
+            "events": 78,
+            "mean_confirmation_lag_minutes": null,
+            "mean_penetration_points": 16.42307692307688,
+            "panel": "first_per_section",
+            "period": "all",
+            "period_kind": "overall",
+            "return_censored": 15,
+            "returned_without_new_cross": 63
+          },
+          {
+            "actual_confirmed": 564,
+            "condition": "initial_confirmation_state",
+            "condition_value": "initially_unconfirmed",
+            "days": 641,
+            "events": 1079,
+            "mean_confirmation_lag_minutes": 5.638297872340425,
+            "mean_penetration_points": 15.082252085264123,
+            "panel": "first_per_section",
+            "period": "all",
+            "period_kind": "overall",
+            "return_censored": 170,
+            "returned_without_new_cross": 504
+          },
+          {
+            "actual_confirmed": 88,
+            "condition": "initial_confirmation_state",
+            "condition_value": "same_close_actual_crossing",
+            "days": 88,
+            "events": 88,
+            "mean_confirmation_lag_minutes": 0,
+            "mean_penetration_points": 25.923295454545425,
+            "panel": "first_per_section",
+            "period": "all",
+            "period_kind": "overall",
+            "return_censored": 21,
+            "returned_without_new_cross": 0
+          },
+          {
+            "actual_confirmed": 564,
+            "condition": "confirmation_kind",
+            "condition_value": "delayed",
+            "days": 432,
+            "events": 564,
+            "mean_confirmation_lag_minutes": 5.638297872340425,
+            "mean_penetration_points": 25.66223404255318,
+            "panel": "first_per_section",
+            "period": "all",
+            "period_kind": "overall",
+            "return_censored": 159,
+            "returned_without_new_cross": 0
+          },
+          {
+            "actual_confirmed": 88,
+            "condition": "confirmation_kind",
+            "condition_value": "same_close",
+            "days": 88,
+            "events": 88,
+            "mean_confirmation_lag_minutes": 0,
+            "mean_penetration_points": 25.923295454545425,
+            "panel": "first_per_section",
+            "period": "all",
+            "period_kind": "overall",
+            "return_censored": 21,
+            "returned_without_new_cross": 0
+          },
+          {
+            "actual_confirmed": 0,
+            "condition": "confirmation_kind",
+            "condition_value": "unknown",
+            "days": 432,
+            "events": 593,
+            "mean_confirmation_lag_minutes": null,
+            "mean_penetration_points": 5.196037099494089,
+            "panel": "first_per_section",
+            "period": "all",
+            "period_kind": "overall",
+            "return_censored": 26,
+            "returned_without_new_cross": 567
+          },
+          {
+            "actual_confirmed": 315,
+            "condition": "all",
+            "condition_value": "all",
+            "days": 108,
+            "events": 697,
+            "mean_confirmation_lag_minutes": 3.8190476190476192,
+            "mean_penetration_points": 10.69906743185079,
+            "panel": "all_crosses",
+            "period": "2020",
+            "period_kind": "year",
+            "return_censored": 108,
+            "returned_without_new_cross": 350
+          },
+          {
+            "actual_confirmed": 59,
+            "condition": "all",
+            "condition_value": "all",
+            "days": 108,
+            "events": 108,
+            "mean_confirmation_lag_minutes": 4.627118644067797,
+            "mean_penetration_points": 10.479166666666659,
+            "panel": "first_per_day",
+            "period": "2020",
+            "period_kind": "year",
+            "return_censored": 11,
+            "returned_without_new_cross": 48
+          },
+          {
+            "actual_confirmed": 104,
+            "condition": "all",
+            "condition_value": "all",
+            "days": 108,
+            "events": 204,
+            "mean_confirmation_lag_minutes": 4.846153846153846,
+            "mean_penetration_points": 10.851715686274503,
+            "panel": "first_per_section",
+            "period": "2020",
+            "period_kind": "year",
+            "return_censored": 28,
+            "returned_without_new_cross": 97
+          },
+          {
+            "actual_confirmed": 254,
+            "condition": "all",
+            "condition_value": "all",
+            "days": 102,
+            "events": 555,
+            "mean_confirmation_lag_minutes": 3.7559055118110236,
+            "mean_penetration_points": 10.565765765765763,
+            "panel": "all_crosses",
+            "period": "2021",
+            "period_kind": "year",
+            "return_censored": 102,
+            "returned_without_new_cross": 272
+          },
+          {
+            "actual_confirmed": 53,
+            "condition": "all",
+            "condition_value": "all",
+            "days": 102,
+            "events": 102,
+            "mean_confirmation_lag_minutes": 4.471698113207547,
+            "mean_penetration_points": 12.06127450980389,
+            "panel": "first_per_day",
+            "period": "2021",
+            "period_kind": "year",
+            "return_censored": 18,
+            "returned_without_new_cross": 48
+          },
+          {
+            "actual_confirmed": 90,
+            "condition": "all",
+            "condition_value": "all",
+            "days": 102,
+            "events": 177,
+            "mean_confirmation_lag_minutes": 4.7,
+            "mean_penetration_points": 11.978813559322019,
+            "panel": "first_per_section",
+            "period": "2021",
+            "period_kind": "year",
+            "return_censored": 33,
+            "returned_without_new_cross": 84
+          },
+          {
+            "actual_confirmed": 200,
+            "condition": "all",
+            "condition_value": "all",
+            "days": 78,
+            "events": 458,
+            "mean_confirmation_lag_minutes": 3.345,
+            "mean_penetration_points": 15.377729257641937,
+            "panel": "all_crosses",
+            "period": "2022",
+            "period_kind": "year",
+            "return_censored": 78,
+            "returned_without_new_cross": 233
+          },
+          {
+            "actual_confirmed": 47,
+            "condition": "all",
+            "condition_value": "all",
+            "days": 78,
+            "events": 78,
+            "mean_confirmation_lag_minutes": 4.276595744680851,
+            "mean_penetration_points": 22.153846153846228,
+            "panel": "first_per_day",
+            "period": "2022",
+            "period_kind": "year",
+            "return_censored": 18,
+            "returned_without_new_cross": 29
+          },
+          {
+            "actual_confirmed": 73,
+            "condition": "all",
+            "condition_value": "all",
+            "days": 78,
+            "events": 137,
+            "mean_confirmation_lag_minutes": 4.3561643835616435,
+            "mean_penetration_points": 19.764598540146036,
+            "panel": "first_per_section",
+            "period": "2022",
+            "period_kind": "year",
+            "return_censored": 29,
+            "returned_without_new_cross": 60
+          },
+          {
+            "actual_confirmed": 282,
+            "condition": "all",
+            "condition_value": "all",
+            "days": 101,
+            "events": 653,
+            "mean_confirmation_lag_minutes": 4.0212765957446805,
+            "mean_penetration_points": 10.635528330781,
+            "panel": "all_crosses",
+            "period": "2023",
+            "period_kind": "year",
+            "return_censored": 101,
+            "returned_without_new_cross": 326
+          },
+          {
+            "actual_confirmed": 52,
+            "condition": "all",
+            "condition_value": "all",
+            "days": 101,
+            "events": 101,
+            "mean_confirmation_lag_minutes": 4.153846153846154,
+            "mean_penetration_points": 11.049504950494986,
+            "panel": "first_per_day",
+            "period": "2023",
+            "period_kind": "year",
+            "return_censored": 10,
+            "returned_without_new_cross": 47
+          },
+          {
+            "actual_confirmed": 98,
+            "condition": "all",
+            "condition_value": "all",
+            "days": 101,
+            "events": 191,
+            "mean_confirmation_lag_minutes": 5.112244897959184,
+            "mean_penetration_points": 10.751308900523515,
+            "panel": "first_per_section",
+            "period": "2023",
+            "period_kind": "year",
+            "return_censored": 24,
+            "returned_without_new_cross": 89
+          },
+          {
+            "actual_confirmed": 252,
+            "condition": "all",
+            "condition_value": "all",
+            "days": 88,
+            "events": 512,
+            "mean_confirmation_lag_minutes": 3.7738095238095237,
+            "mean_penetration_points": 12.10400390625,
+            "panel": "all_crosses",
+            "period": "2024",
+            "period_kind": "year",
+            "return_censored": 88,
+            "returned_without_new_cross": 231
+          },
+          {
+            "actual_confirmed": 46,
+            "condition": "all",
+            "condition_value": "all",
+            "days": 88,
+            "events": 88,
+            "mean_confirmation_lag_minutes": 5.086956521739131,
+            "mean_penetration_points": 16.829545454545453,
+            "panel": "first_per_day",
+            "period": "2024",
+            "period_kind": "year",
+            "return_censored": 13,
+            "returned_without_new_cross": 40
+          },
+          {
+            "actual_confirmed": 83,
+            "condition": "all",
+            "condition_value": "all",
+            "days": 88,
+            "events": 161,
+            "mean_confirmation_lag_minutes": 5.421686746987952,
+            "mean_penetration_points": 14.563664596273291,
+            "panel": "first_per_section",
+            "period": "2024",
+            "period_kind": "year",
+            "return_censored": 29,
+            "returned_without_new_cross": 73
+          },
+          {
+            "actual_confirmed": 295,
+            "condition": "all",
+            "condition_value": "all",
+            "days": 111,
+            "events": 649,
+            "mean_confirmation_lag_minutes": 3.7220338983050847,
+            "mean_penetration_points": 18.427195685670263,
+            "panel": "all_crosses",
+            "period": "2025",
+            "period_kind": "year",
+            "return_censored": 111,
+            "returned_without_new_cross": 318
+          },
+          {
+            "actual_confirmed": 72,
+            "condition": "all",
+            "condition_value": "all",
+            "days": 111,
+            "events": 111,
+            "mean_confirmation_lag_minutes": 4.333333333333333,
+            "mean_penetration_points": 27.655405405405407,
+            "panel": "first_per_day",
+            "period": "2025",
+            "period_kind": "year",
+            "return_censored": 19,
+            "returned_without_new_cross": 39
+          },
+          {
+            "actual_confirmed": 116,
+            "condition": "all",
+            "condition_value": "all",
+            "days": 111,
+            "events": 198,
+            "mean_confirmation_lag_minutes": 4.577586206896552,
+            "mean_penetration_points": 23.892676767676768,
+            "panel": "first_per_section",
+            "period": "2025",
+            "period_kind": "year",
+            "return_censored": 33,
+            "returned_without_new_cross": 79
+          },
+          {
+            "actual_confirmed": 239,
+            "condition": "all",
+            "condition_value": "all",
+            "days": 107,
+            "events": 535,
+            "mean_confirmation_lag_minutes": 3.9414225941422596,
+            "mean_penetration_points": 18.035046728971963,
+            "panel": "all_crosses",
+            "period": "2026",
+            "period_kind": "year",
+            "return_censored": 107,
+            "returned_without_new_cross": 259
+          },
+          {
+            "actual_confirmed": 56,
+            "condition": "all",
+            "condition_value": "all",
+            "days": 107,
+            "events": 107,
+            "mean_confirmation_lag_minutes": 4.875,
+            "mean_penetration_points": 25.35280373831769,
+            "panel": "first_per_day",
+            "period": "2026",
+            "period_kind": "year",
+            "return_censored": 19,
+            "returned_without_new_cross": 49
+          },
+          {
+            "actual_confirmed": 88,
+            "condition": "all",
+            "condition_value": "all",
+            "days": 107,
+            "events": 177,
+            "mean_confirmation_lag_minutes": 5.1477272727272725,
+            "mean_penetration_points": 20.707627118644012,
+            "panel": "first_per_section",
+            "period": "2026",
+            "period_kind": "year",
+            "return_censored": 30,
+            "returned_without_new_cross": 85
+          },
+          {
+            "actual_confirmed": 40,
+            "condition": "all",
+            "condition_value": "all",
+            "days": 17,
+            "events": 99,
+            "mean_confirmation_lag_minutes": 3.6,
+            "mean_penetration_points": 11.469696969696942,
+            "panel": "all_crosses",
+            "period": "last_20",
+            "period_kind": "recent",
+            "return_censored": 17,
+            "returned_without_new_cross": 53
+          },
+          {
+            "actual_confirmed": 6,
+            "condition": "all",
+            "condition_value": "all",
+            "days": 17,
+            "events": 17,
+            "mean_confirmation_lag_minutes": 4,
+            "mean_penetration_points": 10.852941176470427,
+            "panel": "first_per_day",
+            "period": "last_20",
+            "period_kind": "recent",
+            "return_censored": 1,
+            "returned_without_new_cross": 11
+          },
+          {
+            "actual_confirmed": 11,
+            "condition": "all",
+            "condition_value": "all",
+            "days": 17,
+            "events": 30,
+            "mean_confirmation_lag_minutes": 4.636363636363637,
+            "mean_penetration_points": 10.183333333333213,
+            "panel": "first_per_section",
+            "period": "last_20",
+            "period_kind": "recent",
+            "return_censored": 2,
+            "returned_without_new_cross": 19
+          },
+          {
+            "actual_confirmed": 113,
+            "condition": "all",
+            "condition_value": "all",
+            "days": 53,
+            "events": 251,
+            "mean_confirmation_lag_minutes": 3.849557522123894,
+            "mean_penetration_points": 18.455179282868514,
+            "panel": "all_crosses",
+            "period": "last_60",
+            "period_kind": "recent",
+            "return_censored": 53,
+            "returned_without_new_cross": 119
+          },
+          {
+            "actual_confirmed": 28,
+            "condition": "all",
+            "condition_value": "all",
+            "days": 53,
+            "events": 53,
+            "mean_confirmation_lag_minutes": 5.25,
+            "mean_penetration_points": 24.8773584905659,
+            "panel": "first_per_day",
+            "period": "last_60",
+            "period_kind": "recent",
+            "return_censored": 7,
+            "returned_without_new_cross": 25
+          },
+          {
+            "actual_confirmed": 41,
+            "condition": "all",
+            "condition_value": "all",
+            "days": 53,
+            "events": 84,
+            "mean_confirmation_lag_minutes": 5.121951219512195,
+            "mean_penetration_points": 20.520833333333194,
+            "panel": "first_per_section",
+            "period": "last_60",
+            "period_kind": "recent",
+            "return_censored": 12,
+            "returned_without_new_cross": 42
+          },
+          {
+            "actual_confirmed": 212,
+            "condition": "all",
+            "condition_value": "all",
+            "days": 99,
+            "events": 469,
+            "mean_confirmation_lag_minutes": 3.94811320754717,
+            "mean_penetration_points": 19.08368869936034,
+            "panel": "all_crosses",
+            "period": "last_120",
+            "period_kind": "recent",
+            "return_censored": 99,
+            "returned_without_new_cross": 224
+          },
+          {
+            "actual_confirmed": 54,
+            "condition": "all",
+            "condition_value": "all",
+            "days": 99,
+            "events": 99,
+            "mean_confirmation_lag_minutes": 4.888888888888889,
+            "mean_penetration_points": 26.641414141414067,
+            "panel": "first_per_day",
+            "period": "last_120",
+            "period_kind": "recent",
+            "return_censored": 19,
+            "returned_without_new_cross": 43
+          },
+          {
+            "actual_confirmed": 81,
+            "condition": "all",
+            "condition_value": "all",
+            "days": 99,
+            "events": 160,
+            "mean_confirmation_lag_minutes": 5.074074074074074,
+            "mean_penetration_points": 21.906249999999936,
+            "panel": "first_per_section",
+            "period": "last_120",
+            "period_kind": "recent",
+            "return_censored": 28,
+            "returned_without_new_cross": 75
+          }
+        ],
+        "title": "Price episodes: later confirmation and return"
+      },
+      {
+        "columns": [
+          {
+            "key": "panel",
+            "label": "Event sample"
+          },
+          {
+            "key": "condition_value",
+            "label": "State"
+          },
+          {
+            "format": "number",
+            "key": "events",
+            "label": "Selected events",
+            "precision": 0
+          },
+          {
+            "format": "number",
+            "key": "days",
+            "label": "Distinct days",
+            "precision": 0
+          },
+          {
+            "format": "number",
+            "key": "returned_without_new_cross",
+            "label": "Returned before new EMA cross",
+            "precision": 0
+          },
+          {
+            "format": "number",
+            "key": "actual_confirmed",
+            "label": "Actual EMA confirmations",
+            "precision": 0
+          },
+          {
+            "key": "confirmation_denominator",
+            "label": "Resolved confirmation observations"
+          },
+          {
+            "format": "percent",
+            "key": "returned_without_new_cross_rate",
+            "label": "Return before EMA crossing",
+            "precision": 1
+          },
+          {
+            "key": "unknown_or_censored_confirmation",
+            "label": "Confirmation unresolved"
+          },
+          {
+            "format": "number",
+            "key": "return_censored",
+            "label": "Return not observed",
+            "precision": 0
+          },
+          {
+            "format": "number",
+            "key": "mean_returned_unconfirmed_penetration_points",
+            "label": "Mean returned-break depth",
+            "precision": 2,
+            "unit": "ES points"
+          },
+          {
+            "key": "sparse",
+            "label": "Fewer than 30 days"
+          }
+        ],
+        "description": "Saved descriptive summaries. Filters select existing rows; counts, denominators and estimates are never recomputed in the browser.",
+        "id": "initially-unconfirmed",
+        "kind": "table",
+        "notes": [
+          "Sparse means fewer than 30 supporting distinct days. Null means unavailable; zero is observed zero. Periods and event panels overlap and cannot be added.",
+          "The primary returned-break cohort initially has opposite/equal/uninitialized EMA6. Already-aligned and same-close actual EMA6 crossings remain separate. The return-before-EMA rate denominator is resolved actual confirmation OR reverse price close before confirmation; unresolved censored observations are not failures. Penetration describes shallowness without a fitted cutoff."
+        ],
+        "rowFilters": [
+          {
+            "defaultValue": "all_crosses",
+            "key": "panel",
+            "label": "Event panel"
+          },
+          {
+            "defaultValue": "initially_unconfirmed",
+            "key": "condition_value",
+            "label": "Initial state"
+          }
+        ],
+        "rows": [
+          {
+            "actual_confirmed": 0,
+            "condition_value": "already_aligned",
+            "confirmation_denominator": 914,
+            "days": 512,
+            "events": 1114,
+            "mean_returned_unconfirmed_penetration_points": 8.21608315098466,
+            "panel": "all_crosses",
+            "return_censored": 200,
+            "returned_without_new_cross": 914,
+            "returned_without_new_cross_rate": 1,
+            "sparse": false,
+            "unknown_or_censored_confirmation": 200
+          },
+          {
+            "actual_confirmed": 1370,
+            "condition_value": "initially_unconfirmed",
+            "confirmation_denominator": 2445,
+            "days": 669,
+            "events": 2478,
+            "mean_returned_unconfirmed_penetration_points": 3.1316279069767567,
+            "panel": "all_crosses",
+            "return_censored": 400,
+            "returned_without_new_cross": 1075,
+            "returned_without_new_cross_rate": 0.4396728016359918,
+            "sparse": false,
+            "unknown_or_censored_confirmation": 33
+          },
+          {
+            "actual_confirmed": 467,
+            "condition_value": "same_close_actual_crossing",
+            "confirmation_denominator": 467,
+            "days": 281,
+            "events": 467,
+            "mean_returned_unconfirmed_penetration_points": null,
+            "panel": "all_crosses",
+            "return_censored": 95,
+            "returned_without_new_cross": 0,
+            "returned_without_new_cross_rate": 0,
+            "sparse": false,
+            "unknown_or_censored_confirmation": 0
+          },
+          {
+            "actual_confirmed": 0,
+            "condition_value": "already_aligned",
+            "confirmation_denominator": 32,
+            "days": 39,
+            "events": 39,
+            "mean_returned_unconfirmed_penetration_points": 13.218749999999915,
+            "panel": "first_per_day",
+            "return_censored": 7,
+            "returned_without_new_cross": 32,
+            "returned_without_new_cross_rate": 1,
+            "sparse": false,
+            "unknown_or_censored_confirmation": 7
+          },
+          {
+            "actual_confirmed": 317,
+            "condition_value": "initially_unconfirmed",
+            "confirmation_denominator": 585,
+            "days": 588,
+            "events": 588,
+            "mean_returned_unconfirmed_penetration_points": 3.8432835820895472,
+            "panel": "first_per_day",
+            "return_censored": 85,
+            "returned_without_new_cross": 268,
+            "returned_without_new_cross_rate": 0.4581196581196581,
+            "sparse": false,
+            "unknown_or_censored_confirmation": 3
+          },
+          {
+            "actual_confirmed": 68,
+            "condition_value": "same_close_actual_crossing",
+            "confirmation_denominator": 68,
+            "days": 68,
+            "events": 68,
+            "mean_returned_unconfirmed_penetration_points": null,
+            "panel": "first_per_day",
+            "return_censored": 16,
+            "returned_without_new_cross": 0,
+            "returned_without_new_cross_rate": 0,
+            "sparse": false,
+            "unknown_or_censored_confirmation": 0
+          },
+          {
+            "actual_confirmed": 0,
+            "condition_value": "already_aligned",
+            "confirmation_denominator": 63,
+            "days": 77,
+            "events": 78,
+            "mean_returned_unconfirmed_penetration_points": 9.738095238095202,
+            "panel": "first_per_section",
+            "return_censored": 15,
+            "returned_without_new_cross": 63,
+            "returned_without_new_cross_rate": 1,
+            "sparse": false,
+            "unknown_or_censored_confirmation": 15
+          },
+          {
+            "actual_confirmed": 564,
+            "condition_value": "initially_unconfirmed",
+            "confirmation_denominator": 1068,
+            "days": 641,
+            "events": 1079,
+            "mean_returned_unconfirmed_penetration_points": 3.481150793650791,
+            "panel": "first_per_section",
+            "return_censored": 170,
+            "returned_without_new_cross": 504,
+            "returned_without_new_cross_rate": 0.47191011235955055,
+            "sparse": false,
+            "unknown_or_censored_confirmation": 11
+          },
+          {
+            "actual_confirmed": 88,
+            "condition_value": "same_close_actual_crossing",
+            "confirmation_denominator": 88,
+            "days": 88,
+            "events": 88,
+            "mean_returned_unconfirmed_penetration_points": null,
+            "panel": "first_per_section",
+            "return_censored": 21,
+            "returned_without_new_cross": 0,
+            "returned_without_new_cross_rate": 0,
+            "sparse": false,
+            "unknown_or_censored_confirmation": 0
+          }
+        ],
+        "title": "Initially unconfirmed breaks: return before actual EMA6 crossing"
+      },
+      {
+        "columns": [
+          {
+            "key": "panel",
+            "label": "Event sample"
+          },
+          {
+            "key": "condition_value",
+            "label": "State"
+          },
+          {
+            "format": "number",
+            "key": "denominator",
+            "label": "Valid observations",
+            "precision": 0
+          },
+          {
+            "format": "number",
+            "key": "valid_days",
+            "label": "Distinct valid days",
+            "precision": 0
+          },
+          {
+            "format": "number",
+            "key": "unknown",
+            "label": "Unavailable",
+            "precision": 0
+          },
+          {
+            "format": "number",
+            "key": "mean_points",
+            "label": "Mean signed movement",
+            "precision": 2,
+            "unit": "ES points"
+          },
+          {
+            "format": "percent",
+            "key": "positive_rate",
+            "label": "Close in crossing direction",
+            "precision": 1
+          },
+          {
+            "format": "number",
+            "key": "mean_favorable_points",
+            "label": "Mean favorable movement",
+            "precision": 2,
+            "unit": "ES points"
+          },
+          {
+            "format": "number",
+            "key": "mean_adverse_points",
+            "label": "Mean adverse movement",
+            "precision": 2,
+            "unit": "ES points"
+          },
+          {
+            "format": "number",
+            "key": "mean_ci95_low",
+            "label": "Mean: 95% CI low",
+            "precision": 2,
+            "unit": "ES points"
+          },
+          {
+            "format": "number",
+            "key": "mean_ci95_high",
+            "label": "Mean: 95% CI high",
+            "precision": 2,
+            "unit": "ES points"
+          },
+          {
+            "key": "sparse",
+            "label": "Fewer than 30 days"
+          }
+        ],
+        "description": "Saved descriptive summaries. Filters select existing rows; counts, denominators and estimates are never recomputed in the browser.",
+        "id": "ema-state",
+        "kind": "table",
+        "notes": [
+          "Sparse means fewer than 30 supporting distinct days. Null means unavailable; zero is observed zero. Periods and event panels overlap and cannot be added.",
+          "Positive close means displacement in the crossing direction, before costs. Unknown includes late or incomplete 30-minute paths."
+        ],
+        "rowFilters": [
+          {
+            "defaultValue": "all_crosses",
+            "key": "panel",
+            "label": "Event panel"
+          }
+        ],
+        "rows": [
+          {
+            "condition_value": "already_aligned",
+            "denominator": 1057,
+            "mean_adverse_points": 8.667455061494797,
+            "mean_ci95_high": 0.25920688091536365,
+            "mean_ci95_low": -1.2110459416465258,
+            "mean_favorable_points": 8.283585619678336,
+            "mean_points": -0.4484389782403036,
+            "panel": "all_crosses",
+            "positive_rate": 0.4815515610217597,
+            "sparse": false,
+            "unknown": 57,
+            "valid_days": 500
+          },
+          {
+            "condition_value": "opposite",
+            "denominator": 2332,
+            "mean_adverse_points": 8.286556603773585,
+            "mean_ci95_high": 0.8227693915148543,
+            "mean_ci95_low": -0.20100382656530974,
+            "mean_favorable_points": 9.022405660377359,
+            "mean_points": 0.2959905660377368,
+            "panel": "all_crosses",
+            "positive_rate": 0.5030017152658662,
+            "sparse": false,
+            "unknown": 146,
+            "valid_days": 659
+          },
+          {
+            "condition_value": "same_close_actual_crossing",
+            "denominator": 441,
+            "mean_adverse_points": 9.04988662131519,
+            "mean_ci95_high": 0.8213442566293848,
+            "mean_ci95_low": -1.1625154395445323,
+            "mean_favorable_points": 9.073696145124716,
+            "mean_points": -0.1666666666666646,
+            "panel": "all_crosses",
+            "positive_rate": 0.4897959183673469,
+            "sparse": false,
+            "unknown": 26,
+            "valid_days": 274
+          },
+          {
+            "condition_value": "already_aligned",
+            "denominator": 39,
+            "mean_adverse_points": 10.839743589743579,
+            "mean_ci95_high": 3.1861111111111096,
+            "mean_ci95_low": -6.557924937965261,
+            "mean_favorable_points": 12.551282051282051,
+            "mean_points": -1.5961538461538463,
+            "panel": "first_per_day",
+            "positive_rate": 0.46153846153846156,
+            "sparse": false,
+            "unknown": 0,
+            "valid_days": 39
+          },
+          {
+            "condition_value": "opposite",
+            "denominator": 579,
+            "mean_adverse_points": 9.837651122625218,
+            "mean_ci95_high": 1.747582644628098,
+            "mean_ci95_low": -0.6664178585192496,
+            "mean_favorable_points": 11.088514680483595,
+            "mean_points": 0.5177029360967177,
+            "panel": "first_per_day",
+            "positive_rate": 0.5043177892918825,
+            "sparse": false,
+            "unknown": 9,
+            "valid_days": 579
+          },
+          {
+            "condition_value": "same_close_actual_crossing",
+            "denominator": 68,
+            "mean_adverse_points": 10.73161764705881,
+            "mean_ci95_high": 3.2273200757575755,
+            "mean_ci95_low": -3.4617788461538463,
+            "mean_favorable_points": 11.922794117647058,
+            "mean_points": 0.0073529411764772755,
+            "panel": "first_per_day",
+            "positive_rate": 0.5588235294117647,
+            "sparse": false,
+            "unknown": 0,
+            "valid_days": 68
+          },
+          {
+            "condition_value": "already_aligned",
+            "denominator": 78,
+            "mean_adverse_points": 9.769230769230763,
+            "mean_ci95_high": 1.6320175438596487,
+            "mean_ci95_low": -4.526366341991342,
+            "mean_favorable_points": 9.711538461538462,
+            "mean_points": -1.4070512820512822,
+            "panel": "first_per_section",
+            "positive_rate": 0.46153846153846156,
+            "sparse": false,
+            "unknown": 0,
+            "valid_days": 77
+          },
+          {
+            "condition_value": "opposite",
+            "denominator": 1043,
+            "mean_adverse_points": 8.83437200383509,
+            "mean_ci95_high": 0.9933421146960495,
+            "mean_ci95_low": -0.5571640120924672,
+            "mean_favorable_points": 9.66562799616491,
+            "mean_points": 0.1898370086289545,
+            "panel": "first_per_section",
+            "positive_rate": 0.4966442953020134,
+            "sparse": false,
+            "unknown": 36,
+            "valid_days": 631
+          },
+          {
+            "condition_value": "same_close_actual_crossing",
+            "denominator": 88,
+            "mean_adverse_points": 10.0653409090909,
+            "mean_ci95_high": 3.6288233901515152,
+            "mean_ci95_low": -2.202160815939274,
+            "mean_favorable_points": 12.133522727272727,
+            "mean_points": 0.7045454545454597,
+            "panel": "first_per_section",
+            "positive_rate": 0.5113636363636364,
+            "sparse": false,
+            "unknown": 0,
+            "valid_days": 88
+          }
+        ],
+        "title": "30-minute outcomes by EMA6 state known at the price cross"
+      },
+      {
+        "body": "Repository-retained ES data only; requested coverage ends 2026-10-30, while retained market data ends 2026-09-18. Missing dates/contracts and retrospective full-day eligibility limit generalization.\n\nHistorical pivot available_at remains unverified. Nominal 09:25 timing does not establish a historically executable pre-open signal.\n\nReturned-without-EMA and eventual confirmation labels are known later. Already-aligned EMA6 is distinct from an actual new line crossing.\n\nSigned displacement and excursions describe price paths. No entries, fills, costs or net profitability are tested. Broad slices are exploratory.\n\nOverall daily means and overall 30-minute outcome mean/positive shares use 2,000 non-circular moving-block replicates of five observed sessions, seed 20261031. Whole-day records preserve repeated-event dependence. No multiple-testing or source-selection correction is implied. Negative and inconclusive cells are retained.",
+        "id": "limits",
+        "kind": "text",
+        "title": "Evidence qualifications"
+      }
+    ],
+    "source": {
+      "producer": "sahadeva",
+      "runId": "20261031_repo_v2"
+    },
+    "summary": "Repository-only descriptive ES pivot research with saved cohort filters. Historical pivot availability is unverified; price paths and excursions are not net trading returns.",
+    "title": "Verniman Pivot Statistics — ES · Price breaks and EMA6 crossings"
+  }
+}

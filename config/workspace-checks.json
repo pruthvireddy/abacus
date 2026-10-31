@@ -62,7 +62,7 @@
       ]
     },
     "studies": {
-      "description": "All 20 active local study test directories, isolated processes; studies 06/11 require retained inputs/evidence.",
+      "description": "All 21 active local study test directories, isolated processes; studies 06/11 require retained inputs/evidence.",
       "checks": [
         "study-05",
         "study-06",
@@ -83,7 +83,8 @@
         "study-23",
         "study-25",
         "study-26",
-        "study-28"
+        "study-28",
+        "study-30"
       ]
     },
     "guards": {
@@ -288,7 +289,9 @@
         "packages/bhishma/tests/test_loader_import_boundaries.py",
         "packages/bhishma/tests/test_manifest_selected_loaders.py",
         "packages/bhishma/tests/test_vp_hvn.py",
-        "packages/bhishma/tests/test_runtime_prerequisites.py"
+        "packages/bhishma/tests/test_runtime_prerequisites.py",
+        "packages/bhishma/src/abacus_bhishma/verniman_consolidated.py",
+        "packages/bhishma/tests/test_verniman_consolidated.py"
       ],
       "related_checks": [
         "study-14-consumer-imports"
@@ -1329,6 +1332,69 @@
       "related_checks": [
         "study-28",
         "documentation",
+        "navigation-metadata",
+        "research-index"
+      ]
+    },
+    "study-30": {
+      "kind": "study",
+      "path": "studies/30_verniman_pivot_statistics_es",
+      "study_id": "30_verniman_pivot_statistics_es",
+      "description": "Study 30 - repository-only Verniman ES pivot behavior, native EMA/VWAP features, evidence and saved report export",
+      "guides": [
+        "studies/30_verniman_pivot_statistics_es/README.md",
+        "studies/30_verniman_pivot_statistics_es/plan.md",
+        "studies/30_verniman_pivot_statistics_es/protocol-1.0.0.md",
+        "studies/30_verniman_pivot_statistics_es/protocol-2.0.0.md",
+        "studies/30_verniman_pivot_statistics_es/implementation-matrix.md",
+        "studies/30_verniman_pivot_statistics_es/statistics.md",
+        "studies/30_verniman_pivot_statistics_es/notes.md",
+        "studies/30_verniman_pivot_statistics_es/verification.md",
+        "studies/30_verniman_pivot_statistics_es/phase1-audit.md"
+      ],
+      "read_first": [
+        "studies/30_verniman_pivot_statistics_es/README.md",
+        "studies/30_verniman_pivot_statistics_es/plan.md",
+        "studies/30_verniman_pivot_statistics_es/protocol-1.0.0.md",
+        "studies/30_verniman_pivot_statistics_es/study.yaml",
+        "studies/30_verniman_pivot_statistics_es/inputs.lock.json",
+        "studies/30_verniman_pivot_statistics_es/notes.md",
+        "studies/30_verniman_pivot_statistics_es/phase1-audit.md",
+        "studies/30_verniman_pivot_statistics_es/protocol-2.0.0.md",
+        "studies/30_verniman_pivot_statistics_es/implementation-matrix.md",
+        "studies/AGENTS.md",
+        "packages/sahadeva/AGENTS.md",
+        "packages/bhishma/AGENTS.md"
+      ],
+      "entry_points": [
+        "studies/30_verniman_pivot_statistics_es/run.py",
+        "studies/30_verniman_pivot_statistics_es/src/source_audit.py",
+        "studies/30_verniman_pivot_statistics_es/src/data_requirements.py",
+        "studies/30_verniman_pivot_statistics_es/tests",
+        "requests/inbox/es_contract_session_indicators__1.0.0.yaml",
+        "studies/30_verniman_pivot_statistics_es/src/source_selection.py",
+        "studies/30_verniman_pivot_statistics_es/src/engine.py",
+        "studies/30_verniman_pivot_statistics_es/src/reporting.py",
+        "studies/30_verniman_pivot_statistics_es/src/lifecycle.py",
+        "studies/30_verniman_pivot_statistics_es/publish_web.py",
+        "studies/30_verniman_pivot_statistics_es/verify_saved.py",
+        "studies/30_verniman_pivot_statistics_es/verify_features.py",
+        "studies/30_verniman_pivot_statistics_es/render_chart.mjs",
+        "studies/30_verniman_pivot_statistics_es/ranked.py",
+        "studies/30_verniman_pivot_statistics_es/src/ranked_engine.py",
+        "studies/30_verniman_pivot_statistics_es/src/ranked_statistics.py",
+        "studies/30_verniman_pivot_statistics_es/src/ranked_lifecycle.py",
+        "studies/30_verniman_pivot_statistics_es/verify_ranked.py",
+        "studies/30_verniman_pivot_statistics_es/publish_ranked.py"
+      ],
+      "preservation": [
+        "Preserve existing releases, canonical source revisions, null historical availability, user observations, completed runs and unrelated workspace changes.",
+        "Preserve source-only cohort decisions before outcomes, distinguish actual EMA crossings from alignment, retain null/unverified historical availability and explicit missing-data/contract exclusions.",
+        "Use repository-only pinned inputs and prebuilt OHLC/EMA where compatible. No data acquisition, price translation or historical overwrite; seal only verified saved evidence, and deploy only under separate release scope."
+      ],
+      "related_checks": [
+        "study-30",
+        "agent-docs",
         "navigation-metadata",
         "research-index"
       ]
@@ -3356,6 +3422,46 @@
       "scope": [
         "Read-only registry/schema, full selected-report coverage, exact app-owned report/bundle/section identities and projection freshness.",
         "No research calculations, scientific validation, local reviewed-material hashing, public staging, publication or release actions. The separate --check-reviewed-inputs audit requires its own explicit selection."
+      ]
+    },
+    {
+      "id": "study-30",
+      "owner": "study-30",
+      "kind": "unittest",
+      "description": "Study 30 synthetic source/input contracts, numerical events/outcomes, reporting and evidence guards",
+      "cwd": ".",
+      "runtime": "locked-python",
+      "unittest": {
+        "start_dir": "studies/30_verniman_pivot_statistics_es/tests",
+        "pattern": "test*.py",
+        "optimize": false
+      },
+      "env": {},
+      "prerequisites": [
+        {
+          "kind": "executable",
+          "name": "uv",
+          "description": "Existing scripts/uv resolution; no bootstrap or synchronization."
+        },
+        {
+          "kind": "directory",
+          "path": ".venv",
+          "description": "Prepared locked Python environment; no dependency installation."
+        },
+        {
+          "kind": "node-major",
+          "major": 24,
+          "description": "Node24 for the saved-figure presentation fixture; no numerical calculations in Node."
+        },
+        {
+          "kind": "directory",
+          "path": "apps/narada/node_modules",
+          "description": "Existing independently installed Narada Sharp dependency for static figure rendering; no npm install in the check."
+        }
+      ],
+      "scope": [
+        "Synthetic source-shape/date/contract/availability accounting, repository-only input requirements, event/confirmation/horizon/retest/denominator statistics and evidence/export guards.",
+        "No retained market-data reads, source-audit execution, research runs, acquisition, publication, sealing or deployment."
       ]
     }
   ]

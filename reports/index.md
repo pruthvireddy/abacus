@@ -2,7 +2,7 @@
 
 Saved evidence, study plans, and current strategy interpretation in one place.
 
-28 studies · 46 saved runs · 10 strategy cards.
+29 studies · 48 saved runs · 10 strategy cards.
 
 **Historical results were imported without recalculation or a new review. Latest means natural run-ID ordering; no recommendation or reference selection is inferred.**
 
@@ -373,6 +373,19 @@ Corrected protocol 1.1.0 sealed: 25 synthetic tests, full source reconciliation 
 - **20261023T210215Z\_ema6\_3m\_v1 · latest by ID · selected reference** — [Report](../runs/28_globex_ema_crossings/20261023T210215Z_ema6_3m_v1/report.html) · [Markdown](../runs/28_globex_ema_crossings/20261023T210215Z_ema6_3m_v1/report.md) · [Manifest](../runs/28_globex_ema_crossings/20261023T210215Z_ema6_3m_v1/manifest.json) · [Metrics](../runs/28_globex_ema_crossings/20261023T210215Z_ema6_3m_v1/metrics.json) · [Advice](../runs/28_globex_ema_crossings/20261023T210215Z_ema6_3m_v1/advice.md)
 - **20261023T202400Z\_ema6\_v1** — [Report](../runs/28_globex_ema_crossings/20261023T202400Z_ema6_v1/report.html) · [Markdown](../runs/28_globex_ema_crossings/20261023T202400Z_ema6_v1/report.md) · [Manifest](../runs/28_globex_ema_crossings/20261023T202400Z_ema6_v1/manifest.json) · [Metrics](../runs/28_globex_ema_crossings/20261023T202400Z_ema6_v1/metrics.json) · [Advice](../runs/28_globex_ema_crossings/20261023T202400Z_ema6_v1/advice.md)
 
+## Verniman Pivot Statistics — ES
+
+`30_verniman_pivot_statistics_es` · completed · ES
+
+20 ranked descriptive ES pivot/VWAP statistics across 875 pivot-matched RTH, 1,308 VWAP-only RTH and 1,292 full-Globex sessions. Two priority reports and six separately attributed baseline views retain negative/inconclusive results; no trading edge is established.
+
+Completed frozen ranked run:173 synthetic tests; independent native event/path/exposure/summary reconstruction; 5,307,274 summary cells; baseline parity; two local priority reports and preserved Original baseline. Bootstrap intervals algorithm-tested but not independently re-estimated. Historical availability unverified; no fills, costs or profitability test.
+
+[Study overview](../studies/30_verniman_pivot_statistics_es/README.md) · [Metadata](../studies/30_verniman_pivot_statistics_es/study.json)
+
+- **20261031\_repo\_v2 · latest by ID** — [Report](../runs/30_verniman_pivot_statistics_es/20261031_repo_v2/report.html) · [Markdown](../runs/30_verniman_pivot_statistics_es/20261031_repo_v2/report.md) · [Manifest](../runs/30_verniman_pivot_statistics_es/20261031_repo_v2/manifest.json) · [Metrics](../runs/30_verniman_pivot_statistics_es/20261031_repo_v2/metrics.json) · [Advice](../runs/30_verniman_pivot_statistics_es/20261031_repo_v2/advice.md)
+- **20261031\_ranked\_v2 · selected reference** — [Report](../runs/30_verniman_pivot_statistics_es/20261031_ranked_v2/report.html) · [Markdown](../runs/30_verniman_pivot_statistics_es/20261031_ranked_v2/report.md) · [Manifest](../runs/30_verniman_pivot_statistics_es/20261031_ranked_v2/manifest.json) · [Metrics](../runs/30_verniman_pivot_statistics_es/20261031_ranked_v2/metrics.json) · [Advice](../runs/30_verniman_pivot_statistics_es/20261031_ranked_v2/advice.md)
+
 ## Strategy cards
 
 Cards record the current evidence status of each enduring idea. Follow their run links before interpreting any finding. Structured references identify selected saved rows; the separate reference check verifies hashes and row matches. These initial references do not cover every claim in a card.
@@ -397,6 +410,7 @@ Cards record the current evidence status of each enduring idea. Follow their run
 
 - [GLBX-20260920-577W4VCSK7](../reports/quality/GLBX-20260920-577W4VCSK7.md)
 - [GLBX-20260920-QQQSGCKWES](../reports/quality/GLBX-20260920-QQQSGCKWES.md)
+- [es\_contract\_session\_indicators\_\_1.0.0](../reports/quality/es_contract_session_indicators__1.0.0.md)
 - [gc\_ema\_deviation\_bands\_\_1.0.0](../reports/quality/gc_ema_deviation_bands__1.0.0.md)
 - [nq\_causal\_vp\_hvn\_\_1.0.0](../reports/quality/nq_causal_vp_hvn__1.0.0.md)
 - [same\_contract\_ema\_cloud\_\_1.0.0](../reports/quality/same_contract_ema_cloud__1.0.0.md)
@@ -408,6 +422,13 @@ Cards record the current evidence status of each enduring idea. Follow their run
 - [verniman\_daily\_levels\_\_10.0.0](../reports/quality/verniman_daily_levels__10.0.0.md)
 - [verniman\_daily\_levels\_\_11.0.0](../reports/quality/verniman_daily_levels__11.0.0.md)
 - [verniman\_daily\_levels\_\_12.0.0](../reports/quality/verniman_daily_levels__12.0.0.md)
+- [verniman\_daily\_levels\_\_13.0.0](../reports/quality/verniman_daily_levels__13.0.0.md)
+- [verniman\_daily\_levels\_\_14.0.0](../reports/quality/verniman_daily_levels__14.0.0.md)
+- [verniman\_daily\_levels\_\_15.0.0](../reports/quality/verniman_daily_levels__15.0.0.md)
+- [verniman\_daily\_levels\_\_16.0.0](../reports/quality/verniman_daily_levels__16.0.0.md)
+- [verniman\_daily\_levels\_\_17.0.0](../reports/quality/verniman_daily_levels__17.0.0.md)
+- [verniman\_daily\_levels\_\_18.0.0](../reports/quality/verniman_daily_levels__18.0.0.md)
+- [verniman\_daily\_levels\_\_19.0.0](../reports/quality/verniman_daily_levels__19.0.0.md)
 - [verniman\_daily\_levels\_\_2.0.0](../reports/quality/verniman_daily_levels__2.0.0.md)
 - [verniman\_daily\_levels\_\_3.0.0](../reports/quality/verniman_daily_levels__3.0.0.md)
 - [verniman\_daily\_levels\_\_4.0.0](../reports/quality/verniman_daily_levels__4.0.0.md)

@@ -1,0 +1,26 @@
+[workspace-utilities] ["/opt/homebrew/opt/python@3.11/bin/python3.11", "-B", "/Users/pruthvi/Documents/projects/abacus/scripts/unittest_child.py", "--spec", "{\"optimize\": false, \"pattern\": \"test*.py\", \"start_dir\": \"/Users/pruthvi/Documents/projects/abacus/scripts/tests\"}", "--result", "/var/folders/k_/bc89hkz16_d4b41bxt_97bqr0000gn/T/abacus-check-hbrpfd0a/unittest-result.json"]
+[workspace-utilities] failed
+Selected checks: failed (2 selected)
+.....................................F............................................................................................................................................................................................
+----------------------------------------------------------------------
+Ran 1 test in 0.000s
+
+OK
+.
+----------------------------------------------------------------------
+Ran 1 test in 0.000s
+
+OK
+.....
+======================================================================
+FAIL: test_actual_default_order_environment_and_complete_active_study_coverage (test_check_registry.ActualRegistryTests.test_actual_default_order_environment_and_complete_active_study_coverage)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/pruthvi/Documents/projects/abacus/scripts/tests/test_check_registry.py", line 603, in test_actual_default_order_environment_and_complete_active_study_coverage
+    self.assertEqual(len(registry_module.maintained_guides(registry)), 160)
+AssertionError: 162 != 160
+
+----------------------------------------------------------------------
+Ran 230 tests in 10.268s
+
+FAILED (failures=1)

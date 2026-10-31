@@ -1,0 +1,174 @@
+request:
+  id: es_contract_session_indicators__1.0.0
+  requesting_repository:
+    name: abacus
+    absolute_path: /Users/pruthvi/Documents/projects/abacus
+    contact_or_owner: Sahadeva study 30
+  requested_on: '2026-10-31'
+  purpose: |
+    Exact-contract ES minute bars and causal indicators for Verniman Pivot
+    Statistics — ES. Original absolute source levels require the quoted ES
+    delivery, not back-adjusted or silently substituted continuous prices.
+    This is a new immutable delivery; existing releases remain unchanged.
+  status: repository_only_feature_preparation
+  study: studies/30_verniman_pivot_statistics_es
+
+base_data:
+  dataset: es_contract_ohlcv_1m__1.0.0
+  variant: unadjusted_exact_contract
+  products: [ES]
+  date_range:
+    start: '2020-01-01'
+    end: '2026-10-31'
+    end_is_exclusive: true
+    meaning: New York trading-session dates, plus preceding warmup history
+  source_timeframe: 1m
+  requested_timeframes: [1m, 3m, 5m]
+  retained_input_candidates:
+    - catalog/datasets/volume_lead_unadjusted_v1.json
+    - catalog/datasets/same_contract_ema_cloud__1.1.0.json
+  source_selection: |
+    Use the pinned Phase 1 audit's contract requirements, including review-needed
+    single-price source candidates, to scope data collection. A data request is
+    not scientific eligibility. Reuse retained minute fragments only with exact
+    maturity/instrument/date mapping, verified bytes and complete minute roster.
+    Volume-leader selection alone never establishes Vern's quoted contract.
+    Use the complete retained same-contract history before the first requested
+    session, including preceding years and intervening sessions without pivots.
+    The audit retains five-session gap envelopes as diagnostic requirements,
+    not as authorized acquisition requests or proof of feature readiness.
+    Missing/ambiguous contracts and dates require source-only review; never
+    infer the contract from a pivot's apparent agreement with a price chart.
+
+acquisition:
+  policy: repository_only
+  external_requests_allowed: false
+  paid_order_authorized: false
+  cost_estimate_required: false
+  user_decision_on: '2026-10-31'
+  user_instruction: Use only data and pivot levels available in the repository; reuse prebuilt OHLC as much as possible.
+  retained_end_session: '2026-09-18'
+  missing_data: Retain missing or mismatched delivery dates as exclusions; do not acquire replacements.
+  reuse_policy: |
+    Reuse published exact-identity ES 3m OHLC and 5m EMA20/50 from
+    same_contract_ema_cloud 1.1.0. Preserve every reused scientific value.
+    Derive only missing EMA6, native minute HLC3 VWAP, as-of joins and context.
+    Consume retained continuous 1m only for VWAP, source identity/quality and
+    post-event path measurements. Published selected-contract history resets
+    at delivery switches and unknown gaps; unavailable earlier same-delivery
+    history cannot be invented. Require 250 preceding valid bars after resets.
+    Preserve nominal requested cutoff while reporting actual usable support.
+
+aggregation:
+  timezone: America/New_York
+  session_scope: full_globex
+  session_open: '18:00'
+  session_close: '17:00'
+  maintenance_window: '17:00-18:00'
+  anchor: fixed New York clock boundaries for 3m and 5m
+  timestamp_label: bar_open
+  interval_semantics: '[start,end)'
+  ohlcv_rules: {open: first, high: maximum, low: minimum, close: last, volume: sum}
+  missing_minutes: never_fill
+  partial_bars: retain_quality_slots_but_unusable
+  include_source_bar_count: true
+  calendar_policy: |
+    Preserve known maintenance/weekends and the historical ES 16:15-16:30
+    pause before 2021-06-28. Unknown holidays/shortened sessions are explicitly
+    calendar-uncertified, not inferred from missing prints. Retain quality records.
+  roll_handling:
+    adjusted_prices: false
+    usable_requires_one_contract: true
+    independent_contract_histories: true
+    stitch_deliveries: false
+
+features:
+  - name: globex_vwap_1m_hlc3
+    input_columns: [high, low, close, volume]
+    output_columns: [globex_vwap, cumulative_volume, vwap_valid, quality_reason]
+    formula: sum_since_anchor(((high+low+close)/3)*volume)/sum_since_anchor(volume)
+    calculation_scope:
+      state_scope: contract_and_globex_session
+      reset_at_session_open: true
+      anchor: '18:00 America/New_York'
+    warmup: {required_bars: 0, output_during_warmup: null}
+    null_handling:
+      missing_expected_minutes: withhold_validity_for_remaining_session
+      nonpositive_cumulative_volume: null
+      negative_or_missing_volume: invalid
+    causality: {causal: true, uses_future_data: false, centered_window: false}
+    output_type: float64
+  - name: ema6_3m
+    input_columns: [close]
+    output_columns: [ema6, feature_valid, consecutive_count, feature_reset_reason]
+    parameters: {length: 6, timeframe_minutes: 3}
+    formula: EMA=alpha*close+(1-alpha)*prior; alpha=2/7; first-close seed; no tick rounding
+    calculation_scope:
+      state_scope: exact_contract
+      reset_at_session_open: false
+      reset_at_year_boundary: false
+      reset_on_unknown_gap: true
+      scheduled_closures_preserve_state: true
+    warmup: {required_preceding_valid_bars: 250, output_during_warmup: retain_values_but_invalid}
+    null_handling: {input_nulls: reset, insufficient_history: feature_valid_false}
+    causality: {causal: true, uses_future_data: false, centered_window: false}
+    output_type: float64
+  - name: ema20_ema50_5m
+    input_columns: [close]
+    output_columns: [ema20, ema50, cloud_lower, cloud_upper, feature_valid, consecutive_count, feature_reset_reason]
+    parameters: {lengths: [20, 50], timeframe_minutes: 5}
+    formula: |
+      Each EMA=alpha*close+(1-alpha)*prior, alpha=2/(length+1),
+      first-close seed, no tick rounding. cloud_lower=min(ema20,ema50),
+      cloud_upper=max(ema20,ema50).
+    calculation_scope:
+      state_scope: exact_contract
+      reset_at_session_open: false
+      reset_at_year_boundary: false
+      reset_on_unknown_gap: true
+      scheduled_closures_preserve_state: true
+    warmup: {required_preceding_valid_bars: 250, output_during_warmup: retain_values_but_invalid}
+    null_handling: {input_nulls: reset, insufficient_history: feature_valid_false}
+    causality: {causal: true, uses_future_data: false, centered_window: false}
+    output_type: float64
+
+meta_columns:
+  requested: [available_at, session_date, contract, instrument_id, source_count, expected_count, quality_reason]
+  specifications: |
+    UTC timezone-aware timestamps with New York session identity. available_at
+    is modeled exclusive bar completion, not observed feed receipt. Each output
+    retains full maturity, instrument/mapping identities, source batch/manifest
+    hashes, readiness and calendar qualifications. No historical pivot delivery
+    timestamp is supplied by this feature dataset.
+research_labels:
+  requested: []
+  allow_forward_looking_columns: false
+  leakage_acknowledgement: Pivot crossings, episodes and future outcomes remain study-local, absent from this feature release.
+output:
+  feature_set_name: es_contract_session_indicators
+  feature_set_version: 1.0.0
+  format: parquet
+  compression: zstd
+  include_base_ohlcv_columns: true
+  include_lineage_columns: [timestamp, available_at, session_date, product, contract, instrument_id, raw_symbol, source_batch, source_manifest_sha256]
+  partition_by: [table]
+  sort_by: [contract, timestamp]
+  expected_consumer: {language: python, library: pyarrow}
+  overwrite_existing_version: false
+validation:
+  require_unique_contract_interval_timestamp: true
+  require_strict_timestamp_order: true
+  require_no_synthetic_market_bars: true
+  require_no_lookahead_in_features: true
+  require_deterministic_rebuild: true
+  additional_acceptance_criteria: |
+    Verify source bytes, mapping, outright status, complete minute rosters,
+    independent 3m/5m aggregation and EMA/VWAP recurrence, first eligible bar
+    after 250 preceding observations, DST/pause/holiday/gap handling, endpoint
+    coverage through October 30 and as-of joins. Verify matching retained-input
+    overlaps; do not claim parity for different contract histories or warmup
+    rules. Native chart equivalence remains unestablished until separately checked.
+delivery:
+  keep_inside_abacus_bhishma: true
+  copy_into_requesting_repository: false
+  return: [dataset_id, manifest_path, schema, checksums, row_counts, coverage, quality_report_path, loader_example, known_limitations]

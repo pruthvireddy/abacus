@@ -42,7 +42,7 @@ const catalog = JSON.parse(readFileSync(new URL('../content/studies.json', impor
 const render = (Component, props) => renderToStaticMarkup(React.createElement(Component, props));
 const escaped = text => renderToStaticMarkup(React.createElement(React.Fragment, null, text));
 const renderCard = study => render(StudyCard, { study, number: 1 });
-const localSlugs = ['trader-assistant-manual', 'es-opening-pivot-cloud'];
+const localSlugs = ['trader-assistant-manual', 'es-opening-pivot-cloud', 'verniman-pivot-statistics-es'];
 
 function overviewStudy() {
   const source = { publicationId: 'saved-primary', sourceRunId: 'frozen-run', sourceSha256: 'a'.repeat(64), sectionId: 'decision' };
@@ -64,7 +64,7 @@ function overviewStudy() {
   };
 }
 
-test('all 22 published studies have overview metadata and the two local selections retain explicit complete fallbacks', () => {
+test('22 authored overviews and three fallback selections retain complete study presentation', () => {
   assert.equal(catalog.studies.filter(study => study.overview).length, 22);
   assert.deepEqual(catalog.studies.filter(study => !study.overview).map(study => study.slug).sort(), [...localSlugs].sort());
   for (const slug of localSlugs) {
@@ -80,6 +80,29 @@ test('all 22 published studies have overview metadata and the two local selectio
     assert(render(StudyOverview, { study }).includes(escaped(study.summary)));
     assert(render(StudyMethods, { study }).includes(escaped(study.evidenceStatus)));
   }
+});
+
+test('Study 30 keeps ranked priority reports and all six baseline reports in their own source-run analyses', () => {
+  const study = catalog.studies.find(item => item.studyId === '30_verniman_pivot_statistics_es');
+  assert(study);
+  assert.equal(study.publicationTabs, undefined);
+  assert.deepEqual(study.analyses.map(analysis => analysis.label), ['Ranked statistics', 'Original baseline']);
+  assert.deepEqual(study.analyses[0].publicationTabs.map(tab => tab.label), ['Pivot statistics', 'Globex VWAP statistics']);
+  assert.equal(study.analyses[1].publicationTabs.length, 6);
+  assert(study.analyses[0].publicationTabs.every(tab => tab.sourceRunId === '20261031_ranked_v2'));
+  assert(study.analyses[1].publicationTabs.every(tab => tab.sourceRunId === '20261031_repo_v2'));
+  assert.equal(study.featuredPublicationId, study.analyses[0].publicationTabs[0].publicationId);
+  assert.equal(study.featuredSourceRunId, study.analyses[0].publicationTabs[0].sourceRunId);
+  for (const text of ['20 ranked descriptive measures', '875 pivot-matched RTH', '1,308 VWAP-only RTH', '1,292 full-Globex', 'January 3, 2020–September 18, 2026', 'January 1, 2020–October 30, 2026']) assert(study.summary.includes(text));
+  assert(study.evidenceStatus.includes('Historical pivot available_at remains null and unverified.'));
+  assert(study.evidenceStatus.includes('Original baseline reports retain their 20261031_repo_v2 attribution.'));
+  const html = render(StudyReportDirectory, { study });
+  for (const analysis of study.analyses) {
+    assert(html.includes(analysis.label));
+    for (const tab of analysis.publicationTabs) assert(html.includes(`href="/reports/${tab.publicationId}/"`));
+  }
+  assert.match(html, /8 selected publications/);
+  assert(!html.includes('role="tab"'));
 });
 
 test('cards and statistic panels preserve zero, null, saved qualifiers and exact source links', () => {
