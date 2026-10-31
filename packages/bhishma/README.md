@@ -259,7 +259,90 @@ bytes and exact entry selectors; do not attach current Atom content to archived
 HTML. Archive/index coverage does not establish original full-year completeness.
 Every earlier release, schema and producer remains unchanged.
 
+The [13.0.0 consolidated specification](../../requests/fulfilled/verniman_daily_levels__13.0.0.yaml)
+provides one cross-year snapshot through the October 28, 2026 retrieval review.
+`abacus_bhishma.verniman_consolidated` unions explicitly pinned historical
+tables with a separately reviewed update. It does not rerun legacy extraction.
+Year-partitioned Parquet tables, CSVs, original release memberships, original
+coverage observations and separate user-recollection tables follow the
+[data guide](../../data/README.md). Exact source-revision/capture overlap is
+deduplicated, with later extraction versions taking precedence and original
+IDs retained. Different revisions and duplicate dates remain. One explicitly
+qualified cross-release date conflict preserves both original assignments;
+unknown conflicts are refused. Existing publications and consumers stay pinned.
+
+Use `verniman_consolidated.load_release(root, manifest_path, manifest_sha256,
+table="levels", start_date="2026-10-21", end_date="2026-10-29")` with the
+explicit new manifest hash. The loader reads only manifest-listed partitions;
+start is inclusive and end exclusive. Unbounded reads retain undated records.
+Use `table="observations"` or `table="observation_levels"` for retrospective
+user notes; these never replace freshly captured source records or establish
+point-in-time availability. Every `available_at` remains null. Verification
+checks saved bytes and relational integrity, not research validity.
+Default loading verifies the immutable release's own files and retained
+provenance. `verify_release(..., verify_inputs=True)` separately rehashes the
+original pinned inputs, including source preparation paths; ordinary future
+source edits do not make the saved release unreadable.
+
+The [14.0.0 single-post specification](../../requests/fulfilled/verniman_daily_levels__14.0.0.yaml)
+adds October 30, 2026 from the explicitly supplied "AI worries" source. Publish
+with `--version 14.0.0` and a new input specification: `update` keeps the exact
+original October 28 update pin, while `additional_updates` lists the separately
+pinned new source additions in precedence order. Each update keeps its own
+source identity, observations and coverage evidence. This reuses saved historical
+extractions and preserves all prior master records; it does not rewrite 13.0.0.
+The pinned loader reads the release version from the selected manifest and
+restricts its artifact paths to that release. The publisher's default stays
+13.0.0 and refuses existing destinations. Every new version requires a new
+request, immutable output paths and an explicit preservation comparison.
+
+The [16.0.0 image annotation specification](../../requests/fulfilled/verniman_daily_levels__16.0.0.yaml)
+adds `user_supplied_image` evidence to the existing observation tables. Keep
+it distinct from recollections and canonical source plans. Image observations
+require retained image path/hash, literal chart date and displayed time; they
+never establish pre-open availability. Only explicitly printed annotation
+prices become neutral/reference observation levels. Preserve unpriced labels
+on the parent observation rather than estimating numbers from chart geometry.
+`image_observation_only` coverage records image evidence without filling the
+canonical blog-plan gap. Earlier pinned schemas and releases stay compatible.
+
+The [19.0.0 color-role specification](../../requests/fulfilled/verniman_daily_levels__19.0.0.yaml)
+applies the user's explicit legend to those five images: light blue is the
+pivot (`neutral/trigger`), green a bullish target, and red a bearish target.
+Each new image interpretation pins that legend and explicitly supersedes its
+same-image predecessor. The current observation tables select one interpretation
+per image; prior parent/level snapshots, original input documents and older
+releases preserve the earlier neutral references. Prices and labels stay exact,
+and unpriced annotations retain null values with their newly identified roles.
+The ordering counts unpriced target slots using nearest-pivot chart position;
+it does not assert an independently verified execution sequence. These remain
+image observations rather than captured blog outlooks.
+
+Focused synthetic checks run with the prepared locked environment:
+
+```sh
+UV_CACHE_DIR=.uv-cache ./scripts/uv run --locked --no-sync python -m unittest discover -s packages/bhishma/tests -p 'test_verniman_consolidated.py' -v
+```
+
+The publisher CLI requires an explicit pinned `--input-spec` and `--request`,
+uses the configured publication root or `--root`, and refuses existing output
+or staging paths. A delivery is a new immutable release; publication is not a
+verification or refresh command. Use `--help` to inspect its arguments.
+
 ## Consumer loaders and runtime prerequisites
+
+Study 30's repository-only ES delivery is
+[es_contract_session_indicators 1.0.0](../../requests/inbox/es_contract_session_indicators__1.0.0.yaml),
+implemented by `es_contract_session_indicators.py`. It reuses pinned three-minute
+OHLCV and five-minute EMA20/50, adds three-minute EMA6 and minute-HLC3 Globex
+VWAP, and retains selected-delivery identity and source/calendar qualifications.
+The [manifest](../../catalog/datasets/es_contract_session_indicators__1.0.0.json)
+and [quality report](../../reports/quality/es_contract_session_indicators__1.0.0.md)
+identify the new immutable delivery; no external data was acquired. Its pinned
+loader selects `bars1`, `bars3`, `bars5` or `quality` and never repairs bytes.
+Features require 250 preceding valid native bars. Contract mismatches and missing
+history remain unavailable; no historical pivot is translated into adjusted prices.
+Focused synthetic checks use `test_es_contract_session_indicators.py`.
 
 Consumer loaders take an explicit publication root and remain read-only. The GC,
 VWAP and continuous APIs support an optional hash-pinned manifest selection;

@@ -26,6 +26,15 @@ session-range/ATR expansion bins. Its [protocol](28_globex_ema_crossings/protoco
 preserves published input eligibility, continuous EMA history and explicit
 zero/undefined counts; this is descriptive crossing research without trade returns.
 
+[Study 30](30_verniman_pivot_statistics_es/README.md) measures **Verniman Pivot
+Statistics — ES** using repository-retained exact-contract OHLC, Globex VWAP,
+the five-minute EMA20/50 cloud and three-minute EMA6. Its selected descriptive
+ranked run covers 875 pivot-matched RTH, 1,308 VWAP-only RTH and 1,292 full-Globex
+sessions through September 18, 2026, with explicit source, calendar, contract and
+readiness exclusions. Two priority Narada views answer 20 ranked questions;
+six Original baseline views retain their separate run attribution. Negative and
+inconclusive outcomes remain visible; profitability and deployment are untested.
+
 [Study 22](22_es_range_xv_focused/README.md) contains focused ES Range XV trend-length and reversal research.
 Every future statistic must include yearly and seven named New York session-window
 breakdowns. Its first completed analysis measures directional candle-run lengths for all
@@ -73,7 +82,7 @@ comparisons do not rerun historical research or revalidate findings.
 
 The [workspace harness](../README.md#workspace-check-harness) exposes every active
 test directory through explicit `study-05` through `study-16`, `study-18` and
-`study-20` through `study-23`, `study-25`, `study-26` and `study-28` checks. From the root, use `./scripts/check-workspace --context study-12`
+`study-20` through `study-23`, `study-25`, `study-26`, `study-28` and `study-30` checks. From the root, use `./scripts/check-workspace --context study-12`
 for prerequisites/read-first paths and `--check study-12` to execute its suite.
 `--profile studies` selects those independent processes; it does not run study
 entry points, sealers or report generators. Studies 01/02 route to their legacy

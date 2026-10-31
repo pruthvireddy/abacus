@@ -1,0 +1,912 @@
+{
+  "dataset_id": "verniman_daily_levels__13.0.0",
+  "date_filter": "load_release start_date inclusive, end_date exclusive; undated records only returned without date bounds.",
+  "distinct_revisions": "Never deduplicate by session_date. Unknown date conflicts are refused; explicitly qualified historical conflicts retain both projections with contextual canonical IDs and original source_revision_id, without adjudication.",
+  "historical_semantics": "Selected saved extraction projections are copied without historical re-extraction or scientific reassessment.",
+  "identity_policy": "Same outlook_id or same source_post_id and exact retained HTML/Atom hashes; newest input version wins within a consistent date assignment; original IDs survive in release_membership.",
+  "tables": {
+    "coverage": [
+      {
+        "arrow_type": "date32[day]",
+        "name": "session_date",
+        "nullable": true
+      },
+      {
+        "arrow_type": "string",
+        "name": "status",
+        "nullable": true
+      },
+      {
+        "arrow_type": "string",
+        "name": "reason",
+        "nullable": true
+      },
+      {
+        "arrow_type": "int32",
+        "name": "post_count",
+        "nullable": true
+      },
+      {
+        "arrow_type": "int32",
+        "name": "level_count",
+        "nullable": true
+      },
+      {
+        "arrow_type": "int32",
+        "name": "issue_count",
+        "nullable": true
+      },
+      {
+        "arrow_type": "int32",
+        "name": "observation_count",
+        "nullable": true
+      },
+      {
+        "arrow_type": "int32",
+        "name": "source_coverage_count",
+        "nullable": true
+      },
+      {
+        "arrow_type": "int32",
+        "name": "complete_post_count",
+        "nullable": true
+      },
+      {
+        "arrow_type": "int32",
+        "name": "partial_post_count",
+        "nullable": true
+      },
+      {
+        "arrow_type": "int32",
+        "name": "failed_post_count",
+        "nullable": true
+      },
+      {
+        "arrow_type": "int32",
+        "name": "non_outlook_post_count",
+        "nullable": true
+      },
+      {
+        "arrow_type": "string",
+        "name": "post_urls_json",
+        "nullable": true
+      },
+      {
+        "arrow_type": "string",
+        "name": "outlook_ids_json",
+        "nullable": true
+      },
+      {
+        "arrow_type": "timestamp[us, tz=UTC]",
+        "name": "available_at",
+        "nullable": true
+      },
+      {
+        "arrow_type": "int64",
+        "name": "current_capture_http_status",
+        "nullable": true
+      },
+      {
+        "arrow_type": "string",
+        "name": "current_capture_record",
+        "nullable": true
+      },
+      {
+        "arrow_type": "string",
+        "name": "historical_availability_status",
+        "nullable": true
+      },
+      {
+        "arrow_type": "string",
+        "name": "observed_as_of_utc",
+        "nullable": true
+      },
+      {
+        "arrow_type": "string",
+        "name": "outlook_month_day",
+        "nullable": true
+      },
+      {
+        "arrow_type": "string",
+        "name": "source_url",
+        "nullable": true
+      }
+    ],
+    "issues": [
+      {
+        "arrow_type": "string",
+        "name": "issue_id",
+        "nullable": true
+      },
+      {
+        "arrow_type": "string",
+        "name": "outlook_id",
+        "nullable": true
+      },
+      {
+        "arrow_type": "date32[day]",
+        "name": "session_date",
+        "nullable": true
+      },
+      {
+        "arrow_type": "string",
+        "name": "code",
+        "nullable": true
+      },
+      {
+        "arrow_type": "string",
+        "name": "description",
+        "nullable": true
+      },
+      {
+        "arrow_type": "string",
+        "name": "primary_source_dataset",
+        "nullable": true
+      },
+      {
+        "arrow_type": "string",
+        "name": "severity",
+        "nullable": true
+      },
+      {
+        "arrow_type": "string",
+        "name": "scope",
+        "nullable": true
+      },
+      {
+        "arrow_type": "string",
+        "name": "source_url",
+        "nullable": true
+      },
+      {
+        "arrow_type": "string",
+        "name": "side",
+        "nullable": true
+      },
+      {
+        "arrow_type": "string",
+        "name": "source_text",
+        "nullable": true
+      },
+      {
+        "arrow_type": "string",
+        "name": "observed_as_of_utc",
+        "nullable": true
+      }
+    ],
+    "levels": [
+      {
+        "arrow_type": "string",
+        "name": "outlook_id",
+        "nullable": true
+      },
+      {
+        "arrow_type": "date32[day]",
+        "name": "session_date",
+        "nullable": true
+      },
+      {
+        "arrow_type": "string",
+        "name": "side",
+        "nullable": true
+      },
+      {
+        "arrow_type": "string",
+        "name": "role",
+        "nullable": true
+      },
+      {
+        "arrow_type": "int32",
+        "name": "ordinal",
+        "nullable": true
+      },
+      {
+        "arrow_type": "string",
+        "name": "source_label",
+        "nullable": true
+      },
+      {
+        "arrow_type": "decimal128(12, 2)",
+        "name": "price_low",
+        "nullable": true
+      },
+      {
+        "arrow_type": "decimal128(12, 2)",
+        "name": "price_high",
+        "nullable": true
+      },
+      {
+        "arrow_type": "timestamp[us, tz=UTC]",
+        "name": "available_at",
+        "nullable": true
+      },
+      {
+        "arrow_type": "string",
+        "name": "timing_status",
+        "nullable": true
+      },
+      {
+        "arrow_type": "string",
+        "name": "primary_source_dataset",
+        "nullable": true
+      },
+      {
+        "arrow_type": "string",
+        "name": "evidence_basis",
+        "nullable": true
+      },
+      {
+        "arrow_type": "string",
+        "name": "product",
+        "nullable": true
+      },
+      {
+        "arrow_type": "string",
+        "name": "contract",
+        "nullable": true
+      },
+      {
+        "arrow_type": "string",
+        "name": "source_text",
+        "nullable": true
+      },
+      {
+        "arrow_type": "string",
+        "name": "conditions",
+        "nullable": true
+      },
+      {
+        "arrow_type": "string",
+        "name": "scenario_text",
+        "nullable": true
+      },
+      {
+        "arrow_type": "string",
+        "name": "notation",
+        "nullable": true
+      },
+      {
+        "arrow_type": "string",
+        "name": "source_plan_branch",
+        "nullable": true
+      },
+      {
+        "arrow_type": "string",
+        "name": "trigger_interpretation",
+        "nullable": true
+      }
+    ],
+    "observation_levels": [
+      {
+        "arrow_type": "string",
+        "name": "observation_id",
+        "nullable": true
+      },
+      {
+        "arrow_type": "date32[day]",
+        "name": "session_date",
+        "nullable": true
+      },
+      {
+        "arrow_type": "string",
+        "name": "id",
+        "nullable": true
+      },
+      {
+        "arrow_type": "string",
+        "name": "side",
+        "nullable": true
+      },
+      {
+        "arrow_type": "string",
+        "name": "role",
+        "nullable": true
+      },
+      {
+        "arrow_type": "int32",
+        "name": "ordinal",
+        "nullable": true
+      },
+      {
+        "arrow_type": "string",
+        "name": "label",
+        "nullable": true
+      },
+      {
+        "arrow_type": "decimal128(12, 2)",
+        "name": "price_low",
+        "nullable": true
+      },
+      {
+        "arrow_type": "decimal128(12, 2)",
+        "name": "price_high",
+        "nullable": true
+      },
+      {
+        "arrow_type": "string",
+        "name": "notes",
+        "nullable": true
+      },
+      {
+        "arrow_type": "string",
+        "name": "evidence_basis",
+        "nullable": true
+      },
+      {
+        "arrow_type": "timestamp[us, tz=UTC]",
+        "name": "available_at",
+        "nullable": true
+      },
+      {
+        "arrow_type": "string",
+        "name": "contract",
+        "nullable": true
+      },
+      {
+        "arrow_type": "string",
+        "name": "label_text",
+        "nullable": true
+      },
+      {
+        "arrow_type": "string",
+        "name": "product",
+        "nullable": true
+      },
+      {
+        "arrow_type": "string",
+        "name": "source_label",
+        "nullable": true
+      },
+      {
+        "arrow_type": "string",
+        "name": "source_text",
+        "nullable": true
+      },
+      {
+        "arrow_type": "string",
+        "name": "timing_status",
+        "nullable": true
+      }
+    ],
+    "observations": [
+      {
+        "arrow_type": "string",
+        "name": "observation_id",
+        "nullable": true
+      },
+      {
+        "arrow_type": "date32[day]",
+        "name": "session_date",
+        "nullable": true
+      },
+      {
+        "arrow_type": "string",
+        "name": "title",
+        "nullable": true
+      },
+      {
+        "arrow_type": "string",
+        "name": "source_url",
+        "nullable": true
+      },
+      {
+        "arrow_type": "string",
+        "name": "contract",
+        "nullable": true
+      },
+      {
+        "arrow_type": "string",
+        "name": "evidence_basis",
+        "nullable": true
+      },
+      {
+        "arrow_type": "timestamp[us, tz=UTC]",
+        "name": "recorded_at",
+        "nullable": true
+      },
+      {
+        "arrow_type": "string",
+        "name": "claimed_read_time_text",
+        "nullable": true
+      },
+      {
+        "arrow_type": "string",
+        "name": "claim_timing_class",
+        "nullable": true
+      },
+      {
+        "arrow_type": "string",
+        "name": "notes",
+        "nullable": true
+      },
+      {
+        "arrow_type": "string",
+        "name": "raw_evidence_path",
+        "nullable": true
+      },
+      {
+        "arrow_type": "timestamp[us, tz=UTC]",
+        "name": "available_at",
+        "nullable": true
+      },
+      {
+        "arrow_type": "string",
+        "name": "claim_timezone",
+        "nullable": true
+      },
+      {
+        "arrow_type": "string",
+        "name": "claimed_verified_at",
+        "nullable": true
+      },
+      {
+        "arrow_type": "string",
+        "name": "comparison_notes_json",
+        "nullable": true
+      },
+      {
+        "arrow_type": "string",
+        "name": "observation_kind",
+        "nullable": true
+      },
+      {
+        "arrow_type": "string",
+        "name": "product",
+        "nullable": true
+      },
+      {
+        "arrow_type": "string",
+        "name": "qualification",
+        "nullable": true
+      },
+      {
+        "arrow_type": "string",
+        "name": "timing_status",
+        "nullable": true
+      }
+    ],
+    "outlooks": [
+      {
+        "arrow_type": "string",
+        "name": "outlook_id",
+        "nullable": true
+      },
+      {
+        "arrow_type": "string",
+        "name": "source_revision_id",
+        "nullable": true
+      },
+      {
+        "arrow_type": "date32[day]",
+        "name": "session_date",
+        "nullable": true
+      },
+      {
+        "arrow_type": "string",
+        "name": "source_post_id",
+        "nullable": true
+      },
+      {
+        "arrow_type": "string",
+        "name": "source_url",
+        "nullable": true
+      },
+      {
+        "arrow_type": "string",
+        "name": "title",
+        "nullable": true
+      },
+      {
+        "arrow_type": "string",
+        "name": "content_sha256",
+        "nullable": true
+      },
+      {
+        "arrow_type": "string",
+        "name": "contract",
+        "nullable": true
+      },
+      {
+        "arrow_type": "timestamp[us, tz=UTC]",
+        "name": "available_at",
+        "nullable": true
+      },
+      {
+        "arrow_type": "string",
+        "name": "timing_status",
+        "nullable": true
+      },
+      {
+        "arrow_type": "string",
+        "name": "primary_source_dataset",
+        "nullable": true
+      },
+      {
+        "arrow_type": "string",
+        "name": "evidence_basis",
+        "nullable": true
+      },
+      {
+        "arrow_type": "string",
+        "name": "product",
+        "nullable": true
+      },
+      {
+        "arrow_type": "string",
+        "name": "session_date_method",
+        "nullable": true
+      },
+      {
+        "arrow_type": "string",
+        "name": "session_date_source_text",
+        "nullable": true
+      },
+      {
+        "arrow_type": "string",
+        "name": "plan_text",
+        "nullable": true
+      },
+      {
+        "arrow_type": "string",
+        "name": "raw_html_path",
+        "nullable": true
+      },
+      {
+        "arrow_type": "string",
+        "name": "raw_html_sha256",
+        "nullable": true
+      },
+      {
+        "arrow_type": "string",
+        "name": "raw_atom_path",
+        "nullable": true
+      },
+      {
+        "arrow_type": "string",
+        "name": "raw_atom_sha256",
+        "nullable": true
+      },
+      {
+        "arrow_type": "string",
+        "name": "extraction_version",
+        "nullable": true
+      },
+      {
+        "arrow_type": "string",
+        "name": "review_status",
+        "nullable": true
+      },
+      {
+        "arrow_type": "timestamp[us, tz=UTC]",
+        "name": "captured_at",
+        "nullable": true
+      },
+      {
+        "arrow_type": "timestamp[us, tz=UTC]",
+        "name": "raw_html_captured_at",
+        "nullable": true
+      },
+      {
+        "arrow_type": "timestamp[us, tz=UTC]",
+        "name": "raw_atom_captured_at",
+        "nullable": true
+      },
+      {
+        "arrow_type": "string",
+        "name": "source_claimed_published",
+        "nullable": true
+      },
+      {
+        "arrow_type": "timestamp[us, tz=UTC]",
+        "name": "source_claimed_published_at",
+        "nullable": true
+      },
+      {
+        "arrow_type": "string",
+        "name": "source_claimed_published_eastern",
+        "nullable": true
+      },
+      {
+        "arrow_type": "string",
+        "name": "source_claimed_updated",
+        "nullable": true
+      },
+      {
+        "arrow_type": "timestamp[us, tz=UTC]",
+        "name": "source_claimed_updated_at",
+        "nullable": true
+      },
+      {
+        "arrow_type": "string",
+        "name": "source_claimed_updated_eastern",
+        "nullable": true
+      },
+      {
+        "arrow_type": "string",
+        "name": "extraction_status",
+        "nullable": true
+      },
+      {
+        "arrow_type": "string",
+        "name": "content_kind",
+        "nullable": true
+      },
+      {
+        "arrow_type": "string",
+        "name": "source_agreement_status",
+        "nullable": true
+      },
+      {
+        "arrow_type": "string",
+        "name": "source_year_status",
+        "nullable": true
+      },
+      {
+        "arrow_type": "string",
+        "name": "crawl_date_warnings_json",
+        "nullable": true
+      },
+      {
+        "arrow_type": "string",
+        "name": "ledger_id",
+        "nullable": true
+      },
+      {
+        "arrow_type": "string",
+        "name": "body_text",
+        "nullable": true
+      },
+      {
+        "arrow_type": "string",
+        "name": "bullish_scenario_text",
+        "nullable": true
+      },
+      {
+        "arrow_type": "string",
+        "name": "bearish_scenario_text",
+        "nullable": true
+      },
+      {
+        "arrow_type": "string",
+        "name": "bullish_conditions",
+        "nullable": true
+      },
+      {
+        "arrow_type": "string",
+        "name": "bearish_conditions",
+        "nullable": true
+      },
+      {
+        "arrow_type": "int16",
+        "name": "body_contract_year",
+        "nullable": true
+      },
+      {
+        "arrow_type": "int16",
+        "name": "parsed_branch_count",
+        "nullable": true
+      },
+      {
+        "arrow_type": "int32",
+        "name": "level_count",
+        "nullable": true
+      },
+      {
+        "arrow_type": "int32",
+        "name": "issue_count",
+        "nullable": true
+      },
+      {
+        "arrow_type": "string",
+        "name": "source_plan_a_text",
+        "nullable": true
+      },
+      {
+        "arrow_type": "string",
+        "name": "source_plan_b_text",
+        "nullable": true
+      },
+      {
+        "arrow_type": "string",
+        "name": "bullish_source_plan_branch",
+        "nullable": true
+      },
+      {
+        "arrow_type": "string",
+        "name": "bearish_source_plan_branch",
+        "nullable": true
+      },
+      {
+        "arrow_type": "string",
+        "name": "source_plan_c_text",
+        "nullable": true
+      },
+      {
+        "arrow_type": "string",
+        "name": "source_plan_structure",
+        "nullable": true
+      },
+      {
+        "arrow_type": "string",
+        "name": "source_unlettered_plan_text",
+        "nullable": true
+      },
+      {
+        "arrow_type": "string",
+        "name": "bullish_extraction_status",
+        "nullable": true
+      },
+      {
+        "arrow_type": "string",
+        "name": "bearish_extraction_status",
+        "nullable": true
+      },
+      {
+        "arrow_type": "string",
+        "name": "archive_url",
+        "nullable": true
+      },
+      {
+        "arrow_type": "string",
+        "name": "archive_source_url",
+        "nullable": true
+      },
+      {
+        "arrow_type": "string",
+        "name": "source_format",
+        "nullable": true
+      },
+      {
+        "arrow_type": "string",
+        "name": "source_entry_selector",
+        "nullable": true
+      },
+      {
+        "arrow_type": "timestamp[us, tz=UTC]",
+        "name": "archive_observed_at",
+        "nullable": true
+      }
+    ],
+    "release_membership": [
+      {
+        "arrow_type": "string",
+        "name": "source_dataset_id",
+        "nullable": true
+      },
+      {
+        "arrow_type": "string",
+        "name": "source_outlook_id",
+        "nullable": true
+      },
+      {
+        "arrow_type": "string",
+        "name": "outlook_id",
+        "nullable": true
+      },
+      {
+        "arrow_type": "date32[day]",
+        "name": "session_date",
+        "nullable": true
+      },
+      {
+        "arrow_type": "int32",
+        "name": "source_level_count",
+        "nullable": true
+      },
+      {
+        "arrow_type": "bool",
+        "name": "selected_primary",
+        "nullable": true
+      }
+    ],
+    "source_coverage": [
+      {
+        "arrow_type": "string",
+        "name": "source_dataset_id",
+        "nullable": true
+      },
+      {
+        "arrow_type": "date32[day]",
+        "name": "session_date",
+        "nullable": true
+      },
+      {
+        "arrow_type": "string",
+        "name": "status",
+        "nullable": true
+      },
+      {
+        "arrow_type": "string",
+        "name": "reason",
+        "nullable": true
+      },
+      {
+        "arrow_type": "int32",
+        "name": "post_count",
+        "nullable": true
+      },
+      {
+        "arrow_type": "int32",
+        "name": "complete_post_count",
+        "nullable": true
+      },
+      {
+        "arrow_type": "int32",
+        "name": "partial_post_count",
+        "nullable": true
+      },
+      {
+        "arrow_type": "int32",
+        "name": "failed_post_count",
+        "nullable": true
+      },
+      {
+        "arrow_type": "int32",
+        "name": "non_outlook_post_count",
+        "nullable": true
+      },
+      {
+        "arrow_type": "int32",
+        "name": "level_count",
+        "nullable": true
+      },
+      {
+        "arrow_type": "int32",
+        "name": "issue_count",
+        "nullable": true
+      },
+      {
+        "arrow_type": "string",
+        "name": "post_urls_json",
+        "nullable": true
+      },
+      {
+        "arrow_type": "string",
+        "name": "outlook_ids_json",
+        "nullable": true
+      },
+      {
+        "arrow_type": "string",
+        "name": "ledger_json",
+        "nullable": true
+      },
+      {
+        "arrow_type": "timestamp[us, tz=UTC]",
+        "name": "available_at",
+        "nullable": true
+      },
+      {
+        "arrow_type": "int64",
+        "name": "current_capture_http_status",
+        "nullable": true
+      },
+      {
+        "arrow_type": "string",
+        "name": "current_capture_record",
+        "nullable": true
+      },
+      {
+        "arrow_type": "string",
+        "name": "historical_availability_status",
+        "nullable": true
+      },
+      {
+        "arrow_type": "string",
+        "name": "observed_as_of_utc",
+        "nullable": true
+      },
+      {
+        "arrow_type": "string",
+        "name": "outlook_month_day",
+        "nullable": true
+      },
+      {
+        "arrow_type": "string",
+        "name": "source_url",
+        "nullable": true
+      }
+    ]
+  },
+  "timing": "All available_at null. Retrospective user read times are claims in observations, not verified historical availability.",
+  "version": "13.0.0"
+}

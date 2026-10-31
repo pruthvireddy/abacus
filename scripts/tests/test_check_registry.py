@@ -488,12 +488,25 @@ class ActualRegistryTests(unittest.TestCase):
                          ["agent-docs", "bhishma", "sahadeva", "legacy-01", "legacy-02", "vwap-doctor"])
         for record, study in ((default[3], "01_reversal_follow_through"), (default[4], "02_followthrough_candle_adverse")):
             self.assertEqual(record["env"], {"PYTHONPATH": "{root}/legacy/sahadeva/analysis/" + study + "/src"})
-        self.assertEqual(len(registry_module.select_checks(registry, profiles=["studies"])), 20)
-        self.assertEqual(sum(owner["kind"] == "study" for owner in registry["owners"].values()), 28)
-        self.assertEqual(len(registry_module.maintained_guides(registry)), 96)
+        self.assertEqual(len(registry_module.select_checks(registry, profiles=["studies"])), 21)
+        self.assertEqual(sum(owner["kind"] == "study" for owner in registry["owners"].values()), 29)
+        self.assertEqual(len(registry_module.maintained_guides(registry)), 105)
         self.assertIn("docs/evidence-contract.md", registry_module.maintained_guides(registry))
         self.assertEqual(registry_module.coverage_errors(REPOSITORY, registry), [])
         self.assertEqual(registry_module.owner_for_context(registry, "18_fibonacci_memory")["id"], "study-18")
+
+    def test_study30_inventory_context_and_synthetic_gate_preserve_default(self):
+        registry = registry_module.load_registry(REPOSITORY)
+        owner = registry_module.owner_for_context(registry, "30_verniman_pivot_statistics_es")
+        self.assertEqual(owner["id"], "study-30")
+        self.assertIn("studies/30_verniman_pivot_statistics_es/protocol-1.0.0.md", owner["read_first"])
+        self.assertIn("requests/inbox/es_contract_session_indicators__1.0.0.yaml", owner["entry_points"])
+        check, = registry_module.select_checks(registry, checks=["study-30"], use_default=False)
+        self.assertEqual(check["unittest"]["start_dir"], "studies/30_verniman_pivot_statistics_es/tests")
+        self.assertEqual(check["runtime"], "locked-python")
+        self.assertIn("study-30", [row["id"] for row in registry_module.select_checks(registry, profiles=["studies"])])
+        self.assertNotIn("study-30", [row["id"] for row in registry_module.select_checks(registry)])
+        self.assertIn("No retained market-data reads", " ".join(check["scope"]))
 
     def test_study25_import_and_per_future_context_preserves_research_and_default_gate(self):
         registry = registry_module.load_registry(REPOSITORY)

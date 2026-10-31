@@ -1,0 +1,70 @@
+request:
+  id: verniman_daily_levels__16.0.0
+  requester: workspace user
+  requested_on: '2026-10-30'
+  purpose: >-
+    Extract readable level annotations from three supplied chart images for
+    October 21, 22 and 23 and retain them with the existing Verniman records.
+inputs:
+  predecessor: catalog/datasets/verniman_daily_levels__15.0.0.json
+  prior_inputs: retain every exact predecessor historical and reviewed-update pin
+  source: three user-supplied PNG chart screenshots
+  source_dates: ['2026-10-21', '2026-10-22', '2026-10-23']
+  source_product_text: /ES Today 3m
+  contract: null
+  image_clock: each chart header displays 9:33 AM; timezone unknown
+output:
+  dataset: verniman_daily_levels
+  version: 16.0.0
+  destination: data/curated/external_levels/source=verniman/version=16.0.0/
+  organization: existing manifest-listed Parquet and CSV tables
+  new_observations: 3
+  new_observation_levels: 9
+  new_canonical_outlooks: 0
+  new_canonical_levels: 0
+  manifest: catalog/datasets/verniman_daily_levels__16.0.0.json
+  schema: catalog/schemas/verniman_daily_levels__16.0.0.json
+  quality_report: reports/quality/verniman_daily_levels__16.0.0.md
+  calendar: {start: '2016-01-01', end: '2026-10-30', inclusive: true}
+extraction:
+  evidence_basis: user_supplied_image
+  numeric_policy: >-
+    Store only prices explicitly printed inside a level annotation, with exact
+    labels and source text. Axis ticks, live quotes, OHLC header prices, tape
+    prices, unlabeled markers and inferred line positions are excluded.
+  unpriced_policy: >-
+    Retain twelve readable annotations without printed prices in the corresponding
+    image observations, four per image. Do not estimate exact prices from pixels
+    or borrow prices from earlier recollections.
+  roles: >-
+    Image-only numeric rows use neutral/reference. Colors and position do not
+    establish an A/B plan, a pivot instruction or target order. Vertical display
+    order is retained separately from strategy target order.
+  comparison: >-
+    Retain corroboration with prior recollections separately. October 21 HVE
+    7782 and October 22 HVE 7730 corroborate the old pivot price/label claims;
+    their pivot roles are not independently established by these images.
+    October 22 at 7800 reads YPOC-ONH-GAP, not the earlier recollection's VPOC
+    wording. No October 23 pivot is inferred from HVE 7730.
+timing:
+  available_at: null
+  status: historical_availability_unverified
+  date_basis: explicit chart header D:M/D/26, independently visually checked
+  clock_basis: displayed selected-bar time, not verified image capture or publication time
+  timezone: null
+preservation:
+  releases: all versions 1.0.0 through 15.0.0 remain byte-identical
+  canonical: every existing captured-source outlook and level remains unchanged
+  observations: old recollections remain unchanged alongside new image observations
+  coverage: image_observation_only for these three dates; blog-plan gaps remain explicit
+validation:
+  source: independent visual review, retained image hashes and exact annotation comparison
+  synthetic: image evidence separation, parent matching, coverage and old-loader compatibility
+  release: input/output hashes, schemas, relational integrity and selected-row loader checks
+  preservation: prior artifact inventory and all predecessor row comparisons
+  repository: default workspace gate; documentation, metadata and navigation checks
+  scope: no chart price estimation, numerical research, backtest or strategy-validity claim
+retention:
+  raw: immutable copied PNGs, original attachment filenames, hashes and user request
+  staging: reviewed transcription, comparison notes and preparation commands
+  release: new immutable snapshot with pinned source, preparation and environment bytes

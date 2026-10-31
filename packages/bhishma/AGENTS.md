@@ -52,6 +52,15 @@ Start with the workspace [agent map](../../AGENTS.md), the current
 
 ## Verify
 
+Study 30's repository-only ES indicators use
+`es_contract_session_indicators.py` and `test_es_contract_session_indicators.py`,
+specified by the [request](../../requests/inbox/es_contract_session_indicators__1.0.0.yaml).
+Preserve reused native OHLC/EMA bytes, exact selected-contract identities and
+all existing releases. New EMA6/VWAP and stricter 250-preceding-bar readiness
+have their own immutable delivery; no data acquisition or source-price
+translation is authorized by that request. Pivot/event/outcome logic stays
+with Sahadeva.
+
 Study 21's reusable fixed-clock 3m/5m same-contract delivery is owned by
 [ema_cloud.py](src/abacus_bhishma/ema_cloud.py) and its
 [release builder](src/abacus_bhishma/ema_cloud_release.py), specified by the
@@ -74,6 +83,33 @@ study-period boundaries. Agreed fulfilled specifications belong in
 `requests/fulfilled/`. The new focused fixtures are `test_ema_cloud_v2.py`.
 
 Run commands from the workspace root:
+
+Verniman's consolidated 13.0.0 delivery uses `verniman_consolidated.py` and
+`test_verniman_consolidated.py`. Follow the explicit input/request pins and
+reconciliation policies in the [package README](README.md#external-daily-outlook-levels).
+Keep all earlier releases frozen, user recollections separate, ambiguous
+historical date projections qualified and every `available_at` null.
+
+The same producer supports explicit newer versions and separately pinned
+`additional_updates`; the default remains 13.0.0. The
+[14.0.0 request](../../requests/fulfilled/verniman_daily_levels__14.0.0.yaml)
+adds only the supplied October 30 outlook. Retain original update identities,
+prior canonical rows, observations and source coverage, and compare predecessor
+rows plus existing release hashes before delivering a new master snapshot.
+
+The [16.0.0 image request](../../requests/fulfilled/verniman_daily_levels__16.0.0.yaml)
+uses distinct `user_supplied_image` observations with pinned raw images.
+Without an explicit user legend, keep printed annotation prices as neutral
+references and retain unpriced labels without estimating values from chart positions. Image evidence
+does not fill a canonical daily-plan gap or establish a delivery contract,
+timezone, pivot instruction or target ordering absent from the source.
+
+The [19.0.0 color-role request](../../requests/fulfilled/verniman_daily_levels__19.0.0.yaml)
+records the user's explicit light-blue pivot, green bullish-target and red
+bearish-target convention for the five supplied images. Use a pinned legend
+and same-image interpretation supersession; preserve prior interpretations,
+prices, labels and every older release. Keep unprinted prices null and image
+roles separate from canonical captured blog plans.
 
 ```sh
 ./scripts/check-workspace --profile bhishma-loaders

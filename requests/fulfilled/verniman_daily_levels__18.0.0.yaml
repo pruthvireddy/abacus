@@ -1,0 +1,55 @@
+request:
+  id: verniman_daily_levels__18.0.0
+  requester: workspace user
+  requested_on: '2026-10-30'
+  purpose: retain the supplied October 6 chart and its explicitly printed level annotations
+inputs:
+  predecessor: catalog/datasets/verniman_daily_levels__17.0.0.json
+  prior_inputs: preserve exact predecessor historical and reviewed-update pins
+  source: one user-supplied PNG with explicit D:10/6/26 chart header
+  product_text: /ES Today 3m
+  contract: null
+  displayed_time: 9:30 AM, chart bar time with timezone unknown
+output:
+  dataset: verniman_daily_levels
+  version: 18.0.0
+  destination: data/curated/external_levels/source=verniman/version=18.0.0/
+  new_observations: 1
+  new_observation_levels: 6
+  new_canonical_outlooks: 0
+  new_canonical_levels: 0
+  manifest: catalog/datasets/verniman_daily_levels__18.0.0.json
+  schema: catalog/schemas/verniman_daily_levels__18.0.0.json
+  quality_report: reports/quality/verniman_daily_levels__18.0.0.md
+  calendar: {start: '2016-01-01', end: '2026-10-30', inclusive: true}
+extraction:
+  evidence_basis: user_supplied_image
+  explicit_annotations:
+    - {label: PBT, price: 7915, source_text: PBT 7915 magnet (HOD exp)}
+    - {label: PBT, price: 7902, source_text: PBT 7902 magnet}
+    - {label: PBT, price: 7890, source_text: PBT 7890 magnet}
+    - {label: PBT, price: 7878, source_text: PBT 7878 magnet}
+    - {label: YPOC-GAP, price: 7830, source_text: YPOC-GAP 7830 magnet}
+    - {label: YVAL, price: 7800, source_text: YVAL 7800 magnet}
+  unpriced_labels: [YHOD]
+  roles: neutral/reference; retain visual order without inferring a trading plan
+  exclusions: axis interpolation, unlabeled marker/live quote/OHLC/tape values and inferred pivot price
+timing:
+  available_at: null
+  status: historical_availability_unverified
+  timezone: null
+  qualification: displayed bar date/time is not verified image capture or publication time
+preservation:
+  releases: versions 1.0.0 through 17.0.0 remain byte-identical
+  records: every prior canonical, recollection and image record stays unchanged
+  coverage: October 6 becomes image_observation_only; canonical blog plan remains absent
+validation:
+  source: independent literal visual transcription and raw PNG hash
+  release: pinned input/output hashes, existing image contracts and selected-row loading
+  preservation: prior artifact hashes and predecessor row comparisons
+  navigation: documentation, metadata and research-index checks
+  scope: no package behavior changes, numerical research or backtest
+retention:
+  raw: immutable copied PNG, original filename, user statement and source manifest
+  staging: independent source review and a new preparation script
+  release: unique immutable master snapshot using the established image observation contract

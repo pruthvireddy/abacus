@@ -1,0 +1,569 @@
+{
+  "dataset_id": "es_contract_session_indicators__1.0.0",
+  "tables": {
+    "bars1": [
+      {
+        "name": "timestamp",
+        "type": "timestamp[ns, tz=UTC]"
+      },
+      {
+        "name": "session_date",
+        "type": "string"
+      },
+      {
+        "name": "instrument_id",
+        "type": "uint32"
+      },
+      {
+        "name": "raw_symbol",
+        "type": "string"
+      },
+      {
+        "name": "roll_id",
+        "type": "int16"
+      },
+      {
+        "name": "open",
+        "type": "double"
+      },
+      {
+        "name": "high",
+        "type": "double"
+      },
+      {
+        "name": "low",
+        "type": "double"
+      },
+      {
+        "name": "close",
+        "type": "double"
+      },
+      {
+        "name": "volume",
+        "type": "uint64"
+      },
+      {
+        "name": "source_batch",
+        "type": "string"
+      },
+      {
+        "name": "contract",
+        "type": "string"
+      },
+      {
+        "name": "tick_valid",
+        "type": "bool"
+      },
+      {
+        "name": "available_at",
+        "type": "timestamp[ns, tz=UTC]"
+      },
+      {
+        "name": "open_time",
+        "type": "timestamp[ns, tz=UTC]"
+      },
+      {
+        "name": "close_time",
+        "type": "timestamp[ns, tz=UTC]"
+      },
+      {
+        "name": "calendar_valid",
+        "type": "bool"
+      },
+      {
+        "name": "usable",
+        "type": "bool"
+      },
+      {
+        "name": "anchor_prefix_complete",
+        "type": "bool"
+      },
+      {
+        "name": "cumulative_volume",
+        "type": "uint64"
+      },
+      {
+        "name": "vwap_valid",
+        "type": "bool"
+      },
+      {
+        "name": "globex_vwap",
+        "type": "double"
+      },
+      {
+        "name": "vwap",
+        "type": "double"
+      },
+      {
+        "name": "vwap_segment",
+        "type": "int64"
+      },
+      {
+        "name": "globex_vwap_slope_15m",
+        "type": "double"
+      },
+      {
+        "name": "vwap_slope_15m",
+        "type": "double"
+      }
+    ],
+    "bars3": [
+      {
+        "name": "timestamp",
+        "type": "timestamp[ns, tz=UTC]"
+      },
+      {
+        "name": "expected_count",
+        "type": "int64"
+      },
+      {
+        "name": "session",
+        "type": "string"
+      },
+      {
+        "name": "calendar_event",
+        "type": "string"
+      },
+      {
+        "name": "calendar_valid",
+        "type": "bool"
+      },
+      {
+        "name": "open",
+        "type": "double"
+      },
+      {
+        "name": "high",
+        "type": "double"
+      },
+      {
+        "name": "low",
+        "type": "double"
+      },
+      {
+        "name": "close",
+        "type": "double"
+      },
+      {
+        "name": "volume",
+        "type": "double"
+      },
+      {
+        "name": "source_count",
+        "type": "int64"
+      },
+      {
+        "name": "distinct_count",
+        "type": "int64"
+      },
+      {
+        "name": "contract",
+        "type": "string"
+      },
+      {
+        "name": "contract_count",
+        "type": "int64"
+      },
+      {
+        "name": "raw_symbol",
+        "type": "string"
+      },
+      {
+        "name": "roll_id",
+        "type": "double"
+      },
+      {
+        "name": "source_batch",
+        "type": "string"
+      },
+      {
+        "name": "contains_roll",
+        "type": "bool"
+      },
+      {
+        "name": "bad_source",
+        "type": "bool"
+      },
+      {
+        "name": "duplicate_source",
+        "type": "bool"
+      },
+      {
+        "name": "missing_offsets",
+        "type": "string"
+      },
+      {
+        "name": "quality_reason",
+        "type": "string"
+      },
+      {
+        "name": "usable",
+        "type": "bool"
+      },
+      {
+        "name": "available_at",
+        "type": "timestamp[ns, tz=UTC]"
+      },
+      {
+        "name": "product",
+        "type": "string"
+      },
+      {
+        "name": "interval_minutes",
+        "type": "int64"
+      },
+      {
+        "name": "ny_offset_minutes",
+        "type": "int64"
+      },
+      {
+        "name": "known_closure_before",
+        "type": "bool"
+      },
+      {
+        "name": "lineage",
+        "type": "string"
+      },
+      {
+        "name": "feature_valid",
+        "type": "bool"
+      },
+      {
+        "name": "contract_identity",
+        "type": "string"
+      },
+      {
+        "name": "session_date",
+        "type": "string"
+      },
+      {
+        "name": "open_time",
+        "type": "timestamp[ns, tz=UTC]"
+      },
+      {
+        "name": "close_time",
+        "type": "timestamp[ns, tz=UTC]"
+      },
+      {
+        "name": "ema6",
+        "type": "double"
+      },
+      {
+        "name": "ema6_consecutive_count",
+        "type": "int32"
+      },
+      {
+        "name": "ema6_ready",
+        "type": "bool"
+      },
+      {
+        "name": "ema6_reset",
+        "type": "bool"
+      },
+      {
+        "name": "ema6_reset_reason",
+        "type": "string"
+      },
+      {
+        "name": "ema6_segment",
+        "type": "int64"
+      },
+      {
+        "name": "ema6_slope_15m",
+        "type": "double"
+      },
+      {
+        "name": "cloud_available_at",
+        "type": "timestamp[ns, tz=UTC]"
+      },
+      {
+        "name": "ema20",
+        "type": "double"
+      },
+      {
+        "name": "ema50",
+        "type": "double"
+      },
+      {
+        "name": "cloud_ready",
+        "type": "bool"
+      },
+      {
+        "name": "ema20_slope_15m",
+        "type": "double"
+      },
+      {
+        "name": "ema50_slope_15m",
+        "type": "double"
+      },
+      {
+        "name": "vwap_available_at",
+        "type": "timestamp[ns, tz=UTC]"
+      },
+      {
+        "name": "globex_vwap",
+        "type": "double"
+      },
+      {
+        "name": "vwap_valid",
+        "type": "bool"
+      },
+      {
+        "name": "vwap_slope_15m",
+        "type": "double"
+      },
+      {
+        "name": "vwap",
+        "type": "double"
+      },
+      {
+        "name": "cloud_lower",
+        "type": "double"
+      },
+      {
+        "name": "cloud_upper",
+        "type": "double"
+      },
+      {
+        "name": "cloud_width",
+        "type": "double"
+      },
+      {
+        "name": "cloud_spread",
+        "type": "double"
+      },
+      {
+        "name": "feature_ready",
+        "type": "bool"
+      }
+    ],
+    "bars5": [
+      {
+        "name": "timestamp",
+        "type": "timestamp[ns, tz=UTC]"
+      },
+      {
+        "name": "expected_count",
+        "type": "int64"
+      },
+      {
+        "name": "session",
+        "type": "string"
+      },
+      {
+        "name": "calendar_event",
+        "type": "string"
+      },
+      {
+        "name": "calendar_valid",
+        "type": "bool"
+      },
+      {
+        "name": "open",
+        "type": "double"
+      },
+      {
+        "name": "high",
+        "type": "double"
+      },
+      {
+        "name": "low",
+        "type": "double"
+      },
+      {
+        "name": "close",
+        "type": "double"
+      },
+      {
+        "name": "volume",
+        "type": "double"
+      },
+      {
+        "name": "source_count",
+        "type": "int64"
+      },
+      {
+        "name": "distinct_count",
+        "type": "int64"
+      },
+      {
+        "name": "contract",
+        "type": "string"
+      },
+      {
+        "name": "contract_count",
+        "type": "int64"
+      },
+      {
+        "name": "raw_symbol",
+        "type": "string"
+      },
+      {
+        "name": "roll_id",
+        "type": "double"
+      },
+      {
+        "name": "source_batch",
+        "type": "string"
+      },
+      {
+        "name": "contains_roll",
+        "type": "bool"
+      },
+      {
+        "name": "bad_source",
+        "type": "bool"
+      },
+      {
+        "name": "duplicate_source",
+        "type": "bool"
+      },
+      {
+        "name": "missing_offsets",
+        "type": "string"
+      },
+      {
+        "name": "quality_reason",
+        "type": "string"
+      },
+      {
+        "name": "usable",
+        "type": "bool"
+      },
+      {
+        "name": "available_at",
+        "type": "timestamp[ns, tz=UTC]"
+      },
+      {
+        "name": "product",
+        "type": "string"
+      },
+      {
+        "name": "interval_minutes",
+        "type": "int64"
+      },
+      {
+        "name": "ny_offset_minutes",
+        "type": "int64"
+      },
+      {
+        "name": "known_closure_before",
+        "type": "bool"
+      },
+      {
+        "name": "lineage",
+        "type": "string"
+      },
+      {
+        "name": "ema20",
+        "type": "double"
+      },
+      {
+        "name": "ema50",
+        "type": "double"
+      },
+      {
+        "name": "atr14",
+        "type": "double"
+      },
+      {
+        "name": "true_range",
+        "type": "double"
+      },
+      {
+        "name": "feature_valid",
+        "type": "bool"
+      },
+      {
+        "name": "feature_reset",
+        "type": "bool"
+      },
+      {
+        "name": "feature_reset_reason",
+        "type": "string"
+      },
+      {
+        "name": "consecutive_count",
+        "type": "int32"
+      },
+      {
+        "name": "contract_identity",
+        "type": "string"
+      },
+      {
+        "name": "session_date",
+        "type": "string"
+      },
+      {
+        "name": "open_time",
+        "type": "timestamp[ns, tz=UTC]"
+      },
+      {
+        "name": "close_time",
+        "type": "timestamp[ns, tz=UTC]"
+      },
+      {
+        "name": "cloud_ready",
+        "type": "bool"
+      },
+      {
+        "name": "cloud_segment",
+        "type": "int64"
+      },
+      {
+        "name": "ema20_slope_15m",
+        "type": "double"
+      },
+      {
+        "name": "ema50_slope_15m",
+        "type": "double"
+      }
+    ],
+    "quality": [
+      {
+        "name": "session_date",
+        "type": "string"
+      },
+      {
+        "name": "contract",
+        "type": "string"
+      },
+      {
+        "name": "calendar_valid",
+        "type": "bool"
+      },
+      {
+        "name": "observed_minutes",
+        "type": "int64"
+      },
+      {
+        "name": "expected_full_globex_minutes",
+        "type": "int64"
+      },
+      {
+        "name": "rth_complete",
+        "type": "bool"
+      },
+      {
+        "name": "anchor_to_rth_end_complete",
+        "type": "bool"
+      },
+      {
+        "name": "full_globex_complete",
+        "type": "bool"
+      },
+      {
+        "name": "missing_minutes_to_rth_end",
+        "type": "int64"
+      },
+      {
+        "name": "last_available_at",
+        "type": "timestamp[ns, tz=UTC]"
+      },
+      {
+        "name": "quality_reason",
+        "type": "string"
+      }
+    ]
+  }
+}

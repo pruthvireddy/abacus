@@ -1,0 +1,51 @@
+{
+  "status": "passed",
+  "created_at": "2026-10-31T18:55:40.006415+00:00",
+  "origin": "http://127.0.0.1:4173",
+  "browser": "ChatGPT in-app browser",
+  "desktop": {
+    "viewport": [
+      1440,
+      1000
+    ],
+    "document_width": 1440,
+    "table_client_width": 916,
+    "table_scroll_width": 1400,
+    "keyboard_scroll_left_before": 0,
+    "keyboard_scroll_left_after": 40
+  },
+  "mobile": {
+    "viewport": [
+      390,
+      844
+    ],
+    "document_width": 390,
+    "table_client_width": 350,
+    "table_scroll_width": 1400,
+    "keyboard_scroll_left_before": 0,
+    "keyboard_scroll_left_after": 40
+  },
+  "checks": [
+    "Explore lists two Ranked statistics views and six Original baseline views.",
+    "Pivot report first-cross timing controls load saved rows; All selections show242 rows on three100-row pages.",
+    "Next rows visibly shows page2, rows101\u2013200.",
+    "Opening selected-row URL shows pending selection and authored defaults; explicit loading restores all242 rows.",
+    "Recent last20 timing selection shows one saved row,15 valid event days and5 missing/no-cross days.",
+    "Mobile VWAP population switch changes saved full-Globex denominator1292 to RTH denominator1308.",
+    "Mobile native contents disclosure expands and its first-cross link navigates to#section-s12.",
+    "Original baseline opens the retained20261031_repo_v2 report and exposes all six report links.",
+    "No console warnings/errors captured during the tested navigation.",
+    "Viewport override reset; Explore left open as a deliverable."
+  ],
+  "native_download": {
+    "status": "passed",
+    "native_download_path": "/Users/pruthvi/Downloads/pivot-statistics.csv",
+    "expected_asset": "apps/narada/public/publications/verniman-es-pivot-statistics-20261031-ranked-v2/downloads/pivot-statistics.csv",
+    "bytes": 26094,
+    "sha256": "f620d324c1a7308202320afa311a0585fd2b6229a8f17096d949730a12218168",
+    "expected_sha256": "f620d324c1a7308202320afa311a0585fd2b6229a8f17096d949730a12218168"
+  },
+  "bounded_operations": "UI actions10\u201315seconds; native download/event/path waits15seconds.",
+  "recovered_attempt": "The mobile Contents disclosure is a native summary; a button-role locator matched none. DOM inspection identified summary, whose actual expansion and section-link navigation passed.",
+  "limits": "Manual interaction observations; no native print/PDF pagination or hosted deployment test."
+}
