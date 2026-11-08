@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
-import { STUDY_DESTINATIONS, studyDestinationHref, studyPageRoutes, pageRoutes, pageRouteFile, legacyStudyAnchors } from '../scripts/lib/study-routes.mjs';
+import { STUDY_DESTINATIONS, studyDestinationHref, studyPageRoutes, pageRoutes, pageRouteFile, legacyStudyAnchors, isSinglePageStudy, studyCanonicalHref, studyNavigationDestinations, studyNavigationHref, studyThemeHref } from '../scripts/lib/study-routes.mjs';
 import { buildOutputConfig, validateStaticFiles } from '../scripts/lib/release.mjs';
 
 const catalog = { studies: [{ slug: 'simple' }, { slug: 'long-study' }] };
@@ -8,7 +8,7 @@ const bundles = [{ report: { id: 'saved-primary' }, provenance: { assets: [] } }
 
 test('the shared inventory enumerates five static destinations in authored study order', () => {
   assert.deepEqual(STUDY_DESTINATIONS.map(destination => [destination.key, destination.label]), [
-    ['overview', 'Overview'], ['findings', 'Findings'], ['explore', 'Explore'], ['methods', 'Method & scope'], ['evidence', 'Evidence'],
+    ['overview', 'Overview'], ['findings', 'Findings'], ['explore', 'Results'], ['methods', 'Method & scope'], ['evidence', 'Evidence'],
   ]);
   assert.deepEqual(studyPageRoutes(catalog), [
     '/studies/simple/', '/studies/simple/findings/', '/studies/simple/explore/', '/studies/simple/methods/', '/studies/simple/evidence/',
@@ -25,6 +25,32 @@ test('route generation rejects private, malformed and unsupported destinations i
   for (const slug of ['../private', '/Users/private', 'a/b', 'with space', 'UPPER', '', undefined]) assert.throws(() => studyDestinationHref(slug), /safe catalog slug/);
   assert.throws(() => studyDestinationHref('simple', 'search'), /Unknown study destination/);
   assert.throws(() => pageRoutes(catalog, [{ id: '../private' }]), /safe publication ID/);
+});
+
+test('single-page studies expose only Results while retaining the compatibility route inventory', () => {
+  const study = { slug: 'single-study', readingMode: 'single-page' };
+  assert.equal(isSinglePageStudy(study), true);
+  assert.equal(studyCanonicalHref(study), '/studies/single-study/');
+  assert.deepEqual(studyNavigationDestinations(study), [{ key: 'explore', path: '', label: 'Results' }]);
+  for (const destination of STUDY_DESTINATIONS) assert.equal(studyNavigationHref(study, destination.key), '/studies/single-study/');
+  assert.equal(studyPageRoutes({ studies: [study] }).length, 5);
+  const classic = { slug: 'classic' };
+  assert.equal(isSinglePageStudy(classic), false);
+  assert.deepEqual(studyNavigationDestinations(classic), STUDY_DESTINATIONS);
+  assert.equal(studyNavigationHref(classic, 'methods'), '/studies/classic/methods/');
+  assert.throws(() => studyNavigationHref(study, 'unexpected'), /Unknown study destination/);
+});
+
+test('theme routes stay within the explicit flat selection and open the featured theme at the study root', () => {
+  const study = { slug: 'single-study', readingMode: 'single-page', featuredPublicationId: 'opening',
+    publicationTabs: [{ publicationId: 'opening' }, { publicationId: 'activity' }] };
+  assert.equal(studyThemeHref(study, 'opening'), '/studies/single-study/');
+  assert.equal(studyThemeHref(study, 'activity'), '/reports/activity/');
+  for (const id of ['unselected', '../private', '/Users/private', '', undefined]) {
+    assert.throws(() => studyThemeHref(study, id), /selected flat publication/);
+  }
+  assert.throws(() => studyThemeHref({ ...study, publicationTabs: undefined }, 'opening'), /selected flat publication/);
+  assert.throws(() => studyThemeHref({ ...study, slug: '../private' }, 'opening'), /safe catalog slug/);
 });
 
 test('release adapter admits exactly the new inventory while explicit legacy generation stays available', () => {

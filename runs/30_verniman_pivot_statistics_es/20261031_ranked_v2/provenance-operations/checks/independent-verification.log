@@ -1,0 +1,16 @@
+Traceback (most recent call last):
+  File "/Users/pruthvi/Documents/projects/abacus/studies/30_verniman_pivot_statistics_es/ranked.py", line 40, in <module>
+    main()
+  File "/Users/pruthvi/Documents/projects/abacus/studies/30_verniman_pivot_statistics_es/ranked.py", line 30, in main
+    result = {'baseline': verify_saved.verify(args.stage), 'ranked': verify_ranked.verify(args.stage)}
+                                                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/pruthvi/Documents/projects/abacus/studies/30_verniman_pivot_statistics_es/verify_ranked.py", line 521, in verify
+    counts.update(verify_summaries(_read_csv(table),ranked,baseline))
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/pruthvi/Documents/projects/abacus/studies/30_verniman_pivot_statistics_es/verify_ranked.py", line 477, in verify_summaries
+    independent.equal(summary[field],value,f"summary/{summary['statistic_id']}/{summary['metric']}/{field}")
+  File "/Users/pruthvi/Documents/projects/abacus/studies/30_verniman_pivot_statistics_es/verify_saved.py", line 62, in equal
+    require(numeric(actual) and math.isclose(float(actual), float(expected), rel_tol=1e-11, abs_tol=1e-8), f"{label}: numerical mismatch")
+  File "/Users/pruthvi/Documents/projects/abacus/studies/30_verniman_pivot_statistics_es/verify_saved.py", line 39, in require
+    raise ValueError(message)
+ValueError: summary/S11/time_to_recross/censored: numerical mismatch

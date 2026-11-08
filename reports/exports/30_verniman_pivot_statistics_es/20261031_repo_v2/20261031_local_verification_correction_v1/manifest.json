@@ -1,0 +1,49 @@
+{
+  "additional_checks": {
+    "private_source_audit": {
+      "hashed_files": 3332,
+      "log": "narada-source-audit.log",
+      "publications": 103,
+      "result": "passed",
+      "sha256": "fcad692f50acb7304cada36bda8d46bd4c6186dc509c5cdc87ad05ad885c3d47"
+    },
+    "sealed_integrity": {
+      "record": "final-integrity.json",
+      "result": "passed",
+      "sha256": "58e769a593acec295537db72bdd50e0096c61987848de64c2b366a0929452032"
+    }
+  },
+  "correction": "The sealed local-verification.json prematurely marked preview_http_all_routes passed. Its original narada-preview-smoke.log shows fetch failed. That original result is superseded only for this operational check; all sealed bytes, scientific results and publication bundles remain unchanged.",
+  "finalized_at": "2026-10-31T17:42:51.241215+00:00",
+  "hosted_deployment": false,
+  "rerun": {
+    "argv": [
+      "npm",
+      "run",
+      "smoke:preview",
+      "--",
+      "--origin",
+      "http://127.0.0.1:4173",
+      "--all-routes"
+    ],
+    "cwd": "apps/narada",
+    "exit_code": 0,
+    "local_network_access": true,
+    "log": "narada-preview-smoke.log",
+    "result": "passed",
+    "sha256": "8cc241fb07aefdf51d7e94d093447e135a850cc59d7615182722b508e4a09742"
+  },
+  "schema_version": "abacus.local-verification-correction/v1",
+  "scope": "Operational local HTTP verification correction; no numerical, method, interpretation or public-content change.",
+  "source_run": "20261031_repo_v2",
+  "source_run_manifest_sha256": "6706a1a5462875f3c8b32755564f4abfc351fd1ead3f12847dfc2b12cacb39ee",
+  "status": "completed",
+  "study_id": "30_verniman_pivot_statistics_es",
+  "superseded_record": {
+    "actual_initial_result": "failed_local_network_access",
+    "field": "checks.preview_http_all_routes",
+    "original_claim": "passed",
+    "path": "runs/30_verniman_pivot_statistics_es/20261031_repo_v2/local-verification.json",
+    "sha256": "69e8126fa687dd9aa68b61cc391678e51697d6b9dd1cf991bbdb7c7bd69adfb4"
+  }
+}

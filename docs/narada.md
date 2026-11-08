@@ -141,6 +141,26 @@ these resolve to a top-level `references` array of at most 20 entries. Tables,
 figures and plain text keep the existing reading order. No HTML or Markdown is
 executed. Figures link to their full-size raster file.
 
+Version 1.1 tables and figures can also carry optional `finding` prose (up to
+2,000 nonblank characters); figures can carry `description` (up to 1,000).
+The reading order is the section heading, description, labelled Findings summary,
+then the saved chart or table. Prose is escaped plain text. A finding describes
+its explicitly named saved population/period; table selections never generate
+or update the finding. Existing bundles without these fields keep their layout.
+Presentation producers own exact saved-value bindings and prepare new immutable
+revision/publication identities. Narada does not execute a notebook or load its
+HTML, source code, embedded payload or private evidence.
+
+Report 1.1 also accepts optional `presentation: "research-paper"`. It selects
+a single-column editorial reader, local insight contents and a question-theme
+label for existing study `publicationTabs`. Description and finding paragraph
+breaks remain intact; selected PNGs and table values retain their saved content.
+The app does not accept a notebook or generic HTML through this field. A
+Sahadeva notebook exporter must prepare the selected plain text, typed tables
+and raster assets, omit code/private outputs, and verify provenance and exact
+transfer before the ordinary publisher is invoked. Reports without this marker
+retain the classic reader. Historical immutable publications are not rewritten.
+
 An `external` reference requires `id`, `kind`, `label`, `title`, `creator` and
 `url`; optional `publishedOn`/`accessedOn` are valid calendar dates, and
 `startSeconds`/`endSeconds` are ordered media offsets. URLs must be clean public
@@ -248,22 +268,26 @@ IDs. Public titles, scope, products and evidence wording are selected explicitly
 these fields do not replace study research metadata. No build reads `studies/`
 or `runs/`, and no timestamp chooses a featured report.
 
-The library links every catalog entry to `/studies/<slug>/`. Each study links to
-its featured `/reports/<publication-id>/` and optional labelled related reports.
+The library links every catalog entry to `/studies/<slug>/`. Each study exposes
+its featured `/reports/<publication-id>/` and optional labelled related reports
+inside a shared workspace with persistent study tabs.
 `other-run` and `exploratory-supplement` use distinct source runs;
 `presentation-revision` shares the featured run. Publications belong to one study;
 a cross-study overlay keeps its own study/run and names upstream sources in prose.
 Older revisions remain accessible with their catalog relationship label and a
-featured-publication link. Report bodies are rendered once by existing sections.
+compact Featured result tab when active. Evidence retains the complete related
+and earlier-publication selection; Results shows only Featured result and the
+current earlier-result tabs when an earlier publication is open. Only the active
+report body is rendered by existing sections.
 
 Optional `publicationTabs` group two to twelve parallel saved reports from the
 same source run. Each explicitly selects a publication/run ID and unique label;
-the featured publication must be first. Explore lists the selected views, and
-ordinary report-route links styled as tabs select sibling
-reports, whose pages mark the current selection and retain the study link. This
+the featured publication must be first. Results opens the featured view directly,
+and ordinary report-route links styled as tabs select sibling reports. Each
+selected report retains the same study shell with Results current. This
 supports chart-specific reports without study-specific routes or client-side
-statistics. Tabs cannot repeat a related publication; omitted tabs retain the
-existing overview layout and featured-card behavior.
+statistics. Tabs cannot repeat a related publication; omitted tabs show the
+single featured report directly in Results.
 
 Optional `analyses` replaces top-level `publicationTabs` for two to eight
 distinct analysis groups. Each group declares a unique `id` and `label` plus
@@ -273,8 +297,8 @@ Groups can use
 different source runs; the first group/tab must match the featured selection.
 All publication selections remain unique across the study and cannot repeat
 related selections. Route links preserve a matching chart label when switching
-analyses, with the first chart as an explicit fallback. The study page includes
-every selected immutable chart route in its browse control. Attribution, private
+analyses, with the first chart as an explicit fallback. Every selected immutable
+chart remains reachable through workspace tabs or its Evidence record. Attribution, private
 source auditing, local smoke and static export checks consume this same authored
 selection without discovering research files.
 
@@ -290,8 +314,8 @@ family/analysis/tab must match the featured publication and source run.
 Phase, condition and chart navigation uses ordinary report route links. Switching
 phase preserves a matching condition ID when available, then a matching chart
 label; absent matches fall back to the first authored condition or chart.
-Condition navigation is scoped to the current family. The study browse control
-retains every phase's immutable report links. Classic catalogs remain unchanged
+Condition navigation is scoped to the current family. Workspace tabs retain
+every phase's immutable report links. Classic catalogs remain unchanged
 when this optional container is absent. Shared selection helpers supply route
 attribution, private audits, local smoke, inventories and static-export checks;
 no research data or phase name is inferred by the app. These bounded navigation
@@ -315,19 +339,36 @@ and destination checks as other overview sources.
 These briefs and library cards render as static HTML. They do not fetch report
 JSON in the browser or carry full report tables in overview navigation state.
 All catalog entries expose Overview at `/studies/<slug>/`, then `/findings/`,
-`/explore/`, `/methods/` and `/evidence/` beneath that study. The shared shell uses
-native links and one current-page indication. Each destination has a distinct role;
-none mounts hidden report bodies. The 22-study verified published collection has
+`/explore/`, `/methods/` and `/evidence/` beneath that study. The `/explore/` route
+is labelled Results and renders the featured report directly. Contextual
+`/reports/<id>/` routes use the same shell with Results active. The five persistent
+study tabs use native link semantics and one current-page indication. Only the
+active saved report is rendered; no hidden report bodies are mounted. The 22-study verified published collection has
 reviewed briefs; two additional local entries retain metadata-based fallbacks in
 the same shell. Catalog presence and this local rollout do not authorize production
 selection or deployment.
 
-Explore keeps every selected immutable report reachable through the supplied
-phase/analysis/view hierarchy and preserves related-publication relationships.
+Results keeps the active analyses and views reachable through phase, analysis
+and view tabs. Related-publication relationships and earlier versions remain
+reachable through Evidence without repeating their full directory on every
+Results view. This replaces the intermediate report directory and duplicate
+report back-links.
+An entry can instead opt into catalog `readingMode: "single-page"` with flat
+`publicationTabs`. Its study root opens the featured theme in one Results
+workspace. Six native theme tabs switch the selected saved report; only its
+insights are rendered. Scope, methods and exact source records share a compact
+disclosure below the insights. Other study destination URLs open the featured
+theme; current primary report URLs open their selected theme in this same reader.
+Native links preserve ordinary browser history, refresh and no-JavaScript access.
+Historical related report
+URLs retain their original saved content and only a Results link to the canonical
+study page. This presentation choice changes no report, analysis or source hash.
 Evidence groups existing selected CSVs, references, content hashes and source-run
 identities by saved report, without combining populations. Methods link directly
-to pinned saved scope. Reports retain their own phase/analysis/product/chart
-navigation, contents and provenance, with routes back to Overview and Explore.
+to pinned saved scope. Reports retain their contents, provenance and saved
+section identities inside the shared study workspace. Tab links use Next
+transitions with prefetch disabled and retain ordinary history, refresh and
+new-tab behavior without requiring JavaScript.
 
 The app-owned [route projection](../apps/narada/scripts/lib/study-routes.mjs) supplies
 all five destination paths to export verification, preview smoke and current
@@ -339,7 +380,8 @@ complete exported page inventory; neither creates a release.
 Legacy study fragments retain anchors that reveal visible links to their exact
 saved report sections through CSS `:target`. This covers sections, headings,
 downloads, references, notes and used pattern keys without a JavaScript redirect.
-The earlier overview section anchors remain navigation previews. The full library
+The earlier overview section anchors remain compatible while repeated deeper-page
+prompts are removed from Overview. The full library
 preserves catalog order and its explicitly curated four starting points. None of
 this changes report identities, source hashes, saved evidence or release records.
 

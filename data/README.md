@@ -317,6 +317,143 @@ claims and present capture clocks remain distinct. Full 366-date coverage
 describes observed retrieval; it does not prove every historical post survives.
 Historical availability remains unverified and all earlier releases stay frozen.
 
+The [consolidated Verniman request](../requests/fulfilled/verniman_daily_levels__13.0.0.yaml)
+combines versions 1.0.0–12.0.0 with the October 21–28, 2026 retrieval review in
+`curated/external_levels/source=verniman/version=13.0.0/`. This is the organized
+cross-year snapshot; earlier releases and their consumers stay unchanged.
+Its [manifest](../catalog/datasets/verniman_daily_levels__13.0.0.json) explicitly
+lists every input, partition and artifact hash. Outlooks, levels, calendar
+coverage and issues use `table/year=YYYY/part-000.parquet` partitions, with
+`year=undated` when a source date is unresolved. Root CSV copies and
+`daily_summary.csv` support inspection without scanning individual releases.
+
+`release_membership` maps all original outlook IDs to canonical rows, collapsing
+the sample's overlap by identical retained source evidence while preserving
+different revisions and duplicate dates. The same captured "Near ATHs" revision
+has conflicting October 18 assignments in the 2021 and 2022 inputs; both saved
+projections remain with contextual IDs, `source_revision_id`, an explicit
+qualification and issues. Consolidation does not adjudicate that date or
+re-extract historical prices, labels or direction. `source_coverage` preserves
+the original releases' coverage observations alongside the combined calendar.
+
+`observations` and `observation_levels` retain the user's retrospective notes
+separately from captured-source outlooks and levels. Unknown labels remain
+null; chart references, prose discrepancies, approximate read times and later
+recoveries remain explicit. User-supplied read times are claims rather than
+verified historical availability. Original notes live in a new
+`raw/user/verniman/` batch; fresh blog/feed/navigation captures and HTTP error
+bodies live in new `raw/blogspot/verniman/html/` batches.
+
+The October 28 review captured October 27's plan. October 21, 22 and 26 are
+retained from user observations because the supplied blog URLs returned 404.
+October 23 has no observed dated plan; October 24–25 are weekend gaps.
+October 28 is `no_post_observed_yet` as of 02:28:37 New York time, with no
+claim about later publication. All `available_at` values remain null. See the
+[quality report](../reports/quality/verniman_daily_levels__13.0.0.md) for counts,
+coverage and evidence qualifications. Retain ignored bulk data separately.
+
+The [14.0.0 single-post update](../requests/fulfilled/verniman_daily_levels__14.0.0.yaml)
+adds the user-supplied October 30, 2026 "AI worries" outlook to a new master at
+`curated/external_levels/source=verniman/version=14.0.0/`. The
+[manifest](../catalog/datasets/verniman_daily_levels__14.0.0.json) pins the same
+historical inputs and original October 28 update, plus a separately identified
+new source addition. Every prior canonical record, membership, observation and
+source coverage observation remains unchanged. Existing consumers stay pinned
+to their selected release; new consumers can pin 14.0.0 explicitly.
+
+The new source states HVE 7672 with bullish targets GAP 7715, YPOC 7751 and
+YVAH 7761, and bearish targets HVE-PBT 7634 and GAP 7621. Both directions retain
+their VIX/CVD confirmation conditions. Header-only references remain source
+context. The old 2009 permalink and published claim are separate from the
+explicit October 30, 2026 body date and update claim; `available_at` remains
+null. October 29 is marked `not_collected` because this update covers only the
+supplied post. Prior October gaps retain their original as-of qualifications.
+
+The [15.0.0 seven-link review](../requests/fulfilled/verniman_daily_levels__15.0.0.yaml)
+is the subsequent master snapshot at
+`curated/external_levels/source=verniman/version=15.0.0/`, pinned by its
+[manifest](../catalog/datasets/verniman_daily_levels__15.0.0.json). It adds the
+October 28 "FOMC day" and October 29 "After FOMC" plans with the existing
+direction, trigger/target, label, ordinal, exact price bounds and conditions
+fields. October 29's HVE-YHOD 7814–7819 remains one target zone. October 27 and
+30 were recaptured and matched their prior source content and numeric rows;
+fresh corroboration is retained without duplicate canonical level sets.
+
+"FOMC week," "Crude at 100" and "Meta Tesla" returned 404 on desktop and
+mobile. Bounded official-feed and archive-index lookups recovered no matching
+source plans. Their failure evidence stays in provenance and issues; no
+numeric rows are invented. Prior user observations associate the first and
+third sources with October 26 and 22, respectively; "Crude at 100" has no
+verified session date. Original user notes remain separate from canonical
+source levels. Earlier master releases remain byte-identical, and consumers
+must explicitly choose the new manifest and hash.
+
+The [16.0.0 image annotation update](../requests/fulfilled/verniman_daily_levels__16.0.0.yaml)
+adds three user-supplied October 21–23 chart images to a new master at
+`curated/external_levels/source=verniman/version=16.0.0/`, with its own
+[manifest](../catalog/datasets/verniman_daily_levels__16.0.0.json). Images are
+retained under `raw/user/verniman/` and represented in `observations` with
+`evidence_basis: user_supplied_image`; they are distinct from older
+`user_supplied_recollection` notes and captured-source outlooks.
+
+The nine explicitly printed numeric annotations live in `observation_levels`
+as neutral references, preserving source labels and literal annotation text.
+Unpriced labels remain in `unpriced_annotations_json` on the image observation.
+No price is estimated from line position, axis ticks, market quotes or earlier
+notes. Chart colors do not establish above/below scenarios or ordered targets.
+The October 22 annotation at 7800 reads YPOC-ONH-GAP; prior conflicting
+recollection wording remains unchanged and the comparison is recorded separately.
+
+Coverage uses `image_observation_only` for these dates: chart evidence exists,
+while canonical blog plans remain missing. The displayed 9:33 AM is a chart bar
+time with no stated timezone, not a verified capture/publication timestamp.
+The exact delivery contract is absent from these images and remains null.
+Every `available_at` remains null, and all earlier releases stay immutable.
+
+The [17.0.0 October 26 addition](../requests/fulfilled/verniman_daily_levels__17.0.0.yaml)
+uses the same image observation contract in
+`curated/external_levels/source=verniman/version=17.0.0/`, pinned by its
+[manifest](../catalog/datasets/verniman_daily_levels__17.0.0.json). The image
+explicitly prints YHOD 7714 and GAP 7706 magnet. YVAH, YPOC-GAP magnet, YVAL
+and YLOD remain unpriced labels. Previous recollections and October 21–23
+images remain unchanged; October 26 is `image_observation_only`, without
+inventing a complete pivot/target plan or filling its canonical source gap.
+
+The [18.0.0 October 6 addition](../requests/fulfilled/verniman_daily_levels__18.0.0.yaml)
+retains six printed chart references in
+`curated/external_levels/source=verniman/version=18.0.0/`, with its own
+[manifest](../catalog/datasets/verniman_daily_levels__18.0.0.json): PBT 7915
+magnet (HOD exp), PBT 7902/7890/7878 magnets, YPOC-GAP 7830 magnet and
+YVAL 7800 magnet. YHOD remains an unpriced label. The header shows October 6,
+2026 at 9:30 AM without a timezone or delivery contract. Coverage becomes
+`image_observation_only`; the original source-plan gap and prior records are
+preserved, and no pivot price or directional target order is inferred.
+
+The [19.0.0 color-role update](../requests/fulfilled/verniman_daily_levels__19.0.0.yaml)
+creates the next master at
+`curated/external_levels/source=verniman/version=19.0.0/`, with a new
+[manifest](../catalog/datasets/verniman_daily_levels__19.0.0.json). The user
+explicitly identified light-blue labeled lines as pivots, green as bullish
+targets and red as bearish targets. The five images now retain 5 pivots,
+17 bullish targets and 12 bearish targets, including 17 unpriced annotations.
+Printed prices and literal labels remain unchanged. Only October 21's HVE
+7782 and October 22's HVE 7730 pivots have printed prices; October 6's YHOD,
+October 23's YLOD and October 26's YVAH pivots remain unpriced.
+
+`observation_levels` holds the 17 priced image annotations with their assigned
+side/role; `unpriced_annotations_json` on the image parent holds the other
+17 annotations with null prices and assigned roles. Target ordinals include
+unpriced slots and count nearest to the pivot first using chart position.
+This is an explicit display-order policy, not a verified execution sequence.
+The legend, original user statement and exact image hashes are pinned.
+
+Current image parents identify `supersedes_observation_id` and retain the exact
+prior neutral parent/level snapshots. The active tables contain one interpretation
+per image. All original release bytes, canonical records and recollections remain
+unchanged; blog-plan gaps, null availability and unknown image contracts/timezones
+remain qualified. October 23's green HVE 7730 is a bullish target, while its
+light-blue YLOD is the pivot. Unlabeled cyan quotes/indicator lines are excluded.
+
 ### `features/`
 
 Indicator-enriched data derived from a pinned curated dataset. Indicator definitions and versions live in `../catalog/indicators/`; values should be partitioned independently from the base bars:

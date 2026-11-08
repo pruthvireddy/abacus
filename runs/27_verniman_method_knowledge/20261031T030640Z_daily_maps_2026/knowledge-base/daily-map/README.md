@@ -1,0 +1,311 @@
+# Daily Map · 2026
+
+[Open offline archive](../../../../../work/27_verniman_method_knowledge/20261031T030640Z_daily_maps_2026/archive/index.html)
+
+Dates descend. Missing days indicate no dated post observed, not proof of historical absence.
+
+| Date | Record | Maps | Images |
+|---|---|---:|---:|
+| [2026-10-30](2026/10/30/README.md) | Captured | 1 | 2 |
+| [2026-10-29](2026/10/29/README.md) | Captured | 1 | 2 |
+| [2026-10-28](2026/10/28/README.md) | Captured | 1 | 2 |
+| [2026-10-27](2026/10/27/README.md) | Captured | 1 | 2 |
+| [2026-10-26](2026/10/26/README.md) | No dated post observed | 0 | 0 |
+| [2026-10-25](2026/10/25/README.md) | Weekend · no dated post observed | 0 | 0 |
+| [2026-10-24](2026/10/24/README.md) | Weekend · no dated post observed | 0 | 0 |
+| [2026-10-23](2026/10/23/README.md) | No dated post observed | 0 | 0 |
+| [2026-10-22](2026/10/22/README.md) | No dated post observed | 0 | 0 |
+| [2026-10-21](2026/10/21/README.md) | No dated post observed | 0 | 0 |
+| [2026-10-20](2026/10/20/README.md) | Retained earlier capture | 1 | 2 |
+| [2026-10-19](2026/10/19/README.md) | Captured | 1 | 2 |
+| [2026-10-18](2026/10/18/README.md) | Weekend · no dated post observed | 0 | 0 |
+| [2026-10-17](2026/10/17/README.md) | Weekend · no dated post observed | 0 | 0 |
+| [2026-10-16](2026/10/16/README.md) | Captured | 1 | 2 |
+| [2026-10-15](2026/10/15/README.md) | Captured | 1 | 2 |
+| [2026-10-14](2026/10/14/README.md) | Captured | 1 | 2 |
+| [2026-10-13](2026/10/13/README.md) | Captured | 1 | 2 |
+| [2026-10-12](2026/10/12/README.md) | Captured | 1 | 2 |
+| [2026-10-11](2026/10/11/README.md) | Weekend · no dated post observed | 0 | 0 |
+| [2026-10-10](2026/10/10/README.md) | Weekend · no dated post observed | 0 | 0 |
+| [2026-10-09](2026/10/09/README.md) | Captured | 1 | 2 |
+| [2026-10-08](2026/10/08/README.md) | Captured | 1 | 2 |
+| [2026-10-07](2026/10/07/README.md) | Captured | 2 | 4 |
+| [2026-10-06](2026/10/06/README.md) | No dated post observed | 0 | 0 |
+| [2026-10-05](2026/10/05/README.md) | Captured | 1 | 2 |
+| [2026-10-04](2026/10/04/README.md) | Weekend · no dated post observed | 0 | 0 |
+| [2026-10-03](2026/10/03/README.md) | Weekend · no dated post observed | 0 | 0 |
+| [2026-10-02](2026/10/02/README.md) | Captured | 1 | 2 |
+| [2026-10-01](2026/10/01/README.md) | Captured | 1 | 2 |
+| [2026-09-30](2026/09/30/README.md) | Captured | 1 | 2 |
+| [2026-09-29](2026/09/29/README.md) | Captured | 1 | 2 |
+| [2026-09-28](2026/09/28/README.md) | Captured | 1 | 2 |
+| [2026-09-27](2026/09/27/README.md) | Weekend · no dated post observed | 0 | 0 |
+| [2026-09-26](2026/09/26/README.md) | Weekend · no dated post observed | 0 | 0 |
+| [2026-09-25](2026/09/25/README.md) | Captured | 1 | 2 |
+| [2026-09-24](2026/09/24/README.md) | Captured | 1 | 2 |
+| [2026-09-23](2026/09/23/README.md) | Captured | 1 | 2 |
+| [2026-09-22](2026/09/22/README.md) | Captured | 1 | 2 |
+| [2026-09-21](2026/09/21/README.md) | Captured | 1 | 2 |
+| [2026-09-20](2026/09/20/README.md) | Weekend · no dated post observed | 0 | 0 |
+| [2026-09-19](2026/09/19/README.md) | Weekend · no dated post observed | 0 | 0 |
+| [2026-09-18](2026/09/18/README.md) | Captured | 1 | 2 |
+| [2026-09-17](2026/09/17/README.md) | Captured | 1 | 2 |
+| [2026-09-16](2026/09/16/README.md) | Captured | 1 | 2 |
+| [2026-09-15](2026/09/15/README.md) | Captured | 1 | 2 |
+| [2026-09-14](2026/09/14/README.md) | Captured | 1 | 2 |
+| [2026-09-13](2026/09/13/README.md) | Weekend · no dated post observed | 0 | 0 |
+| [2026-09-12](2026/09/12/README.md) | Weekend · no dated post observed | 0 | 0 |
+| [2026-09-11](2026/09/11/README.md) | No dated post observed | 0 | 0 |
+| [2026-09-10](2026/09/10/README.md) | Captured | 2 | 4 |
+| [2026-09-09](2026/09/09/README.md) | Captured | 1 | 2 |
+| [2026-09-08](2026/09/08/README.md) | Captured | 1 | 2 |
+| [2026-09-07](2026/09/07/README.md) | No dated post observed | 0 | 0 |
+| [2026-09-06](2026/09/06/README.md) | Weekend · no dated post observed | 0 | 0 |
+| [2026-09-05](2026/09/05/README.md) | Weekend · no dated post observed | 0 | 0 |
+| [2026-09-04](2026/09/04/README.md) | Captured | 1 | 2 |
+| [2026-09-03](2026/09/03/README.md) | Captured | 1 | 2 |
+| [2026-09-02](2026/09/02/README.md) | Captured | 1 | 2 |
+| [2026-09-01](2026/09/01/README.md) | Captured | 1 | 2 |
+| [2026-08-31](2026/08/31/README.md) | Captured | 1 | 2 |
+| [2026-08-30](2026/08/30/README.md) | Weekend · no dated post observed | 0 | 0 |
+| [2026-08-29](2026/08/29/README.md) | Weekend · no dated post observed | 0 | 0 |
+| [2026-08-28](2026/08/28/README.md) | Captured | 1 | 2 |
+| [2026-08-27](2026/08/27/README.md) | Captured | 1 | 2 |
+| [2026-08-26](2026/08/26/README.md) | Captured | 1 | 2 |
+| [2026-08-25](2026/08/25/README.md) | Captured | 1 | 2 |
+| [2026-08-24](2026/08/24/README.md) | Captured | 1 | 2 |
+| [2026-08-23](2026/08/23/README.md) | Weekend · no dated post observed | 0 | 0 |
+| [2026-08-22](2026/08/22/README.md) | Weekend · no dated post observed | 0 | 0 |
+| [2026-08-21](2026/08/21/README.md) | Captured | 1 | 2 |
+| [2026-08-20](2026/08/20/README.md) | Captured | 1 | 2 |
+| [2026-08-19](2026/08/19/README.md) | Captured | 1 | 2 |
+| [2026-08-18](2026/08/18/README.md) | Captured | 1 | 2 |
+| [2026-08-17](2026/08/17/README.md) | Captured | 1 | 2 |
+| [2026-08-16](2026/08/16/README.md) | Weekend · no dated post observed | 0 | 0 |
+| [2026-08-15](2026/08/15/README.md) | Weekend · no dated post observed | 0 | 0 |
+| [2026-08-14](2026/08/14/README.md) | Captured | 1 | 2 |
+| [2026-08-13](2026/08/13/README.md) | Captured | 1 | 2 |
+| [2026-08-12](2026/08/12/README.md) | Captured | 1 | 2 |
+| [2026-08-11](2026/08/11/README.md) | Captured | 1 | 2 |
+| [2026-08-10](2026/08/10/README.md) | Captured | 1 | 2 |
+| [2026-08-09](2026/08/09/README.md) | Weekend · no dated post observed | 0 | 0 |
+| [2026-08-08](2026/08/08/README.md) | Weekend · no dated post observed | 0 | 0 |
+| [2026-08-07](2026/08/07/README.md) | Captured | 1 | 2 |
+| [2026-08-06](2026/08/06/README.md) | Captured | 1 | 2 |
+| [2026-08-05](2026/08/05/README.md) | Captured | 1 | 2 |
+| [2026-08-04](2026/08/04/README.md) | Captured | 1 | 2 |
+| [2026-08-03](2026/08/03/README.md) | Captured | 1 | 2 |
+| [2026-08-02](2026/08/02/README.md) | Weekend · no dated post observed | 0 | 0 |
+| [2026-08-01](2026/08/01/README.md) | Weekend · no dated post observed | 0 | 0 |
+| [2026-07-31](2026/07/31/README.md) | Captured | 1 | 2 |
+| [2026-07-30](2026/07/30/README.md) | Captured | 1 | 2 |
+| [2026-07-29](2026/07/29/README.md) | Captured | 1 | 2 |
+| [2026-07-28](2026/07/28/README.md) | Captured | 1 | 2 |
+| [2026-07-27](2026/07/27/README.md) | Captured | 1 | 2 |
+| [2026-07-26](2026/07/26/README.md) | Weekend · no dated post observed | 0 | 0 |
+| [2026-07-25](2026/07/25/README.md) | Weekend · no dated post observed | 0 | 0 |
+| [2026-07-24](2026/07/24/README.md) | Captured | 1 | 2 |
+| [2026-07-23](2026/07/23/README.md) | No dated post observed | 0 | 0 |
+| [2026-07-22](2026/07/22/README.md) | Captured | 2 | 4 |
+| [2026-07-21](2026/07/21/README.md) | Captured | 1 | 2 |
+| [2026-07-20](2026/07/20/README.md) | Captured | 1 | 2 |
+| [2026-07-19](2026/07/19/README.md) | Weekend · no dated post observed | 0 | 0 |
+| [2026-07-18](2026/07/18/README.md) | Weekend · no dated post observed | 0 | 0 |
+| [2026-07-17](2026/07/17/README.md) | Captured | 1 | 2 |
+| [2026-07-16](2026/07/16/README.md) | Captured | 1 | 2 |
+| [2026-07-15](2026/07/15/README.md) | Captured | 1 | 2 |
+| [2026-07-14](2026/07/14/README.md) | Captured | 1 | 2 |
+| [2026-07-13](2026/07/13/README.md) | Captured | 1 | 2 |
+| [2026-07-12](2026/07/12/README.md) | Weekend · no dated post observed | 0 | 0 |
+| [2026-07-11](2026/07/11/README.md) | Weekend · no dated post observed | 0 | 0 |
+| [2026-07-10](2026/07/10/README.md) | Captured | 1 | 2 |
+| [2026-07-09](2026/07/09/README.md) | Captured | 1 | 2 |
+| [2026-07-08](2026/07/08/README.md) | Captured | 1 | 2 |
+| [2026-07-07](2026/07/07/README.md) | Captured | 1 | 2 |
+| [2026-07-06](2026/07/06/README.md) | Captured | 1 | 2 |
+| [2026-07-05](2026/07/05/README.md) | Weekend · no dated post observed | 0 | 0 |
+| [2026-07-04](2026/07/04/README.md) | Weekend · no dated post observed | 0 | 0 |
+| [2026-07-03](2026/07/03/README.md) | Captured | 1 | 2 |
+| [2026-07-02](2026/07/02/README.md) | Captured | 1 | 2 |
+| [2026-07-01](2026/07/01/README.md) | Captured | 1 | 2 |
+| [2026-06-30](2026/06/30/README.md) | Captured | 1 | 2 |
+| [2026-06-29](2026/06/29/README.md) | Captured | 1 | 2 |
+| [2026-06-28](2026/06/28/README.md) | Weekend · no dated post observed | 0 | 0 |
+| [2026-06-27](2026/06/27/README.md) | Weekend · no dated post observed | 0 | 0 |
+| [2026-06-26](2026/06/26/README.md) | Captured | 1 | 2 |
+| [2026-06-25](2026/06/25/README.md) | Captured | 1 | 2 |
+| [2026-06-24](2026/06/24/README.md) | Captured | 1 | 2 |
+| [2026-06-23](2026/06/23/README.md) | Captured | 1 | 2 |
+| [2026-06-22](2026/06/22/README.md) | Captured | 1 | 2 |
+| [2026-06-21](2026/06/21/README.md) | Weekend · no dated post observed | 0 | 0 |
+| [2026-06-20](2026/06/20/README.md) | Weekend · no dated post observed | 0 | 0 |
+| [2026-06-19](2026/06/19/README.md) | Captured | 1 | 2 |
+| [2026-06-18](2026/06/18/README.md) | Captured | 1 | 2 |
+| [2026-06-17](2026/06/17/README.md) | Captured | 1 | 2 |
+| [2026-06-16](2026/06/16/README.md) | Captured | 1 | 2 |
+| [2026-06-15](2026/06/15/README.md) | Captured | 1 | 2 |
+| [2026-06-14](2026/06/14/README.md) | Weekend · no dated post observed | 0 | 0 |
+| [2026-06-13](2026/06/13/README.md) | Weekend · no dated post observed | 0 | 0 |
+| [2026-06-12](2026/06/12/README.md) | Captured | 1 | 2 |
+| [2026-06-11](2026/06/11/README.md) | Captured | 1 | 2 |
+| [2026-06-10](2026/06/10/README.md) | Captured | 1 | 2 |
+| [2026-06-09](2026/06/09/README.md) | Captured | 1 | 2 |
+| [2026-06-08](2026/06/08/README.md) | Captured | 1 | 2 |
+| [2026-06-07](2026/06/07/README.md) | Weekend · no dated post observed | 0 | 0 |
+| [2026-06-06](2026/06/06/README.md) | Weekend · no dated post observed | 0 | 0 |
+| [2026-06-05](2026/06/05/README.md) | Captured | 1 | 2 |
+| [2026-06-04](2026/06/04/README.md) | Captured | 1 | 2 |
+| [2026-06-03](2026/06/03/README.md) | Captured | 1 | 2 |
+| [2026-06-02](2026/06/02/README.md) | Captured | 1 | 2 |
+| [2026-06-01](2026/06/01/README.md) | Captured | 1 | 2 |
+| [2026-05-31](2026/05/31/README.md) | Weekend · no dated post observed | 0 | 0 |
+| [2026-05-30](2026/05/30/README.md) | Weekend · no dated post observed | 0 | 0 |
+| [2026-05-29](2026/05/29/README.md) | Captured | 1 | 2 |
+| [2026-05-28](2026/05/28/README.md) | Captured | 1 | 2 |
+| [2026-05-27](2026/05/27/README.md) | Captured | 1 | 2 |
+| [2026-05-26](2026/05/26/README.md) | Captured | 1 | 2 |
+| [2026-05-25](2026/05/25/README.md) | No dated post observed | 0 | 0 |
+| [2026-05-24](2026/05/24/README.md) | Weekend · no dated post observed | 0 | 0 |
+| [2026-05-23](2026/05/23/README.md) | Weekend · no dated post observed | 0 | 0 |
+| [2026-05-22](2026/05/22/README.md) | Captured | 1 | 2 |
+| [2026-05-21](2026/05/21/README.md) | Captured | 1 | 2 |
+| [2026-05-20](2026/05/20/README.md) | Captured | 1 | 2 |
+| [2026-05-19](2026/05/19/README.md) | Captured | 1 | 2 |
+| [2026-05-18](2026/05/18/README.md) | Captured | 1 | 2 |
+| [2026-05-17](2026/05/17/README.md) | Weekend · no dated post observed | 0 | 0 |
+| [2026-05-16](2026/05/16/README.md) | Weekend · no dated post observed | 0 | 0 |
+| [2026-05-15](2026/05/15/README.md) | Captured | 1 | 2 |
+| [2026-05-14](2026/05/14/README.md) | Captured | 1 | 2 |
+| [2026-05-13](2026/05/13/README.md) | Captured | 1 | 2 |
+| [2026-05-12](2026/05/12/README.md) | Captured | 1 | 2 |
+| [2026-05-11](2026/05/11/README.md) | Captured | 1 | 2 |
+| [2026-05-10](2026/05/10/README.md) | Weekend · no dated post observed | 0 | 0 |
+| [2026-05-09](2026/05/09/README.md) | Weekend · no dated post observed | 0 | 0 |
+| [2026-05-08](2026/05/08/README.md) | Captured | 1 | 2 |
+| [2026-05-07](2026/05/07/README.md) | Captured | 1 | 2 |
+| [2026-05-06](2026/05/06/README.md) | Captured | 1 | 2 |
+| [2026-05-05](2026/05/05/README.md) | Captured | 1 | 2 |
+| [2026-05-04](2026/05/04/README.md) | Captured | 1 | 2 |
+| [2026-05-03](2026/05/03/README.md) | Weekend · no dated post observed | 0 | 0 |
+| [2026-05-02](2026/05/02/README.md) | Weekend · no dated post observed | 0 | 0 |
+| [2026-05-01](2026/05/01/README.md) | Captured | 1 | 2 |
+| [2026-04-30](2026/04/30/README.md) | Captured | 1 | 2 |
+| [2026-04-29](2026/04/29/README.md) | Captured | 1 | 2 |
+| [2026-04-28](2026/04/28/README.md) | Captured | 1 | 2 |
+| [2026-04-27](2026/04/27/README.md) | Captured | 1 | 2 |
+| [2026-04-26](2026/04/26/README.md) | Weekend · no dated post observed | 0 | 0 |
+| [2026-04-25](2026/04/25/README.md) | Weekend · no dated post observed | 0 | 0 |
+| [2026-04-24](2026/04/24/README.md) | Captured | 1 | 2 |
+| [2026-04-23](2026/04/23/README.md) | Captured | 1 | 2 |
+| [2026-04-22](2026/04/22/README.md) | Captured | 1 | 2 |
+| [2026-04-21](2026/04/21/README.md) | Captured | 1 | 2 |
+| [2026-04-20](2026/04/20/README.md) | Captured | 1 | 2 |
+| [2026-04-19](2026/04/19/README.md) | Weekend · no dated post observed | 0 | 0 |
+| [2026-04-18](2026/04/18/README.md) | Weekend · no dated post observed | 0 | 0 |
+| [2026-04-17](2026/04/17/README.md) | Captured | 1 | 2 |
+| [2026-04-16](2026/04/16/README.md) | Captured | 1 | 2 |
+| [2026-04-15](2026/04/15/README.md) | Captured | 1 | 2 |
+| [2026-04-14](2026/04/14/README.md) | Captured | 1 | 2 |
+| [2026-04-13](2026/04/13/README.md) | Captured | 1 | 2 |
+| [2026-04-12](2026/04/12/README.md) | Weekend · no dated post observed | 0 | 0 |
+| [2026-04-11](2026/04/11/README.md) | Weekend · no dated post observed | 0 | 0 |
+| [2026-04-10](2026/04/10/README.md) | Captured | 1 | 2 |
+| [2026-04-09](2026/04/09/README.md) | Captured | 1 | 2 |
+| [2026-04-08](2026/04/08/README.md) | Captured | 1 | 2 |
+| [2026-04-07](2026/04/07/README.md) | Captured | 1 | 2 |
+| [2026-04-06](2026/04/06/README.md) | Captured | 1 | 2 |
+| [2026-04-05](2026/04/05/README.md) | Weekend · no dated post observed | 0 | 0 |
+| [2026-04-04](2026/04/04/README.md) | Weekend · no dated post observed | 0 | 0 |
+| [2026-04-03](2026/04/03/README.md) | No dated post observed | 0 | 0 |
+| [2026-04-02](2026/04/02/README.md) | Captured | 1 | 2 |
+| [2026-04-01](2026/04/01/README.md) | Captured | 1 | 2 |
+| [2026-03-31](2026/03/31/README.md) | Captured | 1 | 2 |
+| [2026-03-30](2026/03/30/README.md) | Captured | 1 | 2 |
+| [2026-03-29](2026/03/29/README.md) | Weekend · no dated post observed | 0 | 0 |
+| [2026-03-28](2026/03/28/README.md) | Weekend · no dated post observed | 0 | 0 |
+| [2026-03-27](2026/03/27/README.md) | Captured | 1 | 2 |
+| [2026-03-26](2026/03/26/README.md) | Captured | 1 | 2 |
+| [2026-03-25](2026/03/25/README.md) | Captured | 1 | 2 |
+| [2026-03-24](2026/03/24/README.md) | Captured | 1 | 2 |
+| [2026-03-23](2026/03/23/README.md) | Captured | 1 | 2 |
+| [2026-03-22](2026/03/22/README.md) | Weekend · no dated post observed | 0 | 0 |
+| [2026-03-21](2026/03/21/README.md) | Weekend · no dated post observed | 0 | 0 |
+| [2026-03-20](2026/03/20/README.md) | Captured | 1 | 2 |
+| [2026-03-19](2026/03/19/README.md) | Captured | 1 | 2 |
+| [2026-03-18](2026/03/18/README.md) | Captured | 1 | 2 |
+| [2026-03-17](2026/03/17/README.md) | Captured | 1 | 2 |
+| [2026-03-16](2026/03/16/README.md) | Captured | 1 | 2 |
+| [2026-03-15](2026/03/15/README.md) | Weekend · no dated post observed | 0 | 0 |
+| [2026-03-14](2026/03/14/README.md) | Weekend · no dated post observed | 0 | 0 |
+| [2026-03-13](2026/03/13/README.md) | Captured | 1 | 2 |
+| [2026-03-12](2026/03/12/README.md) | Captured | 1 | 2 |
+| [2026-03-11](2026/03/11/README.md) | Captured | 1 | 2 |
+| [2026-03-10](2026/03/10/README.md) | Captured | 1 | 2 |
+| [2026-03-09](2026/03/09/README.md) | Captured | 1 | 2 |
+| [2026-03-08](2026/03/08/README.md) | Weekend · no dated post observed | 0 | 0 |
+| [2026-03-07](2026/03/07/README.md) | Weekend · no dated post observed | 0 | 0 |
+| [2026-03-06](2026/03/06/README.md) | Captured | 1 | 2 |
+| [2026-03-05](2026/03/05/README.md) | Captured | 1 | 2 |
+| [2026-03-04](2026/03/04/README.md) | Captured | 1 | 2 |
+| [2026-03-03](2026/03/03/README.md) | Captured | 1 | 2 |
+| [2026-03-02](2026/03/02/README.md) | Captured | 1 | 2 |
+| [2026-03-01](2026/03/01/README.md) | Weekend · no dated post observed | 0 | 0 |
+| [2026-02-28](2026/02/28/README.md) | Weekend · no dated post observed | 0 | 0 |
+| [2026-02-27](2026/02/27/README.md) | Captured | 1 | 2 |
+| [2026-02-26](2026/02/26/README.md) | Captured | 1 | 2 |
+| [2026-02-25](2026/02/25/README.md) | Captured | 1 | 2 |
+| [2026-02-24](2026/02/24/README.md) | Captured | 1 | 2 |
+| [2026-02-23](2026/02/23/README.md) | Captured | 1 | 2 |
+| [2026-02-22](2026/02/22/README.md) | Weekend · no dated post observed | 0 | 0 |
+| [2026-02-21](2026/02/21/README.md) | Weekend · no dated post observed | 0 | 0 |
+| [2026-02-20](2026/02/20/README.md) | Captured | 1 | 2 |
+| [2026-02-19](2026/02/19/README.md) | Captured | 1 | 2 |
+| [2026-02-18](2026/02/18/README.md) | Captured | 1 | 2 |
+| [2026-02-17](2026/02/17/README.md) | Captured | 1 | 2 |
+| [2026-02-16](2026/02/16/README.md) | No dated post observed | 0 | 0 |
+| [2026-02-15](2026/02/15/README.md) | Weekend · no dated post observed | 0 | 0 |
+| [2026-02-14](2026/02/14/README.md) | Weekend · no dated post observed | 0 | 0 |
+| [2026-02-13](2026/02/13/README.md) | Captured | 1 | 2 |
+| [2026-02-12](2026/02/12/README.md) | Captured | 1 | 2 |
+| [2026-02-11](2026/02/11/README.md) | Captured | 1 | 2 |
+| [2026-02-10](2026/02/10/README.md) | Captured | 1 | 2 |
+| [2026-02-09](2026/02/09/README.md) | Captured | 1 | 2 |
+| [2026-02-08](2026/02/08/README.md) | Weekend · no dated post observed | 0 | 0 |
+| [2026-02-07](2026/02/07/README.md) | Weekend · no dated post observed | 0 | 0 |
+| [2026-02-06](2026/02/06/README.md) | Captured | 1 | 2 |
+| [2026-02-05](2026/02/05/README.md) | No dated post observed | 0 | 0 |
+| [2026-02-04](2026/02/04/README.md) | No dated post observed | 0 | 0 |
+| [2026-02-03](2026/02/03/README.md) | No dated post observed | 0 | 0 |
+| [2026-02-02](2026/02/02/README.md) | No dated post observed | 0 | 0 |
+| [2026-02-01](2026/02/01/README.md) | Weekend · no dated post observed | 0 | 0 |
+| [2026-01-31](2026/01/31/README.md) | Weekend · no dated post observed | 0 | 0 |
+| [2026-01-30](2026/01/30/README.md) | No dated post observed | 0 | 0 |
+| [2026-01-29](2026/01/29/README.md) | No dated post observed | 0 | 0 |
+| [2026-01-28](2026/01/28/README.md) | Captured | 1 | 2 |
+| [2026-01-27](2026/01/27/README.md) | Captured | 1 | 2 |
+| [2026-01-26](2026/01/26/README.md) | Captured | 1 | 2 |
+| [2026-01-25](2026/01/25/README.md) | Weekend · no dated post observed | 0 | 0 |
+| [2026-01-24](2026/01/24/README.md) | Weekend · no dated post observed | 0 | 0 |
+| [2026-01-23](2026/01/23/README.md) | Captured | 1 | 2 |
+| [2026-01-22](2026/01/22/README.md) | Captured | 1 | 2 |
+| [2026-01-21](2026/01/21/README.md) | Captured | 1 | 2 |
+| [2026-01-20](2026/01/20/README.md) | Captured | 1 | 2 |
+| [2026-01-19](2026/01/19/README.md) | No dated post observed | 0 | 0 |
+| [2026-01-18](2026/01/18/README.md) | Weekend · no dated post observed | 0 | 0 |
+| [2026-01-17](2026/01/17/README.md) | Weekend · no dated post observed | 0 | 0 |
+| [2026-01-16](2026/01/16/README.md) | Captured | 1 | 2 |
+| [2026-01-15](2026/01/15/README.md) | Captured | 1 | 2 |
+| [2026-01-14](2026/01/14/README.md) | Captured | 1 | 2 |
+| [2026-01-13](2026/01/13/README.md) | Captured | 1 | 2 |
+| [2026-01-12](2026/01/12/README.md) | Captured | 1 | 2 |
+| [2026-01-11](2026/01/11/README.md) | Weekend · no dated post observed | 0 | 0 |
+| [2026-01-10](2026/01/10/README.md) | Weekend · no dated post observed | 0 | 0 |
+| [2026-01-09](2026/01/09/README.md) | Captured | 1 | 2 |
+| [2026-01-08](2026/01/08/README.md) | Captured | 1 | 2 |
+| [2026-01-07](2026/01/07/README.md) | Captured | 1 | 2 |
+| [2026-01-06](2026/01/06/README.md) | Captured | 1 | 2 |
+| [2026-01-05](2026/01/05/README.md) | Captured | 1 | 2 |
+| [2026-01-04](2026/01/04/README.md) | Weekend · no dated post observed | 0 | 0 |
+| [2026-01-03](2026/01/03/README.md) | Weekend · no dated post observed | 0 | 0 |
+| [2026-01-02](2026/01/02/README.md) | Captured | 1 | 2 |
+| [2026-01-01](2026/01/01/README.md) | No dated post observed | 0 | 0 |

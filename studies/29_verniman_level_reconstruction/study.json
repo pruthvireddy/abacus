@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "study_id": "29_verniman_level_reconstruction",
+  "content_kind": "indicator_implementation",
+  "title": "Verniman Levels — Phase 1 candidate map",
+  "summary": "Session-aware Pine derivative of the supplied VP Levels baseline, with completed RTH and overnight references plus a frozen completed-bar pre-open candidate map. HVN/HVE, PBT, pivot and target selection remain planned.",
+  "status": "indicator_implementation",
+  "topic": "verniman_level_reconstruction",
+  "products": [
+    "ES",
+    "MES",
+    "NQ",
+    "MNQ"
+  ],
+  "data_summary": "Supplied Pine baseline and generic Study 27 knowledge-base concepts; no pinned market dataset, Verniman dated target values or computed market-data research outcomes.",
+  "evidence_status": "Source review, local synthetic specification checks and source safeguards are distinct from native Pine verification. Private Pine v6 compilation passed in the inspected ESZ2026 five-minute TradingView configuration; allowed-date browser replay results and limitations are recorded in verification.md. MES/NQ/MNQ and one-minute charts have not been browser verified. No recovered proprietary level-construction rule or profitability finding is established.",
+  "strategy_ids": [],
+  "reference_run": null,
+  "implementation": {
+    "plan": "plan.md",
+    "settings": "study.yaml",
+    "inputs_lock": "inputs.lock.json",
+    "source": "indicator/verniman_levels.pine"
+  }
+}

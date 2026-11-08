@@ -1,0 +1,35 @@
+{
+  "request": {
+    "id": "verniman_daily_levels__23.0.0",
+    "requester": "workspace user via authorized recurring Verniman daily check",
+    "requested_on": "2026-11-05",
+    "purpose": "Record the verified as-of November 5 source date conflict without assigning unverified prices or changing November 4."
+  },
+  "inputs": {
+    "predecessor": {
+      "path": "catalog/datasets/verniman_daily_levels__22.0.0.json",
+      "bytes": 189531,
+      "sha256": "ed25aed62f976c1ab659a6ce266f53ff4150ead7ab0bf5b1d7c892c86736f92b"
+    },
+    "current_public_candidate": "https://verniman.blogspot.com/2009/11/dow-rally.html",
+    "public_gap_review": {
+      "path": "data/staging/verniman/daily_checks/20261105T142947Z_daily_b1e9739b/public-gap-review.json",
+      "sha256": "a4c17f86c4fe2d8a14f63e410dbcdcc04724c13a2a7cb7bd0ed5beb925a1b404",
+      "bytes": 4506
+    },
+    "observed_as_of_utc": "2026-11-05T14:32:02.702323+00:00",
+    "prior_inputs": "Retain every predecessor history, update and legend pin."
+  },
+  "output": {
+    "dataset": "verniman_daily_levels",
+    "version": "23.0.0",
+    "added_coverage_rows": 1,
+    "added_source_coverage_rows": 1,
+    "added_outlooks": 0,
+    "added_levels": 0,
+    "status": "no_dated_plan_verified",
+    "available_at": null
+  },
+  "qualification": "Source states November 4 in both formats; update and X link dates alone do not establish November 5. Later publication or correction remains possible.",
+  "validation": "31 existing consolidated tests, independent source-date audit, pinned input/output bytes, saved CSV/Parquet coverage and exact preservation of all predecessor rows."
+}

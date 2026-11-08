@@ -1,0 +1,72 @@
+request:
+  id: verniman_daily_levels__15.0.0
+  requester: workspace user
+  requested_on: '2026-10-30'
+  purpose: >-
+    Extract all retrievable supplied outlooks into the existing Verniman master
+    structure, preserving labeled directional pivots, ordered bullish/bearish
+    targets, ranges, contract, confirmation conditions and source evidence.
+inputs:
+  predecessor: catalog/datasets/verniman_daily_levels__14.0.0.json
+  historical_releases: retain exact predecessor inputs without re-extracting history
+  source_urls:
+    - https://verniman.blogspot.com/2009/10/ai-worries_0248886265.html
+    - https://verniman.blogspot.com/2009/10/after-fomc.html
+    - https://verniman.blogspot.com/2009/10/fomc-day.html
+    - https://verniman.blogspot.com/2009/10/fomc-begins.html
+    - https://verniman.blogspot.com/2009/10/fomc-week.html
+    - https://verniman.blogspot.com/2009/10/crude-at-100.html
+    - https://verniman.blogspot.com/2009/10/meta-tesla.html
+  recovery_scope: >-
+    Explicit desktop/mobile source attempts, bounded official feeds and exact
+    source archive-index queries for October 20-31, 2026. Retain failures and
+    qualifiers. Other similarly named dates are excluded.
+output:
+  dataset: verniman_daily_levels
+  version: 15.0.0
+  destination: data/curated/external_levels/source=verniman/version=15.0.0/
+  organization: existing year-partitioned Parquet and inspectable CSV tables
+  tables: [outlooks, levels, coverage, issues, release_membership, source_coverage, observations, observation_levels]
+  viewing_only: daily_summary.csv
+  manifest: catalog/datasets/verniman_daily_levels__15.0.0.json
+  schema: catalog/schemas/verniman_daily_levels__15.0.0.json
+  quality_report: reports/quality/verniman_daily_levels__15.0.0.md
+  calendar: {start: '2016-01-01', end: '2026-10-30', inclusive: true}
+delivery:
+  new_dates: ['2026-10-28', '2026-10-29']
+  unchanged_reconfirmed_dates: ['2026-10-27', '2026-10-30']
+  unavailable_sources: [fomc-week, crude-at-100, meta-tesla]
+  missing_source_policy: >-
+    Three supplied URLs return 404 and no matching plans were recovered in the
+    bounded official feeds or archive indexes. The user explicitly accepted
+    keeping any existing database records and otherwise marking these as
+    missing, consistent with other gaps. Existing retrospective user notes
+    remain separate; no new canonical source levels are inferred.
+reconciliation:
+  preserve: all existing release artifacts and canonical outlooks/levels/observations remain unchanged
+  unchanged_source: >-
+    Compare exact Atom content HTML, normalized body and every extracted level
+    against existing source records. Reuse the canonical projection when all
+    agree, retaining fresh capture evidence without duplicate canonical levels.
+  new_source: retain source labels, target order and exact price_low/price_high bounds
+  zones: October 29 HVE-YHOD 7814-7819 remains one target zone
+  context: header-only levels and calendar numbers do not become scenario targets
+  missing_dates: >-
+    Missing-source October 22/26 associations derive only from retained user
+    recollections. Crude at 100 has no verified session date; do not guess one.
+timing:
+  available_at: null
+  status: historical_availability_unverified
+  date_basis: explicit body Outlook month/day and ESZ26 (Dec2026), matched across HTML and Atom
+  source_claims: retain old published claims separately from update and capture clocks
+validation:
+  source: independent review of prices, source labels, target order, zones, conditions, dates and duplicate comparisons
+  release: exact input/output hashes, schema, relational integrity and pinned loader checks
+  preservation: prior artifact hashes and predecessor row comparisons, with only declared coverage changes
+  focused_tests: existing synthetic consolidated publication/loader and extraction suites
+  navigation: documentation checker, metadata profile and index freshness
+  scientific_scope: no study execution, market validation or strategy-performance claims
+retention:
+  raw: distinct source capture, error-response, feed-discovery and archive-discovery batches
+  staging: distinct preparation scripts, independent source reviews and preservation receipts
+  release: immutable unique release retaining source preparation and environment lock

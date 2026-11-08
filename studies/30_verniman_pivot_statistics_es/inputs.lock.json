@@ -1,0 +1,52 @@
+{
+  "data_policy": "repository_only_reuse_prebuilt_ohlc",
+  "external_acquisition_allowed": false,
+  "inputs": {
+    "retained_cloud_reference": {
+      "bytes": 103008,
+      "path": "catalog/datasets/same_contract_ema_cloud__1.1.0.json",
+      "sha256": "444043918c9b30a0d909e88328094b52936f6b379ce288b85afb6740aed0f838"
+    },
+    "retained_continuous_minutes": {
+      "bytes": 23097,
+      "path": "catalog/datasets/volume_lead_unadjusted_v1.json",
+      "sha256": "00757f5fc8278e75744d7adfaddc688be588d619d82b1dc1811aa60f21b7e5d4"
+    },
+    "session_indicators": {
+      "bytes": 11435,
+      "path": "catalog/datasets/es_contract_session_indicators__1.0.0.json",
+      "sha256": "54d4f39521151cb77dfeb4ed4ad8681031de979d5cc6fec8cbe462ac89739187"
+    },
+    "verniman_daily_levels": {
+      "bytes": 163067,
+      "path": "catalog/datasets/verniman_daily_levels__19.0.0.json",
+      "sha256": "3cb70a8fee874489ee2932d1923f27efe543b516e5f2ff50fc95895099e53524"
+    }
+  },
+  "pending_feature_delivery": {
+    "dataset_id": "es_contract_session_indicators__1.0.0",
+    "manifest_sha256": "54d4f39521151cb77dfeb4ed4ad8681031de979d5cc6fec8cbe462ac89739187",
+    "request": "requests/inbox/es_contract_session_indicators__1.0.0.yaml",
+    "status": "published"
+  },
+  "phase": "repository_only_pre_execution_inputs",
+  "pre_execution_feature_audit": {
+    "path": "work/30_verniman_pivot_statistics_es/feature-audit-v1/receipt.json",
+    "scope": "independent feature/source parity, recurrence, timing and deterministic aggregation checks; no outcomes",
+    "sha256": "17ddfd213033a4afa17e7f7b5c161cc6a0029d6585c9bd8a698bced4e5fcf7b5"
+  },
+  "qualifications": [
+    "Phase1 pins are not an outcome-execution freeze.",
+    "Retained cloud is a reference identity; it is not substituted for exact-contract new indicators.",
+    "All historical pivot available_at values remain unverified; no09:25 timestamp imputed."
+  ],
+  "requested_interval": {
+    "end_date": "2026-10-30",
+    "end_exclusive": "2026-10-31",
+    "end_inclusive": true,
+    "start_date": "2020-01-01"
+  },
+  "retained_inventory_start": "2019-12-01",
+  "schema_version": "abacus.study30.phase1-inputs/v1",
+  "study_id": "30_verniman_pivot_statistics_es"
+}

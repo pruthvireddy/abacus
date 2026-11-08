@@ -8,7 +8,10 @@ import ts from 'typescript';
 
 // Compile the actual server component for Node's test runner (which cannot parse
 // TSX). This adds no build output or fixture to Narada's public directory.
+// Next Link uses the same trailing-slash setting as the static app build.
+process.env.__NEXT_TRAILING_SLASH = 'true';
 const require = createRequire(import.meta.url);
+const linkTo = (html, href) => [...html.matchAll(/<a\b[^>]*>/g)].map(match => match[0]).find(tag => tag.includes(`href="${href}"`));
 function compile(relativePath) {
   const source = readFileSync(new URL(relativePath, import.meta.url), 'utf8');
   const { outputText } = ts.transpileModule(source, { compilerOptions: {
@@ -21,6 +24,7 @@ function compile(relativePath) {
       : id === '@/lib/table-share' ? compile('../src/lib/table-share.ts')
         : id === './table-filters' ? compile('../src/lib/table-filters.ts')
           : id === './section-link' ? compile('../src/components/section-link.tsx')
+            : id === './study-tab-list' ? compile('../src/components/study-tab-list.tsx')
             : id === './report-contents' ? compile('../src/components/report-contents.tsx')
       : id === '@/lib/saved-tables' ? compile('../src/lib/saved-tables.ts')
         : id === './report-table' ? compile('../src/components/report-table.tsx')
@@ -93,6 +97,45 @@ test('figures retain alternative text and caption with a visible full-size link'
   assert.match(html, /View full-size figure<\/a>/);
 });
 
+test('insight tables present description and escaped saved finding before their evidence', () => {
+  const section = { id: 'insight', kind: 'table', title: 'How often does it occur?', description: 'Count all eligible days, including zero-event days.', finding: 'Overall: <script>unsafe</script> is plain text; the saved count is zero.', notes: ['These are descriptive results.'], columns: [{ key: 'value', label: 'Saved count', format: 'number', precision: 0 }], rows: [{ value: 0 }] };
+  const html = renderToStaticMarkup(React.createElement(ReportSections, { sections: [section], reportId: 'test-only' }));
+  assert(html.indexOf('How often does it occur?') < html.indexOf(section.description));
+  assert(html.indexOf(section.description) < html.indexOf('Findings summary'));
+  assert(html.indexOf('Findings summary') < html.indexOf('<table>'));
+  assert.match(html, /id="table-finding-insight"/);
+  assert.match(html, /aria-describedby="table-help-insight table-context-insight table-finding-insight table-notes-insight"/);
+  assert.match(html, /&lt;script&gt;unsafe&lt;\/script&gt;/);
+  assert(!html.includes('<script>'));
+  assert.match(html, />0<\/td>/);
+  const legacy = renderToStaticMarkup(React.createElement(ReportSections, { sections: [{ ...section, finding: undefined }], reportId: 'test-only' }));
+  assert(!legacy.includes('Findings summary'));
+  assert(!legacy.includes('table-finding-insight'));
+});
+
+test('insight figures present description and saved finding before the image and retain its caption', () => {
+  const section = { id: 'insight-figure', kind: 'figure', title: 'When does the first event occur?', description: 'Observe the first crossing in each eligible session.', finding: 'Overall <comparison> remains descriptive.\nLater bins remain in the saved table.', path: 'figures/timing.png', alt: 'Selected first-cross timing bins.', caption: 'Full saved population; no intrabar order inferred.' };
+  const html = renderToStaticMarkup(React.createElement(ReportSections, { sections: [section], reportId: 'test-only' }));
+  assert(html.indexOf(section.title) < html.indexOf(section.description));
+  assert(html.indexOf(section.description) < html.indexOf('Findings summary'));
+  assert(html.indexOf('Findings summary') < html.indexOf('<figure'));
+  assert.match(html, /Overall &lt;comparison&gt; remains descriptive/);
+  assert.match(html, /Selected first-cross timing bins/);
+  assert.match(html, /Full saved population; no intrabar order inferred/);
+  assert.equal((html.match(/Findings summary/g) ?? []).length, 1);
+});
+
+test('filtered insight tables retain their authored summary and bounded default rows before activation', () => {
+  const section = { id: 'insight-filtered', kind: 'table', title: 'Saved periods', description: 'Compare explicitly saved periods.', finding: 'Overall: this fixed summary describes the authored baseline.', rowFilters: [{ key: 'period', label: 'Period', defaultValue: 'Overall' }], columns: [{ key: 'period', label: 'Period' }, { key: 'value', label: 'Saved count', format: 'number' }], rows: [{ period: 'Overall', value: 3 }, { period: '2026', value: 1 }] };
+  const html = renderToStaticMarkup(React.createElement(ReportSections, { sections: [section], reportId: 'test-only' }));
+  assert.match(html, /Overall: this fixed summary describes the authored baseline/);
+  assert.match(html, /Load table filters/);
+  assert(!html.includes('>2026<'));
+  assert.equal((html.match(/Findings summary/g) ?? []).length, 1);
+  assert(html.indexOf('Findings summary') < html.indexOf('Load table filters'));
+  assert.match(html, /table-finding-insight-filtered/);
+});
+
 test('publication tabs use ordinary accessible links with exactly one current chart', () => {
   const { PublicationTabs } = compile('../src/components/publication-tabs.tsx');
   const tabs = [
@@ -102,7 +145,7 @@ test('publication tabs use ordinary accessible links with exactly one current ch
   ];
   const html = renderToStaticMarkup(React.createElement(PublicationTabs, { tabs, currentPublicationId: 'chart-b' }));
   assert.match(html, /<nav[^>]+aria-label="Study chart navigation"/);
-  assert.match(html, /href="\/reports\/chart-b\/" aria-current="page"/);
+  assert(linkTo(html, '/reports/chart-b/')?.includes('aria-current="page"'));
   assert.equal((html.match(/aria-current="page"/g) ?? []).length, 1);
   assert.equal((html.match(/<a /g) ?? []).length, 3);
   assert.match(html, /Chart &lt;C&gt;/);
@@ -129,7 +172,7 @@ test('analysis links retain a corresponding chart and keep every immutable repor
     { id: 'second', label: 'Second <analysis>', publicationTabs: [{ publicationId: 'second-a', label: 'Chart A' }, { publicationId: 'second-b', label: 'Chart B' }] }];
   const nav = renderToStaticMarkup(React.createElement(StudyAnalysisNavigation, { analyses, currentAnalysisId: 'first', currentChartLabel: 'Chart B' }));
   assert.match(nav, /aria-label="Study analysis navigation"/);
-  assert.match(nav, /href="\/reports\/first-b\/" aria-current="page"/);
+  assert(linkTo(nav, '/reports/first-b/')?.includes('aria-current="page"'));
   assert.match(nav, /href="\/reports\/second-b\/"/);
   assert.match(nav, /Second &lt;analysis&gt;/);
   assert.equal((nav.match(/aria-current="page"/g) ?? []).length, 1);
@@ -143,7 +186,7 @@ test('analysis navigation falls back to the single saved baseline while retainin
     { id: 'baseline', label: 'Saved baseline', publicationTabs: [{ publicationId: 'retained-baseline', label: 'Baseline' }] },
   ];
   const nav = renderToStaticMarkup(React.createElement(StudyAnalysisNavigation, { analyses, currentAnalysisId: 'later', currentChartLabel: 'Year-wise' }));
-  assert.match(nav, /href="\/reports\/later-year\/" aria-current="page"/);
+  assert(linkTo(nav, '/reports/later-year/')?.includes('aria-current="page"'));
   assert.match(nav, /href="\/reports\/retained-baseline\/"/);
   assert.equal((nav.match(/aria-current="page"/g) ?? []).length, 1);
   const directory = renderToStaticMarkup(React.createElement(StudyAnalysisDirectory, { analyses }));
@@ -165,16 +208,16 @@ test('phase links preserve a declared condition and view with accessible native 
   const phase = renderToStaticMarkup(React.createElement(StudyPhaseNavigation, { families, currentFamilyId: 'later', currentAnalysisId: 'context', currentChartLabel: 'Year-wise' }));
   assert.match(phase, /aria-label="Study phase navigation"/);
   assert.match(phase, /href="\/reports\/earlier-year\/"/);
-  assert.match(phase, /href="\/reports\/later-year\/" aria-current="page"/);
+  assert(linkTo(phase, '/reports/later-year/')?.includes('aria-current="page"'));
   assert.equal((phase.match(/aria-current="page"/g) ?? []).length, 1);
   assert.match(phase, /EMA &lt;cloud&gt;/);
   assert(!phase.includes('role="tab"'));
   const fallback = renderToStaticMarkup(React.createElement(StudyPhaseNavigation, { families, currentFamilyId: 'later', currentAnalysisId: 'risk', currentChartLabel: 'Sessions' }));
   assert.match(fallback, /href="\/reports\/original-parent\/"/);
-  assert.match(fallback, /href="\/reports\/risk-summary\/" aria-current="page"/);
+  assert(linkTo(fallback, '/reports/risk-summary/')?.includes('aria-current="page"'));
   const conditions = renderToStaticMarkup(React.createElement(StudyAnalysisNavigation, { analyses: families[1].analyses, currentAnalysisId: 'context', currentChartLabel: 'Year-wise', asConditions: true }));
-  assert.match(conditions, /CHOOSE A CONDITION/);
-  assert.match(conditions, /href="\/reports\/later-year\/" aria-current="page"/);
+  assert.match(conditions, />CONDITION<\/p>/);
+  assert(linkTo(conditions, '/reports/later-year/')?.includes('aria-current="page"'));
   assert(!conditions.includes('/reports/earlier-year/'));
   const directory = renderToStaticMarkup(React.createElement(StudyPhaseDirectory, { families }));
   assert.match(directory, /<details class="analysis-directory phase-directory">/);

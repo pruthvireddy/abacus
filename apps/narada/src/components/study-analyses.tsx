@@ -1,4 +1,5 @@
 import type { StudyAnalysis, StudyPhaseFamily } from "../../types/study";
+import { StudyTabList } from "./study-tab-list";
 import { familyPublicationSelection } from "../../scripts/lib/study-selections.mjs";
 
 type Props = { analyses: StudyAnalysis[]; currentAnalysisId?: string; currentChartLabel?: string; asConditions?: boolean };
@@ -7,11 +8,11 @@ type Props = { analyses: StudyAnalysis[]; currentAnalysisId?: string; currentCha
 // Every destination remains an immutable saved publication, with no merging.
 export function StudyAnalysisNavigation({ analyses, currentAnalysisId, currentChartLabel, asConditions = false }: Props) {
   return <nav className="study-analyses" aria-label="Study analysis navigation">
-    <p className="eyebrow">{asConditions ? "CHOOSE A CONDITION" : "CHOOSE AN ANALYSIS"}</p>
-    <ul>{analyses.map(analysis => {
+    <p className="eyebrow">{asConditions ? "CONDITION" : "ANALYSIS"}</p>
+    <StudyTabList preserveScroll links={analyses.map(analysis => {
       const selected = analysis.publicationTabs.find(tab => tab.label === currentChartLabel) ?? analysis.publicationTabs[0];
-      return <li key={analysis.id}><a href={`/reports/${selected.publicationId}/`} aria-current={analysis.id === currentAnalysisId ? "page" : undefined}>{analysis.label}</a></li>;
-    })}</ul>
+      return { href: `/reports/${selected.publicationId}/`, label: analysis.label, current: analysis.id === currentAnalysisId };
+    })} />
   </nav>;
 }
 
@@ -19,11 +20,11 @@ export function StudyPhaseNavigation({ families, currentFamilyId, currentAnalysi
   families: StudyPhaseFamily[]; currentFamilyId?: string; currentAnalysisId?: string; currentChartLabel?: string;
 }) {
   return <nav className="study-phases" aria-label="Study phase navigation">
-    <p className="eyebrow">CHOOSE A PHASE</p>
-    <ul>{families.map(family => {
+    <p className="eyebrow">PHASE</p>
+    <StudyTabList preserveScroll links={families.map(family => {
       const { tab } = familyPublicationSelection(family, currentAnalysisId, currentChartLabel);
-      return <li key={family.id}><a href={`/reports/${tab.publicationId}/`} aria-current={family.id === currentFamilyId ? "page" : undefined}>{family.label}</a></li>;
-    })}</ul>
+      return { href: `/reports/${tab.publicationId}/`, label: family.label, current: family.id === currentFamilyId };
+    })} />
   </nav>;
 }
 

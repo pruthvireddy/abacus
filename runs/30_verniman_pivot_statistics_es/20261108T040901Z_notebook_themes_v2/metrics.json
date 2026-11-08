@@ -1,0 +1,1001 @@
+{
+  "schema_version": "abacus.study30.notebook-metrics/v2",
+  "study_id": "30_verniman_pivot_statistics_es",
+  "run_id": "20261108T040901Z_notebook_themes_v2",
+  "upstream_source_run_id": "20261031_ranked_v2",
+  "scope": "Selected descriptive point estimates and support recalculated from retained ledgers; no new event reconstruction or confidence intervals.",
+  "themes": [
+    {
+      "id": "opening-context",
+      "title": "Opening context",
+      "question": "Where does the session begin relative to the pivot, and how far apart are the reference levels?",
+      "insights": [
+        {
+          "id": "opening-configuration",
+          "title": "How does the opening configuration relate to crossing activity?",
+          "description": "Compare the day's EMA6–pivot crossing count across price opening above both pivot and VWAP, below both, between the lines, or on an equal boundary. Opening states use the actual 09:30 snapshot.\n\nAll eligible sessions remain in the count, including days without crossings. These are conditional descriptions; source availability and full-day eligibility are retrospective.",
+          "finding": "Mean daily EMA6–pivot counts were 1.99 on 362 above-both days, 2.18 on 209 below-both days, and 2.35 on 293 between-line days. Crossing activity varied with the opening configuration; this does not establish a predictive advantage. The equal-boundary group contains only 11 days and is sparse.",
+          "kind": "figure",
+          "path": "figures/opening-configuration.png",
+          "alt": "Mean EMA6–pivot crossings by price opening configuration, with eligible-day counts.",
+          "caption": "The equal-boundary group is below the 30-day support threshold. Configurations use price, pivot and VWAP at 09:30."
+        },
+        {
+          "id": "opening-separation",
+          "title": "How far apart are pivot and VWAP at the opening?",
+          "description": "Measure the absolute separation of the daily pivot and contemporaneous Globex VWAP at 09:30, once in ES points and once in basis points of the pivot. The two columns are averages of daily measurements, not conversions of an aggregate mean.\n\nThe table retains the observed spread of separation without treating it as a selected entry threshold.",
+          "finding": "Across 875 sessions, mean opening separation was 9.48 ES points and 19.80 basis points. The point median was 6.61, below its mean, showing an asymmetric retained distribution. Separation is context, not evidence that a wider gap creates a tradable opportunity.",
+          "kind": "table",
+          "columns": [
+            {
+              "key": "measure",
+              "label": "Measurement"
+            },
+            {
+              "key": "unit",
+              "label": "Unit"
+            },
+            {
+              "key": "sessions",
+              "label": "Sessions",
+              "precision": 0,
+              "format": "number"
+            },
+            {
+              "key": "mean",
+              "label": "Mean",
+              "precision": 2,
+              "format": "number"
+            },
+            {
+              "key": "median",
+              "label": "Median",
+              "precision": 2,
+              "format": "number"
+            }
+          ],
+          "rows": [
+            {
+              "mean": 9.478937696435455,
+              "measure": "Absolute separation",
+              "median": 6.608852999895589,
+              "sessions": 875,
+              "unit": "ES points"
+            },
+            {
+              "mean": 19.79990555357869,
+              "measure": "Relative separation",
+              "median": 13.181839473856485,
+              "sessions": 875,
+              "unit": "Basis points"
+            }
+          ],
+          "notes": [
+            "One 09:30 measurement per eligible day; absolute pivot–VWAP separation. No opening price translation or cross-contract adjustment."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "crossing-activity",
+      "title": "Crossing activity",
+      "question": "How often do price and EMA6 cross the reference levels, including sessions without a crossing?",
+      "insights": [
+        {
+          "id": "vwap-frequency",
+          "title": "How often does EMA6 cross VWAP on pivot-matched days?",
+          "description": "Count actual completed three-minute EMA6 transitions through Globex VWAP during RTH on the same 875 pivot-matched sessions used throughout this notebook. Keep zero-cross days in the denominator.\n\nThis is a comparison line within the pivot study, with no pooling of the larger VWAP-only populations.",
+          "finding": "EMA6 crossed VWAP 2,450 times across 875 matched sessions: a mean of 2.80 per session, with median 2. A total of 184 sessions had no cross. These are recurrence counts within the pivot-matched cohort.",
+          "kind": "table",
+          "columns": [
+            {
+              "key": "sessions",
+              "label": "Sessions",
+              "precision": 0,
+              "format": "number"
+            },
+            {
+              "key": "crossings",
+              "label": "Crossings",
+              "precision": 0,
+              "format": "number"
+            },
+            {
+              "key": "mean",
+              "label": "Mean / session",
+              "precision": 2,
+              "format": "number"
+            },
+            {
+              "key": "median",
+              "label": "Median",
+              "precision": 2,
+              "format": "number"
+            },
+            {
+              "key": "zero_days",
+              "label": "Zero-cross days",
+              "precision": 0,
+              "format": "number"
+            }
+          ],
+          "rows": [
+            {
+              "crossings": 2450,
+              "mean": 2.8,
+              "median": 2.0,
+              "sessions": 875,
+              "zero_days": 184
+            }
+          ],
+          "notes": [
+            "Actual EMA6–VWAP strict side changes, 09:30–16:00 New York. The opening state and VWAP reset are not crossings."
+          ]
+        },
+        {
+          "id": "pivot-frequency",
+          "title": "How often does EMA6 cross the daily pivot?",
+          "description": "Calculate daily EMA6–pivot crossing frequency for the full matched RTH sample and its up/down components. A crossing requires a completed strict-side transition; EMA6 merely being aligned with price is not a new crossing.\n\nAll 875 eligible sessions enter every daily mean, including zero-cross days.",
+          "finding": "The sample contained 1,886 EMA6–pivot crossings, a mean of 2.16 per eligible session and median 1. Upward and downward counts were 934 and 952. Daily recurrence differs from the number of independent trading opportunities.",
+          "kind": "table",
+          "columns": [
+            {
+              "key": "direction",
+              "label": "Crossing direction"
+            },
+            {
+              "key": "sessions",
+              "label": "Sessions",
+              "precision": 0,
+              "format": "number"
+            },
+            {
+              "key": "crossings",
+              "label": "Crossings",
+              "precision": 0,
+              "format": "number"
+            },
+            {
+              "key": "mean",
+              "label": "Mean / session",
+              "precision": 2,
+              "format": "number"
+            },
+            {
+              "key": "median",
+              "label": "Median",
+              "precision": 2,
+              "format": "number"
+            }
+          ],
+          "rows": [
+            {
+              "crossings": 1886,
+              "direction": "All directions",
+              "mean": 2.155428571428571,
+              "median": 1.0,
+              "sessions": 875
+            },
+            {
+              "crossings": 934,
+              "direction": "Upward",
+              "mean": 1.067428571428571,
+              "median": 1.0,
+              "sessions": 875
+            },
+            {
+              "crossings": 952,
+              "direction": "Downward",
+              "mean": 1.088,
+              "median": 1.0,
+              "sessions": 875
+            }
+          ],
+          "notes": [
+            "Equality carries the remembered strict side. Session opening initialization is not counted as a crossing."
+          ]
+        },
+        {
+          "id": "count-distribution",
+          "title": "How common are zero-cross and repeated-cross days?",
+          "description": "Place each day's actual EMA6 crossings into the frozen count categories 0, 1, 2, 3–4 and 5+. Compare pivot and VWAP within the same matched RTH sessions.\n\nThe no-cross category remains an observed result, and all categories use the same eligible-day denominator.",
+          "finding": "235 of 875 sessions (26.9%) had no EMA6–pivot crossing, compared with 184 (21.0%) without an EMA6–VWAP crossing. The distribution shows how frequently these reference lines were crossed repeatedly, without treating multiple crosses within a day as independent days.",
+          "kind": "figure",
+          "path": "figures/count-distribution.png",
+          "alt": "Shares of eligible days with 0, 1, 2, 3–4 or 5+ actual EMA6 crossings, comparing pivot and VWAP.",
+          "caption": "Each reference uses all 875 pivot-matched RTH sessions. Zero is an observed count, not missing support."
+        },
+        {
+          "id": "price-ema-counts",
+          "title": "How do price and EMA6 crossing counts differ?",
+          "description": "Compare actual three-minute closing-price crossings with EMA6 line crossings at pivot and VWAP. Every series uses the same eligible sessions; differences are calculated within the common day/reference population.\n\nThese are recurrence counts, not returns from trading the corresponding events.",
+          "finding": "Price averaged 4.64 pivot crossings per session, compared with 2.16 for EMA6 on the same 875 days. The smoothed indicator crossed less often in this sample. That count difference does not demonstrate that either event produces a superior trading result.",
+          "kind": "figure",
+          "path": "figures/price-ema-counts.png",
+          "alt": "Mean price and EMA6 crossing counts at the pivot and VWAP on 875 common RTH sessions.",
+          "caption": "All series include zero-cross days. Both price and EMA6 require completed strict-side changes."
+        }
+      ]
+    },
+    {
+      "id": "breaks-confirmation",
+      "title": "Breaks & confirmation",
+      "question": "Does an initially unconfirmed price break return or receive EMA6 confirmation, and what happens before that resolution?",
+      "insights": [
+        {
+          "id": "pivot-confirmation",
+          "title": "How often does a price break return before EMA6 confirms it?",
+          "description": "Follow price breaks through Vern's pivot that begin with EMA6 opposite, equal with a remembered side, or not yet initialized. Does an actual EMA6 crossing occur before price returns through the pivot?\n\nThe percentage uses resolved episodes only. An episode with neither confirmation nor return remains censored. A confirmed episode can have its later return censored without losing its earlier confirmation.",
+          "finding": "Of 2,445 resolved price breaks across 666 days, 1,075 (44.0%) returned through the pivot before EMA6 confirmation. Another 33 episodes remained unresolved and are excluded from that percentage. Almost half of these resolved, initially unconfirmed breaks returned first. This classification becomes known after the break and is not an entry-time signal.",
+          "kind": "table",
+          "columns": [
+            {
+              "key": "outcome",
+              "label": "Observed outcome"
+            },
+            {
+              "key": "episodes",
+              "label": "Episodes",
+              "precision": 0,
+              "format": "number"
+            },
+            {
+              "key": "resolved_share",
+              "label": "Share of resolved episodes",
+              "precision": 1,
+              "format": "percent"
+            },
+            {
+              "key": "distinct_days",
+              "label": "Distinct days",
+              "precision": 0,
+              "format": "number"
+            }
+          ],
+          "rows": [
+            {
+              "distinct_days": 577,
+              "episodes": 1370,
+              "outcome": "EMA6 confirmed before return",
+              "resolved_share": 0.560327198364008
+            },
+            {
+              "distinct_days": 494,
+              "episodes": 1075,
+              "outcome": "Price returned before confirmation",
+              "resolved_share": 0.439672801635992
+            },
+            {
+              "distinct_days": 33,
+              "episodes": 33,
+              "outcome": "Unresolved at observation end",
+              "resolved_share": null
+            }
+          ],
+          "notes": [
+            "Resolved denominator: 2,445 episodes; unresolved observations have no resolved-outcome percentage. Distinct-day counts overlap across rows.",
+            "Confirmation status is distinct from censoring of a later return."
+          ]
+        },
+        {
+          "id": "returned-break-depth",
+          "title": "How deep are breaks that return without EMA6 confirmation?",
+          "description": "Measure maximum directional penetration beyond the pivot during initially unconfirmed price episodes that return before an actual EMA6 confirmation. The population is selected by the subsequently observed return.\n\nDepth is measured in unadjusted ES points; it is not an assumed loss, stop distance or execution price.",
+          "finding": "The 1,075 returned unconfirmed breaks across 494 days had mean penetration of 3.13 ES points, with median 2.50. The mean exceeds the median in this retained conditional sample. Returned breaks can travel beyond the pivot before reversing; their eventual return is later information.",
+          "kind": "table",
+          "columns": [
+            {
+              "key": "episodes",
+              "label": "Returned episodes",
+              "precision": 0,
+              "format": "number"
+            },
+            {
+              "key": "days",
+              "label": "Distinct days",
+              "precision": 0,
+              "format": "number"
+            },
+            {
+              "key": "mean",
+              "label": "Mean points",
+              "precision": 2,
+              "format": "number"
+            },
+            {
+              "key": "median",
+              "label": "Median points",
+              "precision": 2,
+              "format": "number"
+            }
+          ],
+          "rows": [
+            {
+              "days": 494,
+              "episodes": 1075,
+              "mean": 3.131627906976757,
+              "median": 2.5
+            }
+          ],
+          "notes": [
+            "Conditional on return before confirmation. Unconfirmed unresolved episodes are not treated as returned breaks."
+          ]
+        },
+        {
+          "id": "delayed-confirmation",
+          "title": "How much time and movement precede delayed EMA6 confirmation?",
+          "description": "Among price episodes with a later actual EMA6 crossing, measure elapsed time from the initial price break and directional price movement to confirmation. Same-close confirmations and already-aligned EMA6 states are distinct.\n\nThese measurements condition on eventual confirmation. They do not describe a filter available at the earlier price break.",
+          "finding": "Across 1,370 delayed confirmations on 577 days, the mean lag was 5.07 minutes and mean directional price movement before confirmation was 3.35 ES points. Waiting for confirmation changes the observation time and price reference; it cannot be retrospectively applied as though known at the original break.",
+          "kind": "table",
+          "columns": [
+            {
+              "key": "measurement",
+              "label": "Measurement"
+            },
+            {
+              "key": "unit",
+              "label": "Unit"
+            },
+            {
+              "key": "episodes",
+              "label": "Episodes",
+              "precision": 0,
+              "format": "number"
+            },
+            {
+              "key": "days",
+              "label": "Distinct days",
+              "precision": 0,
+              "format": "number"
+            },
+            {
+              "key": "mean",
+              "label": "Mean",
+              "precision": 2,
+              "format": "number"
+            },
+            {
+              "key": "median",
+              "label": "Median",
+              "precision": 2,
+              "format": "number"
+            }
+          ],
+          "rows": [
+            {
+              "days": 577,
+              "episodes": 1370,
+              "mean": 5.073722627737227,
+              "measurement": "Confirmation lag",
+              "median": 3.0,
+              "unit": "Minutes"
+            },
+            {
+              "days": 577,
+              "episodes": 1370,
+              "mean": 3.354927007299271,
+              "measurement": "Movement before confirmation",
+              "median": 2.25,
+              "unit": "ES points"
+            }
+          ],
+          "notes": [
+            "Delayed confirmations only. The new EMA6 crossing must occur while the original price episode remains active."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "after-cross",
+      "title": "After the cross",
+      "question": "What do complete subsequent price paths, EMA6 recrosses and pivot retests look like?",
+      "insights": [
+        {
+          "id": "forward-displacement",
+          "title": "What happens after an actual EMA6–pivot crossing?",
+          "description": "Measure directional price displacement after an actual EMA6 crossing at complete 15-, 30- and 60-minute horizons. Positive means movement in the crossing direction; the event-close price is the reference.\n\nThirty minutes is the protocol's primary horizon. Paths extending beyond RTH or with missing evidence remain unavailable, and earlier extremes of the signal candle are excluded.",
+          "finding": "Across 1,790 complete 30-minute paths on 636 days, mean directional displacement was -0.04 ES points and 48.8% ended strictly positive. Another 96 candidate paths were unavailable. The selected crossing alone did not produce a positive average 30-minute directional displacement in this sample.",
+          "kind": "table",
+          "columns": [
+            {
+              "key": "horizon",
+              "label": "Horizon"
+            },
+            {
+              "key": "outcomes",
+              "label": "Complete paths",
+              "precision": 0,
+              "format": "number"
+            },
+            {
+              "key": "days",
+              "label": "Distinct days",
+              "precision": 0,
+              "format": "number"
+            },
+            {
+              "key": "unknown",
+              "label": "Unavailable",
+              "precision": 0,
+              "format": "number"
+            },
+            {
+              "key": "mean",
+              "label": "Mean ES points",
+              "precision": 2,
+              "format": "number"
+            },
+            {
+              "key": "median",
+              "label": "Median ES points",
+              "precision": 2,
+              "format": "number"
+            },
+            {
+              "key": "positive",
+              "label": "Strictly positive",
+              "precision": 1,
+              "format": "percent"
+            }
+          ],
+          "rows": [
+            {
+              "days": 637,
+              "horizon": "15m",
+              "mean": 0.123705722070845,
+              "median": 0.25,
+              "outcomes": 1835,
+              "positive": 0.500272479564033,
+              "unknown": 51
+            },
+            {
+              "days": 636,
+              "horizon": "30m",
+              "mean": -0.040083798882681,
+              "median": 0.0,
+              "outcomes": 1790,
+              "positive": 0.487709497206704,
+              "unknown": 96
+            },
+            {
+              "days": 629,
+              "horizon": "60m",
+              "mean": 0.30638547158758,
+              "median": 0.5,
+              "outcomes": 1707,
+              "positive": 0.517867603983597,
+              "unknown": 179
+            }
+          ],
+          "notes": [
+            "Directional displacement starts at event close. Zero is distinct from positive; late/incomplete paths are excluded from each horizon denominator.",
+            "Multiple events on a day are dependent; these are point estimates without newly calculated confidence intervals."
+          ]
+        },
+        {
+          "id": "excursion-reach",
+          "title": "How far does price travel in either direction after the crossing?",
+          "description": "For complete 30-minute paths, calculate favorable and adverse excursions from the crossing close and the share reaching 5, 10 or 20 ES points in each direction.\n\nBoth directions can be reached in the same path. Minute-bar extremes do not establish which threshold traded first, a fill price or net profitability.",
+          "finding": "The 1,790 complete paths had mean favorable excursion of 9.04 ES points and mean adverse excursion of 8.65 points. The share reaching 10 favorable points was 30.8%, while 30.6% reached 10 adverse points. Excursion opportunity and adverse exposure coexist; the chart does not encode threshold ordering or a trading result.",
+          "kind": "figure",
+          "path": "figures/excursion-reach.png",
+          "alt": "Shares of complete 30-minute paths reaching favorable and adverse 5-, 10- or 20-point thresholds.",
+          "caption": "A path may reach both favorable and adverse thresholds. No intraminute order or execution is inferred."
+        },
+        {
+          "id": "ema-recross",
+          "title": "How often does EMA6 avoid recrossing the pivot for 30 minutes?",
+          "description": "Track the next reverse actual EMA6 crossing after each EMA6–pivot event. A complete 30-minute RTH window is required to classify absence of a recross.\n\nIncomplete windows remain censored even when a reverse crossing is observed before the boundary. An EMA6 recross is distinct from a price return through the pivot.",
+          "finding": "No reverse EMA6 crossing occurred in 1,110 of 1,790 complete windows (62.0%), on 636 supporting days. Another 96 windows were censored. Remaining on the same pivot side for 30 minutes does not establish a favorable price displacement or profitable trade.",
+          "kind": "table",
+          "columns": [
+            {
+              "key": "outcome",
+              "label": "Window outcome"
+            },
+            {
+              "key": "windows",
+              "label": "Windows",
+              "precision": 0,
+              "format": "number"
+            },
+            {
+              "key": "share",
+              "label": "Share of complete windows",
+              "precision": 1,
+              "format": "percent"
+            }
+          ],
+          "rows": [
+            {
+              "outcome": "No reverse EMA6 crossing",
+              "share": 0.620111731843575,
+              "windows": 1110
+            },
+            {
+              "outcome": "Reverse EMA6 crossing",
+              "share": 0.379888268156425,
+              "windows": 680
+            },
+            {
+              "outcome": "Censored/incomplete window",
+              "share": null,
+              "windows": 96
+            }
+          ],
+          "notes": [
+            "Only fully observed 30-minute RTH windows enter the probability denominator. Censored windows have no outcome percentage."
+          ]
+        },
+        {
+          "id": "crossing-order",
+          "title": "Does follow-through differ between first and later crossings?",
+          "description": "Compare complete 30-minute directional displacement after the first, second and third-or-later actual EMA6–pivot crossings of each RTH session.\n\nOrdinals are known at the event close. Horizon availability remains specific to each event; a late crossing is not assigned a shorter window to complete the table.",
+          "finding": "Mean 30-minute directional displacement was -0.18 ES points after first crossings (636 complete paths), 0.69 after second crossings, and -0.33 after third-or-later crossings. The table retains the different support and unavailable-path counts. These exploratory ordinal groups are not independent replications or a selected trading rule.",
+          "kind": "table",
+          "columns": [
+            {
+              "key": "ordinal",
+              "label": "Crossing ordinal"
+            },
+            {
+              "key": "outcomes",
+              "label": "Complete paths",
+              "precision": 0,
+              "format": "number"
+            },
+            {
+              "key": "days",
+              "label": "Distinct days",
+              "precision": 0,
+              "format": "number"
+            },
+            {
+              "key": "unknown",
+              "label": "Unavailable",
+              "precision": 0,
+              "format": "number"
+            },
+            {
+              "key": "mean",
+              "label": "Mean ES points",
+              "precision": 2,
+              "format": "number"
+            },
+            {
+              "key": "median",
+              "label": "Median ES points",
+              "precision": 2,
+              "format": "number"
+            },
+            {
+              "key": "positive",
+              "label": "Strictly positive",
+              "precision": 1,
+              "format": "percent"
+            }
+          ],
+          "rows": [
+            {
+              "days": 636,
+              "mean": -0.18003144654088,
+              "median": 0.0,
+              "ordinal": "1",
+              "outcomes": 636,
+              "positive": 0.488993710691824,
+              "unknown": 4
+            },
+            {
+              "days": 419,
+              "mean": 0.689140811455849,
+              "median": 0.0,
+              "ordinal": "2",
+              "outcomes": 419,
+              "positive": 0.491646778042959,
+              "unknown": 14
+            },
+            {
+              "days": 284,
+              "mean": -0.334693877551021,
+              "median": -0.25,
+              "ordinal": "3+",
+              "outcomes": 735,
+              "positive": 0.484353741496599,
+              "unknown": 78
+            }
+          ],
+          "notes": [
+            "Ordinals reset by RTH session. Directional movement starts at each event close; 30-minute complete paths only."
+          ]
+        },
+        {
+          "id": "pivot-retest",
+          "title": "How often does price retest the pivot after an EMA6 crossing?",
+          "description": "Look for the first subsequent completed three-minute bar containing the exact pivot within 30 minutes of an actual EMA6–pivot crossing. Complete windows determine retest incidence; observed touches separately support close classifications.\n\nThe touch definition uses bar ranges and does not infer an intrabar fill, a limit-order execution or the quality of a retest entry.",
+          "finding": "A retest occurred in 1,134 of 1,790 complete windows (63.4%), supported by 636 days. Another 96 incidence windows were censored. A pivot revisit is a frequent-path description under this bar-based definition; it does not measure whether a retest trade would have filled or made money.",
+          "kind": "table",
+          "columns": [
+            {
+              "key": "outcome",
+              "label": "Observed outcome"
+            },
+            {
+              "key": "windows",
+              "label": "Windows",
+              "precision": 0,
+              "format": "number"
+            },
+            {
+              "key": "share",
+              "label": "Share of complete windows",
+              "precision": 1,
+              "format": "percent"
+            }
+          ],
+          "rows": [
+            {
+              "outcome": "Pivot retest observed",
+              "share": 0.633519553072626,
+              "windows": 1134
+            },
+            {
+              "outcome": "No retest in complete window",
+              "share": 0.366480446927374,
+              "windows": 656
+            },
+            {
+              "outcome": "Censored incidence window",
+              "share": null,
+              "windows": 96
+            }
+          ],
+          "notes": [
+            "Retest incidence requires the full declared 30-minute RTH window. An observed touch under a shorter window does not make that incidence window complete."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "vwap-cloud",
+      "title": "VWAP & cloud",
+      "question": "How do the other reference line and contemporaneous cloud states relate to pivot-cross paths?",
+      "insights": [
+        {
+          "id": "pivot-to-vwap",
+          "title": "Does EMA6 reach VWAP before reversing through the pivot?",
+          "description": "After an actual EMA6–pivot crossing, observe the next 30 minutes for a strict EMA6 crossing through VWAP before a reverse pivot crossing. The at-risk denominator contains resolved or fully observed sequences starting strictly before the other line.\n\nSimultaneous crossings, already-beyond-VWAP starts and incomplete windows remain separate. A tie at a completed close has no inferred intrabar order.",
+          "finding": "EMA6 reached VWAP before recrossing the pivot in 362 of 705 resolved or fully observed at-risk sequences (51.3%), supported by 429 days. Another 20 sequences were censored. Excluded starting configurations remain visible below, so their large count is not silently absorbed into the conditional probability.",
+          "kind": "table",
+          "columns": [
+            {
+              "key": "outcome",
+              "label": "Sequence disposition"
+            },
+            {
+              "key": "sequences",
+              "label": "Sequences",
+              "precision": 0,
+              "format": "number"
+            },
+            {
+              "key": "share",
+              "label": "Share of at-risk resolved sequences",
+              "precision": 1,
+              "format": "percent"
+            }
+          ],
+          "rows": [
+            {
+              "outcome": "Already beyond VWAP at start",
+              "sequences": 1013,
+              "share": null
+            },
+            {
+              "outcome": "Censored: no complete endpoint",
+              "sequences": 20,
+              "share": null
+            },
+            {
+              "outcome": "Neither within complete 30 minutes",
+              "sequences": 86,
+              "share": 0.121985815602837
+            },
+            {
+              "outcome": "Pivot recross occurred first",
+              "sequences": 257,
+              "share": 0.364539007092199
+            },
+            {
+              "outcome": "VWAP crossed before pivot recross",
+              "sequences": 362,
+              "share": 0.513475177304964
+            },
+            {
+              "outcome": "Simultaneous reference crossings",
+              "sequences": 148,
+              "share": null
+            }
+          ],
+          "notes": [
+            "Only reach-before-recross, recross-first and neither-within-complete-window outcomes enter the conditional denominator. Other dispositions are shown with no conditional percentage.",
+            "Origins are pivot crosses; this table does not combine VWAP-origin paths."
+          ]
+        },
+        {
+          "id": "cloud-context",
+          "title": "How do cloud states relate to movement after a pivot cross?",
+          "description": "Compare complete 30-minute EMA6–pivot paths by contemporaneous cloud support, opposition or mixed state. Support requires directional EMA20/50 ordering and both native five-minute 15-minute slopes in the crossing direction; opposition requires the opposite configuration.\n\nStates are recorded at the event close. Conditional outcome groups are exploratory and share days with each other.",
+          "finding": "Mean 30-minute directional displacement was -0.31 ES points with cloud support (645 paths), compared with 0.57 points with opposition (393 paths). Mixed states averaged -0.13 points. The observed ordering does not support assuming that the support label automatically improves this outcome; it is an exploratory conditional comparison.",
+          "kind": "table",
+          "columns": [
+            {
+              "key": "state",
+              "label": "Cloud state"
+            },
+            {
+              "key": "outcomes",
+              "label": "Complete paths",
+              "precision": 0,
+              "format": "number"
+            },
+            {
+              "key": "days",
+              "label": "Distinct days",
+              "precision": 0,
+              "format": "number"
+            },
+            {
+              "key": "unknown",
+              "label": "Unavailable",
+              "precision": 0,
+              "format": "number"
+            },
+            {
+              "key": "mean",
+              "label": "Mean ES points",
+              "precision": 2,
+              "format": "number"
+            },
+            {
+              "key": "median",
+              "label": "Median ES points",
+              "precision": 2,
+              "format": "number"
+            },
+            {
+              "key": "positive",
+              "label": "Strictly positive",
+              "precision": 1,
+              "format": "percent"
+            }
+          ],
+          "rows": [
+            {
+              "days": 446,
+              "mean": -0.309689922480619,
+              "median": -0.5,
+              "outcomes": 645,
+              "positive": 0.477519379844961,
+              "state": "support",
+              "unknown": 38
+            },
+            {
+              "days": 286,
+              "mean": 0.573791348600509,
+              "median": 0.25,
+              "outcomes": 393,
+              "positive": 0.506361323155216,
+              "state": "opposition",
+              "unknown": 26
+            },
+            {
+              "days": 367,
+              "mean": -0.12965425531915,
+              "median": 0.0,
+              "outcomes": 752,
+              "positive": 0.486702127659574,
+              "state": "mixed",
+              "unknown": 32
+            }
+          ],
+          "notes": [
+            "Cloud state is contemporaneous with the EMA6 cross. Distinct-day support overlaps across states; events within a day are dependent."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "timing-stability",
+      "title": "Timing & stability",
+      "question": "When do crossings occur, which section states persist, and how stable are descriptive averages over time?",
+      "insights": [
+        {
+          "id": "pivot-session-rate",
+          "title": "When during RTH are EMA6–pivot crossings most frequent?",
+          "description": "Compare the opening range (09:30–10:30), New York AM (10:30–12:30) and New York PM (12:30–16:00). These windows have unequal lengths, so normalize actual crossings by valid observed hours within each day and section, then average those daily rates.\n\nEach section retains all eligible sessions, including zero-cross sessions. Section membership follows bar-open time; a cross becomes known at bar close.",
+          "finding": "The mean daily rate was 0.87 crossings per hour in the opening range, compared with 0.32 in New York AM and 0.19 in New York PM. After accounting for exposure, crossings were most frequent near the RTH open. This describes crossing activity, not trade quality.",
+          "kind": "figure",
+          "path": "figures/pivot-session-rate.png",
+          "alt": "Mean daily EMA6–pivot rates are 0.87 per hour in the opening range, 0.32 in New York AM and 0.19 in New York PM.",
+          "caption": "Daily section rates are averaged; zero-cross sessions remain included. Window lengths are one, two and three-and-a-half hours."
+        },
+        {
+          "id": "first-cross-timing",
+          "title": "When does the first EMA6–pivot crossing occur?",
+          "description": "Locate each eligible session's first actual EMA6–pivot crossing by its completed-bar time. Show every half-hour bin chronologically and retain no-cross sessions as a separate category.\n\nThe timing mean conditions on days with a crossing; histogram shares use all eligible days. The final 15:30–16:00 bin includes the session-closing endpoint.",
+          "finding": "On 640 days with a crossing, the first cross occurred a mean 57.0 minutes after 09:30, with median 24 minutes. Another 235 sessions had no crossing. The full chronological distribution makes late first events and no-event days visible instead of conditioning them away.",
+          "kind": "figure",
+          "path": "figures/first-cross-timing.png",
+          "alt": "Chronological half-hour distribution of first actual EMA6–pivot crossing times, with no-cross sessions separate.",
+          "caption": "The final half-hour bin includes 16:00. Timing means use crossed days; these bars use all eligible sessions."
+        },
+        {
+          "id": "section-persistence",
+          "title": "Which cloud states persist from the opening range into later sections?",
+          "description": "Compare cloud ordering at the opening-range endpoint with New York AM and PM endpoints. Each probability conditions on the observed opening-range source state and an observed destination.\n\nThese are endpoint-to-endpoint descriptions, not states known at the opening or causal forecasts of the next section.",
+          "finding": "Bullish ordering persisted from the opening-range endpoint to the AM endpoint on 75.4% of 468 bullish-source days; bearish ordering persisted on 68.6% of 407 bearish-source days. The PM comparison uses its own destination endpoint. Persistence describes how observed section states relate and cannot be used as opening-time information.",
+          "kind": "table",
+          "columns": [
+            {
+              "key": "source",
+              "label": "Opening-range state"
+            },
+            {
+              "key": "destination",
+              "label": "Compared with"
+            },
+            {
+              "key": "days",
+              "label": "Observed source days",
+              "precision": 0,
+              "format": "number"
+            },
+            {
+              "key": "persistent",
+              "label": "Persistent days",
+              "precision": 0,
+              "format": "number"
+            },
+            {
+              "key": "share",
+              "label": "Persistence share",
+              "precision": 1,
+              "format": "percent"
+            },
+            {
+              "key": "unknown",
+              "label": "Unavailable",
+              "precision": 0,
+              "format": "number"
+            }
+          ],
+          "rows": [
+            {
+              "days": 468,
+              "destination": "AM endpoint",
+              "persistent": 353,
+              "share": 0.754273504273504,
+              "source": "bullish",
+              "unknown": 0
+            },
+            {
+              "days": 407,
+              "destination": "AM endpoint",
+              "persistent": 279,
+              "share": 0.685503685503686,
+              "source": "bearish",
+              "unknown": 0
+            },
+            {
+              "days": 468,
+              "destination": "PM endpoint",
+              "persistent": 302,
+              "share": 0.645299145299145,
+              "source": "bullish",
+              "unknown": 0
+            },
+            {
+              "days": 407,
+              "destination": "PM endpoint",
+              "persistent": 214,
+              "share": 0.525798525798526,
+              "source": "bearish",
+              "unknown": 0
+            }
+          ],
+          "notes": [
+            "Cloud state at the 10:30 opening-range endpoint is compared with the 12:30 AM and 16:00 PM endpoints. Each row uses its own observed source-state denominator."
+          ]
+        },
+        {
+          "id": "recent-history",
+          "title": "How does recent crossing activity compare with earlier history?",
+          "description": "For EMA6–VWAP crossings on pivot-matched RTH days, compare the latest 20, 60 and 120 eligible observed sessions with the disjoint preceding history for each window.\n\nThe requested cutoff remains October 30, 2026, but available eligible evidence ends September 18. These are observed-session windows, not fixed calendar intervals; the 20-session estimate is sparse under the study's 30-day rule.",
+          "finding": "EMA6–VWAP crossings averaged 3.25 per session over the last 20 eligible sessions, compared with 2.79 over the disjoint preceding 855. The recent window ended 2026-09-18. The longer windows show how sensitive the comparison is to the chosen observed-session horizon; these exploratory estimates do not establish a new market regime.",
+          "kind": "table",
+          "columns": [
+            {
+              "key": "window",
+              "label": "Observed-session window"
+            },
+            {
+              "key": "recent_n",
+              "label": "Recent sessions",
+              "precision": 0,
+              "format": "number"
+            },
+            {
+              "key": "recent_mean",
+              "label": "Recent mean",
+              "precision": 2,
+              "format": "number"
+            },
+            {
+              "key": "earlier_n",
+              "label": "Earlier sessions",
+              "precision": 0,
+              "format": "number"
+            },
+            {
+              "key": "earlier_mean",
+              "label": "Earlier mean",
+              "precision": 2,
+              "format": "number"
+            },
+            {
+              "key": "start",
+              "label": "Recent start"
+            },
+            {
+              "key": "end",
+              "label": "Recent end"
+            }
+          ],
+          "rows": [
+            {
+              "earlier_mean": 2.789473684210526,
+              "earlier_n": 855,
+              "end": "2026-09-18",
+              "recent_mean": 3.25,
+              "recent_n": 20,
+              "start": "2026-08-05",
+              "window": "Last 20"
+            },
+            {
+              "earlier_mean": 2.795092024539877,
+              "earlier_n": 815,
+              "end": "2026-09-18",
+              "recent_mean": 2.866666666666667,
+              "recent_n": 60,
+              "start": "2026-05-18",
+              "window": "Last 60"
+            },
+            {
+              "earlier_mean": 2.813245033112583,
+              "earlier_n": 755,
+              "end": "2026-09-18",
+              "recent_mean": 2.716666666666667,
+              "recent_n": 120,
+              "start": "2026-01-23",
+              "window": "Last 120"
+            }
+          ],
+          "notes": [
+            "Means are EMA6–VWAP crossings per pivot-matched RTH session. Earlier history excludes the corresponding recent window.",
+            "The latest usable date is September 18, 2026. The 20-session row is below the 30-day support threshold."
+          ]
+        },
+        {
+          "id": "pivot-frequency-trend",
+          "title": "How does EMA6–pivot crossing frequency vary by year?",
+          "description": "Calculate mean actual EMA6–pivot crossings per eligible RTH session in each year, including zero-cross days. The connected points show descriptive annual averages, not a fitted regression.\n\nCoverage differs across years: the 2022 sample begins May 18 and 2026 ends September 18. Each point is labeled with its eligible-session count; the line alone is not a significance test or evidence of a monotonic trend.",
+          "finding": "Annual means ranged from 1.91 to 2.50 EMA6–pivot crossings per eligible session. The highest observed mean was in 2020; the lowest was in 2026. Frequency fluctuated across the retained years. Different source coverage and eligible-session counts limit direct year-to-year comparisons; the line does not establish a persistent trend.",
+          "kind": "figure",
+          "path": "figures/pivot-frequency-trend.png",
+          "alt": "Annual EMA6–pivot crossing means range from 1.91 to 2.50 per eligible session during 2020–2026, with session counts labeled.",
+          "caption": "*2022 starts May 18; 2026 ends September 18. Connected annual point estimates have different eligible coverage; no fitted trend or new confidence intervals."
+        }
+      ]
+    }
+  ]
+}

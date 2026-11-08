@@ -1,0 +1,1046 @@
+{
+  "schema_version": "abacus.study30.insight-presentation/v1",
+  "study_id": "30_verniman_pivot_statistics_es",
+  "source_run_id": "20261031_ranked_v2",
+  "publication_id": "verniman-es-vwap-insights-20261103-v1",
+  "source_publication": {
+    "path": "runs/30_verniman_pivot_statistics_es/20261031_ranked_v2/publications/verniman-es-globex-vwap-statistics-20261031-ranked-v2/publication.json",
+    "sha256": "1948b7a0091490df06c0460b98f0218d98c1c5562fcbea4f7176ac59d311b6a0"
+  },
+  "source_row_base": 0,
+  "findings": [
+    {
+      "section_id": "s01",
+      "source_section_id": "s01",
+      "bindings": {
+        "globex": {
+          "source_row": 0,
+          "where": {
+            "period": "overall: all",
+            "selection": "VWAP-only Globex · Globex · EMA6/vwap · All sections · Both directions · All crosses",
+            "metric": "crosses [crossings/session]"
+          },
+          "column": "value",
+          "value": 10.784829721362229,
+          "rendered": "10.78",
+          "format": "number",
+          "precision": 2
+        },
+        "globex_n": {
+          "source_row": 0,
+          "where": {
+            "period": "overall: all",
+            "selection": "VWAP-only Globex · Globex · EMA6/vwap · All sections · Both directions · All crosses",
+            "metric": "crosses [crossings/session]"
+          },
+          "column": "denominator",
+          "value": 1292,
+          "rendered": "1,292",
+          "format": "integer",
+          "precision": 0
+        },
+        "rth": {
+          "source_row": 28,
+          "where": {
+            "period": "overall: all",
+            "selection": "VWAP-only RTH · RTH · EMA6/vwap · All sections · Both directions · All crosses",
+            "metric": "crosses [crossings/session]"
+          },
+          "column": "value",
+          "value": 2.8922018348623855,
+          "rendered": "2.89",
+          "format": "number",
+          "precision": 2
+        },
+        "rth_n": {
+          "source_row": 28,
+          "where": {
+            "period": "overall: all",
+            "selection": "VWAP-only RTH · RTH · EMA6/vwap · All sections · Both directions · All crosses",
+            "metric": "crosses [crossings/session]"
+          },
+          "column": "denominator",
+          "value": 1308,
+          "rendered": "1,308",
+          "format": "integer",
+          "precision": 0
+        }
+      },
+      "finding": "The full-Globex mean was 10.78 crossings per session across 1,292 eligible sessions. The separate RTH mean was 2.89 across 1,308 sessions. Their observation windows and eligible populations differ; the chart preserves those identities.",
+      "template": "The full-Globex mean was {globex} crossings per session across {globex_n} eligible sessions. The separate RTH mean was {rth} across {rth_n} sessions. Their observation windows and eligible populations differ; the chart preserves those identities."
+    },
+    {
+      "section_id": "s03",
+      "source_section_id": "s03",
+      "bindings": {
+        "globex_n": {
+          "source_row": 0,
+          "where": {
+            "period": "overall: all",
+            "selection": "VWAP-only Globex · Globex · EMA6/vwap · All sections · Both directions · All crosses · cross_count=0",
+            "metric": "count_bucket [fraction]"
+          },
+          "column": "denominator",
+          "value": 1292,
+          "rendered": "1,292",
+          "format": "integer",
+          "precision": 0
+        },
+        "globex_zero": {
+          "source_row": 0,
+          "where": {
+            "period": "overall: all",
+            "selection": "VWAP-only Globex · Globex · EMA6/vwap · All sections · Both directions · All crosses · cross_count=0",
+            "metric": "count_bucket [fraction]"
+          },
+          "column": "share",
+          "value": 0.00696594427244582,
+          "rendered": "0.7%",
+          "format": "percent",
+          "precision": 1
+        },
+        "globex_many": {
+          "source_row": 104,
+          "where": {
+            "period": "overall: all",
+            "selection": "VWAP-only Globex · Globex · EMA6/vwap · All sections · Both directions · All crosses · cross_count=5+",
+            "metric": "count_bucket [fraction]"
+          },
+          "column": "share",
+          "value": 0.9047987616099071,
+          "rendered": "90.5%",
+          "format": "percent",
+          "precision": 1
+        },
+        "rth_n": {
+          "source_row": 130,
+          "where": {
+            "period": "overall: all",
+            "selection": "VWAP-only RTH · RTH · EMA6/vwap · All sections · Both directions · All crosses · cross_count=0",
+            "metric": "count_bucket [fraction]"
+          },
+          "column": "denominator",
+          "value": 1308,
+          "rendered": "1,308",
+          "format": "integer",
+          "precision": 0
+        },
+        "rth_zero": {
+          "source_row": 130,
+          "where": {
+            "period": "overall: all",
+            "selection": "VWAP-only RTH · RTH · EMA6/vwap · All sections · Both directions · All crosses · cross_count=0",
+            "metric": "count_bucket [fraction]"
+          },
+          "column": "share",
+          "value": 0.20642201834862386,
+          "rendered": "20.6%",
+          "format": "percent",
+          "precision": 1
+        }
+      },
+      "finding": "Among 1,292 full-Globex sessions, 0.7% had no EMA6–VWAP crossing and 90.5% had five or more. In the separate 1,308-session RTH population, 20.6% had no crossing.",
+      "template": "Among {globex_n} full-Globex sessions, {globex_zero} had no EMA6–VWAP crossing and {globex_many} had five or more. In the separate {rth_n}-session RTH population, {rth_zero} had no crossing."
+    },
+    {
+      "section_id": "s04",
+      "source_section_id": "s04",
+      "bindings": {
+        "globex": {
+          "source_row": 0,
+          "where": {
+            "period": "overall: all",
+            "selection": "VWAP-only Globex · Globex · EMA6/vwap · All sections · Both directions · All crosses",
+            "metric": "crosses_per_hour [crossings/hour]"
+          },
+          "column": "value",
+          "value": 0.4700845661271022,
+          "rendered": "0.47",
+          "format": "number",
+          "precision": 2
+        },
+        "globex_n": {
+          "source_row": 0,
+          "where": {
+            "period": "overall: all",
+            "selection": "VWAP-only Globex · Globex · EMA6/vwap · All sections · Both directions · All crosses",
+            "metric": "crosses_per_hour [crossings/hour]"
+          },
+          "column": "denominator",
+          "value": 1292,
+          "rendered": "1,292",
+          "format": "integer",
+          "precision": 0
+        },
+        "rth": {
+          "source_row": 26,
+          "where": {
+            "period": "overall: all",
+            "selection": "VWAP-only RTH · RTH · EMA6/vwap · All sections · Both directions · All crosses",
+            "metric": "crosses_per_hour [crossings/hour]"
+          },
+          "column": "value",
+          "value": 0.44495412844036697,
+          "rendered": "0.44",
+          "format": "number",
+          "precision": 2
+        },
+        "rth_n": {
+          "source_row": 26,
+          "where": {
+            "period": "overall: all",
+            "selection": "VWAP-only RTH · RTH · EMA6/vwap · All sections · Both directions · All crosses",
+            "metric": "crosses_per_hour [crossings/hour]"
+          },
+          "column": "denominator",
+          "value": 1308,
+          "rendered": "1,308",
+          "format": "integer",
+          "precision": 0
+        }
+      },
+      "finding": "The saved mean daily rate was 0.47 crossings per observed hour across 1,292 full-Globex sessions, and 0.44 across 1,308 separate RTH sessions. These exposure-normalized means preserve each population’s eligibility rules.",
+      "template": "The saved mean daily rate was {globex} crossings per observed hour across {globex_n} full-Globex sessions, and {rth} across {rth_n} separate RTH sessions. These exposure-normalized means preserve each population’s eligibility rules."
+    },
+    {
+      "section_id": "s05",
+      "source_section_id": "s05",
+      "bindings": {
+        "n": {
+          "source_row": 110,
+          "where": {
+            "period": "overall: all",
+            "selection": "VWAP-only Globex · Globex · Price/vwap · All sections · Both directions · All crosses",
+            "metric": "crosses [crossings/session]"
+          },
+          "column": "denominator",
+          "value": 1292,
+          "rendered": "1,292",
+          "format": "integer",
+          "precision": 0
+        },
+        "price": {
+          "source_row": 110,
+          "where": {
+            "period": "overall: all",
+            "selection": "VWAP-only Globex · Globex · Price/vwap · All sections · Both directions · All crosses",
+            "metric": "crosses [crossings/session]"
+          },
+          "column": "value",
+          "value": 25.077399380804952,
+          "rendered": "25.08",
+          "format": "number",
+          "precision": 2
+        },
+        "ema": {
+          "source_row": 26,
+          "where": {
+            "period": "overall: all",
+            "selection": "VWAP-only Globex · Globex · EMA6/vwap · All sections · Both directions · All crosses",
+            "metric": "crosses [crossings/session]"
+          },
+          "column": "value",
+          "value": 10.784829721362229,
+          "rendered": "10.78",
+          "format": "number",
+          "precision": 2
+        }
+      },
+      "finding": "On the same 1,292 full-Globex sessions, price averaged 25.08 VWAP crossings per session while EMA6 averaged 10.78. These are counts of distinct event definitions, not assumed trading opportunities.",
+      "template": "On the same {n} full-Globex sessions, price averaged {price} VWAP crossings per session while EMA6 averaged {ema}. These are counts of distinct event definitions, not assumed trading opportunities."
+    },
+    {
+      "section_id": "s09",
+      "source_section_id": "s09",
+      "bindings": {
+        "n": {
+          "source_row": 2,
+          "where": {
+            "period": "overall: all",
+            "selection": "VWAP-only RTH · RTH · EMA6/vwap · All sections · Both directions · All crosses · 30m",
+            "metric": "displacement [points]"
+          },
+          "column": "denominator",
+          "value": 3551,
+          "rendered": "3,551",
+          "format": "integer",
+          "precision": 0
+        },
+        "days": {
+          "source_row": 2,
+          "where": {
+            "period": "overall: all",
+            "selection": "VWAP-only RTH · RTH · EMA6/vwap · All sections · Both directions · All crosses · 30m",
+            "metric": "displacement [points]"
+          },
+          "column": "days",
+          "value": 1030,
+          "rendered": "1,030",
+          "format": "integer",
+          "precision": 0
+        },
+        "mean": {
+          "source_row": 2,
+          "where": {
+            "period": "overall: all",
+            "selection": "VWAP-only RTH · RTH · EMA6/vwap · All sections · Both directions · All crosses · 30m",
+            "metric": "displacement [points]"
+          },
+          "column": "value",
+          "value": 0.01619262179667648,
+          "rendered": "0.02",
+          "format": "number",
+          "precision": 2
+        },
+        "unknown": {
+          "source_row": 2,
+          "where": {
+            "period": "overall: all",
+            "selection": "VWAP-only RTH · RTH · EMA6/vwap · All sections · Both directions · All crosses · 30m",
+            "metric": "displacement [points]"
+          },
+          "column": "unknown",
+          "value": 232,
+          "rendered": "232",
+          "format": "integer",
+          "precision": 0
+        },
+        "positive": {
+          "source_row": 33,
+          "where": {
+            "period": "overall: all",
+            "selection": "VWAP-only RTH · RTH · EMA6/vwap · All sections · Both directions · All crosses · 30m",
+            "metric": "positive_movement [fraction]"
+          },
+          "column": "share",
+          "value": 0.5009856378484934,
+          "rendered": "50.1%",
+          "format": "percent",
+          "precision": 1
+        }
+      },
+      "finding": "Across 3,551 complete RTH outcomes on 1,030 distinct days, mean 30-minute directional displacement was 0.02 ES points and 50.1% ended strictly positive. Another 232 candidate outcomes were unavailable; no trade fills or costs are modeled.",
+      "template": "Across {n} complete RTH outcomes on {days} distinct days, mean 30-minute directional displacement was {mean} ES points and {positive} ended strictly positive. Another {unknown} candidate outcomes were unavailable; no trade fills or costs are modeled."
+    },
+    {
+      "section_id": "s10",
+      "source_section_id": "s10",
+      "bindings": {
+        "n": {
+          "source_row": 56,
+          "where": {
+            "period": "overall: all",
+            "selection": "VWAP-only RTH · RTH · EMA6/vwap · All sections · Both directions · All crosses · 30m",
+            "metric": "favorable_excursion [points]"
+          },
+          "column": "denominator",
+          "value": 3551,
+          "rendered": "3,551",
+          "format": "integer",
+          "precision": 0
+        },
+        "days": {
+          "source_row": 56,
+          "where": {
+            "period": "overall: all",
+            "selection": "VWAP-only RTH · RTH · EMA6/vwap · All sections · Both directions · All crosses · 30m",
+            "metric": "favorable_excursion [points]"
+          },
+          "column": "days",
+          "value": 1030,
+          "rendered": "1,030",
+          "format": "integer",
+          "precision": 0
+        },
+        "favorable": {
+          "source_row": 56,
+          "where": {
+            "period": "overall: all",
+            "selection": "VWAP-only RTH · RTH · EMA6/vwap · All sections · Both directions · All crosses · 30m",
+            "metric": "favorable_excursion [points]"
+          },
+          "column": "value",
+          "value": 8.717403548296254,
+          "rendered": "8.72",
+          "format": "number",
+          "precision": 2
+        },
+        "adverse": {
+          "source_row": 8,
+          "where": {
+            "period": "overall: all",
+            "selection": "VWAP-only RTH · RTH · EMA6/vwap · All sections · Both directions · All crosses · 30m",
+            "metric": "adverse_excursion [points]"
+          },
+          "column": "value",
+          "value": 8.351239087580964,
+          "rendered": "8.35",
+          "format": "number",
+          "precision": 2
+        },
+        "reach": {
+          "source_row": 68,
+          "where": {
+            "period": "overall: all",
+            "selection": "VWAP-only RTH · RTH · EMA6/vwap · All sections · Both directions · All crosses · 30m",
+            "metric": "favorable_reach_10 [fraction]"
+          },
+          "column": "share",
+          "value": 0.3100535060546325,
+          "rendered": "31.0%",
+          "format": "percent",
+          "precision": 1
+        }
+      },
+      "finding": "For 3,551 complete paths on 1,030 distinct days, mean favorable excursion was 8.72 ES points and mean adverse excursion was 8.35 points. The share reaching 10 favorable points was 31.0%. These are path measures rather than realized returns.",
+      "template": "For {n} complete paths on {days} distinct days, mean favorable excursion was {favorable} ES points and mean adverse excursion was {adverse} points. The share reaching 10 favorable points was {reach}. These are path measures rather than realized returns."
+    },
+    {
+      "section_id": "s11",
+      "source_section_id": "s11",
+      "bindings": {
+        "count": {
+          "source_row": 1,
+          "where": {
+            "period": "overall: all",
+            "selection": "VWAP-only RTH · RTH · EMA6/vwap · All sections · Both directions · All crosses · 30m",
+            "metric": "no_recross [fraction]"
+          },
+          "column": "numerator",
+          "value": 2173,
+          "rendered": "2,173",
+          "format": "integer",
+          "precision": 0
+        },
+        "n": {
+          "source_row": 1,
+          "where": {
+            "period": "overall: all",
+            "selection": "VWAP-only RTH · RTH · EMA6/vwap · All sections · Both directions · All crosses · 30m",
+            "metric": "no_recross [fraction]"
+          },
+          "column": "denominator",
+          "value": 3551,
+          "rendered": "3,551",
+          "format": "integer",
+          "precision": 0
+        },
+        "share": {
+          "source_row": 1,
+          "where": {
+            "period": "overall: all",
+            "selection": "VWAP-only RTH · RTH · EMA6/vwap · All sections · Both directions · All crosses · 30m",
+            "metric": "no_recross [fraction]"
+          },
+          "column": "share",
+          "value": 0.6119402985074627,
+          "rendered": "61.2%",
+          "format": "percent",
+          "precision": 1
+        },
+        "days": {
+          "source_row": 1,
+          "where": {
+            "period": "overall: all",
+            "selection": "VWAP-only RTH · RTH · EMA6/vwap · All sections · Both directions · All crosses · 30m",
+            "metric": "no_recross [fraction]"
+          },
+          "column": "days",
+          "value": 1030,
+          "rendered": "1,030",
+          "format": "integer",
+          "precision": 0
+        },
+        "censored": {
+          "source_row": 1,
+          "where": {
+            "period": "overall: all",
+            "selection": "VWAP-only RTH · RTH · EMA6/vwap · All sections · Both directions · All crosses · 30m",
+            "metric": "no_recross [fraction]"
+          },
+          "column": "censored",
+          "value": 232,
+          "rendered": "232",
+          "format": "integer",
+          "precision": 0
+        }
+      },
+      "finding": "No reverse EMA6–VWAP cross occurred in 2,173 of 3,551 complete windows (61.2%), supported by 1,030 distinct days. Another 232 windows were censored; this describes line persistence rather than directional trading profit.",
+      "template": "No reverse EMA6–VWAP cross occurred in {count} of {n} complete windows ({share}), supported by {days} distinct days. Another {censored} windows were censored; this describes line persistence rather than directional trading profit."
+    },
+    {
+      "section_id": "s12",
+      "source_section_id": "s12",
+      "bindings": {
+        "n": {
+          "source_row": 0,
+          "where": {
+            "period": "overall: all",
+            "selection": "VWAP-only Globex · Globex · EMA6/vwap · All sections · Both directions · All crosses",
+            "metric": "first_cross_minutes [minutes]"
+          },
+          "column": "denominator",
+          "value": 1283,
+          "rendered": "1,283",
+          "format": "integer",
+          "precision": 0
+        },
+        "mean": {
+          "source_row": 0,
+          "where": {
+            "period": "overall: all",
+            "selection": "VWAP-only Globex · Globex · EMA6/vwap · All sections · Both directions · All crosses",
+            "metric": "first_cross_minutes [minutes]"
+          },
+          "column": "value",
+          "value": 69.43257989088075,
+          "rendered": "69.43",
+          "format": "number",
+          "precision": 2
+        },
+        "median": {
+          "source_row": 0,
+          "where": {
+            "period": "overall: all",
+            "selection": "VWAP-only Globex · Globex · EMA6/vwap · All sections · Both directions · All crosses",
+            "metric": "first_cross_minutes [minutes]"
+          },
+          "column": "median",
+          "value": 24,
+          "rendered": "24.00",
+          "format": "number",
+          "precision": 2
+        },
+        "no_cross": {
+          "source_row": 0,
+          "where": {
+            "period": "overall: all",
+            "selection": "VWAP-only Globex · Globex · EMA6/vwap · All sections · Both directions · All crosses",
+            "metric": "first_cross_minutes [minutes]"
+          },
+          "column": "unknown",
+          "value": 9,
+          "rendered": "9",
+          "format": "integer",
+          "precision": 0
+        }
+      },
+      "finding": "Among 1,283 full-Globex sessions with a crossing, the first cross occurred a mean 69.43 minutes after 18:00 and median 24.00 minutes after 18:00. Another 9 sessions had no cross. The chart displays the first chronological bins, with later bins retained in saved evidence.",
+      "template": "Among {n} full-Globex sessions with a crossing, the first cross occurred a mean {mean} minutes after 18:00 and median {median} minutes after 18:00. Another {no_cross} sessions had no cross. The chart displays the first chronological bins, with later bins retained in saved evidence."
+    },
+    {
+      "section_id": "s13",
+      "source_section_id": "s13",
+      "bindings": {
+        "first": {
+          "source_row": 0,
+          "where": {
+            "period": "overall: all",
+            "selection": "VWAP-only RTH · RTH · EMA6/vwap · All sections · Both directions · All crosses · 30m · crossing_ordinal=1",
+            "metric": "displacement [points]"
+          },
+          "column": "value",
+          "value": 0.035194174757281996,
+          "rendered": "0.04",
+          "format": "number",
+          "precision": 2
+        },
+        "first_n": {
+          "source_row": 0,
+          "where": {
+            "period": "overall: all",
+            "selection": "VWAP-only RTH · RTH · EMA6/vwap · All sections · Both directions · All crosses · 30m · crossing_ordinal=1",
+            "metric": "displacement [points]"
+          },
+          "column": "denominator",
+          "value": 1030,
+          "rendered": "1,030",
+          "format": "integer",
+          "precision": 0
+        },
+        "second": {
+          "source_row": 7,
+          "where": {
+            "period": "overall: all",
+            "selection": "VWAP-only RTH · RTH · EMA6/vwap · All sections · Both directions · All crosses · 30m · crossing_ordinal=2",
+            "metric": "displacement [points]"
+          },
+          "column": "value",
+          "value": 0.05871446229913417,
+          "rendered": "0.06",
+          "format": "number",
+          "precision": 2
+        },
+        "second_n": {
+          "source_row": 7,
+          "where": {
+            "period": "overall: all",
+            "selection": "VWAP-only RTH · RTH · EMA6/vwap · All sections · Both directions · All crosses · 30m · crossing_ordinal=2",
+            "metric": "displacement [points]"
+          },
+          "column": "denominator",
+          "value": 809,
+          "rendered": "809",
+          "format": "integer",
+          "precision": 0
+        },
+        "later": {
+          "source_row": 14,
+          "where": {
+            "period": "overall: all",
+            "selection": "VWAP-only RTH · RTH · EMA6/vwap · All sections · Both directions · All crosses · 30m · crossing_ordinal=3+",
+            "metric": "displacement [points]"
+          },
+          "column": "value",
+          "value": -0.015332943925234708,
+          "rendered": "-0.02",
+          "format": "number",
+          "precision": 2
+        }
+      },
+      "finding": "Saved mean 30-minute displacement was 0.04 ES points after the first crossing (1,030 outcomes), 0.06 after the second (809 outcomes), and -0.02 after third-or-later crossings. Denominators and censoring differ across these groups.",
+      "template": "Saved mean 30-minute displacement was {first} ES points after the first crossing ({first_n} outcomes), {second} after the second ({second_n} outcomes), and {later} after third-or-later crossings. Denominators and censoring differ across these groups."
+    },
+    {
+      "section_id": "s16",
+      "source_section_id": "s16",
+      "bindings": {
+        "support": {
+          "source_row": 28,
+          "where": {
+            "period": "overall: all",
+            "selection": "VWAP-only RTH · RTH · EMA6/vwap · All sections · Both directions · All crosses · 30m · cloud_support=support",
+            "metric": "displacement [points]"
+          },
+          "column": "value",
+          "value": -0.3541300527240797,
+          "rendered": "-0.35",
+          "format": "number",
+          "precision": 2
+        },
+        "support_n": {
+          "source_row": 28,
+          "where": {
+            "period": "overall: all",
+            "selection": "VWAP-only RTH · RTH · EMA6/vwap · All sections · Both directions · All crosses · 30m · cloud_support=support",
+            "metric": "displacement [points]"
+          },
+          "column": "denominator",
+          "value": 569,
+          "rendered": "569",
+          "format": "integer",
+          "precision": 0
+        },
+        "opposition": {
+          "source_row": 14,
+          "where": {
+            "period": "overall: all",
+            "selection": "VWAP-only RTH · RTH · EMA6/vwap · All sections · Both directions · All crosses · 30m · cloud_support=opposition",
+            "metric": "displacement [points]"
+          },
+          "column": "value",
+          "value": -0.14742451154529307,
+          "rendered": "-0.15",
+          "format": "number",
+          "precision": 2
+        },
+        "opposition_n": {
+          "source_row": 14,
+          "where": {
+            "period": "overall: all",
+            "selection": "VWAP-only RTH · RTH · EMA6/vwap · All sections · Both directions · All crosses · 30m · cloud_support=opposition",
+            "metric": "displacement [points]"
+          },
+          "column": "denominator",
+          "value": 563,
+          "rendered": "563",
+          "format": "integer",
+          "precision": 0
+        }
+      },
+      "finding": "Mean directional displacement was -0.35 ES points with cloud support (569 complete outcomes) and -0.15 with cloud opposition (563 outcomes). These are exploratory conditional observations, with mixed and unknown states retained separately in the earlier Ranked statistics reports.",
+      "template": "Mean directional displacement was {support} ES points with cloud support ({support_n} complete outcomes) and {opposition} with cloud opposition ({opposition_n} outcomes). These are exploratory conditional observations, with mixed and unknown states retained separately in the earlier Ranked statistics reports."
+    },
+    {
+      "section_id": "s19",
+      "source_section_id": "s19",
+      "bindings": {
+        "bullish": {
+          "source_row": 6,
+          "where": {
+            "period": "overall: all",
+            "selection": "VWAP-only RTH · RTH · cloud/vwap · All sections · Both directions · All crosses · section_state=opening_range→new_york_am:cloud_order:bullish",
+            "metric": "state_persists [fraction]"
+          },
+          "column": "share",
+          "value": 0.7438136826783115,
+          "rendered": "74.4%",
+          "format": "percent",
+          "precision": 1
+        },
+        "bullish_n": {
+          "source_row": 6,
+          "where": {
+            "period": "overall: all",
+            "selection": "VWAP-only RTH · RTH · cloud/vwap · All sections · Both directions · All crosses · section_state=opening_range→new_york_am:cloud_order:bullish",
+            "metric": "state_persists [fraction]"
+          },
+          "column": "denominator",
+          "value": 687,
+          "rendered": "687",
+          "format": "integer",
+          "precision": 0
+        },
+        "bearish": {
+          "source_row": 4,
+          "where": {
+            "period": "overall: all",
+            "selection": "VWAP-only RTH · RTH · cloud/vwap · All sections · Both directions · All crosses · section_state=opening_range→new_york_am:cloud_order:bearish",
+            "metric": "state_persists [fraction]"
+          },
+          "column": "share",
+          "value": 0.6843800322061192,
+          "rendered": "68.4%",
+          "format": "percent",
+          "precision": 1
+        },
+        "bearish_n": {
+          "source_row": 4,
+          "where": {
+            "period": "overall: all",
+            "selection": "VWAP-only RTH · RTH · cloud/vwap · All sections · Both directions · All crosses · section_state=opening_range→new_york_am:cloud_order:bearish",
+            "metric": "state_persists [fraction]"
+          },
+          "column": "denominator",
+          "value": 621,
+          "rendered": "621",
+          "format": "integer",
+          "precision": 0
+        }
+      },
+      "finding": "Bullish cloud ordering persisted from the opening-range endpoint to the AM endpoint on 74.4% of 687 eligible bullish-source RTH days; bearish ordering persisted on 68.4% of 621 bearish-source days. The chart retains selected saved transition views.",
+      "template": "Bullish cloud ordering persisted from the opening-range endpoint to the AM endpoint on {bullish} of {bullish_n} eligible bullish-source RTH days; bearish ordering persisted on {bearish} of {bearish_n} bearish-source days. The chart retains selected saved transition views."
+    },
+    {
+      "section_id": "s20",
+      "source_section_id": "s20",
+      "bindings": {
+        "recent": {
+          "source_row": 0,
+          "where": {
+            "period": "recent: last_20",
+            "selection": "VWAP-only Globex · Globex · EMA6/vwap · All sections · Both directions · All crosses · source_statistic=S01",
+            "metric": "crosses [crossings/session]"
+          },
+          "column": "value",
+          "value": 11.15,
+          "rendered": "11.15",
+          "format": "number",
+          "precision": 2
+        },
+        "recent_n": {
+          "source_row": 0,
+          "where": {
+            "period": "recent: last_20",
+            "selection": "VWAP-only Globex · Globex · EMA6/vwap · All sections · Both directions · All crosses · source_statistic=S01",
+            "metric": "crosses [crossings/session]"
+          },
+          "column": "denominator",
+          "value": 20,
+          "rendered": "20",
+          "format": "integer",
+          "precision": 0
+        },
+        "earlier": {
+          "source_row": 1,
+          "where": {
+            "period": "preceding: before_last_20",
+            "selection": "VWAP-only Globex · Globex · EMA6/vwap · All sections · Both directions · All crosses · source_statistic=S01",
+            "metric": "crosses [crossings/session]"
+          },
+          "column": "value",
+          "value": 10.779088050314465,
+          "rendered": "10.78",
+          "format": "number",
+          "precision": 2
+        },
+        "earlier_n": {
+          "source_row": 1,
+          "where": {
+            "period": "preceding: before_last_20",
+            "selection": "VWAP-only Globex · Globex · EMA6/vwap · All sections · Both directions · All crosses · source_statistic=S01",
+            "metric": "crosses [crossings/session]"
+          },
+          "column": "denominator",
+          "value": 1272,
+          "rendered": "1,272",
+          "format": "integer",
+          "precision": 0
+        }
+      },
+      "finding": "Full-Globex EMA6–VWAP crossings averaged 11.15 per session over the last 20 eligible sessions, versus 10.78 over the preceding 1,272 sessions. The 20-session cell is sparse under the study’s 30-day rule; the chart also preserves the other selected windows.",
+      "template": "Full-Globex EMA6–VWAP crossings averaged {recent} per session over the last {recent_n} eligible sessions, versus {earlier} over the preceding {earlier_n} sessions. The 20-session cell is sparse under the study’s 30-day rule; the chart also preserves the other selected windows."
+    }
+  ],
+  "transfers": [
+    {
+      "section_id": "s01",
+      "source_section_id": "chart-s01",
+      "asset": "figures/globex-vwap-statistics-s01.png",
+      "sha256": "72ef2837c0d42440ee6293fd80e182620f6a57065312aca884e9357b4d8cb499"
+    },
+    {
+      "section_id": "s03",
+      "source_section_id": "s03",
+      "source_rows": [
+        0,
+        104,
+        130
+      ],
+      "output_rows": [
+        {
+          "measure": "Full Globex · overall: all · Count bucket [fraction] · EMA6–VWAP · cross count=0",
+          "share": 0.00696594427244582,
+          "denominator": 1292,
+          "days": 1292
+        },
+        {
+          "measure": "Full Globex · overall: all · Count bucket [fraction] · EMA6–VWAP · cross count=5+",
+          "share": 0.9047987616099071,
+          "denominator": 1292,
+          "days": 1292
+        },
+        {
+          "measure": "VWAP-only RTH · overall: all · Count bucket [fraction] · EMA6–VWAP · cross count=0",
+          "share": 0.20642201834862386,
+          "denominator": 1308,
+          "days": 1308
+        }
+      ],
+      "operation": "Explicit saved-row/column selection, shortened text labels, unchanged numerical values",
+      "saved_source_rows_sha256": "35d3d6dee4a7c29875d381f7415b1a753ba65aad4693f3624490e32873d224da"
+    },
+    {
+      "section_id": "s04",
+      "source_section_id": "s04",
+      "source_rows": [
+        0,
+        26
+      ],
+      "output_rows": [
+        {
+          "measure": "Full Globex · overall: all · Crosses per hour [crossings/hour] · EMA6–VWAP",
+          "value": 0.4700845661271022,
+          "denominator": 1292,
+          "days": 1292
+        },
+        {
+          "measure": "VWAP-only RTH · overall: all · Crosses per hour [crossings/hour] · EMA6–VWAP",
+          "value": 0.44495412844036697,
+          "denominator": 1308,
+          "days": 1308
+        }
+      ],
+      "operation": "Explicit saved-row/column selection, shortened text labels, unchanged numerical values",
+      "saved_source_rows_sha256": "387a376a9a15e50b1ae751db5d7b7f9b054cd814840b4965d75c263a95ddca3a"
+    },
+    {
+      "section_id": "s05",
+      "source_section_id": "s05",
+      "source_rows": [
+        110,
+        26
+      ],
+      "output_rows": [
+        {
+          "measure": "Full Globex · overall: all · Crosses [crossings/session] · Price–VWAP",
+          "value": 25.077399380804952,
+          "denominator": 1292,
+          "days": 1292
+        },
+        {
+          "measure": "Full Globex · overall: all · Crosses [crossings/session] · EMA6–VWAP",
+          "value": 10.784829721362229,
+          "denominator": 1292,
+          "days": 1292
+        }
+      ],
+      "operation": "Explicit saved-row/column selection, shortened text labels, unchanged numerical values",
+      "saved_source_rows_sha256": "beed64f35094c6069f6fbc4039d712b05e096639ee00bc9e11ac2e821951ba28"
+    },
+    {
+      "section_id": "s09",
+      "source_section_id": "s09",
+      "source_rows": [
+        2,
+        33
+      ],
+      "output_rows": [
+        {
+          "measure": "VWAP-only RTH · overall: all · Displacement [points] · EMA6–VWAP · 30m",
+          "value": 0.01619262179667648,
+          "share": null,
+          "denominator": 3551,
+          "days": 1030,
+          "unknown": 232,
+          "censored": 232
+        },
+        {
+          "measure": "VWAP-only RTH · overall: all · Positive movement [fraction] · EMA6–VWAP · 30m",
+          "value": null,
+          "share": 0.5009856378484934,
+          "denominator": 3551,
+          "days": 1030,
+          "unknown": 232,
+          "censored": 232
+        }
+      ],
+      "operation": "Explicit saved-row/column selection, shortened text labels, unchanged numerical values",
+      "saved_source_rows_sha256": "8494e6a9bb2ef9a60f81801fc3df73568c9cbdd2a1f5cafacd59f7733b02a858"
+    },
+    {
+      "section_id": "s10",
+      "source_section_id": "s10",
+      "source_rows": [
+        56,
+        8,
+        68
+      ],
+      "output_rows": [
+        {
+          "measure": "VWAP-only RTH · overall: all · Favorable excursion [points] · EMA6–VWAP · 30m",
+          "value": 8.717403548296254,
+          "share": null,
+          "denominator": 3551,
+          "days": 1030,
+          "unknown": 232,
+          "censored": 232
+        },
+        {
+          "measure": "VWAP-only RTH · overall: all · Adverse excursion [points] · EMA6–VWAP · 30m",
+          "value": 8.351239087580964,
+          "share": null,
+          "denominator": 3551,
+          "days": 1030,
+          "unknown": 232,
+          "censored": 232
+        },
+        {
+          "measure": "VWAP-only RTH · overall: all · Favorable reach 10 [fraction] · EMA6–VWAP · 30m",
+          "value": null,
+          "share": 0.3100535060546325,
+          "denominator": 3551,
+          "days": 1030,
+          "unknown": 232,
+          "censored": 232
+        }
+      ],
+      "operation": "Explicit saved-row/column selection, shortened text labels, unchanged numerical values",
+      "saved_source_rows_sha256": "f9ec619093e240e668009d9eb43faaed1c08ef8ce6e68fdce8c967d2c1516d28"
+    },
+    {
+      "section_id": "s11",
+      "source_section_id": "s11",
+      "source_rows": [
+        1
+      ],
+      "output_rows": [
+        {
+          "measure": "VWAP-only RTH · overall: all · No recross [fraction] · EMA6–VWAP · 30m",
+          "share": 0.6119402985074627,
+          "denominator": 3551,
+          "days": 1030,
+          "unknown": 232,
+          "censored": 232,
+          "numerator": 2173
+        }
+      ],
+      "operation": "Explicit saved-row/column selection, shortened text labels, unchanged numerical values",
+      "saved_source_rows_sha256": "a4c69d51439571f76bcdc38f7476cfe7ef44520ab4b31fac30021000103f7d22"
+    },
+    {
+      "section_id": "s12",
+      "source_section_id": "chart-s12",
+      "asset": "figures/globex-vwap-statistics-s12.png",
+      "sha256": "0ce904625b52d3bfe222561444eebfee68792ed1e7e12c8b1c1a07e620b25591"
+    },
+    {
+      "section_id": "s13",
+      "source_section_id": "s13",
+      "source_rows": [
+        0,
+        7,
+        14
+      ],
+      "output_rows": [
+        {
+          "measure": "VWAP-only RTH · overall: all · Displacement [points] · EMA6–VWAP · 30m · crossing ordinal=1",
+          "value": 0.035194174757281996,
+          "denominator": 1030,
+          "days": 1030,
+          "unknown": 8,
+          "censored": 8
+        },
+        {
+          "measure": "VWAP-only RTH · overall: all · Displacement [points] · EMA6–VWAP · 30m · crossing ordinal=2",
+          "value": 0.05871446229913417,
+          "denominator": 809,
+          "days": 809,
+          "unknown": 25,
+          "censored": 25
+        },
+        {
+          "measure": "VWAP-only RTH · overall: all · Displacement [points] · EMA6–VWAP · 30m · crossing ordinal=3+",
+          "value": -0.015332943925234708,
+          "denominator": 1712,
+          "days": 601,
+          "unknown": 199,
+          "censored": 199
+        }
+      ],
+      "operation": "Explicit saved-row/column selection, shortened text labels, unchanged numerical values",
+      "saved_source_rows_sha256": "8e5b174a424cecb8a5e8873444d4dfe264a7e720b80c246bbc03452f6fec785b"
+    },
+    {
+      "section_id": "s16",
+      "source_section_id": "s16",
+      "source_rows": [
+        28,
+        14
+      ],
+      "output_rows": [
+        {
+          "measure": "VWAP-only RTH · overall: all · Displacement [points] · EMA6–VWAP · 30m · cloud support=support",
+          "value": -0.3541300527240797,
+          "denominator": 569,
+          "days": 396,
+          "unknown": 53,
+          "censored": 53
+        },
+        {
+          "measure": "VWAP-only RTH · overall: all · Displacement [points] · EMA6–VWAP · 30m · cloud support=opposition",
+          "value": -0.14742451154529307,
+          "denominator": 563,
+          "days": 392,
+          "unknown": 35,
+          "censored": 35
+        }
+      ],
+      "operation": "Explicit saved-row/column selection, shortened text labels, unchanged numerical values",
+      "saved_source_rows_sha256": "bdb0d9855465c14f4eaa8066727d36bec6df557d929ae536201f0e3d594f5903"
+    },
+    {
+      "section_id": "s19",
+      "source_section_id": "chart-s19",
+      "asset": "figures/globex-vwap-statistics-s19.png",
+      "sha256": "ab902148c71743f0988b710f2e5534be13c6427a5396779fcd8d6579c4c59fdf"
+    },
+    {
+      "section_id": "s20",
+      "source_section_id": "chart-s20",
+      "asset": "figures/globex-vwap-statistics-s20.png",
+      "sha256": "708d122a841e68a6802c9f1994ce4b8ed4b6afd09a7466377978cc0c6d891b69"
+    }
+  ],
+  "scope": "Formatting and exact saved-cell transfer only; no new research interpretation or calculations."
+}

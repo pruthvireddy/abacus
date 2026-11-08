@@ -1,0 +1,115 @@
+{
+  "schema_version": "abacus.study30.notebook-web-transfer/v2",
+  "study_id": "30_verniman_pivot_statistics_es",
+  "source_run_id": "20261108T040901Z_notebook_themes_v2",
+  "upstream_source_run_id": "20261031_ranked_v2",
+  "publication_id": "verniman-es-breaks-confirmation-20261108-notebook-v2",
+  "theme_id": "breaks-confirmation",
+  "authoring_signature": "67172e089c28ccaa50ade5a66b37af31f24934953f49760ea48d9a084e173ab5",
+  "executed_notebook_sha256": "9312ae26b5885882ec31760ae64f12d39ccc62ef391096a7689a218aae815824",
+  "execution_receipt_sha256": "d842ceb2b36707240a8b6c515b80b01d9083556922bf9eb7e403cf5bf69dc2eb",
+  "analysis_verification_sha256": "1775e291dca02dce96e78ab3948f26e05887dd4b34e0e250173a16bd20acc42d",
+  "retained_stage": "runs/30_verniman_pivot_statistics_es/20261108T040901Z_notebook_themes_v2",
+  "insights": [
+    {
+      "insight_id": "pivot-confirmation",
+      "theme_id": "breaks-confirmation",
+      "cells": {
+        "heading": [
+          "pivot-confirmation-heading"
+        ],
+        "description": [
+          "pivot-confirmation-description"
+        ],
+        "analysis": [
+          "pivot-confirmation-analysis"
+        ],
+        "findings": [
+          "pivot-confirmation-findings"
+        ],
+        "evidence": [
+          "pivot-confirmation-evidence"
+        ]
+      },
+      "source": {
+        "cohort": "pivot_matched_rth",
+        "measure_id": "S06"
+      },
+      "text": {
+        "title": "How often does a price break return before EMA6 confirms it?",
+        "description": "Follow price breaks through Vern's pivot that begin with EMA6 opposite, equal with a remembered side, or not yet initialized. Does an actual EMA6 crossing occur before price returns through the pivot?\n\nThe percentage uses resolved episodes only. An episode with neither confirmation nor return remains censored. A confirmed episode can have its later return censored without losing its earlier confirmation.",
+        "finding": "Of 2,445 resolved price breaks across 666 days, 1,075 (44.0%) returned through the pivot before EMA6 confirmation. Another 33 episodes remained unresolved and are excluded from that percentage. Almost half of these resolved, initially unconfirmed breaks returned first. This classification becomes known after the break and is not an entry-time signal."
+      },
+      "text_operation": "Remove heading/strong/code Markdown delimiters and the renderer-owned Findings summary label; preserve wording and paragraphs.",
+      "source_findings_sha256": "eb320da96b20f6aabae115b04cc962450eaceece530ecc951f8e0d80cc35d421",
+      "structured_table_sha256": "e630572544544ec7ad0026984fe90d177fa715c6e6d60fe6016c8a3c0cc81187"
+    },
+    {
+      "insight_id": "returned-break-depth",
+      "theme_id": "breaks-confirmation",
+      "cells": {
+        "heading": [
+          "returned-break-depth-heading"
+        ],
+        "description": [
+          "returned-break-depth-description"
+        ],
+        "analysis": [
+          "returned-break-depth-analysis"
+        ],
+        "findings": [
+          "returned-break-depth-findings"
+        ],
+        "evidence": [
+          "returned-break-depth-evidence"
+        ]
+      },
+      "source": {
+        "cohort": "pivot_matched_rth",
+        "measure_id": "S07"
+      },
+      "text": {
+        "title": "How deep are breaks that return without EMA6 confirmation?",
+        "description": "Measure maximum directional penetration beyond the pivot during initially unconfirmed price episodes that return before an actual EMA6 confirmation. The population is selected by the subsequently observed return.\n\nDepth is measured in unadjusted ES points; it is not an assumed loss, stop distance or execution price.",
+        "finding": "The 1,075 returned unconfirmed breaks across 494 days had mean penetration of 3.13 ES points, with median 2.50. The mean exceeds the median in this retained conditional sample. Returned breaks can travel beyond the pivot before reversing; their eventual return is later information."
+      },
+      "text_operation": "Remove heading/strong/code Markdown delimiters and the renderer-owned Findings summary label; preserve wording and paragraphs.",
+      "source_findings_sha256": "900320921a8f8ffd41edde221387d870e9a31d5b58517bac11a2391f3e706930",
+      "structured_table_sha256": "372ebfc2844c3de660f9f35cb7a30a70373b921622a59c2dea30e7f2ec61b8b8"
+    },
+    {
+      "insight_id": "delayed-confirmation",
+      "theme_id": "breaks-confirmation",
+      "cells": {
+        "heading": [
+          "delayed-confirmation-heading"
+        ],
+        "description": [
+          "delayed-confirmation-description"
+        ],
+        "analysis": [
+          "delayed-confirmation-analysis"
+        ],
+        "findings": [
+          "delayed-confirmation-findings"
+        ],
+        "evidence": [
+          "delayed-confirmation-evidence"
+        ]
+      },
+      "source": {
+        "cohort": "pivot_matched_rth",
+        "measure_id": "S08"
+      },
+      "text": {
+        "title": "How much time and movement precede delayed EMA6 confirmation?",
+        "description": "Among price episodes with a later actual EMA6 crossing, measure elapsed time from the initial price break and directional price movement to confirmation. Same-close confirmations and already-aligned EMA6 states are distinct.\n\nThese measurements condition on eventual confirmation. They do not describe a filter available at the earlier price break.",
+        "finding": "Across 1,370 delayed confirmations on 577 days, the mean lag was 5.07 minutes and mean directional price movement before confirmation was 3.35 ES points. Waiting for confirmation changes the observation time and price reference; it cannot be retrospectively applied as though known at the original break."
+      },
+      "text_operation": "Remove heading/strong/code Markdown delimiters and the renderer-owned Findings summary label; preserve wording and paragraphs.",
+      "source_findings_sha256": "310f9c69877b07e07fc1fd0ced593394775f8d729dd3fce6679a6361daf11cc6",
+      "structured_table_sha256": "15b123308f3b7f09f8c3376b39037c8067169f22046b80609a53493bca5c6125"
+    }
+  ],
+  "public_selection": "Only selected narrative, structured scalar tables and exact PNG outputs. Code and private cell output are omitted."
+}

@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "study_id": "30_verniman_pivot_statistics_es",
+  "title": "Verniman Pivot Statistics — ES",
+  "summary": "Repository-only ES pivot behavior across 875 eligible days: price crossed 4.64 times/day and EMA6 crossed 2.16. Initially unconfirmed breaks returned before EMA6 in 44.0% of resolved episodes; pooled 30-minute movement was near zero, not a tested tradable edge.",
+  "status": "completed",
+  "topic": "pivot_statistics",
+  "products": [
+    "ES"
+  ],
+  "data_summary": "Requested 2020-01-01–2026-10-30; actual 875 qualified exact-contract sessions 2020-01-03–2026-09-18. Reused native 3m OHLC and 5m cloud; added 3m EMA6 and minute-HLC3 Globex VWAP. Source timing, exclusions and incomplete support remain explicit.",
+  "evidence_status": "Completed repository-only descriptive run:126 synthetic tests; independent full-feature and saved event/path/context verification; six locally published Narada reports. Historical availability unverified; no trading returns. Local HTTP verification has a separate additive correction preserving sealed bytes.",
+  "strategy_ids": [],
+  "reference_run": "20261031_repo_v2"
+}

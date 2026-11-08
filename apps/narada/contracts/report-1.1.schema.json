@@ -5,6 +5,9 @@
     "schemaVersion": {
       "const": "1.1"
     },
+    "presentation": {
+      "const": "research-paper"
+    },
     "id": {
       "type": "string",
       "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$",
@@ -348,6 +351,12 @@
                 "type": "string",
                 "minLength": 1,
                 "maxLength": 500
+              },
+              "finding": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 2000,
+                "pattern": "\\S"
               }
             },
             "required": [
@@ -433,6 +442,18 @@
                 "type": "string",
                 "minLength": 1,
                 "maxLength": 500
+              },
+              "finding": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 2000,
+                "pattern": "\\S"
+              },
+              "description": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 1000,
+                "pattern": "\\S"
               }
             },
             "required": [

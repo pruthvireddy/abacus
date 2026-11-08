@@ -1,0 +1,22 @@
+{
+  "schema": "abacus.study29.phase5.input-declaration/v1",
+  "scope": "Four development sessions only; no answer access until complete batch/native gate",
+  "market_inputs": "New exact-date identified native chart CSVs; hashes declared before execution; all five windows and fixed3RTH members required",
+  "source_dataset_manifest": "catalog/datasets/verniman_daily_levels__13.0.0.json",
+  "source_dataset_manifest_sha256": "39a12cd01b131729908a6b7743a710eaefe73f86e7df9ecb66787787b88277bf",
+  "source_intake_root": "data/inbox/x/verniman_eod/20261028_backfill_2026",
+  "source_access": "Exact Oct15/16/19/20 loader filters/intake filenames only after gate; all revisions separate",
+  "candidate_pine": {"path": "studies/29_verniman_level_reconstruction/indicator/verniman_levels_phase3_3_0_2.pine", "sha256": "034c3731f2ada4620aac9a80ca20261d0a06376bee044fa30e95529ad9e1954c"},
+  "selector_pine": {"path": "studies/29_verniman_level_reconstruction/indicator/verniman_levels_phase4.pine", "sha256": "1145834bfb240029f07342e52f98d805771ca4f2a39a646c19e80d3846794924"},
+  "phase4_model": {"path": "studies/29_verniman_level_reconstruction/src/phase4_model.py", "sha256": "bec68316b9028cff8d43e6e9fbcef86c4e46a5be792b9df325d42753a85547c5"},
+  "phase3_model": {"path": "studies/29_verniman_level_reconstruction/src/phase3_model.py", "sha256": "e54ba9950618e99dc1fe57ac5fab19cf43e990099b98df8b25f506bd8c92f48b"},
+  "reference_model": {"path": "studies/29_verniman_level_reconstruction/src/reference_model.py", "sha256": "712016db99bc62b35c787b9269825529221636545d903d814993284fbd769bbd"},
+  "matcher": {"path": "studies/29_verniman_level_reconstruction/phase3/matching.py", "sha256": "b595fbca570df868888dd58c8fe341ee341b69770d902319ba25ac8fd1fd90a6"},
+  "autopivot_pine": {"path": "work/29_verniman_level_reconstruction/phase4_20261031T010249Z/autopivot-current-reconciliation/studies/29_verniman_level_reconstruction/indicator/verniman_pivot_levels.pine", "sha256": "228ce4f4cc938cfb967eed4b20df8db0711755fb2fd8d4ae2cc9be8632dd3145"},
+  "autopivot_model": {"path": "work/29_verniman_level_reconstruction/phase4_20261031T010249Z/autopivot-current-reconciliation/studies/29_verniman_level_reconstruction/src/pivot_model.py", "sha256": "1fc67f44ea3dc6bc374a3bfcf526bfea419af8316f7eaf82cc179d01c3e466f4"},
+  "comparator_policy_difference": "Immutable Autopivot latest-observed-RTH vs selector strict expected-prior-weekday RTH; alternate is not a target",
+  "manual_anchors": [],
+  "historical_source_availability": "Retain original nulls; captured/claimed timestamps are not certified pre-open availability",
+  "prior_exposure_metadata": "work/29_verniman_level_reconstruction/phase4_20261031T010249Z/accidental-guidance-source-exposure-20261031.json",
+  "forbidden_guidance_read": "data/README.md wholesale; unrestricted/broad source collections and answer scripts"
+}

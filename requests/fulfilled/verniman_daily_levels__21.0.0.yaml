@@ -1,0 +1,63 @@
+{
+  "request": {
+    "id": "verniman_daily_levels__21.0.0",
+    "requester": "workspace user via authorized recurring Verniman daily check",
+    "requested_on": "2026-11-03",
+    "purpose": "Append November3 Mid-Election day outlook without duplicate source plans"
+  },
+  "inputs": {
+    "predecessor": {
+      "path": "catalog/datasets/verniman_daily_levels__20.0.0.json",
+      "bytes": 171263,
+      "sha256": "49b3216aff97679dc4896c3cf0a586b52b1aea77db3ea9b5958053f53b559ad9"
+    },
+    "prior_inputs": "Retain every exact predecessor historical/update/observation/legend pin",
+    "source_url": "https://verniman.blogspot.com/2009/11/mid-election-day.html",
+    "session_date": "2026-11-03",
+    "date_method": "body_outlook_month_day_plus_explicit_contract_year",
+    "contract": "ESZ26",
+    "extraction": "unchanged verniman_history_ab_v2 with independent strict-v1 semantic cross-check"
+  },
+  "output": {
+    "dataset": "verniman_daily_levels",
+    "version": "21.0.0",
+    "destination": "data/curated/external_levels/source=verniman/version=21.0.0/",
+    "manifest": "catalog/datasets/verniman_daily_levels__21.0.0.json",
+    "schema": "catalog/schemas/verniman_daily_levels__21.0.0.json",
+    "quality_report": "reports/quality/verniman_daily_levels__21.0.0.md",
+    "added_outlooks": 1,
+    "added_levels": 6,
+    "added_issues": 0
+  },
+  "semantics": {
+    "pivot": "YLOD7570",
+    "bullish_targets": [
+      "GAP7585",
+      "YVAH7692"
+    ],
+    "bearish_targets": [
+      "ONL7546",
+      "GAP7522"
+    ],
+    "conditions": "bullish/bearish VIX/CVD exactly as stated",
+    "price_policy": "Exact ordered points; retain source labels/text"
+  },
+  "preservation": {
+    "releases": "All earlier releases byte-identical",
+    "records": "All predecessor rows and source memberships remain; user legend remains scoped to original five images",
+    "dedup": "source-post identity plus raw/normalized body, date-contract and complete semantics"
+  },
+  "timing": {
+    "available_at": null,
+    "timing_status": "historical_availability_unverified"
+  },
+  "validation": {
+    "source": "HTML/Atom and independent extraction agreement",
+    "synthetic": {
+      "history": 18,
+      "consolidated": 31
+    },
+    "release": "Input/output hashes, schemas, relations, CSV/Parquet rows and preservation",
+    "scope": "Local dataset update only; no research, backtests, commit, push, external publication or deployment"
+  }
+}

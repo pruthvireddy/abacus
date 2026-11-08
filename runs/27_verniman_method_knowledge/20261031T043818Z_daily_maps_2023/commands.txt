@@ -1,0 +1,8 @@
+/opt/homebrew/opt/python@3.11/bin/python3.11 studies/27_verniman_method_knowledge/capture_daily_maps.py --stage work/27_verniman_method_knowledge/20261031T043818Z_daily_maps_2023 --start 2023-01-01 --end 2023-12-31 --seed https://verniman.blogspot.com/2006/12/last-dance.html --retained-manifest data/raw/blogspot/verniman/html/20261021T010315Z_history_a9716d20/collection_manifest.reviewed.json
+python3 studies/27_verniman_method_knowledge/build_daily_maps.py --stage work/27_verniman_method_knowledge/20261031T043818Z_daily_maps_2023
+python3 studies/27_verniman_method_knowledge/build_daily_maps.py --stage work/27_verniman_method_knowledge/20261031T043818Z_daily_maps_2023 --check
+python3 work/27_verniman_method_knowledge/20261031T043818Z_daily_maps_2023/provenance/audit_capture.py
+python3 work/27_verniman_method_knowledge/20261031T043818Z_daily_maps_2023/provenance/audit_previous_years.py
+python3 /private/tmp/abacus-daily-map-builder-2023-fixture.py
+/opt/homebrew/opt/python@3.11/bin/python3.11 studies/27_verniman_method_knowledge/seal_daily_maps.py --stage work/27_verniman_method_knowledge/20261031T043818Z_daily_maps_2023 --prepare
+/opt/homebrew/opt/python@3.11/bin/python3.11 studies/27_verniman_method_knowledge/seal_daily_maps.py --stage work/27_verniman_method_knowledge/20261031T043818Z_daily_maps_2023 --seal

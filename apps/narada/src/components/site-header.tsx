@@ -13,7 +13,8 @@ export function SiteHeader({ title }: { title?: string }) {
   );
 }
 
-export function SiteFooter() {
+export function SiteFooter({ compact = false }: { compact?: boolean }) {
+  if (compact) return <footer className="site-footer shell"><p>Abacus / Narada · Research and evidence.</p></footer>;
   return (
     <footer className="site-footer shell">
       <Link href="/" prefetch={false} className="footer-brand">Abacus / Narada</Link>

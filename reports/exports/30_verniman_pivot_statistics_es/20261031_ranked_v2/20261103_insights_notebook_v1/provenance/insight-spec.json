@@ -1,0 +1,1642 @@
+{
+  "schema_version": "abacus.study30.insight-spec/v1",
+  "source_run_id": "20261031_ranked_v2",
+  "reports": [
+    {
+      "key": "pivot",
+      "source_publication_id": "verniman-es-pivot-statistics-20261031-ranked-v2",
+      "insights": [
+        {
+          "id": "s01",
+          "title": "How often does EMA6 cross Globex VWAP on pivot-matched days?",
+          "description": "Count actual completed three-minute EMA6–VWAP transitions during regular trading hours (RTH). Keep every eligible session, including sessions with no cross; this is the pivot-matched population.",
+          "finding_template": "Across {n} pivot-matched RTH sessions, EMA6 crossed VWAP {count} times: a saved mean of {mean} crossings per session and median of {median}. The chart shows selected saved frequency views; these are descriptive counts.",
+          "bindings": {
+            "n": {
+              "where": {
+                "period": "overall: all",
+                "selection": "Pivot-matched · RTH · EMA6/vwap · All sections · Both directions · All crosses",
+                "metric": "crosses [crossings/session]"
+              },
+              "column": "denominator",
+              "format": "integer",
+              "precision": 0
+            },
+            "count": {
+              "where": {
+                "period": "overall: all",
+                "selection": "Pivot-matched · RTH · EMA6/vwap · All sections · Both directions · All crosses",
+                "metric": "crosses [crossings/session]"
+              },
+              "column": "numerator",
+              "format": "integer",
+              "precision": 0
+            },
+            "mean": {
+              "where": {
+                "period": "overall: all",
+                "selection": "Pivot-matched · RTH · EMA6/vwap · All sections · Both directions · All crosses",
+                "metric": "crosses [crossings/session]"
+              },
+              "column": "value",
+              "format": "number",
+              "precision": 2
+            },
+            "median": {
+              "where": {
+                "period": "overall: all",
+                "selection": "Pivot-matched · RTH · EMA6/vwap · All sections · Both directions · All crosses",
+                "metric": "crosses [crossings/session]"
+              },
+              "column": "median",
+              "format": "number",
+              "precision": 2
+            }
+          },
+          "figure_section_id": "chart-s01"
+        },
+        {
+          "id": "s02",
+          "title": "How often does EMA6 cross the daily pivot?",
+          "description": "Measure actual EMA6 line transitions through the fixed daily pivot. An EMA already on one side at the opening is an initial state, and touching or equalling the pivot alone is not a new cross.",
+          "finding_template": "The {n} eligible sessions contained {count} EMA6–pivot crossings. The saved mean was {mean} crossings per session and the median was {median}; zero-cross days remain in the denominator.",
+          "bindings": {
+            "n": {
+              "where": {
+                "period": "overall: all",
+                "selection": "Pivot-matched · RTH · EMA6/pivot · All sections · Both directions · All crosses",
+                "metric": "crosses [crossings/session]"
+              },
+              "column": "denominator",
+              "format": "integer",
+              "precision": 0
+            },
+            "count": {
+              "where": {
+                "period": "overall: all",
+                "selection": "Pivot-matched · RTH · EMA6/pivot · All sections · Both directions · All crosses",
+                "metric": "crosses [crossings/session]"
+              },
+              "column": "numerator",
+              "format": "integer",
+              "precision": 0
+            },
+            "mean": {
+              "where": {
+                "period": "overall: all",
+                "selection": "Pivot-matched · RTH · EMA6/pivot · All sections · Both directions · All crosses",
+                "metric": "crosses [crossings/session]"
+              },
+              "column": "value",
+              "format": "number",
+              "precision": 2
+            },
+            "median": {
+              "where": {
+                "period": "overall: all",
+                "selection": "Pivot-matched · RTH · EMA6/pivot · All sections · Both directions · All crosses",
+                "metric": "crosses [crossings/session]"
+              },
+              "column": "median",
+              "format": "number",
+              "precision": 2
+            }
+          }
+        },
+        {
+          "id": "s03",
+          "title": "How common are days without an EMA crossing?",
+          "description": "Compare the saved zero, one, two, three-to-four and five-plus crossing categories. Daily counts concern actual EMA6 crossings; a zero count is an observed outcome rather than missing evidence.",
+          "finding_template": "Within the same {n} pivot-matched RTH sessions, {pivot_zero} had no EMA6–pivot cross and {vwap_zero} had no EMA6–VWAP cross. The earlier Ranked statistics reports retain all count categories and their exact session denominators.",
+          "bindings": {
+            "n": {
+              "where": {
+                "period": "overall: all",
+                "selection": "Pivot-matched · RTH · EMA6/pivot · All sections · Both directions · All crosses · cross_count=0",
+                "metric": "count_bucket [fraction]"
+              },
+              "column": "denominator",
+              "format": "integer",
+              "precision": 0
+            },
+            "pivot_zero": {
+              "where": {
+                "period": "overall: all",
+                "selection": "Pivot-matched · RTH · EMA6/pivot · All sections · Both directions · All crosses · cross_count=0",
+                "metric": "count_bucket [fraction]"
+              },
+              "column": "share",
+              "format": "percent",
+              "precision": 1
+            },
+            "vwap_zero": {
+              "where": {
+                "period": "overall: all",
+                "selection": "Pivot-matched · RTH · EMA6/vwap · All sections · Both directions · All crosses · cross_count=0",
+                "metric": "count_bucket [fraction]"
+              },
+              "column": "share",
+              "format": "percent",
+              "precision": 1
+            }
+          }
+        },
+        {
+          "id": "s04",
+          "title": "What is the crossing rate per observed hour?",
+          "description": "Use each day’s observed native three-minute exposure to express EMA6 crossing frequency per hour. Section lengths differ, so an hourly rate answers a different question from a raw section count.",
+          "finding_template": "Across {n} pivot-matched RTH sessions, the saved mean daily rate was {pivot_rate} EMA6–pivot crossings per observed hour and {vwap_rate} EMA6–VWAP crossings per observed hour. No observed exposure would be unavailable rather than a zero rate.",
+          "bindings": {
+            "n": {
+              "where": {
+                "period": "overall: all",
+                "selection": "Pivot-matched · RTH · EMA6/pivot · All sections · Both directions · All crosses",
+                "metric": "crosses_per_hour [crossings/hour]"
+              },
+              "column": "denominator",
+              "format": "integer",
+              "precision": 0
+            },
+            "pivot_rate": {
+              "where": {
+                "period": "overall: all",
+                "selection": "Pivot-matched · RTH · EMA6/pivot · All sections · Both directions · All crosses",
+                "metric": "crosses_per_hour [crossings/hour]"
+              },
+              "column": "value",
+              "format": "number",
+              "precision": 2
+            },
+            "vwap_rate": {
+              "where": {
+                "period": "overall: all",
+                "selection": "Pivot-matched · RTH · EMA6/vwap · All sections · Both directions · All crosses",
+                "metric": "crosses_per_hour [crossings/hour]"
+              },
+              "column": "value",
+              "format": "number",
+              "precision": 2
+            }
+          }
+        },
+        {
+          "id": "s05",
+          "title": "How do price and EMA6 crossing counts differ?",
+          "description": "Compare completed three-minute price-close transitions and actual EMA6 transitions through the pivot on the same eligible sessions. The saved additional-price-cross measure is a within-session difference.",
+          "finding_template": "For the same {n} pivot-matched RTH sessions, price averaged {price_mean} pivot crossings per session and EMA6 averaged {ema_mean}. These are recurrence counts; they do not measure the profitability of taking either event.",
+          "bindings": {
+            "n": {
+              "where": {
+                "period": "overall: all",
+                "selection": "Pivot-matched · RTH · Price/pivot · All sections · Both directions · All crosses",
+                "metric": "crosses [crossings/session]"
+              },
+              "column": "denominator",
+              "format": "integer",
+              "precision": 0
+            },
+            "price_mean": {
+              "where": {
+                "period": "overall: all",
+                "selection": "Pivot-matched · RTH · Price/pivot · All sections · Both directions · All crosses",
+                "metric": "crosses [crossings/session]"
+              },
+              "column": "value",
+              "format": "number",
+              "precision": 2
+            },
+            "ema_mean": {
+              "where": {
+                "period": "overall: all",
+                "selection": "Pivot-matched · RTH · EMA6/pivot · All sections · Both directions · All crosses",
+                "metric": "crosses [crossings/session]"
+              },
+              "column": "value",
+              "format": "number",
+              "precision": 2
+            }
+          }
+        },
+        {
+          "id": "s06",
+          "title": "How often does a price break return before EMA confirmation?",
+          "description": "Start with price breaks whose EMA6 was initially unconfirmed, and follow them until an actual EMA confirmation or a return through the pivot. Initially aligned cases are separate, and unresolved episodes are censored.",
+          "finding_template": "A return preceded EMA confirmation in {count} of {n} resolved episodes ({share}), supported by {days} distinct days. Another {censored} episodes were censored. The return label becomes known later than the original price break.",
+          "bindings": {
+            "count": {
+              "where": {
+                "period": "overall: all",
+                "selection": "Pivot-matched · RTH · Price/pivot · All sections · Both directions · All crosses",
+                "metric": "returned_before_confirmation [fraction]"
+              },
+              "column": "numerator",
+              "format": "integer",
+              "precision": 0
+            },
+            "n": {
+              "where": {
+                "period": "overall: all",
+                "selection": "Pivot-matched · RTH · Price/pivot · All sections · Both directions · All crosses",
+                "metric": "returned_before_confirmation [fraction]"
+              },
+              "column": "denominator",
+              "format": "integer",
+              "precision": 0
+            },
+            "share": {
+              "where": {
+                "period": "overall: all",
+                "selection": "Pivot-matched · RTH · Price/pivot · All sections · Both directions · All crosses",
+                "metric": "returned_before_confirmation [fraction]"
+              },
+              "column": "share",
+              "format": "percent",
+              "precision": 1
+            },
+            "days": {
+              "where": {
+                "period": "overall: all",
+                "selection": "Pivot-matched · RTH · Price/pivot · All sections · Both directions · All crosses",
+                "metric": "returned_before_confirmation [fraction]"
+              },
+              "column": "days",
+              "format": "integer",
+              "precision": 0
+            },
+            "censored": {
+              "where": {
+                "period": "overall: all",
+                "selection": "Pivot-matched · RTH · Price/pivot · All sections · Both directions · All crosses",
+                "metric": "returned_before_confirmation [fraction]"
+              },
+              "column": "censored",
+              "format": "integer",
+              "precision": 0
+            }
+          }
+        },
+        {
+          "id": "s07",
+          "title": "How deep are breaks that return without EMA confirmation?",
+          "description": "Describe the directional penetration beyond the pivot for initially unconfirmed price breaks that returned before a new EMA6 cross. Membership is a later path outcome; it is not an entry-time filter.",
+          "finding_template": "The {n} returned unconfirmed breaks, spanning {days} distinct days, had mean penetration of {mean} ES points and median penetration of {median} points. This conditional depth describes the observed returned episodes.",
+          "bindings": {
+            "n": {
+              "where": {
+                "period": "overall: all",
+                "selection": "Pivot-matched · RTH · Price/pivot · All sections · Both directions · All crosses",
+                "metric": "returned_unconfirmed_depth [points]"
+              },
+              "column": "denominator",
+              "format": "integer",
+              "precision": 0
+            },
+            "days": {
+              "where": {
+                "period": "overall: all",
+                "selection": "Pivot-matched · RTH · Price/pivot · All sections · Both directions · All crosses",
+                "metric": "returned_unconfirmed_depth [points]"
+              },
+              "column": "days",
+              "format": "integer",
+              "precision": 0
+            },
+            "mean": {
+              "where": {
+                "period": "overall: all",
+                "selection": "Pivot-matched · RTH · Price/pivot · All sections · Both directions · All crosses",
+                "metric": "returned_unconfirmed_depth [points]"
+              },
+              "column": "value",
+              "format": "number",
+              "precision": 2
+            },
+            "median": {
+              "where": {
+                "period": "overall: all",
+                "selection": "Pivot-matched · RTH · Price/pivot · All sections · Both directions · All crosses",
+                "metric": "returned_unconfirmed_depth [points]"
+              },
+              "column": "median",
+              "format": "number",
+              "precision": 2
+            }
+          }
+        },
+        {
+          "id": "s08",
+          "title": "How much time and movement precede delayed EMA confirmation?",
+          "description": "Measure the lag from an initially unconfirmed price break to the subsequent actual EMA6–pivot crossing, while that price episode remains active. Forward outcomes after confirmation start at the confirmation close.",
+          "finding_template": "Among {n} delayed confirmations on {days} distinct days, mean delay was {delay} minutes and mean directional movement before confirmation was {movement} ES points. These figures concern episodes that eventually confirmed, not every initial price break.",
+          "bindings": {
+            "n": {
+              "where": {
+                "period": "overall: all",
+                "selection": "Pivot-matched · RTH · Price/pivot · All sections · Both directions · All crosses · confirmation_kind=delayed",
+                "metric": "confirmation_delay [minutes]"
+              },
+              "column": "denominator",
+              "format": "integer",
+              "precision": 0
+            },
+            "days": {
+              "where": {
+                "period": "overall: all",
+                "selection": "Pivot-matched · RTH · Price/pivot · All sections · Both directions · All crosses · confirmation_kind=delayed",
+                "metric": "confirmation_delay [minutes]"
+              },
+              "column": "days",
+              "format": "integer",
+              "precision": 0
+            },
+            "delay": {
+              "where": {
+                "period": "overall: all",
+                "selection": "Pivot-matched · RTH · Price/pivot · All sections · Both directions · All crosses · confirmation_kind=delayed",
+                "metric": "confirmation_delay [minutes]"
+              },
+              "column": "value",
+              "format": "number",
+              "precision": 2
+            },
+            "movement": {
+              "where": {
+                "period": "overall: all",
+                "selection": "Pivot-matched · RTH · Price/pivot · All sections · Both directions · All crosses · confirmation_kind=delayed",
+                "metric": "movement_before_confirmation [points]"
+              },
+              "column": "value",
+              "format": "number",
+              "precision": 2
+            }
+          }
+        },
+        {
+          "id": "s09",
+          "title": "What happens 30 minutes after an EMA6–pivot crossing?",
+          "description": "Measure price displacement in the direction of the actual EMA6–pivot cross, from its observable close to a complete 30-minute endpoint within RTH. Earlier signal-bar extremes and incomplete late-session paths are excluded.",
+          "finding_template": "Across {n} complete 30-minute outcomes on {days} distinct days, mean directional displacement was {mean} ES points and {positive} ended strictly positive. A further {unknown} candidate outcomes were unavailable; these are price-path statistics.",
+          "bindings": {
+            "n": {
+              "where": {
+                "period": "overall: all",
+                "selection": "Pivot-matched · RTH · EMA6/pivot · All sections · Both directions · All crosses · 30m",
+                "metric": "displacement [points]"
+              },
+              "column": "denominator",
+              "format": "integer",
+              "precision": 0
+            },
+            "days": {
+              "where": {
+                "period": "overall: all",
+                "selection": "Pivot-matched · RTH · EMA6/pivot · All sections · Both directions · All crosses · 30m",
+                "metric": "displacement [points]"
+              },
+              "column": "days",
+              "format": "integer",
+              "precision": 0
+            },
+            "mean": {
+              "where": {
+                "period": "overall: all",
+                "selection": "Pivot-matched · RTH · EMA6/pivot · All sections · Both directions · All crosses · 30m",
+                "metric": "displacement [points]"
+              },
+              "column": "value",
+              "format": "number",
+              "precision": 2
+            },
+            "unknown": {
+              "where": {
+                "period": "overall: all",
+                "selection": "Pivot-matched · RTH · EMA6/pivot · All sections · Both directions · All crosses · 30m",
+                "metric": "displacement [points]"
+              },
+              "column": "unknown",
+              "format": "integer",
+              "precision": 0
+            },
+            "positive": {
+              "where": {
+                "period": "overall: all",
+                "selection": "Pivot-matched · RTH · EMA6/pivot · All sections · Both directions · All crosses · 30m",
+                "metric": "positive_movement [fraction]"
+              },
+              "column": "share",
+              "format": "percent",
+              "precision": 1
+            }
+          }
+        },
+        {
+          "id": "s10",
+          "title": "How far does price travel in either direction after the crossing?",
+          "description": "Measure favorable and adverse excursions over complete 30-minute paths after actual EMA6–pivot crossings, plus fixed point-reach frequencies. Both sides can be reached on one path; no fill or intraminute ordering is inferred.",
+          "finding_template": "For {n} complete paths on {days} distinct days, mean favorable excursion was {favorable} ES points and mean adverse excursion was {adverse} points. The saved share reaching 10 favorable points was {reach}.",
+          "bindings": {
+            "n": {
+              "where": {
+                "period": "overall: all",
+                "selection": "Pivot-matched · RTH · EMA6/pivot · All sections · Both directions · All crosses · 30m",
+                "metric": "favorable_excursion [points]"
+              },
+              "column": "denominator",
+              "format": "integer",
+              "precision": 0
+            },
+            "days": {
+              "where": {
+                "period": "overall: all",
+                "selection": "Pivot-matched · RTH · EMA6/pivot · All sections · Both directions · All crosses · 30m",
+                "metric": "favorable_excursion [points]"
+              },
+              "column": "days",
+              "format": "integer",
+              "precision": 0
+            },
+            "favorable": {
+              "where": {
+                "period": "overall: all",
+                "selection": "Pivot-matched · RTH · EMA6/pivot · All sections · Both directions · All crosses · 30m",
+                "metric": "favorable_excursion [points]"
+              },
+              "column": "value",
+              "format": "number",
+              "precision": 2
+            },
+            "adverse": {
+              "where": {
+                "period": "overall: all",
+                "selection": "Pivot-matched · RTH · EMA6/pivot · All sections · Both directions · All crosses · 30m",
+                "metric": "adverse_excursion [points]"
+              },
+              "column": "value",
+              "format": "number",
+              "precision": 2
+            },
+            "reach": {
+              "where": {
+                "period": "overall: all",
+                "selection": "Pivot-matched · RTH · EMA6/pivot · All sections · Both directions · All crosses · 30m",
+                "metric": "favorable_reach_10 [fraction]"
+              },
+              "column": "share",
+              "format": "percent",
+              "precision": 1
+            }
+          }
+        },
+        {
+          "id": "s11",
+          "title": "How often does EMA6 avoid recrossing the pivot for 30 minutes?",
+          "description": "Look for the next reverse EMA6–pivot cross within a complete 30-minute RTH window. This is an EMA line recross, separate from price returning through the pivot. Late or missing windows remain censored.",
+          "finding_template": "No reverse EMA6 cross occurred in {count} of {n} complete 30-minute windows ({share}), supported by {days} distinct days. Another {censored} windows were censored; absence of a recross does not imply a profitable price move.",
+          "bindings": {
+            "count": {
+              "where": {
+                "period": "overall: all",
+                "selection": "Pivot-matched · RTH · EMA6/pivot · All sections · Both directions · All crosses · 30m",
+                "metric": "no_recross [fraction]"
+              },
+              "column": "numerator",
+              "format": "integer",
+              "precision": 0
+            },
+            "n": {
+              "where": {
+                "period": "overall: all",
+                "selection": "Pivot-matched · RTH · EMA6/pivot · All sections · Both directions · All crosses · 30m",
+                "metric": "no_recross [fraction]"
+              },
+              "column": "denominator",
+              "format": "integer",
+              "precision": 0
+            },
+            "share": {
+              "where": {
+                "period": "overall: all",
+                "selection": "Pivot-matched · RTH · EMA6/pivot · All sections · Both directions · All crosses · 30m",
+                "metric": "no_recross [fraction]"
+              },
+              "column": "share",
+              "format": "percent",
+              "precision": 1
+            },
+            "days": {
+              "where": {
+                "period": "overall: all",
+                "selection": "Pivot-matched · RTH · EMA6/pivot · All sections · Both directions · All crosses · 30m",
+                "metric": "no_recross [fraction]"
+              },
+              "column": "days",
+              "format": "integer",
+              "precision": 0
+            },
+            "censored": {
+              "where": {
+                "period": "overall: all",
+                "selection": "Pivot-matched · RTH · EMA6/pivot · All sections · Both directions · All crosses · 30m",
+                "metric": "no_recross [fraction]"
+              },
+              "column": "censored",
+              "format": "integer",
+              "precision": 0
+            }
+          }
+        },
+        {
+          "id": "s12",
+          "title": "When does the first EMA6–pivot crossing occur?",
+          "description": "Time the first actual EMA6–pivot crossing from the 09:30 RTH opening. Conditional timing excludes days without a cross, while the timing-bin shares and the explicit no-cross category retain all eligible days.",
+          "finding_template": "On the {n} days with an EMA6–pivot cross, the first cross occurred a mean {mean} minutes after 09:30, with median {median} minutes. There were {no_cross} no-cross days. The chart shows the first chronological timing bins, not the entire distribution.",
+          "bindings": {
+            "n": {
+              "where": {
+                "period": "overall: all",
+                "selection": "Pivot-matched · RTH · EMA6/pivot · All sections · Both directions · All crosses",
+                "metric": "first_cross_minutes [minutes]"
+              },
+              "column": "denominator",
+              "format": "integer",
+              "precision": 0
+            },
+            "mean": {
+              "where": {
+                "period": "overall: all",
+                "selection": "Pivot-matched · RTH · EMA6/pivot · All sections · Both directions · All crosses",
+                "metric": "first_cross_minutes [minutes]"
+              },
+              "column": "value",
+              "format": "number",
+              "precision": 2
+            },
+            "median": {
+              "where": {
+                "period": "overall: all",
+                "selection": "Pivot-matched · RTH · EMA6/pivot · All sections · Both directions · All crosses",
+                "metric": "first_cross_minutes [minutes]"
+              },
+              "column": "median",
+              "format": "number",
+              "precision": 2
+            },
+            "no_cross": {
+              "where": {
+                "period": "overall: all",
+                "selection": "Pivot-matched · RTH · EMA6/pivot · All sections · Both directions · All crosses",
+                "metric": "first_cross_minutes [minutes]"
+              },
+              "column": "unknown",
+              "format": "integer",
+              "precision": 0
+            }
+          },
+          "figure_section_id": "chart-s12"
+        },
+        {
+          "id": "s13",
+          "title": "Does followthrough differ between first and later crossings?",
+          "description": "Separate each day’s first, second and third-or-later actual EMA6–pivot crossings, then measure complete 30-minute directional displacement. Repeated events on one day are dependent; the ordinal groups are exploratory comparisons.",
+          "finding_template": "Saved mean 30-minute displacement was {first} ES points after the first crossing ({first_n} outcomes), {second} points after the second ({second_n} outcomes), and {later} points after third-or-later crossings. Full support and censoring remain in the table.",
+          "bindings": {
+            "first": {
+              "where": {
+                "period": "overall: all",
+                "selection": "Pivot-matched · RTH · EMA6/pivot · All sections · Both directions · All crosses · 30m · crossing_ordinal=1",
+                "metric": "displacement [points]"
+              },
+              "column": "value",
+              "format": "number",
+              "precision": 2
+            },
+            "first_n": {
+              "where": {
+                "period": "overall: all",
+                "selection": "Pivot-matched · RTH · EMA6/pivot · All sections · Both directions · All crosses · 30m · crossing_ordinal=1",
+                "metric": "displacement [points]"
+              },
+              "column": "denominator",
+              "format": "integer",
+              "precision": 0
+            },
+            "second": {
+              "where": {
+                "period": "overall: all",
+                "selection": "Pivot-matched · RTH · EMA6/pivot · All sections · Both directions · All crosses · 30m · crossing_ordinal=2",
+                "metric": "displacement [points]"
+              },
+              "column": "value",
+              "format": "number",
+              "precision": 2
+            },
+            "second_n": {
+              "where": {
+                "period": "overall: all",
+                "selection": "Pivot-matched · RTH · EMA6/pivot · All sections · Both directions · All crosses · 30m · crossing_ordinal=2",
+                "metric": "displacement [points]"
+              },
+              "column": "denominator",
+              "format": "integer",
+              "precision": 0
+            },
+            "later": {
+              "where": {
+                "period": "overall: all",
+                "selection": "Pivot-matched · RTH · EMA6/pivot · All sections · Both directions · All crosses · 30m · crossing_ordinal=3+",
+                "metric": "displacement [points]"
+              },
+              "column": "value",
+              "format": "number",
+              "precision": 2
+            }
+          }
+        },
+        {
+          "id": "s14",
+          "title": "Does EMA6 reach VWAP before reversing through the pivot?",
+          "description": "After an actual EMA6–pivot cross, follow strictly at-risk sequences for a same-direction VWAP crossing before a reverse pivot crossing, within 30 minutes. Simultaneous crosses, already-beyond states and censored sequences remain separate.",
+          "finding_template": "EMA6 crossed VWAP before recrossing the pivot in {count} of {n} resolved or fully observed at-risk sequences ({share}), supported by {days} distinct days. Another {censored} sequences were censored; excluded starting configurations are retained in the earlier Ranked statistics reports.",
+          "bindings": {
+            "count": {
+              "where": {
+                "period": "overall: all",
+                "selection": "Pivot-matched · RTH · EMA6/pivot · All sections · Both directions · All crosses · 30m · first_reference=pivot",
+                "metric": "second_before_recross [fraction]"
+              },
+              "column": "numerator",
+              "format": "integer",
+              "precision": 0
+            },
+            "n": {
+              "where": {
+                "period": "overall: all",
+                "selection": "Pivot-matched · RTH · EMA6/pivot · All sections · Both directions · All crosses · 30m · first_reference=pivot",
+                "metric": "second_before_recross [fraction]"
+              },
+              "column": "denominator",
+              "format": "integer",
+              "precision": 0
+            },
+            "share": {
+              "where": {
+                "period": "overall: all",
+                "selection": "Pivot-matched · RTH · EMA6/pivot · All sections · Both directions · All crosses · 30m · first_reference=pivot",
+                "metric": "second_before_recross [fraction]"
+              },
+              "column": "share",
+              "format": "percent",
+              "precision": 1
+            },
+            "days": {
+              "where": {
+                "period": "overall: all",
+                "selection": "Pivot-matched · RTH · EMA6/pivot · All sections · Both directions · All crosses · 30m · first_reference=pivot",
+                "metric": "second_before_recross [fraction]"
+              },
+              "column": "days",
+              "format": "integer",
+              "precision": 0
+            },
+            "censored": {
+              "where": {
+                "period": "overall: all",
+                "selection": "Pivot-matched · RTH · EMA6/pivot · All sections · Both directions · All crosses · 30m · first_reference=pivot",
+                "metric": "second_before_recross [fraction]"
+              },
+              "column": "censored",
+              "format": "integer",
+              "precision": 0
+            }
+          }
+        },
+        {
+          "id": "s15",
+          "title": "How does the opening configuration relate to later crossings?",
+          "description": "Group days by whether the actual 09:30 opening price is above both pivot and VWAP, below both, between them or on a boundary. These opening states are distinct from future session outcomes.",
+          "finding_template": "Mean daily EMA6–pivot crossing counts were {above} on {above_n} above-both days, {below} on {below_n} below-both days, and {between} on between-line days. These saved conditional counts do not establish a predictive advantage.",
+          "bindings": {
+            "above": {
+              "where": {
+                "period": "overall: all",
+                "selection": "Pivot-matched · RTH · EMA6/pivot · All sections · Both directions · All crosses · opening_configuration=above_both",
+                "metric": "crosses [crossings/session]"
+              },
+              "column": "value",
+              "format": "number",
+              "precision": 2
+            },
+            "above_n": {
+              "where": {
+                "period": "overall: all",
+                "selection": "Pivot-matched · RTH · EMA6/pivot · All sections · Both directions · All crosses · opening_configuration=above_both",
+                "metric": "crosses [crossings/session]"
+              },
+              "column": "denominator",
+              "format": "integer",
+              "precision": 0
+            },
+            "below": {
+              "where": {
+                "period": "overall: all",
+                "selection": "Pivot-matched · RTH · EMA6/pivot · All sections · Both directions · All crosses · opening_configuration=below_both",
+                "metric": "crosses [crossings/session]"
+              },
+              "column": "value",
+              "format": "number",
+              "precision": 2
+            },
+            "below_n": {
+              "where": {
+                "period": "overall: all",
+                "selection": "Pivot-matched · RTH · EMA6/pivot · All sections · Both directions · All crosses · opening_configuration=below_both",
+                "metric": "crosses [crossings/session]"
+              },
+              "column": "denominator",
+              "format": "integer",
+              "precision": 0
+            },
+            "between": {
+              "where": {
+                "period": "overall: all",
+                "selection": "Pivot-matched · RTH · EMA6/pivot · All sections · Both directions · All crosses · opening_configuration=between",
+                "metric": "crosses [crossings/session]"
+              },
+              "column": "value",
+              "format": "number",
+              "precision": 2
+            }
+          }
+        },
+        {
+          "id": "s16",
+          "title": "What does cloud support or opposition look like after a pivot cross?",
+          "description": "Classify the five-minute EMA20/50 cloud using its ordering and both 15-minute slopes at the actual crossing. Supporting, opposing, mixed/flat and unknown states remain distinct; outcomes use complete 30-minute RTH paths.",
+          "finding_template": "Mean 30-minute directional displacement after EMA6–pivot crossings was {support} ES points with cloud support ({support_n} outcomes) and {opposition} points with cloud opposition ({opposition_n} outcomes). These exploratory slices are not independent confirmation of an edge.",
+          "bindings": {
+            "support": {
+              "where": {
+                "period": "overall: all",
+                "selection": "Pivot-matched · RTH · EMA6/pivot · All sections · Both directions · All crosses · 30m · cloud_support=support",
+                "metric": "displacement [points]"
+              },
+              "column": "value",
+              "format": "number",
+              "precision": 2
+            },
+            "support_n": {
+              "where": {
+                "period": "overall: all",
+                "selection": "Pivot-matched · RTH · EMA6/pivot · All sections · Both directions · All crosses · 30m · cloud_support=support",
+                "metric": "displacement [points]"
+              },
+              "column": "denominator",
+              "format": "integer",
+              "precision": 0
+            },
+            "opposition": {
+              "where": {
+                "period": "overall: all",
+                "selection": "Pivot-matched · RTH · EMA6/pivot · All sections · Both directions · All crosses · 30m · cloud_support=opposition",
+                "metric": "displacement [points]"
+              },
+              "column": "value",
+              "format": "number",
+              "precision": 2
+            },
+            "opposition_n": {
+              "where": {
+                "period": "overall: all",
+                "selection": "Pivot-matched · RTH · EMA6/pivot · All sections · Both directions · All crosses · 30m · cloud_support=opposition",
+                "metric": "displacement [points]"
+              },
+              "column": "denominator",
+              "format": "integer",
+              "precision": 0
+            }
+          }
+        },
+        {
+          "id": "s17",
+          "title": "How far apart are pivot and VWAP at the opening?",
+          "description": "Measure the absolute pivot–VWAP distance at 09:30 in ES points and basis points, then retain the protocol’s fixed separation bands for later crossing and outcome views. The bands were not fitted to the saved outcomes.",
+          "finding_template": "Across {n} pivot-matched days, mean opening separation was {points} ES points and {bps} basis points. These are separately saved averages of daily measures; the earlier Ranked statistics reports retain crossing and outcome slices by the fixed opening bands.",
+          "bindings": {
+            "n": {
+              "where": {
+                "period": "overall: all",
+                "selection": "Pivot-matched · RTH · EMA6/pivot · All sections · Both directions · All crosses",
+                "metric": "opening_separation_points [points]"
+              },
+              "column": "denominator",
+              "format": "integer",
+              "precision": 0
+            },
+            "points": {
+              "where": {
+                "period": "overall: all",
+                "selection": "Pivot-matched · RTH · EMA6/pivot · All sections · Both directions · All crosses",
+                "metric": "opening_separation_points [points]"
+              },
+              "column": "value",
+              "format": "number",
+              "precision": 2
+            },
+            "bps": {
+              "where": {
+                "period": "overall: all",
+                "selection": "Pivot-matched · RTH · EMA6/pivot · All sections · Both directions · All crosses",
+                "metric": "opening_separation_bps [basis points]"
+              },
+              "column": "value",
+              "format": "number",
+              "precision": 2
+            }
+          }
+        },
+        {
+          "id": "s18",
+          "title": "How often does price retest the pivot after an EMA6 crossing?",
+          "description": "After an actual EMA6–pivot crossing, identify the first subsequent completed three-minute bar containing the fixed pivot within 30 minutes. Incidence requires the full window; observed touch-bar hold, failure and equality are separate outcomes.",
+          "finding_template": "A pivot retest occurred in {count} of {n} complete 30-minute windows ({share}), supported by {days} distinct days. Another {censored} incidence windows were censored. This bar-based touch definition does not infer intrabar execution.",
+          "bindings": {
+            "count": {
+              "where": {
+                "period": "overall: all",
+                "selection": "Pivot-matched · RTH · EMA6/pivot · All sections · Both directions · All crosses · 30m",
+                "metric": "pivot_retest [fraction]"
+              },
+              "column": "numerator",
+              "format": "integer",
+              "precision": 0
+            },
+            "n": {
+              "where": {
+                "period": "overall: all",
+                "selection": "Pivot-matched · RTH · EMA6/pivot · All sections · Both directions · All crosses · 30m",
+                "metric": "pivot_retest [fraction]"
+              },
+              "column": "denominator",
+              "format": "integer",
+              "precision": 0
+            },
+            "share": {
+              "where": {
+                "period": "overall: all",
+                "selection": "Pivot-matched · RTH · EMA6/pivot · All sections · Both directions · All crosses · 30m",
+                "metric": "pivot_retest [fraction]"
+              },
+              "column": "share",
+              "format": "percent",
+              "precision": 1
+            },
+            "days": {
+              "where": {
+                "period": "overall: all",
+                "selection": "Pivot-matched · RTH · EMA6/pivot · All sections · Both directions · All crosses · 30m",
+                "metric": "pivot_retest [fraction]"
+              },
+              "column": "days",
+              "format": "integer",
+              "precision": 0
+            },
+            "censored": {
+              "where": {
+                "period": "overall: all",
+                "selection": "Pivot-matched · RTH · EMA6/pivot · All sections · Both directions · All crosses · 30m",
+                "metric": "pivot_retest [fraction]"
+              },
+              "column": "censored",
+              "format": "integer",
+              "precision": 0
+            }
+          }
+        },
+        {
+          "id": "s19",
+          "title": "Which section-end states persist into the next section?",
+          "description": "Compare saved cloud ordering and price-side states at section endpoints. Opening range ends at 10:30, AM ends at 12:30 and PM ends at 16:00 New York. These are endpoint-to-endpoint descriptions, not opening-time predictors.",
+          "finding_template": "In the pivot-matched population, bullish cloud ordering persisted from the opening-range endpoint to the AM endpoint on {bullish} of {bullish_n} eligible bullish-source days; bearish ordering persisted on {bearish} of {bearish_n} bearish-source days. The chart includes selected saved transition states.",
+          "bindings": {
+            "bullish": {
+              "where": {
+                "period": "overall: all",
+                "selection": "Pivot-matched · RTH · cloud/pivot · All sections · Both directions · All crosses · section_state=opening_range→new_york_am:cloud_order:bullish",
+                "metric": "state_persists [fraction]"
+              },
+              "column": "share",
+              "format": "percent",
+              "precision": 1
+            },
+            "bullish_n": {
+              "where": {
+                "period": "overall: all",
+                "selection": "Pivot-matched · RTH · cloud/pivot · All sections · Both directions · All crosses · section_state=opening_range→new_york_am:cloud_order:bullish",
+                "metric": "state_persists [fraction]"
+              },
+              "column": "denominator",
+              "format": "integer",
+              "precision": 0
+            },
+            "bearish": {
+              "where": {
+                "period": "overall: all",
+                "selection": "Pivot-matched · RTH · cloud/pivot · All sections · Both directions · All crosses · section_state=opening_range→new_york_am:cloud_order:bearish",
+                "metric": "state_persists [fraction]"
+              },
+              "column": "share",
+              "format": "percent",
+              "precision": 1
+            },
+            "bearish_n": {
+              "where": {
+                "period": "overall: all",
+                "selection": "Pivot-matched · RTH · cloud/pivot · All sections · Both directions · All crosses · section_state=opening_range→new_york_am:cloud_order:bearish",
+                "metric": "state_persists [fraction]"
+              },
+              "column": "denominator",
+              "format": "integer",
+              "precision": 0
+            }
+          },
+          "figure_section_id": "chart-s19"
+        },
+        {
+          "id": "s20",
+          "title": "How do recent crossings compare with earlier history?",
+          "description": "Compare trailing 20, 60 and 120 eligible observed sessions against their separate preceding histories, with each recent window excluded from its comparator. The requested cutoff is October 30, 2026, but actual retained evidence ends September 18.",
+          "finding_template": "EMA6–VWAP crossings averaged {recent} per RTH session over the last {recent_n} eligible pivot-matched sessions, versus {earlier} over the disjoint preceding {earlier_n} sessions. The 20-session cell is sparse under the study’s 30-day rule; dates and longer windows remain explicit.",
+          "bindings": {
+            "recent": {
+              "where": {
+                "period": "recent: last_20",
+                "selection": "Pivot-matched · RTH · EMA6/vwap · All sections · Both directions · All crosses · source_statistic=S01",
+                "metric": "crosses [crossings/session]"
+              },
+              "column": "value",
+              "format": "number",
+              "precision": 2
+            },
+            "recent_n": {
+              "where": {
+                "period": "recent: last_20",
+                "selection": "Pivot-matched · RTH · EMA6/vwap · All sections · Both directions · All crosses · source_statistic=S01",
+                "metric": "crosses [crossings/session]"
+              },
+              "column": "denominator",
+              "format": "integer",
+              "precision": 0
+            },
+            "earlier": {
+              "where": {
+                "period": "preceding: before_last_20",
+                "selection": "Pivot-matched · RTH · EMA6/vwap · All sections · Both directions · All crosses · source_statistic=S01",
+                "metric": "crosses [crossings/session]"
+              },
+              "column": "value",
+              "format": "number",
+              "precision": 2
+            },
+            "earlier_n": {
+              "where": {
+                "period": "preceding: before_last_20",
+                "selection": "Pivot-matched · RTH · EMA6/vwap · All sections · Both directions · All crosses · source_statistic=S01",
+                "metric": "crosses [crossings/session]"
+              },
+              "column": "denominator",
+              "format": "integer",
+              "precision": 0
+            }
+          },
+          "figure_section_id": "chart-s20"
+        }
+      ]
+    },
+    {
+      "key": "vwap",
+      "source_publication_id": "verniman-es-globex-vwap-statistics-20261031-ranked-v2",
+      "insights": [
+        {
+          "id": "s01",
+          "title": "How often does EMA6 cross VWAP in Globex and RTH?",
+          "description": "Count actual completed three-minute EMA6–VWAP transitions in two separate pivot-independent populations: full Globex and regular trading hours. Globex initializes at 18:00 New York; the VWAP reset itself is not a crossing.",
+          "finding_template": "The full-Globex mean was {globex} crossings per session across {globex_n} eligible sessions. The separate RTH mean was {rth} across {rth_n} sessions. Their observation windows and eligible populations differ; the chart preserves those identities.",
+          "bindings": {
+            "globex": {
+              "where": {
+                "period": "overall: all",
+                "selection": "VWAP-only Globex · Globex · EMA6/vwap · All sections · Both directions · All crosses",
+                "metric": "crosses [crossings/session]"
+              },
+              "column": "value",
+              "format": "number",
+              "precision": 2
+            },
+            "globex_n": {
+              "where": {
+                "period": "overall: all",
+                "selection": "VWAP-only Globex · Globex · EMA6/vwap · All sections · Both directions · All crosses",
+                "metric": "crosses [crossings/session]"
+              },
+              "column": "denominator",
+              "format": "integer",
+              "precision": 0
+            },
+            "rth": {
+              "where": {
+                "period": "overall: all",
+                "selection": "VWAP-only RTH · RTH · EMA6/vwap · All sections · Both directions · All crosses",
+                "metric": "crosses [crossings/session]"
+              },
+              "column": "value",
+              "format": "number",
+              "precision": 2
+            },
+            "rth_n": {
+              "where": {
+                "period": "overall: all",
+                "selection": "VWAP-only RTH · RTH · EMA6/vwap · All sections · Both directions · All crosses",
+                "metric": "crosses [crossings/session]"
+              },
+              "column": "denominator",
+              "format": "integer",
+              "precision": 0
+            }
+          },
+          "figure_section_id": "chart-s01"
+        },
+        {
+          "id": "s03",
+          "title": "How often are there no crossings or repeated VWAP crossings?",
+          "description": "Read the fixed daily EMA6–VWAP count categories independently for full Globex and RTH. Full Globex covers a longer observation window, so its raw daily counts should retain their separate scope.",
+          "finding_template": "Among {globex_n} full-Globex sessions, {globex_zero} had no EMA6–VWAP crossing and {globex_many} had five or more. In the separate {rth_n}-session RTH population, {rth_zero} had no crossing.",
+          "bindings": {
+            "globex_n": {
+              "where": {
+                "period": "overall: all",
+                "selection": "VWAP-only Globex · Globex · EMA6/vwap · All sections · Both directions · All crosses · cross_count=0",
+                "metric": "count_bucket [fraction]"
+              },
+              "column": "denominator",
+              "format": "integer",
+              "precision": 0
+            },
+            "globex_zero": {
+              "where": {
+                "period": "overall: all",
+                "selection": "VWAP-only Globex · Globex · EMA6/vwap · All sections · Both directions · All crosses · cross_count=0",
+                "metric": "count_bucket [fraction]"
+              },
+              "column": "share",
+              "format": "percent",
+              "precision": 1
+            },
+            "globex_many": {
+              "where": {
+                "period": "overall: all",
+                "selection": "VWAP-only Globex · Globex · EMA6/vwap · All sections · Both directions · All crosses · cross_count=5+",
+                "metric": "count_bucket [fraction]"
+              },
+              "column": "share",
+              "format": "percent",
+              "precision": 1
+            },
+            "rth_n": {
+              "where": {
+                "period": "overall: all",
+                "selection": "VWAP-only RTH · RTH · EMA6/vwap · All sections · Both directions · All crosses · cross_count=0",
+                "metric": "count_bucket [fraction]"
+              },
+              "column": "denominator",
+              "format": "integer",
+              "precision": 0
+            },
+            "rth_zero": {
+              "where": {
+                "period": "overall: all",
+                "selection": "VWAP-only RTH · RTH · EMA6/vwap · All sections · Both directions · All crosses · cross_count=0",
+                "metric": "count_bucket [fraction]"
+              },
+              "column": "share",
+              "format": "percent",
+              "precision": 1
+            }
+          }
+        },
+        {
+          "id": "s04",
+          "title": "What are the VWAP crossing rates per observed hour?",
+          "description": "Express each day’s actual EMA6–VWAP crossings per observed native three-minute hour. Scheduled closures contribute no exposure, and unknown exposure is not an observed zero.",
+          "finding_template": "The saved mean daily rate was {globex} crossings per observed hour across {globex_n} full-Globex sessions, and {rth} across {rth_n} separate RTH sessions. These exposure-normalized means preserve each population’s eligibility rules.",
+          "bindings": {
+            "globex": {
+              "where": {
+                "period": "overall: all",
+                "selection": "VWAP-only Globex · Globex · EMA6/vwap · All sections · Both directions · All crosses",
+                "metric": "crosses_per_hour [crossings/hour]"
+              },
+              "column": "value",
+              "format": "number",
+              "precision": 2
+            },
+            "globex_n": {
+              "where": {
+                "period": "overall: all",
+                "selection": "VWAP-only Globex · Globex · EMA6/vwap · All sections · Both directions · All crosses",
+                "metric": "crosses_per_hour [crossings/hour]"
+              },
+              "column": "denominator",
+              "format": "integer",
+              "precision": 0
+            },
+            "rth": {
+              "where": {
+                "period": "overall: all",
+                "selection": "VWAP-only RTH · RTH · EMA6/vwap · All sections · Both directions · All crosses",
+                "metric": "crosses_per_hour [crossings/hour]"
+              },
+              "column": "value",
+              "format": "number",
+              "precision": 2
+            },
+            "rth_n": {
+              "where": {
+                "period": "overall: all",
+                "selection": "VWAP-only RTH · RTH · EMA6/vwap · All sections · Both directions · All crosses",
+                "metric": "crosses_per_hour [crossings/hour]"
+              },
+              "column": "denominator",
+              "format": "integer",
+              "precision": 0
+            }
+          }
+        },
+        {
+          "id": "s05",
+          "title": "How often does price cross VWAP compared with EMA6?",
+          "description": "Compare completed three-minute price-close and EMA6 transitions against contemporaneous moving VWAP on the same named population. This compact view cites full-Globex rows; the earlier Ranked statistics reports retain both Globex and RTH selections without pooling them.",
+          "finding_template": "On the same {n} full-Globex sessions, price averaged {price} VWAP crossings per session while EMA6 averaged {ema}. These are counts of distinct event definitions, not assumed trading opportunities.",
+          "bindings": {
+            "n": {
+              "where": {
+                "period": "overall: all",
+                "selection": "VWAP-only Globex · Globex · Price/vwap · All sections · Both directions · All crosses",
+                "metric": "crosses [crossings/session]"
+              },
+              "column": "denominator",
+              "format": "integer",
+              "precision": 0
+            },
+            "price": {
+              "where": {
+                "period": "overall: all",
+                "selection": "VWAP-only Globex · Globex · Price/vwap · All sections · Both directions · All crosses",
+                "metric": "crosses [crossings/session]"
+              },
+              "column": "value",
+              "format": "number",
+              "precision": 2
+            },
+            "ema": {
+              "where": {
+                "period": "overall: all",
+                "selection": "VWAP-only Globex · Globex · EMA6/vwap · All sections · Both directions · All crosses",
+                "metric": "crosses [crossings/session]"
+              },
+              "column": "value",
+              "format": "number",
+              "precision": 2
+            }
+          }
+        },
+        {
+          "id": "s09",
+          "title": "What happens 30 minutes after an RTH EMA6–VWAP crossing?",
+          "description": "Measure directional price displacement from the observable EMA6–VWAP event close over a complete 30-minute RTH path. The full-Globex recurrence population is not used for overnight forward outcomes.",
+          "finding_template": "Across {n} complete RTH outcomes on {days} distinct days, mean 30-minute directional displacement was {mean} ES points and {positive} ended strictly positive. Another {unknown} candidate outcomes were unavailable; no trade fills or costs are modeled.",
+          "bindings": {
+            "n": {
+              "where": {
+                "period": "overall: all",
+                "selection": "VWAP-only RTH · RTH · EMA6/vwap · All sections · Both directions · All crosses · 30m",
+                "metric": "displacement [points]"
+              },
+              "column": "denominator",
+              "format": "integer",
+              "precision": 0
+            },
+            "days": {
+              "where": {
+                "period": "overall: all",
+                "selection": "VWAP-only RTH · RTH · EMA6/vwap · All sections · Both directions · All crosses · 30m",
+                "metric": "displacement [points]"
+              },
+              "column": "days",
+              "format": "integer",
+              "precision": 0
+            },
+            "mean": {
+              "where": {
+                "period": "overall: all",
+                "selection": "VWAP-only RTH · RTH · EMA6/vwap · All sections · Both directions · All crosses · 30m",
+                "metric": "displacement [points]"
+              },
+              "column": "value",
+              "format": "number",
+              "precision": 2
+            },
+            "unknown": {
+              "where": {
+                "period": "overall: all",
+                "selection": "VWAP-only RTH · RTH · EMA6/vwap · All sections · Both directions · All crosses · 30m",
+                "metric": "displacement [points]"
+              },
+              "column": "unknown",
+              "format": "integer",
+              "precision": 0
+            },
+            "positive": {
+              "where": {
+                "period": "overall: all",
+                "selection": "VWAP-only RTH · RTH · EMA6/vwap · All sections · Both directions · All crosses · 30m",
+                "metric": "positive_movement [fraction]"
+              },
+              "column": "share",
+              "format": "percent",
+              "precision": 1
+            }
+          }
+        },
+        {
+          "id": "s10",
+          "title": "How large are the favorable and adverse VWAP-cross paths?",
+          "description": "Measure excursions and fixed point reaches after actual EMA6–VWAP crossings using complete 30-minute RTH paths. Favorable and adverse reaches can both occur, and the saved summaries do not infer intraminute order.",
+          "finding_template": "For {n} complete paths on {days} distinct days, mean favorable excursion was {favorable} ES points and mean adverse excursion was {adverse} points. The share reaching 10 favorable points was {reach}. These are path measures rather than realized returns.",
+          "bindings": {
+            "n": {
+              "where": {
+                "period": "overall: all",
+                "selection": "VWAP-only RTH · RTH · EMA6/vwap · All sections · Both directions · All crosses · 30m",
+                "metric": "favorable_excursion [points]"
+              },
+              "column": "denominator",
+              "format": "integer",
+              "precision": 0
+            },
+            "days": {
+              "where": {
+                "period": "overall: all",
+                "selection": "VWAP-only RTH · RTH · EMA6/vwap · All sections · Both directions · All crosses · 30m",
+                "metric": "favorable_excursion [points]"
+              },
+              "column": "days",
+              "format": "integer",
+              "precision": 0
+            },
+            "favorable": {
+              "where": {
+                "period": "overall: all",
+                "selection": "VWAP-only RTH · RTH · EMA6/vwap · All sections · Both directions · All crosses · 30m",
+                "metric": "favorable_excursion [points]"
+              },
+              "column": "value",
+              "format": "number",
+              "precision": 2
+            },
+            "adverse": {
+              "where": {
+                "period": "overall: all",
+                "selection": "VWAP-only RTH · RTH · EMA6/vwap · All sections · Both directions · All crosses · 30m",
+                "metric": "adverse_excursion [points]"
+              },
+              "column": "value",
+              "format": "number",
+              "precision": 2
+            },
+            "reach": {
+              "where": {
+                "period": "overall: all",
+                "selection": "VWAP-only RTH · RTH · EMA6/vwap · All sections · Both directions · All crosses · 30m",
+                "metric": "favorable_reach_10 [fraction]"
+              },
+              "column": "share",
+              "format": "percent",
+              "precision": 1
+            }
+          }
+        },
+        {
+          "id": "s11",
+          "title": "How often does EMA6 avoid recrossing VWAP for 30 minutes?",
+          "description": "Observe the next reverse EMA6–VWAP transition within a complete 30-minute RTH window. Require the entire window even when a reverse is already observed, and preserve late or missing windows as censored.",
+          "finding_template": "No reverse EMA6–VWAP cross occurred in {count} of {n} complete windows ({share}), supported by {days} distinct days. Another {censored} windows were censored; this describes line persistence rather than directional trading profit.",
+          "bindings": {
+            "count": {
+              "where": {
+                "period": "overall: all",
+                "selection": "VWAP-only RTH · RTH · EMA6/vwap · All sections · Both directions · All crosses · 30m",
+                "metric": "no_recross [fraction]"
+              },
+              "column": "numerator",
+              "format": "integer",
+              "precision": 0
+            },
+            "n": {
+              "where": {
+                "period": "overall: all",
+                "selection": "VWAP-only RTH · RTH · EMA6/vwap · All sections · Both directions · All crosses · 30m",
+                "metric": "no_recross [fraction]"
+              },
+              "column": "denominator",
+              "format": "integer",
+              "precision": 0
+            },
+            "share": {
+              "where": {
+                "period": "overall: all",
+                "selection": "VWAP-only RTH · RTH · EMA6/vwap · All sections · Both directions · All crosses · 30m",
+                "metric": "no_recross [fraction]"
+              },
+              "column": "share",
+              "format": "percent",
+              "precision": 1
+            },
+            "days": {
+              "where": {
+                "period": "overall: all",
+                "selection": "VWAP-only RTH · RTH · EMA6/vwap · All sections · Both directions · All crosses · 30m",
+                "metric": "no_recross [fraction]"
+              },
+              "column": "days",
+              "format": "integer",
+              "precision": 0
+            },
+            "censored": {
+              "where": {
+                "period": "overall: all",
+                "selection": "VWAP-only RTH · RTH · EMA6/vwap · All sections · Both directions · All crosses · 30m",
+                "metric": "no_recross [fraction]"
+              },
+              "column": "censored",
+              "format": "integer",
+              "precision": 0
+            }
+          }
+        },
+        {
+          "id": "s12",
+          "title": "When does the first Globex EMA6–VWAP crossing occur?",
+          "description": "Measure the first actual EMA6–VWAP crossing from the 18:00 New York Globex anchor. The first strict side initializes the state without a cross; sessions without a later transition retain a separate no-cross category.",
+          "finding_template": "Among {n} full-Globex sessions with a crossing, the first cross occurred a mean {mean} minutes after 18:00 and median {median} minutes after 18:00. Another {no_cross} sessions had no cross. The chart displays the first chronological bins, with later bins retained in saved evidence.",
+          "bindings": {
+            "n": {
+              "where": {
+                "period": "overall: all",
+                "selection": "VWAP-only Globex · Globex · EMA6/vwap · All sections · Both directions · All crosses",
+                "metric": "first_cross_minutes [minutes]"
+              },
+              "column": "denominator",
+              "format": "integer",
+              "precision": 0
+            },
+            "mean": {
+              "where": {
+                "period": "overall: all",
+                "selection": "VWAP-only Globex · Globex · EMA6/vwap · All sections · Both directions · All crosses",
+                "metric": "first_cross_minutes [minutes]"
+              },
+              "column": "value",
+              "format": "number",
+              "precision": 2
+            },
+            "median": {
+              "where": {
+                "period": "overall: all",
+                "selection": "VWAP-only Globex · Globex · EMA6/vwap · All sections · Both directions · All crosses",
+                "metric": "first_cross_minutes [minutes]"
+              },
+              "column": "median",
+              "format": "number",
+              "precision": 2
+            },
+            "no_cross": {
+              "where": {
+                "period": "overall: all",
+                "selection": "VWAP-only Globex · Globex · EMA6/vwap · All sections · Both directions · All crosses",
+                "metric": "first_cross_minutes [minutes]"
+              },
+              "column": "unknown",
+              "format": "integer",
+              "precision": 0
+            }
+          },
+          "figure_section_id": "chart-s12"
+        },
+        {
+          "id": "s13",
+          "title": "Does RTH followthrough change with VWAP crossing order?",
+          "description": "Group the first, second and third-or-later EMA6–VWAP crossings within each RTH day and retain complete 30-minute directional outcomes. Later events can share a day, so these groups are dependent exploratory slices.",
+          "finding_template": "Saved mean 30-minute displacement was {first} ES points after the first crossing ({first_n} outcomes), {second} after the second ({second_n} outcomes), and {later} after third-or-later crossings. Denominators and censoring differ across these groups.",
+          "bindings": {
+            "first": {
+              "where": {
+                "period": "overall: all",
+                "selection": "VWAP-only RTH · RTH · EMA6/vwap · All sections · Both directions · All crosses · 30m · crossing_ordinal=1",
+                "metric": "displacement [points]"
+              },
+              "column": "value",
+              "format": "number",
+              "precision": 2
+            },
+            "first_n": {
+              "where": {
+                "period": "overall: all",
+                "selection": "VWAP-only RTH · RTH · EMA6/vwap · All sections · Both directions · All crosses · 30m · crossing_ordinal=1",
+                "metric": "displacement [points]"
+              },
+              "column": "denominator",
+              "format": "integer",
+              "precision": 0
+            },
+            "second": {
+              "where": {
+                "period": "overall: all",
+                "selection": "VWAP-only RTH · RTH · EMA6/vwap · All sections · Both directions · All crosses · 30m · crossing_ordinal=2",
+                "metric": "displacement [points]"
+              },
+              "column": "value",
+              "format": "number",
+              "precision": 2
+            },
+            "second_n": {
+              "where": {
+                "period": "overall: all",
+                "selection": "VWAP-only RTH · RTH · EMA6/vwap · All sections · Both directions · All crosses · 30m · crossing_ordinal=2",
+                "metric": "displacement [points]"
+              },
+              "column": "denominator",
+              "format": "integer",
+              "precision": 0
+            },
+            "later": {
+              "where": {
+                "period": "overall: all",
+                "selection": "VWAP-only RTH · RTH · EMA6/vwap · All sections · Both directions · All crosses · 30m · crossing_ordinal=3+",
+                "metric": "displacement [points]"
+              },
+              "column": "value",
+              "format": "number",
+              "precision": 2
+            }
+          }
+        },
+        {
+          "id": "s16",
+          "title": "How do cloud states relate to RTH VWAP-cross outcomes?",
+          "description": "At each actual RTH EMA6–VWAP crossing, classify the five-minute cloud by ordering and both 15-minute slopes. Keep supporting, opposing, mixed/flat and unknown states distinct, then read complete 30-minute outcomes.",
+          "finding_template": "Mean directional displacement was {support} ES points with cloud support ({support_n} complete outcomes) and {opposition} with cloud opposition ({opposition_n} outcomes). These are exploratory conditional observations, with mixed and unknown states retained separately in the earlier Ranked statistics reports.",
+          "bindings": {
+            "support": {
+              "where": {
+                "period": "overall: all",
+                "selection": "VWAP-only RTH · RTH · EMA6/vwap · All sections · Both directions · All crosses · 30m · cloud_support=support",
+                "metric": "displacement [points]"
+              },
+              "column": "value",
+              "format": "number",
+              "precision": 2
+            },
+            "support_n": {
+              "where": {
+                "period": "overall: all",
+                "selection": "VWAP-only RTH · RTH · EMA6/vwap · All sections · Both directions · All crosses · 30m · cloud_support=support",
+                "metric": "displacement [points]"
+              },
+              "column": "denominator",
+              "format": "integer",
+              "precision": 0
+            },
+            "opposition": {
+              "where": {
+                "period": "overall: all",
+                "selection": "VWAP-only RTH · RTH · EMA6/vwap · All sections · Both directions · All crosses · 30m · cloud_support=opposition",
+                "metric": "displacement [points]"
+              },
+              "column": "value",
+              "format": "number",
+              "precision": 2
+            },
+            "opposition_n": {
+              "where": {
+                "period": "overall: all",
+                "selection": "VWAP-only RTH · RTH · EMA6/vwap · All sections · Both directions · All crosses · 30m · cloud_support=opposition",
+                "metric": "displacement [points]"
+              },
+              "column": "denominator",
+              "format": "integer",
+              "precision": 0
+            }
+          }
+        },
+        {
+          "id": "s19",
+          "title": "How persistent are RTH section-end states?",
+          "description": "Compare observed price-side and cloud-ordering states from the opening-range endpoint to AM and PM endpoints in the pivot-independent RTH population. Later endpoint states cannot be used as opening-time conditions.",
+          "finding_template": "Bullish cloud ordering persisted from the opening-range endpoint to the AM endpoint on {bullish} of {bullish_n} eligible bullish-source RTH days; bearish ordering persisted on {bearish} of {bearish_n} bearish-source days. The chart retains selected saved transition views.",
+          "bindings": {
+            "bullish": {
+              "where": {
+                "period": "overall: all",
+                "selection": "VWAP-only RTH · RTH · cloud/vwap · All sections · Both directions · All crosses · section_state=opening_range→new_york_am:cloud_order:bullish",
+                "metric": "state_persists [fraction]"
+              },
+              "column": "share",
+              "format": "percent",
+              "precision": 1
+            },
+            "bullish_n": {
+              "where": {
+                "period": "overall: all",
+                "selection": "VWAP-only RTH · RTH · cloud/vwap · All sections · Both directions · All crosses · section_state=opening_range→new_york_am:cloud_order:bullish",
+                "metric": "state_persists [fraction]"
+              },
+              "column": "denominator",
+              "format": "integer",
+              "precision": 0
+            },
+            "bearish": {
+              "where": {
+                "period": "overall: all",
+                "selection": "VWAP-only RTH · RTH · cloud/vwap · All sections · Both directions · All crosses · section_state=opening_range→new_york_am:cloud_order:bearish",
+                "metric": "state_persists [fraction]"
+              },
+              "column": "share",
+              "format": "percent",
+              "precision": 1
+            },
+            "bearish_n": {
+              "where": {
+                "period": "overall: all",
+                "selection": "VWAP-only RTH · RTH · cloud/vwap · All sections · Both directions · All crosses · section_state=opening_range→new_york_am:cloud_order:bearish",
+                "metric": "state_persists [fraction]"
+              },
+              "column": "denominator",
+              "format": "integer",
+              "precision": 0
+            }
+          },
+          "figure_section_id": "chart-s19"
+        },
+        {
+          "id": "s20",
+          "title": "How does recent Globex crossing activity compare with earlier history?",
+          "description": "Compare trailing 20, 60 and 120 eligible observed sessions with disjoint earlier histories. Globex and RTH remain separate, and the latest available date is September 18, 2026 despite the October 30 requested cutoff.",
+          "finding_template": "Full-Globex EMA6–VWAP crossings averaged {recent} per session over the last {recent_n} eligible sessions, versus {earlier} over the preceding {earlier_n} sessions. The 20-session cell is sparse under the study’s 30-day rule; the chart also preserves the other selected windows.",
+          "bindings": {
+            "recent": {
+              "where": {
+                "period": "recent: last_20",
+                "selection": "VWAP-only Globex · Globex · EMA6/vwap · All sections · Both directions · All crosses · source_statistic=S01",
+                "metric": "crosses [crossings/session]"
+              },
+              "column": "value",
+              "format": "number",
+              "precision": 2
+            },
+            "recent_n": {
+              "where": {
+                "period": "recent: last_20",
+                "selection": "VWAP-only Globex · Globex · EMA6/vwap · All sections · Both directions · All crosses · source_statistic=S01",
+                "metric": "crosses [crossings/session]"
+              },
+              "column": "denominator",
+              "format": "integer",
+              "precision": 0
+            },
+            "earlier": {
+              "where": {
+                "period": "preceding: before_last_20",
+                "selection": "VWAP-only Globex · Globex · EMA6/vwap · All sections · Both directions · All crosses · source_statistic=S01",
+                "metric": "crosses [crossings/session]"
+              },
+              "column": "value",
+              "format": "number",
+              "precision": 2
+            },
+            "earlier_n": {
+              "where": {
+                "period": "preceding: before_last_20",
+                "selection": "VWAP-only Globex · Globex · EMA6/vwap · All sections · Both directions · All crosses · source_statistic=S01",
+                "metric": "crosses [crossings/session]"
+              },
+              "column": "denominator",
+              "format": "integer",
+              "precision": 0
+            }
+          },
+          "figure_section_id": "chart-s20"
+        }
+      ]
+    }
+  ]
+}

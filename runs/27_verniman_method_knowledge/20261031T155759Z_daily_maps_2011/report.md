@@ -1,0 +1,33 @@
+# Daily Map archive 2011
+
+[Open the offline calendar](../../../work/27_verniman_method_knowledge/20261031T155759Z_daily_maps_2011/archive/index.html) · [Date index](knowledge-base/daily-map/README.md) · [Gap log](knowledge-base/daily-map/gap-log.md)
+
+**No in-scope 2011 morning Daily Maps could be established from the reviewed surviving sources.** All 365 requested dates remain explicit gaps: 260 weekday and 105 weekend dates. The reader is ordered newest first through year/month/day navigation. It has no invented daily post, undated plan, source seed or daily image. This does not establish historical absence, complete historical coverage or an observed 2010 boundary.
+
+## Source recovery and navigation
+
+The all-time 2011-path archive index contains seventeen exact locators: thirteen article paths and four year/month indexes. All seventeen were recovered with fresh HTTP 200 responses. Standard and explicitly observed country-domain homepage indexes are empty. Two actual 2011 Blogger Atom snapshots, May 29 and September 28, contain twenty-five exact entries each: fifty source-entry records, thirty-eight distinct IDs and twelve overlapping IDs. Both original XML payloads, exact entry selectors, ordinals, publication claims and transport clocks remain retained. Their actual identical next-page URL was checked exactly; CDX and availability returned successful empty results. No unobserved archive cursor or daily URL was guessed.
+
+The retained official sitemap index and its three declared pages were verified against compressed and uncompressed hashes. Among 2,210 locators, eleven use 2011 paths. Eight are already covered by the archive index. The other three were retrieved successfully as explicitly current-only context: Times to Watch, COT-TFF Report and Expected Move. Their current titles, bodies, images and retrieval clocks do not establish historical 2011 contents or morning sessions.
+
+The final raw recovery has seventy source records: seventeen archived HTML records, fifty exact archived Atom entries and three current-only records. These contain seventy-three actual body instances: twenty in HTML pages, fifty in feeds and three current-only bodies. Source records, body instances, overlapping entries and unique posts are distinct counts. No indexed page failed. Full HTML, Atom XML, exact body text, links, image bytes and source outcomes remain in the private ignored recovery stage.
+
+## Review of text and images
+
+Independent review read every actual body and inspected all fifty-eight distinct retained visible-image payloads. Most sources are method education, motivational material, execution examples or older 2010 recaps. Spread Trade is an AAPL options example. Image-only Trading Update contains three ABCD/pullback execution examples. Dollar-Bonds-Stocks and Euro-Gold-Crude show broad weekly support and resistance; Markets Projection contains multi-year monthly targets. None establishes a supported prospective 2011 morning-plan session.
+
+Three complete normalized daily-looking HTML bodies match preserved 2022 capsules exactly: FOMC Minutes (May 25), Lower PCE (May 27) and Slow economy (June 8). The comparison searched all fifteen frozen later annual inventories. Old permalink years do not assign these plans to 2011, and no existing 2022 evidence changed.
+
+The raw sources contain 131 image elements. **All 81 visible chart/media references are retained**, through fifty-nine successful source-element URL pairs and fifty-eight unique payload hashes. The other fifty references, across thirty-eight URLs, are explicitly declared 1×1 Blogger tracking pixels; all returned HTTP 404. No authored chart or visible media reference is missing, and there are no inline-only fallbacks. The tracker outcomes stay in raw provenance. Retained images are current-source responses; historical image-byte identity is unverified. They remain context outside daily-reader counts.
+
+The reviewed collection is pinned at SHA-256 `65ce843845c6a4f29c56eed17be634eba8111ef3742bf5ac03b747cc384a24d5`. An authored exact-year empty-selection decision pins the independent integer-zero precheck. Raw phases remain unchanged. Discovery and temporary review inputs have durable copied bytes and retention maps; original retained sitemap inputs remain explicitly hash-pinned. URL years, chart filenames and archive/capture/publication clocks alone do not manufacture daily dates.
+
+The reader retains its source-coverage decision locally and links it prominently. It displays the coverage limit and creates every dated gap page, without selected source/article/image payloads or feed XML. The lightweight reader occupies 1,722,353 bytes (1.6 MiB). Preserve both the matching reader and recovery stages as retained evidence.
+
+## Verification and preservation
+
+Independent selection checked 2,749 unique files, all exact Atom selectors and publication claims, all seventy-three bodies and 131 image outcomes, three complete 2022 matches and original sitemap identities. The final capture audit checked 1,091 unique files, the exact review/source/precheck roundtrip, null seed, local source-review bytes, all 365 descending dates and 28 February rows without a leap day. Reader verification passed 762 inventoried file identities, 2,242 local HTML links and 1,474 Markdown links.
+
+Fifteen empty-adapter/rendering guards, nine recovery-scope guards, six morning-classification guards and ten empty-projection guards passed. Existing empty-selection, empty-adapter, title, date, image, classification and recovery regression fixtures also passed. The independent calendar fixture preserves descending dates, duplicate records and null dates correctly. In-app browser checks covered the actual archived Trading Update page and its three visible execution images, root coverage notice, twelve month links, date order, February, both year boundaries, zero selected images and the authored coverage decision. The rendered layout was visually inspected.
+
+All fifteen completed 2012–2026 archives remain unchanged: 6,165 sealed artifacts, 21,364 reader files, 7,728 capture objects and 8,613 original retained inputs were verified. The original method review's seventy-nine artifacts, 107 retained external inputs and all eighty run files remain unchanged. Current [Daily Map navigation](../../../studies/27_verniman_method_knowledge/knowledge-base/daily-map/README.md) lists sixteen annual snapshots and 5,782 calendar records. No dataset release, market calculation or hosted publication is included. These checks verify retention and presentation, not trading validity or historical completeness.

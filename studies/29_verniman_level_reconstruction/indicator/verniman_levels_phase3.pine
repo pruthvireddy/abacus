@@ -1,0 +1,1259 @@
+//@version=6
+indicator("Verniman Levels", overlay=true, max_lines_count=100, max_labels_count=100, max_boxes_count=32)
+
+// Phase 3 v3.0.0: experimental N1/E1/composite/manual P1/P2 candidates.
+// Phase 1 baseline arithmetic retained; no LIS/pivot or ordered target selection.
+// Not Verniman’s recovered algorithms; see ../phase3/protocol.md.
+string TZ = "America/New_York"
+int MAX_BINS = 6000
+float vaPct = input.float(70, "Value area %", minval=1, maxval=100, group="Profile approximation")
+int rowTicks = input.int(16, "Row size (ticks)", minval=1, group="Profile approximation")
+int cutHour = input.int(9, "Cutoff hour (New York)", minval=0, maxval=9, group="Pre-open snapshot")
+int cutMinute = input.int(25, "Cutoff minute", minval=0, maxval=59, group="Pre-open snapshot")
+bool showFrozen = input.bool(true, "Frozen pre-open map", group="Display")
+bool showLive = input.bool(false, "Live candidate map (separate dashed lines)", group="Display")
+bool showFull = input.bool(true, "Previous full futures session high/low", group="Families")
+bool showWeek = input.bool(true, "Current week to cutoff / developing week", group="Families")
+bool showPrevWeek = input.bool(true, "Previous week", group="Families")
+bool showRth = input.bool(true, "Latest completed RTH (YVAH/YPOC/YVAL)", group="Families")
+bool showOn = input.bool(true, "Overnight profile and ONH/ONL", group="Families")
+bool showRthPrices = input.bool(true, "Latest completed RTH high/low/last close", group="Families")
+bool showDev = input.bool(true, "Developing RTH (completed bars)", group="Families")
+bool showStatus = input.bool(true, "Readiness and candidate table", group="Display")
+bool showCandidateValues = input.bool(false, "Expand table with all candidate values", group="Display")
+int lineMinutes = input.int(60, "Line extension (minutes)", minval=0, maxval=240, group="Display")
+float rowSize = syminfo.mintick * rowTicks
+
+// Civil-date timestamp arithmetic (not fixed 24h shifts) respects NY DST.
+f_stamp(int base, int dayOffset, int h, int m) =>
+    timestamp(TZ, year(base, TZ), month(base, TZ), dayofmonth(base, TZ) + dayOffset, h, m)
+
+type Profile
+    array<float> bins
+    int minKey = na
+    float total = 0
+    float vah = na
+    float poc = na
+    float val = na
+    bool overflow = false
+    bool volumeOk = true
+
+method clear(Profile p) =>
+    array.clear(p.bins)
+    p.minKey := na
+    p.total := 0
+    p.vah := na
+    p.poc := na
+    p.val := na
+    p.overflow := false
+    p.volumeOk := true
+
+method add(Profile p, float vol, float ph, float pl) =>
+    // Missing/negative volume invalidates this period; zero volume is permitted.
+    if na(vol) or vol < 0
+        p.volumeOk := false
+    if not p.overflow and p.volumeOk
+        int lk = int(math.floor(pl / rowSize))
+        int hk = int(math.floor(ph / rowSize))
+        int oldN = array.size(p.bins)
+        int newMin = na(p.minKey) ? lk : math.min(lk, p.minKey)
+        int oldMax = oldN > 0 ? p.minKey + oldN - 1 : hk
+        int newMax = math.max(hk, oldMax)
+        if newMax - newMin + 1 > MAX_BINS
+            p.overflow := true
+            p.vah := na
+            p.poc := na
+            p.val := na
+        else
+            if oldN == 0
+                p.minKey := lk
+                for k = lk to hk
+                    array.push(p.bins, 0)
+            else
+                if lk < p.minKey
+                    for k = lk to p.minKey - 1
+                        array.unshift(p.bins, 0)
+                    p.minKey := lk
+                if hk > oldMax
+                    for k = oldMax + 1 to hk
+                        array.push(p.bins, 0)
+            float share = vol / (hk - lk + 1)
+            for k = lk to hk
+                int idx = k - p.minKey
+                array.set(p.bins, idx, array.get(p.bins, idx) + share)
+            p.total += vol
+
+method levels(Profile p) =>
+    // Always clear first: an empty/reset/invalid period cannot retain prices.
+    p.vah := na
+    p.poc := na
+    p.val := na
+    int n = array.size(p.bins)
+    if n > 0 and p.total > 0 and p.volumeOk and not p.overflow
+        int mode = 0
+        float largest = array.get(p.bins, 0)
+        if n > 1
+            for i = 1 to n - 1
+                if array.get(p.bins, i) > largest
+                    largest := array.get(p.bins, i)
+                    mode := i
+        int lo = mode
+        int hi = mode
+        float covered = largest
+        while covered < p.total * vaPct / 100 and (lo > 0 or hi < n - 1)
+            float below = lo > 0 ? array.get(p.bins, lo - 1) : -1
+            float above = hi < n - 1 ? array.get(p.bins, hi + 1) : -1
+            if above >= below
+                hi += 1
+                covered += array.get(p.bins, hi)
+            else
+                lo -= 1
+                covered += array.get(p.bins, lo)
+        p.vah := (p.minKey + hi) * rowSize
+        p.poc := (p.minKey + mode) * rowSize
+        p.val := (p.minKey + lo) * rowSize
+
+type Period
+    Profile vp
+    int id = na
+    int last = na
+    bool coverage = false
+    float ph = na
+    float pl = na
+    float lastPrice = na
+
+method reset(Period p, int id, int start) =>
+    p.vp.clear()
+    p.id := id
+    p.last := na
+    p.coverage := time == start
+    p.ph := na
+    p.pl := na
+    p.lastPrice := na
+
+method ingest(Period p, bool allowedBreak) =>
+    if time_close - time != timeframe.multiplier * 60000
+        p.coverage := false
+    if not na(p.last) and time != p.last and not allowedBreak
+        p.coverage := false
+    p.last := time_close
+    p.ph := math.max(nz(p.ph, high), high)
+    p.pl := math.min(nz(p.pl, low), low)
+    p.lastPrice := close
+    p.vp.add(volume, high, low)
+
+f_profileReady(Period p) =>
+    p.coverage and p.vp.total > 0 and p.vp.volumeOk and not p.vp.overflow
+
+f_date(int t) =>
+    na(t) ? "unavailable" : str.format_time(t, "yyyy-MM-dd", TZ)
+f_time(int t) =>
+    na(t) ? "unavailable" : str.format_time(t, "yyyy-MM-dd HH:mm", TZ)
+f_price(float v) =>
+    na(v) ? "unavailable" : str.tostring(v, format.mintick)
+
+// PHASE3 BEGIN: independent candidate laboratory. No scenario/target selector.
+// Policy P3-3.0.0-N1E1; exact byte hashes live in the local provenance ledger.
+// Pine cannot read local JSON, self-hash its source, or verify historical publication.
+string P3_POLICY = "P3-3.0.0-N1E1-P1-P2"
+string p3ProfileChoice = input.string("Overnight", "Inspected frozen distribution", options=["Completed RTH", "Overnight", "Current week", "Previous week", "Composite 3 RTH"], group="Phase 3 inspection")
+string p3View = input.string("Summary", "Candidate table view", options=["Summary", "Rows", "HVN ledger", "LVN ledger", "HVE ledger", "Composite", "Anchors / PBT"], group="Phase 3 inspection")
+int p3Page = input.int(1, "Ledger page (16 rows)", minval=1, maxval=1000, group="Phase 3 inspection")
+bool p3ShowTable = input.bool(true, "Phase 3 inspectable table", group="Phase 3 inspection")
+bool p3ShowHvn = input.bool(true, "Candidate HVN zones (selected profile)", group="Phase 3 display")
+bool p3ShowLvn = input.bool(false, "Candidate LVN zones (selected profile)", group="Phase 3 display")
+bool p3ShowEdges = input.bool(false, "Candidate HVE intervals (selected profile)", group="Phase 3 display")
+bool p3ShowPbt = input.bool(true, "Eligible manual-anchor PBT intervals", group="Phase 3 display")
+string p3ExternalInputHash = input.string("", "Market-input capture identity/hash (external ledger)", group="Phase 3 provenance")
+string p3ExternalCodeHash = input.string("", "Pine SHA-256 (copy from local ledger)", group="Phase 3 provenance")
+// Format: id|low|high|contract|reference-period|measurement|observed-ms|confirmed-ms|evidence|reason|explicit-source OR analyst-proposed|causal-support true OR false|reading-precision
+// Empty means missing. No default prices are supplied. Do not include | in fields.
+string p3CText = input.string("", "P1 center C: 13-field anchor record", group="Phase 3 manual anchors")
+string p3EText = input.string("", "P1 edge E: 13-field anchor record", group="Phase 3 manual anchors")
+string p3LText = input.string("", "P2 lower L: 13-field anchor record", group="Phase 3 manual anchors")
+string p3HText = input.string("", "P2 upper H: 13-field anchor record", group="Phase 3 manual anchors")
+bool p3EvidenceReviewed = input.bool(false, "Independent pre-cutoff evidence checked in local ledger", group="Phase 3 manual anchors")
+bool p3P1CompleteRange = input.bool(false, "P1 is declared midpoint reflection of complete L/H range", group="Phase 3 manual anchors")
+
+// Each profile owns copied arrays. No candidate reads a developing profile later.
+type P3Distribution
+    Profile vp
+    string family = ""
+    string identity = ""
+    int start = na
+    int through = na
+    int last = na
+    bool coverage = false
+    string readiness = "unavailable"
+    string contract = ""
+    string feed = ""
+    string adjustment = "individual-contract unadjusted; external verification required"
+    float tick = na
+    float gridOrigin = 0
+    float row = na
+    string measurement = "uniform chart-bar allocation; inclusive touched bins"
+    string settingsId = ""
+    string codeId = ""
+    string inputId = ""
+    array<int> members
+    array<int> expectedMembers
+    array<string> exclusions
+    array<string> memberLineage
+    array<float> memberMass
+    array<string> memberStatus
+
+f_p3New(string family) =>
+    P3Distribution.new(Profile.new(array.new_float()), family, "", na, na, na, false, "unavailable", syminfo.tickerid, syminfo.prefix, "individual-contract unadjusted; external verification required", syminfo.mintick, 0, rowSize, "uniform chart-bar allocation; inclusive touched bins", P3_POLICY + ":rows=" + str.tostring(rowTicks) + ":VA=" + str.tostring(vaPct) + ":cut=" + str.tostring(cutHour) + ":" + str.tostring(cutMinute), p3ExternalCodeHash == "" ? P3_POLICY + ":external-source-hash-missing" : p3ExternalCodeHash, p3ExternalInputHash == "" ? syminfo.tickerid + ":chart-history-unhashed" : p3ExternalInputHash, array.new_int(), array.new_int(), array.new_string(), array.new_string(), array.new_float(), array.new_string())
+
+f_p3Copy(Profile source, string family, int start, int through, int last, bool coverage, bool control) =>
+    P3Distribution d = f_p3New(family)
+    d.identity := d.contract + ":" + family + ":" + str.tostring(start) + ":" + str.tostring(through) + ":row=" + str.tostring(d.row) + ":" + d.settingsId + ":input=" + d.inputId + ":code=" + d.codeId
+    d.start := start
+    d.through := through
+    d.last := last
+    d.coverage := coverage
+    d.vp.bins := array.copy(source.bins)
+    d.vp.minKey := source.minKey
+    d.vp.total := source.total
+    d.vp.overflow := source.overflow
+    d.vp.volumeOk := source.volumeOk
+    d.vp.vah := source.vah
+    d.vp.poc := source.poc
+    d.vp.val := source.val
+    d.readiness := not control ? "unavailable: frozen ESZ2026 5m/16t/70/09:25 control required" : not coverage or na(last) or last != through ? "unavailable: partial/gap/missing boundary" : source.overflow ? "unavailable: >6000 rows" : not source.volumeOk ? "unavailable: missing/negative volume" : source.total <= 0 or array.size(source.bins) == 0 ? "unavailable: empty/zero mass" : "ready: engineering hypothesis"
+    d
+
+f_p3Ready(P3Distribution d) =>
+    d.readiness == "ready: engineering hypothesis"
+
+f_p3Prior(int day) =>
+    f_stamp(day, dayofweek(day, TZ) == dayofweek.monday ? -3 : -1, 0, 0)
+
+// A three-member calendar expectation, never a target-fitted balance window.
+f_p3Composite(array<P3Distribution> completed, int day, int at, bool control) =>
+    P3Distribution d = f_p3New("Composite 3 RTH")
+    d.identity := d.contract + ":Composite3RTH:" + str.tostring(day) + ":" + d.settingsId + ":input=" + d.inputId + ":code=" + d.codeId
+    int expected = f_p3Prior(day)
+    bool eligible = control
+    for j = 0 to 2
+        array.unshift(d.expectedMembers, expected)
+        int found = -1
+        int hits = 0
+        string memberLineage = "missing expected member"
+        float memberMass = na
+        string memberStatus = "unavailable: missing expected member"
+        if array.size(completed) > 0
+            for i = 0 to array.size(completed) - 1
+                P3Distribution member = array.get(completed, i)
+                if member.start == f_stamp(expected, 0, 9, 30)
+                    found := i
+                    hits += 1
+        if hits != 1
+            eligible := false
+            array.push(d.exclusions, f_date(expected) + (hits == 0 ? ": missing expected member" : ": duplicate member"))
+        else
+            P3Distribution member = array.get(completed, found)
+            array.unshift(d.members, expected)
+            memberLineage := member.identity + "; " + member.contract + "; " + member.inputId
+            memberMass := member.vp.total
+            memberStatus := member.readiness
+            bool compatible = member.contract == d.contract and member.feed == d.feed and member.adjustment == d.adjustment and member.tick == d.tick and member.row == d.row and member.gridOrigin == 0 and member.measurement == d.measurement
+            if not f_p3Ready(member) or not compatible or member.through > at
+                eligible := false
+                array.push(d.exclusions, f_date(expected) + ": partial/incompatible/not completed")
+            else
+                int n = array.size(member.vp.bins)
+                int oldN = array.size(d.vp.bins)
+                int lower = oldN == 0 ? member.vp.minKey : math.min(d.vp.minKey, member.vp.minKey)
+                int upper = oldN == 0 ? member.vp.minKey + n - 1 : math.max(d.vp.minKey + oldN - 1, member.vp.minKey + n - 1)
+                if upper - lower + 1 > MAX_BINS
+                    eligible := false
+                    d.vp.overflow := true
+                    array.push(d.exclusions, "composite overflow >6000 rows")
+                else
+                    if oldN == 0
+                        d.vp.minKey := lower
+                        for k = lower to upper
+                            array.push(d.vp.bins, 0)
+                    else
+                        if lower < d.vp.minKey
+                            for k = lower to d.vp.minKey - 1
+                                array.unshift(d.vp.bins, 0)
+                            d.vp.minKey := lower
+                        if upper > d.vp.minKey + array.size(d.vp.bins) - 1
+                            int priorUpper = d.vp.minKey + array.size(d.vp.bins) - 1
+                            for k = priorUpper + 1 to upper
+                                array.push(d.vp.bins, 0)
+                    for k = 0 to n - 1
+                        int target = member.vp.minKey + k - d.vp.minKey
+                        array.set(d.vp.bins, target, array.get(d.vp.bins, target) + array.get(member.vp.bins, k))
+                    d.vp.total += member.vp.total
+        array.unshift(d.memberLineage, memberLineage)
+        array.unshift(d.memberMass, memberMass)
+        array.unshift(d.memberStatus, memberStatus)
+        expected := f_p3Prior(expected)
+    d.start := f_stamp(array.get(d.expectedMembers, 0), 0, 9, 30)
+    d.through := f_stamp(array.get(d.expectedMembers, 2), 0, 16, 0)
+    d.last := eligible ? d.through : na
+    d.coverage := eligible
+    d.readiness := eligible and d.vp.total > 0 ? "ready: engineering hypothesis" : "unavailable: missing/partial/incompatible composite member or noncontrol"
+    if eligible
+        d.vp.levels()
+    d
+
+type P3Peak
+    string id
+    int plateauLo
+    int plateauHi
+    float height
+    float saddle
+    float prominence
+    int lo
+    int hi
+    float mass
+    bool accepted = false
+    bool displayed = false
+    bool overlap = false
+    bool endpointTruncated = false
+    int readyAt = na
+    int rank = na
+    string reason = ""
+
+type P3Valley
+    string id
+    string parentLower
+    string parentUpper
+    int lo
+    int hi
+    float height
+    float depth
+    float parentRatio = na
+    float mass = na
+    int readyAt = na
+    bool accepted = false
+    bool displayed = false
+    string reason = ""
+
+type P3Edge
+    string id
+    string parent
+    string side
+    float boundary
+    float low
+    float high
+    float inside
+    float outside
+    float contrast
+    int readyAt = na
+    bool accepted = false
+    bool displayed = false
+    string reason = ""
+
+type P3Candidates
+    array<P3Peak> peaks
+    array<P3Valley> valleys
+    array<P3Edge> edges
+    int hvnCount = 0
+    int lvnCount = 0
+    int edgeCount = 0
+    int hvnOmitted = 0
+    int lvnOmitted = 0
+    int edgeOmitted = 0
+    string readiness = "unavailable"
+
+f_p3EmptyCandidates() =>
+    P3Candidates.new(array.new<P3Peak>(), array.new<P3Valley>(), array.new<P3Edge>())
+
+// Range-min tree and nearest-greater stacks avoid quadratic prominence scans.
+// Binary-search region bounds use O(log^2(rows)) queries per interior peak.
+f_p3Min(array<float> tree, int base, int first, int last) =>
+    float result = 1e100
+    if first <= last
+        int left = first + base
+        int right = last + base
+        while left <= right
+            if left % 2 == 1
+                result := math.min(result, array.get(tree, left))
+                left += 1
+            if right % 2 == 0
+                result := math.min(result, array.get(tree, right))
+                right -= 1
+            left := int(math.floor(left / 2))
+            right := int(math.floor(right / 2))
+    result
+
+// Deterministic rank: descending height, descending prominence, ascending row.
+// Equal-key groups are explicitly sorted by source index, never sort stability.
+f_p3PeakRanks(array<P3Peak> peaks) =>
+    array<int> result = array.new_int()
+    array<float> heights = array.new_float()
+    if array.size(peaks) > 0
+        for i = 0 to array.size(peaks) - 1
+            P3Peak peak = array.get(peaks, i)
+            array.push(heights, peak.height)
+        array<int> byHeight = array.sort_indices(heights, order.descending)
+        int a = 0
+        while a < array.size(byHeight)
+            int b = a
+            float height = array.get(heights, array.get(byHeight, a))
+            array<int> group = array.new_int()
+            array<float> prominences = array.new_float()
+            while b < array.size(byHeight)
+                int idx = array.get(byHeight, b)
+                if array.get(heights, idx) != height
+                    break
+                array.push(group, idx)
+                P3Peak peak = array.get(peaks, idx)
+                array.push(prominences, nz(peak.prominence, -1))
+                b += 1
+            array<int> byProm = array.sort_indices(prominences, order.descending)
+            int c = 0
+            while c < array.size(byProm)
+                int e = c
+                float prominence = array.get(prominences, array.get(byProm, c))
+                array<int> tied = array.new_int()
+                while e < array.size(byProm)
+                    int localIdx = array.get(byProm, e)
+                    if array.get(prominences, localIdx) != prominence
+                        break
+                    array.push(tied, array.get(group, localIdx))
+                    e += 1
+                array.sort(tied, order.ascending)
+                for t = 0 to array.size(tied) - 1
+                    array.push(result, array.get(tied, t))
+                c := e
+            a := b
+    result
+
+f_p3Detect(P3Distribution d) =>
+    P3Candidates out = f_p3EmptyCandidates()
+    out.readiness := d.readiness
+    if f_p3Ready(d)
+        array<float> rows = d.vp.bins
+        int n = array.size(rows)
+        float globalMax = array.max(rows)
+        int base = 1
+        while base < n
+            base *= 2
+        array<float> tree = array.new_float(base * 2, 1e100)
+        array<float> prefix = array.new_float(n + 1, 0)
+        for i = 0 to n - 1
+            array.set(tree, base + i, array.get(rows, i))
+            array.set(prefix, i + 1, array.get(prefix, i) + array.get(rows, i))
+        int build = base - 1
+        while build > 0
+            array.set(tree, build, math.min(array.get(tree, build * 2), array.get(tree, build * 2 + 1)))
+            build -= 1
+        array<int> leftGreater = array.new_int(n, -1)
+        array<int> rightGreater = array.new_int(n, n)
+        array<int> stack = array.new_int()
+        for i = 0 to n - 1
+            while array.size(stack) > 0
+                int previous = array.get(stack, array.size(stack) - 1)
+                if array.get(rows, previous) > array.get(rows, i)
+                    break
+                array.pop(stack)
+            if array.size(stack) > 0
+                array.set(leftGreater, i, array.get(stack, array.size(stack) - 1))
+            array.push(stack, i)
+        array.clear(stack)
+        int scanRight = n - 1
+        while scanRight >= 0
+            while array.size(stack) > 0
+                int previous = array.get(stack, array.size(stack) - 1)
+                if array.get(rows, previous) > array.get(rows, scanRight)
+                    break
+                array.pop(stack)
+            if array.size(stack) > 0
+                array.set(rightGreater, scanRight, array.get(stack, array.size(stack) - 1))
+            array.push(stack, scanRight)
+            scanRight -= 1
+        int i = 0
+        while i < n
+            int j = i
+            float p = array.get(rows, i)
+            while j + 1 < n
+                if array.get(rows, j + 1) != p
+                    break
+                j += 1
+            bool lowerLeft = i == 0 or array.get(rows, i - 1) < p
+            bool lowerRight = j == n - 1 or array.get(rows, j + 1) < p
+            if lowerLeft and lowerRight
+                string id = d.identity + ":HVN:" + str.tostring(d.vp.minKey + i)
+                P3Peak peak = P3Peak.new(id, i, j, p, na, na, i, j, array.get(prefix, j + 1) - array.get(prefix, i))
+                if i == 0 or j == n - 1
+                    peak.reason := "rejected: endpoint maximum plateau"
+                else
+                    float leftMin = f_p3Min(tree, base, math.max(0, array.get(leftGreater, i)), i - 1)
+                    float rightMin = f_p3Min(tree, base, j + 1, math.min(n - 1, array.get(rightGreater, j)))
+                    peak.saddle := math.max(leftMin, rightMin)
+                    peak.prominence := p - peak.saddle
+                    float threshold = peak.saddle + 0.5 * peak.prominence
+                    int a = 0
+                    int b = i
+                    while a < b
+                        int mid = int(math.floor((a + b) / 2))
+                        if f_p3Min(tree, base, mid, i) >= threshold
+                            b := mid
+                        else
+                            a := mid + 1
+                    peak.lo := a
+                    a := j
+                    b := n - 1
+                    while a < b
+                        int mid = int(math.ceil((a + b) / 2))
+                        if f_p3Min(tree, base, j, mid) >= threshold
+                            a := mid
+                        else
+                            b := mid - 1
+                    peak.hi := a
+                    peak.mass := array.get(prefix, peak.hi + 1) - array.get(prefix, peak.lo)
+                    if p < 0.20 * globalMax
+                        peak.reason := "rejected: peak <0.20 global max"
+                    else if peak.prominence < 0.10 * globalMax
+                        peak.reason := "rejected: prominence <0.10 global max"
+                    else
+                        peak.reason := "qualified pending separation"
+                peak.readyAt := d.through
+                peak.endpointTruncated := peak.lo == 0 or peak.hi == n - 1
+                array.push(out.peaks, peak)
+            i := j + 1
+        array<int> ranks = f_p3PeakRanks(out.peaks)
+        array<bool> occupied = array.new_bool(n, false)
+        if array.size(ranks) > 0
+            for rank = 0 to array.size(ranks) - 1
+                P3Peak peak = array.get(out.peaks, array.get(ranks, rank))
+                if peak.reason == "qualified pending separation"
+                    bool near = array.get(occupied, peak.plateauLo) or peak.plateauLo > 0 and array.get(occupied, peak.plateauLo - 1) or peak.plateauLo + 1 < n and array.get(occupied, peak.plateauLo + 1)
+                    if near
+                        peak.reason := "rejected: representative <2 rows from ranked parent"
+                    else
+                        peak.accepted := true
+                        peak.rank := out.hvnCount
+                        peak.displayed := out.hvnCount < 8
+                        peak.reason := peak.displayed ? "qualified: candidate only" : "qualified: presentation cap omitted"
+                        array.set(occupied, peak.plateauLo, true)
+                        out.hvnCount += 1
+                        for side = 0 to 1
+                            bool lower = side == 0
+                            int insideIdx = lower ? peak.lo : peak.hi
+                            int outsideIdx = lower ? peak.lo - 1 : peak.hi + 1
+                            float boundary = (d.vp.minKey + (lower ? peak.lo : peak.hi + 1)) * d.row
+                            float inside = array.get(rows, insideIdx)
+                            float outside = outsideIdx < 0 or outsideIdx >= n ? na : array.get(rows, outsideIdx)
+                            float contrast = na(outside) ? na : (inside - outside) / peak.height
+                            P3Edge edge = P3Edge.new(peak.id + (lower ? ":E-low" : ":E-high"), peak.id, lower ? "lower" : "upper", boundary, boundary - d.row / 2, boundary + d.row / 2, inside, outside, contrast)
+                            edge.readyAt := d.through
+                            edge.reason := peak.hi - peak.lo + 1 < 2 ? "rejected: parent narrower than 2 rows" : na(outside) ? "unavailable: domain-truncated outside neighbor" : contrast < 0.10 ? "rejected: border contrast <0.10 peak" : "qualified: candidate boundary interval"
+                            edge.accepted := edge.reason == "qualified: candidate boundary interval"
+                            if edge.accepted
+                                edge.displayed := out.edgeCount < 16
+                                out.edgeCount += 1
+                                if not edge.displayed
+                                    edge.reason := "qualified: presentation cap omitted"
+                            array.push(out.edges, edge)
+        // Price order is the original plateau scan; prefix/suffix mark all overlaps.
+        array<int> accepted = array.new_int()
+        if array.size(out.peaks) > 0
+            for k = 0 to array.size(out.peaks) - 1
+                P3Peak peak = array.get(out.peaks, k)
+                if peak.accepted
+                    array.push(accepted, k)
+        int m = array.size(accepted)
+        int maxHi = -1
+        if m > 0
+            for k = 0 to m - 1
+                P3Peak peak = array.get(out.peaks, array.get(accepted, k))
+                if maxHi >= peak.lo
+                    peak.overlap := true
+                maxHi := math.max(maxHi, peak.hi)
+            int minLo = n
+            int reverse = m - 1
+            while reverse >= 0
+                P3Peak peak = array.get(out.peaks, array.get(accepted, reverse))
+                if minLo <= peak.hi
+                    peak.overlap := true
+                minLo := math.min(minLo, peak.lo)
+                reverse -= 1
+        if m > 1
+            for k = 1 to m - 1
+                P3Peak lower = array.get(out.peaks, array.get(accepted, k - 1))
+                P3Peak upper = array.get(out.peaks, array.get(accepted, k))
+                P3Valley valley = P3Valley.new(d.identity + ":LVN:" + str.tostring(d.vp.minKey + lower.plateauLo) + ":" + str.tostring(d.vp.minKey + upper.plateauLo), lower.id, upper.id, na, na, na, na)
+                valley.readyAt := d.through
+                if lower.hi + 1 >= upper.lo
+                    valley.reason := "rejected: overlapping/touching parent regions"
+                else
+                    int first = lower.hi + 1
+                    int last = upper.lo - 1
+                    float minimum = f_p3Min(tree, base, first, last)
+                    int trough = first
+                    while array.get(rows, trough) != minimum
+                        trough += 1
+                    int endTrough = trough
+                    while endTrough < last
+                        if array.get(rows, endTrough + 1) != minimum
+                            break
+                        endTrough += 1
+                    valley.lo := trough
+                    valley.hi := endTrough
+                    valley.height := minimum
+                    valley.mass := minimum * (endTrough - trough + 1)
+                    valley.parentRatio := minimum / math.min(lower.height, upper.height)
+                    valley.depth := 1 - valley.parentRatio
+                    valley.accepted := minimum <= 0.25 * math.min(lower.height, upper.height)
+                    valley.reason := valley.accepted ? "qualified: candidate trough interval" : "rejected: trough >0.25 smaller parent peak"
+                array.push(out.valleys, valley)
+        // LVN ranking by ascending mass, then price. Explicit tied index sorting.
+        array<float> troughs = array.new_float()
+        if array.size(out.valleys) > 0
+            for k = 0 to array.size(out.valleys) - 1
+                P3Valley valley = array.get(out.valleys, k)
+                array.push(troughs, valley.accepted ? valley.height : 1e100)
+            array<int> byTrough = array.sort_indices(troughs, order.ascending)
+            int a = 0
+            while a < array.size(byTrough)
+                int b = a
+                float height = array.get(troughs, array.get(byTrough, a))
+                array<int> tied = array.new_int()
+                while b < array.size(byTrough)
+                    int idx = array.get(byTrough, b)
+                    if array.get(troughs, idx) != height
+                        break
+                    array.push(tied, idx)
+                    b += 1
+                array.sort(tied, order.ascending)
+                for t = 0 to array.size(tied) - 1
+                    P3Valley valley = array.get(out.valleys, array.get(tied, t))
+                    if valley.accepted
+                        valley.displayed := out.lvnCount < 7
+                        out.lvnCount += 1
+                        if not valley.displayed
+                            valley.reason := "qualified: presentation cap omitted"
+                a := b
+        out.hvnOmitted := math.max(0, out.hvnCount - 8)
+        out.lvnOmitted := math.max(0, out.lvnCount - 7)
+        out.edgeOmitted := math.max(0, out.edgeCount - 16)
+    out
+
+type P3Anchor
+    string id = ""
+    float low = na
+    float high = na
+    string contract = ""
+    string reference = ""
+    string measurement = ""
+    int observed = na
+    int confirmed = na
+    string evidence = ""
+    string reason = ""
+    string origin = ""
+    bool causalSupport = false
+    string readingPrecision = ""
+    string status = "unavailable: missing anchor"
+
+f_p3Anchor(string record, int at) =>
+    P3Anchor a = P3Anchor.new()
+    array<string> fields = str.split(record, "|")
+    if record != "" and array.size(fields) == 13
+        a.id := str.trim(array.get(fields, 0))
+        a.low := str.tonumber(array.get(fields, 1))
+        a.high := str.tonumber(array.get(fields, 2))
+        a.contract := str.trim(array.get(fields, 3))
+        a.reference := str.trim(array.get(fields, 4))
+        a.measurement := str.trim(array.get(fields, 5))
+        float observedNumber = str.tonumber(array.get(fields, 6))
+        float confirmedNumber = str.tonumber(array.get(fields, 7))
+        a.observed := int(observedNumber)
+        a.confirmed := int(confirmedNumber)
+        a.evidence := str.trim(array.get(fields, 8))
+        a.reason := str.trim(array.get(fields, 9))
+        a.origin := str.trim(array.get(fields, 10))
+        a.causalSupport := str.trim(array.get(fields, 11)) == "true"
+        a.readingPrecision := str.trim(array.get(fields, 12))
+        bool validNumbers = not na(a.low) and not na(a.high) and not na(a.low - a.low) and not na(a.high - a.high) and a.low <= a.high and not na(a.observed) and not na(a.confirmed) and observedNumber == a.observed and confirmedNumber == a.confirmed and a.observed > 0 and a.confirmed > 0
+        bool complete = a.id != "" and a.reference != "" and a.measurement != "" and a.readingPrecision != "" and a.evidence != "" and a.reason != "" and (a.origin == "explicit-source" or a.origin == "analyst-proposed")
+        a.status := not validNumbers ? "unavailable: invalid numeric interval/timestamps" : not complete ? "unavailable: incomplete provenance" : a.contract != syminfo.tickerid ? "unavailable: incompatible contract" : a.observed > a.confirmed ? "unavailable: observed after confirmed" : not p3EvidenceReviewed or not a.causalSupport ? "unavailable: independent causal evidence unsupported" : a.confirmed > at ? "retrospective only: confirmed after cutoff" : "eligible by recorded times + evidence attestation"
+    else if record != ""
+        a.status := "unavailable: expected exactly 13 fields"
+    a
+
+type P3Projection
+    string id
+    string hypothesis
+    string anchors
+    float rawLow = na
+    float rawHigh = na
+    float low = na
+    float high = na
+    int readyAt = na
+    int recordedConfirmationAt = na
+    int sourceHistoricalAvailableAt = na
+    bool eligible = false
+    string status = "unavailable: missing/unsupported anchors"
+
+f_p3Eligible(P3Anchor a) =>
+    a.status == "eligible by recorded times + evidence attestation"
+
+f_p3Projection(string id, string hypothesis, string anchors, float low, float high, int ready, bool eligible, string status) =>
+    P3Projection p = P3Projection.new(id, hypothesis, anchors)
+    p.rawLow := low
+    p.rawHigh := high
+    p.low := na(low) ? na : math.floor(low / syminfo.mintick) * syminfo.mintick
+    p.high := na(high) ? na : math.ceil(high / syminfo.mintick) * syminfo.mintick
+    p.recordedConfirmationAt := ready
+    p.eligible := eligible and not na(low) and not na(high) and not na(low - low) and not na(high - high) and low <= high
+    p.readyAt := p.eligible ? ready : na
+    p.status := status
+    p
+
+f_p3NumericAnchor(P3Anchor a) =>
+    not na(a.low) and not na(a.high) and not na(a.low - a.low) and not na(a.high - a.high) and a.low <= a.high
+
+f_p3ConsistentAnchor(P3Anchor a, P3Anchor b) =>
+    a.id == "" or b.id == "" or a.id != b.id or a.low == b.low and a.high == b.high and a.contract == b.contract and a.reference == b.reference and a.measurement == b.measurement and a.observed == b.observed and a.confirmed == b.confirmed and a.evidence == b.evidence and a.reason == b.reason and a.origin == b.origin and a.causalSupport == b.causalSupport and a.readingPrecision == b.readingPrecision
+
+f_p3Projections(P3Anchor c, P3Anchor e, P3Anchor l, P3Anchor h, int at, bool control) =>
+    array<P3Projection> projections = array.new<P3Projection>()
+    bool p1Numbers = f_p3NumericAnchor(c) and f_p3NumericAnchor(e)
+    bool p2Numbers = f_p3NumericAnchor(l) and f_p3NumericAnchor(h) and l.high < h.low
+    bool identitiesConsistent = f_p3ConsistentAnchor(c, e) and f_p3ConsistentAnchor(c, l) and f_p3ConsistentAnchor(c, h) and f_p3ConsistentAnchor(e, l) and f_p3ConsistentAnchor(e, h) and f_p3ConsistentAnchor(l, h)
+    bool distinctP1 = c.id != "" and e.id != "" and c.id != e.id
+    bool distinctP2 = l.id != "" and h.id != "" and l.id != h.id
+    bool rangeIdentity = p1Numbers and p2Numbers and c.low == c.high and e.low == e.high and l.low == l.high and h.low == h.high and c.low == (l.low + h.low) / 2 and (e.low == l.low or e.low == h.low)
+    bool identityValid = not p3P1CompleteRange or rangeIdentity and f_p3Eligible(l) and f_p3Eligible(h)
+    bool p1Eligible = control and p1Numbers and distinctP1 and identitiesConsistent and f_p3Eligible(c) and f_p3Eligible(e) and identityValid
+    bool p2Eligible = control and p2Numbers and distinctP2 and identitiesConsistent and f_p3Eligible(l) and f_p3Eligible(h)
+    int p1Ready = na(c.confirmed) or na(e.confirmed) ? na : math.max(c.confirmed, e.confirmed)
+    if p3P1CompleteRange and not na(l.confirmed) and not na(h.confirmed) and not na(p1Ready)
+        p1Ready := math.max(p1Ready, math.max(l.confirmed, h.confirmed))
+    int p2Ready = na(l.confirmed) or na(h.confirmed) ? na : math.max(l.confirmed, h.confirmed)
+    string p1Status = not control ? "unavailable: noncontrol settings" : not identitiesConsistent ? "unavailable: inconsistent reused anchor ID" : not identityValid ? "unavailable: inconsistent complete-range midpoint declaration" : not p1Eligible ? "unavailable/retrospective: inspect anchor statuses" : p3P1CompleteRange ? "identity: opposite existing range boundary; not new external target" : "candidate P1; recorded eligibility, external evidence audit required"
+    string p2Status = not control ? "unavailable: noncontrol settings" : not identitiesConsistent ? "unavailable: inconsistent reused anchor ID" : not p2Numbers ? "unavailable: require separated ordered L/H intervals" : not p2Eligible ? "unavailable/retrospective: inspect anchor statuses" : "candidate P2; recorded eligibility, external evidence audit required"
+    array.push(projections, f_p3Projection("P1:" + c.id + ":" + e.id, "P1: 2C-E", c.id + "," + e.id, p1Numbers ? 2 * c.low - e.high : na, p1Numbers ? 2 * c.high - e.low : na, p1Ready, p1Eligible, p1Status))
+    array.push(projections, f_p3Projection("P2-upper:" + l.id + ":" + h.id, "P2 upper: 2H-L", l.id + "," + h.id, p2Numbers ? 2 * h.low - l.high : na, p2Numbers ? 2 * h.high - l.low : na, p2Ready, p2Eligible, p2Status))
+    array.push(projections, f_p3Projection("P2-lower:" + l.id + ":" + h.id, "P2 lower: 2L-H", l.id + "," + h.id, p2Numbers ? 2 * l.low - h.high : na, p2Numbers ? 2 * l.high - h.low : na, p2Ready, p2Eligible, p2Status))
+    projections
+
+var array<P3Distribution> p3Completed = array.new<P3Distribution>()
+var array<int> p3WeekObserved = array.new_int()
+var P3Distribution p3PreviousWeek = f_p3New("Previous week")
+var array<P3Distribution> p3Frozen = array.new<P3Distribution>()
+var array<P3Candidates> p3FrozenCandidates = array.new<P3Candidates>()
+var array<P3Anchor> p3FrozenAnchors = array.new<P3Anchor>()
+var array<P3Projection> p3FrozenProjections = array.new<P3Projection>()
+// PHASE3 END
+
+var Period full = Period.new(Profile.new(array.new_float()))
+var Period rth = Period.new(Profile.new(array.new_float()))
+var Period overnight = Period.new(Profile.new(array.new_float()))
+var Period week = Period.new(Profile.new(array.new_float()))
+var array<float> live = array.new_float(19, na)
+var array<float> frozen = array.new_float(19, na)
+var array<float> priorWeek = array.new_float(3, na)
+var array<float> priorRth = array.new_float(6, na)
+var float priorFullH = na
+var float priorFullL = na
+var int fullSource = na
+var int rthSource = na
+var int weekSource = na
+var int currentId = na
+var int frozenAt = na
+var int frozenLastOpen = na
+var int frozenFullSource = na
+var int frozenRthSource = na
+var int frozenWeekSource = na
+var bool snapshotAttempted = false
+var bool snapshotExact = false
+var int processedClose = na
+
+int sessionStart = f_stamp(time, hour(time, TZ) < 18 ? -1 : 0, 18, 0)
+int tradeDate = f_stamp(sessionStart, 1, 0, 0)
+int sessionEnd = f_stamp(tradeDate, 0, 17, 0)
+int rthStart = f_stamp(tradeDate, 0, 9, 30)
+int rthEnd = f_stamp(tradeDate, 0, 16, 0)
+int cutoff = f_stamp(tradeDate, 0, cutHour, cutMinute)
+int dow = dayofweek(tradeDate, TZ)
+int weekStart = f_stamp(tradeDate, 1 - dow, 18, 0)
+int weekEnd = f_stamp(weekStart, 5, 17, 0)
+bool weekday = dow >= dayofweek.monday and dow <= dayofweek.friday
+bool supported = chart.is_standard and timeframe.isminutes and (timeframe.multiplier == 1 or timeframe.multiplier == 5) and syminfo.type == "futures" and (syminfo.root == "ES" or syminfo.root == "MES" or syminfo.root == "NQ" or syminfo.root == "MNQ") and cutHour * 60 + cutMinute < 570
+bool inFull = weekday and time >= sessionStart and time_close <= sessionEnd
+bool inRth = inFull and time >= rthStart and time_close <= rthEnd
+bool inOn = inFull and time_close <= rthStart
+
+// PHASE3 BEGIN
+bool p3Control = supported and syminfo.prefix == "CME_MINI" and syminfo.ticker == "ESZ2026" and timeframe.multiplier == 5 and rowTicks == 16 and vaPct == 70 and cutHour == 9 and cutMinute == 25
+// PHASE3 END
+// Mutate only on completed chart bars. Never request future data/intrabars.
+if supported and barstate.isconfirmed and inFull
+    if na(currentId) or tradeDate != currentId
+        // A missed completion invalidates the prior reference, rather than carrying
+        // an older plausible price into a new trading date.
+        int expectedPrior = f_stamp(tradeDate, dow == dayofweek.monday ? -3 : -1, 0, 0)
+        if na(full.id) or full.id != expectedPrior or na(full.last) or full.last != f_stamp(full.id, 0, 17, 0)
+            priorFullH := na
+            priorFullL := na
+            fullSource := na
+        if na(rth.id) or rth.id != expectedPrior or na(rth.last) or rth.last != f_stamp(rth.id, 0, 16, 0)
+            array.fill(priorRth, na)
+            rthSource := na
+        // PHASE3 BEGIN
+        array.clear(p3Frozen)
+        array.clear(p3FrozenCandidates)
+        array.clear(p3FrozenAnchors)
+        array.clear(p3FrozenProjections)
+        // PHASE3 END
+        currentId := tradeDate
+        full.reset(tradeDate, sessionStart)
+        rth.reset(tradeDate, rthStart)
+        // RTH has not started yet, so reset's time==start is checked at first RTH bar.
+        overnight.reset(tradeDate, sessionStart)
+        array.fill(frozen, na)
+        frozenAt := na
+        frozenLastOpen := na
+        frozenFullSource := na
+        frozenRthSource := na
+        frozenWeekSource := na
+        snapshotAttempted := false
+        snapshotExact := false
+    if na(week.id) or week.id != weekStart
+        week.vp.levels()
+        bool validPrevious = f_profileReady(week) and week.last == f_stamp(week.id, 5, 17, 0) and week.id == f_stamp(weekStart, -7, 18, 0)
+        array.set(priorWeek, 0, validPrevious ? week.vp.vah : na)
+        array.set(priorWeek, 1, validPrevious ? week.vp.poc : na)
+        array.set(priorWeek, 2, validPrevious ? week.vp.val : na)
+        weekSource := validPrevious ? week.id : na
+        // PHASE3 BEGIN
+        p3PreviousWeek := f_p3Copy(week.vp, "Previous week", week.id, f_stamp(week.id, 5, 17, 0), week.last, validPrevious, p3Control)
+        p3PreviousWeek.members := array.copy(p3WeekObserved)
+        if not na(week.id)
+            for dayOffset = 1 to 5
+                array.push(p3PreviousWeek.expectedMembers, f_stamp(week.id, dayOffset, 0, 0))
+        array.clear(p3WeekObserved)
+        // PHASE3 END
+        week.reset(weekStart, weekStart)
+    if inFull
+        full.ingest(false)
+        // Only the scheduled 17:00-18:00 break is permitted inside a week.
+        bool dailyBreak = time == sessionStart and week.last == f_stamp(sessionStart, 0, 17, 0)
+        week.ingest(dailyBreak)
+        // PHASE3 BEGIN
+        if array.size(p3WeekObserved) == 0
+            array.push(p3WeekObserved, tradeDate)
+        else if array.get(p3WeekObserved, array.size(p3WeekObserved) - 1) != tradeDate
+            array.push(p3WeekObserved, tradeDate)
+        // PHASE3 END
+        if time_close == sessionEnd
+            priorFullH := full.coverage ? full.ph : na
+            priorFullL := full.coverage ? full.pl : na
+            fullSource := full.coverage ? tradeDate : na
+    if inOn
+        overnight.ingest(false)
+    if inRth
+        if na(rth.last)
+            rth.coverage := time == rthStart
+        rth.ingest(false)
+        if time_close == rthEnd
+            rth.vp.levels()
+            bool ready = f_profileReady(rth)
+            array.set(priorRth, 0, ready ? rth.vp.vah : na)
+            array.set(priorRth, 1, ready ? rth.vp.poc : na)
+            array.set(priorRth, 2, ready ? rth.vp.val : na)
+            array.set(priorRth, 3, rth.coverage ? rth.ph : na)
+            array.set(priorRth, 4, rth.coverage ? rth.pl : na)
+            array.set(priorRth, 5, rth.coverage ? rth.lastPrice : na)
+            rthSource := rth.coverage ? tradeDate : na
+            // PHASE3 BEGIN
+            P3Distribution completed = f_p3Copy(rth.vp, "Completed RTH", rthStart, rthEnd, rth.last, rth.coverage, p3Control)
+            array.push(completed.members, tradeDate)
+            array.push(completed.expectedMembers, tradeDate)
+            array.push(p3Completed, completed)
+            if array.size(p3Completed) > 3
+                array.shift(p3Completed)
+            // PHASE3 END
+    // Calculate profiles only where displayed/frozen, avoiding historical O(bars*bins).
+    bool capture = not snapshotAttempted and weekday and time_close >= cutoff
+    if capture or barstate.islast or barstate.islastconfirmedhistory
+        week.vp.levels()
+        overnight.vp.levels()
+        rth.vp.levels()
+        array.set(live, 0, priorFullH)
+        array.set(live, 1, priorFullL)
+        array.set(live, 2, f_profileReady(week) ? week.vp.vah : na)
+        array.set(live, 3, f_profileReady(week) ? week.vp.poc : na)
+        array.set(live, 4, f_profileReady(week) ? week.vp.val : na)
+        for i = 0 to 2
+            array.set(live, 5 + i, array.get(priorWeek, i))
+            array.set(live, 8 + i, array.get(priorRth, i))
+        bool onCoverage = overnight.coverage and overnight.last == math.min(time_close, rthStart)
+        array.set(live, 11, onCoverage and f_profileReady(overnight) ? overnight.vp.vah : na)
+        array.set(live, 12, onCoverage and f_profileReady(overnight) ? overnight.vp.poc : na)
+        array.set(live, 13, onCoverage and f_profileReady(overnight) ? overnight.vp.val : na)
+        array.set(live, 14, onCoverage ? overnight.ph : na)
+        array.set(live, 15, onCoverage ? overnight.pl : na)
+        for i = 3 to 5
+            array.set(live, 13 + i, array.get(priorRth, i))
+    if capture
+        snapshotAttempted := true
+        // Exact completed boundary required; a bar crossing cutoff is never saved.
+        snapshotExact := time_close == cutoff and time < cutoff
+        if snapshotExact
+            frozen := array.copy(live)
+            frozenAt := cutoff
+            frozenLastOpen := time
+            frozenFullSource := fullSource
+            frozenRthSource := rthSource
+            frozenWeekSource := weekSource
+            // PHASE3 BEGIN
+            P3Distribution completedAtCutoff = f_p3New("Completed RTH")
+            int expectedRth = f_p3Prior(tradeDate)
+            completedAtCutoff.start := f_stamp(expectedRth, 0, 9, 30)
+            completedAtCutoff.through := f_stamp(expectedRth, 0, 16, 0)
+            completedAtCutoff.identity := completedAtCutoff.contract + ":Completed RTH:" + str.tostring(completedAtCutoff.start) + ":" + str.tostring(completedAtCutoff.through) + ":" + completedAtCutoff.settingsId
+            completedAtCutoff.readiness := "unavailable: expected prior completed RTH missing"
+            array.push(completedAtCutoff.expectedMembers, expectedRth)
+            if array.size(p3Completed) > 0
+                for i = 0 to array.size(p3Completed) - 1
+                    P3Distribution member = array.get(p3Completed, i)
+                    if member.start == f_stamp(expectedRth, 0, 9, 30)
+                        completedAtCutoff := member
+            P3Distribution onAtCutoff = f_p3Copy(overnight.vp, "Overnight", sessionStart, cutoff, overnight.last, overnight.coverage, p3Control)
+            array.push(onAtCutoff.members, tradeDate)
+            array.push(onAtCutoff.expectedMembers, tradeDate)
+            P3Distribution weekAtCutoff = f_p3Copy(week.vp, "Current week", weekStart, cutoff, week.last, week.coverage, p3Control)
+            weekAtCutoff.members := array.copy(p3WeekObserved)
+            int memberDay = f_stamp(weekStart, 1, 0, 0)
+            while memberDay <= tradeDate
+                array.push(weekAtCutoff.expectedMembers, memberDay)
+                memberDay := f_stamp(memberDay, 1, 0, 0)
+            P3Distribution previousAtCutoff = p3PreviousWeek
+            int expectedPreviousWeek = f_stamp(weekStart, -7, 18, 0)
+            if na(previousAtCutoff.start) or previousAtCutoff.start != expectedPreviousWeek
+                previousAtCutoff := f_p3New("Previous week")
+                previousAtCutoff.start := expectedPreviousWeek
+                previousAtCutoff.through := f_stamp(expectedPreviousWeek, 5, 17, 0)
+                previousAtCutoff.identity := previousAtCutoff.contract + ":Previous week:" + str.tostring(previousAtCutoff.start) + ":" + str.tostring(previousAtCutoff.through) + ":" + previousAtCutoff.settingsId
+                previousAtCutoff.readiness := "unavailable: expected prior complete week missing"
+                array.push(previousAtCutoff.exclusions, "No adjacent completed previous week; retained source=" + p3PreviousWeek.identity)
+                for dayOffset = 1 to 5
+                    array.push(previousAtCutoff.expectedMembers, f_stamp(expectedPreviousWeek, dayOffset, 0, 0))
+            P3Distribution compositeAtCutoff = f_p3Composite(p3Completed, tradeDate, cutoff, p3Control)
+            array.push(p3Frozen, completedAtCutoff)
+            array.push(p3Frozen, onAtCutoff)
+            array.push(p3Frozen, weekAtCutoff)
+            array.push(p3Frozen, previousAtCutoff)
+            array.push(p3Frozen, compositeAtCutoff)
+            for i = 0 to 4
+                array.push(p3FrozenCandidates, f_p3Detect(array.get(p3Frozen, i)))
+            P3Anchor center = f_p3Anchor(p3CText, cutoff)
+            P3Anchor observedEdge = f_p3Anchor(p3EText, cutoff)
+            P3Anchor lower = f_p3Anchor(p3LText, cutoff)
+            P3Anchor upper = f_p3Anchor(p3HText, cutoff)
+            array.push(p3FrozenAnchors, center)
+            array.push(p3FrozenAnchors, observedEdge)
+            array.push(p3FrozenAnchors, lower)
+            array.push(p3FrozenAnchors, upper)
+            p3FrozenProjections := f_p3Projections(center, observedEdge, lower, upper, cutoff, p3Control)
+            // PHASE3 END
+    processedClose := time_close
+
+var array<string> names = array.from("Prior full session high", "Prior full session low", "Current week VAH", "Current week POC", "Current week VAL", "Previous week VAH", "Previous week POC", "Previous week VAL", "Completed RTH VAH (YVAH pre-open)", "Completed RTH POC (YPOC pre-open)", "Completed RTH VAL (YVAL pre-open)", "Overnight VAH", "Overnight POC", "Overnight VAL", "ONH", "ONL", "Completed RTH high", "Completed RTH low", "RTH last-traded close")
+f_enabled(int i) =>
+    i < 2 ? showFull : i < 5 ? showWeek : i < 8 ? showPrevWeek : i < 11 ? showRth : i < 16 ? showOn : showRthPrices
+f_color(int i) =>
+    i < 2 ? color.blue : i < 5 ? color.fuchsia : i < 8 ? color.aqua : i < 11 ? color.green : i < 16 ? color.orange : color.teal
+var array<line> lines = array.new_line(41, na)
+var array<label> labels = array.new_label(41, na)
+f_draw(int slot, float price, int available, string caption, color col, bool dashed) =>
+    line ln = array.get(lines, slot)
+    label lb = array.get(labels, slot)
+    if not na(ln)
+        line.delete(ln)
+    if not na(lb)
+        label.delete(lb)
+    if supported and not na(price) and not na(available)
+        int right = math.max(available, nz(processedClose, time)) + lineMinutes * 60000
+        ln := line.new(available, price, right, price, xloc=xloc.bar_time, color=col, style=dashed ? line.style_dashed : line.style_solid)
+        lb := label.new(right, price, caption + " " + f_price(price), xloc=xloc.bar_time, style=label.style_label_left, color=color.new(col, 88), textcolor=chart.fg_color, size=size.small)
+    else
+        ln := na
+        lb := na
+    array.set(lines, slot, ln)
+    array.set(labels, slot, lb)
+
+var table status = table.new(position.top_right, 3, 28, bgcolor=color.new(chart.bg_color, 8), border_width=1)
+if barstate.islast
+    int readyCount = 0
+    for i = 0 to 18
+        if not na(array.get(frozen, i))
+            readyCount += 1
+        f_draw(i, showFrozen and f_enabled(i) ? array.get(frozen, i) : na, frozenAt, "Frozen " + array.get(names, i), f_color(i), false)
+        f_draw(19 + i, showLive and f_enabled(i) ? array.get(live, i) : na, processedClose, "Live " + array.get(names, i), f_color(i), true)
+    bool rthThrough = rth.coverage and rth.last == math.min(processedClose, rthEnd)
+    bool onThrough = overnight.coverage and overnight.last == math.min(processedClose, rthStart)
+    bool devReady = f_profileReady(rth) and rth.id == currentId and rthThrough
+    f_draw(38, showDev and devReady ? rth.vp.vah : na, processedClose, "Developing RTH VAH", color.red, true)
+    f_draw(39, showDev and devReady ? rth.vp.poc : na, processedClose, "Developing RTH POC", color.red, true)
+    f_draw(40, showDev and devReady ? rth.vp.val : na, processedClose, "Developing RTH VAL", color.red, true)
+    table.clear(status, 0, 0, 2, 27)
+    if showStatus
+        string state = not supported ? "UNSUPPORTED: standard ES/MES/NQ/MNQ 1/5m; cutoff <09:30" : not snapshotAttempted ? "Waiting for completed cutoff bar" : not snapshotExact ? "MISSED cutoff: no exact completed bar" : readyCount == 19 ? "Frozen: 19/19 references" : "Frozen PARTIAL: " + str.tostring(readyCount) + "/19; unavailable withheld"
+        table.cell(status, 0, 0, "Verniman Levels", text_color=chart.fg_color, text_size=size.tiny)
+        table.cell(status, 1, 0, state, text_color=chart.fg_color, text_size=size.tiny)
+        table.cell(status, 0, 1, "Cutoff / last included", text_color=chart.fg_color, text_size=size.tiny)
+        table.cell(status, 1, 1, f_time(frozenAt), text_color=chart.fg_color, text_size=size.tiny)
+        table.cell(status, 2, 1, f_time(frozenLastOpen) + " -> " + f_time(frozenAt), text_color=chart.fg_color, text_size=size.tiny)
+        table.cell(status, 0, 2, "Frozen full / RTH date", text_color=chart.fg_color, text_size=size.tiny)
+        table.cell(status, 1, 2, f_date(frozenFullSource), text_color=chart.fg_color, text_size=size.tiny)
+        table.cell(status, 2, 2, f_date(frozenRthSource), text_color=chart.fg_color, text_size=size.tiny)
+        table.cell(status, 0, 3, "Frozen prev week / ON date", text_color=chart.fg_color, text_size=size.tiny)
+        table.cell(status, 1, 3, f_date(frozenWeekSource), text_color=chart.fg_color, text_size=size.tiny)
+        table.cell(status, 2, 3, f_date(currentId), text_color=chart.fg_color, text_size=size.tiny)
+        table.cell(status, 0, 4, "Candidate (approximate VP)", text_color=chart.fg_color, text_size=size.tiny)
+        table.cell(status, 1, 4, "Frozen", text_color=chart.fg_color, text_size=size.tiny)
+        table.cell(status, 2, 4, "Live completed bars", text_color=chart.fg_color, text_size=size.tiny)
+        if showCandidateValues
+            for i = 0 to 18
+                table.cell(status, 0, 5 + i, array.get(names, i), text_color=f_color(i), text_size=size.tiny)
+                table.cell(status, 1, 5 + i, f_price(array.get(frozen, i)), text_color=chart.fg_color, text_size=size.tiny)
+                table.cell(status, 2, 5 + i, supported ? f_price(array.get(live, i)) : "unavailable", text_color=chart.fg_color, text_size=size.tiny)
+        int summaryRow = showCandidateValues ? 24 : 5
+        string coverage = "Full " + (full.coverage ? "OK" : "partial/gap") + "; week " + (week.coverage ? "OK" : "partial/gap") + "; ON " + (onThrough ? "OK" : "partial/gap") + "; RTH " + (na(rth.last) ? "waiting" : rthThrough ? "OK" : "partial/gap")
+        table.cell(status, 0, summaryRow, "Coverage", text_color=chart.fg_color, text_size=size.tiny)
+        table.cell(status, 1, summaryRow, coverage, text_color=chart.fg_color, text_size=size.tiny)
+        table.cell(status, 2, summaryRow, "Live as of " + f_time(processedClose), text_color=chart.fg_color, text_size=size.tiny)
+        table.cell(status, 0, summaryRow + 1, "Profile limits", text_color=chart.fg_color, text_size=size.tiny)
+        table.cell(status, 1, summaryRow + 1, week.vp.overflow or overnight.vp.overflow or rth.vp.overflow ? "OVERFLOW: enlarge row size" : "Zero/missing volume or incomplete coverage withheld", text_color=chart.fg_color, text_size=size.tiny)
+        table.cell(status, 0, summaryRow + 2, "Sessions (New York)", text_color=chart.fg_color, text_size=size.tiny)
+        table.cell(status, 1, summaryRow + 2, "Full 18-17; RTH 09:30-16; ON 18-09:30", text_color=chart.fg_color, text_size=size.tiny)
+        table.cell(status, 0, summaryRow + 3, "Close / warm-up", text_color=chart.fg_color, text_size=size.tiny)
+        table.cell(status, 1, summaryRow + 3, "RTH last trade, not settlement. Load 2 full weeks ETH.", text_color=chart.fg_color, text_size=size.tiny)
+        table.cell(status, 2, summaryRow + 3, "Live completed RTH " + f_date(rthSource), text_color=chart.fg_color, text_size=size.tiny)
+
+// PHASE3 BEGIN: bounded presentation. Caps are presentation, never selection.
+var array<box> p3Boxes = array.new_box()
+var array<line> p3Lines = array.new_line()
+var array<label> p3Labels = array.new_label()
+var table p3Table = table.new(position.bottom_left, 4, 24, bgcolor=color.new(chart.bg_color, 6), border_width=1)
+
+f_p3Cell(table target, int col, int row, string text, string tip) =>
+    table.cell(target, col, row, text, text_color=chart.fg_color, text_size=size.tiny, tooltip=tip)
+
+f_p3Interval(float low, float high) =>
+    "[" + f_price(low) + ", " + f_price(high) + "]"
+
+f_p3Zone(float low, float high, int at, int right, color col, string caption) =>
+    if not na(low) and not na(high) and not na(at)
+        box b = box.new(at, high, right, low, xloc=xloc.bar_time, border_color=color.new(col, 45), bgcolor=color.new(col, 93), text=caption, text_color=color.new(chart.fg_color, 15), text_size=size.tiny)
+        array.push(p3Boxes, b)
+
+f_p3Boundary(float price, float low, float high, int at, int right, color col, string caption) =>
+    if not na(price) and not na(at)
+        line ln = line.new(at, price, right, price, xloc=xloc.bar_time, color=col, style=line.style_dotted)
+        label lb = label.new(right, price, caption + " " + f_p3Interval(low, high), xloc=xloc.bar_time, style=label.style_label_left, color=color.new(col, 90), textcolor=chart.fg_color, size=size.tiny)
+        array.push(p3Lines, ln)
+        array.push(p3Labels, lb)
+
+if barstate.islast
+    if array.size(p3Boxes) > 0
+        for i = 0 to array.size(p3Boxes) - 1
+            box.delete(array.get(p3Boxes, i))
+    if array.size(p3Lines) > 0
+        for i = 0 to array.size(p3Lines) - 1
+            line.delete(array.get(p3Lines, i))
+    if array.size(p3Labels) > 0
+        for i = 0 to array.size(p3Labels) - 1
+            label.delete(array.get(p3Labels, i))
+    array.clear(p3Boxes)
+    array.clear(p3Lines)
+    array.clear(p3Labels)
+    table.clear(p3Table, 0, 0, 3, 23)
+    if p3ShowTable
+        f_p3Cell(p3Table, 0, 0, "Verniman Levels", "Experimental Phase 3 v3.0.0. Not recovered Verniman algorithms.")
+        f_p3Cell(p3Table, 1, 0, "PHASE 3 / N1-E1", P3_POLICY)
+        f_p3Cell(p3Table, 2, 0, p3View, "Only the chosen frozen distribution is drawn; other families remain in the calculation arrays.")
+        f_p3Cell(p3Table, 3, 0, "candidate only", "No LIS/pivot/ordered target or trade selector. Evidence status is descriptive, not a probability.")
+    if array.size(p3Frozen) == 5 and array.size(p3FrozenCandidates) == 5
+        int selected = p3ProfileChoice == "Completed RTH" ? 0 : p3ProfileChoice == "Overnight" ? 1 : p3ProfileChoice == "Current week" ? 2 : p3ProfileChoice == "Previous week" ? 3 : 4
+        P3Distribution d = array.get(p3Frozen, selected)
+        P3Candidates candidates = array.get(p3FrozenCandidates, selected)
+        int right = math.max(frozenAt, nz(processedClose, frozenAt)) + lineMinutes * 60000
+        if array.size(candidates.peaks) > 0
+            for i = 0 to array.size(candidates.peaks) - 1
+                P3Peak peak = array.get(candidates.peaks, i)
+                if p3ShowHvn and peak.displayed
+                    float low = (d.vp.minKey + peak.lo) * d.row
+                    float high = (d.vp.minKey + peak.hi + 1) * d.row
+                    f_p3Zone(low, high, frozenAt, right, color.purple, "candidate HVN #" + str.tostring(peak.rank + 1) + (peak.overlap ? " overlap" : ""))
+        if array.size(candidates.valleys) > 0
+            for i = 0 to array.size(candidates.valleys) - 1
+                P3Valley valley = array.get(candidates.valleys, i)
+                if p3ShowLvn and valley.displayed
+                    f_p3Zone((d.vp.minKey + valley.lo) * d.row, (d.vp.minKey + valley.hi + 1) * d.row, frozenAt, right, color.gray, "candidate LVN")
+        if array.size(candidates.edges) > 0
+            for i = 0 to array.size(candidates.edges) - 1
+                P3Edge edge = array.get(candidates.edges, i)
+                if p3ShowEdges and edge.displayed
+                    f_p3Boundary(edge.boundary, edge.low, edge.high, frozenAt, right, color.yellow, "candidate HVE " + edge.side)
+        if array.size(p3FrozenProjections) > 0
+            for i = 0 to array.size(p3FrozenProjections) - 1
+                P3Projection projection = array.get(p3FrozenProjections, i)
+                if p3ShowPbt and projection.eligible and not str.startswith(projection.status, "identity:")
+                    f_p3Zone(projection.low, projection.high, frozenAt, right, color.red, "candidate " + projection.hypothesis)
+                    f_p3Boundary((projection.low + projection.high) / 2, projection.low, projection.high, frozenAt, right, color.red, "candidate " + projection.hypothesis)
+        if p3ShowTable
+            f_p3Cell(p3Table, 0, 1, d.family, d.identity)
+            f_p3Cell(p3Table, 1, 1, f_time(d.start), "Reference-window start, New York")
+            f_p3Cell(p3Table, 2, 1, f_time(d.through), "Reference-window through-time; complete bars only")
+            f_p3Cell(p3Table, 3, 1, f_p3Ready(d) ? "ready (experimental)" : "UNAVAILABLE", d.readiness)
+            int offset = (p3Page - 1) * 16
+            if p3View == "Summary"
+                f_p3Cell(p3Table, 0, 2, "Contract / feed", d.contract + "; " + d.feed)
+                f_p3Cell(p3Table, 1, 2, d.contract, d.adjustment)
+                f_p3Cell(p3Table, 2, 2, "tick " + str.tostring(d.tick), "Grid origin 0. Rows use lower/upper price boundaries.")
+                f_p3Cell(p3Table, 3, 2, "row " + str.tostring(d.row), "Uniform chart-bar volume allocation is not observed volume at price.")
+                f_p3Cell(p3Table, 0, 3, "Last completed bar", "The included-bar boundary, not the Replay cursor, is authoritative.")
+                f_p3Cell(p3Table, 1, 3, f_time(d.last), "Included interval " + f_time(na(d.last) ? na : d.last - 5 * 60000) + " -> " + f_time(d.last) + "; exact 5-minute control")
+                f_p3Cell(p3Table, 2, 3, "mass " + str.tostring(d.vp.total), "Raw allocated volume summed over the included bars")
+                f_p3Cell(p3Table, 3, 3, str.tostring(array.size(d.vp.bins)) + " rows", "Maximum 6000. Empty/invalid/incomplete profiles produce no candidates.")
+                f_p3Cell(p3Table, 0, 4, "Coverage / volume", d.readiness)
+                f_p3Cell(p3Table, 1, 4, d.coverage ? "coverage OK" : "partial/gap", "Fixed-clock continuity gate inherited from Phase 1; no holiday substitution.")
+                f_p3Cell(p3Table, 2, 4, d.vp.volumeOk ? "volume OK" : "invalid volume", "Missing or negative volume invalidates the distribution.")
+                f_p3Cell(p3Table, 3, 4, d.vp.overflow ? "OVERFLOW" : "no overflow", d.readiness)
+                f_p3Cell(p3Table, 0, 5, "Family", "All counts are uncapped qualified candidates.")
+                f_p3Cell(p3Table, 1, 5, "qualified", "Candidate generation does not establish source identity.")
+                f_p3Cell(p3Table, 2, 5, "presentation omitted", "Omitted candidate IDs persist in the respective ledgers.")
+                f_p3Cell(p3Table, 3, 5, "ledger entries", "Includes rejected/unavailable constructions.")
+                f_p3Cell(p3Table, 0, 6, "HVN", "Interior local maximum plateaus; N1 engineering control.")
+                f_p3Cell(p3Table, 1, 6, str.tostring(candidates.hvnCount), "8 displayed maximum, ranked by height/prominence/ascending price.")
+                f_p3Cell(p3Table, 2, 6, str.tostring(candidates.hvnOmitted), "Presentation cap only.")
+                f_p3Cell(p3Table, 3, 6, str.tostring(array.size(candidates.peaks)), "Endpoint maxima and threshold rejections retained.")
+                f_p3Cell(p3Table, 0, 7, "LVN", "Trough plateaus between adjacent disjoint N1 regions.")
+                f_p3Cell(p3Table, 1, 7, str.tostring(candidates.lvnCount), "7 displayed maximum, by trough height then price.")
+                f_p3Cell(p3Table, 2, 7, str.tostring(candidates.lvnOmitted), "No LVN is invented between overlapping/touching parents.")
+                f_p3Cell(p3Table, 3, 7, str.tostring(array.size(candidates.valleys)), "Rejected parent pairs remain in the ledger.")
+                f_p3Cell(p3Table, 0, 8, "HVE", "E1 boundaries require a qualified N1 parent, width and observed transition.")
+                f_p3Cell(p3Table, 1, 8, str.tostring(candidates.edgeCount), "16 displayed maximum; parent rank then lower before upper.")
+                f_p3Cell(p3Table, 2, 8, str.tostring(candidates.edgeOmitted), "POC, VAH/VAL and node centers are never renamed HVE.")
+                f_p3Cell(p3Table, 3, 8, str.tostring(array.size(candidates.edges)), "Both parent sides retain reasons, including unavailable truncated neighbors.")
+                f_p3Cell(p3Table, 0, 10, "Settings identity", d.settingsId)
+                f_p3Cell(p3Table, 1, 10, P3_POLICY, d.settingsId)
+                f_p3Cell(p3Table, 0, 11, "Code identity (hover)", d.codeId)
+                f_p3Cell(p3Table, 1, 11, p3ExternalCodeHash == "" ? "external hash missing" : "external hash entered", d.codeId)
+                f_p3Cell(p3Table, 0, 12, "Input identity (hover)", d.inputId)
+                f_p3Cell(p3Table, 1, 12, p3ExternalInputHash == "" ? "chart history unhashed" : "external identity entered", d.inputId)
+                string observedSessions = ""
+                string expectedSessions = ""
+                if array.size(d.members) > 0
+                    for member = 0 to array.size(d.members) - 1
+                        observedSessions += (member == 0 ? "" : ", ") + f_date(array.get(d.members, member))
+                if array.size(d.expectedMembers) > 0
+                    for member = 0 to array.size(d.expectedMembers) - 1
+                        expectedSessions += (member == 0 ? "" : ", ") + f_date(array.get(d.expectedMembers, member))
+                f_p3Cell(p3Table, 0, 13, "Observed / expected sessions", "Observed: " + observedSessions + "; expected: " + expectedSessions)
+                f_p3Cell(p3Table, 1, 13, str.tostring(array.size(d.members)) + " / " + str.tostring(array.size(d.expectedMembers)), "Observed: " + observedSessions + "; expected: " + expectedSessions)
+                f_p3Cell(p3Table, 0, 14, "Qualification", "Ready means engineering inputs passed declared checks, not source equivalence.")
+                f_p3Cell(p3Table, 1, 14, "profile fidelity unresolved", "A threshold change cannot repair an incompatible underlying distribution.")
+                f_p3Cell(p3Table, 2, 14, "source available_at = null", "Reconstruction readiness is separate from independently supported historical source availability.")
+            else if p3View == "Rows"
+                f_p3Cell(p3Table, 0, 2, "key / page " + str.tostring(p3Page), d.identity)
+                f_p3Cell(p3Table, 1, 2, "[lower, upper)", "Row high exactly at a boundary allocates to the next touched bin in Phase 1.")
+                f_p3Cell(p3Table, 2, 2, "raw mass", d.measurement)
+                f_p3Cell(p3Table, 3, 2, "normalized mass", "Raw mass / total; no smoothing or padding.")
+                for k = 0 to 15
+                    int idx = offset + k
+                    if idx < array.size(d.vp.bins)
+                        float mass = array.get(d.vp.bins, idx)
+                        f_p3Cell(p3Table, 0, 3 + k, str.tostring(d.vp.minKey + idx), d.identity + ":row:" + str.tostring(d.vp.minKey + idx))
+                        f_p3Cell(p3Table, 1, 3 + k, f_p3Interval((d.vp.minKey + idx) * d.row, (d.vp.minKey + idx + 1) * d.row), "Zero-anchored row boundaries")
+                        f_p3Cell(p3Table, 2, 3 + k, str.tostring(mass), "Original raw allocation")
+                        f_p3Cell(p3Table, 3, 3 + k, d.vp.total > 0 ? str.tostring(mass / d.vp.total) : "unavailable", d.readiness)
+            else if p3View == "HVN ledger"
+                f_p3Cell(p3Table, 0, 2, "representative / plateau", "Lowest-price plateau representative. Hover for stable ID.")
+                f_p3Cell(p3Table, 1, 2, "region / integrated mass", "Region uses outer row boundaries.")
+                f_p3Cell(p3Table, 2, 2, "height / prominence", "Raw values; ratios use same profile global maximum.")
+                f_p3Cell(p3Table, 3, 2, "qualification", "All maxima, rejections and cap omissions remain inspectable.")
+                for k = 0 to 15
+                    int idx = offset + k
+                    if idx < array.size(candidates.peaks)
+                        P3Peak peak = array.get(candidates.peaks, idx)
+                        f_p3Cell(p3Table, 0, 3 + k, str.tostring(d.vp.minKey + peak.plateauLo) + ":" + str.tostring(d.vp.minKey + peak.plateauHi), peak.id)
+                        f_p3Cell(p3Table, 1, 3 + k, peak.accepted ? f_p3Interval((d.vp.minKey + peak.lo) * d.row, (d.vp.minKey + peak.hi + 1) * d.row) : "not qualified", "Integrated raw mass=" + str.tostring(peak.mass) + "; fraction=" + str.tostring(peak.mass / d.vp.total) + "; saddle=" + str.tostring(peak.saddle))
+                        f_p3Cell(p3Table, 2, 3 + k, str.tostring(peak.height) + " / " + str.tostring(peak.prominence), "Plateau raw height/prominence; normalized height=" + str.tostring(peak.height / d.vp.total))
+                        f_p3Cell(p3Table, 3, 3 + k, (peak.accepted ? "qualified" : "rejected") + (peak.overlap ? "; overlap" : "") + (peak.accepted and not peak.displayed ? "; omitted" : ""), peak.reason + "; endpoint-truncated=" + str.tostring(peak.endpointTruncated) + "; full ID=" + peak.id)
+            else if p3View == "LVN ledger"
+                f_p3Cell(p3Table, 0, 2, "trough row / page " + str.tostring(p3Page), "Hover for stable ID and both parent IDs.")
+                f_p3Cell(p3Table, 1, 2, "interval", "Lowest contiguous plateau; lowest-price tie.")
+                f_p3Cell(p3Table, 2, 2, "mass / relative depth", "Depth = 1 - trough / smaller parent peak.")
+                f_p3Cell(p3Table, 3, 2, "qualification", "Endpoints are not LVNs.")
+                for k = 0 to 15
+                    int idx = offset + k
+                    if idx < array.size(candidates.valleys)
+                        P3Valley valley = array.get(candidates.valleys, idx)
+                        f_p3Cell(p3Table, 0, 3 + k, na(valley.lo) ? "no intervening trough" : str.tostring(d.vp.minKey + valley.lo), valley.id + "; lower=" + valley.parentLower + "; upper=" + valley.parentUpper)
+                        f_p3Cell(p3Table, 1, 3 + k, na(valley.lo) ? "unavailable" : f_p3Interval((d.vp.minKey + valley.lo) * d.row, (d.vp.minKey + valley.hi + 1) * d.row), valley.reason)
+                        f_p3Cell(p3Table, 2, 3 + k, str.tostring(valley.height) + " / " + str.tostring(valley.depth), "Raw trough mass; integrated=" + str.tostring(valley.mass) + "; integrated fraction=" + str.tostring(valley.mass / d.vp.total) + "; normalized height=" + str.tostring(valley.height / d.vp.total) + "; trough/smaller-peak=" + str.tostring(valley.parentRatio) + "; depth=1-ratio")
+                        f_p3Cell(p3Table, 3, 3 + k, valley.accepted ? valley.displayed ? "qualified" : "qualified; omitted" : "rejected", valley.reason)
+            else if p3View == "HVE ledger"
+                f_p3Cell(p3Table, 0, 2, "parent / side", "Hover for full edge and parent IDs.")
+                f_p3Cell(p3Table, 1, 2, "boundary interval", "Shared bin boundary +/- half a row; not exact observed edge.")
+                f_p3Cell(p3Table, 2, 2, "inside / outside / contrast", "Contrast=(inside-outside)/parent peak, inclusive threshold 0.10.")
+                f_p3Cell(p3Table, 3, 2, "qualification", "Each qualified N1 parent contributes two independently checked sides.")
+                for k = 0 to 15
+                    int idx = offset + k
+                    if idx < array.size(candidates.edges)
+                        P3Edge edge = array.get(candidates.edges, idx)
+                        f_p3Cell(p3Table, 0, 3 + k, str.tostring(idx + 1) + " " + edge.side, edge.id + "; parent=" + edge.parent)
+                        f_p3Cell(p3Table, 1, 3 + k, f_p3Interval(edge.low, edge.high), "Boundary grid coordinate=" + f_price(edge.boundary))
+                        f_p3Cell(p3Table, 2, 3 + k, str.tostring(edge.inside) + "/" + str.tostring(edge.outside) + "/" + str.tostring(edge.contrast), "Neighbor raw mass evidence")
+                        f_p3Cell(p3Table, 3, 3 + k, edge.accepted ? edge.displayed ? "qualified" : "qualified; omitted" : "unavailable/rejected", edge.reason)
+            else if p3View == "Composite"
+                P3Distribution composite = array.get(p3Frozen, 4)
+                f_p3Cell(p3Table, 0, 2, "Fixed last 3 RTH", composite.identity)
+                f_p3Cell(p3Table, 1, 2, "expected member", "Expected weekdays before snapshot, no holiday substitution.")
+                f_p3Cell(p3Table, 2, 2, "raw mass / readiness", "Each summed row keeps its original grid coordinate.")
+                f_p3Cell(p3Table, 3, 2, "lineage", composite.readiness)
+                for j = 0 to 2
+                    if j < array.size(composite.expectedMembers)
+                        int memberDay = array.get(composite.expectedMembers, j)
+                        f_p3Cell(p3Table, 0, 3 + j, f_date(memberDay), "Completed RTH 09:30-16:00 New York")
+                        f_p3Cell(p3Table, 1, 3 + j, "09:30-16:00", "Inclusion reason: fixed three expected completed RTH sessions, independent of targets.")
+                        string memberStatus = array.get(composite.memberStatus, j)
+                        f_p3Cell(p3Table, 2, 3 + j, str.tostring(array.get(composite.memberMass, j)), memberStatus)
+                        f_p3Cell(p3Table, 3, 3 + j, memberStatus == "ready: engineering hypothesis" ? "eligible at member close" : "excluded/unavailable", array.get(composite.memberLineage, j))
+                if array.size(composite.exclusions) > 0
+                    for j = 0 to math.min(12, array.size(composite.exclusions) - 1)
+                        f_p3Cell(p3Table, 0, 7 + j, "exclusion " + str.tostring(j + 1), array.get(composite.exclusions, j))
+                        f_p3Cell(p3Table, 1, 7 + j, array.get(composite.exclusions, j), composite.readiness)
+                f_p3Cell(p3Table, 0, 21, "Composite status", composite.readiness)
+                f_p3Cell(p3Table, 1, 21, f_p3Ready(composite) ? "ready: not a proven balance" : "UNAVAILABLE", "A composite histogram does not establish an auction balance.")
+            else if p3View == "Anchors / PBT"
+                f_p3Cell(p3Table, 0, 2, "Anchor IDs / interval", "Pine inputs are manually transcribed from local ledger; JSON is not read.")
+                f_p3Cell(p3Table, 1, 2, "observed / confirmed", "Entered timestamps do not prove historical availability.")
+                f_p3Cell(p3Table, 2, 2, "recorded eligibility", "Independent evidence requires external audit; attestations are not proof.")
+                f_p3Cell(p3Table, 3, 2, "source available_at", "Historical source availability remains null.")
+                for j = 0 to 3
+                    P3Anchor anchor = array.get(p3FrozenAnchors, j)
+                    string role = j == 0 ? "C" : j == 1 ? "E" : j == 2 ? "L" : "H"
+                    f_p3Cell(p3Table, 0, 3 + j * 2, role + " " + (anchor.id == "" ? "missing" : anchor.id), anchor.reference + "; " + anchor.measurement + "; " + anchor.contract + "; precision=" + anchor.readingPrecision)
+                    f_p3Cell(p3Table, 1, 3 + j * 2, f_time(anchor.observed), "Original observation timestamp, entered record")
+                    f_p3Cell(p3Table, 2, 3 + j * 2, f_p3Interval(anchor.low, anchor.high), anchor.evidence + "; selection reason=" + anchor.reason + "; origin=" + anchor.origin)
+                    f_p3Cell(p3Table, 3, 3 + j * 2, "null", "No historical publication timestamp inferred from anchor entry.")
+                    f_p3Cell(p3Table, 1, 4 + j * 2, f_time(anchor.confirmed), "Causal confirmation timestamp, entered record")
+                    f_p3Cell(p3Table, 2, 4 + j * 2, f_p3Eligible(anchor) ? "record eligible" : "unavailable", anchor.status)
+                for j = 0 to 2
+                    P3Projection projection = array.get(p3FrozenProjections, j)
+                    f_p3Cell(p3Table, 0, 12 + j * 2, projection.hypothesis, projection.id + "; anchors=" + projection.anchors)
+                    f_p3Cell(p3Table, 1, 12 + j * 2, projection.eligible ? f_p3Interval(projection.low, projection.high) : "causal map unavailable", projection.status)
+                    f_p3Cell(p3Table, 2, 12 + j * 2, "raw [" + str.tostring(projection.rawLow) + "," + str.tostring(projection.rawHigh) + "]", "Unrounded formula; unavailable calculations are retrospective illustrations only, never drawn causally.")
+                    f_p3Cell(p3Table, 3, 12 + j * 2, f_time(projection.readyAt), "Eligible reconstruction_ready_at only; recorded confirmation=" + f_time(projection.recordedConfirmationAt) + "; source_historical_available_at remains null.")
+                    f_p3Cell(p3Table, 1, 13 + j * 2, str.startswith(projection.status, "identity:") ? "opposite existing bound identity" : projection.eligible ? "candidate only" : "missing/unsupported/later anchors", projection.status)
+            f_p3Cell(p3Table, 0, 23, "Phase 3 v3.0.0", P3_POLICY)
+            f_p3Cell(p3Table, 1, 23, "Frozen " + f_time(frozenAt), "All candidate/profile/anchor objects copied at the exact completed cutoff.")
+            f_p3Cell(p3Table, 2, 23, "Page " + str.tostring(p3Page), "16 ledger entries per page; all entries remain in arrays.")
+            f_p3Cell(p3Table, 3, 23, "native verification pending", "Local source checks are not Pine compilation or actual Replay evidence.")
+    else if p3ShowTable
+        f_p3Cell(p3Table, 0, 2, "No expanded frozen map", "Wait for a supported exact completed cutoff boundary. No stale profiles/candidates survive a trading-date reset.")
+        f_p3Cell(p3Table, 1, 2, p3Control ? "waiting / missed cutoff" : "noncontrol settings", "Phase 3 control requires CME_MINI:ESZ2026 standard 5m ETH, 16 ticks, 70% VA, 09:25 New York.")
+// PHASE3 END

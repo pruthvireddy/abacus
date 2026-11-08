@@ -1,0 +1,9 @@
+/opt/homebrew/opt/python@3.11/bin/python3.11 studies/27_verniman_method_knowledge/capture_daily_maps.py --stage work/27_verniman_method_knowledge/20261031T052904Z_daily_maps_2020_r3 --start 2020-01-01 --end 2020-12-31 --seed https://verniman.blogspot.com/2003/12/new-years-eve.html --retained-manifest data/raw/blogspot/verniman/html/20261021T022151Z_history_ae7996e0/collection_manifest.reviewed.json
+python3 studies/27_verniman_method_knowledge/build_daily_maps.py --stage work/27_verniman_method_knowledge/20261031T052904Z_daily_maps_2020_r3
+python3 studies/27_verniman_method_knowledge/build_daily_maps.py --stage work/27_verniman_method_knowledge/20261031T052904Z_daily_maps_2020_r3 --check
+python3 work/27_verniman_method_knowledge/20261031T052904Z_daily_maps_2020_r3/provenance/audit_capture.py
+python3 work/27_verniman_method_knowledge/20261031T052904Z_daily_maps_2020_r3/provenance/audit_previous_years.py
+python3 work/27_verniman_method_knowledge/20261031T052904Z_daily_maps_2020_r3/provenance/builder-2020-fixture.py
+python3 work/27_verniman_method_knowledge/20261031T052904Z_daily_maps_2020_r3/provenance/image-link-2020-fixture.py
+/opt/homebrew/opt/python@3.11/bin/python3.11 studies/27_verniman_method_knowledge/seal_daily_maps.py --stage work/27_verniman_method_knowledge/20261031T052904Z_daily_maps_2020_r3 --prepare
+/opt/homebrew/opt/python@3.11/bin/python3.11 studies/27_verniman_method_knowledge/seal_daily_maps.py --stage work/27_verniman_method_knowledge/20261031T052904Z_daily_maps_2020_r3 --seal

@@ -1,0 +1,321 @@
+# Daily Map gaps and qualifications
+
+A gap means no dated post was observed. Weekends are listed separately; no exchange-holiday or publication-absence claim is inferred.
+
+## Weekday gaps
+
+- 2014-12-31 — no dated post observed.
+- 2014-12-30 — no dated post observed.
+- 2014-12-29 — no dated post observed.
+- 2014-12-26 — no dated post observed.
+- 2014-12-25 — no dated post observed.
+- 2014-12-24 — no dated post observed.
+- 2014-12-23 — no dated post observed.
+- 2014-12-22 — no dated post observed.
+- 2014-12-19 — no dated post observed.
+- 2014-12-18 — no dated post observed.
+- 2014-12-17 — no dated post observed.
+- 2014-12-16 — no dated post observed.
+- 2014-12-15 — no dated post observed.
+- 2014-12-12 — no dated post observed.
+- 2014-12-11 — no dated post observed.
+- 2014-12-10 — no dated post observed.
+- 2014-12-09 — no dated post observed.
+- 2014-12-08 — no dated post observed.
+- 2014-12-05 — no dated post observed.
+- 2014-12-04 — no dated post observed.
+- 2014-12-03 — no dated post observed.
+- 2014-12-02 — no dated post observed.
+- 2014-12-01 — no dated post observed.
+- 2014-11-28 — no dated post observed.
+- 2014-11-27 — no dated post observed.
+- 2014-11-26 — no dated post observed.
+- 2014-11-24 — no dated post observed.
+- 2014-11-21 — no dated post observed.
+- 2014-11-20 — no dated post observed.
+- 2014-11-19 — no dated post observed.
+- 2014-11-18 — no dated post observed.
+- 2014-11-14 — no dated post observed.
+- 2014-11-13 — no dated post observed.
+- 2014-11-12 — no dated post observed.
+- 2014-11-11 — no dated post observed.
+- 2014-11-10 — no dated post observed.
+- 2014-11-07 — no dated post observed.
+- 2014-11-06 — no dated post observed.
+- 2014-11-05 — no dated post observed.
+- 2014-11-04 — no dated post observed.
+- 2014-11-03 — no dated post observed.
+- 2014-10-31 — no dated post observed.
+- 2014-10-30 — no dated post observed.
+- 2014-10-29 — no dated post observed.
+- 2014-10-28 — no dated post observed.
+- 2014-10-27 — no dated post observed.
+- 2014-10-24 — no dated post observed.
+- 2014-10-23 — no dated post observed.
+- 2014-10-22 — no dated post observed.
+- 2014-10-21 — no dated post observed.
+- 2014-10-20 — no dated post observed.
+- 2014-10-17 — no dated post observed.
+- 2014-10-15 — no dated post observed.
+- 2014-10-13 — no dated post observed.
+- 2014-10-10 — no dated post observed.
+- 2014-09-15 — no dated post observed.
+- 2014-09-01 — no dated post observed.
+- 2014-08-27 — no dated post observed.
+- 2014-08-26 — no dated post observed.
+- 2014-08-22 — no dated post observed.
+- 2014-08-21 — no dated post observed.
+- 2014-08-20 — no dated post observed.
+- 2014-08-19 — no dated post observed.
+- 2014-08-18 — no dated post observed.
+- 2014-08-15 — no dated post observed.
+- 2014-08-14 — no dated post observed.
+- 2014-08-13 — no dated post observed.
+- 2014-08-12 — no dated post observed.
+- 2014-08-11 — no dated post observed.
+- 2014-08-08 — no dated post observed.
+- 2014-08-07 — no dated post observed.
+- 2014-08-06 — no dated post observed.
+- 2014-08-05 — no dated post observed.
+- 2014-08-04 — no dated post observed.
+- 2014-08-01 — no dated post observed.
+- 2014-07-31 — no dated post observed.
+- 2014-07-30 — no dated post observed.
+- 2014-07-29 — no dated post observed.
+- 2014-07-28 — no dated post observed.
+- 2014-07-25 — no dated post observed.
+- 2014-07-24 — no dated post observed.
+- 2014-07-23 — no dated post observed.
+- 2014-07-22 — no dated post observed.
+- 2014-07-21 — no dated post observed.
+- 2014-07-18 — no dated post observed.
+- 2014-07-17 — no dated post observed.
+- 2014-07-16 — no dated post observed.
+- 2014-07-15 — no dated post observed.
+- 2014-07-14 — no dated post observed.
+- 2014-07-11 — no dated post observed.
+- 2014-07-10 — no dated post observed.
+- 2014-07-09 — no dated post observed.
+- 2014-07-08 — no dated post observed.
+- 2014-07-07 — no dated post observed.
+- 2014-07-04 — no dated post observed.
+- 2014-07-03 — no dated post observed.
+- 2014-07-02 — no dated post observed.
+- 2014-07-01 — no dated post observed.
+- 2014-06-30 — no dated post observed.
+- 2014-06-27 — no dated post observed.
+- 2014-06-26 — no dated post observed.
+- 2014-06-25 — no dated post observed.
+- 2014-06-24 — no dated post observed.
+- 2014-06-23 — no dated post observed.
+- 2014-06-20 — no dated post observed.
+- 2014-06-19 — no dated post observed.
+- 2014-06-18 — no dated post observed.
+- 2014-06-17 — no dated post observed.
+- 2014-06-16 — no dated post observed.
+- 2014-06-13 — no dated post observed.
+- 2014-06-12 — no dated post observed.
+- 2014-06-11 — no dated post observed.
+- 2014-06-10 — no dated post observed.
+- 2014-06-09 — no dated post observed.
+- 2014-06-06 — no dated post observed.
+- 2014-06-05 — no dated post observed.
+- 2014-06-04 — no dated post observed.
+- 2014-06-02 — no dated post observed.
+- 2014-05-30 — no dated post observed.
+- 2014-05-29 — no dated post observed.
+- 2014-05-28 — no dated post observed.
+- 2014-05-27 — no dated post observed.
+- 2014-05-26 — no dated post observed.
+- 2014-05-23 — no dated post observed.
+- 2014-05-22 — no dated post observed.
+- 2014-05-21 — no dated post observed.
+- 2014-05-20 — no dated post observed.
+- 2014-05-19 — no dated post observed.
+- 2014-05-16 — no dated post observed.
+- 2014-05-15 — no dated post observed.
+- 2014-05-14 — no dated post observed.
+- 2014-05-13 — no dated post observed.
+- 2014-05-12 — no dated post observed.
+- 2014-05-09 — no dated post observed.
+- 2014-05-08 — no dated post observed.
+- 2014-05-07 — no dated post observed.
+- 2014-05-06 — no dated post observed.
+- 2014-05-05 — no dated post observed.
+- 2014-05-02 — no dated post observed.
+- 2014-05-01 — no dated post observed.
+- 2014-04-30 — no dated post observed.
+- 2014-04-29 — no dated post observed.
+- 2014-04-28 — no dated post observed.
+- 2014-04-25 — no dated post observed.
+- 2014-04-24 — no dated post observed.
+- 2014-04-23 — no dated post observed.
+- 2014-04-22 — no dated post observed.
+- 2014-04-21 — no dated post observed.
+- 2014-04-18 — no dated post observed.
+- 2014-04-17 — no dated post observed.
+- 2014-04-16 — no dated post observed.
+- 2014-04-15 — no dated post observed.
+- 2014-04-14 — no dated post observed.
+- 2014-04-11 — no dated post observed.
+- 2014-04-10 — no dated post observed.
+- 2014-04-09 — no dated post observed.
+- 2014-04-08 — no dated post observed.
+- 2014-04-07 — no dated post observed.
+- 2014-04-04 — no dated post observed.
+- 2014-04-03 — no dated post observed.
+- 2014-04-02 — no dated post observed.
+- 2014-04-01 — no dated post observed.
+- 2014-03-31 — no dated post observed.
+- 2014-03-28 — no dated post observed.
+- 2014-03-27 — no dated post observed.
+- 2014-03-26 — no dated post observed.
+- 2014-03-25 — no dated post observed.
+- 2014-03-24 — no dated post observed.
+- 2014-03-21 — no dated post observed.
+- 2014-03-20 — no dated post observed.
+- 2014-03-19 — no dated post observed.
+- 2014-03-18 — no dated post observed.
+- 2014-03-17 — no dated post observed.
+- 2014-03-14 — no dated post observed.
+- 2014-03-13 — no dated post observed.
+- 2014-03-12 — no dated post observed.
+- 2014-03-11 — no dated post observed.
+- 2014-03-10 — no dated post observed.
+- 2014-03-07 — no dated post observed.
+- 2014-03-06 — no dated post observed.
+- 2014-03-05 — no dated post observed.
+- 2014-03-04 — no dated post observed.
+- 2014-03-03 — no dated post observed.
+- 2014-02-28 — no dated post observed.
+- 2014-02-27 — no dated post observed.
+- 2014-02-26 — no dated post observed.
+- 2014-02-25 — no dated post observed.
+- 2014-02-24 — no dated post observed.
+- 2014-02-21 — no dated post observed.
+- 2014-02-20 — no dated post observed.
+- 2014-02-19 — no dated post observed.
+- 2014-02-18 — no dated post observed.
+- 2014-02-17 — no dated post observed.
+- 2014-02-14 — no dated post observed.
+- 2014-02-13 — no dated post observed.
+- 2014-02-12 — no dated post observed.
+- 2014-02-11 — no dated post observed.
+- 2014-02-10 — no dated post observed.
+- 2014-02-07 — no dated post observed.
+- 2014-02-06 — no dated post observed.
+- 2014-02-05 — no dated post observed.
+- 2014-02-04 — no dated post observed.
+- 2014-02-03 — no dated post observed.
+- 2014-01-31 — no dated post observed.
+- 2014-01-30 — no dated post observed.
+- 2014-01-29 — no dated post observed.
+- 2014-01-28 — no dated post observed.
+- 2014-01-27 — no dated post observed.
+- 2014-01-24 — no dated post observed.
+- 2014-01-23 — no dated post observed.
+- 2014-01-22 — no dated post observed.
+- 2014-01-21 — no dated post observed.
+- 2014-01-20 — no dated post observed.
+- 2014-01-17 — no dated post observed.
+- 2014-01-16 — no dated post observed.
+- 2014-01-15 — no dated post observed.
+- 2014-01-14 — no dated post observed.
+- 2014-01-13 — no dated post observed.
+- 2014-01-10 — no dated post observed.
+- 2014-01-09 — no dated post observed.
+- 2014-01-08 — no dated post observed.
+- 2014-01-07 — no dated post observed.
+- 2014-01-06 — no dated post observed.
+- 2014-01-03 — no dated post observed.
+- 2014-01-02 — no dated post observed.
+- 2014-01-01 — no dated post observed.
+
+## Weekend dates without a dated post
+
+2014-12-28, 2014-12-27, 2014-12-21, 2014-12-20, 2014-12-14, 2014-12-13, 2014-12-07, 2014-12-06, 2014-11-30, 2014-11-29, 2014-11-23, 2014-11-22, 2014-11-16, 2014-11-15, 2014-11-09, 2014-11-08, 2014-11-02, 2014-11-01, 2014-10-26, 2014-10-25, 2014-10-19, 2014-10-18, 2014-10-12, 2014-10-11, 2014-10-05, 2014-10-04, 2014-09-28, 2014-09-27, 2014-09-21, 2014-09-20, 2014-09-14, 2014-09-13, 2014-09-07, 2014-09-06, 2014-08-31, 2014-08-30, 2014-08-24, 2014-08-23, 2014-08-17, 2014-08-16, 2014-08-10, 2014-08-09, 2014-08-03, 2014-08-02, 2014-07-27, 2014-07-26, 2014-07-20, 2014-07-19, 2014-07-13, 2014-07-12, 2014-07-06, 2014-07-05, 2014-06-29, 2014-06-28, 2014-06-22, 2014-06-21, 2014-06-15, 2014-06-14, 2014-06-08, 2014-06-07, 2014-06-01, 2014-05-31, 2014-05-25, 2014-05-24, 2014-05-18, 2014-05-17, 2014-05-11, 2014-05-10, 2014-05-04, 2014-05-03, 2014-04-27, 2014-04-26, 2014-04-20, 2014-04-19, 2014-04-13, 2014-04-12, 2014-04-06, 2014-04-05, 2014-03-30, 2014-03-29, 2014-03-23, 2014-03-22, 2014-03-16, 2014-03-15, 2014-03-09, 2014-03-08, 2014-03-02, 2014-03-01, 2014-02-23, 2014-02-22, 2014-02-16, 2014-02-15, 2014-02-09, 2014-02-08, 2014-02-02, 2014-02-01, 2014-01-26, 2014-01-25, 2014-01-19, 2014-01-18, 2014-01-12, 2014-01-11, 2014-01-05, 2014-01-04
+
+## Source and image qualifications
+
+Recovered from retained archived pages and exact historical feed entries. Coverage has gaps and does not establish a complete historical year. Images are retained current-source fallbacks whose historical bytes have not been verified.
+
+- 2014-11-25: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2014/11/opening-1125.html)).
+- 2014-11-25: 3 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2014/11/opening-1125.html)).
+- 2014-11-17: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2014/11/opening-1117.html)).
+- 2014-11-17: 3 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2014/11/opening-1117.html)).
+- 2014-10-16: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2014/10/opening-1016.html)).
+- 2014-10-16: 3 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2014/10/opening-1016.html)).
+- 2014-10-14: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2014/10/opening-1014.html)).
+- 2014-10-14: 3 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2014/10/opening-1014.html)).
+- 2014-10-09: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2014/10/opening-1009.html)).
+- 2014-10-09: 3 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2014/10/opening-1009.html)).
+- 2014-10-08: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2014/10/opening-1008.html)).
+- 2014-10-08: 3 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2014/10/opening-1008.html)).
+- 2014-10-07: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2014/10/opening-1007.html)).
+- 2014-10-07: 3 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2014/10/opening-1007.html)).
+- 2014-10-06: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2014/10/opening-1006.html)).
+- 2014-10-06: 3 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2014/10/opening-1006.html)).
+- 2014-10-03: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2014/10/opening-1003.html)).
+- 2014-10-03: 3 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2014/10/opening-1003.html)).
+- 2014-10-02: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2014/10/opening-1002.html)).
+- 2014-10-02: 3 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2014/10/opening-1002.html)).
+- 2014-10-01: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2014/10/opening-1001.html)).
+- 2014-10-01: 3 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2014/10/opening-1001.html)).
+- 2014-09-30: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2014/09/opening-0930.html)).
+- 2014-09-30: 3 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2014/09/opening-0930.html)).
+- 2014-09-29: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2014/09/opening-0929.html)).
+- 2014-09-29: 3 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2014/09/opening-0929.html)).
+- 2014-09-26: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2014/09/opening-0926.html)).
+- 2014-09-26: 3 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2014/09/opening-0926.html)).
+- 2014-09-25: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2014/09/opening-0925.html)).
+- 2014-09-25: 3 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2014/09/opening-0925.html)).
+- 2014-09-24: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2014/09/opening-0924.html)).
+- 2014-09-24: 3 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2014/09/opening-0924.html)).
+- 2014-09-23: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2014/09/opening-0923.html)).
+- 2014-09-23: 3 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2014/09/opening-0923.html)).
+- 2014-09-22: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2014/09/opening-0922.html)).
+- 2014-09-22: 3 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2014/09/opening-0922.html)).
+- 2014-09-19: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2014/09/opening-0919.html)).
+- 2014-09-19: 3 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2014/09/opening-0919.html)).
+- 2014-09-18: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2014/09/opening-0918.html)).
+- 2014-09-18: 3 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2014/09/opening-0918.html)).
+- 2014-09-17: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2014/09/esf-update-0917.html)).
+- 2014-09-17: 3 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2014/09/esf-update-0917.html)).
+- 2014-09-16: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2014/09/opening-update-0916.html)).
+- 2014-09-16: 3 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2014/09/opening-update-0916.html)).
+- 2014-09-12: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2014/09/opening-update-0912.html)).
+- 2014-09-12: 3 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2014/09/opening-update-0912.html)).
+- 2014-09-11: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2014/09/opening-update-0911.html)).
+- 2014-09-11: 3 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2014/09/opening-update-0911.html)).
+- 2014-09-10: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2014/09/opening-update-0910.html)).
+- 2014-09-10: 3 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2014/09/opening-update-0910.html)).
+- 2014-09-09: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2014/09/opening-update-0909.html)).
+- 2014-09-09: 3 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2014/09/opening-update-0909.html)).
+- 2014-09-08: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2014/09/opening-update-0908.html)).
+- 2014-09-08: 3 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2014/09/opening-update-0908.html)).
+- 2014-09-05: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2014/09/opening-update-0905.html)).
+- 2014-09-05: 3 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2014/09/opening-update-0905.html)).
+- 2014-09-04: Original source publication claim 2014-09-03T16:22:00.001-04:00 differs from the reviewed title day; literal source title and independently reviewed archived year determine this session date. ([source](https://verniman.blogspot.com/2014/09/market-update-0903.html)).
+- 2014-09-04: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2014/09/market-update-0903.html)).
+- 2014-09-04: 3 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2014/09/market-update-0903.html)).
+- 2014-09-03: Original source publication claim 2014-09-02T20:59:00.002-04:00 differs from the reviewed title day; literal source title and independently reviewed archived year determine this session date. ([source](https://verniman.blogspot.com/2014/09/market-update-02.html)).
+- 2014-09-03: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2014/09/market-update-02.html)).
+- 2014-09-03: 3 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2014/09/market-update-02.html)).
+- 2014-09-02: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2014/09/market-update-0902.html)).
+- 2014-09-02: 3 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2014/09/market-update-0902.html)).
+- 2014-08-29: Original source publication claim 2014-08-28T16:36:00.003-04:00 differs from the reviewed title day; literal source title and independently reviewed archived year determine this session date. ([source](https://verniman.blogspot.com/2014/08/market-update-0828.html)).
+- 2014-08-29: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2014/08/market-update-0828.html)).
+- 2014-08-29: 3 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2014/08/market-update-0828.html)).
+- 2014-08-28: Original source publication claim 2014-08-27T17:10:00.002-04:00 differs from the reviewed title day; literal source title and independently reviewed archived year determine this session date. ([source](https://verniman.blogspot.com/2014/08/market-update-0827.html)).
+- 2014-08-28: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2014/08/market-update-0827.html)).
+- 2014-08-28: 3 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2014/08/market-update-0827.html)).
+- 2014-08-25: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2014/08/market-update-0825.html)).
+- 2014-08-25: 3 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2014/08/market-update-0825.html)).
+- 2014-06-03: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2014/06/market-update-0603.html)).
+- 2014-06-03: 3 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2014/06/market-update-0603.html)).
+- Unassigned date: Morning source title/body has no supported exact date; no URL/image/neighbor-date inference. ([source](https://verniman.blogspot.com/2014/12/opening-print_30.html)).
+- Unassigned date: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2014/12/opening-print_30.html)).
+- Unassigned date: 3 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2014/12/opening-print_30.html)).
+- Unassigned date: Morning source title/body has no supported exact date; no URL/image/neighbor-date inference. ([source](https://verniman.blogspot.com/2014/12/opening-print.html)).
+- Unassigned date: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2014/12/opening-print.html)).
+- Unassigned date: 3 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2014/12/opening-print.html)).

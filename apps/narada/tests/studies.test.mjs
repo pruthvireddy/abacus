@@ -109,6 +109,21 @@ const tabFixture = () => {
   return catalog;
 };
 
+test('single-page reading mode opts into an explicit bounded flat saved selection', () => {
+  const catalog = tabFixture();
+  catalog.studies[0].readingMode = 'single-page';
+  assert.equal(validateStudyCatalog(catalog, reports).studies[0].readingMode, 'single-page');
+  for (const alter of [
+    study => { study.readingMode = 'arbitrary'; },
+    study => { study.readingMode = true; },
+    study => { delete study.publicationTabs; },
+  ]) {
+    const invalid = structuredClone(catalog);
+    alter(invalid.studies[0]);
+    assert.throws(() => validateStudyCatalog(invalid, reports), /schema/);
+  }
+});
+
 test('authored publication tabs preserve the default report and sibling study context', () => {
   const catalog = validateStudyCatalog(tabFixture(), reports);
   const primary = findPublicationStudy(catalog, 'primary');

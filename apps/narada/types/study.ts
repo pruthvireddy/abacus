@@ -78,6 +78,7 @@ export type Study = {
   keywords?: string[];
   products: string[];
   evidenceStatus: string;
+  readingMode?: "single-page";
   featuredPublicationId: string;
   featuredSourceRunId: string;
   publicationTabs?: PublicationTab[];

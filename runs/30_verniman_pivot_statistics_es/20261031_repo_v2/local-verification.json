@@ -1,0 +1,69 @@
+{
+  "checks": {
+    "browser": {
+      "console_errors": [],
+      "desktop": "passed",
+      "filter_first_per_day": {
+        "events": 588,
+        "resolved": 585,
+        "return_before_ema_percent_display": "45.8%"
+      },
+      "keyboard_enter_restore_defaults": "passed",
+      "mobile_page_width": 390,
+      "mobile_table_region_width": 350,
+      "mobile_viewport": "390x844",
+      "native_csv_download": {
+        "bytes": 5974,
+        "path": "price-ema.csv",
+        "sha256_matches_selected_saved_file": true
+      },
+      "table_content_width": 1420,
+      "table_overflow_contained": true,
+      "typed_selected_row_link": "passed"
+    },
+    "build": "passed",
+    "lint": "passed",
+    "preview_http_all_routes": "passed",
+    "publication_transfer": {
+      "cells": 85412,
+      "raster_assets": 1,
+      "reports": 6
+    },
+    "tests": {
+      "failed": 0,
+      "passed": 249,
+      "qualification": "Initial attempt retained; three catalog expectations updated and temporary loopback-server permission supplied.",
+      "skipped": 0
+    },
+    "verify": "passed"
+  },
+  "hosted_deployment": false,
+  "logs": [
+    {
+      "path": "narada-verify.log",
+      "sha256": "68ccd03ed746f4794134b6e1082c8d7094b17a7cdfea5c50958019e1b6610741"
+    },
+    {
+      "path": "narada-tests.log",
+      "sha256": "379267c1477ea4f72adee661dfa512379f3c8de8dff5ddd4a9f3dca0aed80074"
+    },
+    {
+      "path": "narada-tests-local-server.log",
+      "sha256": "fa18240d255ac2c9bca9e80280e8159dbb4ce6a1a18a4229bddf4b8efc19765b"
+    },
+    {
+      "path": "narada-lint-final.log",
+      "sha256": "c4efa94b3c5bfa14b537218ffd227adf0bee1fc4876e504783f731842bfff01d"
+    },
+    {
+      "path": "narada-build.log",
+      "sha256": "ea56d584827257f8eba4937be3516cd1905f423b0ef8ade05995e03b5e9eee37"
+    },
+    {
+      "path": "narada-preview-smoke.log",
+      "sha256": "3231d6fd2ac00fbc145c05046fccd82a4c299f9e9cbdedee1c6df9924fd4f5b7"
+    }
+  ],
+  "scope": "Local saved-report publication and browser presentation; separate from numerical verification.",
+  "status": "passed"
+}

@@ -1,0 +1,65 @@
+request:
+  id: verniman_daily_levels__13.0.0
+  requester: workspace user
+  requested_on: '2026-10-28'
+  purpose: >-
+    Update Verniman's daily blog data for October 21–28, 2026 and organize all
+    twelve existing releases into one provenance-preserving research dataset.
+inputs:
+  historical_releases: explicitly pinned catalog manifests for versions 1.0.0 through 12.0.0
+  source: https://verniman.blogspot.com/
+  update_interval: {start: '2026-10-21', end: '2026-10-28', inclusive: true}
+  consolidated_interval: {start: '2016-01-01', end: '2026-10-28', inclusive: true}
+  product: ES
+  price_basis: exact unadjusted source contract points; retain nullable historical contracts
+  new_evidence: fresh HTML, Atom, public-feed discovery, navigation, linked images and HTTP failure responses
+  supplementary_evidence: retrospective user recollection supplied October 28, including read-time claims, chart references and conflicts
+  exclusions: X additions, interpolated missing plans, inferred chart-only numeric extraction and newly calculated indicators
+output:
+  dataset: verniman_daily_levels
+  version: 13.0.0
+  destination: data/curated/external_levels/source=verniman/version=13.0.0/
+  organization: manifest-listed year-partitioned Parquet plus inspectable CSV tables
+  tables:
+    outlooks: captured-source outlook revisions; retain full original text, nullable dates and contracts, exact metadata and primary input identity
+    levels: captured-source scenario triggers and ordered targets with exact decimal bounds, source labels and economic side
+    coverage: complete inclusive calendar ledger; distinguish current capture, observed gaps, weekends, recollection-only dates and not-yet-observed current date
+    issues: original source/extraction qualifications retained with input lineage
+    release_membership: every original release/outlook membership and canonical revision mapping
+    source_coverage: original release-specific coverage observations and qualifications
+    observations: separate retrospective user notes, reported read times, uncertainty and chart/prose conflicts
+    observation_levels: separately labelled user-recorded pivots, ordered targets and additional references; unknown labels remain null
+  viewing_only: daily_summary.csv
+  manifest: catalog/datasets/verniman_daily_levels__13.0.0.json
+  schema: catalog/schemas/verniman_daily_levels__13.0.0.json
+  quality_report: reports/quality/verniman_daily_levels__13.0.0.md
+reconciliation:
+  preserve_old_bytes: all twelve manifests, schemas, quality reports, release artifacts, raw captures and prior consumers
+  duplicates: >-
+    Deduplicate overlapping sample/history projections using exact source-revision
+    identity or identical source post and retained HTML/Atom capture hashes.
+    Do not deduplicate by calendar date or source URL. Preserve every input
+    membership and original outlook ID; choose the later release's projection
+    deterministically where the same capture has multiple extraction versions.
+  semantic_scope: union saved extraction results without re-extracting or correcting historical source prices, direction or labels
+  revisions: preserve different source revisions and duplicate stated dates
+  missing_live_source: retain actual HTTP outcomes; keep user recollections separately, never present them as freshly captured blog content
+  missing_days: record observation status; absence does not prove a historical post never existed
+timing:
+  timezone: America/New_York
+  available_at: null
+  status: historical_availability_unverified
+  claimed_read_times: retain approximate/exact wording separately; retrospective claims are not independently verified timestamps
+  source_metadata: retain original published/updated claims separately from actual capture clocks
+  current_day: coverage is an as-of retrieval observation, with no assumed morning post or future recapture
+validation:
+  focused_tests: synthetic deduplication, revision/lineage, schema and key consistency, calendar accounting, manifest pins, path/overwrite safety and loader date filtering
+  publication: input and output hashes, source references, exact prices, row counts, null availability and manifest-listed partition checks
+  preservation: compare all original twelve manifests and declared artifacts against a pre-delivery hash inventory
+  workspace: default check-workspace gate plus documentation; report unrelated prerequisites and unexecuted checks honestly
+  scientific_scope: integrity and source extraction only; no backtest or profitability validation
+retention:
+  raw: unique new batches under data/raw/blogspot/verniman and data/raw/user/verniman
+  staging: new distinct preparation directories under data/staging/verniman
+  published: immutable unique new release, with retained code and environment lock
+  backup: ignored raw/staging/curated bytes require separate storage retention

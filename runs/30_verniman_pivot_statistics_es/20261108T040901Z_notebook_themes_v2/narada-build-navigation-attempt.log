@@ -1,0 +1,74 @@
+
+> @abacus/narada@0.1.0 prebuild
+> npm run verify
+
+
+> @abacus/narada@0.1.0 verify
+> node scripts/verify.mjs
+
+Verified 25 studies, 115 publications, 186 raster assets and 255 selected CSVs.
+
+> @abacus/narada@0.1.0 build
+> next build
+
+▲ Next.js 16.2.10 (Turbopack)
+
+  Creating an optimized production build ...
+✓ Compiled successfully in 1102ms
+  Running TypeScript ...
+  Finished TypeScript in 1031ms ...
+  Collecting page data using 7 workers ...
+  Generating static pages using 7 workers (0/243) ...
+  Generating static pages using 7 workers (60/243) 
+  Generating static pages using 7 workers (121/243) 
+  Generating static pages using 7 workers (182/243) 
+✓ Generating static pages using 7 workers (243/243) in 7.0s
+  Finalizing page optimization ...
+
+Route (app)
+┌ ○ /
+├ ○ /_not-found
+├ ● /reports/[id]
+│ ├ /reports/verniman-es-after-cross-20261108-notebook-v2
+│ ├ /reports/verniman-es-breaks-confirmation-20261108-notebook-v2
+│ ├ /reports/verniman-es-crossing-activity-20261108-notebook-v2
+│ └ [+112 more paths]
+├ ● /studies/[slug]
+│ ├ /studies/reversal-follow-through
+│ ├ /studies/followthrough-candle-adverse
+│ ├ /studies/multi-rxv-alignment
+│ └ [+22 more paths]
+└ ● /studies/[slug]/[destination]
+  ├ /studies/reversal-follow-through/findings
+  ├ /studies/reversal-follow-through/explore
+  ├ /studies/reversal-follow-through/methods
+  └ [+97 more paths]
+
+
+○  (Static)  prerendered as static content
+●  (SSG)     prerendered as static HTML (uses generateStaticParams)
+
+
+> @abacus/narada@0.1.0 postbuild
+> npm run optimize:static-json && node scripts/verify-export.mjs
+
+
+> @abacus/narada@0.1.0 optimize:static-json
+> node scripts/optimize-static-json.mjs
+
+{"format":"abacus.static-json-delivery/v1","reports":115,"changed":115,"sourceBytes":119188850,"deliveryBytes":58175480,"savedBytes":61013370}
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: Missing publication navigation for verniman-es-opening-context-20261108-notebook-v2
+    at file:///Users/pruthvi/Documents/projects/abacus/apps/narada/scripts/verify-export.mjs:105:7 {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: false,
+  expected: true,
+  operator: '==',
+  diff: 'simple'
+}
+
+Node.js v24.22.1

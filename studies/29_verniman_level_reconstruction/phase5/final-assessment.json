@@ -1,0 +1,334 @@
+{
+  "schema": "abacus.study29.phase5.final-assessment/v1",
+  "assessed_at": "2026-10-31T03:07:03.165595+00:00",
+  "status": "engineering_default_retained_inconclusive",
+  "validated_configuration": null,
+  "retained_engineering_default": "P0-D1",
+  "candidate_control": "3.0.0",
+  "candidate_implementation": "3.0.2",
+  "selection_control": "4.0.0",
+  "selection_implementation": "4.0.1",
+  "decision": {
+    "schema": "abacus.study29.phase5.decision-assessment/v1",
+    "decision_rule_sha256": "198e73d1f55df4c6af129696533efc821b844e9b19deee6b346c39b687e56440",
+    "proposed_primary": "P0-D1",
+    "configurations": [
+      "P0-D1",
+      "P0-D0",
+      "B0-D0",
+      "B0-D1",
+      "B1-D0",
+      "B1-D1"
+    ],
+    "engineering_gate_passed": true,
+    "identifiability_passed": false,
+    "selected_configuration": null,
+    "retained_engineering_default": "P0-D1",
+    "no_validated_configuration_selected": true,
+    "dominating_alternatives": [],
+    "status": "engineering_default_retained_inconclusive",
+    "reasons": [
+      "INSUFFICIENT_COMMON_ELIGIBLE_DATES",
+      "ESSENTIAL_SOURCE_CONDITIONS_UNMEASURED"
+    ],
+    "coordinate_metrics_used_for_selection": false,
+    "source_method_final_evaluation_ready": false,
+    "phase6_execution_authorized": false,
+    "final_evaluation_qualification": "Original holdout exposure is not erased by a fresh evaluator. A separately authorized genuinely unseen period and source-identity eligibility are still required.",
+    "engineering_receipt": {
+      "path": "work/29_verniman_level_reconstruction/phase5_20261031T023320Z/reveal-gate-1.json",
+      "sha256": "19697f223fc3c3bbb145f3340747d9d607ea6ac1c1a654026a8d7e3dbfcc14c3"
+    },
+    "common_eligible_dates": {
+      "pivot": [],
+      "bullish": [],
+      "bearish": []
+    },
+    "common_eligible_unit_counts": {
+      "pivot": 0,
+      "bullish": 0,
+      "bearish": 0
+    },
+    "unsupported_unit_exclusions": [],
+    "essential_unmeasured_conditions": [
+      "CVD",
+      "VIX"
+    ]
+  },
+  "exact_artifact_pins": {
+    "candidate_Pine": {
+      "path": "studies/29_verniman_level_reconstruction/indicator/verniman_levels_phase3_3_0_2.pine",
+      "sha256": "034c3731f2ada4620aac9a80ca20261d0a06376bee044fa30e95529ad9e1954c"
+    },
+    "selector_Pine": {
+      "path": "studies/29_verniman_level_reconstruction/indicator/verniman_levels_phase4.pine",
+      "sha256": "1145834bfb240029f07342e52f98d805771ca4f2a39a646c19e80d3846794924"
+    },
+    "local_selector_model": {
+      "path": "studies/29_verniman_level_reconstruction/src/phase4_model.py",
+      "sha256": "bec68316b9028cff8d43e6e9fbcef86c4e46a5be792b9df325d42753a85547c5"
+    },
+    "candidate_settings": {
+      "path": "studies/29_verniman_level_reconstruction/phase3/settings.json",
+      "sha256": "c0297d86f2a6dce33b6888a174c31d6390477dd0e12d78a46832173e0f17653a"
+    },
+    "selector_settings": {
+      "path": "studies/29_verniman_level_reconstruction/phase4/settings.json",
+      "sha256": "5a1cc36f7c0a2b16ee82ab9eccd285c9a897d933d2b0ad1e02a2c026e5bb5f1a"
+    },
+    "matcher": {
+      "path": "studies/29_verniman_level_reconstruction/phase3/matching.py",
+      "sha256": "b595fbca570df868888dd58c8fe341ee341b69770d902319ba25ac8fd1fd90a6"
+    },
+    "development_protocol": {
+      "path": "studies/29_verniman_level_reconstruction/phase5/protocol.md",
+      "sha256": "c30567fa538d0eaf1409f1a34ac2915afa05499323126b4a0f2a9a8cfae37fdd"
+    },
+    "development_settings": {
+      "path": "studies/29_verniman_level_reconstruction/phase5/settings.json",
+      "sha256": "3bd61c513e23296e53eeebaf9408e2bfeeb6e79e6627349625e86fbbb42d3d11"
+    },
+    "development_input_declaration": {
+      "path": "studies/29_verniman_level_reconstruction/phase5/input-declaration.json",
+      "sha256": "814ff4d55fa901c5601d1dbb6e9c287087387cd1330fe76670d2665acda86c8b"
+    },
+    "development_decision_rule": {
+      "path": "studies/29_verniman_level_reconstruction/phase5/decision-rule.md",
+      "sha256": "198e73d1f55df4c6af129696533efc821b844e9b19deee6b346c39b687e56440"
+    },
+    "decision_assessor": {
+      "path": "studies/29_verniman_level_reconstruction/phase5/assess_decision.py",
+      "sha256": "e6b01f1ba50f0d62b63e6118205cc07c04b2a17a13bf800e9de366b0cfc3a6e2"
+    },
+    "strict_decision_distiller": {
+      "path": "studies/29_verniman_level_reconstruction/phase5/distill_decision.py",
+      "sha256": "c1bed26ae038528c96c7c113a68149b9dcbbfab91b5fd06d8f845dcaca08e48e"
+    }
+  },
+  "evidence": {
+    "pre_answer_interpretation_and_code": {
+      "path": "work/29_verniman_level_reconstruction/phase5_20261031T023320Z/decision-distillation-pre-answer.json",
+      "sha256": "a0f3bf4e5d43f5b704c54831a3d2c2dbe85a82613dc70ea6b4c52a2afcf02b2c"
+    },
+    "decision_execution_inputs": {
+      "path": "work/29_verniman_level_reconstruction/phase5_20261031T023320Z/decision-inputs-1.json",
+      "sha256": "e72a4aeb87965d489af2e23d7bd1b17d083ac6e9ba65340f540b487b3f0cb403"
+    },
+    "decision_execution": {
+      "path": "work/29_verniman_level_reconstruction/phase5_20261031T023320Z/decision-assessment-1/execution-receipt.json",
+      "sha256": "15b287063f93e544a9f2ec16b0d93db56a4191b22e57f09a3d9f00a39774af75"
+    },
+    "strict_decision_input": {
+      "path": "work/29_verniman_level_reconstruction/phase5_20261031T023320Z/decision-assessment-1/decision-input.json",
+      "sha256": "53901fe0074fc099b93dfaa448bff03d481b6c0bee7eeffdf6487ce1c2a42392"
+    },
+    "strict_assessment": {
+      "path": "work/29_verniman_level_reconstruction/phase5_20261031T023320Z/decision-assessment-1/assessment.json",
+      "sha256": "f7bbbdc201601a94998009854d03e91df9887619bf7dcd4cfc9f26b5137b36a7"
+    },
+    "saved_comparison_summary": {
+      "path": "work/29_verniman_level_reconstruction/phase5_20261031T023320Z/saved-analysis-1/summary.json",
+      "sha256": "ae7bd890c4a8953e3bda2720433529dfd40ab7b5545d59e1576a5fd6f4aa70ff"
+    },
+    "source_ledger": {
+      "path": "studies/29_verniman_level_reconstruction/phase5/source-role-ledger.json",
+      "sha256": "6ae2efb742a2e26bfd1e7aa0cf4863a0cfc7f6a5daef48d0a5c07db965dac4c5"
+    },
+    "native_local_parity": {
+      "path": "work/29_verniman_level_reconstruction/phase5_20261031T023320Z/native-local-parity-1.json",
+      "sha256": "f0f0ddcd94bb0bb9b7f2c87faa697641f44d9d752090d86dca604a6d6ae6325a"
+    },
+    "native_source": {
+      "path": "work/29_verniman_level_reconstruction/phase5_20261031T023320Z/native-source-verification-final.json",
+      "sha256": "ebe824a7c123c29ad1f5decd50d500a15f5f2690fb05f77759037ee1ddc84b87"
+    },
+    "root_reveal_review": {
+      "path": "work/29_verniman_level_reconstruction/phase5_20261031T023320Z/root-reveal-review.json",
+      "sha256": "bc24d81f91bc1fd48b4ca7a22b260a8e9874d16587601bbd9bc39db5a017f5a4"
+    }
+  },
+  "descriptive_coordinate_results_not_used_to_select": {
+    "pivots": {
+      "P0": {
+        "dates": 4,
+        "signed_errors": [
+          "2.00",
+          "-6.00",
+          "30.00",
+          "6.00"
+        ],
+        "mean_absolute_point_or_boundary_error": "11.00",
+        "median_absolute_point_or_boundary_error": "6.00",
+        "within_one_point": 0,
+        "interval_gap_within_one": 0,
+        "classification": "coordinate_only_no_construction_or_window_identity_claim"
+      },
+      "B0": {
+        "dates": 4,
+        "signed_errors": [
+          "18.00",
+          "-30.00",
+          "-34.00",
+          "14.00"
+        ],
+        "mean_absolute_point_or_boundary_error": "24.00",
+        "median_absolute_point_or_boundary_error": "24.00",
+        "within_one_point": 0,
+        "interval_gap_within_one": 0,
+        "classification": "coordinate_only_no_construction_or_window_identity_claim"
+      },
+      "B1": {
+        "dates": 4,
+        "signed_errors": [
+          "2.00",
+          "-6.00",
+          "30.00",
+          "6.00"
+        ],
+        "mean_absolute_point_or_boundary_error": "11.00",
+        "median_absolute_point_or_boundary_error": "6.00",
+        "within_one_point": 0,
+        "interval_gap_within_one": 0,
+        "classification": "coordinate_only_no_construction_or_window_identity_claim"
+      }
+    },
+    "targets": {
+      "P0-D1": {
+        "bullish": {
+          "source_targets": 10,
+          "coordinate_pairs": 3,
+          "selected_physical_targets": 9,
+          "coordinate_extras": 6,
+          "complete_coordinate_ladders": 0,
+          "ordering_not_assessed_or_abstained": 1,
+          "classification": "coordinate_only_no_construction_or_window_identity_claim"
+        },
+        "bearish": {
+          "source_targets": 9,
+          "coordinate_pairs": 3,
+          "selected_physical_targets": 7,
+          "coordinate_extras": 4,
+          "complete_coordinate_ladders": 0,
+          "ordering_not_assessed_or_abstained": 1,
+          "classification": "coordinate_only_no_construction_or_window_identity_claim"
+        }
+      },
+      "P0-D0": {
+        "bullish": {
+          "source_targets": 10,
+          "coordinate_pairs": 3,
+          "selected_physical_targets": 9,
+          "coordinate_extras": 6,
+          "complete_coordinate_ladders": 0,
+          "ordering_not_assessed_or_abstained": 1,
+          "classification": "coordinate_only_no_construction_or_window_identity_claim"
+        },
+        "bearish": {
+          "source_targets": 9,
+          "coordinate_pairs": 1,
+          "selected_physical_targets": 9,
+          "coordinate_extras": 8,
+          "complete_coordinate_ladders": 0,
+          "ordering_not_assessed_or_abstained": 1,
+          "classification": "coordinate_only_no_construction_or_window_identity_claim"
+        }
+      },
+      "B0-D0": {
+        "bullish": {
+          "source_targets": 10,
+          "coordinate_pairs": 1,
+          "selected_physical_targets": 12,
+          "coordinate_extras": 11,
+          "complete_coordinate_ladders": 0,
+          "ordering_not_assessed_or_abstained": 0,
+          "classification": "coordinate_only_no_construction_or_window_identity_claim"
+        },
+        "bearish": {
+          "source_targets": 9,
+          "coordinate_pairs": 0,
+          "selected_physical_targets": 12,
+          "coordinate_extras": 12,
+          "complete_coordinate_ladders": 0,
+          "ordering_not_assessed_or_abstained": 0,
+          "classification": "coordinate_only_no_construction_or_window_identity_claim"
+        }
+      },
+      "B0-D1": {
+        "bullish": {
+          "source_targets": 10,
+          "coordinate_pairs": 3,
+          "selected_physical_targets": 12,
+          "coordinate_extras": 9,
+          "complete_coordinate_ladders": 0,
+          "ordering_not_assessed_or_abstained": 0,
+          "classification": "coordinate_only_no_construction_or_window_identity_claim"
+        },
+        "bearish": {
+          "source_targets": 9,
+          "coordinate_pairs": 3,
+          "selected_physical_targets": 7,
+          "coordinate_extras": 4,
+          "complete_coordinate_ladders": 0,
+          "ordering_not_assessed_or_abstained": 0,
+          "classification": "coordinate_only_no_construction_or_window_identity_claim"
+        }
+      },
+      "B1-D0": {
+        "bullish": {
+          "source_targets": 10,
+          "coordinate_pairs": 3,
+          "selected_physical_targets": 12,
+          "coordinate_extras": 9,
+          "complete_coordinate_ladders": 0,
+          "ordering_not_assessed_or_abstained": 0,
+          "classification": "coordinate_only_no_construction_or_window_identity_claim"
+        },
+        "bearish": {
+          "source_targets": 9,
+          "coordinate_pairs": 1,
+          "selected_physical_targets": 12,
+          "coordinate_extras": 11,
+          "complete_coordinate_ladders": 0,
+          "ordering_not_assessed_or_abstained": 0,
+          "classification": "coordinate_only_no_construction_or_window_identity_claim"
+        }
+      },
+      "B1-D1": {
+        "bullish": {
+          "source_targets": 10,
+          "coordinate_pairs": 3,
+          "selected_physical_targets": 12,
+          "coordinate_extras": 9,
+          "complete_coordinate_ladders": 0,
+          "ordering_not_assessed_or_abstained": 0,
+          "classification": "coordinate_only_no_construction_or_window_identity_claim"
+        },
+        "bearish": {
+          "source_targets": 9,
+          "coordinate_pairs": 3,
+          "selected_physical_targets": 9,
+          "coordinate_extras": 6,
+          "complete_coordinate_ladders": 0,
+          "ordering_not_assessed_or_abstained": 0,
+          "classification": "coordinate_only_no_construction_or_window_identity_claim"
+        }
+      }
+    }
+  },
+  "mechanism_conclusion": "No supported common exact-window units; strict comparison and source-method improvement are not estimable. VIX/CVD source conditions remain unmeasured. No validated configuration is selected.",
+  "input_and_missing_family_policy": "Unchanged Phase4 control: complete identified five-profile history, unadjusted individual ESZ2026 5m ETH at09:25; empty PBT anchors stay unavailable; VIX/CVD unmeasured; fallback pivots abstain both target branches; missing destinations retain partial ladders; target cap3 and strict outward spacing remain.",
+  "final_evaluation": {
+    "source_method_ready": false,
+    "engineering_artifact_retained": true,
+    "original_hidden_period_pristine": false,
+    "fresh_evaluator_erases_exposure_history": false,
+    "prospective_replacement_period_adopted": false,
+    "Phase6_executed": false,
+    "replacement_answers_inspected": false,
+    "necessary_future_scope": "Separate authorization, genuinely unseen prospective calendar sample and pre-prediction/source-timing protocol, plus independent source-identity/condition eligibility for any source-method claim."
+  },
+  "candidate_or_selector_refitted": false,
+  "selection_recomputed": false,
+  "source_prices_inserted_into_candidates": false,
+  "P_and_L_computed": false
+}

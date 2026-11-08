@@ -1,0 +1,357 @@
+//@version=6
+indicator("Verniman Levels", overlay=true, max_lines_count=100, max_labels_count=100)
+
+// Phase 1: approximate candidate references only. See ../specification.md.
+// No HVE/HVN/LVN detector, PBT projection, LIS or target selection is implemented.
+string TZ = "America/New_York"
+int MAX_BINS = 6000
+float vaPct = input.float(70, "Value area %", minval=1, maxval=100, group="Profile approximation")
+int rowTicks = input.int(16, "Row size (ticks)", minval=1, group="Profile approximation")
+int cutHour = input.int(9, "Cutoff hour (New York)", minval=0, maxval=9, group="Pre-open snapshot")
+int cutMinute = input.int(25, "Cutoff minute", minval=0, maxval=59, group="Pre-open snapshot")
+bool showFrozen = input.bool(true, "Frozen pre-open map", group="Display")
+bool showLive = input.bool(false, "Live candidate map (separate dashed lines)", group="Display")
+bool showFull = input.bool(true, "Previous full futures session high/low", group="Families")
+bool showWeek = input.bool(true, "Current week to cutoff / developing week", group="Families")
+bool showPrevWeek = input.bool(true, "Previous week", group="Families")
+bool showRth = input.bool(true, "Latest completed RTH (YVAH/YPOC/YVAL)", group="Families")
+bool showOn = input.bool(true, "Overnight profile and ONH/ONL", group="Families")
+bool showRthPrices = input.bool(true, "Latest completed RTH high/low/last close", group="Families")
+bool showDev = input.bool(true, "Developing RTH (completed bars)", group="Families")
+bool showStatus = input.bool(true, "Readiness and candidate table", group="Display")
+bool showCandidateValues = input.bool(false, "Expand table with all candidate values", group="Display")
+int lineMinutes = input.int(60, "Line extension (minutes)", minval=0, maxval=240, group="Display")
+float rowSize = syminfo.mintick * rowTicks
+
+// Civil-date timestamp arithmetic (not fixed 24h shifts) respects NY DST.
+f_stamp(int base, int dayOffset, int h, int m) =>
+    timestamp(TZ, year(base, TZ), month(base, TZ), dayofmonth(base, TZ) + dayOffset, h, m)
+
+type Profile
+    array<float> bins
+    int minKey = na
+    float total = 0
+    float vah = na
+    float poc = na
+    float val = na
+    bool overflow = false
+    bool volumeOk = true
+
+method clear(Profile p) =>
+    array.clear(p.bins)
+    p.minKey := na
+    p.total := 0
+    p.vah := na
+    p.poc := na
+    p.val := na
+    p.overflow := false
+    p.volumeOk := true
+
+method add(Profile p, float vol, float ph, float pl) =>
+    // Missing/negative volume invalidates this period; zero volume is permitted.
+    if na(vol) or vol < 0
+        p.volumeOk := false
+    if not p.overflow and p.volumeOk
+        int lk = int(math.floor(pl / rowSize))
+        int hk = int(math.floor(ph / rowSize))
+        int oldN = array.size(p.bins)
+        int newMin = na(p.minKey) ? lk : math.min(lk, p.minKey)
+        int oldMax = oldN > 0 ? p.minKey + oldN - 1 : hk
+        int newMax = math.max(hk, oldMax)
+        if newMax - newMin + 1 > MAX_BINS
+            p.overflow := true
+            p.vah := na
+            p.poc := na
+            p.val := na
+        else
+            if oldN == 0
+                p.minKey := lk
+                for k = lk to hk
+                    array.push(p.bins, 0)
+            else
+                if lk < p.minKey
+                    for k = lk to p.minKey - 1
+                        array.unshift(p.bins, 0)
+                    p.minKey := lk
+                if hk > oldMax
+                    for k = oldMax + 1 to hk
+                        array.push(p.bins, 0)
+            float share = vol / (hk - lk + 1)
+            for k = lk to hk
+                int idx = k - p.minKey
+                array.set(p.bins, idx, array.get(p.bins, idx) + share)
+            p.total += vol
+
+method levels(Profile p) =>
+    // Always clear first: an empty/reset/invalid period cannot retain prices.
+    p.vah := na
+    p.poc := na
+    p.val := na
+    int n = array.size(p.bins)
+    if n > 0 and p.total > 0 and p.volumeOk and not p.overflow
+        int mode = 0
+        float largest = array.get(p.bins, 0)
+        if n > 1
+            for i = 1 to n - 1
+                if array.get(p.bins, i) > largest
+                    largest := array.get(p.bins, i)
+                    mode := i
+        int lo = mode
+        int hi = mode
+        float covered = largest
+        while covered < p.total * vaPct / 100 and (lo > 0 or hi < n - 1)
+            float below = lo > 0 ? array.get(p.bins, lo - 1) : -1
+            float above = hi < n - 1 ? array.get(p.bins, hi + 1) : -1
+            if above >= below
+                hi += 1
+                covered += array.get(p.bins, hi)
+            else
+                lo -= 1
+                covered += array.get(p.bins, lo)
+        p.vah := (p.minKey + hi) * rowSize
+        p.poc := (p.minKey + mode) * rowSize
+        p.val := (p.minKey + lo) * rowSize
+
+type Period
+    Profile vp
+    int id = na
+    int last = na
+    bool coverage = false
+    float ph = na
+    float pl = na
+    float lastPrice = na
+
+method reset(Period p, int id, int start) =>
+    p.vp.clear()
+    p.id := id
+    p.last := na
+    p.coverage := time == start
+    p.ph := na
+    p.pl := na
+    p.lastPrice := na
+
+method ingest(Period p, bool allowedBreak) =>
+    if time_close - time != timeframe.multiplier * 60000
+        p.coverage := false
+    if not na(p.last) and time != p.last and not allowedBreak
+        p.coverage := false
+    p.last := time_close
+    p.ph := math.max(nz(p.ph, high), high)
+    p.pl := math.min(nz(p.pl, low), low)
+    p.lastPrice := close
+    p.vp.add(volume, high, low)
+
+f_profileReady(Period p) =>
+    p.coverage and p.vp.total > 0 and p.vp.volumeOk and not p.vp.overflow
+
+f_date(int t) =>
+    na(t) ? "unavailable" : str.format_time(t, "yyyy-MM-dd", TZ)
+f_time(int t) =>
+    na(t) ? "unavailable" : str.format_time(t, "yyyy-MM-dd HH:mm", TZ)
+f_price(float v) =>
+    na(v) ? "unavailable" : str.tostring(v, format.mintick)
+
+var Period full = Period.new(Profile.new(array.new_float()))
+var Period rth = Period.new(Profile.new(array.new_float()))
+var Period overnight = Period.new(Profile.new(array.new_float()))
+var Period week = Period.new(Profile.new(array.new_float()))
+var array<float> live = array.new_float(19, na)
+var array<float> frozen = array.new_float(19, na)
+var array<float> priorWeek = array.new_float(3, na)
+var array<float> priorRth = array.new_float(6, na)
+var float priorFullH = na
+var float priorFullL = na
+var int fullSource = na
+var int rthSource = na
+var int weekSource = na
+var int currentId = na
+var int frozenAt = na
+var int frozenLastOpen = na
+var int frozenFullSource = na
+var int frozenRthSource = na
+var int frozenWeekSource = na
+var bool snapshotAttempted = false
+var bool snapshotExact = false
+var int processedClose = na
+
+int sessionStart = f_stamp(time, hour(time, TZ) < 18 ? -1 : 0, 18, 0)
+int tradeDate = f_stamp(sessionStart, 1, 0, 0)
+int sessionEnd = f_stamp(tradeDate, 0, 17, 0)
+int rthStart = f_stamp(tradeDate, 0, 9, 30)
+int rthEnd = f_stamp(tradeDate, 0, 16, 0)
+int cutoff = f_stamp(tradeDate, 0, cutHour, cutMinute)
+int dow = dayofweek(tradeDate, TZ)
+int weekStart = f_stamp(tradeDate, 1 - dow, 18, 0)
+int weekEnd = f_stamp(weekStart, 5, 17, 0)
+bool weekday = dow >= dayofweek.monday and dow <= dayofweek.friday
+bool supported = chart.is_standard and timeframe.isminutes and (timeframe.multiplier == 1 or timeframe.multiplier == 5) and syminfo.type == "futures" and (syminfo.root == "ES" or syminfo.root == "MES" or syminfo.root == "NQ" or syminfo.root == "MNQ") and cutHour * 60 + cutMinute < 570
+bool inFull = weekday and time >= sessionStart and time_close <= sessionEnd
+bool inRth = inFull and time >= rthStart and time_close <= rthEnd
+bool inOn = inFull and time_close <= rthStart
+
+// Mutate only on completed chart bars. Never request future data/intrabars.
+if supported and barstate.isconfirmed and inFull
+    if na(currentId) or tradeDate != currentId
+        // A missed completion invalidates the prior reference, rather than carrying
+        // an older plausible price into a new trading date.
+        int expectedPrior = f_stamp(tradeDate, dow == dayofweek.monday ? -3 : -1, 0, 0)
+        if na(full.id) or full.id != expectedPrior or na(full.last) or full.last != f_stamp(full.id, 0, 17, 0)
+            priorFullH := na
+            priorFullL := na
+            fullSource := na
+        if na(rth.id) or rth.id != expectedPrior or na(rth.last) or rth.last != f_stamp(rth.id, 0, 16, 0)
+            array.fill(priorRth, na)
+            rthSource := na
+        currentId := tradeDate
+        full.reset(tradeDate, sessionStart)
+        rth.reset(tradeDate, rthStart)
+        // RTH has not started yet, so reset's time==start is checked at first RTH bar.
+        overnight.reset(tradeDate, sessionStart)
+        array.fill(frozen, na)
+        frozenAt := na
+        frozenLastOpen := na
+        frozenFullSource := na
+        frozenRthSource := na
+        frozenWeekSource := na
+        snapshotAttempted := false
+        snapshotExact := false
+    if na(week.id) or week.id != weekStart
+        week.vp.levels()
+        bool validPrevious = f_profileReady(week) and week.last == f_stamp(week.id, 5, 17, 0) and week.id == f_stamp(weekStart, -7, 18, 0)
+        array.set(priorWeek, 0, validPrevious ? week.vp.vah : na)
+        array.set(priorWeek, 1, validPrevious ? week.vp.poc : na)
+        array.set(priorWeek, 2, validPrevious ? week.vp.val : na)
+        weekSource := validPrevious ? week.id : na
+        week.reset(weekStart, weekStart)
+    if inFull
+        full.ingest(false)
+        // Only the scheduled 17:00-18:00 break is permitted inside a week.
+        bool dailyBreak = time == sessionStart and week.last == f_stamp(sessionStart, 0, 17, 0)
+        week.ingest(dailyBreak)
+        if time_close == sessionEnd
+            priorFullH := full.coverage ? full.ph : na
+            priorFullL := full.coverage ? full.pl : na
+            fullSource := full.coverage ? tradeDate : na
+    if inOn
+        overnight.ingest(false)
+    if inRth
+        if na(rth.last)
+            rth.coverage := time == rthStart
+        rth.ingest(false)
+        if time_close == rthEnd
+            rth.vp.levels()
+            bool ready = f_profileReady(rth)
+            array.set(priorRth, 0, ready ? rth.vp.vah : na)
+            array.set(priorRth, 1, ready ? rth.vp.poc : na)
+            array.set(priorRth, 2, ready ? rth.vp.val : na)
+            array.set(priorRth, 3, rth.coverage ? rth.ph : na)
+            array.set(priorRth, 4, rth.coverage ? rth.pl : na)
+            array.set(priorRth, 5, rth.coverage ? rth.lastPrice : na)
+            rthSource := rth.coverage ? tradeDate : na
+    // Calculate profiles only where displayed/frozen, avoiding historical O(bars*bins).
+    bool capture = not snapshotAttempted and weekday and time_close >= cutoff
+    if capture or barstate.islast or barstate.islastconfirmedhistory
+        week.vp.levels()
+        overnight.vp.levels()
+        rth.vp.levels()
+        array.set(live, 0, priorFullH)
+        array.set(live, 1, priorFullL)
+        array.set(live, 2, f_profileReady(week) ? week.vp.vah : na)
+        array.set(live, 3, f_profileReady(week) ? week.vp.poc : na)
+        array.set(live, 4, f_profileReady(week) ? week.vp.val : na)
+        for i = 0 to 2
+            array.set(live, 5 + i, array.get(priorWeek, i))
+            array.set(live, 8 + i, array.get(priorRth, i))
+        bool onCoverage = overnight.coverage and overnight.last == math.min(time_close, rthStart)
+        array.set(live, 11, onCoverage and f_profileReady(overnight) ? overnight.vp.vah : na)
+        array.set(live, 12, onCoverage and f_profileReady(overnight) ? overnight.vp.poc : na)
+        array.set(live, 13, onCoverage and f_profileReady(overnight) ? overnight.vp.val : na)
+        array.set(live, 14, onCoverage ? overnight.ph : na)
+        array.set(live, 15, onCoverage ? overnight.pl : na)
+        for i = 3 to 5
+            array.set(live, 13 + i, array.get(priorRth, i))
+    if capture
+        snapshotAttempted := true
+        // Exact completed boundary required; a bar crossing cutoff is never saved.
+        snapshotExact := time_close == cutoff and time < cutoff
+        if snapshotExact
+            frozen := array.copy(live)
+            frozenAt := cutoff
+            frozenLastOpen := time
+            frozenFullSource := fullSource
+            frozenRthSource := rthSource
+            frozenWeekSource := weekSource
+    processedClose := time_close
+
+var array<string> names = array.from("Prior full session high", "Prior full session low", "Current week VAH", "Current week POC", "Current week VAL", "Previous week VAH", "Previous week POC", "Previous week VAL", "Completed RTH VAH (YVAH pre-open)", "Completed RTH POC (YPOC pre-open)", "Completed RTH VAL (YVAL pre-open)", "Overnight VAH", "Overnight POC", "Overnight VAL", "ONH", "ONL", "Completed RTH high", "Completed RTH low", "RTH last-traded close")
+f_enabled(int i) =>
+    i < 2 ? showFull : i < 5 ? showWeek : i < 8 ? showPrevWeek : i < 11 ? showRth : i < 16 ? showOn : showRthPrices
+f_color(int i) =>
+    i < 2 ? color.blue : i < 5 ? color.fuchsia : i < 8 ? color.aqua : i < 11 ? color.green : i < 16 ? color.orange : color.teal
+var array<line> lines = array.new_line(41, na)
+var array<label> labels = array.new_label(41, na)
+f_draw(int slot, float price, int available, string caption, color col, bool dashed) =>
+    line ln = array.get(lines, slot)
+    label lb = array.get(labels, slot)
+    if not na(ln)
+        line.delete(ln)
+    if not na(lb)
+        label.delete(lb)
+    if supported and not na(price) and not na(available)
+        int right = math.max(available, nz(processedClose, time)) + lineMinutes * 60000
+        ln := line.new(available, price, right, price, xloc=xloc.bar_time, color=col, style=dashed ? line.style_dashed : line.style_solid)
+        lb := label.new(right, price, caption + " " + f_price(price), xloc=xloc.bar_time, style=label.style_label_left, color=color.new(col, 88), textcolor=chart.fg_color, size=size.small)
+    else
+        ln := na
+        lb := na
+    array.set(lines, slot, ln)
+    array.set(labels, slot, lb)
+
+var table status = table.new(position.top_right, 3, 28, bgcolor=color.new(chart.bg_color, 8), border_width=1)
+if barstate.islast
+    int readyCount = 0
+    for i = 0 to 18
+        if not na(array.get(frozen, i))
+            readyCount += 1
+        f_draw(i, showFrozen and f_enabled(i) ? array.get(frozen, i) : na, frozenAt, "Frozen " + array.get(names, i), f_color(i), false)
+        f_draw(19 + i, showLive and f_enabled(i) ? array.get(live, i) : na, processedClose, "Live " + array.get(names, i), f_color(i), true)
+    bool rthThrough = rth.coverage and rth.last == math.min(processedClose, rthEnd)
+    bool onThrough = overnight.coverage and overnight.last == math.min(processedClose, rthStart)
+    bool devReady = f_profileReady(rth) and rth.id == currentId and rthThrough
+    f_draw(38, showDev and devReady ? rth.vp.vah : na, processedClose, "Developing RTH VAH", color.red, true)
+    f_draw(39, showDev and devReady ? rth.vp.poc : na, processedClose, "Developing RTH POC", color.red, true)
+    f_draw(40, showDev and devReady ? rth.vp.val : na, processedClose, "Developing RTH VAL", color.red, true)
+    table.clear(status, 0, 0, 2, 27)
+    if showStatus
+        string state = not supported ? "UNSUPPORTED: standard ES/MES/NQ/MNQ 1/5m; cutoff <09:30" : not snapshotAttempted ? "Waiting for completed cutoff bar" : not snapshotExact ? "MISSED cutoff: no exact completed bar" : readyCount == 19 ? "Frozen: 19/19 references" : "Frozen PARTIAL: " + str.tostring(readyCount) + "/19; unavailable withheld"
+        table.cell(status, 0, 0, "Verniman Levels", text_color=chart.fg_color, text_size=size.tiny)
+        table.cell(status, 1, 0, state, text_color=chart.fg_color, text_size=size.tiny)
+        table.cell(status, 0, 1, "Cutoff / last included", text_color=chart.fg_color, text_size=size.tiny)
+        table.cell(status, 1, 1, f_time(frozenAt), text_color=chart.fg_color, text_size=size.tiny)
+        table.cell(status, 2, 1, f_time(frozenLastOpen) + " -> " + f_time(frozenAt), text_color=chart.fg_color, text_size=size.tiny)
+        table.cell(status, 0, 2, "Frozen full / RTH date", text_color=chart.fg_color, text_size=size.tiny)
+        table.cell(status, 1, 2, f_date(frozenFullSource), text_color=chart.fg_color, text_size=size.tiny)
+        table.cell(status, 2, 2, f_date(frozenRthSource), text_color=chart.fg_color, text_size=size.tiny)
+        table.cell(status, 0, 3, "Frozen prev week / ON date", text_color=chart.fg_color, text_size=size.tiny)
+        table.cell(status, 1, 3, f_date(frozenWeekSource), text_color=chart.fg_color, text_size=size.tiny)
+        table.cell(status, 2, 3, f_date(currentId), text_color=chart.fg_color, text_size=size.tiny)
+        table.cell(status, 0, 4, "Candidate (approximate VP)", text_color=chart.fg_color, text_size=size.tiny)
+        table.cell(status, 1, 4, "Frozen", text_color=chart.fg_color, text_size=size.tiny)
+        table.cell(status, 2, 4, "Live completed bars", text_color=chart.fg_color, text_size=size.tiny)
+        if showCandidateValues
+            for i = 0 to 18
+                table.cell(status, 0, 5 + i, array.get(names, i), text_color=f_color(i), text_size=size.tiny)
+                table.cell(status, 1, 5 + i, f_price(array.get(frozen, i)), text_color=chart.fg_color, text_size=size.tiny)
+                table.cell(status, 2, 5 + i, supported ? f_price(array.get(live, i)) : "unavailable", text_color=chart.fg_color, text_size=size.tiny)
+        int summaryRow = showCandidateValues ? 24 : 5
+        string coverage = "Full " + (full.coverage ? "OK" : "partial/gap") + "; week " + (week.coverage ? "OK" : "partial/gap") + "; ON " + (onThrough ? "OK" : "partial/gap") + "; RTH " + (na(rth.last) ? "waiting" : rthThrough ? "OK" : "partial/gap")
+        table.cell(status, 0, summaryRow, "Coverage", text_color=chart.fg_color, text_size=size.tiny)
+        table.cell(status, 1, summaryRow, coverage, text_color=chart.fg_color, text_size=size.tiny)
+        table.cell(status, 2, summaryRow, "Live as of " + f_time(processedClose), text_color=chart.fg_color, text_size=size.tiny)
+        table.cell(status, 0, summaryRow + 1, "Profile limits", text_color=chart.fg_color, text_size=size.tiny)
+        table.cell(status, 1, summaryRow + 1, week.vp.overflow or overnight.vp.overflow or rth.vp.overflow ? "OVERFLOW: enlarge row size" : "Zero/missing volume or incomplete coverage withheld", text_color=chart.fg_color, text_size=size.tiny)
+        table.cell(status, 0, summaryRow + 2, "Sessions (New York)", text_color=chart.fg_color, text_size=size.tiny)
+        table.cell(status, 1, summaryRow + 2, "Full 18-17; RTH 09:30-16; ON 18-09:30", text_color=chart.fg_color, text_size=size.tiny)
+        table.cell(status, 0, summaryRow + 3, "Close / warm-up", text_color=chart.fg_color, text_size=size.tiny)
+        table.cell(status, 1, summaryRow + 3, "RTH last trade, not settlement. Load 2 full weeks ETH.", text_color=chart.fg_color, text_size=size.tiny)
+        table.cell(status, 2, summaryRow + 3, "Live completed RTH " + f_date(rthSource), text_color=chart.fg_color, text_size=size.tiny)

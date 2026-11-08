@@ -1,0 +1,59 @@
+{
+  "schema": "abacus.study29.phase4.settings/v1",
+  "protocol_version": "4.0.0",
+  "candidate_policy": "N1-E1-P1-P2-v1",
+  "candidate_control": "phase3-3.0.0",
+  "candidate_settings_sha256": "c0297d86f2a6dce33b6888a174c31d6390477dd0e12d78a46832173e0f17653a",
+  "symbol": "CME_MINI:ESZ2026",
+  "minutes": 5,
+  "row_ticks": 16,
+  "value_area_percent": 70,
+  "cutoff": "09:25 America/New_York",
+  "max_targets_per_branch": 3,
+  "selection_buffer": "max(2*tick_size,row_size/2)",
+  "primary_pivot": "P0_contextual_Autopivot_policy_on_Phase3_strict_windows",
+  "pivot_baselines": [
+    "B0_fixed_prior_RTH_POC",
+    "B1_nearest_prior_RTH_value_reference_to_cutoff_close"
+  ],
+  "new_pivot_alternatives": [],
+  "target_policies": [
+    "D0_three_nearest_eligible_nonmodal_destinations",
+    "D1_primary_auction_exit_then_range_extremes_then_external_boundaries"
+  ],
+  "default_target_policy": "D1",
+  "new_explainable_alternatives": [
+    "D1"
+  ],
+  "point_matching_tolerance": 1.0,
+  "interval_gap_tolerance": 1.0,
+  "matching": "maximum_cardinality_then_minimum_interval_gap_then_lexicographic_ids; one-to-one per branch/class/revision/family/window",
+  "unknown_window": "descriptive_only_not_primary",
+  "source_target_count": "retain_all_observed_orders_even_above_executable_cap",
+  "missing_required_pivot_inputs": "abstain",
+  "pivot_fallback_targets": "abstain_both_branches",
+  "ineligible_or_unsupported_PBT": "exclude_no_backsolving",
+  "duplicate_prices": "exact_price_group_keep_original_ids_choose_deterministic_primary_no_averaging",
+  "uncertain_overlaps": "preserve_alternatives; same-price merge_only_for_presentation; no_interval_midpoint",
+  "ordering": "bullish_strict_ascending; bearish_strict_descending; minimum_separation_strictly_greater_than_buffer",
+  "training_dates": [
+    "2026-10-01",
+    "2026-10-02",
+    "2026-10-05",
+    "2026-10-06",
+    "2026-10-07",
+    "2026-10-08",
+    "2026-10-09",
+    "2026-10-12",
+    "2026-10-13",
+    "2026-10-14"
+  ],
+  "new_answer_gate": "all_seven_expanded_maps_and_current_Autopivot_predictions_retained_and_hashed",
+  "unmeasured_inputs": [
+    "VIX",
+    "CVD"
+  ],
+  "target_source_access": "exact allowed dates only after reveal gate",
+  "development_targets": "protected_2026-10-15_to_20",
+  "hidden_targets": "protected_2026-10-21_to_27"
+}

@@ -1,0 +1,52 @@
+{
+  "study_id": "29_verniman_level_reconstruction",
+  "phase": 2,
+  "protocol_version": "2.0.0",
+  "authorized_session_dates": [
+    "2026-10-01",
+    "2026-10-02",
+    "2026-10-05"
+  ],
+  "all_other_targets_protected": true,
+  "protected_development": [
+    "2026-10-15",
+    "2026-10-20"
+  ],
+  "protected_hidden_test": [
+    "2026-10-21",
+    "2026-10-27"
+  ],
+  "baseline": {
+    "path": "studies/29_verniman_level_reconstruction/indicator/verniman_levels.pine",
+    "sha256": "5bbc40075cefb19feacb1a676c67ee5770cb5ef7023b9dd76781f2927a243f73",
+    "symbol": "CME_MINI:ESZ2026",
+    "minutes": 5,
+    "chart_type": "standard candles",
+    "session": "ETH",
+    "row_ticks": 16,
+    "value_area_percent": 70,
+    "cutoff_new_york": "09:25",
+    "last_included_bar": "09:20-09:25 confirmed",
+    "layout": "https://www.tradingview.com/chart/mtK3TbRP/"
+  },
+  "release": {
+    "dataset_id": "verniman_daily_levels",
+    "version": "13.0.0",
+    "manifest_path": "catalog/datasets/verniman_daily_levels__13.0.0.json",
+    "manifest_sha256": "39a12cd01b131729908a6b7743a710eaefe73f86e7df9ecb66787787b88277bf",
+    "selection": "exact authorized one-day intervals; start inclusive, end exclusive",
+    "availability_policy": "retain null; retrospective capture is not historical availability"
+  },
+  "intake": "data/inbox/x/verniman_eod/20261028_backfill_2026/",
+  "stage": "work/29_verniman_level_reconstruction/phase2_20261030T222323Z",
+  "optional_alternative": {
+    "id": "A1",
+    "row_ticks": 8,
+    "value_area_percent": 70,
+    "scope": "fixed across three cases; separate layout copy"
+  },
+  "no_pine_changes": true,
+  "no_algorithm_implementation": true,
+  "no_automated_selection": true,
+  "private_source_captures": true
+}

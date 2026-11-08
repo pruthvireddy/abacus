@@ -1,6 +1,5 @@
 import type { ResearchPriorityRubric, Study } from "../../types/study";
 import { formatValue } from "@/lib/format";
-import { studyDestinationHref } from "../../scripts/lib/study-routes.mjs";
 import { ResearchPriorityAssessment } from "./research-priority";
 
 export function StudyStatistics({ study }: { study: Study }) {
@@ -37,14 +36,14 @@ export function OverviewSourceRecord({ study }: { study: Study }) {
 export function StudyOverview({ study, rubric }: { study: Study; rubric?: ResearchPriorityRubric }) {
   const overview = study.resolvedOverview;
   return <>
-    <section className="study-takeaway" aria-label="Main takeaway"><p className="brief-label">MAIN TAKEAWAY</p><p>{overview?.takeaway ?? study.summary}</p><a href={overview?.href ?? `/reports/${study.featuredPublicationId}/`}>Read the supporting report <span aria-hidden="true">↗</span></a></section>
+    <section className="study-takeaway" aria-label="Main takeaway"><p className="brief-label">MAIN TAKEAWAY</p><p>{overview?.takeaway ?? study.summary}</p></section>
     <StudyStatistics study={study} /><StudyCoverage study={study} />
     <ResearchPriorityAssessment study={study} rubric={rubric} />
-    <div className="overview-body">
-      <section className="overview-section" id="findings" aria-labelledby="findings-title"><div className="overview-section-heading"><span aria-hidden="true">01</span><h2 id="findings-title">What the study found</h2></div><StudyFindings study={study} brief /><a className="read-link destination-next" href={studyDestinationHref(study.slug, "findings")}>Read the findings <span aria-hidden="true">→</span></a></section>
-      <section className="overview-section" id="explore" aria-labelledby="explore-title"><div className="overview-section-heading"><span aria-hidden="true">02</span><h2 id="explore-title">Where to go next</h2></div>{overview ? <ul className="explore-links">{overview.links.slice(0, 3).map((link, index) => <li key={index}><a href={link.href}>{link.label}<span aria-hidden="true">↗</span></a></li>)}</ul> : null}<a className="read-link" href={studyDestinationHref(study.slug, "explore")}>Explore the selected analyses and reports <span aria-hidden="true">→</span></a></section>
-      <section className="overview-section" id="method" aria-label="Scope and limitations"><StudyLimitations study={study} brief /><a className="read-link destination-next" href={studyDestinationHref(study.slug, "methods")}>Method & scope <span aria-hidden="true">→</span></a></section>
-      <section className="overview-section" id="evidence" aria-label="Saved evidence"><p className="section-intro">Every selected value and claim leads back to a saved publication. Evidence records retain report identities, source runs, and selected asset hashes.</p><a className="read-link" href={studyDestinationHref(study.slug, "evidence")}>Trace the evidence and downloads <span aria-hidden="true">→</span></a></section>
-    </div>
+    {overview ? <div className="overview-body">
+      <section className="overview-section" id="findings" aria-labelledby="findings-title"><div className="overview-section-heading"><span aria-hidden="true">01</span><h2 id="findings-title">What the study found</h2></div><StudyFindings study={study} brief /></section>
+      <section className="overview-section" id="method" aria-label="Scope and limitations"><StudyLimitations study={study} brief /></section>
+      <div id="explore" className="overview-saved-sources"><details><summary>Selected saved sources</summary><ul className="explore-links">{overview.links.map((link, index) => <li key={index}><a href={link.href}>{link.label}</a></li>)}</ul></details></div>
+      <div id="evidence"><OverviewSourceRecord study={study} /></div>
+    </div> : null}
   </>;
 }

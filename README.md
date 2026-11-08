@@ -139,6 +139,19 @@ research. Copy [the path example](config/paths.example.toml) to
 `config/paths.local.toml` only for machine-specific overrides. See
 [Contributing](CONTRIBUTING.md) for setup and owner-specific prerequisites.
 
+Authored study notebooks use the optional locked `notebooks` dependency group:
+
+```sh
+./scripts/bootstrap --group notebooks
+```
+
+Select this workspace's `.venv` Python kernel in your notebook editor. The group
+adds IPython/Jupyter execution and Matplotlib without changing the existing
+package versions. Later execution uses `./scripts/uv run --locked --no-sync ...`.
+Study 30's [six-theme notebook](studies/30_verniman_pivot_statistics_es/vern-pivot-cross-statistics.ipynb)
+contains its analysis code and saved outputs; its [guide](studies/30_verniman_pivot_statistics_es/README.md)
+records retained-input prerequisites and verification commands.
+
 ## Repository map
 
 | Path | Contents |

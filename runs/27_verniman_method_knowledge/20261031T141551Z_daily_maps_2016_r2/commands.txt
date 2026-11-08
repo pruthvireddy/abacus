@@ -1,0 +1,12 @@
+/opt/homebrew/opt/python@3.11/bin/python3.11 studies/27_verniman_method_knowledge/capture_retained_daily_maps.py --stage work/27_verniman_method_knowledge/20261031T141551Z_daily_maps_2016_r2 --retained-manifest data/raw/blogspot/verniman/archive_html/20261021T041009Z_2016_review_00a94d4c/collection_manifest.final.json --expected-manifest-sha256 e8d825d0cd0c7a9c8fc97e74d9a91eb5523fb4acb461cf9e92dba0a101b9222f --start 2016-01-01 --end 2016-12-31
+python3 work/27_verniman_method_knowledge/20261031T141551Z_daily_maps_2016_r2/provenance/observe-current-sources.py
+python3 work/27_verniman_method_knowledge/20261031T141551Z_daily_maps_2016_r2/provenance/observe-current-rewrites.py
+python3 studies/27_verniman_method_knowledge/build_daily_maps.py --stage work/27_verniman_method_knowledge/20261031T141551Z_daily_maps_2016_r2
+python3 studies/27_verniman_method_knowledge/build_daily_maps.py --stage work/27_verniman_method_knowledge/20261031T141551Z_daily_maps_2016_r2 --check
+python3 work/27_verniman_method_knowledge/20261031T141551Z_daily_maps_2016_r2/provenance/audit_capture.py
+python3 work/27_verniman_method_knowledge/20261031T141551Z_daily_maps_2016_r2/provenance/audit_previous_years.py
+python3 work/27_verniman_method_knowledge/20261031T141551Z_daily_maps_2016_r2/provenance/builder-2016-fixture.py
+python3 work/27_verniman_method_knowledge/20261031T141551Z_daily_maps_2016_r2/provenance/original-source-2016-fixture.py
+python3 work/27_verniman_method_knowledge/20261031T141551Z_daily_maps_2016_r2/provenance/retained-adapter-2016-fixture.py --root /Users/pruthvi/Documents/projects/abacus
+/opt/homebrew/opt/python@3.11/bin/python3.11 studies/27_verniman_method_knowledge/seal_daily_maps.py --stage work/27_verniman_method_knowledge/20261031T141551Z_daily_maps_2016_r2 --prepare
+/opt/homebrew/opt/python@3.11/bin/python3.11 studies/27_verniman_method_knowledge/seal_daily_maps.py --stage work/27_verniman_method_knowledge/20261031T141551Z_daily_maps_2016_r2 --seal

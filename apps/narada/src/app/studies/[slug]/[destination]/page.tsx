@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import type { StudyDestination } from "../../../../../types/study";
 import { getStudy, getStudyCatalog } from "@/lib/studies";
 import { StudyExperiencePage } from "@/components/study-experience";
-import { STUDY_DESTINATIONS } from "../../../../../scripts/lib/study-routes.mjs";
+import { STUDY_DESTINATIONS, isSinglePageStudy, studyCanonicalHref } from "../../../../../scripts/lib/study-routes.mjs";
 
 export const dynamicParams = false;
 export async function generateStaticParams() {
@@ -15,7 +15,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug, destination } = await params;
   const study = await getStudy(slug);
   const section = STUDY_DESTINATIONS.find(candidate => candidate.path === destination && candidate.path);
-  return study && section ? { title: `${section.label} · ${study.title}`, description: study.summary } : { title: "Study destination not found", robots: { index: false, follow: false } };
+  return study && section ? { title: isSinglePageStudy(study) ? study.title : `${section.label} · ${study.title}`, description: study.summary, ...(isSinglePageStudy(study) ? { alternates: { canonical: studyCanonicalHref(study) } } : {}) } : { title: "Study destination not found", robots: { index: false, follow: false } };
 }
 export default async function StudyDestinationPage({ params }: Props) {
   const { slug, destination } = await params;

@@ -1,0 +1,1697 @@
+{
+  "schema_version": "abacus.study30.insight-presentation/v1",
+  "study_id": "30_verniman_pivot_statistics_es",
+  "source_run_id": "20261031_ranked_v2",
+  "publication_id": "verniman-es-pivot-insights-20261103-v1",
+  "source_publication": {
+    "path": "runs/30_verniman_pivot_statistics_es/20261031_ranked_v2/publications/verniman-es-pivot-statistics-20261031-ranked-v2/publication.json",
+    "sha256": "e90bdab2db9cf5da52df86a044d54b83e0b65cd6aad9b61c4b8dfaedc4bb8f9a"
+  },
+  "source_row_base": 0,
+  "findings": [
+    {
+      "section_id": "s01",
+      "source_section_id": "s01",
+      "bindings": {
+        "n": {
+          "source_row": 0,
+          "where": {
+            "period": "overall: all",
+            "selection": "Pivot-matched · RTH · EMA6/vwap · All sections · Both directions · All crosses",
+            "metric": "crosses [crossings/session]"
+          },
+          "column": "denominator",
+          "value": 875,
+          "rendered": "875",
+          "format": "integer",
+          "precision": 0
+        },
+        "count": {
+          "source_row": 0,
+          "where": {
+            "period": "overall: all",
+            "selection": "Pivot-matched · RTH · EMA6/vwap · All sections · Both directions · All crosses",
+            "metric": "crosses [crossings/session]"
+          },
+          "column": "numerator",
+          "value": 2450,
+          "rendered": "2,450",
+          "format": "integer",
+          "precision": 0
+        },
+        "mean": {
+          "source_row": 0,
+          "where": {
+            "period": "overall: all",
+            "selection": "Pivot-matched · RTH · EMA6/vwap · All sections · Both directions · All crosses",
+            "metric": "crosses [crossings/session]"
+          },
+          "column": "value",
+          "value": 2.8,
+          "rendered": "2.80",
+          "format": "number",
+          "precision": 2
+        },
+        "median": {
+          "source_row": 0,
+          "where": {
+            "period": "overall: all",
+            "selection": "Pivot-matched · RTH · EMA6/vwap · All sections · Both directions · All crosses",
+            "metric": "crosses [crossings/session]"
+          },
+          "column": "median",
+          "value": 2,
+          "rendered": "2.00",
+          "format": "number",
+          "precision": 2
+        }
+      },
+      "finding": "Across 875 pivot-matched RTH sessions, EMA6 crossed VWAP 2,450 times: a saved mean of 2.80 crossings per session and median of 2.00. The chart shows selected saved frequency views; these are descriptive counts.",
+      "template": "Across {n} pivot-matched RTH sessions, EMA6 crossed VWAP {count} times: a saved mean of {mean} crossings per session and median of {median}. The chart shows selected saved frequency views; these are descriptive counts."
+    },
+    {
+      "section_id": "s02",
+      "source_section_id": "s02",
+      "bindings": {
+        "n": {
+          "source_row": 0,
+          "where": {
+            "period": "overall: all",
+            "selection": "Pivot-matched · RTH · EMA6/pivot · All sections · Both directions · All crosses",
+            "metric": "crosses [crossings/session]"
+          },
+          "column": "denominator",
+          "value": 875,
+          "rendered": "875",
+          "format": "integer",
+          "precision": 0
+        },
+        "count": {
+          "source_row": 0,
+          "where": {
+            "period": "overall: all",
+            "selection": "Pivot-matched · RTH · EMA6/pivot · All sections · Both directions · All crosses",
+            "metric": "crosses [crossings/session]"
+          },
+          "column": "numerator",
+          "value": 1886,
+          "rendered": "1,886",
+          "format": "integer",
+          "precision": 0
+        },
+        "mean": {
+          "source_row": 0,
+          "where": {
+            "period": "overall: all",
+            "selection": "Pivot-matched · RTH · EMA6/pivot · All sections · Both directions · All crosses",
+            "metric": "crosses [crossings/session]"
+          },
+          "column": "value",
+          "value": 2.1554285714285712,
+          "rendered": "2.16",
+          "format": "number",
+          "precision": 2
+        },
+        "median": {
+          "source_row": 0,
+          "where": {
+            "period": "overall: all",
+            "selection": "Pivot-matched · RTH · EMA6/pivot · All sections · Both directions · All crosses",
+            "metric": "crosses [crossings/session]"
+          },
+          "column": "median",
+          "value": 1,
+          "rendered": "1.00",
+          "format": "number",
+          "precision": 2
+        }
+      },
+      "finding": "The 875 eligible sessions contained 1,886 EMA6–pivot crossings. The saved mean was 2.16 crossings per session and the median was 1.00; zero-cross days remain in the denominator.",
+      "template": "The {n} eligible sessions contained {count} EMA6–pivot crossings. The saved mean was {mean} crossings per session and the median was {median}; zero-cross days remain in the denominator."
+    },
+    {
+      "section_id": "s03",
+      "source_section_id": "s03",
+      "bindings": {
+        "n": {
+          "source_row": 0,
+          "where": {
+            "period": "overall: all",
+            "selection": "Pivot-matched · RTH · EMA6/pivot · All sections · Both directions · All crosses · cross_count=0",
+            "metric": "count_bucket [fraction]"
+          },
+          "column": "denominator",
+          "value": 875,
+          "rendered": "875",
+          "format": "integer",
+          "precision": 0
+        },
+        "pivot_zero": {
+          "source_row": 0,
+          "where": {
+            "period": "overall: all",
+            "selection": "Pivot-matched · RTH · EMA6/pivot · All sections · Both directions · All crosses · cross_count=0",
+            "metric": "count_bucket [fraction]"
+          },
+          "column": "share",
+          "value": 0.26857142857142857,
+          "rendered": "26.9%",
+          "format": "percent",
+          "precision": 1
+        },
+        "vwap_zero": {
+          "source_row": 130,
+          "where": {
+            "period": "overall: all",
+            "selection": "Pivot-matched · RTH · EMA6/vwap · All sections · Both directions · All crosses · cross_count=0",
+            "metric": "count_bucket [fraction]"
+          },
+          "column": "share",
+          "value": 0.2102857142857143,
+          "rendered": "21.0%",
+          "format": "percent",
+          "precision": 1
+        }
+      },
+      "finding": "Within the same 875 pivot-matched RTH sessions, 26.9% had no EMA6–pivot cross and 21.0% had no EMA6–VWAP cross. The earlier Ranked statistics reports retain all count categories and their exact session denominators.",
+      "template": "Within the same {n} pivot-matched RTH sessions, {pivot_zero} had no EMA6–pivot cross and {vwap_zero} had no EMA6–VWAP cross. The earlier Ranked statistics reports retain all count categories and their exact session denominators."
+    },
+    {
+      "section_id": "s04",
+      "source_section_id": "s04",
+      "bindings": {
+        "n": {
+          "source_row": 0,
+          "where": {
+            "period": "overall: all",
+            "selection": "Pivot-matched · RTH · EMA6/pivot · All sections · Both directions · All crosses",
+            "metric": "crosses_per_hour [crossings/hour]"
+          },
+          "column": "denominator",
+          "value": 875,
+          "rendered": "875",
+          "format": "integer",
+          "precision": 0
+        },
+        "pivot_rate": {
+          "source_row": 0,
+          "where": {
+            "period": "overall: all",
+            "selection": "Pivot-matched · RTH · EMA6/pivot · All sections · Both directions · All crosses",
+            "metric": "crosses_per_hour [crossings/hour]"
+          },
+          "column": "value",
+          "value": 0.33160439560439564,
+          "rendered": "0.33",
+          "format": "number",
+          "precision": 2
+        },
+        "vwap_rate": {
+          "source_row": 29,
+          "where": {
+            "period": "overall: all",
+            "selection": "Pivot-matched · RTH · EMA6/vwap · All sections · Both directions · All crosses",
+            "metric": "crosses_per_hour [crossings/hour]"
+          },
+          "column": "value",
+          "value": 0.43076923076923074,
+          "rendered": "0.43",
+          "format": "number",
+          "precision": 2
+        }
+      },
+      "finding": "Across 875 pivot-matched RTH sessions, the saved mean daily rate was 0.33 EMA6–pivot crossings per observed hour and 0.43 EMA6–VWAP crossings per observed hour. No observed exposure would be unavailable rather than a zero rate.",
+      "template": "Across {n} pivot-matched RTH sessions, the saved mean daily rate was {pivot_rate} EMA6–pivot crossings per observed hour and {vwap_rate} EMA6–VWAP crossings per observed hour. No observed exposure would be unavailable rather than a zero rate."
+    },
+    {
+      "section_id": "s05",
+      "source_section_id": "s05",
+      "bindings": {
+        "n": {
+          "source_row": 58,
+          "where": {
+            "period": "overall: all",
+            "selection": "Pivot-matched · RTH · Price/pivot · All sections · Both directions · All crosses",
+            "metric": "crosses [crossings/session]"
+          },
+          "column": "denominator",
+          "value": 875,
+          "rendered": "875",
+          "format": "integer",
+          "precision": 0
+        },
+        "price_mean": {
+          "source_row": 58,
+          "where": {
+            "period": "overall: all",
+            "selection": "Pivot-matched · RTH · Price/pivot · All sections · Both directions · All crosses",
+            "metric": "crosses [crossings/session]"
+          },
+          "column": "value",
+          "value": 4.638857142857143,
+          "rendered": "4.64",
+          "format": "number",
+          "precision": 2
+        },
+        "ema_mean": {
+          "source_row": 29,
+          "where": {
+            "period": "overall: all",
+            "selection": "Pivot-matched · RTH · EMA6/pivot · All sections · Both directions · All crosses",
+            "metric": "crosses [crossings/session]"
+          },
+          "column": "value",
+          "value": 2.1554285714285712,
+          "rendered": "2.16",
+          "format": "number",
+          "precision": 2
+        }
+      },
+      "finding": "For the same 875 pivot-matched RTH sessions, price averaged 4.64 pivot crossings per session and EMA6 averaged 2.16. These are recurrence counts; they do not measure the profitability of taking either event.",
+      "template": "For the same {n} pivot-matched RTH sessions, price averaged {price_mean} pivot crossings per session and EMA6 averaged {ema_mean}. These are recurrence counts; they do not measure the profitability of taking either event."
+    },
+    {
+      "section_id": "s06",
+      "source_section_id": "s06",
+      "bindings": {
+        "count": {
+          "source_row": 0,
+          "where": {
+            "period": "overall: all",
+            "selection": "Pivot-matched · RTH · Price/pivot · All sections · Both directions · All crosses",
+            "metric": "returned_before_confirmation [fraction]"
+          },
+          "column": "numerator",
+          "value": 1075,
+          "rendered": "1,075",
+          "format": "integer",
+          "precision": 0
+        },
+        "n": {
+          "source_row": 0,
+          "where": {
+            "period": "overall: all",
+            "selection": "Pivot-matched · RTH · Price/pivot · All sections · Both directions · All crosses",
+            "metric": "returned_before_confirmation [fraction]"
+          },
+          "column": "denominator",
+          "value": 2445,
+          "rendered": "2,445",
+          "format": "integer",
+          "precision": 0
+        },
+        "share": {
+          "source_row": 0,
+          "where": {
+            "period": "overall: all",
+            "selection": "Pivot-matched · RTH · Price/pivot · All sections · Both directions · All crosses",
+            "metric": "returned_before_confirmation [fraction]"
+          },
+          "column": "share",
+          "value": 0.4396728016359918,
+          "rendered": "44.0%",
+          "format": "percent",
+          "precision": 1
+        },
+        "days": {
+          "source_row": 0,
+          "where": {
+            "period": "overall: all",
+            "selection": "Pivot-matched · RTH · Price/pivot · All sections · Both directions · All crosses",
+            "metric": "returned_before_confirmation [fraction]"
+          },
+          "column": "days",
+          "value": 666,
+          "rendered": "666",
+          "format": "integer",
+          "precision": 0
+        },
+        "censored": {
+          "source_row": 0,
+          "where": {
+            "period": "overall: all",
+            "selection": "Pivot-matched · RTH · Price/pivot · All sections · Both directions · All crosses",
+            "metric": "returned_before_confirmation [fraction]"
+          },
+          "column": "censored",
+          "value": 33,
+          "rendered": "33",
+          "format": "integer",
+          "precision": 0
+        }
+      },
+      "finding": "A return preceded EMA confirmation in 1,075 of 2,445 resolved episodes (44.0%), supported by 666 distinct days. Another 33 episodes were censored. The return label becomes known later than the original price break.",
+      "template": "A return preceded EMA confirmation in {count} of {n} resolved episodes ({share}), supported by {days} distinct days. Another {censored} episodes were censored. The return label becomes known later than the original price break."
+    },
+    {
+      "section_id": "s07",
+      "source_section_id": "s07",
+      "bindings": {
+        "n": {
+          "source_row": 0,
+          "where": {
+            "period": "overall: all",
+            "selection": "Pivot-matched · RTH · Price/pivot · All sections · Both directions · All crosses",
+            "metric": "returned_unconfirmed_depth [points]"
+          },
+          "column": "denominator",
+          "value": 1075,
+          "rendered": "1,075",
+          "format": "integer",
+          "precision": 0
+        },
+        "days": {
+          "source_row": 0,
+          "where": {
+            "period": "overall: all",
+            "selection": "Pivot-matched · RTH · Price/pivot · All sections · Both directions · All crosses",
+            "metric": "returned_unconfirmed_depth [points]"
+          },
+          "column": "days",
+          "value": 494,
+          "rendered": "494",
+          "format": "integer",
+          "precision": 0
+        },
+        "mean": {
+          "source_row": 0,
+          "where": {
+            "period": "overall: all",
+            "selection": "Pivot-matched · RTH · Price/pivot · All sections · Both directions · All crosses",
+            "metric": "returned_unconfirmed_depth [points]"
+          },
+          "column": "value",
+          "value": 3.1316279069767567,
+          "rendered": "3.13",
+          "format": "number",
+          "precision": 2
+        },
+        "median": {
+          "source_row": 0,
+          "where": {
+            "period": "overall: all",
+            "selection": "Pivot-matched · RTH · Price/pivot · All sections · Both directions · All crosses",
+            "metric": "returned_unconfirmed_depth [points]"
+          },
+          "column": "median",
+          "value": 2.5,
+          "rendered": "2.50",
+          "format": "number",
+          "precision": 2
+        }
+      },
+      "finding": "The 1,075 returned unconfirmed breaks, spanning 494 distinct days, had mean penetration of 3.13 ES points and median penetration of 2.50 points. This conditional depth describes the observed returned episodes.",
+      "template": "The {n} returned unconfirmed breaks, spanning {days} distinct days, had mean penetration of {mean} ES points and median penetration of {median} points. This conditional depth describes the observed returned episodes."
+    },
+    {
+      "section_id": "s08",
+      "source_section_id": "s08",
+      "bindings": {
+        "n": {
+          "source_row": 28,
+          "where": {
+            "period": "overall: all",
+            "selection": "Pivot-matched · RTH · Price/pivot · All sections · Both directions · All crosses · confirmation_kind=delayed",
+            "metric": "confirmation_delay [minutes]"
+          },
+          "column": "denominator",
+          "value": 1370,
+          "rendered": "1,370",
+          "format": "integer",
+          "precision": 0
+        },
+        "days": {
+          "source_row": 28,
+          "where": {
+            "period": "overall: all",
+            "selection": "Pivot-matched · RTH · Price/pivot · All sections · Both directions · All crosses · confirmation_kind=delayed",
+            "metric": "confirmation_delay [minutes]"
+          },
+          "column": "days",
+          "value": 577,
+          "rendered": "577",
+          "format": "integer",
+          "precision": 0
+        },
+        "delay": {
+          "source_row": 28,
+          "where": {
+            "period": "overall: all",
+            "selection": "Pivot-matched · RTH · Price/pivot · All sections · Both directions · All crosses · confirmation_kind=delayed",
+            "metric": "confirmation_delay [minutes]"
+          },
+          "column": "value",
+          "value": 5.073722627737227,
+          "rendered": "5.07",
+          "format": "number",
+          "precision": 2
+        },
+        "movement": {
+          "source_row": 42,
+          "where": {
+            "period": "overall: all",
+            "selection": "Pivot-matched · RTH · Price/pivot · All sections · Both directions · All crosses · confirmation_kind=delayed",
+            "metric": "movement_before_confirmation [points]"
+          },
+          "column": "value",
+          "value": 3.354927007299271,
+          "rendered": "3.35",
+          "format": "number",
+          "precision": 2
+        }
+      },
+      "finding": "Among 1,370 delayed confirmations on 577 distinct days, mean delay was 5.07 minutes and mean directional movement before confirmation was 3.35 ES points. These figures concern episodes that eventually confirmed, not every initial price break.",
+      "template": "Among {n} delayed confirmations on {days} distinct days, mean delay was {delay} minutes and mean directional movement before confirmation was {movement} ES points. These figures concern episodes that eventually confirmed, not every initial price break."
+    },
+    {
+      "section_id": "s09",
+      "source_section_id": "s09",
+      "bindings": {
+        "n": {
+          "source_row": 2,
+          "where": {
+            "period": "overall: all",
+            "selection": "Pivot-matched · RTH · EMA6/pivot · All sections · Both directions · All crosses · 30m",
+            "metric": "displacement [points]"
+          },
+          "column": "denominator",
+          "value": 1790,
+          "rendered": "1,790",
+          "format": "integer",
+          "precision": 0
+        },
+        "days": {
+          "source_row": 2,
+          "where": {
+            "period": "overall: all",
+            "selection": "Pivot-matched · RTH · EMA6/pivot · All sections · Both directions · All crosses · 30m",
+            "metric": "displacement [points]"
+          },
+          "column": "days",
+          "value": 636,
+          "rendered": "636",
+          "format": "integer",
+          "precision": 0
+        },
+        "mean": {
+          "source_row": 2,
+          "where": {
+            "period": "overall: all",
+            "selection": "Pivot-matched · RTH · EMA6/pivot · All sections · Both directions · All crosses · 30m",
+            "metric": "displacement [points]"
+          },
+          "column": "value",
+          "value": -0.04008379888268131,
+          "rendered": "-0.04",
+          "format": "number",
+          "precision": 2
+        },
+        "unknown": {
+          "source_row": 2,
+          "where": {
+            "period": "overall: all",
+            "selection": "Pivot-matched · RTH · EMA6/pivot · All sections · Both directions · All crosses · 30m",
+            "metric": "displacement [points]"
+          },
+          "column": "unknown",
+          "value": 96,
+          "rendered": "96",
+          "format": "integer",
+          "precision": 0
+        },
+        "positive": {
+          "source_row": 33,
+          "where": {
+            "period": "overall: all",
+            "selection": "Pivot-matched · RTH · EMA6/pivot · All sections · Both directions · All crosses · 30m",
+            "metric": "positive_movement [fraction]"
+          },
+          "column": "share",
+          "value": 0.4877094972067039,
+          "rendered": "48.8%",
+          "format": "percent",
+          "precision": 1
+        }
+      },
+      "finding": "Across 1,790 complete 30-minute outcomes on 636 distinct days, mean directional displacement was -0.04 ES points and 48.8% ended strictly positive. A further 96 candidate outcomes were unavailable; these are price-path statistics.",
+      "template": "Across {n} complete 30-minute outcomes on {days} distinct days, mean directional displacement was {mean} ES points and {positive} ended strictly positive. A further {unknown} candidate outcomes were unavailable; these are price-path statistics."
+    },
+    {
+      "section_id": "s10",
+      "source_section_id": "s10",
+      "bindings": {
+        "n": {
+          "source_row": 56,
+          "where": {
+            "period": "overall: all",
+            "selection": "Pivot-matched · RTH · EMA6/pivot · All sections · Both directions · All crosses · 30m",
+            "metric": "favorable_excursion [points]"
+          },
+          "column": "denominator",
+          "value": 1790,
+          "rendered": "1,790",
+          "format": "integer",
+          "precision": 0
+        },
+        "days": {
+          "source_row": 56,
+          "where": {
+            "period": "overall: all",
+            "selection": "Pivot-matched · RTH · EMA6/pivot · All sections · Both directions · All crosses · 30m",
+            "metric": "favorable_excursion [points]"
+          },
+          "column": "days",
+          "value": 636,
+          "rendered": "636",
+          "format": "integer",
+          "precision": 0
+        },
+        "favorable": {
+          "source_row": 56,
+          "where": {
+            "period": "overall: all",
+            "selection": "Pivot-matched · RTH · EMA6/pivot · All sections · Both directions · All crosses · 30m",
+            "metric": "favorable_excursion [points]"
+          },
+          "column": "value",
+          "value": 9.039525139664805,
+          "rendered": "9.04",
+          "format": "number",
+          "precision": 2
+        },
+        "adverse": {
+          "source_row": 8,
+          "where": {
+            "period": "overall: all",
+            "selection": "Pivot-matched · RTH · EMA6/pivot · All sections · Both directions · All crosses · 30m",
+            "metric": "adverse_excursion [points]"
+          },
+          "column": "value",
+          "value": 8.647765363128492,
+          "rendered": "8.65",
+          "format": "number",
+          "precision": 2
+        },
+        "reach": {
+          "source_row": 68,
+          "where": {
+            "period": "overall: all",
+            "selection": "Pivot-matched · RTH · EMA6/pivot · All sections · Both directions · All crosses · 30m",
+            "metric": "favorable_reach_10 [fraction]"
+          },
+          "column": "share",
+          "value": 0.3078212290502793,
+          "rendered": "30.8%",
+          "format": "percent",
+          "precision": 1
+        }
+      },
+      "finding": "For 1,790 complete paths on 636 distinct days, mean favorable excursion was 9.04 ES points and mean adverse excursion was 8.65 points. The saved share reaching 10 favorable points was 30.8%.",
+      "template": "For {n} complete paths on {days} distinct days, mean favorable excursion was {favorable} ES points and mean adverse excursion was {adverse} points. The saved share reaching 10 favorable points was {reach}."
+    },
+    {
+      "section_id": "s11",
+      "source_section_id": "s11",
+      "bindings": {
+        "count": {
+          "source_row": 1,
+          "where": {
+            "period": "overall: all",
+            "selection": "Pivot-matched · RTH · EMA6/pivot · All sections · Both directions · All crosses · 30m",
+            "metric": "no_recross [fraction]"
+          },
+          "column": "numerator",
+          "value": 1110,
+          "rendered": "1,110",
+          "format": "integer",
+          "precision": 0
+        },
+        "n": {
+          "source_row": 1,
+          "where": {
+            "period": "overall: all",
+            "selection": "Pivot-matched · RTH · EMA6/pivot · All sections · Both directions · All crosses · 30m",
+            "metric": "no_recross [fraction]"
+          },
+          "column": "denominator",
+          "value": 1790,
+          "rendered": "1,790",
+          "format": "integer",
+          "precision": 0
+        },
+        "share": {
+          "source_row": 1,
+          "where": {
+            "period": "overall: all",
+            "selection": "Pivot-matched · RTH · EMA6/pivot · All sections · Both directions · All crosses · 30m",
+            "metric": "no_recross [fraction]"
+          },
+          "column": "share",
+          "value": 0.6201117318435754,
+          "rendered": "62.0%",
+          "format": "percent",
+          "precision": 1
+        },
+        "days": {
+          "source_row": 1,
+          "where": {
+            "period": "overall: all",
+            "selection": "Pivot-matched · RTH · EMA6/pivot · All sections · Both directions · All crosses · 30m",
+            "metric": "no_recross [fraction]"
+          },
+          "column": "days",
+          "value": 636,
+          "rendered": "636",
+          "format": "integer",
+          "precision": 0
+        },
+        "censored": {
+          "source_row": 1,
+          "where": {
+            "period": "overall: all",
+            "selection": "Pivot-matched · RTH · EMA6/pivot · All sections · Both directions · All crosses · 30m",
+            "metric": "no_recross [fraction]"
+          },
+          "column": "censored",
+          "value": 96,
+          "rendered": "96",
+          "format": "integer",
+          "precision": 0
+        }
+      },
+      "finding": "No reverse EMA6 cross occurred in 1,110 of 1,790 complete 30-minute windows (62.0%), supported by 636 distinct days. Another 96 windows were censored; absence of a recross does not imply a profitable price move.",
+      "template": "No reverse EMA6 cross occurred in {count} of {n} complete 30-minute windows ({share}), supported by {days} distinct days. Another {censored} windows were censored; absence of a recross does not imply a profitable price move."
+    },
+    {
+      "section_id": "s12",
+      "source_section_id": "s12",
+      "bindings": {
+        "n": {
+          "source_row": 0,
+          "where": {
+            "period": "overall: all",
+            "selection": "Pivot-matched · RTH · EMA6/pivot · All sections · Both directions · All crosses",
+            "metric": "first_cross_minutes [minutes]"
+          },
+          "column": "denominator",
+          "value": 640,
+          "rendered": "640",
+          "format": "integer",
+          "precision": 0
+        },
+        "mean": {
+          "source_row": 0,
+          "where": {
+            "period": "overall: all",
+            "selection": "Pivot-matched · RTH · EMA6/pivot · All sections · Both directions · All crosses",
+            "metric": "first_cross_minutes [minutes]"
+          },
+          "column": "value",
+          "value": 57.0375,
+          "rendered": "57.04",
+          "format": "number",
+          "precision": 2
+        },
+        "median": {
+          "source_row": 0,
+          "where": {
+            "period": "overall: all",
+            "selection": "Pivot-matched · RTH · EMA6/pivot · All sections · Both directions · All crosses",
+            "metric": "first_cross_minutes [minutes]"
+          },
+          "column": "median",
+          "value": 24,
+          "rendered": "24.00",
+          "format": "number",
+          "precision": 2
+        },
+        "no_cross": {
+          "source_row": 0,
+          "where": {
+            "period": "overall: all",
+            "selection": "Pivot-matched · RTH · EMA6/pivot · All sections · Both directions · All crosses",
+            "metric": "first_cross_minutes [minutes]"
+          },
+          "column": "unknown",
+          "value": 235,
+          "rendered": "235",
+          "format": "integer",
+          "precision": 0
+        }
+      },
+      "finding": "On the 640 days with an EMA6–pivot cross, the first cross occurred a mean 57.04 minutes after 09:30, with median 24.00 minutes. There were 235 no-cross days. The chart shows the first chronological timing bins, not the entire distribution.",
+      "template": "On the {n} days with an EMA6–pivot cross, the first cross occurred a mean {mean} minutes after 09:30, with median {median} minutes. There were {no_cross} no-cross days. The chart shows the first chronological timing bins, not the entire distribution."
+    },
+    {
+      "section_id": "s13",
+      "source_section_id": "s13",
+      "bindings": {
+        "first": {
+          "source_row": 0,
+          "where": {
+            "period": "overall: all",
+            "selection": "Pivot-matched · RTH · EMA6/pivot · All sections · Both directions · All crosses · 30m · crossing_ordinal=1",
+            "metric": "displacement [points]"
+          },
+          "column": "value",
+          "value": -0.1800314465408805,
+          "rendered": "-0.18",
+          "format": "number",
+          "precision": 2
+        },
+        "first_n": {
+          "source_row": 0,
+          "where": {
+            "period": "overall: all",
+            "selection": "Pivot-matched · RTH · EMA6/pivot · All sections · Both directions · All crosses · 30m · crossing_ordinal=1",
+            "metric": "displacement [points]"
+          },
+          "column": "denominator",
+          "value": 636,
+          "rendered": "636",
+          "format": "integer",
+          "precision": 0
+        },
+        "second": {
+          "source_row": 7,
+          "where": {
+            "period": "overall: all",
+            "selection": "Pivot-matched · RTH · EMA6/pivot · All sections · Both directions · All crosses · 30m · crossing_ordinal=2",
+            "metric": "displacement [points]"
+          },
+          "column": "value",
+          "value": 0.6891408114558494,
+          "rendered": "0.69",
+          "format": "number",
+          "precision": 2
+        },
+        "second_n": {
+          "source_row": 7,
+          "where": {
+            "period": "overall: all",
+            "selection": "Pivot-matched · RTH · EMA6/pivot · All sections · Both directions · All crosses · 30m · crossing_ordinal=2",
+            "metric": "displacement [points]"
+          },
+          "column": "denominator",
+          "value": 419,
+          "rendered": "419",
+          "format": "integer",
+          "precision": 0
+        },
+        "later": {
+          "source_row": 14,
+          "where": {
+            "period": "overall: all",
+            "selection": "Pivot-matched · RTH · EMA6/pivot · All sections · Both directions · All crosses · 30m · crossing_ordinal=3+",
+            "metric": "displacement [points]"
+          },
+          "column": "value",
+          "value": -0.33469387755102104,
+          "rendered": "-0.33",
+          "format": "number",
+          "precision": 2
+        }
+      },
+      "finding": "Saved mean 30-minute displacement was -0.18 ES points after the first crossing (636 outcomes), 0.69 points after the second (419 outcomes), and -0.33 points after third-or-later crossings. Full support and censoring remain in the table.",
+      "template": "Saved mean 30-minute displacement was {first} ES points after the first crossing ({first_n} outcomes), {second} points after the second ({second_n} outcomes), and {later} points after third-or-later crossings. Full support and censoring remain in the table."
+    },
+    {
+      "section_id": "s14",
+      "source_section_id": "s14",
+      "bindings": {
+        "count": {
+          "source_row": 0,
+          "where": {
+            "period": "overall: all",
+            "selection": "Pivot-matched · RTH · EMA6/pivot · All sections · Both directions · All crosses · 30m · first_reference=pivot",
+            "metric": "second_before_recross [fraction]"
+          },
+          "column": "numerator",
+          "value": 362,
+          "rendered": "362",
+          "format": "integer",
+          "precision": 0
+        },
+        "n": {
+          "source_row": 0,
+          "where": {
+            "period": "overall: all",
+            "selection": "Pivot-matched · RTH · EMA6/pivot · All sections · Both directions · All crosses · 30m · first_reference=pivot",
+            "metric": "second_before_recross [fraction]"
+          },
+          "column": "denominator",
+          "value": 705,
+          "rendered": "705",
+          "format": "integer",
+          "precision": 0
+        },
+        "share": {
+          "source_row": 0,
+          "where": {
+            "period": "overall: all",
+            "selection": "Pivot-matched · RTH · EMA6/pivot · All sections · Both directions · All crosses · 30m · first_reference=pivot",
+            "metric": "second_before_recross [fraction]"
+          },
+          "column": "share",
+          "value": 0.5134751773049645,
+          "rendered": "51.3%",
+          "format": "percent",
+          "precision": 1
+        },
+        "days": {
+          "source_row": 0,
+          "where": {
+            "period": "overall: all",
+            "selection": "Pivot-matched · RTH · EMA6/pivot · All sections · Both directions · All crosses · 30m · first_reference=pivot",
+            "metric": "second_before_recross [fraction]"
+          },
+          "column": "days",
+          "value": 429,
+          "rendered": "429",
+          "format": "integer",
+          "precision": 0
+        },
+        "censored": {
+          "source_row": 0,
+          "where": {
+            "period": "overall: all",
+            "selection": "Pivot-matched · RTH · EMA6/pivot · All sections · Both directions · All crosses · 30m · first_reference=pivot",
+            "metric": "second_before_recross [fraction]"
+          },
+          "column": "censored",
+          "value": 20,
+          "rendered": "20",
+          "format": "integer",
+          "precision": 0
+        }
+      },
+      "finding": "EMA6 crossed VWAP before recrossing the pivot in 362 of 705 resolved or fully observed at-risk sequences (51.3%), supported by 429 distinct days. Another 20 sequences were censored; excluded starting configurations are retained in the earlier Ranked statistics reports.",
+      "template": "EMA6 crossed VWAP before recrossing the pivot in {count} of {n} resolved or fully observed at-risk sequences ({share}), supported by {days} distinct days. Another {censored} sequences were censored; excluded starting configurations are retained in the earlier Ranked statistics reports."
+    },
+    {
+      "section_id": "s15",
+      "source_section_id": "s15",
+      "bindings": {
+        "above": {
+          "source_row": 56,
+          "where": {
+            "period": "overall: all",
+            "selection": "Pivot-matched · RTH · EMA6/pivot · All sections · Both directions · All crosses · opening_configuration=above_both",
+            "metric": "crosses [crossings/session]"
+          },
+          "column": "value",
+          "value": 1.9861878453038675,
+          "rendered": "1.99",
+          "format": "number",
+          "precision": 2
+        },
+        "above_n": {
+          "source_row": 56,
+          "where": {
+            "period": "overall: all",
+            "selection": "Pivot-matched · RTH · EMA6/pivot · All sections · Both directions · All crosses · opening_configuration=above_both",
+            "metric": "crosses [crossings/session]"
+          },
+          "column": "denominator",
+          "value": 362,
+          "rendered": "362",
+          "format": "integer",
+          "precision": 0
+        },
+        "below": {
+          "source_row": 63,
+          "where": {
+            "period": "overall: all",
+            "selection": "Pivot-matched · RTH · EMA6/pivot · All sections · Both directions · All crosses · opening_configuration=below_both",
+            "metric": "crosses [crossings/session]"
+          },
+          "column": "value",
+          "value": 2.1770334928229667,
+          "rendered": "2.18",
+          "format": "number",
+          "precision": 2
+        },
+        "below_n": {
+          "source_row": 63,
+          "where": {
+            "period": "overall: all",
+            "selection": "Pivot-matched · RTH · EMA6/pivot · All sections · Both directions · All crosses · opening_configuration=below_both",
+            "metric": "crosses [crossings/session]"
+          },
+          "column": "denominator",
+          "value": 209,
+          "rendered": "209",
+          "format": "integer",
+          "precision": 0
+        },
+        "between": {
+          "source_row": 70,
+          "where": {
+            "period": "overall: all",
+            "selection": "Pivot-matched · RTH · EMA6/pivot · All sections · Both directions · All crosses · opening_configuration=between",
+            "metric": "crosses [crossings/session]"
+          },
+          "column": "value",
+          "value": 2.3515358361774745,
+          "rendered": "2.35",
+          "format": "number",
+          "precision": 2
+        }
+      },
+      "finding": "Mean daily EMA6–pivot crossing counts were 1.99 on 362 above-both days, 2.18 on 209 below-both days, and 2.35 on between-line days. These saved conditional counts do not establish a predictive advantage.",
+      "template": "Mean daily EMA6–pivot crossing counts were {above} on {above_n} above-both days, {below} on {below_n} below-both days, and {between} on between-line days. These saved conditional counts do not establish a predictive advantage."
+    },
+    {
+      "section_id": "s16",
+      "source_section_id": "s16",
+      "bindings": {
+        "support": {
+          "source_row": 28,
+          "where": {
+            "period": "overall: all",
+            "selection": "Pivot-matched · RTH · EMA6/pivot · All sections · Both directions · All crosses · 30m · cloud_support=support",
+            "metric": "displacement [points]"
+          },
+          "column": "value",
+          "value": -0.3096899224806187,
+          "rendered": "-0.31",
+          "format": "number",
+          "precision": 2
+        },
+        "support_n": {
+          "source_row": 28,
+          "where": {
+            "period": "overall: all",
+            "selection": "Pivot-matched · RTH · EMA6/pivot · All sections · Both directions · All crosses · 30m · cloud_support=support",
+            "metric": "displacement [points]"
+          },
+          "column": "denominator",
+          "value": 645,
+          "rendered": "645",
+          "format": "integer",
+          "precision": 0
+        },
+        "opposition": {
+          "source_row": 14,
+          "where": {
+            "period": "overall: all",
+            "selection": "Pivot-matched · RTH · EMA6/pivot · All sections · Both directions · All crosses · 30m · cloud_support=opposition",
+            "metric": "displacement [points]"
+          },
+          "column": "value",
+          "value": 0.573791348600509,
+          "rendered": "0.57",
+          "format": "number",
+          "precision": 2
+        },
+        "opposition_n": {
+          "source_row": 14,
+          "where": {
+            "period": "overall: all",
+            "selection": "Pivot-matched · RTH · EMA6/pivot · All sections · Both directions · All crosses · 30m · cloud_support=opposition",
+            "metric": "displacement [points]"
+          },
+          "column": "denominator",
+          "value": 393,
+          "rendered": "393",
+          "format": "integer",
+          "precision": 0
+        }
+      },
+      "finding": "Mean 30-minute directional displacement after EMA6–pivot crossings was -0.31 ES points with cloud support (645 outcomes) and 0.57 points with cloud opposition (393 outcomes). These exploratory slices are not independent confirmation of an edge.",
+      "template": "Mean 30-minute directional displacement after EMA6–pivot crossings was {support} ES points with cloud support ({support_n} outcomes) and {opposition} points with cloud opposition ({opposition_n} outcomes). These exploratory slices are not independent confirmation of an edge."
+    },
+    {
+      "section_id": "s17",
+      "source_section_id": "s17",
+      "bindings": {
+        "n": {
+          "source_row": 63,
+          "where": {
+            "period": "overall: all",
+            "selection": "Pivot-matched · RTH · EMA6/pivot · All sections · Both directions · All crosses",
+            "metric": "opening_separation_points [points]"
+          },
+          "column": "denominator",
+          "value": 875,
+          "rendered": "875",
+          "format": "integer",
+          "precision": 0
+        },
+        "points": {
+          "source_row": 63,
+          "where": {
+            "period": "overall: all",
+            "selection": "Pivot-matched · RTH · EMA6/pivot · All sections · Both directions · All crosses",
+            "metric": "opening_separation_points [points]"
+          },
+          "column": "value",
+          "value": 9.478937696435455,
+          "rendered": "9.48",
+          "format": "number",
+          "precision": 2
+        },
+        "bps": {
+          "source_row": 56,
+          "where": {
+            "period": "overall: all",
+            "selection": "Pivot-matched · RTH · EMA6/pivot · All sections · Both directions · All crosses",
+            "metric": "opening_separation_bps [basis points]"
+          },
+          "column": "value",
+          "value": 19.79990555357869,
+          "rendered": "19.80",
+          "format": "number",
+          "precision": 2
+        }
+      },
+      "finding": "Across 875 pivot-matched days, mean opening separation was 9.48 ES points and 19.80 basis points. These are separately saved averages of daily measures; the earlier Ranked statistics reports retain crossing and outcome slices by the fixed opening bands.",
+      "template": "Across {n} pivot-matched days, mean opening separation was {points} ES points and {bps} basis points. These are separately saved averages of daily measures; the earlier Ranked statistics reports retain crossing and outcome slices by the fixed opening bands."
+    },
+    {
+      "section_id": "s18",
+      "source_section_id": "s18",
+      "bindings": {
+        "count": {
+          "source_row": 0,
+          "where": {
+            "period": "overall: all",
+            "selection": "Pivot-matched · RTH · EMA6/pivot · All sections · Both directions · All crosses · 30m",
+            "metric": "pivot_retest [fraction]"
+          },
+          "column": "numerator",
+          "value": 1134,
+          "rendered": "1,134",
+          "format": "integer",
+          "precision": 0
+        },
+        "n": {
+          "source_row": 0,
+          "where": {
+            "period": "overall: all",
+            "selection": "Pivot-matched · RTH · EMA6/pivot · All sections · Both directions · All crosses · 30m",
+            "metric": "pivot_retest [fraction]"
+          },
+          "column": "denominator",
+          "value": 1790,
+          "rendered": "1,790",
+          "format": "integer",
+          "precision": 0
+        },
+        "share": {
+          "source_row": 0,
+          "where": {
+            "period": "overall: all",
+            "selection": "Pivot-matched · RTH · EMA6/pivot · All sections · Both directions · All crosses · 30m",
+            "metric": "pivot_retest [fraction]"
+          },
+          "column": "share",
+          "value": 0.6335195530726258,
+          "rendered": "63.4%",
+          "format": "percent",
+          "precision": 1
+        },
+        "days": {
+          "source_row": 0,
+          "where": {
+            "period": "overall: all",
+            "selection": "Pivot-matched · RTH · EMA6/pivot · All sections · Both directions · All crosses · 30m",
+            "metric": "pivot_retest [fraction]"
+          },
+          "column": "days",
+          "value": 636,
+          "rendered": "636",
+          "format": "integer",
+          "precision": 0
+        },
+        "censored": {
+          "source_row": 0,
+          "where": {
+            "period": "overall: all",
+            "selection": "Pivot-matched · RTH · EMA6/pivot · All sections · Both directions · All crosses · 30m",
+            "metric": "pivot_retest [fraction]"
+          },
+          "column": "censored",
+          "value": 96,
+          "rendered": "96",
+          "format": "integer",
+          "precision": 0
+        }
+      },
+      "finding": "A pivot retest occurred in 1,134 of 1,790 complete 30-minute windows (63.4%), supported by 636 distinct days. Another 96 incidence windows were censored. This bar-based touch definition does not infer intrabar execution.",
+      "template": "A pivot retest occurred in {count} of {n} complete 30-minute windows ({share}), supported by {days} distinct days. Another {censored} incidence windows were censored. This bar-based touch definition does not infer intrabar execution."
+    },
+    {
+      "section_id": "s19",
+      "source_section_id": "s19",
+      "bindings": {
+        "bullish": {
+          "source_row": 6,
+          "where": {
+            "period": "overall: all",
+            "selection": "Pivot-matched · RTH · cloud/pivot · All sections · Both directions · All crosses · section_state=opening_range→new_york_am:cloud_order:bullish",
+            "metric": "state_persists [fraction]"
+          },
+          "column": "share",
+          "value": 0.7542735042735043,
+          "rendered": "75.4%",
+          "format": "percent",
+          "precision": 1
+        },
+        "bullish_n": {
+          "source_row": 6,
+          "where": {
+            "period": "overall: all",
+            "selection": "Pivot-matched · RTH · cloud/pivot · All sections · Both directions · All crosses · section_state=opening_range→new_york_am:cloud_order:bullish",
+            "metric": "state_persists [fraction]"
+          },
+          "column": "denominator",
+          "value": 468,
+          "rendered": "468",
+          "format": "integer",
+          "precision": 0
+        },
+        "bearish": {
+          "source_row": 4,
+          "where": {
+            "period": "overall: all",
+            "selection": "Pivot-matched · RTH · cloud/pivot · All sections · Both directions · All crosses · section_state=opening_range→new_york_am:cloud_order:bearish",
+            "metric": "state_persists [fraction]"
+          },
+          "column": "share",
+          "value": 0.6855036855036855,
+          "rendered": "68.6%",
+          "format": "percent",
+          "precision": 1
+        },
+        "bearish_n": {
+          "source_row": 4,
+          "where": {
+            "period": "overall: all",
+            "selection": "Pivot-matched · RTH · cloud/pivot · All sections · Both directions · All crosses · section_state=opening_range→new_york_am:cloud_order:bearish",
+            "metric": "state_persists [fraction]"
+          },
+          "column": "denominator",
+          "value": 407,
+          "rendered": "407",
+          "format": "integer",
+          "precision": 0
+        }
+      },
+      "finding": "In the pivot-matched population, bullish cloud ordering persisted from the opening-range endpoint to the AM endpoint on 75.4% of 468 eligible bullish-source days; bearish ordering persisted on 68.6% of 407 bearish-source days. The chart includes selected saved transition states.",
+      "template": "In the pivot-matched population, bullish cloud ordering persisted from the opening-range endpoint to the AM endpoint on {bullish} of {bullish_n} eligible bullish-source days; bearish ordering persisted on {bearish} of {bearish_n} bearish-source days. The chart includes selected saved transition states."
+    },
+    {
+      "section_id": "s20",
+      "source_section_id": "s20",
+      "bindings": {
+        "recent": {
+          "source_row": 0,
+          "where": {
+            "period": "recent: last_20",
+            "selection": "Pivot-matched · RTH · EMA6/vwap · All sections · Both directions · All crosses · source_statistic=S01",
+            "metric": "crosses [crossings/session]"
+          },
+          "column": "value",
+          "value": 3.25,
+          "rendered": "3.25",
+          "format": "number",
+          "precision": 2
+        },
+        "recent_n": {
+          "source_row": 0,
+          "where": {
+            "period": "recent: last_20",
+            "selection": "Pivot-matched · RTH · EMA6/vwap · All sections · Both directions · All crosses · source_statistic=S01",
+            "metric": "crosses [crossings/session]"
+          },
+          "column": "denominator",
+          "value": 20,
+          "rendered": "20",
+          "format": "integer",
+          "precision": 0
+        },
+        "earlier": {
+          "source_row": 1,
+          "where": {
+            "period": "preceding: before_last_20",
+            "selection": "Pivot-matched · RTH · EMA6/vwap · All sections · Both directions · All crosses · source_statistic=S01",
+            "metric": "crosses [crossings/session]"
+          },
+          "column": "value",
+          "value": 2.789473684210526,
+          "rendered": "2.79",
+          "format": "number",
+          "precision": 2
+        },
+        "earlier_n": {
+          "source_row": 1,
+          "where": {
+            "period": "preceding: before_last_20",
+            "selection": "Pivot-matched · RTH · EMA6/vwap · All sections · Both directions · All crosses · source_statistic=S01",
+            "metric": "crosses [crossings/session]"
+          },
+          "column": "denominator",
+          "value": 855,
+          "rendered": "855",
+          "format": "integer",
+          "precision": 0
+        }
+      },
+      "finding": "EMA6–VWAP crossings averaged 3.25 per RTH session over the last 20 eligible pivot-matched sessions, versus 2.79 over the disjoint preceding 855 sessions. The 20-session cell is sparse under the study’s 30-day rule; dates and longer windows remain explicit.",
+      "template": "EMA6–VWAP crossings averaged {recent} per RTH session over the last {recent_n} eligible pivot-matched sessions, versus {earlier} over the disjoint preceding {earlier_n} sessions. The 20-session cell is sparse under the study’s 30-day rule; dates and longer windows remain explicit."
+    }
+  ],
+  "transfers": [
+    {
+      "section_id": "s01",
+      "source_section_id": "chart-s01",
+      "asset": "figures/pivot-statistics-s01.png",
+      "sha256": "3c84463b916b2fd93e8860c72f89d1b1e4770d3cd4e70ffb2a19e2afa6be6939"
+    },
+    {
+      "section_id": "s02",
+      "source_section_id": "s02",
+      "source_rows": [
+        0
+      ],
+      "output_rows": [
+        {
+          "measure": "Pivot-matched RTH · overall: all · Crosses [crossings/session] · EMA6–pivot",
+          "value": 2.1554285714285712,
+          "denominator": 875,
+          "days": 875,
+          "median": 1,
+          "numerator": 1886
+        }
+      ],
+      "operation": "Explicit saved-row/column selection, shortened text labels, unchanged numerical values",
+      "saved_source_rows_sha256": "1e4934c97c4b3bd664a1ae771dcbe19b56af5c9d7f975337e7d65f2503e34b6f"
+    },
+    {
+      "section_id": "s03",
+      "source_section_id": "s03",
+      "source_rows": [
+        0,
+        130
+      ],
+      "output_rows": [
+        {
+          "measure": "Pivot-matched RTH · overall: all · Count bucket [fraction] · EMA6–pivot · cross count=0",
+          "share": 0.26857142857142857,
+          "denominator": 875,
+          "days": 875
+        },
+        {
+          "measure": "Pivot-matched RTH · overall: all · Count bucket [fraction] · EMA6–VWAP · cross count=0",
+          "share": 0.2102857142857143,
+          "denominator": 875,
+          "days": 875
+        }
+      ],
+      "operation": "Explicit saved-row/column selection, shortened text labels, unchanged numerical values",
+      "saved_source_rows_sha256": "75f1f7f5a818e66b2748e6dcf794945184042dc7692781dc21190419275bba1a"
+    },
+    {
+      "section_id": "s04",
+      "source_section_id": "s04",
+      "source_rows": [
+        0,
+        29
+      ],
+      "output_rows": [
+        {
+          "measure": "Pivot-matched RTH · overall: all · Crosses per hour [crossings/hour] · EMA6–pivot",
+          "value": 0.33160439560439564,
+          "denominator": 875,
+          "days": 875
+        },
+        {
+          "measure": "Pivot-matched RTH · overall: all · Crosses per hour [crossings/hour] · EMA6–VWAP",
+          "value": 0.43076923076923074,
+          "denominator": 875,
+          "days": 875
+        }
+      ],
+      "operation": "Explicit saved-row/column selection, shortened text labels, unchanged numerical values",
+      "saved_source_rows_sha256": "b35851759330f6e56918234d7aa09532dbff11812dab07d0104d61486a51f75e"
+    },
+    {
+      "section_id": "s05",
+      "source_section_id": "s05",
+      "source_rows": [
+        58,
+        29
+      ],
+      "output_rows": [
+        {
+          "measure": "Pivot-matched RTH · overall: all · Crosses [crossings/session] · Price–pivot",
+          "value": 4.638857142857143,
+          "denominator": 875,
+          "days": 875
+        },
+        {
+          "measure": "Pivot-matched RTH · overall: all · Crosses [crossings/session] · EMA6–pivot",
+          "value": 2.1554285714285712,
+          "denominator": 875,
+          "days": 875
+        }
+      ],
+      "operation": "Explicit saved-row/column selection, shortened text labels, unchanged numerical values",
+      "saved_source_rows_sha256": "1531f97983702a092903b5717b1a7d3473bf88886fde57b1138d86916cfeb2d7"
+    },
+    {
+      "section_id": "s06",
+      "source_section_id": "s06",
+      "source_rows": [
+        0
+      ],
+      "output_rows": [
+        {
+          "measure": "Pivot-matched RTH · overall: all · Returned before confirmation [fraction] · Price–pivot",
+          "share": 0.4396728016359918,
+          "denominator": 2445,
+          "days": 666,
+          "unknown": 33,
+          "censored": 33,
+          "numerator": 1075
+        }
+      ],
+      "operation": "Explicit saved-row/column selection, shortened text labels, unchanged numerical values",
+      "saved_source_rows_sha256": "7e4f9c835ebf9c99c95797a056135dd59269483b7117f4528789db7f069fcf55"
+    },
+    {
+      "section_id": "s07",
+      "source_section_id": "s07",
+      "source_rows": [
+        0
+      ],
+      "output_rows": [
+        {
+          "measure": "Pivot-matched RTH · overall: all · Returned unconfirmed depth [points] · Price–pivot",
+          "value": 3.1316279069767567,
+          "denominator": 1075,
+          "days": 494,
+          "unknown": 1403,
+          "censored": 33,
+          "median": 2.5
+        }
+      ],
+      "operation": "Explicit saved-row/column selection, shortened text labels, unchanged numerical values",
+      "saved_source_rows_sha256": "0a8071e06fb4080edd2e25ddb5216de9ae2b74fcde01a1e1991e456a9fe2f8f5"
+    },
+    {
+      "section_id": "s08",
+      "source_section_id": "s08",
+      "source_rows": [
+        28,
+        42
+      ],
+      "output_rows": [
+        {
+          "measure": "Pivot-matched RTH · overall: all · Confirmation delay [minutes] · Price–pivot · confirmation kind=delayed",
+          "value": 5.073722627737227,
+          "denominator": 1370,
+          "days": 577
+        },
+        {
+          "measure": "Pivot-matched RTH · overall: all · Movement before confirmation [points] · Price–pivot · confirmation kind=delayed",
+          "value": 3.354927007299271,
+          "denominator": 1370,
+          "days": 577
+        }
+      ],
+      "operation": "Explicit saved-row/column selection, shortened text labels, unchanged numerical values",
+      "saved_source_rows_sha256": "810c6d77e48edc79eef64fc20f86c2995186d4ae46a1519bd1a1788d27ba6499"
+    },
+    {
+      "section_id": "s09",
+      "source_section_id": "s09",
+      "source_rows": [
+        2,
+        33
+      ],
+      "output_rows": [
+        {
+          "measure": "Pivot-matched RTH · overall: all · Displacement [points] · EMA6–pivot · 30m",
+          "value": -0.04008379888268131,
+          "share": null,
+          "denominator": 1790,
+          "days": 636,
+          "unknown": 96,
+          "censored": 96
+        },
+        {
+          "measure": "Pivot-matched RTH · overall: all · Positive movement [fraction] · EMA6–pivot · 30m",
+          "value": null,
+          "share": 0.4877094972067039,
+          "denominator": 1790,
+          "days": 636,
+          "unknown": 96,
+          "censored": 96
+        }
+      ],
+      "operation": "Explicit saved-row/column selection, shortened text labels, unchanged numerical values",
+      "saved_source_rows_sha256": "a439546a90d7835376e50b161f480a37d4c63bd8fc6a5f34657271370a223ae6"
+    },
+    {
+      "section_id": "s10",
+      "source_section_id": "s10",
+      "source_rows": [
+        56,
+        8,
+        68
+      ],
+      "output_rows": [
+        {
+          "measure": "Pivot-matched RTH · overall: all · Favorable excursion [points] · EMA6–pivot · 30m",
+          "value": 9.039525139664805,
+          "share": null,
+          "denominator": 1790,
+          "days": 636,
+          "unknown": 96,
+          "censored": 96
+        },
+        {
+          "measure": "Pivot-matched RTH · overall: all · Adverse excursion [points] · EMA6–pivot · 30m",
+          "value": 8.647765363128492,
+          "share": null,
+          "denominator": 1790,
+          "days": 636,
+          "unknown": 96,
+          "censored": 96
+        },
+        {
+          "measure": "Pivot-matched RTH · overall: all · Favorable reach 10 [fraction] · EMA6–pivot · 30m",
+          "value": null,
+          "share": 0.3078212290502793,
+          "denominator": 1790,
+          "days": 636,
+          "unknown": 96,
+          "censored": 96
+        }
+      ],
+      "operation": "Explicit saved-row/column selection, shortened text labels, unchanged numerical values",
+      "saved_source_rows_sha256": "6f74b965e9c7d01530bb50adc9c475472f631a517385dbecdf174cb527c022b9"
+    },
+    {
+      "section_id": "s11",
+      "source_section_id": "s11",
+      "source_rows": [
+        1
+      ],
+      "output_rows": [
+        {
+          "measure": "Pivot-matched RTH · overall: all · No recross [fraction] · EMA6–pivot · 30m",
+          "share": 0.6201117318435754,
+          "denominator": 1790,
+          "days": 636,
+          "unknown": 96,
+          "censored": 96,
+          "numerator": 1110
+        }
+      ],
+      "operation": "Explicit saved-row/column selection, shortened text labels, unchanged numerical values",
+      "saved_source_rows_sha256": "928fae1c813ad95b974d5eac2a85e4e4c26dfa7e52430bcd4fee11633dd3e6a8"
+    },
+    {
+      "section_id": "s12",
+      "source_section_id": "chart-s12",
+      "asset": "figures/pivot-statistics-s12.png",
+      "sha256": "e33d0105d123a550630766d3b250ff5c59304b815b5be7485348f656081d2ae6"
+    },
+    {
+      "section_id": "s13",
+      "source_section_id": "s13",
+      "source_rows": [
+        0,
+        7,
+        14
+      ],
+      "output_rows": [
+        {
+          "measure": "Pivot-matched RTH · overall: all · Displacement [points] · EMA6–pivot · 30m · crossing ordinal=1",
+          "value": -0.1800314465408805,
+          "denominator": 636,
+          "days": 636,
+          "unknown": 4,
+          "censored": 4
+        },
+        {
+          "measure": "Pivot-matched RTH · overall: all · Displacement [points] · EMA6–pivot · 30m · crossing ordinal=2",
+          "value": 0.6891408114558494,
+          "denominator": 419,
+          "days": 419,
+          "unknown": 14,
+          "censored": 14
+        },
+        {
+          "measure": "Pivot-matched RTH · overall: all · Displacement [points] · EMA6–pivot · 30m · crossing ordinal=3+",
+          "value": -0.33469387755102104,
+          "denominator": 735,
+          "days": 284,
+          "unknown": 78,
+          "censored": 78
+        }
+      ],
+      "operation": "Explicit saved-row/column selection, shortened text labels, unchanged numerical values",
+      "saved_source_rows_sha256": "a197f5cc9dd311ac3f365e161b532eb3792ba4d9c67b5eec3cc25cbc8626b976"
+    },
+    {
+      "section_id": "s14",
+      "source_section_id": "s14",
+      "source_rows": [
+        0
+      ],
+      "output_rows": [
+        {
+          "measure": "Pivot-matched RTH · overall: all · Second before recross [fraction] · EMA6–pivot · 30m · first reference=pivot",
+          "share": 0.5134751773049645,
+          "denominator": 705,
+          "days": 429,
+          "unknown": 1181,
+          "censored": 20,
+          "numerator": 362
+        }
+      ],
+      "operation": "Explicit saved-row/column selection, shortened text labels, unchanged numerical values",
+      "saved_source_rows_sha256": "b4e7fde67104d7b80b22491a0042d98a51e6c5a7937ee1f0aebeeac7f7cd997b"
+    },
+    {
+      "section_id": "s15",
+      "source_section_id": "s15",
+      "source_rows": [
+        56,
+        63,
+        70
+      ],
+      "output_rows": [
+        {
+          "measure": "Pivot-matched RTH · overall: all · Crosses [crossings/session] · EMA6–pivot · opening configuration=above both",
+          "value": 1.9861878453038675,
+          "denominator": 362,
+          "days": 362
+        },
+        {
+          "measure": "Pivot-matched RTH · overall: all · Crosses [crossings/session] · EMA6–pivot · opening configuration=below both",
+          "value": 2.1770334928229667,
+          "denominator": 209,
+          "days": 209
+        },
+        {
+          "measure": "Pivot-matched RTH · overall: all · Crosses [crossings/session] · EMA6–pivot · opening configuration=between",
+          "value": 2.3515358361774745,
+          "denominator": 293,
+          "days": 293
+        }
+      ],
+      "operation": "Explicit saved-row/column selection, shortened text labels, unchanged numerical values",
+      "saved_source_rows_sha256": "79742470465ef6eca21de9405103bfdcff927f1baea5854ba4c59694b0a16b57"
+    },
+    {
+      "section_id": "s16",
+      "source_section_id": "s16",
+      "source_rows": [
+        28,
+        14
+      ],
+      "output_rows": [
+        {
+          "measure": "Pivot-matched RTH · overall: all · Displacement [points] · EMA6–pivot · 30m · cloud support=support",
+          "value": -0.3096899224806187,
+          "denominator": 645,
+          "days": 446,
+          "unknown": 38,
+          "censored": 38
+        },
+        {
+          "measure": "Pivot-matched RTH · overall: all · Displacement [points] · EMA6–pivot · 30m · cloud support=opposition",
+          "value": 0.573791348600509,
+          "denominator": 393,
+          "days": 286,
+          "unknown": 26,
+          "censored": 26
+        }
+      ],
+      "operation": "Explicit saved-row/column selection, shortened text labels, unchanged numerical values",
+      "saved_source_rows_sha256": "e3b983466d667be54b622ccf4940c264ca5e5ea0c291468eedc90640d17d63ea"
+    },
+    {
+      "section_id": "s17",
+      "source_section_id": "s17",
+      "source_rows": [
+        63,
+        56
+      ],
+      "output_rows": [
+        {
+          "measure": "Pivot-matched RTH · overall: all · Opening separation points [points] · EMA6–pivot",
+          "value": 9.478937696435455,
+          "denominator": 875,
+          "days": 875
+        },
+        {
+          "measure": "Pivot-matched RTH · overall: all · Opening separation bps [basis points] · EMA6–pivot",
+          "value": 19.79990555357869,
+          "denominator": 875,
+          "days": 875
+        }
+      ],
+      "operation": "Explicit saved-row/column selection, shortened text labels, unchanged numerical values",
+      "saved_source_rows_sha256": "444ee6c196d8f76eda423997759fa0e00f643326a04b21f5b4dd38d94d1e027b"
+    },
+    {
+      "section_id": "s18",
+      "source_section_id": "s18",
+      "source_rows": [
+        0
+      ],
+      "output_rows": [
+        {
+          "measure": "Pivot-matched RTH · overall: all · Pivot retest [fraction] · EMA6–pivot · 30m",
+          "share": 0.6335195530726258,
+          "denominator": 1790,
+          "days": 636,
+          "unknown": 96,
+          "censored": 96,
+          "numerator": 1134
+        }
+      ],
+      "operation": "Explicit saved-row/column selection, shortened text labels, unchanged numerical values",
+      "saved_source_rows_sha256": "379ca0ef7e7c09376113caf8befb631bac28f797b210ef05563ee8133cd68ea2"
+    },
+    {
+      "section_id": "s19",
+      "source_section_id": "chart-s19",
+      "asset": "figures/pivot-statistics-s19.png",
+      "sha256": "8e8c6670d11de3b80b74ba502a7cd0ba259ac980ad4103f640137645a2e2c15f"
+    },
+    {
+      "section_id": "s20",
+      "source_section_id": "chart-s20",
+      "asset": "figures/pivot-statistics-s20.png",
+      "sha256": "b3493bf41f997048701945d7d73b1cebbcfcae692948eb70e018f51528d75e7b"
+    }
+  ],
+  "scope": "Formatting and exact saved-cell transfer only; no new research interpretation or calculations."
+}

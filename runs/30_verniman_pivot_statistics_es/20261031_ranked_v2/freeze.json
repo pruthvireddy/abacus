@@ -1,0 +1,324 @@
+{
+  "command": [
+    "studies/30_verniman_pivot_statistics_es/ranked.py",
+    "freeze",
+    "--run-id",
+    "20261031_ranked_v2"
+  ],
+  "created_at": "2026-10-31T18:41:10.100614+00:00",
+  "cwd": "/Users/pruthvi/Documents/projects/abacus",
+  "data_policy": "repository_only",
+  "environment_lock_sha256": "b2c02f82320599b00cb3277479c660a9c56c37c6476bc423215c9cbb7ab0c645",
+  "external_requests_submitted": false,
+  "git": {
+    "dirty": " M .gitignore\n M apps/narada/content/release-sources.json\n M apps/narada/content/studies.json\n M apps/narada/public/publications/index.json\n M apps/narada/tests/discovery.test.mjs\n M apps/narada/tests/research-priorities.test.mjs\n M apps/narada/tests/study-presentation.test.mjs\n M config/workspace-checks.json\n M data/README.md\n M packages/bhishma/AGENTS.md\n M packages/bhishma/README.md\n M reports/index.html\n M reports/index.md\n M scripts/tests/test_check_registry.py\n M studies/27_verniman_method_knowledge/README.md\n M studies/27_verniman_method_knowledge/notes.md\n M studies/27_verniman_method_knowledge/study.json\n M studies/README.md\n?? apps/narada/public/publications/verniman-es-calendar-20261031-repo-v2/\n?? apps/narada/public/publications/verniman-es-cloud-vwap-20261031-repo-v2/\n?? apps/narada/public/publications/verniman-es-followthrough-20261031-repo-v2/\n?? apps/narada/public/publications/verniman-es-overview-20261031-repo-v2/\n?? apps/narada/public/publications/verniman-es-price-ema-20261031-repo-v2/\n?? apps/narada/public/publications/verniman-es-retests-20261031-repo-v2/\n?? catalog/datasets/es_contract_session_indicators__1.0.0.json\n?? catalog/datasets/verniman_daily_levels__13.0.0.json\n?? catalog/datasets/verniman_daily_levels__14.0.0.json\n?? catalog/datasets/verniman_daily_levels__15.0.0.json\n?? catalog/datasets/verniman_daily_levels__16.0.0.json\n?? catalog/datasets/verniman_daily_levels__17.0.0.json\n?? catalog/datasets/verniman_daily_levels__18.0.0.json\n?? catalog/datasets/verniman_daily_levels__19.0.0.json\n?? catalog/schemas/es_contract_session_indicators__1.0.0.json\n?? catalog/schemas/verniman_daily_levels__13.0.0.json\n?? catalog/schemas/verniman_daily_levels__14.0.0.json\n?? catalog/schemas/verniman_daily_levels__15.0.0.json\n?? catalog/schemas/verniman_daily_levels__16.0.0.json\n?? catalog/schemas/verniman_daily_levels__17.0.0.json\n?? catalog/schemas/verniman_daily_levels__18.0.0.json\n?? catalog/schemas/verniman_daily_levels__19.0.0.json\n?? packages/bhishma/src/abacus_bhishma/es_contract_session_indicators.py\n?? packages/bhishma/src/abacus_bhishma/verniman_consolidated.py\n?? packages/bhishma/tests/test_es_contract_session_indicators.py\n?? packages/bhishma/tests/test_verniman_consolidated.py\n?? reports/exports/30_verniman_pivot_statistics_es/\n?? reports/quality/es_contract_session_indicators__1.0.0.md\n?? reports/quality/verniman_daily_levels__13.0.0.md\n?? reports/quality/verniman_daily_levels__14.0.0.md\n?? reports/quality/verniman_daily_levels__15.0.0.md\n?? reports/quality/verniman_daily_levels__16.0.0.md\n?? reports/quality/verniman_daily_levels__17.0.0.md\n?? reports/quality/verniman_daily_levels__18.0.0.md\n?? reports/quality/verniman_daily_levels__19.0.0.md\n?? requests/fulfilled/es_contract_session_indicators__1.0.0.yaml\n?? requests/fulfilled/verniman_daily_levels__13.0.0.yaml\n?? requests/fulfilled/verniman_daily_levels__14.0.0.yaml\n?? requests/fulfilled/verniman_daily_levels__15.0.0.yaml\n?? requests/fulfilled/verniman_daily_levels__16.0.0.yaml\n?? requests/fulfilled/verniman_daily_levels__17.0.0.yaml\n?? requests/fulfilled/verniman_daily_levels__18.0.0.yaml\n?? requests/fulfilled/verniman_daily_levels__19.0.0.yaml\n?? requests/inbox/es_contract_session_indicators__1.0.0.yaml\n?? requests/inbox/verniman_x_eod_observations__1.0.0.yaml\n?? runs/27_verniman_method_knowledge/20261031T030640Z_daily_maps_2026/\n?? runs/27_verniman_method_knowledge/20261031T032348Z_daily_maps_2025/\n?? runs/27_verniman_method_knowledge/20261031T034949Z_daily_maps_2024_r2/\n?? runs/27_verniman_method_knowledge/20261031T043818Z_daily_maps_2023/\n?? runs/27_verniman_method_knowledge/20261031T044414Z_daily_maps_2022/\n?? runs/27_verniman_method_knowledge/20261031T051744Z_daily_maps_2021/\n?? runs/27_verniman_method_knowledge/20261031T052904Z_daily_maps_2020_r3/\n?? runs/27_verniman_method_knowledge/20261031T053752Z_daily_maps_2019/\n?? runs/27_verniman_method_knowledge/20261031T054252Z_daily_maps_2018/\n?? runs/27_verniman_method_knowledge/20261031T054828Z_daily_maps_2017/\n?? runs/27_verniman_method_knowledge/20261031T141551Z_daily_maps_2016_r2/\n?? runs/27_verniman_method_knowledge/20261031T143306Z_daily_maps_2015/\n?? runs/27_verniman_method_knowledge/20261031T151152Z_daily_maps_2014/\n?? runs/27_verniman_method_knowledge/20261031T152738Z_daily_maps_2013/\n?? runs/27_verniman_method_knowledge/20261031T154135Z_daily_maps_2012/\n?? runs/27_verniman_method_knowledge/20261031T155759Z_daily_maps_2011/\n?? runs/30_verniman_pivot_statistics_es/\n?? studies/27_verniman_method_knowledge/build_daily_maps.py\n?? studies/27_verniman_method_knowledge/capture_daily_maps.py\n?? studies/27_verniman_method_knowledge/capture_retained_daily_maps.py\n?? studies/27_verniman_method_knowledge/daily-map-2021-date-overrides.json\n?? studies/27_verniman_method_knowledge/daily-map-2022-date-overrides.json\n?? studies/27_verniman_method_knowledge/daily-map-plan.md\n?? studies/27_verniman_method_knowledge/knowledge-base/\n?? studies/27_verniman_method_knowledge/recover_archived_daily_maps.py\n?? studies/27_verniman_method_knowledge/seal_daily_maps.py\n?? studies/29_verniman_level_reconstruction/\n?? studies/30_verniman_pivot_statistics_es/\n",
+    "head": "2f890fb2e263fd3acd2a28082909d5c98c5d5166"
+  },
+  "inputs": {
+    "retained_cloud_reference": {
+      "bytes": 103008,
+      "path": "catalog/datasets/same_contract_ema_cloud__1.1.0.json",
+      "sha256": "444043918c9b30a0d909e88328094b52936f6b379ce288b85afb6740aed0f838"
+    },
+    "retained_continuous_minutes": {
+      "bytes": 23097,
+      "path": "catalog/datasets/volume_lead_unadjusted_v1.json",
+      "sha256": "00757f5fc8278e75744d7adfaddc688be588d619d82b1dc1811aa60f21b7e5d4"
+    },
+    "session_indicators": {
+      "bytes": 11435,
+      "path": "catalog/datasets/es_contract_session_indicators__1.0.0.json",
+      "sha256": "54d4f39521151cb77dfeb4ed4ad8681031de979d5cc6fec8cbe462ac89739187"
+    },
+    "verniman_daily_levels": {
+      "bytes": 163067,
+      "path": "catalog/datasets/verniman_daily_levels__19.0.0.json",
+      "sha256": "3cb70a8fee874489ee2932d1923f27efe543b516e5f2ff50fc95895099e53524"
+    }
+  },
+  "pre_execution_feature_audit": {
+    "path": "work/30_verniman_pivot_statistics_es/feature-audit-v1/receipt.json",
+    "retained_path": "input-checks/feature-audit/receipt.json",
+    "scope": "independent feature/source parity, recurrence, timing and deterministic aggregation checks; no outcomes",
+    "sha256": "17ddfd213033a4afa17e7f7b5c161cc6a0029d6585c9bd8a698bced4e5fcf7b5"
+  },
+  "publication_root": "/Users/pruthvi/Documents/projects/abacus",
+  "python": "3.11.17 (main, Oct  1 2026, 00:48:48) [Clang 21.0.0 (clang-2100.3.34.2)]",
+  "qualification": "Declared executable/source scope retained; not complete transitive dependency discovery.",
+  "run_id": "20261031_ranked_v2",
+  "schema_version": "abacus.study30.execution-freeze/v1",
+  "source_selection_sha256": "2f8b553d1be7f8f204dbbc1f4cc26677a38949e416919ba36195bb305ae39823",
+  "sources": [
+    {
+      "path": "apps/narada/package-lock.json",
+      "retained_path": "provenance/apps/narada/package-lock.json",
+      "sha256": "b53dfd002799ba1c70a4b86a43ba6c8c999d206449d6eeadfde492cb0586686f"
+    },
+    {
+      "path": "packages/bhishma/src/abacus_bhishma/calendar.py",
+      "retained_path": "provenance/packages/bhishma/src/abacus_bhishma/calendar.py",
+      "sha256": "94c89dfc03e36ad57819c4337da1f4b02a27dd18f49c92ae5a143582624da314"
+    },
+    {
+      "path": "packages/bhishma/src/abacus_bhishma/ema_cloud.py",
+      "retained_path": "provenance/packages/bhishma/src/abacus_bhishma/ema_cloud.py",
+      "sha256": "3d091fce42f53fe1905c2037b1f983f8db6e1ee720cbbab8a89b289cb224d30d"
+    },
+    {
+      "path": "packages/bhishma/src/abacus_bhishma/ema_cloud_loader_v2.py",
+      "retained_path": "provenance/packages/bhishma/src/abacus_bhishma/ema_cloud_loader_v2.py",
+      "sha256": "e58042d7750fcaf0ae0efc2134780f5e1a4207033422228051350478b4731030"
+    },
+    {
+      "path": "packages/bhishma/src/abacus_bhishma/es_contract_session_indicators.py",
+      "retained_path": "provenance/packages/bhishma/src/abacus_bhishma/es_contract_session_indicators.py",
+      "sha256": "7b95eece7aa182a66e301767d45ba2178133c1e729f2fec25e95a3be2f9f446a"
+    },
+    {
+      "path": "packages/bhishma/src/abacus_bhishma/manifest_selection.py",
+      "retained_path": "provenance/packages/bhishma/src/abacus_bhishma/manifest_selection.py",
+      "sha256": "bdbf8c2c65759c1e2b2cb82f74b04c7aa18920dbc638af525446d9d3ec5c550d"
+    },
+    {
+      "path": "packages/bhishma/src/abacus_bhishma/paths.py",
+      "retained_path": "provenance/packages/bhishma/src/abacus_bhishma/paths.py",
+      "sha256": "f3125bcff0953fcfc9845119c9ff9b3f006b2d1df77c3899e0d49609e93aac18"
+    },
+    {
+      "path": "packages/bhishma/src/abacus_bhishma/provenance.py",
+      "retained_path": "provenance/packages/bhishma/src/abacus_bhishma/provenance.py",
+      "sha256": "34e75937186557e92d3e26feac8a4c576158e44f98ba4b67e3803a65517350d9"
+    },
+    {
+      "path": "packages/bhishma/src/abacus_bhishma/publication_safety.py",
+      "retained_path": "provenance/packages/bhishma/src/abacus_bhishma/publication_safety.py",
+      "sha256": "5177b296e9df2f7062885be0e719fc4d63a72a0aa9ec6601e55c9a02c3532d24"
+    },
+    {
+      "path": "packages/bhishma/src/abacus_bhishma/verniman_consolidated.py",
+      "retained_path": "provenance/packages/bhishma/src/abacus_bhishma/verniman_consolidated.py",
+      "sha256": "34faa5a1e8931045266f6faf20ee53d7cc195914e2450439d4869593bd0180d8"
+    },
+    {
+      "path": "requests/inbox/es_contract_session_indicators__1.0.0.yaml",
+      "retained_path": "provenance/requests/inbox/es_contract_session_indicators__1.0.0.yaml",
+      "sha256": "a146aa3c76ff46ab6f313da8fd055e62ae2defd0b93553815ad4203e46526965"
+    },
+    {
+      "path": "studies/30_verniman_pivot_statistics_es/README.md",
+      "retained_path": "provenance/studies/30_verniman_pivot_statistics_es/README.md",
+      "sha256": "e9e780a1878b2cdb5533411199e2e3aeeeda1e51120e3ce3d500d971b6fdf412"
+    },
+    {
+      "path": "studies/30_verniman_pivot_statistics_es/implementation-matrix.md",
+      "retained_path": "provenance/studies/30_verniman_pivot_statistics_es/implementation-matrix.md",
+      "sha256": "c58cde92e94f0e9a4f7b9810171cb1082e15d1c79accb05daf2a5ad9ff7ab513"
+    },
+    {
+      "path": "studies/30_verniman_pivot_statistics_es/inputs.lock.json",
+      "retained_path": "provenance/studies/30_verniman_pivot_statistics_es/inputs.lock.json",
+      "sha256": "672a7b4830d963b330f2a00d838c2f41370d4612c7f9d5fcdf7897b058a57e03"
+    },
+    {
+      "path": "studies/30_verniman_pivot_statistics_es/notes.md",
+      "retained_path": "provenance/studies/30_verniman_pivot_statistics_es/notes.md",
+      "sha256": "5b6fcd6ddf87d58ed7a531f2fdcbe5e849c4fb1a4589128524d6b76985982604"
+    },
+    {
+      "path": "studies/30_verniman_pivot_statistics_es/phase1-audit.md",
+      "retained_path": "provenance/studies/30_verniman_pivot_statistics_es/phase1-audit.md",
+      "sha256": "02b87c4d15cb61ed815cca66e14b337574f60481c239b8b3316c28d09c0167fe"
+    },
+    {
+      "path": "studies/30_verniman_pivot_statistics_es/plan.md",
+      "retained_path": "provenance/studies/30_verniman_pivot_statistics_es/plan.md",
+      "sha256": "84fe2c4d8203133b0b55741eba325038530b3949139b5cd9ab28e4f09457b4af"
+    },
+    {
+      "path": "studies/30_verniman_pivot_statistics_es/protocol-1.0.0.md",
+      "retained_path": "provenance/studies/30_verniman_pivot_statistics_es/protocol-1.0.0.md",
+      "sha256": "5200875c1f87fc741965f9317e73917eb51269d3f108286b9a8dd102ecd91284"
+    },
+    {
+      "path": "studies/30_verniman_pivot_statistics_es/protocol-2.0.0.md",
+      "retained_path": "provenance/studies/30_verniman_pivot_statistics_es/protocol-2.0.0.md",
+      "sha256": "067cbe02183fc2e0909e7c31e719d42b98742f94b0017b3b7d5e456788db8879"
+    },
+    {
+      "path": "studies/30_verniman_pivot_statistics_es/publish_ranked.py",
+      "retained_path": "provenance/studies/30_verniman_pivot_statistics_es/publish_ranked.py",
+      "sha256": "00840cad966eb5a365857375ac51e8377c83b0dd419122ea0fad834f5c887b71"
+    },
+    {
+      "path": "studies/30_verniman_pivot_statistics_es/publish_web.py",
+      "retained_path": "provenance/studies/30_verniman_pivot_statistics_es/publish_web.py",
+      "sha256": "12af3430a4a2aeae1bf86f99462c5afe4ef157537ad7a2eed4b60e66a8e5cd08"
+    },
+    {
+      "path": "studies/30_verniman_pivot_statistics_es/ranked.py",
+      "retained_path": "provenance/studies/30_verniman_pivot_statistics_es/ranked.py",
+      "sha256": "b8b4e9b850965bcb3cfc337ffddf826c3b4de567061cb55e4035ff073022918f"
+    },
+    {
+      "path": "studies/30_verniman_pivot_statistics_es/render_chart.mjs",
+      "retained_path": "provenance/studies/30_verniman_pivot_statistics_es/render_chart.mjs",
+      "sha256": "8ac37e33eb0c097cd5107c76966af422ce91d59f801a2995a4a061d4f0c39b51"
+    },
+    {
+      "path": "studies/30_verniman_pivot_statistics_es/run.py",
+      "retained_path": "provenance/studies/30_verniman_pivot_statistics_es/run.py",
+      "sha256": "b4d6d8ae431176dd6fb1515a9e52788e6ab022d18149939390656bdbb3dd3483"
+    },
+    {
+      "path": "studies/30_verniman_pivot_statistics_es/src/data_requirements.py",
+      "retained_path": "provenance/studies/30_verniman_pivot_statistics_es/src/data_requirements.py",
+      "sha256": "88771f66d26f3780bf293efc7f44a3e78d6a06c10a7e6c3b4d6301925fca214b"
+    },
+    {
+      "path": "studies/30_verniman_pivot_statistics_es/src/engine.py",
+      "retained_path": "provenance/studies/30_verniman_pivot_statistics_es/src/engine.py",
+      "sha256": "5e07a6b927df29ffc00d463536242fd939d4c55be19cdfdcdc6d2e23ff64950f"
+    },
+    {
+      "path": "studies/30_verniman_pivot_statistics_es/src/lifecycle.py",
+      "retained_path": "provenance/studies/30_verniman_pivot_statistics_es/src/lifecycle.py",
+      "sha256": "b84c5908373319c57d638981a4d56d239be077f88beb72fdfd972dd990d45eb1"
+    },
+    {
+      "path": "studies/30_verniman_pivot_statistics_es/src/ranked_engine.py",
+      "retained_path": "provenance/studies/30_verniman_pivot_statistics_es/src/ranked_engine.py",
+      "sha256": "ffe210e14180efa03017df89541a7598b1c58ab304af4ffa16f63a37a7c405c7"
+    },
+    {
+      "path": "studies/30_verniman_pivot_statistics_es/src/ranked_lifecycle.py",
+      "retained_path": "provenance/studies/30_verniman_pivot_statistics_es/src/ranked_lifecycle.py",
+      "sha256": "a29e9ab789fd6f2a1e72f9af669224690c70de5c3ead876d000ba50d9ec20b8c"
+    },
+    {
+      "path": "studies/30_verniman_pivot_statistics_es/src/ranked_statistics.py",
+      "retained_path": "provenance/studies/30_verniman_pivot_statistics_es/src/ranked_statistics.py",
+      "sha256": "daa067365706d00c5d540b82b5acabcd2a84b53d4cdb26e93e535a360aa585f4"
+    },
+    {
+      "path": "studies/30_verniman_pivot_statistics_es/src/reporting.py",
+      "retained_path": "provenance/studies/30_verniman_pivot_statistics_es/src/reporting.py",
+      "sha256": "3cea108e11657983fa54bba9b09fc7680d529afb2bfba23342ca1027b5de0150"
+    },
+    {
+      "path": "studies/30_verniman_pivot_statistics_es/src/source_audit.py",
+      "retained_path": "provenance/studies/30_verniman_pivot_statistics_es/src/source_audit.py",
+      "sha256": "8192c163e9cc8f4e64f668cb3de23d1ec56d4a5cbe53f5d27a2a481820382a16"
+    },
+    {
+      "path": "studies/30_verniman_pivot_statistics_es/src/source_selection.py",
+      "retained_path": "provenance/studies/30_verniman_pivot_statistics_es/src/source_selection.py",
+      "sha256": "3c77b30f1d2633bb70b8a4a9326b9c4fd30a591014b1b2690bde58be7a8623fb"
+    },
+    {
+      "path": "studies/30_verniman_pivot_statistics_es/statistics.md",
+      "retained_path": "provenance/studies/30_verniman_pivot_statistics_es/statistics.md",
+      "sha256": "7798225c4a4e84ef3521624cfc315a41e17032a4673d70ef857037c6a8d3f2b9"
+    },
+    {
+      "path": "studies/30_verniman_pivot_statistics_es/study.json",
+      "retained_path": "provenance/studies/30_verniman_pivot_statistics_es/study.json",
+      "sha256": "59d996c58e92d1dd7c44fe1f5fc5726fe07b5b39fd34324109e1c53cd44f74d8"
+    },
+    {
+      "path": "studies/30_verniman_pivot_statistics_es/study.yaml",
+      "retained_path": "provenance/studies/30_verniman_pivot_statistics_es/study.yaml",
+      "sha256": "6d29113b6b8a12f86f3eac558b64cdc756433210ac786148a45ef6eed00a2182"
+    },
+    {
+      "path": "studies/30_verniman_pivot_statistics_es/tests/test_audit_runner.py",
+      "retained_path": "provenance/studies/30_verniman_pivot_statistics_es/tests/test_audit_runner.py",
+      "sha256": "09353c305854c58ac5cd02e2dd34ee6d9dacde4d0294ae3a4fd4c02a58b09eb8"
+    },
+    {
+      "path": "studies/30_verniman_pivot_statistics_es/tests/test_data_requirements.py",
+      "retained_path": "provenance/studies/30_verniman_pivot_statistics_es/tests/test_data_requirements.py",
+      "sha256": "3cb758b90443a52007bffdac1048b9b8cbbcdc6ac7d6e400822d56e9e6600435"
+    },
+    {
+      "path": "studies/30_verniman_pivot_statistics_es/tests/test_engine.py",
+      "retained_path": "provenance/studies/30_verniman_pivot_statistics_es/tests/test_engine.py",
+      "sha256": "63ae508616bcf4e43434e28e3ff779dbe674903be874b5deda620db85351ad91"
+    },
+    {
+      "path": "studies/30_verniman_pivot_statistics_es/tests/test_lifecycle.py",
+      "retained_path": "provenance/studies/30_verniman_pivot_statistics_es/tests/test_lifecycle.py",
+      "sha256": "fe496b8e1f3ac088981ce0b3d7c32614d83788746314a784011791e794139c7d"
+    },
+    {
+      "path": "studies/30_verniman_pivot_statistics_es/tests/test_publish_ranked.py",
+      "retained_path": "provenance/studies/30_verniman_pivot_statistics_es/tests/test_publish_ranked.py",
+      "sha256": "079ee22b14668d724f7e7b0929d32faf458961fb488551b30f14f57e7c06a694"
+    },
+    {
+      "path": "studies/30_verniman_pivot_statistics_es/tests/test_ranked_engine.py",
+      "retained_path": "provenance/studies/30_verniman_pivot_statistics_es/tests/test_ranked_engine.py",
+      "sha256": "77ca6fd0a2c2b562fb6c8bf423fc23bd7f80db6171265d89b6610123622ba8d5"
+    },
+    {
+      "path": "studies/30_verniman_pivot_statistics_es/tests/test_ranked_lifecycle.py",
+      "retained_path": "provenance/studies/30_verniman_pivot_statistics_es/tests/test_ranked_lifecycle.py",
+      "sha256": "9c09061216886a6aa07a328e894e32b8d72163fccfac53c91725cd95bca2a2b3"
+    },
+    {
+      "path": "studies/30_verniman_pivot_statistics_es/tests/test_ranked_statistics.py",
+      "retained_path": "provenance/studies/30_verniman_pivot_statistics_es/tests/test_ranked_statistics.py",
+      "sha256": "ee3b6c1972443e37f3e249be601baae70652ded6e40f79e37307e0212336042a"
+    },
+    {
+      "path": "studies/30_verniman_pivot_statistics_es/tests/test_reporting.py",
+      "retained_path": "provenance/studies/30_verniman_pivot_statistics_es/tests/test_reporting.py",
+      "sha256": "27f3671f3f1deeb519adb251f15d00eb52c6f5999cfb3d2c03ef6233f5259cba"
+    },
+    {
+      "path": "studies/30_verniman_pivot_statistics_es/tests/test_source_audit.py",
+      "retained_path": "provenance/studies/30_verniman_pivot_statistics_es/tests/test_source_audit.py",
+      "sha256": "1569fb3bee22508b69a0c30082cbf85f583d548890466689d79f135732059376"
+    },
+    {
+      "path": "studies/30_verniman_pivot_statistics_es/tests/test_source_selection.py",
+      "retained_path": "provenance/studies/30_verniman_pivot_statistics_es/tests/test_source_selection.py",
+      "sha256": "1d65f1f3aa77ed5c94e647f68b438853da773d9912a93445ba44ce234eb4894a"
+    },
+    {
+      "path": "studies/30_verniman_pivot_statistics_es/tests/test_verify_features.py",
+      "retained_path": "provenance/studies/30_verniman_pivot_statistics_es/tests/test_verify_features.py",
+      "sha256": "660734f8f3160da083ba447351ad439684549856072600948b970c9d0d43a941"
+    },
+    {
+      "path": "studies/30_verniman_pivot_statistics_es/tests/test_verify_saved.py",
+      "retained_path": "provenance/studies/30_verniman_pivot_statistics_es/tests/test_verify_saved.py",
+      "sha256": "08b72d1b6bc5c967d0bcd9c9ed69e602913d733082feb5336fe641675f05e8b6"
+    },
+    {
+      "path": "studies/30_verniman_pivot_statistics_es/verification.md",
+      "retained_path": "provenance/studies/30_verniman_pivot_statistics_es/verification.md",
+      "sha256": "7d87ce09f5388c792f9aaabf81e842ceb83807fe2ea81a25a6884625735333fb"
+    },
+    {
+      "path": "studies/30_verniman_pivot_statistics_es/verify_features.py",
+      "retained_path": "provenance/studies/30_verniman_pivot_statistics_es/verify_features.py",
+      "sha256": "1acd6e4623f3f2ca2c44d49da0d576d657d4f5629242a13abbe10d9fd72dea69"
+    },
+    {
+      "path": "studies/30_verniman_pivot_statistics_es/verify_ranked.py",
+      "retained_path": "provenance/studies/30_verniman_pivot_statistics_es/verify_ranked.py",
+      "sha256": "0eaa026f520506d13719a3e7715011a6428c6ec61764f62c278b8e43cf7af655"
+    },
+    {
+      "path": "studies/30_verniman_pivot_statistics_es/verify_saved.py",
+      "retained_path": "provenance/studies/30_verniman_pivot_statistics_es/verify_saved.py",
+      "sha256": "3c62f9eee5d925cb52f0d3ae2060b0022673f6a95a5c107e828508fef150ffe7"
+    },
+    {
+      "path": "uv.lock",
+      "retained_path": "provenance/uv.lock",
+      "sha256": "b2c02f82320599b00cb3277479c660a9c56c37c6476bc423215c9cbb7ab0c645"
+    }
+  ],
+  "study_id": "30_verniman_pivot_statistics_es"
+}

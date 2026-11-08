@@ -1,0 +1,663 @@
+{
+  "schemaVersion": "1.1",
+  "id": "verniman-es-vwap-insights-20261103-v2",
+  "title": "Vern Pivot Cross Statistics — Globex VWAP",
+  "summary": "Saved ES crossing results presented one question at a time, with a brief description, findings summary and chart or table. Actual eligible dates are January 3, 2020–September 18, 2026. Population, outcome horizon and missing support remain explicit. These descriptive observations do not establish profitability.",
+  "publishedAt": "2026-11-03T06:00:10Z",
+  "source": {
+    "producer": "sahadeva",
+    "runId": "20261031_ranked_v2"
+  },
+  "sections": [
+    {
+      "id": "scope",
+      "kind": "text",
+      "title": "Globex VWAP statistics",
+      "body": "The VWAP analysis keeps 1,308 eligible RTH sessions and 1,292 full-Globex sessions separate. It does not require a matched daily pivot. Forward outcomes are RTH-only. Actual eligible dates span January 3, 2020–September 18, 2026; requested coverage through October 30 extends beyond retained market data.\n\nCrossings are actual strict-side transitions on completed three-minute closes. EMA6 already on one side, a touch, or an equal value is a different state. VWAP uses one-minute HLC3 and volume from 18:00 New York; the EMA20/50 cloud uses five-minute closes.\n\nEach insight describes its named saved baseline, then shows a chart or compact supporting rows. The companion notebook uses the same prose and evidence. Ranked statistics retains the fuller tables and filters. Selected CSVs and eligible-period bounds are below. Historical pivot availability remains unverified; eligibility is retrospective and conditional slices are exploratory. Fills, costs and profitability were not tested."
+    },
+    {
+      "id": "s01",
+      "kind": "figure",
+      "title": "How often does EMA6 cross VWAP in Globex and RTH?",
+      "path": "figures/globex-vwap-statistics-s01.png",
+      "alt": "Saved crossing frequency estimates, with measure units, valid denominator, distinct supporting days and actual coverage.",
+      "caption": "A bounded illustration of saved summary cells. Populations remain separate. Complete measures, horizons and missing/censored support are retained in the corresponding saved tables; no trading profitability is inferred. Full supporting tables remain in the earlier Ranked statistics reports; the downloads below contain selected saved statistics and period bounds.",
+      "description": "Count actual completed three-minute EMA6–VWAP transitions in two separate pivot-independent populations: full Globex and regular trading hours. Globex initializes at 18:00 New York; the VWAP reset itself is not a crossing.",
+      "finding": "The full-Globex mean was 10.78 crossings per session across 1,292 eligible sessions. The separate RTH mean was 2.89 across 1,308 sessions. Their observation windows and eligible populations differ; the chart preserves those identities."
+    },
+    {
+      "id": "s03",
+      "kind": "table",
+      "title": "How often are there no crossings or repeated VWAP crossings?",
+      "columns": [
+        {
+          "key": "measure",
+          "label": "Saved measure and context"
+        },
+        {
+          "key": "share",
+          "label": "Share",
+          "format": "percent",
+          "precision": 1
+        },
+        {
+          "key": "denominator",
+          "label": "Observations",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "days",
+          "label": "Days",
+          "format": "number",
+          "precision": 0
+        }
+      ],
+      "rows": [
+        {
+          "measure": "Full Globex · overall: all · Count bucket [fraction] · EMA6–VWAP · cross count=0",
+          "share": 0.00696594427244582,
+          "denominator": 1292,
+          "days": 1292
+        },
+        {
+          "measure": "Full Globex · overall: all · Count bucket [fraction] · EMA6–VWAP · cross count=5+",
+          "share": 0.9047987616099071,
+          "denominator": 1292,
+          "days": 1292
+        },
+        {
+          "measure": "VWAP-only RTH · overall: all · Count bucket [fraction] · EMA6–VWAP · cross count=0",
+          "share": 0.20642201834862386,
+          "denominator": 1308,
+          "days": 1308
+        }
+      ],
+      "notes": [
+        "Observations and Days are the saved measure-specific support. Repeated events within a day are dependent; fewer than 30 days is sparse.",
+        "Not available differs from observed zero. Missing and censored counts can overlap. Units appear in the measure label.",
+        "Full comparisons and filters remain in Ranked statistics; the downloads below retain selected saved statistics and eligible period bounds.",
+        "All selected rows record zero for: unavailable observations, censored observations."
+      ],
+      "description": "Read the fixed daily EMA6–VWAP count categories independently for full Globex and RTH. Full Globex covers a longer observation window, so its raw daily counts should retain their separate scope.",
+      "finding": "Among 1,292 full-Globex sessions, 0.7% had no EMA6–VWAP crossing and 90.5% had five or more. In the separate 1,308-session RTH population, 20.6% had no crossing."
+    },
+    {
+      "id": "s04",
+      "kind": "table",
+      "title": "What are the VWAP crossing rates per observed hour?",
+      "columns": [
+        {
+          "key": "measure",
+          "label": "Saved measure and context"
+        },
+        {
+          "key": "value",
+          "label": "Mean",
+          "format": "number",
+          "precision": 3
+        },
+        {
+          "key": "denominator",
+          "label": "Observations",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "days",
+          "label": "Days",
+          "format": "number",
+          "precision": 0
+        }
+      ],
+      "rows": [
+        {
+          "measure": "Full Globex · overall: all · Crosses per hour [crossings/hour] · EMA6–VWAP",
+          "value": 0.4700845661271022,
+          "denominator": 1292,
+          "days": 1292
+        },
+        {
+          "measure": "VWAP-only RTH · overall: all · Crosses per hour [crossings/hour] · EMA6–VWAP",
+          "value": 0.44495412844036697,
+          "denominator": 1308,
+          "days": 1308
+        }
+      ],
+      "notes": [
+        "Observations and Days are the saved measure-specific support. Repeated events within a day are dependent; fewer than 30 days is sparse.",
+        "Not available differs from observed zero. Missing and censored counts can overlap. Units appear in the measure label.",
+        "Full comparisons and filters remain in Ranked statistics; the downloads below retain selected saved statistics and eligible period bounds.",
+        "All selected rows record zero for: unavailable observations, censored observations."
+      ],
+      "description": "Express each day’s actual EMA6–VWAP crossings per observed native three-minute hour. Scheduled closures contribute no exposure, and unknown exposure is not an observed zero.",
+      "finding": "The saved mean daily rate was 0.47 crossings per observed hour across 1,292 full-Globex sessions, and 0.44 across 1,308 separate RTH sessions. These exposure-normalized means preserve each population’s eligibility rules."
+    },
+    {
+      "id": "s05",
+      "kind": "table",
+      "title": "How often does price cross VWAP compared with EMA6?",
+      "columns": [
+        {
+          "key": "measure",
+          "label": "Saved measure and context"
+        },
+        {
+          "key": "value",
+          "label": "Mean",
+          "format": "number",
+          "precision": 3
+        },
+        {
+          "key": "denominator",
+          "label": "Observations",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "days",
+          "label": "Days",
+          "format": "number",
+          "precision": 0
+        }
+      ],
+      "rows": [
+        {
+          "measure": "Full Globex · overall: all · Crosses [crossings/session] · Price–VWAP",
+          "value": 25.077399380804952,
+          "denominator": 1292,
+          "days": 1292
+        },
+        {
+          "measure": "Full Globex · overall: all · Crosses [crossings/session] · EMA6–VWAP",
+          "value": 10.784829721362229,
+          "denominator": 1292,
+          "days": 1292
+        }
+      ],
+      "notes": [
+        "Observations and Days are the saved measure-specific support. Repeated events within a day are dependent; fewer than 30 days is sparse.",
+        "Not available differs from observed zero. Missing and censored counts can overlap. Units appear in the measure label.",
+        "Full comparisons and filters remain in Ranked statistics; the downloads below retain selected saved statistics and eligible period bounds.",
+        "All selected rows record zero for: unavailable observations, censored observations."
+      ],
+      "description": "Compare completed three-minute price-close and EMA6 transitions against contemporaneous moving VWAP on the same named population. This compact view cites full-Globex rows; the earlier Ranked statistics reports retain both Globex and RTH selections without pooling them.",
+      "finding": "On the same 1,292 full-Globex sessions, price averaged 25.08 VWAP crossings per session while EMA6 averaged 10.78. These are counts of distinct event definitions, not assumed trading opportunities."
+    },
+    {
+      "id": "s09",
+      "kind": "table",
+      "title": "What happens 30 minutes after an RTH EMA6–VWAP crossing?",
+      "columns": [
+        {
+          "key": "measure",
+          "label": "Saved measure and context"
+        },
+        {
+          "key": "value",
+          "label": "Mean",
+          "format": "number",
+          "precision": 3
+        },
+        {
+          "key": "share",
+          "label": "Share",
+          "format": "percent",
+          "precision": 1
+        },
+        {
+          "key": "denominator",
+          "label": "Observations",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "days",
+          "label": "Days",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "unknown",
+          "label": "Unavailable",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "censored",
+          "label": "Censored",
+          "format": "number",
+          "precision": 0
+        }
+      ],
+      "rows": [
+        {
+          "measure": "VWAP-only RTH · overall: all · Displacement [points] · EMA6–VWAP · 30m",
+          "value": 0.01619262179667648,
+          "share": null,
+          "denominator": 3551,
+          "days": 1030,
+          "unknown": 232,
+          "censored": 232
+        },
+        {
+          "measure": "VWAP-only RTH · overall: all · Positive movement [fraction] · EMA6–VWAP · 30m",
+          "value": null,
+          "share": 0.5009856378484934,
+          "denominator": 3551,
+          "days": 1030,
+          "unknown": 232,
+          "censored": 232
+        }
+      ],
+      "notes": [
+        "Observations and Days are the saved measure-specific support. Repeated events within a day are dependent; fewer than 30 days is sparse.",
+        "Not available differs from observed zero. Missing and censored counts can overlap. Units appear in the measure label.",
+        "Full comparisons and filters remain in Ranked statistics; the downloads below retain selected saved statistics and eligible period bounds."
+      ],
+      "description": "Measure directional price displacement from the observable EMA6–VWAP event close over a complete 30-minute RTH path. The full-Globex recurrence population is not used for overnight forward outcomes.",
+      "finding": "Across 3,551 complete RTH outcomes on 1,030 distinct days, mean 30-minute directional displacement was 0.02 ES points and 50.1% ended strictly positive. Another 232 candidate outcomes were unavailable; no trade fills or costs are modeled."
+    },
+    {
+      "id": "s10",
+      "kind": "table",
+      "title": "How large are the favorable and adverse VWAP-cross paths?",
+      "columns": [
+        {
+          "key": "measure",
+          "label": "Saved measure and context"
+        },
+        {
+          "key": "value",
+          "label": "Mean",
+          "format": "number",
+          "precision": 3
+        },
+        {
+          "key": "share",
+          "label": "Share",
+          "format": "percent",
+          "precision": 1
+        },
+        {
+          "key": "denominator",
+          "label": "Observations",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "days",
+          "label": "Days",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "unknown",
+          "label": "Unavailable",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "censored",
+          "label": "Censored",
+          "format": "number",
+          "precision": 0
+        }
+      ],
+      "rows": [
+        {
+          "measure": "VWAP-only RTH · overall: all · Favorable excursion [points] · EMA6–VWAP · 30m",
+          "value": 8.717403548296254,
+          "share": null,
+          "denominator": 3551,
+          "days": 1030,
+          "unknown": 232,
+          "censored": 232
+        },
+        {
+          "measure": "VWAP-only RTH · overall: all · Adverse excursion [points] · EMA6–VWAP · 30m",
+          "value": 8.351239087580964,
+          "share": null,
+          "denominator": 3551,
+          "days": 1030,
+          "unknown": 232,
+          "censored": 232
+        },
+        {
+          "measure": "VWAP-only RTH · overall: all · Favorable reach 10 [fraction] · EMA6–VWAP · 30m",
+          "value": null,
+          "share": 0.3100535060546325,
+          "denominator": 3551,
+          "days": 1030,
+          "unknown": 232,
+          "censored": 232
+        }
+      ],
+      "notes": [
+        "Observations and Days are the saved measure-specific support. Repeated events within a day are dependent; fewer than 30 days is sparse.",
+        "Not available differs from observed zero. Missing and censored counts can overlap. Units appear in the measure label.",
+        "Full comparisons and filters remain in Ranked statistics; the downloads below retain selected saved statistics and eligible period bounds."
+      ],
+      "description": "Measure excursions and fixed point reaches after actual EMA6–VWAP crossings using complete 30-minute RTH paths. Favorable and adverse reaches can both occur, and the saved summaries do not infer intraminute order.",
+      "finding": "For 3,551 complete paths on 1,030 distinct days, mean favorable excursion was 8.72 ES points and mean adverse excursion was 8.35 points. The share reaching 10 favorable points was 31.0%. These are path measures rather than realized returns."
+    },
+    {
+      "id": "s11",
+      "kind": "table",
+      "title": "How often does EMA6 avoid recrossing VWAP for 30 minutes?",
+      "columns": [
+        {
+          "key": "measure",
+          "label": "Saved measure and context"
+        },
+        {
+          "key": "share",
+          "label": "Share",
+          "format": "percent",
+          "precision": 1
+        },
+        {
+          "key": "numerator",
+          "label": "Count / sum",
+          "format": "number",
+          "precision": 3
+        },
+        {
+          "key": "denominator",
+          "label": "Observations",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "days",
+          "label": "Days",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "unknown",
+          "label": "Unavailable",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "censored",
+          "label": "Censored",
+          "format": "number",
+          "precision": 0
+        }
+      ],
+      "rows": [
+        {
+          "measure": "VWAP-only RTH · overall: all · No recross [fraction] · EMA6–VWAP · 30m",
+          "share": 0.6119402985074627,
+          "denominator": 3551,
+          "days": 1030,
+          "unknown": 232,
+          "censored": 232,
+          "numerator": 2173
+        }
+      ],
+      "notes": [
+        "Observations and Days are the saved measure-specific support. Repeated events within a day are dependent; fewer than 30 days is sparse.",
+        "Not available differs from observed zero. Missing and censored counts can overlap. Units appear in the measure label.",
+        "Full comparisons and filters remain in Ranked statistics; the downloads below retain selected saved statistics and eligible period bounds."
+      ],
+      "description": "Observe the next reverse EMA6–VWAP transition within a complete 30-minute RTH window. Require the entire window even when a reverse is already observed, and preserve late or missing windows as censored.",
+      "finding": "No reverse EMA6–VWAP cross occurred in 2,173 of 3,551 complete windows (61.2%), supported by 1,030 distinct days. Another 232 windows were censored; this describes line persistence rather than directional trading profit."
+    },
+    {
+      "id": "s12",
+      "kind": "figure",
+      "title": "When does the first Globex EMA6–VWAP crossing occur?",
+      "path": "figures/globex-vwap-statistics-s12.png",
+      "alt": "Saved first-cross timing estimates, with measure units, valid denominator, distinct supporting days and actual coverage.",
+      "caption": "First 12 chronological 30-minute bins after preceding 18:00 New York, for EMA6–VWAP crossings in vwap_only_full_globex. The denominator remains all eligible days, including no-cross days. Later bins and the explicit no_cross category remain in the saved table; this selected figure is not the complete timing distribution. No profitability claim. Full supporting tables remain in the earlier Ranked statistics reports; the downloads below contain selected saved statistics and period bounds.",
+      "description": "Measure the first actual EMA6–VWAP crossing from the 18:00 New York Globex anchor. The first strict side initializes the state without a cross; sessions without a later transition retain a separate no-cross category.",
+      "finding": "Among 1,283 full-Globex sessions with a crossing, the first cross occurred a mean 69.43 minutes after 18:00 and median 24.00 minutes after 18:00. Another 9 sessions had no cross. The chart displays the first chronological bins, with later bins retained in saved evidence."
+    },
+    {
+      "id": "s13",
+      "kind": "table",
+      "title": "Does RTH followthrough change with VWAP crossing order?",
+      "columns": [
+        {
+          "key": "measure",
+          "label": "Saved measure and context"
+        },
+        {
+          "key": "value",
+          "label": "Mean",
+          "format": "number",
+          "precision": 3
+        },
+        {
+          "key": "denominator",
+          "label": "Observations",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "days",
+          "label": "Days",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "unknown",
+          "label": "Unavailable",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "censored",
+          "label": "Censored",
+          "format": "number",
+          "precision": 0
+        }
+      ],
+      "rows": [
+        {
+          "measure": "VWAP-only RTH · overall: all · Displacement [points] · EMA6–VWAP · 30m · crossing ordinal=1",
+          "value": 0.035194174757281996,
+          "denominator": 1030,
+          "days": 1030,
+          "unknown": 8,
+          "censored": 8
+        },
+        {
+          "measure": "VWAP-only RTH · overall: all · Displacement [points] · EMA6–VWAP · 30m · crossing ordinal=2",
+          "value": 0.05871446229913417,
+          "denominator": 809,
+          "days": 809,
+          "unknown": 25,
+          "censored": 25
+        },
+        {
+          "measure": "VWAP-only RTH · overall: all · Displacement [points] · EMA6–VWAP · 30m · crossing ordinal=3+",
+          "value": -0.015332943925234708,
+          "denominator": 1712,
+          "days": 601,
+          "unknown": 199,
+          "censored": 199
+        }
+      ],
+      "notes": [
+        "Observations and Days are the saved measure-specific support. Repeated events within a day are dependent; fewer than 30 days is sparse.",
+        "Not available differs from observed zero. Missing and censored counts can overlap. Units appear in the measure label.",
+        "Full comparisons and filters remain in Ranked statistics; the downloads below retain selected saved statistics and eligible period bounds."
+      ],
+      "description": "Group the first, second and third-or-later EMA6–VWAP crossings within each RTH day and retain complete 30-minute directional outcomes. Later events can share a day, so these groups are dependent exploratory slices.",
+      "finding": "Saved mean 30-minute displacement was 0.04 ES points after the first crossing (1,030 outcomes), 0.06 after the second (809 outcomes), and -0.02 after third-or-later crossings. Denominators and censoring differ across these groups."
+    },
+    {
+      "id": "s16",
+      "kind": "table",
+      "title": "How do cloud states relate to RTH VWAP-cross outcomes?",
+      "columns": [
+        {
+          "key": "measure",
+          "label": "Saved measure and context"
+        },
+        {
+          "key": "value",
+          "label": "Mean",
+          "format": "number",
+          "precision": 3
+        },
+        {
+          "key": "denominator",
+          "label": "Observations",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "days",
+          "label": "Days",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "unknown",
+          "label": "Unavailable",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "censored",
+          "label": "Censored",
+          "format": "number",
+          "precision": 0
+        }
+      ],
+      "rows": [
+        {
+          "measure": "VWAP-only RTH · overall: all · Displacement [points] · EMA6–VWAP · 30m · cloud support=support",
+          "value": -0.3541300527240797,
+          "denominator": 569,
+          "days": 396,
+          "unknown": 53,
+          "censored": 53
+        },
+        {
+          "measure": "VWAP-only RTH · overall: all · Displacement [points] · EMA6–VWAP · 30m · cloud support=opposition",
+          "value": -0.14742451154529307,
+          "denominator": 563,
+          "days": 392,
+          "unknown": 35,
+          "censored": 35
+        }
+      ],
+      "notes": [
+        "Observations and Days are the saved measure-specific support. Repeated events within a day are dependent; fewer than 30 days is sparse.",
+        "Not available differs from observed zero. Missing and censored counts can overlap. Units appear in the measure label.",
+        "Full comparisons and filters remain in Ranked statistics; the downloads below retain selected saved statistics and eligible period bounds."
+      ],
+      "description": "At each actual RTH EMA6–VWAP crossing, classify the five-minute cloud by ordering and both 15-minute slopes. Keep supporting, opposing, mixed/flat and unknown states distinct, then read complete 30-minute outcomes.",
+      "finding": "Mean directional displacement was -0.35 ES points with cloud support (569 complete outcomes) and -0.15 with cloud opposition (563 outcomes). These are exploratory conditional observations, with mixed and unknown states retained separately in the earlier Ranked statistics reports."
+    },
+    {
+      "id": "s19",
+      "kind": "figure",
+      "title": "How persistent are RTH section-end states?",
+      "path": "figures/globex-vwap-statistics-s19.png",
+      "alt": "Saved section persistence estimates, with measure units, valid denominator, distinct supporting days and actual coverage.",
+      "caption": "A bounded illustration of saved summary cells. Populations remain separate. Complete measures, horizons and missing/censored support are retained in the corresponding saved tables; no trading profitability is inferred. Full supporting tables remain in the earlier Ranked statistics reports; the downloads below contain selected saved statistics and period bounds.",
+      "description": "Compare observed price-side and cloud-ordering states from the opening-range endpoint to AM and PM endpoints in the pivot-independent RTH population. Later endpoint states cannot be used as opening-time conditions.",
+      "finding": "Bullish cloud ordering persisted from the opening-range endpoint to the AM endpoint on 74.4% of 687 eligible bullish-source RTH days; bearish ordering persisted on 68.4% of 621 bearish-source days. The chart retains selected saved transition views."
+    },
+    {
+      "id": "s20",
+      "kind": "figure",
+      "title": "How does recent Globex crossing activity compare with earlier history?",
+      "path": "figures/globex-vwap-statistics-s20.png",
+      "alt": "Saved recent and earlier history estimates, with measure units, valid denominator, distinct supporting days and actual coverage.",
+      "caption": "A bounded illustration of saved summary cells. Populations remain separate. Complete measures, horizons and missing/censored support are retained in the corresponding saved tables; no trading profitability is inferred. Full supporting tables remain in the earlier Ranked statistics reports; the downloads below contain selected saved statistics and period bounds.",
+      "description": "Compare trailing 20, 60 and 120 eligible observed sessions with disjoint earlier histories. Globex and RTH remain separate, and the latest available date is September 18, 2026 despite the October 30 requested cutoff.",
+      "finding": "Full-Globex EMA6–VWAP crossings averaged 11.15 per session over the last 20 eligible sessions, versus 10.78 over the preceding 1,272 sessions. The 20-session cell is sparse under the study’s 30-day rule; the chart also preserves the other selected windows."
+    },
+    {
+      "id": "limits",
+      "kind": "text",
+      "title": "Evidence qualifications",
+      "body": "Repository-retained ES data only; requested coverage ends 2026-10-30, while retained market data ends 2026-09-18. Missing dates/contracts and retrospective full-day eligibility limit generalization.\n\nHistorical pivot available_at remains unverified. Nominal 09:25 timing does not establish a historically executable pre-open signal.\n\nReturned-without-EMA and eventual confirmation labels are known later. Already-aligned EMA6 is distinct from an actual new line crossing.\n\nSigned displacement and excursions describe price paths. No entries, fills, costs or net profitability are tested. Broad slices are exploratory.\n\nThis extends an already observed completed study and is not an untouched holdout. EMA–VWAP crossings use the moving difference, carry strict side through equality, clear unknown comparisons and exclude anchor initialization. EMA recrosses are separate from price reversals. Pivot retests remain fixed-pivot only. Five-observed-session moving-block intervals use 2,000 replicates, seed 20261031; within-day events remain together. Broad conditional slices are exploratory."
+    }
+  ],
+  "notes": [
+    "Repository-retained ES data only; requested coverage ends 2026-10-30, while retained market data ends 2026-09-18. Missing dates/contracts and retrospective full-day eligibility limit generalization.",
+    "Historical pivot available_at remains unverified. Nominal 09:25 timing does not establish a historically executable pre-open signal.",
+    "Returned-without-EMA and eventual confirmation labels are known later. Already-aligned EMA6 is distinct from an actual new line crossing.",
+    "Signed displacement and excursions describe price paths. No entries, fills, costs or net profitability are tested. Broad slices are exploratory."
+  ],
+  "downloads": [
+    {
+      "id": "summary",
+      "path": "downloads/globex-vwap-statistics.csv",
+      "label": "Globex VWAP statistics · selected overall saved summaries",
+      "description": "Saved overall baseline rows with original numeric values and denominator fields. Calendar and conditional detail remain in the source evidence.",
+      "population": "VWAP-only RTH and VWAP-only full-Globex populations are separate. RTH eligibility does not require a complete late-session Globex tail. No pivot is required; pivot-dependent questions are omitted.",
+      "units": "Each row declares units. Fraction means a ratio, e.g. 0.42 = 42%; points are unadjusted ES points; time is minutes. Blank is unavailable.",
+      "scope": "Selected descriptive summary evidence only. Populations, periods and event panels overlap and cannot be pooled. No raw market/event ledger or net P&L.",
+      "mediaType": "text/csv",
+      "sha256": "701e1fe75294f64cde1b61e27b7905cb9c0a2fcdf410ce6fa3bbff414e0d350f",
+      "rowCount": 66,
+      "columns": [
+        "statistic_id",
+        "cohort",
+        "reference",
+        "series",
+        "session_mode",
+        "section",
+        "direction",
+        "panel",
+        "horizon",
+        "condition",
+        "condition_value",
+        "metric",
+        "unit",
+        "estimate",
+        "median",
+        "numerator",
+        "denominator",
+        "days",
+        "unknown",
+        "censored",
+        "earliest_session",
+        "latest_session",
+        "ci95_low",
+        "ci95_high"
+      ],
+      "source": {
+        "runId": "20261031_ranked_v2",
+        "artifact": "tables/publication-globex-vwap-statistics.csv",
+        "sha256": "701e1fe75294f64cde1b61e27b7905cb9c0a2fcdf410ce6fa3bbff414e0d350f"
+      }
+    },
+    {
+      "id": "period-coverage",
+      "path": "downloads/period-coverage.csv",
+      "label": "Eligible cohort period coverage",
+      "description": "Exact saved eligible-session counts and actual date bounds for every overall, annual, calendar-month and recent/preceding window. Includes zero-event days and empty periods. This differs from each metric's valid-contributing-date coverage.",
+      "population": "vwap_only_rth, vwap_only_full_globex; separately retained eligible-date rosters, with no event-based selection.",
+      "units": "eligible_sessions is a count of observed eligible sessions. Bounds are ISO New York session dates. Empty periods have zero sessions and blank bounds; requested_cutoff is the requested calendar end.",
+      "scope": "Coverage metadata only. Recent 20/60/120 windows use eligible observed sessions and their preceding comparisons exclude the corresponding recent window. Cohorts are never pooled.",
+      "mediaType": "text/csv",
+      "sha256": "474e4854204dda86e2bd3bf091ec88d1d834f378a6ee919f452a4b6c4d3928f2",
+      "rowCount": 192,
+      "columns": [
+        "cohort",
+        "period_kind",
+        "period",
+        "eligible_sessions",
+        "window_start",
+        "window_end",
+        "requested_cutoff"
+      ],
+      "source": {
+        "runId": "20261031_ranked_v2",
+        "artifact": "tables/publication-globex-vwap-statistics-period-coverage.csv",
+        "sha256": "474e4854204dda86e2bd3bf091ec88d1d834f378a6ee919f452a4b6c4d3928f2"
+      }
+    }
+  ]
+}

@@ -96,12 +96,13 @@ remain independent of those private evidence files and the Python environment.
 
 Browser inspection checks actual navigation, keyboard focus/table scrolling,
 desktop/mobile layout, figures, references, and downloads after local smoke.
-Optional phase families add a bounded phase → condition → saved report hierarchy
-without changing classic study navigation. A study selects either legacy tabs,
+Optional phase families add bounded phase, condition and saved-report tabs
+inside the shared study workspace. A study selects either legacy tabs,
 legacy analyses, or two to four phase families with one to eight analyses each.
 Each analysis keeps one to twelve reports from its own source run; phase families
-can retain earlier analyses from different runs. These remain ordinary immutable
-report links, and the browse control retains every explicitly selected route.
+can retain earlier analyses from different runs. Results opens the active saved
+report directly; tab-styled immutable report links retain every selected route
+without an intermediate report directory.
 Local maintenance findings are separate from hosted release gates; these commands
 do not create a release or append an event to an existing release.
 
@@ -110,7 +111,7 @@ do not create a release or append an event to an existing release.
 | Task | Owner | Focused tests | Boundary |
 |---|---|---|---|
 | Report contract and selected assets | [publication.mjs](scripts/lib/publication.mjs), [evidence.mjs](scripts/lib/evidence.mjs) | [Publication](tests/publication.test.mjs), [evidence](tests/evidence.test.mjs), [input boundaries](tests/operational-inputs.test.mjs) | Explicit saved content, immutable IDs and exact selected bytes |
-| Static study destinations and legacy links | [study-routes.mjs](scripts/lib/study-routes.mjs), [study shell](src/components/study-shell.tsx), [report directory](src/components/study-directory.tsx) | [Routes](tests/study-routes.test.mjs), [presentation](tests/study-presentation.test.mjs); export/HTTP checks | Five catalog-derived pages, native links, explicit current selection and saved-section compatibility |
+| Static study destinations and legacy links | [study-routes.mjs](scripts/lib/study-routes.mjs), [study shell](src/components/study-shell.tsx), [active results](src/components/study-results.tsx) | [Routes](tests/study-routes.test.mjs), [presentation](tests/study-presentation.test.mjs); export/HTTP checks | Five persistent study tabs, one active saved report, native links and saved-section compatibility |
 | Authored navigation | [studies.mjs](scripts/lib/studies.mjs), [catalog](content/studies.json) | [Studies](tests/studies.test.mjs) | Stable slugs and explicit run/publication relationships |
 | Study briefs and selected highlights | [study-overviews.mjs](scripts/lib/study-overviews.mjs), [catalog schema](contracts/studies.schema.json) | [Overview selections](tests/study-overviews.test.mjs), [presentation](tests/study-presentation.test.mjs); build postcheck | Optional app-owned abridgments, exact saved cells and pinned publication/section identities; no new research calculations |
 | Research-priority presentation | [saved priority validator](scripts/lib/research-priorities.mjs), [ResearchPriority](src/components/research-priority.tsx), [display rules](src/lib/research-priority-display.mjs), [Sahadeva rubric](../../strategies/research-priority-rubric.md) | [Priority bindings](tests/research-priorities.test.mjs), [UI](tests/research-priority-ui.test.mjs), root [projector tests](../../scripts/tests/test_research_priorities.py) | Explicit offline projection; app-owned identity/freshness checks; no Python/research dependency in the build |
@@ -118,6 +119,7 @@ do not create a release or append an event to an existing release.
 | Curated reading paths | [catalog](content/studies.json), [schema](contracts/studies.schema.json), [validator](scripts/lib/studies.mjs), [ReadingPaths](src/components/reading-paths.tsx) | [Reading paths](tests/reading-paths.test.mjs) | Explicit study/destination references and editorial reasons; separate evidence qualifications |
 | Report contents, section links and print | [ReportContents](src/components/report-contents.tsx), [SectionLink](src/components/section-link.tsx), [reader styles](src/app/reader.css) | [Reader](tests/report-reader.test.mjs), [sections](tests/report-sections.test.mjs) | Native section anchors, small client identity/title props, visible source identity and print-specific layout |
 | Rendering and scalar display | [ReportSections](src/components/report-sections.tsx), [PublicationEvidence](src/components/publication-evidence.tsx), [format.ts](src/lib/format.ts) | [Sections](tests/report-sections.test.mjs), [format](tests/format.test.mjs) | Report meaning, ratios, nulls, units and accessibility |
+| Research paper reader and theme navigation | [PublicationContent](src/components/publication-content.tsx), [StudyResults](src/components/study-results.tsx), [single-page Results](src/components/study-results-paper.tsx), [reader styles](src/app/reader.css) | [Research paper](tests/research-paper.test.mjs), [single-page reader](tests/single-page-reader.test.mjs), [sections](tests/report-sections.test.mjs); app/browser checks | Explicit report 1.1 presentation, saved notebook-derived content only, native theme and insight links |
 | Illustrative candle panels | [PatternPanel](src/components/pattern-panel.tsx), [report contract](contracts/report-1.1.schema.json), [publication validator](scripts/lib/publication.mjs) | [Pattern boundaries](tests/patterns.test.mjs), [section rendering](tests/report-sections.test.mjs) | Authored schematic OHLC and explicit focus captions, no live prices or statistical calculations |
 | Saved-row selectors, sharing and pagination | [FilteredReportTable](src/components/filtered-report-table.tsx), [table filters](src/lib/table-filters.ts), [table-share.ts](src/lib/table-share.ts), [saved JSON loader](src/lib/saved-tables.ts), [table styles](src/app/table-reader.css) | [Filters](tests/table-filters.test.mjs), [sharing](tests/table-share.test.mjs), [loader](tests/saved-tables.test.mjs), [filtered boundaries](tests/filtered-publication.test.mjs) | Exact saved cells only, typed bounded pending links, 100-row pages, explicit activation and one shared immutable JSON request |
 | Static output and local preview | [verify-export.mjs](scripts/verify-export.mjs), [page budgets](scripts/lib/static-page-budget.mjs), [preview.mjs](scripts/preview.mjs), [preview-smoke.mjs](scripts/lib/preview-smoke.mjs) | [Page budgets](tests/static-page-budget.test.mjs), [local smoke](tests/preview-smoke.test.mjs); build postcheck | App-owned `out/` and explicit loopback server |
@@ -204,6 +206,16 @@ a producer that writes publication content before a run is sealed, or creates
 a separately identified presentation revision. Existing reports and run
 artifacts are not converted or rewritten.
 
+Notebook-derived reports can select `schemaVersion: "1.1"` and
+`presentation: "research-paper"`. The reader uses a single editorial column,
+inline insight contents, clearly labelled findings and full-width saved figures.
+Study `publicationTabs` become question-theme links for those selected reports.
+Headings, descriptions, findings, typed table rows and raster figures arrive in
+the same strict report contract; the notebook exporter omits code/private outputs
+and verifies their transfer before publishing. Narada itself reads no notebook,
+imports no notebook HTML and performs no analysis. Reports without the optional
+presentation marker keep their existing layout and navigation labels.
+
 Version 1.1 supports optional illustrative candle `patterns`, selected explicitly
 with report `patternOverviewId` or section `patternId`. A section's `patternFocus`
 caption identifies the part its saved table measures. Pattern producers supply
@@ -256,10 +268,10 @@ identifies the enriched reports and reusable checks.
 [contracts/studies.schema.json](contracts/studies.schema.json) owns its shape.
 The full homepage collection follows its explicit array order; the separate
 curated selection explicitly features the four redesign pilots. Stable
-`/studies/<slug>/` pages show scope, products, evidence wording and selected
-publication links. Immutable
-reports remain at `/reports/<publication-id>/`; their study context comes from
-the catalog without changing their saved content.
+`/studies/<slug>/` pages show scope, products and evidence wording in a shared
+workspace with persistent study tabs. Immutable reports remain at
+`/reports/<publication-id>/`; selected report routes use that same workspace,
+with their study context supplied by the catalog and saved content preserved.
 
 Optional `overview` metadata adds a research question, takeaway, evidence type,
 population and scope, selected highlights, findings, limitations, method context
@@ -283,38 +295,54 @@ without an overview use their existing title, summary, instruments and evidence
 wording as complete card fallbacks. No second study registry or computed study
 grade is introduced.
 
-All catalog entries use the same five statically generated destinations:
+By default, catalog entries use five statically generated destinations:
 
 | Destination | Route | Purpose |
 | --- | --- | --- |
 | Overview | `/studies/<slug>/` | Question, takeaway, selected highlights, key findings and limits |
 | Findings | `/studies/<slug>/findings/` | Principal saved findings, supporting statistics and figure links |
-| Explore | `/studies/<slug>/explore/` | Explicit phase/analysis/product/view directory and earlier publications |
+| Results | `/studies/<slug>/explore/` | Active featured report with phase/analysis/product/view tabs |
 | Method & scope | `/studies/<slug>/methods/` | Saved definitions, assumptions, coverage and limitations |
 | Evidence | `/studies/<slug>/evidence/` | Report identities, selected CSVs, references and provenance |
 
-The 22-study collection identified by the last verified production release now has
-reviewed overview metadata, retaining the four Phase 1 pilots. The two additional
-local entries (manual companion and ES opening pivot) retain authored summary and
-evidence fallbacks inside the same shell. This rollout changes no production
+An explicit `readingMode: "single-page"` selects one Results workspace at the study
+root, using bounded flat `publicationTabs` as inner theme tabs. Study 30
+uses this mode for all 21 notebook insights: one active theme at a time, no separate
+Overview/Findings/Methods/Evidence menus, and compact scope/source disclosures.
+The root and other study destinations open the featured theme. Primary report
+URLs open their selected theme in the same workspace, with native links retaining
+browser history, refresh and no-JavaScript access. Inactive bodies are not mounted.
+Related historical report URLs preserve
+their saved bodies, with Results as their sole study destination. Notebook and
+immutable publication bytes do not change when this app-owned reading mode changes.
+
+The 22 studies with reviewed overview metadata retain the four Phase 1 pilots.
+Entries without a reviewed overview use authored summary and evidence fallbacks
+inside the same shell. This rollout changes no production
 selection and does not authorize publication or a release.
 
 [StudyExperiencePage](src/components/study-experience.tsx) assembles small server
-components; no destination mounts a hidden full report. Explore uses the existing
-authored hierarchy and highlights the featured selection. Reports retain ordinary
-phase/analysis/chart links and matching-label/condition fallbacks, plus explicit
-routes to Overview, Explore and Evidence. The shared
+components. Results renders the featured saved report directly through
+[StudyResults](src/components/study-results.tsx); each contextual report route uses
+the same study shell with Results active. Phase, analysis and chart tabs switch
+the selected report and preserve matching-label/condition fallbacks. Only the
+active report body is server-rendered; no hidden report collection or client-side
+research calculation is introduced. Overview omits repeated next-page prompts;
+exact supporting sources remain available beside claims and in Evidence.
+Related and earlier publications stay reachable through their Evidence records.
+Results does not repeat that full directory; opening an earlier publication shows
+compact Featured result and current earlier-result tabs. The shared
 [route projection](scripts/lib/study-routes.mjs) supplies export validation, preview
 smoke, and reusable release adapters; historical releases keep their frozen routes.
 
 Earlier `/studies/<slug>/#section-...` and evidence/reference/pattern fragments
 retain static anchors. CSS `:target` reveals a visible link to the same saved
 report destination without JavaScript or fragment-blind HTTP redirects. The first
-redesign's `#findings`, `#explore`, `#method` and `#evidence` anchors remain useful
-overview previews with links to the dedicated pages. Native links keep browser
-history and new-tab behavior. Route navigation carries one `aria-current="page"`;
-links are not ARIA tab widgets. Header links disable automatic prefetch, and study
-and report directory links are ordinary anchors.
+redesign's `#findings`, `#explore`, `#method` and `#evidence` anchors remain
+compatible. Native links keep browser history and new-tab behavior. Route
+navigation carries one `aria-current="page"`; links are not ARIA tab widgets.
+Study and report tabs use Next links with automatic prefetch disabled, preserving
+ordinary anchors without requiring JavaScript.
 
 To maintain a study, preserve its stable identity and selections, author exact
 saved sources, run verify/test/lint/build plus both preview checks, and inspect
@@ -334,12 +362,12 @@ For parallel reports from one run, such as separate chart settings, author optio
 `publicationTabs` with two to twelve `{ publicationId, sourceRunId, label }`
 entries. The first entry must be the featured publication; every tab must share
 its source run, have a unique public label, and name a distinct staged publication.
-Explore presents each parallel saved view. Each links to its saved `/reports/<publication-id>/` page,
-which retains the same navigation and
-marks the current chart. These are ordinary keyboard-accessible route links;
+Results presents the active parallel saved view directly. Each tab links to its
+saved `/reports/<publication-id>/` page in the same study shell and marks the
+current chart. These are ordinary keyboard-accessible route links;
 the app renders selected saved content without calculating or combining results.
 Tabs must not repeat related-publication selections. Existing catalogs can omit
-the field and keep a direct featured-report directory.
+the field and show their single featured report directly in Results.
 
 For distinct analyses within one study, use optional `analyses` instead of
 top-level `publicationTabs`. Each of two to eight entries has an `id`, `label`
@@ -347,9 +375,10 @@ and one to twelve `publicationTabs`. A group may retain a single saved baseline
 without creating a duplicate report. Each group has one source run, which can
 differ from the other groups. The first group/tab matches the featured
 publication/run. Analysis IDs, labels and publication ownership are unique;
-chart labels are unique within each group. Analysis links preserve a matching
-chart label where available, and the study page lists every selected immutable
-report under its browse control. Existing study slugs and report routes remain.
+chart labels are unique within each group. Analysis tabs preserve a matching
+chart label where available. Every selected immutable report remains reachable
+inside the workspace or through its Evidence record. Existing study slugs and
+report routes remain.
 
 Version 1.1 tables can declare up to three `rowFilters` with a declared column
 `key`, reader-facing `label`, and optional `defaultValue` that occurs in its
@@ -476,6 +505,14 @@ collection and server-rendered rating explanations remain available.
 
 ## Detailed report reader, table links and print
 
+Optional version 1.1 table/figure `finding` and figure `description` support one
+question per insight: heading, brief description, labelled Findings summary and
+saved evidence. The prose is authored against explicit saved results and stays
+fixed when a table selection changes. The renderer escapes it and includes the
+summary in accessible table context and print output. Existing publications
+without these fields retain their presentation. See the [contract](../../docs/narada.md#evidence-contract-11-and-compatibility)
+for bounds and the publication boundary; the website never executes notebooks.
+
 [ReportContents](src/components/report-contents.tsx) receives only section IDs
 and titles plus evidence-destination flags. It renders a desktop rail and a
 compact native mobile disclosure. Ordinary links retain every existing section
@@ -486,8 +523,8 @@ section with `aria-current="location"` without changing the URL or scrolling.
 control in the desktop contents rail and mobile disclosure copies the currently
 tracked section, whose title appears beside the control. This avoids a separate
 client component and serialized props at every heading. Native permalinks remain
-useful without JavaScript or clipboard access. Reader context stays compact and keeps routes
-back to the study overview and Explore. Figures retain saved pixels, alternative
+useful without JavaScript or clipboard access. Contextual reports retain the
+persistent study tabs, with Results active. Figures retain saved pixels, alternative
 text, captions and full-size links. Download/reference components keep population,
 units, scope, source run and saved-artifact identity visible. Full reports keep
 exact hash pins in technical disclosures. Compact study Evidence directories link

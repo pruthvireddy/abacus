@@ -4,17 +4,18 @@ import { PublicationEvidence } from "./publication-evidence";
 import { PatternDefinitions, PatternPanel } from "./pattern-panel";
 import { ReportContents } from "./report-contents";
 
-export function PublicationContent({ publication }: { publication: PublicationBundle }) {
+export function PublicationContent({ publication, headingLevel = 2 }: { publication: PublicationBundle; headingLevel?: 2 | 3 }) {
   const { report, provenance } = publication;
+  const researchPaper = report.presentation === "research-paper";
   const overview = report.patterns?.find(pattern => pattern.id === report.patternOverviewId);
   return <div className="article-layout">
-    <ReportContents sections={report.sections.map(({ id, title }) => ({ id, title }))} downloads={!!report.downloads?.length} references={!!report.references?.length} notes={!!report.notes?.length} />
+    {researchPaper ? <nav className="research-paper-contents" aria-label="Insights in this theme"><p className="eyebrow">IN THIS NOTE</p><ol>{report.sections.map(section => <li key={section.id}><a href={`#section-${section.id}`}>{section.title}</a></li>)}</ol></nav> : <ReportContents sections={report.sections.map(({ id, title }) => ({ id, title }))} downloads={!!report.downloads?.length} references={!!report.references?.length} notes={!!report.notes?.length} />}
     <div className="article-body">
       {report.patterns?.length ? <PatternDefinitions patterns={report.patterns} reportId={report.id} /> : null}
       {overview ? <PatternPanel pattern={overview} instanceId="pattern-overview" overview symbolReportId={report.id} /> : null}
-      <ReportSections sections={report.sections} reportId={report.id} references={report.references} patterns={report.patterns} patternDefinitionsProvided explainedPatternIds={overview ? [overview.id] : []} />
+      <ReportSections sections={report.sections} reportId={report.id} references={report.references} patterns={report.patterns} patternDefinitionsProvided explainedPatternIds={overview ? [overview.id] : []} headingLevel={headingLevel} />
       <PublicationEvidence report={report} />
-      {report.notes?.length ? <aside id="publication-notes" className="publication-notes" aria-labelledby="notes-title"><p className="eyebrow">FURTHER CONTEXT</p><h2 id="notes-title">Notes</h2><ul>{report.notes.map((note, index) => <li key={index}>{note}</li>)}</ul></aside> : null}
+      {report.notes?.length ? <aside id="publication-notes" className="publication-notes" aria-labelledby="notes-title"><p className="eyebrow">FURTHER CONTEXT</p><h2 id="notes-title">{researchPaper ? "Scope & interpretation" : "Notes"}</h2><ul>{report.notes.map((note, index) => <li key={index}>{note}</li>)}</ul></aside> : null}
       <p className="print-publication-identity">Publication {report.id} · {report.source.producer} · source run {report.source.runId}. Content SHA-256: {provenance.sourceSha256}.</p>
       <details className="provenance" id="publication-record">
         <summary>Publication record</summary>

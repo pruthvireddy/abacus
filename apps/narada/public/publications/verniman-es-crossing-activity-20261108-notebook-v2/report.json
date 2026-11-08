@@ -1,0 +1,171 @@
+{
+  "provenance": {
+    "assets": [
+      {
+        "path": "figures/count-distribution.png",
+        "sha256": "9693dda134e21ed8aec802fe6393d7c5c79459c84e2b0a7683ff977dd43a9234"
+      },
+      {
+        "path": "figures/price-ema-counts.png",
+        "sha256": "c366753ed6e521c6a4c599ccbacc6851a89370c9cadc31e27c5c53b4a42745cf"
+      }
+    ],
+    "sourceSha256": "b9b77948f4348a989d75b1c7987d0bd45225cf7f5b6572a10f595c6ad43758c6"
+  },
+  "report": {
+    "id": "verniman-es-crossing-activity-20261108-notebook-v2",
+    "notes": [
+      "Pivot-matched ES regular trading hours, 09:30–16:00 America/New_York: 875 eligible sessions from January 3, 2020 through September 18, 2026. Requested coverage extends through October 30, 2026.",
+      "Historical pivot availability remains unverified. Source/contract and full-day quality eligibility are retrospective.",
+      "These insights reproduce selected descriptive point estimates from retained event, day and section records. No source events or bootstrap confidence intervals are reconstructed in this edition; uncertainty intervals remain in the earlier ranked reports.",
+      "Multiple events within a day are dependent. Conditional and calendar comparisons are exploratory; neither crossing activity nor price-path summaries establish executable profitability.",
+      "Price and actual EMA6 crossings are different events; an already-aligned EMA6 is a separate state. Fixed-horizon outcomes require complete windows and omit earlier signal-bar extremes.",
+      "No trade fills, execution costs or net profitability are modeled. Separate VWAP-only RTH/Globex populations remain companion evidence and are not pooled with the pivot-matched sample."
+    ],
+    "presentation": "research-paper",
+    "publishedAt": "2026-11-08T04:13:17Z",
+    "schemaVersion": "1.1",
+    "sections": [
+      {
+        "columns": [
+          {
+            "format": "number",
+            "key": "sessions",
+            "label": "Sessions",
+            "precision": 0
+          },
+          {
+            "format": "number",
+            "key": "crossings",
+            "label": "Crossings",
+            "precision": 0
+          },
+          {
+            "format": "number",
+            "key": "mean",
+            "label": "Mean / session",
+            "precision": 2
+          },
+          {
+            "format": "number",
+            "key": "median",
+            "label": "Median",
+            "precision": 2
+          },
+          {
+            "format": "number",
+            "key": "zero_days",
+            "label": "Zero-cross days",
+            "precision": 0
+          }
+        ],
+        "description": "Count actual completed three-minute EMA6 transitions through Globex VWAP during RTH on the same 875 pivot-matched sessions used throughout this notebook. Keep zero-cross days in the denominator.\n\nThis is a comparison line within the pivot study, with no pooling of the larger VWAP-only populations.",
+        "finding": "EMA6 crossed VWAP 2,450 times across 875 matched sessions: a mean of 2.80 per session, with median 2. A total of 184 sessions had no cross. These are recurrence counts within the pivot-matched cohort.",
+        "id": "vwap-frequency",
+        "kind": "table",
+        "notes": [
+          "Actual EMA6–VWAP strict side changes, 09:30–16:00 New York. The opening state and VWAP reset are not crossings."
+        ],
+        "rows": [
+          {
+            "crossings": 2450,
+            "mean": 2.8,
+            "median": 2,
+            "sessions": 875,
+            "zero_days": 184
+          }
+        ],
+        "title": "How often does EMA6 cross VWAP on pivot-matched days?"
+      },
+      {
+        "columns": [
+          {
+            "key": "direction",
+            "label": "Crossing direction"
+          },
+          {
+            "format": "number",
+            "key": "sessions",
+            "label": "Sessions",
+            "precision": 0
+          },
+          {
+            "format": "number",
+            "key": "crossings",
+            "label": "Crossings",
+            "precision": 0
+          },
+          {
+            "format": "number",
+            "key": "mean",
+            "label": "Mean / session",
+            "precision": 2
+          },
+          {
+            "format": "number",
+            "key": "median",
+            "label": "Median",
+            "precision": 2
+          }
+        ],
+        "description": "Calculate daily EMA6–pivot crossing frequency for the full matched RTH sample and its up/down components. A crossing requires a completed strict-side transition; EMA6 merely being aligned with price is not a new crossing.\n\nAll 875 eligible sessions enter every daily mean, including zero-cross days.",
+        "finding": "The sample contained 1,886 EMA6–pivot crossings, a mean of 2.16 per eligible session and median 1. Upward and downward counts were 934 and 952. Daily recurrence differs from the number of independent trading opportunities.",
+        "id": "pivot-frequency",
+        "kind": "table",
+        "notes": [
+          "Equality carries the remembered strict side. Session opening initialization is not counted as a crossing."
+        ],
+        "rows": [
+          {
+            "crossings": 1886,
+            "direction": "All directions",
+            "mean": 2.155428571428571,
+            "median": 1,
+            "sessions": 875
+          },
+          {
+            "crossings": 934,
+            "direction": "Upward",
+            "mean": 1.067428571428571,
+            "median": 1,
+            "sessions": 875
+          },
+          {
+            "crossings": 952,
+            "direction": "Downward",
+            "mean": 1.088,
+            "median": 1,
+            "sessions": 875
+          }
+        ],
+        "title": "How often does EMA6 cross the daily pivot?"
+      },
+      {
+        "alt": "Shares of eligible days with 0, 1, 2, 3–4 or 5+ actual EMA6 crossings, comparing pivot and VWAP.",
+        "caption": "Each reference uses all 875 pivot-matched RTH sessions. Zero is an observed count, not missing support.",
+        "description": "Place each day's actual EMA6 crossings into the frozen count categories 0, 1, 2, 3–4 and 5+. Compare pivot and VWAP within the same matched RTH sessions.\n\nThe no-cross category remains an observed result, and all categories use the same eligible-day denominator.",
+        "finding": "235 of 875 sessions (26.9%) had no EMA6–pivot crossing, compared with 184 (21.0%) without an EMA6–VWAP crossing. The distribution shows how frequently these reference lines were crossed repeatedly, without treating multiple crosses within a day as independent days.",
+        "id": "count-distribution",
+        "kind": "figure",
+        "path": "figures/count-distribution.png",
+        "title": "How common are zero-cross and repeated-cross days?"
+      },
+      {
+        "alt": "Mean price and EMA6 crossing counts at the pivot and VWAP on 875 common RTH sessions.",
+        "caption": "All series include zero-cross days. Both price and EMA6 require completed strict-side changes.",
+        "description": "Compare actual three-minute closing-price crossings with EMA6 line crossings at pivot and VWAP. Every series uses the same eligible sessions; differences are calculated within the common day/reference population.\n\nThese are recurrence counts, not returns from trading the corresponding events.",
+        "finding": "Price averaged 4.64 pivot crossings per session, compared with 2.16 for EMA6 on the same 875 days. The smoothed indicator crossed less often in this sample. That count difference does not demonstrate that either event produces a superior trading result.",
+        "id": "price-ema-counts",
+        "kind": "figure",
+        "path": "figures/price-ema-counts.png",
+        "title": "How do price and EMA6 crossing counts differ?"
+      }
+    ],
+    "source": {
+      "producer": "sahadeva",
+      "runId": "20261108T040901Z_notebook_themes_v2"
+    },
+    "summary": "How often do price and EMA6 cross the reference levels, including sessions without a crossing?",
+    "title": "Crossing activity"
+  }
+}

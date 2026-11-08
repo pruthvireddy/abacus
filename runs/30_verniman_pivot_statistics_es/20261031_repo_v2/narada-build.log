@@ -1,0 +1,61 @@
+
+> @abacus/narada@0.1.0 prebuild
+> npm run verify
+
+
+> @abacus/narada@0.1.0 verify
+> node scripts/verify.mjs
+
+Verified 25 studies, 103 publications, 155 raster assets and 243 selected CSVs.
+
+> @abacus/narada@0.1.0 build
+> next build
+
+▲ Next.js 16.2.10 (Turbopack)
+
+  Creating an optimized production build ...
+✓ Compiled successfully in 1138ms
+  Running TypeScript ...
+  Finished TypeScript in 1096ms ...
+  Collecting page data using 7 workers ...
+  Generating static pages using 7 workers (0/231) ...
+  Generating static pages using 7 workers (57/231) 
+  Generating static pages using 7 workers (115/231) 
+  Generating static pages using 7 workers (173/231) 
+✓ Generating static pages using 7 workers (231/231) in 6.8s
+  Finalizing page optimization ...
+
+Route (app)
+┌ ○ /
+├ ○ /_not-found
+├ ● /reports/[id]
+│ ├ /reports/verniman-es-calendar-20261031-repo-v2
+│ ├ /reports/verniman-es-cloud-vwap-20261031-repo-v2
+│ ├ /reports/verniman-es-followthrough-20261031-repo-v2
+│ └ [+100 more paths]
+├ ● /studies/[slug]
+│ ├ /studies/reversal-follow-through
+│ ├ /studies/followthrough-candle-adverse
+│ ├ /studies/multi-rxv-alignment
+│ └ [+22 more paths]
+└ ● /studies/[slug]/[destination]
+  ├ /studies/reversal-follow-through/findings
+  ├ /studies/reversal-follow-through/explore
+  ├ /studies/reversal-follow-through/methods
+  └ [+97 more paths]
+
+
+○  (Static)  prerendered as static content
+●  (SSG)     prerendered as static HTML (uses generateStaticParams)
+
+
+> @abacus/narada@0.1.0 postbuild
+> npm run optimize:static-json && node scripts/verify-export.mjs
+
+
+> @abacus/narada@0.1.0 optimize:static-json
+> node scripts/optimize-static-json.mjs
+
+{"format":"abacus.static-json-delivery/v1","reports":103,"changed":103,"sourceBytes":116804992,"deliveryBytes":56599242,"savedBytes":60205750}
+Verified library, 125 study destinations, 103 publication routes and 2169 bounded page payloads in out/.
+Verified compact delivery for 103 reports: 116804992 canonical bytes -> 56599242 delivered bytes; all saved content preserved.

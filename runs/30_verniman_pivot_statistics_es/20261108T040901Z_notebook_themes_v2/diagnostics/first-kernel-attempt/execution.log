@@ -1,0 +1,28 @@
+[IPKernelApp] WARNING | Kernel is running over TCP without encryption. All communication (including code and outputs) is sent in plain text and is susceptible to eavesdropping. Use IPC transport or launch with kernel manager-provisioned CurveZMQ keys to enable transport encryption.
+Traceback (most recent call last):
+  File "/Users/pruthvi/Documents/projects/abacus/studies/30_verniman_pivot_statistics_es/notebook_v2.py", line 314, in execute_notebook
+    client.execute(cwd=str(cwd))
+  File "/Users/pruthvi/Documents/projects/abacus/.venv/lib/python3.11/site-packages/jupyter_core/utils/__init__.py", line 165, in wrapped
+    return loop.run_until_complete(inner)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.11/3.11.17_2/Frameworks/Python.framework/Versions/3.11/lib/python3.11/asyncio/base_events.py", line 654, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "/Users/pruthvi/Documents/projects/abacus/.venv/lib/python3.11/site-packages/nbclient/client.py", line 709, in async_execute
+    await self.async_execute_cell(
+  File "/Users/pruthvi/Documents/projects/abacus/.venv/lib/python3.11/site-packages/nbclient/client.py", line 964, in async_execute_cell
+    if cell.cell_type != "code" or not cell.source.strip():
+                                       ^^^^^^^^^^^^^^^^^
+AttributeError: 'list' object has no attribute 'strip'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/pruthvi/Documents/projects/abacus/studies/30_verniman_pivot_statistics_es/notebook_v2.py", line 373, in <module>
+    main()
+  File "/Users/pruthvi/Documents/projects/abacus/studies/30_verniman_pivot_statistics_es/notebook_v2.py", line 366, in main
+    result = execute_notebook(args.notebook, output_path=args.output, receipt_path=args.receipt,
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/pruthvi/Documents/projects/abacus/studies/30_verniman_pivot_statistics_es/notebook_v2.py", line 344, in execute_notebook
+    raise RuntimeError(f"Notebook execution failed; diagnostics retained in {output.parent}") from failure
+RuntimeError: Notebook execution failed; diagnostics retained in /Users/pruthvi/Documents/projects/abacus/work/30_verniman_pivot_statistics_es/20261108T035627Z_notebook_themes_v2

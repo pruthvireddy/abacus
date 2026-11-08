@@ -41,6 +41,31 @@ test('version selection, unsafe URLs, references and source attribution are stri
     const report = enhanced(); change(report); assert.throws(() => validateReport(report));
   }
 });
+test('insight introductions are optional bounded plain text in version 1.1 only', () => {
+  const report = enhanced();
+  const table = report.sections.find(section => section.kind === 'table');
+  table.finding = 'Overall: the saved estimate is <0.5; no executable markup.';
+  const figure = { id: 'insight-chart', kind: 'figure', title: 'Saved chart', description: 'What does this saved comparison show?', finding: 'A qualified saved finding.', path: 'figures/saved.png', alt: 'Saved comparison.' };
+  report.sections.push(figure);
+  assert.equal(validateReport(report), report);
+  for (const [kind, key, limit] of [['table', 'finding', 2000], ['figure', 'finding', 2000], ['figure', 'description', 1000]]) {
+    for (const value of ['', ' \n\t ', 'x'.repeat(limit + 1), null, 3, { html: '<script/>' }]) {
+      const invalid = structuredClone(report);
+      invalid.sections.find(section => section.kind === kind)[key] = value;
+      assert.throws(() => validateReport(invalid), /schema/, `${kind}.${key} must reject ${JSON.stringify(value).slice(0, 40)}`);
+    }
+    const boundary = structuredClone(report);
+    boundary.sections.find(section => section.kind === kind)[key] = 'x'.repeat(limit);
+    assert.equal(validateReport(boundary), boundary);
+  }
+  const legacy = structuredClone(example);
+  assert.equal(validateReport(legacy), legacy);
+  legacy.sections.find(section => section.kind === 'table').finding = 'Only supported in 1.1.';
+  assert.throws(() => validateReport(legacy), /schema/);
+  const unsupported = structuredClone(report);
+  unsupported.sections.find(section => section.kind === 'text').finding = 'Not supported on text sections.';
+  assert.throws(() => validateReport(unsupported), /schema/);
+});
 test('download paths, unsupported types, missing files and source/file/directory symlinks are rejected', async t => {
   const f = await fixture(t);
   const sourceLink = resolve(f.root, 'source-link'); await symlink(f.source, sourceLink);

@@ -1,0 +1,41 @@
+{
+  "schema": "abacus.study29.phase6.preparation-inputs/v1",
+  "market_configuration": {
+    "symbol": "CME_MINI:ESZ2026",
+    "contract": "ESZ2026",
+    "feed": "CME GLOBEX",
+    "adjustment": "individual_contract_unadjusted",
+    "minutes": 5,
+    "session": "ETH",
+    "timezone": "America/New_York",
+    "tick_size": 0.25,
+    "row_ticks": 16,
+    "value_area_percent": 70,
+    "grid_origin": 0,
+    "cutoff_hour": 9,
+    "cutoff_minute": 25,
+    "manual_anchors": []
+  },
+  "calendar": {
+    "path": "studies/29_verniman_level_reconstruction/phase6/calendar.json",
+    "sha256": "bd9b5395ca19eff04b9a79fb96b7e26073e03b19cbbd05320aa66d9cdf689176"
+  },
+  "required_history": "eight unchanged fixedclock windows/date; five ready profiles; strict expectedweekdays; priorcompleteweek; noholiday substitution",
+  "cutoff": "exact confirmed09:20\u201309:25NY only",
+  "anchors": [],
+  "unmeasured": [
+    "VIX",
+    "CVD"
+  ],
+  "preparation_access_check": {
+    "path": "work/29_verniman_level_reconstruction/phase6a_20261031T035851Z/market-access-check.json",
+    "sha256": "a7f1fee09d1d8af72da06879ff1112b2e735d719460c50af8233d140c020b4a7"
+  },
+  "known_warmup_windows_complete": 6,
+  "future_windows_not_observed_for_first_session": 2,
+  "live_delivery_entitlement": "unverified while market closed; confirm before first capture; do not change deadline",
+  "actual_prospective_input_files": [],
+  "actual_prospective_predictions": [],
+  "source_answers_opened_in_phase6a": false,
+  "note": "This preparation declaration is not a daily market-input manifest and cannot stand in for a future capture."
+}

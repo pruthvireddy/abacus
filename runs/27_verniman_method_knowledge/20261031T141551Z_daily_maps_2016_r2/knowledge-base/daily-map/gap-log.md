@@ -1,0 +1,438 @@
+# Daily Map gaps and qualifications
+
+A gap means no dated post was observed. Weekends are listed separately; no exchange-holiday or publication-absence claim is inferred.
+
+## Weekday gaps
+
+- 2016-12-30 — no dated post observed.
+- 2016-12-29 — no dated post observed.
+- 2016-12-28 — no dated post observed.
+- 2016-12-27 — no dated post observed.
+- 2016-12-26 — no dated post observed.
+- 2016-12-23 — no dated post observed.
+- 2016-12-22 — no dated post observed.
+- 2016-12-21 — no dated post observed.
+- 2016-12-20 — no dated post observed.
+- 2016-12-19 — no dated post observed.
+- 2016-12-16 — no dated post observed.
+- 2016-12-15 — no dated post observed.
+- 2016-12-14 — no dated post observed.
+- 2016-12-13 — no dated post observed.
+- 2016-12-12 — no dated post observed.
+- 2016-12-09 — no dated post observed.
+- 2016-12-08 — no dated post observed.
+- 2016-12-07 — no dated post observed.
+- 2016-12-06 — no dated post observed.
+- 2016-12-05 — no dated post observed.
+- 2016-12-02 — no dated post observed.
+- 2016-11-30 — no dated post observed.
+- 2016-11-29 — no dated post observed.
+- 2016-11-28 — no dated post observed.
+- 2016-11-25 — no dated post observed.
+- 2016-11-24 — no dated post observed.
+- 2016-11-22 — no dated post observed.
+- 2016-11-21 — no dated post observed.
+- 2016-11-18 — no dated post observed.
+- 2016-11-16 — no dated post observed.
+- 2016-11-15 — no dated post observed.
+- 2016-11-14 — no dated post observed.
+- 2016-11-11 — no dated post observed.
+- 2016-11-10 — no dated post observed.
+- 2016-11-09 — no dated post observed.
+- 2016-11-07 — no dated post observed.
+- 2016-11-03 — no dated post observed.
+- 2016-11-02 — no dated post observed.
+- 2016-11-01 — no dated post observed.
+- 2016-10-31 — no dated post observed.
+- 2016-10-28 — no dated post observed.
+- 2016-10-27 — no dated post observed.
+- 2016-10-26 — no dated post observed.
+- 2016-10-25 — no dated post observed.
+- 2016-10-24 — no dated post observed.
+- 2016-10-21 — no dated post observed.
+- 2016-10-20 — no dated post observed.
+- 2016-10-19 — no dated post observed.
+- 2016-10-17 — no dated post observed.
+- 2016-10-13 — no dated post observed.
+- 2016-10-10 — no dated post observed.
+- 2016-10-06 — no dated post observed.
+- 2016-09-21 — no dated post observed.
+- 2016-09-20 — no dated post observed.
+- 2016-09-19 — no dated post observed.
+- 2016-09-15 — no dated post observed.
+- 2016-09-14 — no dated post observed.
+- 2016-09-12 — no dated post observed.
+- 2016-09-09 — no dated post observed.
+- 2016-09-08 — no dated post observed.
+- 2016-09-07 — no dated post observed.
+- 2016-09-05 — no dated post observed.
+- 2016-08-31 — no dated post observed.
+- 2016-08-11 — no dated post observed.
+- 2016-08-03 — no dated post observed.
+- 2016-07-29 — no dated post observed.
+- 2016-07-26 — no dated post observed.
+- 2016-07-20 — no dated post observed.
+- 2016-07-18 — no dated post observed.
+- 2016-07-14 — no dated post observed.
+- 2016-07-13 — no dated post observed.
+- 2016-07-12 — no dated post observed.
+- 2016-07-05 — no dated post observed.
+- 2016-07-04 — no dated post observed.
+- 2016-05-31 — no dated post observed.
+- 2016-05-30 — no dated post observed.
+- 2016-05-24 — no dated post observed.
+- 2016-05-11 — no dated post observed.
+- 2016-05-04 — no dated post observed.
+- 2016-05-03 — no dated post observed.
+- 2016-05-02 — no dated post observed.
+- 2016-04-25 — no dated post observed.
+- 2016-04-21 — no dated post observed.
+- 2016-04-19 — no dated post observed.
+- 2016-04-13 — no dated post observed.
+- 2016-04-08 — no dated post observed.
+- 2016-03-31 — no dated post observed.
+- 2016-03-29 — no dated post observed.
+- 2016-03-25 — no dated post observed.
+- 2016-03-24 — no dated post observed.
+- 2016-03-23 — no dated post observed.
+- 2016-03-22 — no dated post observed.
+- 2016-03-16 — no dated post observed.
+- 2016-03-10 — no dated post observed.
+- 2016-02-26 — no dated post observed.
+- 2016-02-15 — no dated post observed.
+- 2016-01-18 — no dated post observed.
+- 2016-01-13 — no dated post observed.
+- 2016-01-12 — no dated post observed.
+- 2016-01-04 — no dated post observed.
+- 2016-01-01 — no dated post observed.
+
+## Weekend dates without a dated post
+
+2016-12-31, 2016-12-25, 2016-12-24, 2016-12-18, 2016-12-17, 2016-12-11, 2016-12-10, 2016-12-04, 2016-12-03, 2016-11-27, 2016-11-26, 2016-11-20, 2016-11-19, 2016-11-13, 2016-11-12, 2016-11-06, 2016-11-05, 2016-10-30, 2016-10-29, 2016-10-23, 2016-10-22, 2016-10-16, 2016-10-15, 2016-10-09, 2016-10-08, 2016-10-02, 2016-10-01, 2016-09-25, 2016-09-24, 2016-09-18, 2016-09-17, 2016-09-11, 2016-09-10, 2016-09-04, 2016-09-03, 2016-08-28, 2016-08-27, 2016-08-21, 2016-08-20, 2016-08-14, 2016-08-13, 2016-08-07, 2016-08-06, 2016-07-31, 2016-07-30, 2016-07-24, 2016-07-23, 2016-07-17, 2016-07-16, 2016-07-10, 2016-07-09, 2016-07-03, 2016-07-02, 2016-06-26, 2016-06-25, 2016-06-19, 2016-06-18, 2016-06-12, 2016-06-11, 2016-06-05, 2016-06-04, 2016-05-29, 2016-05-28, 2016-05-22, 2016-05-21, 2016-05-15, 2016-05-14, 2016-05-08, 2016-05-07, 2016-05-01, 2016-04-30, 2016-04-24, 2016-04-23, 2016-04-17, 2016-04-16, 2016-04-10, 2016-04-09, 2016-04-03, 2016-04-02, 2016-03-27, 2016-03-26, 2016-03-20, 2016-03-19, 2016-03-13, 2016-03-12, 2016-03-06, 2016-03-05, 2016-02-28, 2016-02-27, 2016-02-21, 2016-02-20, 2016-02-14, 2016-02-13, 2016-02-07, 2016-02-06, 2016-01-31, 2016-01-30, 2016-01-24, 2016-01-23, 2016-01-17, 2016-01-16, 2016-01-10, 2016-01-09, 2016-01-03, 2016-01-02
+
+## Source and image qualifications
+
+Recovered from retained archived pages and exact historical feed entries. Coverage has gaps and does not establish a complete historical year. Images are retained current-source fallbacks whose historical bytes have not been verified.
+
+- 2016-12-01: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2016/12/outlook-1201.html)).
+- 2016-12-01: 4 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2016/12/outlook-1201.html)).
+- 2016-11-23: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2016/11/outlook-1123.html)).
+- 2016-11-23: 4 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2016/11/outlook-1123.html)).
+- 2016-11-17: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2016/11/outlook-1117.html)).
+- 2016-11-17: 4 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2016/11/outlook-1117.html)).
+- 2016-11-08: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2016/11/outlook-1105.html)).
+- 2016-11-08: 4 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2016/11/outlook-1105.html)).
+- 2016-11-04: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2016/11/outlook-1104.html)).
+- 2016-11-04: 4 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2016/11/outlook-1104.html)).
+- 2016-10-18: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2016/10/outlook-1018.html)).
+- 2016-10-18: 3 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2016/10/outlook-1018.html)).
+- 2016-10-14: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2016/10/outlook-1014.html)).
+- 2016-10-14: 3 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2016/10/outlook-1014.html)).
+- 2016-10-12: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2016/10/outlook-1012.html)).
+- 2016-10-12: 3 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2016/10/outlook-1012.html)).
+- 2016-10-11: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2016/10/outlook-1011.html)).
+- 2016-10-11: 3 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2016/10/outlook-1011.html)).
+- 2016-10-07: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2016/10/outlook-1007.html)).
+- 2016-10-07: 3 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2016/10/outlook-1007.html)).
+- 2016-10-05: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2016/10/outlook-1005.html)).
+- 2016-10-05: 3 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2016/10/outlook-1005.html)).
+- 2016-10-04: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2016/10/outlook-1004.html)).
+- 2016-10-04: 3 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2016/10/outlook-1004.html)).
+- 2016-10-03: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2016/10/outlook-1003.html)).
+- 2016-10-03: 3 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2016/10/outlook-1003.html)).
+- 2016-09-30: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2016/09/outlook-0930.html)).
+- 2016-09-30: 3 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2016/09/outlook-0930.html)).
+- 2016-09-29: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2016/09/outlook-0929.html)).
+- 2016-09-29: 3 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2016/09/outlook-0929.html)).
+- 2016-09-28: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2016/09/outlook-0928.html)).
+- 2016-09-28: 3 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2016/09/outlook-0928.html)).
+- 2016-09-27: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2016/09/outlook-0927.html)).
+- 2016-09-27: 3 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2016/09/outlook-0927.html)).
+- 2016-09-26: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2016/09/outlook-0926.html)).
+- 2016-09-26: 3 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2016/09/outlook-0926.html)).
+- 2016-09-23: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2016/09/outlook-0923.html)).
+- 2016-09-23: 3 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2016/09/outlook-0923.html)).
+- 2016-09-22: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2016/09/outlook-0922.html)).
+- 2016-09-22: 3 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2016/09/outlook-0922.html)).
+- 2016-09-16: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2016/09/outlook-0916.html)).
+- 2016-09-16: 3 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2016/09/outlook-0916.html)).
+- 2016-09-13: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2016/09/outlook-0913.html)).
+- 2016-09-13: 3 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2016/09/outlook-0913.html)).
+- 2016-09-06: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2016/09/outlook-0906.html)).
+- 2016-09-06: 3 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2016/09/outlook-0906.html)).
+- 2016-09-02: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2016/09/outlook-0902.html)).
+- 2016-09-02: 3 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2016/09/outlook-0902.html)).
+- 2016-09-01: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2016/09/outlook-0901.html)).
+- 2016-09-01: 3 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2016/09/outlook-0901.html)).
+- 2016-08-30: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2016/08/outlook-0830.html)).
+- 2016-08-30: 3 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2016/08/outlook-0830.html)).
+- 2016-08-29: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2016/08/outlook-0829.html)).
+- 2016-08-29: 3 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2016/08/outlook-0829.html)).
+- 2016-08-26: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2016/08/outlook-0826.html)).
+- 2016-08-26: 3 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2016/08/outlook-0826.html)).
+- 2016-08-25: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2016/08/outlook-0825.html)).
+- 2016-08-25: 3 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2016/08/outlook-0825.html)).
+- 2016-08-24: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2016/08/outlook-0824.html)).
+- 2016-08-24: 3 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2016/08/outlook-0824.html)).
+- 2016-08-23: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2016/08/outlook-0823.html)).
+- 2016-08-23: 3 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2016/08/outlook-0823.html)).
+- 2016-08-22: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2016/08/outlook-0822.html)).
+- 2016-08-22: 3 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2016/08/outlook-0822.html)).
+- 2016-08-19: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2016/08/outlook-0818_19.html)).
+- 2016-08-19: 3 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2016/08/outlook-0818_19.html)).
+- 2016-08-18: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2016/08/outlook-0818.html)).
+- 2016-08-18: 3 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2016/08/outlook-0818.html)).
+- 2016-08-17: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2016/08/outlook-0817.html)).
+- 2016-08-17: 3 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2016/08/outlook-0817.html)).
+- 2016-08-16: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2016/08/outlook-0816.html)).
+- 2016-08-16: 3 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2016/08/outlook-0816.html)).
+- 2016-08-15: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2016/08/outlook-0815.html)).
+- 2016-08-15: 3 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2016/08/outlook-0815.html)).
+- 2016-08-12: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2016/08/outlook-0812.html)).
+- 2016-08-12: 3 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2016/08/outlook-0812.html)).
+- 2016-08-10: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2016/08/outlook-0810.html)).
+- 2016-08-10: 3 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2016/08/outlook-0810.html)).
+- 2016-08-09: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2016/08/outlook-0809.html)).
+- 2016-08-09: 3 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2016/08/outlook-0809.html)).
+- 2016-08-08: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2016/08/outlook-0808.html)).
+- 2016-08-08: 3 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2016/08/outlook-0808.html)).
+- 2016-08-05: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2016/08/outlook-0805.html)).
+- 2016-08-05: 3 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2016/08/outlook-0805.html)).
+- 2016-08-04: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2016/08/outlook-0804.html)).
+- 2016-08-04: 3 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2016/08/outlook-0804.html)).
+- 2016-08-02: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2016/08/outlook-0802.html)).
+- 2016-08-02: 3 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2016/08/outlook-0802.html)).
+- 2016-08-01: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2016/08/outlook-0801.html)).
+- 2016-08-01: 3 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2016/08/outlook-0801.html)).
+- 2016-07-28: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2016/07/outlook-0728.html)).
+- 2016-07-28: 3 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2016/07/outlook-0728.html)).
+- 2016-07-27: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2016/07/outlook-0727.html)).
+- 2016-07-27: 3 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2016/07/outlook-0727.html)).
+- 2016-07-25: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2016/07/outlook-0725.html)).
+- 2016-07-25: 3 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2016/07/outlook-0725.html)).
+- 2016-07-22: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2016/07/outlook-0722.html)).
+- 2016-07-22: 3 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2016/07/outlook-0722.html)).
+- 2016-07-21: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2016/07/outlook-0721.html)).
+- 2016-07-21: 3 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2016/07/outlook-0721.html)).
+- 2016-07-19: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2016/07/outlook-0719.html)).
+- 2016-07-19: 3 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2016/07/outlook-0719.html)).
+- 2016-07-15: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2016/07/outlook-0715.html)).
+- 2016-07-15: 3 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2016/07/outlook-0715.html)).
+- 2016-07-11: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2016/07/outlook-0711.html)).
+- 2016-07-11: 3 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2016/07/outlook-0711.html)).
+- 2016-07-08: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2016/07/outlook-0708.html)).
+- 2016-07-08: 3 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2016/07/outlook-0708.html)).
+- 2016-07-07: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2016/07/outlook-0707.html)).
+- 2016-07-07: 3 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2016/07/outlook-0707.html)).
+- 2016-07-06: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2016/07/outlook-0706.html)).
+- 2016-07-06: 3 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2016/07/outlook-0706.html)).
+- 2016-07-01: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2016/07/outlook-0701.html)).
+- 2016-07-01: 3 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2016/07/outlook-0701.html)).
+- 2016-06-30: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2016/06/0630.html)).
+- 2016-06-30: 3 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2016/06/0630.html)).
+- 2016-06-29: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2016/06/outlook-0629.html)).
+- 2016-06-29: 3 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2016/06/outlook-0629.html)).
+- 2016-06-28: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2016/06/outlook-0628.html)).
+- 2016-06-28: 3 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2016/06/outlook-0628.html)).
+- 2016-06-27: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2016/06/outlook-0627.html)).
+- 2016-06-27: 3 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2016/06/outlook-0627.html)).
+- 2016-06-24: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2016/06/outlook-0624.html)).
+- 2016-06-24: 3 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2016/06/outlook-0624.html)).
+- 2016-06-23: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2016/06/outlook-0623.html)).
+- 2016-06-23: 3 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2016/06/outlook-0623.html)).
+- 2016-06-22: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2016/06/outlook-0622.html)).
+- 2016-06-22: 3 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2016/06/outlook-0622.html)).
+- 2016-06-21: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2016/06/outlook-0621.html)).
+- 2016-06-21: 3 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2016/06/outlook-0621.html)).
+- 2016-06-20: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2016/06/outlook-0620.html)).
+- 2016-06-20: 3 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2016/06/outlook-0620.html)).
+- 2016-06-17: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2016/06/outlook-0617.html)).
+- 2016-06-17: 3 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2016/06/outlook-0617.html)).
+- 2016-06-16: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2016/06/outlook-0616.html)).
+- 2016-06-16: 3 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2016/06/outlook-0616.html)).
+- 2016-06-15: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2016/06/outlook-0615.html)).
+- 2016-06-15: 3 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2016/06/outlook-0615.html)).
+- 2016-06-14: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2016/06/outlook-0614.html)).
+- 2016-06-14: 3 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2016/06/outlook-0614.html)).
+- 2016-06-13: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2016/06/outlook-0613.html)).
+- 2016-06-13: 3 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2016/06/outlook-0613.html)).
+- 2016-06-10: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2016/06/outlook-0610.html)).
+- 2016-06-10: 3 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2016/06/outlook-0610.html)).
+- 2016-06-09: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2016/06/outlook-0609.html)).
+- 2016-06-09: 3 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2016/06/outlook-0609.html)).
+- 2016-06-08: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2016/06/outlook-0608.html)).
+- 2016-06-08: 3 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2016/06/outlook-0608.html)).
+- 2016-06-07: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2016/06/outlook-0607.html)).
+- 2016-06-07: 3 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2016/06/outlook-0607.html)).
+- 2016-06-06: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2016/06/outlook-0606.html)).
+- 2016-06-06: 3 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2016/06/outlook-0606.html)).
+- 2016-06-03: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2016/06/outlook-0603.html)).
+- 2016-06-03: 3 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2016/06/outlook-0603.html)).
+- 2016-06-02: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2016/06/outlook-0602.html)).
+- 2016-06-02: 3 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2016/06/outlook-0602.html)).
+- 2016-06-01: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2016/06/outlook-0601.html)).
+- 2016-06-01: 3 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2016/06/outlook-0601.html)).
+- 2016-05-27: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2016/05/outlook-0527.html)).
+- 2016-05-27: 3 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2016/05/outlook-0527.html)).
+- 2016-05-26: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2016/05/outlook-0526.html)).
+- 2016-05-26: 3 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2016/05/outlook-0526.html)).
+- 2016-05-25: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2016/05/outlook-0525.html)).
+- 2016-05-25: 3 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2016/05/outlook-0525.html)).
+- 2016-05-23: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2016/05/outlook-0523.html)).
+- 2016-05-23: 4 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2016/05/outlook-0523.html)).
+- 2016-05-20: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2016/05/outlook-0520.html)).
+- 2016-05-20: 4 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2016/05/outlook-0520.html)).
+- 2016-05-19: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2016/05/outlook-0519.html)).
+- 2016-05-19: 3 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2016/05/outlook-0519.html)).
+- 2016-05-18: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2016/05/outlook-0518.html)).
+- 2016-05-18: 3 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2016/05/outlook-0518.html)).
+- 2016-05-17: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2016/05/outlook-0517.html)).
+- 2016-05-17: 4 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2016/05/outlook-0517.html)).
+- 2016-05-16: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2016/05/outlook-0516.html)).
+- 2016-05-16: 4 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2016/05/outlook-0516.html)).
+- 2016-05-13: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2016/05/outlook-0513.html)).
+- 2016-05-13: 4 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2016/05/outlook-0513.html)).
+- 2016-05-12: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2016/05/outlook-0512.html)).
+- 2016-05-12: 4 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2016/05/outlook-0512.html)).
+- 2016-05-10: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2016/05/outlook-0510.html)).
+- 2016-05-10: 4 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2016/05/outlook-0510.html)).
+- 2016-05-09: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2016/05/outlook-0509.html)).
+- 2016-05-09: 4 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2016/05/outlook-0509.html)).
+- 2016-05-06: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2016/05/outlook-0506.html)).
+- 2016-05-06: 4 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2016/05/outlook-0506.html)).
+- 2016-05-05: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2016/05/outlook-0505.html)).
+- 2016-05-05: 4 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2016/05/outlook-0505.html)).
+- 2016-04-29: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2016/04/outlook-0429.html)).
+- 2016-04-29: 4 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2016/04/outlook-0429.html)).
+- 2016-04-28: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2016/04/outlook-0428.html)).
+- 2016-04-28: 4 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2016/04/outlook-0428.html)).
+- 2016-04-27: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2016/04/outlook-0427.html)).
+- 2016-04-27: 4 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2016/04/outlook-0427.html)).
+- 2016-04-26: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2016/04/outlook-0426.html)).
+- 2016-04-26: 4 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2016/04/outlook-0426.html)).
+- 2016-04-22: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2016/04/outlook-0422.html)).
+- 2016-04-22: 4 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2016/04/outlook-0422.html)).
+- 2016-04-20: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2016/04/outlook-0420.html)).
+- 2016-04-20: 4 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2016/04/outlook-0420.html)).
+- 2016-04-18: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2016/04/outlook-0418.html)).
+- 2016-04-18: 4 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2016/04/outlook-0418.html)).
+- 2016-04-15: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2016/04/outlook-0415.html)).
+- 2016-04-15: 4 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2016/04/outlook-0415.html)).
+- 2016-04-14: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2016/04/outlook-0414.html)).
+- 2016-04-14: 4 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2016/04/outlook-0414.html)).
+- 2016-04-12: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2016/04/outlook-0412.html)).
+- 2016-04-12: 4 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2016/04/outlook-0412.html)).
+- 2016-04-11: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2016/04/outlook-0411.html)).
+- 2016-04-11: 4 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2016/04/outlook-0411.html)).
+- 2016-04-07: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2016/04/outlook-0407.html)).
+- 2016-04-07: 4 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2016/04/outlook-0407.html)).
+- 2016-04-06: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2016/04/outlook-0406.html)).
+- 2016-04-06: 4 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2016/04/outlook-0406.html)).
+- 2016-04-05: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2016/04/outlook-0405.html)).
+- 2016-04-05: 4 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2016/04/outlook-0405.html)).
+- 2016-04-04: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2016/04/outlook-0404.html)).
+- 2016-04-04: 4 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2016/04/outlook-0404.html)).
+- 2016-04-01: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2016/04/outlook-0401.html)).
+- 2016-04-01: 4 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2016/04/outlook-0401.html)).
+- 2016-03-30: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2016/03/outlook-0330.html)).
+- 2016-03-30: 4 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2016/03/outlook-0330.html)).
+- 2016-03-28: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2016/03/outlook-0328.html)).
+- 2016-03-28: 4 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2016/03/outlook-0328.html)).
+- 2016-03-21: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2016/03/outlook-0321.html)).
+- 2016-03-21: 4 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2016/03/outlook-0321.html)).
+- 2016-03-18: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2016/03/outlook-0318.html)).
+- 2016-03-18: 4 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2016/03/outlook-0318.html)).
+- 2016-03-17: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2016/03/outlook-0317.html)).
+- 2016-03-17: 4 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2016/03/outlook-0317.html)).
+- 2016-03-15: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2016/03/outlook-0315.html)).
+- 2016-03-15: 4 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2016/03/outlook-0315.html)).
+- 2016-03-14: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2016/03/outlook-0314.html)).
+- 2016-03-14: 4 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2016/03/outlook-0314.html)).
+- 2016-03-11: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2016/03/outlook-0311.html)).
+- 2016-03-11: 4 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2016/03/outlook-0311.html)).
+- 2016-03-09: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2016/03/outlook-0309.html)).
+- 2016-03-09: 4 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2016/03/outlook-0309.html)).
+- 2016-03-08: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2016/03/outlook-0308.html)).
+- 2016-03-08: 4 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2016/03/outlook-0308.html)).
+- 2016-03-07: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2016/03/outlook-0307.html)).
+- 2016-03-07: 4 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2016/03/outlook-0307.html)).
+- 2016-03-04: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2016/03/outlook-0304.html)).
+- 2016-03-04: 4 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2016/03/outlook-0304.html)).
+- 2016-03-03: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2016/03/outlook-0303.html)).
+- 2016-03-03: 4 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2016/03/outlook-0303.html)).
+- 2016-03-02: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2016/03/outlook-0302.html)).
+- 2016-03-02: 4 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2016/03/outlook-0302.html)).
+- 2016-03-01: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2016/03/outlook-0301.html)).
+- 2016-03-01: 4 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2016/03/outlook-0301.html)).
+- 2016-02-29: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2016/02/outlook-0229.html)).
+- 2016-02-29: 4 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2016/02/outlook-0229.html)).
+- 2016-02-25: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2016/02/outlook-0225.html)).
+- 2016-02-25: 4 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2016/02/outlook-0225.html)).
+- 2016-02-24: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2016/02/outlook-0224.html)).
+- 2016-02-24: 4 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2016/02/outlook-0224.html)).
+- 2016-02-23: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2016/02/outlook-0223.html)).
+- 2016-02-23: 4 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2016/02/outlook-0223.html)).
+- 2016-02-22: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2016/02/outlook-0222.html)).
+- 2016-02-22: 4 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2016/02/outlook-0222.html)).
+- 2016-02-19: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2016/02/outlook-0219.html)).
+- 2016-02-19: 4 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2016/02/outlook-0219.html)).
+- 2016-02-18: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2016/02/outlook-0218.html)).
+- 2016-02-18: 4 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2016/02/outlook-0218.html)).
+- 2016-02-17: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2016/02/outlook-0217.html)).
+- 2016-02-17: 4 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2016/02/outlook-0217.html)).
+- 2016-02-16: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2016/02/outlook-0216.html)).
+- 2016-02-16: 4 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2016/02/outlook-0216.html)).
+- 2016-02-12: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2016/02/outlook-0212.html)).
+- 2016-02-12: 4 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2016/02/outlook-0212.html)).
+- 2016-02-11: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2016/02/outlook-0211.html)).
+- 2016-02-11: 4 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2016/02/outlook-0211.html)).
+- 2016-02-10: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2016/02/outlook-0210.html)).
+- 2016-02-10: 4 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2016/02/outlook-0210.html)).
+- 2016-02-09: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2016/02/outlook-0209.html)).
+- 2016-02-09: 4 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2016/02/outlook-0209.html)).
+- 2016-02-08: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2016/02/outlook-0208.html)).
+- 2016-02-08: 4 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2016/02/outlook-0208.html)).
+- 2016-02-05: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2016/02/outlook-0205.html)).
+- 2016-02-05: 4 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2016/02/outlook-0205.html)).
+- 2016-02-04: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2016/02/outlook-0204.html)).
+- 2016-02-04: 4 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2016/02/outlook-0204.html)).
+- 2016-02-03: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2016/02/outlook-0203.html)).
+- 2016-02-03: 4 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2016/02/outlook-0203.html)).
+- 2016-02-02: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2016/02/outlook-0202_2.html)).
+- 2016-02-02: 4 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2016/02/outlook-0202_2.html)).
+- 2016-02-01: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2016/02/outlook-0202.html)).
+- 2016-02-01: 3 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2016/02/outlook-0202.html)).
+- 2016-01-29: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2016/01/outlook-0129.html)).
+- 2016-01-29: 4 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2016/01/outlook-0129.html)).
+- 2016-01-28: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2016/01/outlook-0128.html)).
+- 2016-01-28: 4 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2016/01/outlook-0128.html)).
+- 2016-01-27: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2016/01/outlook-0127.html)).
+- 2016-01-27: 4 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2016/01/outlook-0127.html)).
+- 2016-01-26: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2016/01/outlook-0126.html)).
+- 2016-01-26: 4 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2016/01/outlook-0126.html)).
+- 2016-01-25: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2016/01/outlook-0125.html)).
+- 2016-01-25: 4 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2016/01/outlook-0125.html)).
+- 2016-01-22: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2016/01/outlook-0122.html)).
+- 2016-01-22: 4 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2016/01/outlook-0122.html)).
+- 2016-01-21: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2016/01/outlook-0121.html)).
+- 2016-01-21: 4 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2016/01/outlook-0121.html)).
+- 2016-01-20: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2016/01/outlook-0120.html)).
+- 2016-01-20: 4 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2016/01/outlook-0120.html)).
+- 2016-01-19: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2016/01/outlook-0119.html)).
+- 2016-01-19: 4 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2016/01/outlook-0119.html)).
+- 2016-01-15: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2016/01/outlook-0115.html)).
+- 2016-01-15: 4 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2016/01/outlook-0115.html)).
+- 2016-01-14: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2016/01/outlook-0114.html)).
+- 2016-01-14: 4 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2016/01/outlook-0114.html)).
+- 2016-01-11: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2016/01/outlook-0111.html)).
+- 2016-01-11: 4 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2016/01/outlook-0111.html)).
+- 2016-01-08: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2016/01/outlook-0108.html)).
+- 2016-01-08: 4 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2016/01/outlook-0108.html)).
+- 2016-01-07: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2016/01/outlook-0107.html)).
+- 2016-01-07: 4 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2016/01/outlook-0107.html)).
+- 2016-01-06: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2016/01/outlook-0106.html)).
+- 2016-01-06: 4 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2016/01/outlook-0106.html)).
+- 2016-01-05: Retained archival source date uses selected title and independently reviewed year; capture time does not establish historical availability. ([source](https://verniman.blogspot.com/2016/01/outlook-0105.html)).
+- 2016-01-05: 4 current source-image fallbacks; historical image bytes unverified ([source](https://verniman.blogspot.com/2016/01/outlook-0105.html)).
+- Capture/discovery issue: [https://verniman.blogspot.com/2016/12/outlook-1201.html](https://verniman.blogspot.com/2016/12/outlook-1201.html) — HTTP 404; current live probe, not an archive-adaptation failure; HTTP status 404. The failed response is retained in the capture manifest.
+- Capture/discovery issue: [https://verniman.blogspot.com/2016/01/outlook-0105.html](https://verniman.blogspot.com/2016/01/outlook-0105.html) — HTTP 404; current live probe, not an archive-adaptation failure; HTTP status 404. The failed response is retained in the capture manifest.

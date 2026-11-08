@@ -65,6 +65,23 @@
                 "phaseFamilies": {}
               }
             }
+          },
+          {
+            "if": {
+              "required": [
+                "readingMode"
+              ],
+              "properties": {
+                "readingMode": {
+                  "const": "single-page"
+                }
+              }
+            },
+            "then": {
+              "required": [
+                "publicationTabs"
+              ]
+            }
           }
         ],
         "properties": {
@@ -217,6 +234,9 @@
           },
           "researchPriority": {
             "$ref": "#/$defs/researchPriority"
+          },
+          "readingMode": {
+            "const": "single-page"
           }
         }
       }

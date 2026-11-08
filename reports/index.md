@@ -2,7 +2,7 @@
 
 Saved evidence, study plans, and current strategy interpretation in one place.
 
-28 studies · 46 saved runs · 10 strategy cards.
+30 studies · 65 saved runs · 10 strategy cards.
 
 **Historical results were imported without recalculation or a new review. Latest means natural run-ID ordering; no recommendation or reference selection is inferred.**
 
@@ -352,13 +352,29 @@ Sealed corrected reproduction of the initial frozen protocol; all 20 numerical f
 
 `27_verniman_method_knowledge` · source\_review\_complete\_with\_media\_gaps · ES, Other markets in curated examples
 
-A source-backed Markdown knowledge base covering 27 selected blog topics, reviewed video captions, chart readings, level roles, terminology and unresolved implementation details.
+A source-backed method library covering 27 blog topics, plus local Daily Map calendar archives for 2011–2025 and January 1–October 30, 2026, with captured text/images where recovered and explicit source gaps, including the reviewed empty 2011–2013 recoveries, including recovered 2014–2016 archive sources and the partial 2017 source trail.
 
-Qualitative external source research only. Four videos have no retained transcript; auto-caption and static-image limits remain explicit. No Abacus backtest, strategy implementation or profitability validation.
+Qualitative source research and local source preservation. Annual snapshots retain gaps and duplicate dates. The 2022 early-year gap, source-year exceptions, malformed dates and image qualifications remain explicit. Near ATHs uses its independently reviewed 2021 date in that annual archive; completed earlier snapshots are unchanged. The 2018 December 24 article has no source images, and its publication/update claims do not replace anchored body dates. The 2017 trail has only 28 dated plans and twelve undated daily plans; navigation exhausts without a 2016 boundary, so historical completeness is not claimed. The 2016 archive recovery has 101 weekday and 105 weekend gaps, no observed 2015 boundary and no full historical-completeness claim; all 560 image responses retain unverified historical byte identity. The 2015 recovery has 196 weekday and 104 weekend gaps, fourteen unresolved daily-plan dates, no observed 2014 boundary and qualified historical-image uncertainty. Nine identical overlaps retain their raw supporting revisions; exact Older CDX checks were empty, while rate-limited availability probes remain unresolved. The 2014 recovery has 226 weekday and 104 weekend gaps, two unsupported Opening Print dates, no observed 2013 boundary and no historical full-year completeness claim; all 111 current-source images have unverified historical byte identity. Five daily overlaps retain raw supporting revisions, including two literal Update/Opening title changes. Eight image-only update or closing bodies remain raw context because they do not establish a morning plan. Exact observed Older/feed-next CDX and availability checks all returned successful empty results. The reviewed empty 2013 recovery has 261 weekday and 104 weekend gaps and no selected daily plans. Standard and observed Blogger 2013 feed discovery and exact observed Older continuation checks returned successful empty results; no 2012 boundary, historical-absence or completeness claim follows. Raw educational/out-of-scope pages remain retained, including three bodies independently matched to 2022. The reviewed empty 2012 recovery has 261 weekday and 105 weekend gaps, including leap day, with no selected daily plans. One exact Weak Start archive snapshot failed with HTTP 404 on both bounded attempts, explicitly separate from retained 2022 supporting evidence. All current 2012 sitemap locators are accounted for. No 2011 boundary, historical-absence or historical-completeness claim follows; original 2013–2026 archives remain unchanged. The reviewed empty 2011 recovery has 260 weekday and 105 weekend gaps, with no selected daily plans or images. All seventeen indexed archive pages were recovered successfully; two actual 2011 Atom snapshots retain their original XML and exact selectors. The actual feed-next CDX and availability checks returned successful empty results. Three current-only observations retain their actual clocks without archive clocks or historical 2011 year assignments. Three daily-looking bodies match frozen 2022 plans exactly. All unavailable media references are explicit 1x1 tracking pixels, with no missing authored chart images. No 2010 boundary, historical-absence or historical-completeness claim follows; original 2012–2026 archives remain unchanged. No trading validation.
 
 [Study overview](../studies/27_verniman_method_knowledge/README.md) · [Metadata](../studies/27_verniman_method_knowledge/study.json)
 
-- **20261023T174000Z\_review27 · latest by ID · selected reference** — [Markdown](../runs/27_verniman_method_knowledge/20261023T174000Z_review27/report.md) · [Manifest](../runs/27_verniman_method_knowledge/20261023T174000Z_review27/manifest.json)
+- **20261031T155759Z\_daily\_maps\_2011 · latest by ID** — [Report](../runs/27_verniman_method_knowledge/20261031T155759Z_daily_maps_2011/report.html) · [Markdown](../runs/27_verniman_method_knowledge/20261031T155759Z_daily_maps_2011/report.md) · [Manifest](../runs/27_verniman_method_knowledge/20261031T155759Z_daily_maps_2011/manifest.json) · [Metrics](../runs/27_verniman_method_knowledge/20261031T155759Z_daily_maps_2011/metrics.json)
+- **20261031T154135Z\_daily\_maps\_2012** — [Report](../runs/27_verniman_method_knowledge/20261031T154135Z_daily_maps_2012/report.html) · [Markdown](../runs/27_verniman_method_knowledge/20261031T154135Z_daily_maps_2012/report.md) · [Manifest](../runs/27_verniman_method_knowledge/20261031T154135Z_daily_maps_2012/manifest.json) · [Metrics](../runs/27_verniman_method_knowledge/20261031T154135Z_daily_maps_2012/metrics.json)
+- **20261031T152738Z\_daily\_maps\_2013** — [Report](../runs/27_verniman_method_knowledge/20261031T152738Z_daily_maps_2013/report.html) · [Markdown](../runs/27_verniman_method_knowledge/20261031T152738Z_daily_maps_2013/report.md) · [Manifest](../runs/27_verniman_method_knowledge/20261031T152738Z_daily_maps_2013/manifest.json) · [Metrics](../runs/27_verniman_method_knowledge/20261031T152738Z_daily_maps_2013/metrics.json)
+- **20261031T151152Z\_daily\_maps\_2014** — [Report](../runs/27_verniman_method_knowledge/20261031T151152Z_daily_maps_2014/report.html) · [Markdown](../runs/27_verniman_method_knowledge/20261031T151152Z_daily_maps_2014/report.md) · [Manifest](../runs/27_verniman_method_knowledge/20261031T151152Z_daily_maps_2014/manifest.json) · [Metrics](../runs/27_verniman_method_knowledge/20261031T151152Z_daily_maps_2014/metrics.json)
+- **20261031T143306Z\_daily\_maps\_2015** — [Report](../runs/27_verniman_method_knowledge/20261031T143306Z_daily_maps_2015/report.html) · [Markdown](../runs/27_verniman_method_knowledge/20261031T143306Z_daily_maps_2015/report.md) · [Manifest](../runs/27_verniman_method_knowledge/20261031T143306Z_daily_maps_2015/manifest.json) · [Metrics](../runs/27_verniman_method_knowledge/20261031T143306Z_daily_maps_2015/metrics.json)
+- **20261031T141551Z\_daily\_maps\_2016\_r2** — [Report](../runs/27_verniman_method_knowledge/20261031T141551Z_daily_maps_2016_r2/report.html) · [Markdown](../runs/27_verniman_method_knowledge/20261031T141551Z_daily_maps_2016_r2/report.md) · [Manifest](../runs/27_verniman_method_knowledge/20261031T141551Z_daily_maps_2016_r2/manifest.json) · [Metrics](../runs/27_verniman_method_knowledge/20261031T141551Z_daily_maps_2016_r2/metrics.json)
+- **20261031T054828Z\_daily\_maps\_2017** — [Report](../runs/27_verniman_method_knowledge/20261031T054828Z_daily_maps_2017/report.html) · [Markdown](../runs/27_verniman_method_knowledge/20261031T054828Z_daily_maps_2017/report.md) · [Manifest](../runs/27_verniman_method_knowledge/20261031T054828Z_daily_maps_2017/manifest.json) · [Metrics](../runs/27_verniman_method_knowledge/20261031T054828Z_daily_maps_2017/metrics.json)
+- **20261031T054252Z\_daily\_maps\_2018** — [Report](../runs/27_verniman_method_knowledge/20261031T054252Z_daily_maps_2018/report.html) · [Markdown](../runs/27_verniman_method_knowledge/20261031T054252Z_daily_maps_2018/report.md) · [Manifest](../runs/27_verniman_method_knowledge/20261031T054252Z_daily_maps_2018/manifest.json) · [Metrics](../runs/27_verniman_method_knowledge/20261031T054252Z_daily_maps_2018/metrics.json)
+- **20261031T053752Z\_daily\_maps\_2019** — [Report](../runs/27_verniman_method_knowledge/20261031T053752Z_daily_maps_2019/report.html) · [Markdown](../runs/27_verniman_method_knowledge/20261031T053752Z_daily_maps_2019/report.md) · [Manifest](../runs/27_verniman_method_knowledge/20261031T053752Z_daily_maps_2019/manifest.json) · [Metrics](../runs/27_verniman_method_knowledge/20261031T053752Z_daily_maps_2019/metrics.json)
+- **20261031T052904Z\_daily\_maps\_2020\_r3** — [Report](../runs/27_verniman_method_knowledge/20261031T052904Z_daily_maps_2020_r3/report.html) · [Markdown](../runs/27_verniman_method_knowledge/20261031T052904Z_daily_maps_2020_r3/report.md) · [Manifest](../runs/27_verniman_method_knowledge/20261031T052904Z_daily_maps_2020_r3/manifest.json) · [Metrics](../runs/27_verniman_method_knowledge/20261031T052904Z_daily_maps_2020_r3/metrics.json)
+- **20261031T051744Z\_daily\_maps\_2021** — [Report](../runs/27_verniman_method_knowledge/20261031T051744Z_daily_maps_2021/report.html) · [Markdown](../runs/27_verniman_method_knowledge/20261031T051744Z_daily_maps_2021/report.md) · [Manifest](../runs/27_verniman_method_knowledge/20261031T051744Z_daily_maps_2021/manifest.json) · [Metrics](../runs/27_verniman_method_knowledge/20261031T051744Z_daily_maps_2021/metrics.json)
+- **20261031T044414Z\_daily\_maps\_2022** — [Report](../runs/27_verniman_method_knowledge/20261031T044414Z_daily_maps_2022/report.html) · [Markdown](../runs/27_verniman_method_knowledge/20261031T044414Z_daily_maps_2022/report.md) · [Manifest](../runs/27_verniman_method_knowledge/20261031T044414Z_daily_maps_2022/manifest.json) · [Metrics](../runs/27_verniman_method_knowledge/20261031T044414Z_daily_maps_2022/metrics.json)
+- **20261031T043818Z\_daily\_maps\_2023** — [Report](../runs/27_verniman_method_knowledge/20261031T043818Z_daily_maps_2023/report.html) · [Markdown](../runs/27_verniman_method_knowledge/20261031T043818Z_daily_maps_2023/report.md) · [Manifest](../runs/27_verniman_method_knowledge/20261031T043818Z_daily_maps_2023/manifest.json) · [Metrics](../runs/27_verniman_method_knowledge/20261031T043818Z_daily_maps_2023/metrics.json)
+- **20261031T034949Z\_daily\_maps\_2024\_r2** — [Report](../runs/27_verniman_method_knowledge/20261031T034949Z_daily_maps_2024_r2/report.html) · [Markdown](../runs/27_verniman_method_knowledge/20261031T034949Z_daily_maps_2024_r2/report.md) · [Manifest](../runs/27_verniman_method_knowledge/20261031T034949Z_daily_maps_2024_r2/manifest.json) · [Metrics](../runs/27_verniman_method_knowledge/20261031T034949Z_daily_maps_2024_r2/metrics.json)
+- **20261031T032348Z\_daily\_maps\_2025** — [Report](../runs/27_verniman_method_knowledge/20261031T032348Z_daily_maps_2025/report.html) · [Markdown](../runs/27_verniman_method_knowledge/20261031T032348Z_daily_maps_2025/report.md) · [Manifest](../runs/27_verniman_method_knowledge/20261031T032348Z_daily_maps_2025/manifest.json) · [Metrics](../runs/27_verniman_method_knowledge/20261031T032348Z_daily_maps_2025/metrics.json)
+- **20261031T030640Z\_daily\_maps\_2026** — [Report](../runs/27_verniman_method_knowledge/20261031T030640Z_daily_maps_2026/report.html) · [Markdown](../runs/27_verniman_method_knowledge/20261031T030640Z_daily_maps_2026/report.md) · [Manifest](../runs/27_verniman_method_knowledge/20261031T030640Z_daily_maps_2026/manifest.json) · [Metrics](../runs/27_verniman_method_knowledge/20261031T030640Z_daily_maps_2026/metrics.json)
+- **20261023T174000Z\_review27 · selected reference** — [Markdown](../runs/27_verniman_method_knowledge/20261023T174000Z_review27/report.md) · [Manifest](../runs/27_verniman_method_knowledge/20261023T174000Z_review27/manifest.json)
 
 ## EMA6 Crossings of Globex VWAP
 
@@ -372,6 +388,36 @@ Corrected protocol 1.1.0 sealed: 25 synthetic tests, full source reconciliation 
 
 - **20261023T210215Z\_ema6\_3m\_v1 · latest by ID · selected reference** — [Report](../runs/28_globex_ema_crossings/20261023T210215Z_ema6_3m_v1/report.html) · [Markdown](../runs/28_globex_ema_crossings/20261023T210215Z_ema6_3m_v1/report.md) · [Manifest](../runs/28_globex_ema_crossings/20261023T210215Z_ema6_3m_v1/manifest.json) · [Metrics](../runs/28_globex_ema_crossings/20261023T210215Z_ema6_3m_v1/metrics.json) · [Advice](../runs/28_globex_ema_crossings/20261023T210215Z_ema6_3m_v1/advice.md)
 - **20261023T202400Z\_ema6\_v1** — [Report](../runs/28_globex_ema_crossings/20261023T202400Z_ema6_v1/report.html) · [Markdown](../runs/28_globex_ema_crossings/20261023T202400Z_ema6_v1/report.md) · [Manifest](../runs/28_globex_ema_crossings/20261023T202400Z_ema6_v1/manifest.json) · [Metrics](../runs/28_globex_ema_crossings/20261023T202400Z_ema6_v1/metrics.json) · [Advice](../runs/28_globex_ema_crossings/20261023T202400Z_ema6_v1/advice.md)
+
+## Verniman Levels — Phase 1 candidate map
+
+`29_verniman_level_reconstruction` · indicator\_implementation · ES, MES, NQ, MNQ
+
+Session-aware Pine derivative of the supplied VP Levels baseline, with completed RTH and overnight references plus a frozen completed-bar pre-open candidate map. HVN/HVE, PBT, pivot and target selection remain planned.
+
+Source review, local synthetic specification checks and source safeguards are distinct from native Pine verification. Private Pine v6 compilation passed in the inspected ESZ2026 five-minute TradingView configuration; allowed-date browser replay results and limitations are recorded in verification.md. MES/NQ/MNQ and one-minute charts have not been browser verified. No recovered proprietary level-construction rule or profitability finding is established.
+
+[Study overview](../studies/29_verniman_level_reconstruction/README.md) · [Metadata](../studies/29_verniman_level_reconstruction/study.json)
+
+[Implementation plan](../studies/29_verniman_level_reconstruction/plan.md) · [Settings](../studies/29_verniman_level_reconstruction/study.yaml) · [Implementation inputs](../studies/29_verniman_level_reconstruction/inputs.lock.json) · [Pine source](../studies/29_verniman_level_reconstruction/indicator/verniman_levels.pine)
+
+Supplied Pine baseline and generic Study 27 knowledge-base concepts; no pinned market dataset, Verniman dated target values or computed market-data research outcomes.
+
+Indicator prototype; no computed market-data research outcomes or strategy profitability finding. Native TradingView compilation and chart runtime remain unverified.
+
+## Vern Pivot Cross Statistics — ES
+
+`30_verniman_pivot_statistics_es` · completed · ES
+
+Notebook-authored ES pivot research in six question themes and 21 insights. The notebook retains actual analysis and saved evidence; Narada renders its headings, descriptions, findings and chart/table outputs without code. Original ranked and baseline reports, negative/inconclusive findings and separate VWAP-only populations remain retained.
+
+Notebook reproduction run 20261108T040901Z\_notebook\_themes\_v2: 68 code cells executed; 86 saved-row comparisons across 21 insights and S01–S20; 225 study tests; exact text/table/PNG publication transfer and local Narada/browser checks. Descriptive point estimates over retained ledgers, with no new event reconstruction or confidence intervals. The original ranked run remains the full uncertainty/reference evidence. Historical availability unverified; no fills, costs or profitability test.
+
+[Study overview](../studies/30_verniman_pivot_statistics_es/README.md) · [Metadata](../studies/30_verniman_pivot_statistics_es/study.json)
+
+- **20261108T040901Z\_notebook\_themes\_v2 · latest by ID** — [Markdown](../runs/30_verniman_pivot_statistics_es/20261108T040901Z_notebook_themes_v2/report.md) · [Manifest](../runs/30_verniman_pivot_statistics_es/20261108T040901Z_notebook_themes_v2/manifest.json) · [Metrics](../runs/30_verniman_pivot_statistics_es/20261108T040901Z_notebook_themes_v2/metrics.json) · [Advice](../runs/30_verniman_pivot_statistics_es/20261108T040901Z_notebook_themes_v2/advice.md)
+- **20261031\_repo\_v2** — [Report](../runs/30_verniman_pivot_statistics_es/20261031_repo_v2/report.html) · [Markdown](../runs/30_verniman_pivot_statistics_es/20261031_repo_v2/report.md) · [Manifest](../runs/30_verniman_pivot_statistics_es/20261031_repo_v2/manifest.json) · [Metrics](../runs/30_verniman_pivot_statistics_es/20261031_repo_v2/metrics.json) · [Advice](../runs/30_verniman_pivot_statistics_es/20261031_repo_v2/advice.md)
+- **20261031\_ranked\_v2 · selected reference** — [Report](../runs/30_verniman_pivot_statistics_es/20261031_ranked_v2/report.html) · [Markdown](../runs/30_verniman_pivot_statistics_es/20261031_ranked_v2/report.md) · [Manifest](../runs/30_verniman_pivot_statistics_es/20261031_ranked_v2/manifest.json) · [Metrics](../runs/30_verniman_pivot_statistics_es/20261031_ranked_v2/metrics.json) · [Advice](../runs/30_verniman_pivot_statistics_es/20261031_ranked_v2/advice.md)
 
 ## Strategy cards
 
@@ -397,6 +443,7 @@ Cards record the current evidence status of each enduring idea. Follow their run
 
 - [GLBX-20260920-577W4VCSK7](../reports/quality/GLBX-20260920-577W4VCSK7.md)
 - [GLBX-20260920-QQQSGCKWES](../reports/quality/GLBX-20260920-QQQSGCKWES.md)
+- [es\_contract\_session\_indicators\_\_1.0.0](../reports/quality/es_contract_session_indicators__1.0.0.md)
 - [gc\_ema\_deviation\_bands\_\_1.0.0](../reports/quality/gc_ema_deviation_bands__1.0.0.md)
 - [nq\_causal\_vp\_hvn\_\_1.0.0](../reports/quality/nq_causal_vp_hvn__1.0.0.md)
 - [same\_contract\_ema\_cloud\_\_1.0.0](../reports/quality/same_contract_ema_cloud__1.0.0.md)
@@ -408,7 +455,19 @@ Cards record the current evidence status of each enduring idea. Follow their run
 - [verniman\_daily\_levels\_\_10.0.0](../reports/quality/verniman_daily_levels__10.0.0.md)
 - [verniman\_daily\_levels\_\_11.0.0](../reports/quality/verniman_daily_levels__11.0.0.md)
 - [verniman\_daily\_levels\_\_12.0.0](../reports/quality/verniman_daily_levels__12.0.0.md)
+- [verniman\_daily\_levels\_\_13.0.0](../reports/quality/verniman_daily_levels__13.0.0.md)
+- [verniman\_daily\_levels\_\_14.0.0](../reports/quality/verniman_daily_levels__14.0.0.md)
+- [verniman\_daily\_levels\_\_15.0.0](../reports/quality/verniman_daily_levels__15.0.0.md)
+- [verniman\_daily\_levels\_\_16.0.0](../reports/quality/verniman_daily_levels__16.0.0.md)
+- [verniman\_daily\_levels\_\_17.0.0](../reports/quality/verniman_daily_levels__17.0.0.md)
+- [verniman\_daily\_levels\_\_18.0.0](../reports/quality/verniman_daily_levels__18.0.0.md)
+- [verniman\_daily\_levels\_\_19.0.0](../reports/quality/verniman_daily_levels__19.0.0.md)
 - [verniman\_daily\_levels\_\_2.0.0](../reports/quality/verniman_daily_levels__2.0.0.md)
+- [verniman\_daily\_levels\_\_20.0.0](../reports/quality/verniman_daily_levels__20.0.0.md)
+- [verniman\_daily\_levels\_\_21.0.0](../reports/quality/verniman_daily_levels__21.0.0.md)
+- [verniman\_daily\_levels\_\_22.0.0](../reports/quality/verniman_daily_levels__22.0.0.md)
+- [verniman\_daily\_levels\_\_23.0.0](../reports/quality/verniman_daily_levels__23.0.0.md)
+- [verniman\_daily\_levels\_\_24.0.0](../reports/quality/verniman_daily_levels__24.0.0.md)
 - [verniman\_daily\_levels\_\_3.0.0](../reports/quality/verniman_daily_levels__3.0.0.md)
 - [verniman\_daily\_levels\_\_4.0.0](../reports/quality/verniman_daily_levels__4.0.0.md)
 - [verniman\_daily\_levels\_\_5.0.0](../reports/quality/verniman_daily_levels__5.0.0.md)

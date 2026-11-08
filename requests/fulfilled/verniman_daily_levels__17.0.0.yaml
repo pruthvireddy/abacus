@@ -1,0 +1,55 @@
+request:
+  id: verniman_daily_levels__17.0.0
+  requester: workspace user
+  requested_on: '2026-10-30'
+  purpose: add the supplied October 26 chart image to the existing Verniman image records
+inputs:
+  predecessor: catalog/datasets/verniman_daily_levels__16.0.0.json
+  prior_inputs: preserve exact predecessor historical and reviewed-update pins
+  source: one user-supplied PNG with explicit D:10/26/26 chart header
+  product_text: /ES Today 3m
+  contract: null
+  displayed_time: 9:33 AM, chart bar time with timezone unknown
+output:
+  dataset: verniman_daily_levels
+  version: 17.0.0
+  destination: data/curated/external_levels/source=verniman/version=17.0.0/
+  new_observations: 1
+  new_observation_levels: 2
+  new_canonical_outlooks: 0
+  new_canonical_levels: 0
+  manifest: catalog/datasets/verniman_daily_levels__17.0.0.json
+  schema: catalog/schemas/verniman_daily_levels__17.0.0.json
+  quality_report: reports/quality/verniman_daily_levels__17.0.0.md
+  calendar: {start: '2016-01-01', end: '2026-10-30', inclusive: true}
+extraction:
+  evidence_basis: user_supplied_image
+  explicit_annotations:
+    - {label: YHOD, price: 7714, source_text: YHOD 7714}
+    - {label: GAP, price: 7706, source_text: GAP 7706 magnet}
+  unpriced_labels: [YVAH, YPOC-GAP magnet, YVAL, YLOD]
+  roles: neutral/reference; vertical reading order is not an ordered trading plan
+  comparison: >-
+    The two prices/labels corroborate earlier October 26 bullish-target
+    recollections. The chart alone does not establish their trading roles,
+    the pivot price or numeric prices for the four unpriced labels.
+  exclusions: axis interpolation, live quotes, tape/OHLC values and borrowed recollection prices
+timing:
+  available_at: null
+  status: historical_availability_unverified
+  timezone: null
+  qualification: displayed bar date/time is not a verified image capture or publication time
+preservation:
+  releases: versions 1.0.0 through 16.0.0 remain byte-identical
+  records: retain every previous canonical, recollection and image record unchanged
+  coverage: October 26 becomes image_observation_only; canonical blog-plan gap remains
+validation:
+  source: independent visual transcription and exact retained PNG hash
+  release: pinned input/output hashes, existing image contracts, selected-row loader checks
+  preservation: original artifact inventory and predecessor row comparison
+  navigation: documentation, metadata and research-index checks
+  scope: no package behavior change, numerical research or backtest
+retention:
+  raw: immutable copied PNG, original filename, user message and source manifest
+  staging: independent visual review and new preparation script
+  release: unique immutable master snapshot using existing image observation structure

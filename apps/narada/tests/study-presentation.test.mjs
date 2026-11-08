@@ -9,6 +9,8 @@ import ts from 'typescript';
 
 // Compile actual server primitives without writing build fixtures, mounting
 // hidden reports or involving a browser. Static export/browser gates are separate.
+// Match next.config.ts when rendering Next Link outside the framework build.
+process.env.__NEXT_TRAILING_SLASH = 'true';
 const require = createRequire(import.meta.url);
 const compiledModules = new Map();
 function compile(relativePath) {
@@ -34,6 +36,7 @@ function compile(relativePath) {
 const { StudyCard } = compile('../src/components/study-card.tsx');
 const { StudyOverview, StudyStatistics, StudyCoverage, StudyFindings, StudyMethods, OverviewSourceRecord } = compile('../src/components/study-overview.tsx');
 const { StudyShell, StudyDestinationNavigation } = compile('../src/components/study-shell.tsx');
+const { StudyResults } = compile('../src/components/study-results.tsx');
 const { StudyReportDirectory } = compile('../src/components/study-directory.tsx');
 const { LegacyStudyLinks } = compile('../src/components/legacy-study-links.tsx');
 const { StudyEvidenceDirectory } = compile('../src/components/study-evidence.tsx');
@@ -42,7 +45,7 @@ const catalog = JSON.parse(readFileSync(new URL('../content/studies.json', impor
 const render = (Component, props) => renderToStaticMarkup(React.createElement(Component, props));
 const escaped = text => renderToStaticMarkup(React.createElement(React.Fragment, null, text));
 const renderCard = study => render(StudyCard, { study, number: 1 });
-const localSlugs = ['trader-assistant-manual', 'es-opening-pivot-cloud'];
+const localSlugs = ['trader-assistant-manual', 'es-opening-pivot-cloud', 'verniman-pivot-statistics-es'];
 
 function overviewStudy() {
   const source = { publicationId: 'saved-primary', sourceRunId: 'frozen-run', sourceSha256: 'a'.repeat(64), sectionId: 'decision' };
@@ -64,7 +67,7 @@ function overviewStudy() {
   };
 }
 
-test('all 22 published studies have overview metadata and the two local selections retain explicit complete fallbacks', () => {
+test('22 authored overviews and three fallback selections retain complete study presentation', () => {
   assert.equal(catalog.studies.filter(study => study.overview).length, 22);
   assert.deepEqual(catalog.studies.filter(study => !study.overview).map(study => study.slug).sort(), [...localSlugs].sort());
   for (const slug of localSlugs) {
@@ -80,6 +83,27 @@ test('all 22 published studies have overview metadata and the two local selectio
     assert(render(StudyOverview, { study }).includes(escaped(study.summary)));
     assert(render(StudyMethods, { study }).includes(escaped(study.evidenceStatus)));
   }
+});
+
+test('Study 30 presents six notebook themes and retains every earlier report in Evidence', () => {
+  const study = catalog.studies.find(item => item.studyId === '30_verniman_pivot_statistics_es');
+  assert(study);
+  assert.equal(study.analyses, undefined);
+  assert.deepEqual(study.publicationTabs.map(tab => tab.label), ['Opening context', 'Crossing activity', 'Breaks & confirmation', 'After the cross', 'VWAP & cloud', 'Timing & stability']);
+  assert.equal(new Set(study.publicationTabs.map(tab => tab.publicationId)).size, 6);
+  assert(study.publicationTabs.every(tab => tab.sourceRunId === study.featuredSourceRunId));
+  assert.equal(study.featuredPublicationId, study.publicationTabs[0].publicationId);
+  assert.equal(study.relatedPublications.length, 12);
+  assert.equal(study.relatedPublications.filter(tab => tab.sourceRunId === '20261031_ranked_v2').length, 6);
+  assert.equal(study.relatedPublications.filter(tab => tab.sourceRunId === '20261031_repo_v2').length, 6);
+  assert(study.relatedPublications.every(tab => tab.relationship === 'other-run'));
+  for (const text of ['Notebook-authored', '875 pivot-matched RTH', 'January 3, 2020–September 18, 2026', 'VWAP-only RTH', 'full-Globex']) assert(study.summary.includes(text));
+  assert(study.evidenceStatus.includes('Historical pivot availability remains unverified'));
+  assert(study.evidenceStatus.includes('requested coverage ends October 30, 2026'));
+  const html = render(StudyReportDirectory, { study });
+  for (const tab of [...study.publicationTabs, ...study.relatedPublications]) assert(html.includes(`href="/reports/${tab.publicationId}/"`));
+  assert.match(html, /18 selected publications/);
+  assert(!html.includes('role="tab"'));
 });
 
 test('cards and statistic panels preserve zero, null, saved qualifiers and exact source links', () => {
@@ -121,11 +145,13 @@ test('study destination links identify exactly one current static page and keep 
     for (const destination of ['overview', 'findings', 'explore', 'methods', 'evidence']) {
       const href = `/studies/${study.slug}/${destination === 'overview' ? '' : `${destination}/`}`;
       const tag = [...html.matchAll(/<a\b[^>]*>/g)].map(match => match[0]).find(tag => tag.includes(`href="${href}"`));
-      assert(tag);
+      assert(tag, `Missing ${href} in ${html}`);
       assert.equal(tag.includes('aria-current="page"'), current === destination);
     }
     assert(!html.includes('role="tab"'));
     assert(!html.includes('<button'));
+    assert.match(html, />Results<\/a>/);
+    assert(!html.includes('>Explore</a>'));
   }
 });
 
@@ -141,10 +167,46 @@ test('the common shell retains study context without repeating the main takeaway
   assert(!html.includes('table-filter-controls'));
 });
 
-test('overview, findings and methods retain precise support while keeping detailed report bodies separate', () => {
+test('single-page studies expose only Results and omit duplicate library and footer links', () => {
+  const study = { ...overviewStudy(), readingMode: 'single-page' };
+  for (const current of ['overview', 'findings', 'explore', 'methods', 'evidence']) {
+    const html = render(StudyShell, { study, current, children: React.createElement('p', null, 'Consolidated results') });
+    const nav = html.match(/<nav[^>]*aria-label="Study destinations"[^>]*>[\s\S]*?<\/nav>/)?.[0];
+    assert(nav);
+    assert.equal((nav.match(/<a /g) ?? []).length, 1);
+    assert.match(nav, /aria-current="page"/);
+    assert(nav.includes(`href="/studies/${study.slug}/"`));
+    assert.match(nav, />Results<\/a>/);
+    assert.match(html, /study-destination-explore study-single-page/);
+    assert(!html.includes('class="library-back"'));
+    assert(!html.match(/<footer[\s\S]*?<a /));
+    assert(!html.includes('destination-qualification'));
+    assert.match(html, /Consolidated results/);
+  }
+});
+
+test('historical report bodies in a single-page study have no report-switching loops', () => {
+  const study = { ...overviewStudy(), readingMode: 'single-page',
+    relatedPublications: [{ publicationId: 'saved-earlier', sourceRunId: 'saved-earlier-run', label: 'Earlier result', relationship: 'other-run' }],
+  };
+  const html = render(StudyResults, { study, publication: resultBundle('saved-earlier') });
+  assert.match(html, /ACTIVE_BODY_saved-earlier/);
+  assert.match(html, /Publication saved-earlier/);
+  assert(!html.includes('Related study results'));
+  assert(!html.includes('study-result-navigation'));
+  assert(!html.includes('/reports/saved-primary/'));
+  assert(!html.includes('/reports/saved-earlier/'));
+});
+
+test('overview removes drill-down prompts while preserving exact saved sources and legacy section anchors', () => {
   const study = overviewStudy();
   const overview = render(StudyOverview, { study });
-  for (const key of ['findings', 'explore', 'methods', 'evidence']) assert(overview.includes(`href="/studies/${study.slug}/${key}/"`));
+  for (const key of ['findings', 'explore', 'methods', 'evidence']) assert(!overview.includes(`href="/studies/${study.slug}/${key}/"`));
+  for (const id of ['findings', 'explore', 'method', 'evidence']) assert(overview.includes(`id="${id}"`));
+  assert(!overview.includes('Where to go next'));
+  assert(!overview.includes('Read the supporting report'));
+  assert(overview.includes('Selected saved sources'));
+  assert(overview.includes('href="/reports/saved-primary/#section-decision"'));
   const methods = render(StudyMethods, { study });
   assert(methods.includes('href="/reports/saved-primary/#section-methods"'));
   assert(methods.includes(study.resolvedOverview.method));
@@ -162,6 +224,86 @@ test('overview, findings and methods retain precise support while keeping detail
   }
   delete study.resolvedOverview.period;
   assert(render(StudyCoverage, { study }).includes('does not specify a common date range'));
+});
+
+function resultBundle(id) {
+  return {
+    report: { schemaVersion: '1.1', id, title: `Selected ${id}`, summary: `Saved summary for ${id}.`, publishedAt: '2026-10-01T00:00:00Z', source: { producer: 'sahadeva', runId: `${id}-run` }, sections: [
+      { id: `${id}-scope`, kind: 'text', title: 'Saved scope', body: `ACTIVE_BODY_${id}` },
+      { id: `${id}-values`, kind: 'table', title: 'Saved values', columns: [{ key: 'zero', label: 'Zero', precision: 0 }, { key: 'false', label: 'False' }, { key: 'null', label: 'Unavailable' }], rows: [{ zero: 0, false: false, null: null }] },
+    ], notes: [`Saved qualification for ${id}.`] },
+    provenance: { sourceSha256: 'a'.repeat(64), assets: [] },
+  };
+}
+
+test('Results displays the selected report directly with preserved cells, provenance and sibling tab routes', () => {
+  const base = { ...overviewStudy(), analyses: [
+    { id: 'ranked', label: 'Ranked analysis', publicationTabs: [{ publicationId: 'saved-primary', sourceRunId: 'saved-primary-run', label: 'Summary' }, { publicationId: 'saved-second', sourceRunId: 'saved-primary-run', label: 'Year-wise' }] },
+    { id: 'baseline', label: 'Original baseline', publicationTabs: [{ publicationId: 'saved-baseline', sourceRunId: 'saved-baseline-run', label: 'Summary' }] },
+  ] };
+  for (const id of ['saved-primary', 'saved-second', 'saved-baseline']) {
+    const html = render(StudyResults, { study: base, publication: resultBundle(id) });
+    assert.equal((html.match(/data-publication-id="/g) ?? []).length, 1);
+    assert(html.includes(`data-publication-id="${id}"`));
+    assert.equal((html.match(/class="report-section /g) ?? []).length, 2);
+    assert.equal((html.match(/<table>/g) ?? []).length, 1);
+    assert(html.includes(`ACTIVE_BODY_${id}`));
+    assert(html.includes(`Saved qualification for ${id}.`));
+    for (const other of ['saved-primary', 'saved-second', 'saved-baseline'].filter(other => other !== id)) assert(!html.includes(`ACTIVE_BODY_${other}`));
+    assert.match(html, /<td>0<\/td><td>false<\/td><td>Not available<\/td>/);
+    assert(html.includes(`${id}-run`));
+    assert(html.includes('a'.repeat(64)));
+    assert(html.includes(`href="/publications/${id}/report.json"`));
+    const nav = /<nav class="publication-tabs"[^>]*>[\s\S]*?<\/nav>/.exec(html)?.[0];
+    assert(nav);
+    const selected = [...nav.matchAll(/<a\b[^>]*>/g)].map(match => match[0]).find(tag => tag.includes(`href="/reports/${id}/"`));
+    assert(selected?.includes('aria-current="page"'), `Missing selected ${id} in ${nav}`);
+    assert.equal((nav.match(/aria-current="page"/g) ?? []).length, 1);
+    assert(html.includes('Ranked analysis') && html.includes('Original baseline'));
+    assert(!html.includes('Read the detailed report'));
+    assert(!html.includes('Back to Explore'));
+    assert(!/<(?:script|link)\b[^>]*(?:src|href)="[^"]*\/publications\/[^"]*\/report\.json/.test(html));
+  }
+});
+
+test('Results preserves the explicit saved-table loading boundary and only renders authored default rows', () => {
+  const publication = resultBundle('saved-primary');
+  publication.report.sections = [{ id: 'saved-filtered', kind: 'table', title: 'Saved filtered table',
+    columns: [{ key: 'year', label: 'Year', precision: 0 }, { key: 'marker', label: 'Saved row' }],
+    rowFilters: [{ key: 'year', label: 'Year', defaultValue: 2025 }],
+    rows: [{ year: 2025, marker: 'VISIBLE_DEFAULT_SENTINEL' }, ...Array.from({ length: 149 }, (_, index) => ({ year: 2024, marker: `OTHER_SLICE_SENTINEL_${index}` }))],
+  }];
+  const html = render(StudyResults, { study: overviewStudy(), publication });
+  assert.match(html, /Load table filters/);
+  assert.match(html, /VISIBLE_DEFAULT_SENTINEL/);
+  assert(!html.includes('OTHER_SLICE_SENTINEL'));
+  assert.match(html, /Displayed authored default slice: 1 rows; 150 saved rows/);
+  assert.match(html, /Other saved rows have not been loaded/);
+  assert.match(html, /<select[^>]+disabled=""/);
+});
+
+test('an earlier result in a single-report study keeps a direct featured tab and distinct printed identities', () => {
+  const study = { ...overviewStudy(), featuredSourceRunId: 'saved-primary-run',
+    relatedPublications: [{ publicationId: 'saved-earlier', sourceRunId: 'saved-earlier-run', label: 'Earlier presentation with its saved caveat', relationship: 'other-run' }],
+  };
+  delete study.resolvedOverview;
+  const html = render(StudyShell, { study, current: 'explore', children: React.createElement(StudyResults, { study, publication: resultBundle('saved-earlier') }) });
+  const nav = /<nav[^>]*aria-label="Related study results"[^>]*>[\s\S]*?<\/nav>/.exec(html)?.[0];
+  assert(nav);
+  assert.equal((nav.match(/<a /g) ?? []).length, 2);
+  const links = [...nav.matchAll(/<a\b[^>]*>/g)].map(match => match[0]);
+  const featured = links.find(link => link.includes('href="/reports/saved-primary/"'));
+  const earlier = links.find(link => link.includes('href="/reports/saved-earlier/"'));
+  assert(featured && !featured.includes('aria-current'));
+  assert(earlier?.includes('aria-current="page"'));
+  assert(html.includes('Featured result'));
+  assert(html.includes('Earlier presentation with its saved caveat'));
+  assert(html.includes('ACTIVE_BODY_saved-earlier'));
+  assert(!html.includes('ACTIVE_BODY_saved-primary'));
+  assert(!html.includes('Featured publication:'));
+  assert(html.includes(`Study ${study.studyId}.`));
+  assert(html.includes('Publication saved-earlier · sahadeva · source run saved-earlier-run.'));
+  assert(!html.includes('Selected publication: saved-primary'));
 });
 
 test('the Explore directory preserves every authored navigation shape and earlier-run relationship', () => {

@@ -1,0 +1,42 @@
+request:
+  id: verniman_daily_levels__20.0.0
+  requester: workspace user via authorized recurring Verniman daily check
+  requested_on: '2026-11-02'
+  purpose: append the current November 2 Election week daily outlook without duplicate plans
+inputs:
+  predecessor: catalog/datasets/verniman_daily_levels__19.0.0.json
+  prior_inputs: retain every exact predecessor historical, update, observation and legend pin
+  source_url: https://verniman.blogspot.com/2026/11/election-week.html
+  session_date: '2026-11-02'
+  date_method: body Outlook month/day plus explicit matching contract year in HTML and Atom
+  contract: ESZ26
+  extraction: unchanged existing verniman_history_ab_v2 producer
+output:
+  dataset: verniman_daily_levels
+  version: 20.0.0
+  destination: data/curated/external_levels/source=verniman/version=20.0.0/
+  manifest: catalog/datasets/verniman_daily_levels__20.0.0.json
+  schema: catalog/schemas/verniman_daily_levels__20.0.0.json
+  quality_report: reports/quality/verniman_daily_levels__20.0.0.md
+  added_outlooks: 1
+  added_levels: 6
+  added_issues: 1
+semantics:
+  pivot: YVAH 7651 in both branches
+  bullish_targets: GAPs 7715 then 7778
+  bearish_targets: GAPs 7622 then 7522
+  plural_notation: ordered individual points, preserving literal GAPs labels and source group text
+  conditions: bullish or bearish VIX/CVD as stated per branch
+  warning_review: retain producer warning for on Tuesday; source context refers to elections
+preservation:
+  releases: all earlier releases remain byte-identical
+  records: preserve every predecessor row, observation, user-legend interpretation and source identity
+  deduplication: compare source ID, raw or normalized body, date-contract and full level semantics
+timing:
+  available_at: null
+  timing_status: historical_availability_unverified
+validation:
+  source: HTML-Atom date, delivery-contract and branch agreement plus independent review
+  synthetic: existing history suite 18 tests and consolidated suite 31 tests
+  release: manifest input-output hashes, schema-relations, saved CSV-Parquet rows and preservation
+  scope: local dataset update only; no research, backtest, commit, push, deployment or external publication

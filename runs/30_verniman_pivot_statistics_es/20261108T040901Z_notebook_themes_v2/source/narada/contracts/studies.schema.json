@@ -1,0 +1,1010 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abacus.local/narada/studies.schema.json",
+  "title": "Narada authored study catalog",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "studies"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": "1.0"
+    },
+    "studies": {
+      "type": "array",
+      "maxItems": 200,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "studyId",
+          "slug",
+          "title",
+          "summary",
+          "topic",
+          "products",
+          "evidenceStatus",
+          "featuredPublicationId",
+          "featuredSourceRunId"
+        ],
+        "allOf": [
+          {
+            "not": {
+              "required": [
+                "publicationTabs",
+                "analyses"
+              ],
+              "properties": {
+                "publicationTabs": {},
+                "analyses": {}
+              }
+            }
+          },
+          {
+            "not": {
+              "required": [
+                "publicationTabs",
+                "phaseFamilies"
+              ],
+              "properties": {
+                "publicationTabs": {},
+                "phaseFamilies": {}
+              }
+            }
+          },
+          {
+            "not": {
+              "required": [
+                "analyses",
+                "phaseFamilies"
+              ],
+              "properties": {
+                "analyses": {},
+                "phaseFamilies": {}
+              }
+            }
+          }
+        ],
+        "properties": {
+          "studyId": {
+            "type": "string",
+            "pattern": "^[a-z0-9]+(?:_[a-z0-9]+)*$",
+            "maxLength": 100
+          },
+          "slug": {
+            "$ref": "#/$defs/slug"
+          },
+          "title": {
+            "$ref": "#/$defs/title"
+          },
+          "summary": {
+            "$ref": "#/$defs/prose"
+          },
+          "topic": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 80
+          },
+          "products": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 20,
+            "uniqueItems": true,
+            "items": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9 .-]{0,39}$"
+            }
+          },
+          "evidenceStatus": {
+            "$ref": "#/$defs/prose"
+          },
+          "featuredPublicationId": {
+            "$ref": "#/$defs/slug"
+          },
+          "featuredSourceRunId": {
+            "$ref": "#/$defs/run"
+          },
+          "publicationTabs": {
+            "type": "array",
+            "minItems": 2,
+            "maxItems": 12,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "publicationId",
+                "sourceRunId",
+                "label"
+              ],
+              "properties": {
+                "publicationId": {
+                  "$ref": "#/$defs/slug"
+                },
+                "sourceRunId": {
+                  "$ref": "#/$defs/run"
+                },
+                "label": {
+                  "$ref": "#/$defs/title"
+                }
+              }
+            }
+          },
+          "analyses": {
+            "type": "array",
+            "minItems": 2,
+            "maxItems": 8,
+            "items": {
+              "$ref": "#/$defs/analysis"
+            }
+          },
+          "relatedPublications": {
+            "type": "array",
+            "maxItems": 20,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "publicationId",
+                "sourceRunId",
+                "relationship",
+                "label"
+              ],
+              "properties": {
+                "publicationId": {
+                  "$ref": "#/$defs/slug"
+                },
+                "sourceRunId": {
+                  "$ref": "#/$defs/run"
+                },
+                "relationship": {
+                  "enum": [
+                    "other-run",
+                    "exploratory-supplement",
+                    "presentation-revision"
+                  ]
+                },
+                "label": {
+                  "$ref": "#/$defs/title"
+                }
+              }
+            }
+          },
+          "phaseFamilies": {
+            "type": "array",
+            "minItems": 2,
+            "maxItems": 4,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "id",
+                "label",
+                "analyses"
+              ],
+              "properties": {
+                "id": {
+                  "$ref": "#/$defs/slug"
+                },
+                "label": {
+                  "$ref": "#/$defs/title"
+                },
+                "analyses": {
+                  "type": "array",
+                  "minItems": 1,
+                  "maxItems": 8,
+                  "items": {
+                    "$ref": "#/$defs/analysis"
+                  }
+                }
+              }
+            }
+          },
+          "overview": {
+            "$ref": "#/$defs/overview"
+          },
+          "keywords": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 8,
+            "uniqueItems": true,
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 60
+            }
+          },
+          "researchPriority": {
+            "$ref": "#/$defs/researchPriority"
+          }
+        }
+      }
+    },
+    "readingPaths": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 6,
+      "items": {
+        "$ref": "#/$defs/readingPath"
+      }
+    },
+    "researchPriorityRubric": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "version",
+        "sourceSha256",
+        "meaning",
+        "disclaimer",
+        "bands"
+      ],
+      "properties": {
+        "version": {
+          "type": "string",
+          "pattern": "^[0-9]+\\.[0-9]+$"
+        },
+        "sourceSha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "meaning": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 500
+        },
+        "disclaimer": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 500
+        },
+        "bands": {
+          "type": "array",
+          "minItems": 5,
+          "maxItems": 5,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "score",
+              "label",
+              "definition"
+            ],
+            "properties": {
+              "score": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 5
+              },
+              "label": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 60
+              },
+              "definition": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 500
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "slug": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$",
+      "maxLength": 80
+    },
+    "run": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,159}$"
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 160
+    },
+    "prose": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 800
+    },
+    "analysis": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "label",
+        "publicationTabs"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/slug"
+        },
+        "label": {
+          "$ref": "#/$defs/title"
+        },
+        "publicationTabs": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 12,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "publicationId",
+              "sourceRunId",
+              "label"
+            ],
+            "properties": {
+              "publicationId": {
+                "$ref": "#/$defs/slug"
+              },
+              "sourceRunId": {
+                "$ref": "#/$defs/run"
+              },
+              "label": {
+                "$ref": "#/$defs/title"
+              }
+            }
+          }
+        }
+      }
+    },
+    "overviewSource": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "publicationId",
+        "sourceRunId",
+        "sourceSha256",
+        "sectionId"
+      ],
+      "properties": {
+        "publicationId": {
+          "$ref": "#/$defs/slug"
+        },
+        "sourceRunId": {
+          "$ref": "#/$defs/run"
+        },
+        "sourceSha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "sectionId": {
+          "$ref": "#/$defs/slug"
+        }
+      }
+    },
+    "overviewClaim": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "text",
+        "source"
+      ],
+      "properties": {
+        "text": {
+          "$ref": "#/$defs/prose"
+        },
+        "source": {
+          "$ref": "#/$defs/overviewSource"
+        }
+      }
+    },
+    "overviewLink": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "label",
+        "source"
+      ],
+      "properties": {
+        "label": {
+          "$ref": "#/$defs/title"
+        },
+        "source": {
+          "$ref": "#/$defs/overviewSource"
+        }
+      }
+    },
+    "overviewSelection": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "kind",
+            "label"
+          ],
+          "properties": {
+            "kind": {
+              "const": "metric"
+            },
+            "label": {
+              "$ref": "#/$defs/title"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "kind",
+            "columnKey",
+            "where"
+          ],
+          "properties": {
+            "kind": {
+              "const": "table-cell"
+            },
+            "columnKey": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 80
+            },
+            "where": {
+              "type": "object",
+              "minProperties": 1,
+              "maxProperties": 12,
+              "propertyNames": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 80
+              },
+              "additionalProperties": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "maxLength": 1000
+                  },
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "boolean"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              }
+            }
+          }
+        }
+      ]
+    },
+    "overviewStatistic": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "label",
+            "context",
+            "source",
+            "selection"
+          ],
+          "properties": {
+            "label": {
+              "$ref": "#/$defs/title"
+            },
+            "context": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 600
+            },
+            "source": {
+              "$ref": "#/$defs/overviewSource"
+            },
+            "selection": {
+              "$ref": "#/$defs/overviewSelection"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "label",
+            "context",
+            "source",
+            "text"
+          ],
+          "properties": {
+            "label": {
+              "$ref": "#/$defs/title"
+            },
+            "context": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 600
+            },
+            "source": {
+              "$ref": "#/$defs/overviewSource"
+            },
+            "text": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 160
+            }
+          }
+        }
+      ]
+    },
+    "overview": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "question",
+        "takeaway",
+        "evidenceType",
+        "population",
+        "qualification",
+        "method",
+        "source",
+        "statistics",
+        "findings",
+        "limitations",
+        "links"
+      ],
+      "properties": {
+        "question": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 300
+        },
+        "takeaway": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 800
+        },
+        "evidenceType": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 120
+        },
+        "population": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 600
+        },
+        "period": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 300
+        },
+        "sampleScope": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 600
+        },
+        "qualification": {
+          "$ref": "#/$defs/prose"
+        },
+        "method": {
+          "$ref": "#/$defs/prose"
+        },
+        "source": {
+          "$ref": "#/$defs/overviewSource"
+        },
+        "statistics": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 4,
+          "items": {
+            "$ref": "#/$defs/overviewStatistic"
+          }
+        },
+        "findings": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 6,
+          "items": {
+            "$ref": "#/$defs/overviewClaim"
+          }
+        },
+        "limitations": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 6,
+          "items": {
+            "$ref": "#/$defs/overviewClaim"
+          }
+        },
+        "links": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 8,
+          "items": {
+            "$ref": "#/$defs/overviewLink"
+          }
+        },
+        "methodSource": {
+          "$ref": "#/$defs/overviewSource"
+        }
+      }
+    },
+    "readingPath": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "title",
+        "description",
+        "qualification",
+        "steps"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/slug"
+        },
+        "title": {
+          "$ref": "#/$defs/title"
+        },
+        "description": {
+          "$ref": "#/$defs/prose"
+        },
+        "qualification": {
+          "$ref": "#/$defs/prose"
+        },
+        "steps": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 6,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "studyId",
+              "destination",
+              "reason"
+            ],
+            "properties": {
+              "studyId": {
+                "type": "string",
+                "pattern": "^[a-z0-9]+(?:_[a-z0-9]+)*$",
+                "maxLength": 100
+              },
+              "destination": {
+                "enum": [
+                  "overview",
+                  "findings",
+                  "explore",
+                  "methods",
+                  "evidence"
+                ]
+              },
+              "reason": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 400
+              }
+            }
+          }
+        }
+      }
+    },
+    "researchPriority": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "assessmentId",
+        "rubricVersion",
+        "rubricSha256",
+        "reviewedAt",
+        "reviewer",
+        "state",
+        "scope",
+        "rationale",
+        "materiality",
+        "supporting",
+        "contrary",
+        "blocker",
+        "nextTest",
+        "reviewedStudySha256",
+        "reviewedPublications"
+      ],
+      "properties": {
+        "assessmentId": {
+          "$ref": "#/$defs/slug"
+        },
+        "rubricVersion": {
+          "type": "string",
+          "pattern": "^[0-9]+\\.[0-9]+$"
+        },
+        "rubricSha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "reviewedAt": {
+          "type": "string",
+          "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"
+        },
+        "reviewer": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        },
+        "state": {
+          "enum": [
+            "assessed",
+            "not_assessed",
+            "needs_review",
+            "not_applicable"
+          ]
+        },
+        "score": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 5
+        },
+        "scope": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 1000
+        },
+        "rationale": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 1200
+        },
+        "materiality": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 1000
+        },
+        "supporting": {
+          "type": "array",
+          "maxItems": 6,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "text",
+              "source"
+            ],
+            "properties": {
+              "text": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 800
+              },
+              "source": {
+                "$ref": "#/$defs/overviewSource"
+              }
+            }
+          }
+        },
+        "contrary": {
+          "type": "array",
+          "maxItems": 6,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "text",
+              "source"
+            ],
+            "properties": {
+              "text": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 800
+              },
+              "source": {
+                "$ref": "#/$defs/overviewSource"
+              }
+            }
+          }
+        },
+        "blocker": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 1000
+        },
+        "nextTest": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "description",
+            "supports",
+            "rejects"
+          ],
+          "properties": {
+            "description": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1200
+            },
+            "supports": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1200
+            },
+            "rejects": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1200
+            }
+          }
+        },
+        "reviewedStudySha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "reviewedPublications": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 128,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "publicationId",
+              "sourceRunId",
+              "sourceSha256"
+            ],
+            "properties": {
+              "publicationId": {
+                "$ref": "#/$defs/slug"
+              },
+              "sourceRunId": {
+                "$ref": "#/$defs/run"
+              },
+              "sourceSha256": {
+                "type": "string",
+                "pattern": "^[a-f0-9]{64}$"
+              }
+            }
+          }
+        },
+        "reassessment": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "required",
+            "reason",
+            "markedAt"
+          ],
+          "properties": {
+            "required": {
+              "const": true
+            },
+            "reason": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1000
+            },
+            "markedAt": {
+              "type": "string",
+              "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"
+            }
+          }
+        },
+        "highPriorityEvidence": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "executionAndCosts",
+            "separatedEvaluation",
+            "materialEffect"
+          ],
+          "properties": {
+            "executionAndCosts": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "text",
+                "source"
+              ],
+              "properties": {
+                "text": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 800
+                },
+                "source": {
+                  "$ref": "#/$defs/overviewSource"
+                }
+              }
+            },
+            "separatedEvaluation": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "text",
+                "source"
+              ],
+              "properties": {
+                "text": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 800
+                },
+                "source": {
+                  "$ref": "#/$defs/overviewSource"
+                }
+              }
+            },
+            "materialEffect": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "text",
+                "source"
+              ],
+              "properties": {
+                "text": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 800
+                },
+                "source": {
+                  "$ref": "#/$defs/overviewSource"
+                }
+              }
+            },
+            "independentCorroboration": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "text",
+                "source"
+              ],
+              "properties": {
+                "text": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 800
+                },
+                "source": {
+                  "$ref": "#/$defs/overviewSource"
+                }
+              }
+            }
+          }
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "state": {
+                "const": "assessed"
+              }
+            },
+            "required": [
+              "state"
+            ]
+          },
+          "then": {
+            "required": [
+              "score"
+            ],
+            "properties": {
+              "score": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 5
+              }
+            }
+          },
+          "else": {
+            "not": {
+              "required": [
+                "score"
+              ],
+              "properties": {
+                "score": {}
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

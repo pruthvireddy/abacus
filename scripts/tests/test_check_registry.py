@@ -285,6 +285,116 @@ class ActualRegistryTests(unittest.TestCase):
         self.assertTrue({'CONTRIBUTING.md', 'docs/github.md', 'docs/verification.md'}
                         .issubset(workspace['guides']))
 
+    def test_verniman_has_bounded_implementation_and_training_review_owner(self):
+        registry = registry_module.load_registry(REPOSITORY)
+        base = "studies/29_verniman_level_reconstruction"
+        owner = registry_module.owner_for_context(registry, "29_verniman_level_reconstruction")
+        self.assertEqual(owner["id"], "study-29")
+        self.assertEqual(owner["path"], base)
+        self.assertEqual(owner["guides"], [base + "/" + name for name in
+                         ("README.md", "plan.md", "specification.md", "changes.md", "verification.md", "notes.md",
+                          "phase2/README.md", "phase2/protocol.md", "phase2/cases/2026-10-01.md",
+                          "phase2/cases/2026-10-02.md", "phase2/cases/2026-10-05.md", "phase2/hypotheses.md",
+                          "phase2/phase3-specification.md", "phase2/verification.md",
+                          "phase3/README.md", "phase3/protocol.md", "phase3/decisions.md",
+                          "phase3/calculation-specification.md", "phase3/comparison-specification.md",
+                          "phase3/pine-implementation.md", "phase3/acceptance-checklist.md",
+                          "phase3/installation-replay.md", "phase3/training-results.md",
+                          "phase3/verification.md", "phase3/phase4-handoff.md",
+                          "phase4/README.md", "phase4/readiness-reconciliation.md", "phase4/protocol.md",
+                          "phase4/decisions.md", "phase4/interpretation-record.md", "phase4/rulebook.md",
+                          "phase4/pine-implementation.md", "phase4/candidate-implementation-corrections.md",
+                          "phase4/training-results.md", "phase4/verification.md",
+                          "phase4/installation-replay.md", "phase4/phase5-handoff.md",
+                          "phase5/README.md", "phase5/protocol.md", "phase5/decision-rule.md",
+                          "phase5/artifact-reconciliation.md", "phase5/development-results.md",
+                          "phase5/final-assessment.md", "phase5/verification.md", "phase5/phase6-handoff.md",
+                          "phase6/README.md", "phase6/eligibility-audit.md", "phase6/protocol.md",
+                          "phase6/calendar.md", "phase6/daily-capture.md", "phase6/source-collection.md",
+                          "phase6/phase6b-prompt.md", "phase6/phase6c-prompt.md", "phase6/verification.md")])
+        self.assertTrue({base + "/" + name for name in
+                         ("study.yaml", "inputs.lock.json", "phase2/README.md", "phase2/protocol.md",
+                          "phase2/input-declaration.json", "phase2/verification.md",
+                          "phase2/source-manifest.json", "phase3/README.md", "phase3/protocol.md",
+                          "phase3/settings.json", "phase3/input-declaration.json", "phase3/decisions.md",
+                          "phase3/verification.md", "phase4/README.md", "phase4/protocol.md",
+                          "phase4/settings.json", "phase4/input-declaration.json",
+                          "indicator/autopivot-display-update.md", "phase5/README.md",
+                          "phase5/protocol.md", "phase5/settings.json", "phase5/input-declaration.json",
+                          "phase5/decision-rule.md", "phase5/artifact-reconciliation.md")}.issubset(owner["read_first"]))
+        self.assertEqual(owner["entry_points"], [base + "/indicator/verniman_levels.pine", base + "/tests",
+                                                base + "/phase2/check_review.py",
+                                                base + "/indicator/verniman_levels_phase3.pine",
+                                                base + "/src/phase3_model.py",
+                                                base + "/phase3/matching.py",
+                                                base + "/phase3/check_phase3.py",
+                                                base + "/indicator/verniman_levels_phase3_3_0_2.pine",
+                                                base + "/indicator/verniman_levels_phase4.pine",
+                                                base + "/src/phase4_model.py",
+                                                base + "/phase4/run_training.py",
+                                                base + "/phase5/run_development.py",
+                                                base + "/phase5/select_sources.py",
+                                                base + "/phase5/audit_development.py",
+                                                base + "/phase5/assess_decision.py",
+                                                base + "/phase6/calendar_control.py",
+                                                base + "/phase6/capture.py",
+                                                base + "/phase6/reveal_gate.py",
+                                                base + "/phase6/score_saved.py"])
+        check, = registry_module.select_checks(registry, checks=["study-29"], use_default=False)
+        self.assertEqual(check["owner"], "study-29")
+        self.assertEqual(check["runtime"], "locked-python")
+        self.assertEqual(check["unittest"], {"start_dir": base + "/tests", "pattern": "test*.py", "optimize": False})
+        self.assertEqual(check["cwd"], ".")
+        self.assertEqual(check["env"], {})
+        self.assertEqual([(item["kind"], item.get("name", item.get("path")))
+                          for item in check["prerequisites"]],
+                         [("executable", "uv"), ("directory", ".venv")])
+        self.assertIn("does not prove TradingView compilation", " ".join(check["scope"]))
+        self.assertIn("protected dated", " ".join(owner["preservation"]))
+        self.assertIn("Phase 2 authorizes dated target evidence only", " ".join(owner["preservation"]))
+        self.assertIn("no Pine calculation changes", " ".join(owner["preservation"]))
+        self.assertIn("current Phase 3 authorization", " ".join(owner["preservation"]))
+        self.assertIn("unavailable maps do not satisfy the reveal gate", " ".join(owner["preservation"]))
+        self.assertIn("Current Phase 4 protocol 4.0.0", " ".join(owner["preservation"]))
+        self.assertIn("expanded maps AND current Autopivot predictions", " ".join(owner["preservation"]))
+        self.assertIn("study-29", [record["id"] for record in
+                                  registry_module.select_checks(registry, profiles=["studies"])])
+        self.assertNotIn("study-29", [record["id"] for record in registry_module.select_checks(registry)])
+        study27 = registry_module.owner_for_context(registry, "study-27")
+        self.assertIn("no_suite_reason", study27)
+        self.assertFalse(any(record["owner"] == "study-27" for record in registry["checks"]))
+        metadata = json.loads((REPOSITORY / base / "study.json").read_text())
+        self.assertEqual(metadata["content_kind"], "indicator_implementation")
+        self.assertIsNone(metadata["reference_run"])
+        self.assertEqual(metadata["implementation"]["source"], "indicator/verniman_levels.pine")
+
+    def test_verniman_phase2_private_review_requires_explicit_selection(self):
+        registry = registry_module.load_registry(REPOSITORY)
+        check_id = "study-29-phase2-review"
+        base = "studies/29_verniman_level_reconstruction"
+        stage = "work/29_verniman_level_reconstruction/phase2_20261030T222323Z"
+        check, = registry_module.select_checks(registry, checks=[check_id], use_default=False)
+        self.assertEqual(check["owner"], "study-29")
+        self.assertEqual(check["kind"], "command")
+        self.assertEqual(check["argv"], ["{python}", base + "/phase2/check_review.py"])
+        self.assertEqual(check["cwd"], ".")
+        self.assertEqual(check["env"], {})
+        self.assertNotIn("runtime", check)
+        self.assertNotIn(check_id, [record["id"] for record in registry_module.select_checks(registry)])
+        for profile in registry["profiles"].values():
+            self.assertNotIn(check_id, profile["checks"])
+        paths = {item.get("path") for item in check["prerequisites"]}
+        self.assertTrue({stage, stage + "/protocol-freeze.json", stage + "/neutral-baselines.json",
+                         stage + "/source-selection-manifest.json",
+                         "work/29_verniman_level_reconstruction/phase1_20261030/artifact-hashes.json"}.issubset(paths))
+        self.assertTrue(any(item["kind"] == "note" and "explicit only" in item["description"]
+                            for item in check["prerequisites"]))
+        self.assertIn("no unrestricted target tables", " ".join(check["scope"]))
+        self.assertIn("does not establish independent OCR", " ".join(check["scope"]))
+        owner = registry_module.owner_for_context(registry, "study-29")
+        self.assertIn(check_id, owner["related_checks"])
+        self.assertIn(base + "/phase2/check_review.py", owner["entry_points"])
+
     def test_globex_ema_crossings_has_bounded_owned_synthetic_suite(self):
         registry = registry_module.load_registry(REPOSITORY)
         owner = registry_module.owner_for_context(registry, "28_globex_ema_crossings")
@@ -488,12 +598,25 @@ class ActualRegistryTests(unittest.TestCase):
                          ["agent-docs", "bhishma", "sahadeva", "legacy-01", "legacy-02", "vwap-doctor"])
         for record, study in ((default[3], "01_reversal_follow_through"), (default[4], "02_followthrough_candle_adverse")):
             self.assertEqual(record["env"], {"PYTHONPATH": "{root}/legacy/sahadeva/analysis/" + study + "/src"})
-        self.assertEqual(len(registry_module.select_checks(registry, profiles=["studies"])), 20)
-        self.assertEqual(sum(owner["kind"] == "study" for owner in registry["owners"].values()), 28)
-        self.assertEqual(len(registry_module.maintained_guides(registry)), 96)
+        self.assertEqual(len(registry_module.select_checks(registry, profiles=["studies"])), 22)
+        self.assertEqual(sum(owner["kind"] == "study" for owner in registry["owners"].values()), 30)
+        self.assertEqual(len(registry_module.maintained_guides(registry)), 162)
         self.assertIn("docs/evidence-contract.md", registry_module.maintained_guides(registry))
         self.assertEqual(registry_module.coverage_errors(REPOSITORY, registry), [])
         self.assertEqual(registry_module.owner_for_context(registry, "18_fibonacci_memory")["id"], "study-18")
+
+    def test_study30_inventory_context_and_synthetic_gate_preserve_default(self):
+        registry = registry_module.load_registry(REPOSITORY)
+        owner = registry_module.owner_for_context(registry, "30_verniman_pivot_statistics_es")
+        self.assertEqual(owner["id"], "study-30")
+        self.assertIn("studies/30_verniman_pivot_statistics_es/protocol-1.0.0.md", owner["read_first"])
+        self.assertIn("requests/inbox/es_contract_session_indicators__1.0.0.yaml", owner["entry_points"])
+        check, = registry_module.select_checks(registry, checks=["study-30"], use_default=False)
+        self.assertEqual(check["unittest"]["start_dir"], "studies/30_verniman_pivot_statistics_es/tests")
+        self.assertEqual(check["runtime"], "locked-python")
+        self.assertIn("study-30", [row["id"] for row in registry_module.select_checks(registry, profiles=["studies"])])
+        self.assertNotIn("study-30", [row["id"] for row in registry_module.select_checks(registry)])
+        self.assertIn("No retained market-data reads", " ".join(check["scope"]))
 
     def test_study25_import_and_per_future_context_preserves_research_and_default_gate(self):
         registry = registry_module.load_registry(REPOSITORY)
@@ -563,10 +686,15 @@ class ActualRegistryTests(unittest.TestCase):
         owner = registry_module.owner_for_context(registry, "27_verniman_method_knowledge")
         self.assertEqual(owner["id"], "study-27")
         self.assertEqual(owner["path"], base)
-        self.assertEqual(owner["guides"], [base + "/README.md", base + "/plan.md"])
-        for name in ("README.md", "plan.md", "study.yaml", "inputs.lock.json", "notes.md"):
+        self.assertEqual(owner["guides"], [
+            base + "/README.md", base + "/plan.md", base + "/daily-map-plan.md",
+            base + "/knowledge-base/README.md", base + "/knowledge-base/daily-map/README.md",
+        ])
+        for name in ("README.md", "plan.md", "study.yaml", "inputs.lock.json", "notes.md", "daily-map-plan.md"):
             self.assertIn(base + "/" + name, owner["read_first"])
-        self.assertEqual(owner["entry_points"], [base + "/README.md", base + "/plan.md"])
+        self.assertEqual(owner["entry_points"], [
+            base + "/README.md", base + "/plan.md", base + "/knowledge-base/README.md",
+        ])
         self.assertIn("no_suite_reason", owner)
         self.assertFalse(any(check["owner"] == "study-27" for check in registry["checks"]))
         self.assertNotIn("study-27", [check["id"] for check in

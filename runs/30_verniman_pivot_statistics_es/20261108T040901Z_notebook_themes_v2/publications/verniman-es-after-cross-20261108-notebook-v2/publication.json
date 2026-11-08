@@ -1,0 +1,285 @@
+{
+  "schemaVersion": "1.1",
+  "presentation": "research-paper",
+  "id": "verniman-es-after-cross-20261108-notebook-v2",
+  "title": "After the cross",
+  "summary": "What do complete subsequent price paths, EMA6 recrosses and pivot retests look like?",
+  "publishedAt": "2026-11-08T04:13:17Z",
+  "source": {
+    "producer": "sahadeva",
+    "runId": "20261108T040901Z_notebook_themes_v2"
+  },
+  "sections": [
+    {
+      "id": "forward-displacement",
+      "title": "What happens after an actual EMA6–pivot crossing?",
+      "description": "Measure directional price displacement after an actual EMA6 crossing at complete 15-, 30- and 60-minute horizons. Positive means movement in the crossing direction; the event-close price is the reference.\n\nThirty minutes is the protocol's primary horizon. Paths extending beyond RTH or with missing evidence remain unavailable, and earlier extremes of the signal candle are excluded.",
+      "finding": "Across 1,790 complete 30-minute paths on 636 days, mean directional displacement was -0.04 ES points and 48.8% ended strictly positive. Another 96 candidate paths were unavailable. The selected crossing alone did not produce a positive average 30-minute directional displacement in this sample.",
+      "kind": "table",
+      "columns": [
+        {
+          "key": "horizon",
+          "label": "Horizon"
+        },
+        {
+          "key": "outcomes",
+          "label": "Complete paths",
+          "precision": 0,
+          "format": "number"
+        },
+        {
+          "key": "days",
+          "label": "Distinct days",
+          "precision": 0,
+          "format": "number"
+        },
+        {
+          "key": "unknown",
+          "label": "Unavailable",
+          "precision": 0,
+          "format": "number"
+        },
+        {
+          "key": "mean",
+          "label": "Mean ES points",
+          "precision": 2,
+          "format": "number"
+        },
+        {
+          "key": "median",
+          "label": "Median ES points",
+          "precision": 2,
+          "format": "number"
+        },
+        {
+          "key": "positive",
+          "label": "Strictly positive",
+          "precision": 1,
+          "format": "percent"
+        }
+      ],
+      "rows": [
+        {
+          "days": 637,
+          "horizon": "15m",
+          "mean": 0.123705722070845,
+          "median": 0.25,
+          "outcomes": 1835,
+          "positive": 0.500272479564033,
+          "unknown": 51
+        },
+        {
+          "days": 636,
+          "horizon": "30m",
+          "mean": -0.040083798882681,
+          "median": 0.0,
+          "outcomes": 1790,
+          "positive": 0.487709497206704,
+          "unknown": 96
+        },
+        {
+          "days": 629,
+          "horizon": "60m",
+          "mean": 0.30638547158758,
+          "median": 0.5,
+          "outcomes": 1707,
+          "positive": 0.517867603983597,
+          "unknown": 179
+        }
+      ],
+      "notes": [
+        "Directional displacement starts at event close. Zero is distinct from positive; late/incomplete paths are excluded from each horizon denominator.",
+        "Multiple events on a day are dependent; these are point estimates without newly calculated confidence intervals."
+      ]
+    },
+    {
+      "id": "excursion-reach",
+      "title": "How far does price travel in either direction after the crossing?",
+      "description": "For complete 30-minute paths, calculate favorable and adverse excursions from the crossing close and the share reaching 5, 10 or 20 ES points in each direction.\n\nBoth directions can be reached in the same path. Minute-bar extremes do not establish which threshold traded first, a fill price or net profitability.",
+      "finding": "The 1,790 complete paths had mean favorable excursion of 9.04 ES points and mean adverse excursion of 8.65 points. The share reaching 10 favorable points was 30.8%, while 30.6% reached 10 adverse points. Excursion opportunity and adverse exposure coexist; the chart does not encode threshold ordering or a trading result.",
+      "kind": "figure",
+      "path": "figures/excursion-reach.png",
+      "alt": "Shares of complete 30-minute paths reaching favorable and adverse 5-, 10- or 20-point thresholds.",
+      "caption": "A path may reach both favorable and adverse thresholds. No intraminute order or execution is inferred."
+    },
+    {
+      "id": "ema-recross",
+      "title": "How often does EMA6 avoid recrossing the pivot for 30 minutes?",
+      "description": "Track the next reverse actual EMA6 crossing after each EMA6–pivot event. A complete 30-minute RTH window is required to classify absence of a recross.\n\nIncomplete windows remain censored even when a reverse crossing is observed before the boundary. An EMA6 recross is distinct from a price return through the pivot.",
+      "finding": "No reverse EMA6 crossing occurred in 1,110 of 1,790 complete windows (62.0%), on 636 supporting days. Another 96 windows were censored. Remaining on the same pivot side for 30 minutes does not establish a favorable price displacement or profitable trade.",
+      "kind": "table",
+      "columns": [
+        {
+          "key": "outcome",
+          "label": "Window outcome"
+        },
+        {
+          "key": "windows",
+          "label": "Windows",
+          "precision": 0,
+          "format": "number"
+        },
+        {
+          "key": "share",
+          "label": "Share of complete windows",
+          "precision": 1,
+          "format": "percent"
+        }
+      ],
+      "rows": [
+        {
+          "outcome": "No reverse EMA6 crossing",
+          "share": 0.620111731843575,
+          "windows": 1110
+        },
+        {
+          "outcome": "Reverse EMA6 crossing",
+          "share": 0.379888268156425,
+          "windows": 680
+        },
+        {
+          "outcome": "Censored/incomplete window",
+          "share": null,
+          "windows": 96
+        }
+      ],
+      "notes": [
+        "Only fully observed 30-minute RTH windows enter the probability denominator. Censored windows have no outcome percentage."
+      ]
+    },
+    {
+      "id": "crossing-order",
+      "title": "Does follow-through differ between first and later crossings?",
+      "description": "Compare complete 30-minute directional displacement after the first, second and third-or-later actual EMA6–pivot crossings of each RTH session.\n\nOrdinals are known at the event close. Horizon availability remains specific to each event; a late crossing is not assigned a shorter window to complete the table.",
+      "finding": "Mean 30-minute directional displacement was -0.18 ES points after first crossings (636 complete paths), 0.69 after second crossings, and -0.33 after third-or-later crossings. The table retains the different support and unavailable-path counts. These exploratory ordinal groups are not independent replications or a selected trading rule.",
+      "kind": "table",
+      "columns": [
+        {
+          "key": "ordinal",
+          "label": "Crossing ordinal"
+        },
+        {
+          "key": "outcomes",
+          "label": "Complete paths",
+          "precision": 0,
+          "format": "number"
+        },
+        {
+          "key": "days",
+          "label": "Distinct days",
+          "precision": 0,
+          "format": "number"
+        },
+        {
+          "key": "unknown",
+          "label": "Unavailable",
+          "precision": 0,
+          "format": "number"
+        },
+        {
+          "key": "mean",
+          "label": "Mean ES points",
+          "precision": 2,
+          "format": "number"
+        },
+        {
+          "key": "median",
+          "label": "Median ES points",
+          "precision": 2,
+          "format": "number"
+        },
+        {
+          "key": "positive",
+          "label": "Strictly positive",
+          "precision": 1,
+          "format": "percent"
+        }
+      ],
+      "rows": [
+        {
+          "days": 636,
+          "mean": -0.18003144654088,
+          "median": 0.0,
+          "ordinal": "1",
+          "outcomes": 636,
+          "positive": 0.488993710691824,
+          "unknown": 4
+        },
+        {
+          "days": 419,
+          "mean": 0.689140811455849,
+          "median": 0.0,
+          "ordinal": "2",
+          "outcomes": 419,
+          "positive": 0.491646778042959,
+          "unknown": 14
+        },
+        {
+          "days": 284,
+          "mean": -0.334693877551021,
+          "median": -0.25,
+          "ordinal": "3+",
+          "outcomes": 735,
+          "positive": 0.484353741496599,
+          "unknown": 78
+        }
+      ],
+      "notes": [
+        "Ordinals reset by RTH session. Directional movement starts at each event close; 30-minute complete paths only."
+      ]
+    },
+    {
+      "id": "pivot-retest",
+      "title": "How often does price retest the pivot after an EMA6 crossing?",
+      "description": "Look for the first subsequent completed three-minute bar containing the exact pivot within 30 minutes of an actual EMA6–pivot crossing. Complete windows determine retest incidence; observed touches separately support close classifications.\n\nThe touch definition uses bar ranges and does not infer an intrabar fill, a limit-order execution or the quality of a retest entry.",
+      "finding": "A retest occurred in 1,134 of 1,790 complete windows (63.4%), supported by 636 days. Another 96 incidence windows were censored. A pivot revisit is a frequent-path description under this bar-based definition; it does not measure whether a retest trade would have filled or made money.",
+      "kind": "table",
+      "columns": [
+        {
+          "key": "outcome",
+          "label": "Observed outcome"
+        },
+        {
+          "key": "windows",
+          "label": "Windows",
+          "precision": 0,
+          "format": "number"
+        },
+        {
+          "key": "share",
+          "label": "Share of complete windows",
+          "precision": 1,
+          "format": "percent"
+        }
+      ],
+      "rows": [
+        {
+          "outcome": "Pivot retest observed",
+          "share": 0.633519553072626,
+          "windows": 1134
+        },
+        {
+          "outcome": "No retest in complete window",
+          "share": 0.366480446927374,
+          "windows": 656
+        },
+        {
+          "outcome": "Censored incidence window",
+          "share": null,
+          "windows": 96
+        }
+      ],
+      "notes": [
+        "Retest incidence requires the full declared 30-minute RTH window. An observed touch under a shorter window does not make that incidence window complete."
+      ]
+    }
+  ],
+  "notes": [
+    "Pivot-matched ES regular trading hours, 09:30–16:00 America/New_York: 875 eligible sessions from January 3, 2020 through September 18, 2026. Requested coverage extends through October 30, 2026.",
+    "Historical pivot availability remains unverified. Source/contract and full-day quality eligibility are retrospective.",
+    "These insights reproduce selected descriptive point estimates from retained event, day and section records. No source events or bootstrap confidence intervals are reconstructed in this edition; uncertainty intervals remain in the earlier ranked reports.",
+    "Multiple events within a day are dependent. Conditional and calendar comparisons are exploratory; neither crossing activity nor price-path summaries establish executable profitability.",
+    "Price and actual EMA6 crossings are different events; an already-aligned EMA6 is a separate state. Fixed-horizon outcomes require complete windows and omit earlier signal-bar extremes.",
+    "No trade fills, execution costs or net profitability are modeled. Separate VWAP-only RTH/Globex populations remain companion evidence and are not pooled with the pivot-matched sample."
+  ]
+}

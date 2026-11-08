@@ -62,7 +62,7 @@
       ]
     },
     "studies": {
-      "description": "All 20 active local study test directories, isolated processes; studies 06/11 require retained inputs/evidence.",
+      "description": "All 22 active local study test directories, isolated processes; studies 06/11 require retained inputs/evidence.",
       "checks": [
         "study-05",
         "study-06",
@@ -83,7 +83,9 @@
         "study-23",
         "study-25",
         "study-26",
-        "study-28"
+        "study-28",
+        "study-29",
+        "study-30"
       ]
     },
     "guards": {
@@ -276,6 +278,7 @@
         "packages/bhishma/src/abacus_bhishma/continuous_loader.py",
         "packages/bhishma/src/abacus_bhishma/vp_hvn_loader.py",
         "packages/bhishma/src/abacus_bhishma/manifest_selection.py",
+        "packages/bhishma/src/abacus_bhishma/verniman_consolidated.py",
         "packages/bhishma/src/abacus_bhishma/vp_hvn.py",
         "packages/bhishma/src/abacus_bhishma/vp_hvn_native.cpp",
         "packages/bhishma/tests/test_continuous_publication_safety.py",
@@ -287,6 +290,7 @@
         "packages/bhishma/tests/test_vp_hvn_loader.py",
         "packages/bhishma/tests/test_loader_import_boundaries.py",
         "packages/bhishma/tests/test_manifest_selected_loaders.py",
+        "packages/bhishma/tests/test_verniman_consolidated.py",
         "packages/bhishma/tests/test_vp_hvn.py",
         "packages/bhishma/tests/test_runtime_prerequisites.py"
       ],
@@ -1259,10 +1263,13 @@
       "kind": "study",
       "path": "studies/27_verniman_method_knowledge",
       "study_id": "27_verniman_method_knowledge",
-      "description": "Study 27 - qualitative Verniman method source review and local Markdown knowledge base",
+      "description": "Study 27 - qualitative Verniman method review and local Daily Map source archive",
       "guides": [
         "studies/27_verniman_method_knowledge/README.md",
-        "studies/27_verniman_method_knowledge/plan.md"
+        "studies/27_verniman_method_knowledge/plan.md",
+        "studies/27_verniman_method_knowledge/daily-map-plan.md",
+        "studies/27_verniman_method_knowledge/knowledge-base/README.md",
+        "studies/27_verniman_method_knowledge/knowledge-base/daily-map/README.md"
       ],
       "read_first": [
         "studies/27_verniman_method_knowledge/README.md",
@@ -1271,17 +1278,20 @@
         "studies/27_verniman_method_knowledge/inputs.lock.json",
         "studies/27_verniman_method_knowledge/notes.md",
         "studies/AGENTS.md",
-        "packages/sahadeva/AGENTS.md"
+        "packages/sahadeva/AGENTS.md",
+        "studies/27_verniman_method_knowledge/daily-map-plan.md"
       ],
       "entry_points": [
         "studies/27_verniman_method_knowledge/README.md",
-        "studies/27_verniman_method_knowledge/plan.md"
+        "studies/27_verniman_method_knowledge/plan.md",
+        "studies/27_verniman_method_knowledge/knowledge-base/README.md"
       ],
       "preservation": [
         "Preserve completed source-review runs; pin captured source identities, access times and hashes while retaining transcript and visual access gaps explicitly.",
-        "Keep Vern's statements, curated third-party teaching and Abacus interpretations distinct. Produce concise original local knowledge-base content with exact source references; no empirical trading validation, copied full articles or public deployment."
+        "Keep Vern's statements, curated third-party teaching and Abacus interpretations distinct. Produce concise original local knowledge-base content with exact source references; no empirical trading validation, copied full articles or public deployment.",
+        "Daily Map source capsules and images are retained privately in ignored work staging; save only navigation/inventories in completed runs. Preserve body dates, duplicates, undated commentary, failed links and historical-capture qualifications."
       ],
-      "no_suite_reason": "Qualitative source-review/documentation owner with no numerical implementation or local Python suite; content integrity, documentation and navigation checks remain separate.",
+      "no_suite_reason": "Qualitative source-review owner with no numerical implementation or local Python test suite; Daily Map utilities have explicit offline identity/coverage/link checks and staged synthetic checks.",
       "related_checks": [
         "documentation",
         "navigation-metadata",
@@ -1329,6 +1339,218 @@
       "related_checks": [
         "study-28",
         "documentation",
+        "navigation-metadata",
+        "research-index"
+      ]
+    },
+    "study-29": {
+      "kind": "study",
+      "path": "studies/29_verniman_level_reconstruction",
+      "study_id": "29_verniman_level_reconstruction",
+      "description": "Study 29 - frozen Verniman Levels mechanism and Phase 6A prospective evaluation preparation",
+      "guides": [
+        "studies/29_verniman_level_reconstruction/README.md",
+        "studies/29_verniman_level_reconstruction/plan.md",
+        "studies/29_verniman_level_reconstruction/specification.md",
+        "studies/29_verniman_level_reconstruction/changes.md",
+        "studies/29_verniman_level_reconstruction/verification.md",
+        "studies/29_verniman_level_reconstruction/notes.md",
+        "studies/29_verniman_level_reconstruction/phase2/README.md",
+        "studies/29_verniman_level_reconstruction/phase2/protocol.md",
+        "studies/29_verniman_level_reconstruction/phase2/cases/2026-10-01.md",
+        "studies/29_verniman_level_reconstruction/phase2/cases/2026-10-02.md",
+        "studies/29_verniman_level_reconstruction/phase2/cases/2026-10-05.md",
+        "studies/29_verniman_level_reconstruction/phase2/hypotheses.md",
+        "studies/29_verniman_level_reconstruction/phase2/phase3-specification.md",
+        "studies/29_verniman_level_reconstruction/phase2/verification.md",
+        "studies/29_verniman_level_reconstruction/phase3/README.md",
+        "studies/29_verniman_level_reconstruction/phase3/protocol.md",
+        "studies/29_verniman_level_reconstruction/phase3/decisions.md",
+        "studies/29_verniman_level_reconstruction/phase3/calculation-specification.md",
+        "studies/29_verniman_level_reconstruction/phase3/comparison-specification.md",
+        "studies/29_verniman_level_reconstruction/phase3/pine-implementation.md",
+        "studies/29_verniman_level_reconstruction/phase3/acceptance-checklist.md",
+        "studies/29_verniman_level_reconstruction/phase3/installation-replay.md",
+        "studies/29_verniman_level_reconstruction/phase3/training-results.md",
+        "studies/29_verniman_level_reconstruction/phase3/verification.md",
+        "studies/29_verniman_level_reconstruction/phase3/phase4-handoff.md",
+        "studies/29_verniman_level_reconstruction/phase4/README.md",
+        "studies/29_verniman_level_reconstruction/phase4/readiness-reconciliation.md",
+        "studies/29_verniman_level_reconstruction/phase4/protocol.md",
+        "studies/29_verniman_level_reconstruction/phase4/decisions.md",
+        "studies/29_verniman_level_reconstruction/phase4/interpretation-record.md",
+        "studies/29_verniman_level_reconstruction/phase4/rulebook.md",
+        "studies/29_verniman_level_reconstruction/phase4/pine-implementation.md",
+        "studies/29_verniman_level_reconstruction/phase4/candidate-implementation-corrections.md",
+        "studies/29_verniman_level_reconstruction/phase4/training-results.md",
+        "studies/29_verniman_level_reconstruction/phase4/verification.md",
+        "studies/29_verniman_level_reconstruction/phase4/installation-replay.md",
+        "studies/29_verniman_level_reconstruction/phase4/phase5-handoff.md",
+        "studies/29_verniman_level_reconstruction/phase5/README.md",
+        "studies/29_verniman_level_reconstruction/phase5/protocol.md",
+        "studies/29_verniman_level_reconstruction/phase5/decision-rule.md",
+        "studies/29_verniman_level_reconstruction/phase5/artifact-reconciliation.md",
+        "studies/29_verniman_level_reconstruction/phase5/development-results.md",
+        "studies/29_verniman_level_reconstruction/phase5/final-assessment.md",
+        "studies/29_verniman_level_reconstruction/phase5/verification.md",
+        "studies/29_verniman_level_reconstruction/phase5/phase6-handoff.md",
+        "studies/29_verniman_level_reconstruction/phase6/README.md",
+        "studies/29_verniman_level_reconstruction/phase6/eligibility-audit.md",
+        "studies/29_verniman_level_reconstruction/phase6/protocol.md",
+        "studies/29_verniman_level_reconstruction/phase6/calendar.md",
+        "studies/29_verniman_level_reconstruction/phase6/daily-capture.md",
+        "studies/29_verniman_level_reconstruction/phase6/source-collection.md",
+        "studies/29_verniman_level_reconstruction/phase6/phase6b-prompt.md",
+        "studies/29_verniman_level_reconstruction/phase6/phase6c-prompt.md",
+        "studies/29_verniman_level_reconstruction/phase6/verification.md"
+      ],
+      "read_first": [
+        "studies/29_verniman_level_reconstruction/README.md",
+        "studies/29_verniman_level_reconstruction/plan.md",
+        "studies/29_verniman_level_reconstruction/specification.md",
+        "studies/29_verniman_level_reconstruction/changes.md",
+        "studies/29_verniman_level_reconstruction/verification.md",
+        "studies/29_verniman_level_reconstruction/notes.md",
+        "studies/29_verniman_level_reconstruction/study.yaml",
+        "studies/29_verniman_level_reconstruction/inputs.lock.json",
+        "studies/29_verniman_level_reconstruction/phase2/README.md",
+        "studies/29_verniman_level_reconstruction/phase2/protocol.md",
+        "studies/29_verniman_level_reconstruction/phase2/input-declaration.json",
+        "studies/29_verniman_level_reconstruction/phase2/verification.md",
+        "studies/29_verniman_level_reconstruction/phase2/source-manifest.json",
+        "studies/29_verniman_level_reconstruction/phase2/phase3-specification.md",
+        "studies/29_verniman_level_reconstruction/phase3/README.md",
+        "studies/29_verniman_level_reconstruction/phase3/protocol.md",
+        "studies/29_verniman_level_reconstruction/phase3/settings.json",
+        "studies/29_verniman_level_reconstruction/phase3/input-declaration.json",
+        "studies/29_verniman_level_reconstruction/phase3/decisions.md",
+        "studies/29_verniman_level_reconstruction/phase3/verification.md",
+        "studies/29_verniman_level_reconstruction/indicator/pivot-README.md",
+        "studies/29_verniman_level_reconstruction/indicator/pivot-specification.md",
+        "studies/29_verniman_level_reconstruction/indicator/pivot-verification.md",
+        "studies/29_verniman_level_reconstruction/indicator/numerical-implementation-addendum.md",
+        "studies/29_verniman_level_reconstruction/indicator/autopivot-display-update.md",
+        "studies/29_verniman_level_reconstruction/phase4/README.md",
+        "studies/29_verniman_level_reconstruction/phase4/readiness-reconciliation.md",
+        "studies/29_verniman_level_reconstruction/phase4/protocol.md",
+        "studies/29_verniman_level_reconstruction/phase4/settings.json",
+        "studies/29_verniman_level_reconstruction/phase4/input-declaration.json",
+        "studies/29_verniman_level_reconstruction/phase4/decisions.md",
+        "studies/29_verniman_level_reconstruction/phase4/verification.md",
+        "studies/AGENTS.md",
+        "packages/sahadeva/AGENTS.md",
+        "studies/29_verniman_level_reconstruction/phase5/README.md",
+        "studies/29_verniman_level_reconstruction/phase5/protocol.md",
+        "studies/29_verniman_level_reconstruction/phase5/settings.json",
+        "studies/29_verniman_level_reconstruction/phase5/input-declaration.json",
+        "studies/29_verniman_level_reconstruction/phase5/decision-rule.md",
+        "studies/29_verniman_level_reconstruction/phase5/artifact-reconciliation.md",
+        "studies/29_verniman_level_reconstruction/phase6/README.md",
+        "studies/29_verniman_level_reconstruction/phase6/eligibility-audit.md",
+        "studies/29_verniman_level_reconstruction/phase6/protocol.md",
+        "studies/29_verniman_level_reconstruction/phase6/settings.json",
+        "studies/29_verniman_level_reconstruction/phase6/calendar.json",
+        "studies/29_verniman_level_reconstruction/phase6/artifact-manifest.json",
+        "studies/29_verniman_level_reconstruction/phase6/input-manifest.json"
+      ],
+      "entry_points": [
+        "studies/29_verniman_level_reconstruction/indicator/verniman_levels.pine",
+        "studies/29_verniman_level_reconstruction/tests",
+        "studies/29_verniman_level_reconstruction/phase2/check_review.py",
+        "studies/29_verniman_level_reconstruction/indicator/verniman_levels_phase3.pine",
+        "studies/29_verniman_level_reconstruction/src/phase3_model.py",
+        "studies/29_verniman_level_reconstruction/phase3/matching.py",
+        "studies/29_verniman_level_reconstruction/phase3/check_phase3.py",
+        "studies/29_verniman_level_reconstruction/indicator/verniman_levels_phase3_3_0_2.pine",
+        "studies/29_verniman_level_reconstruction/indicator/verniman_levels_phase4.pine",
+        "studies/29_verniman_level_reconstruction/src/phase4_model.py",
+        "studies/29_verniman_level_reconstruction/phase4/run_training.py",
+        "studies/29_verniman_level_reconstruction/phase5/run_development.py",
+        "studies/29_verniman_level_reconstruction/phase5/select_sources.py",
+        "studies/29_verniman_level_reconstruction/phase5/audit_development.py",
+        "studies/29_verniman_level_reconstruction/phase5/assess_decision.py",
+        "studies/29_verniman_level_reconstruction/phase6/calendar_control.py",
+        "studies/29_verniman_level_reconstruction/phase6/capture.py",
+        "studies/29_verniman_level_reconstruction/phase6/reveal_gate.py",
+        "studies/29_verniman_level_reconstruction/phase6/score_saved.py"
+      ],
+      "preservation": [
+        "Preserve the exact supplied baseline and its hash; Study 27 stays a qualitative knowledge-base owner. No completed evidence, released daily levels, historical scripts or retained observations may be rewritten.",
+        "Phase 1 implements candidate references only. Keep profile approximations, completed-bar availability, incomplete history and actual native TradingView compilation/replay status explicit; synthetic checks do not establish native Pine behavior or profitability.",
+        "Phase 2 authorizes dated target evidence only for 2026-10-01, 2026-10-02 and 2026-10-05 after all three neutral baselines are retained under the frozen protocol. All other target dates remain protected dated evidence, including development October 15-20 and hidden test October 21-27. Apply exact session filters before displaying source rows; independent replay is restricted to the three authorized dates.",
+        "Phase 2 is source review and extension specification only: no Pine calculation changes, HVN/HVE/PBT algorithm implementation, automated selection, profitability testing, publication or deployment. Preserve Phase 1 settings, verification and provenance as their original phase records.",
+        "The current Phase 3 authorization extends training to October 1, 2, 5, 6, 7, 8, 9, 12, 13 and 14 only, using frozen protocol 3.0.0. Earlier-phase restrictions above remain historical. Preserve all seven additional expanded maps before new answer access; unavailable maps do not satisfy the reveal gate. Development October 15-20 and hidden October 21-27 targets stay protected. No automatic LIS/pivot, ordered targets, profitability, publication or deployment.",
+        "Current Phase 4 protocol 4.0.0 authorizes prerequisite recovery and bounded pivot/ordered-target hypotheses on those ten training dates only. Preserve Phase 3 v3.0.0 settings/failures and the separate Autopivot Levels - Daily source, styling and policies. Retain all seven expanded maps AND current Autopivot predictions before new answer reveal. Source-assisted diagnostics are not executable predictions. No development/hidden-test answers or Replay navigation, profitability, publication or deployment.",
+        "Current Phase 5 protocol 5.0.0 authorizes exactly October 15/16/19/20 development market/Replay inspection and answer access only after all four complete expanded maps, all six frozen policies and native primary cutoff/advance/restart checks pass the reveal gate. Preserve prior phases, immutable Autopivot capture 228c/1fc67 and all failed attempts. Never read data/README.md wholesale or display broad answer collections. Hidden October 21-27 and outside-development answers remain closed; prior hidden numeric exposure cannot be erased by a fresh evaluator. No tuning, profitability, dataset rebuild, publication, deployment or Phase 6 execution.",
+        "Phase6A prepares only the frozen prospective20-session calendar/protocol/capture and saved-only scoring tools. No future observations, final reveal/scoring, automation or notifications are executed. Preserve Phase5 no-validated-configuration/P0-D1 engineering-default outcome and all earlier bytes. Never read mutable data/README.md or broad answer sources; original hidden/outside exposure persists. Only scheduled exact-date sources may be collected by separated actors under protocol; prediction operator stays blind until complete-period gate. Known shortened/history exclusions are fixed before predictions; unexpected failures remain/no replacements. No tuning, manual-anchor repair, dataset rebuild, profitability, publication or deployment."
+      ],
+      "related_checks": [
+        "study-29",
+        "study-29-phase2-review",
+        "documentation",
+        "navigation-metadata",
+        "research-index"
+      ]
+    },
+    "study-30": {
+      "kind": "study",
+      "path": "studies/30_verniman_pivot_statistics_es",
+      "study_id": "30_verniman_pivot_statistics_es",
+      "description": "Study 30 - repository-only Verniman ES pivot behavior, native EMA/VWAP features, evidence and saved report export",
+      "guides": [
+        "studies/30_verniman_pivot_statistics_es/README.md",
+        "studies/30_verniman_pivot_statistics_es/plan.md",
+        "studies/30_verniman_pivot_statistics_es/protocol-1.0.0.md",
+        "studies/30_verniman_pivot_statistics_es/protocol-2.0.0.md",
+        "studies/30_verniman_pivot_statistics_es/implementation-matrix.md",
+        "studies/30_verniman_pivot_statistics_es/statistics.md",
+        "studies/30_verniman_pivot_statistics_es/notes.md",
+        "studies/30_verniman_pivot_statistics_es/verification.md",
+        "studies/30_verniman_pivot_statistics_es/phase1-audit.md"
+      ],
+      "read_first": [
+        "studies/30_verniman_pivot_statistics_es/README.md",
+        "studies/30_verniman_pivot_statistics_es/plan.md",
+        "studies/30_verniman_pivot_statistics_es/protocol-1.0.0.md",
+        "studies/30_verniman_pivot_statistics_es/study.yaml",
+        "studies/30_verniman_pivot_statistics_es/inputs.lock.json",
+        "studies/30_verniman_pivot_statistics_es/notes.md",
+        "studies/30_verniman_pivot_statistics_es/phase1-audit.md",
+        "studies/30_verniman_pivot_statistics_es/protocol-2.0.0.md",
+        "studies/30_verniman_pivot_statistics_es/implementation-matrix.md",
+        "studies/AGENTS.md",
+        "packages/sahadeva/AGENTS.md",
+        "packages/bhishma/AGENTS.md"
+      ],
+      "entry_points": [
+        "studies/30_verniman_pivot_statistics_es/run.py",
+        "studies/30_verniman_pivot_statistics_es/src/source_audit.py",
+        "studies/30_verniman_pivot_statistics_es/src/data_requirements.py",
+        "studies/30_verniman_pivot_statistics_es/tests",
+        "requests/inbox/es_contract_session_indicators__1.0.0.yaml",
+        "studies/30_verniman_pivot_statistics_es/src/source_selection.py",
+        "studies/30_verniman_pivot_statistics_es/src/engine.py",
+        "studies/30_verniman_pivot_statistics_es/src/reporting.py",
+        "studies/30_verniman_pivot_statistics_es/src/lifecycle.py",
+        "studies/30_verniman_pivot_statistics_es/publish_web.py",
+        "studies/30_verniman_pivot_statistics_es/verify_saved.py",
+        "studies/30_verniman_pivot_statistics_es/verify_features.py",
+        "studies/30_verniman_pivot_statistics_es/render_chart.mjs",
+        "studies/30_verniman_pivot_statistics_es/ranked.py",
+        "studies/30_verniman_pivot_statistics_es/src/ranked_engine.py",
+        "studies/30_verniman_pivot_statistics_es/src/ranked_statistics.py",
+        "studies/30_verniman_pivot_statistics_es/src/ranked_lifecycle.py",
+        "studies/30_verniman_pivot_statistics_es/verify_ranked.py",
+        "studies/30_verniman_pivot_statistics_es/publish_ranked.py"
+      ],
+      "preservation": [
+        "Preserve existing releases, canonical source revisions, null historical availability, user observations, completed runs and unrelated workspace changes.",
+        "Preserve source-only cohort decisions before outcomes, distinguish actual EMA crossings from alignment, retain null/unverified historical availability and explicit missing-data/contract exclusions.",
+        "Use repository-only pinned inputs and prebuilt OHLC/EMA where compatible. No data acquisition, price translation or historical overwrite; seal only verified saved evidence, and deploy only under separate release scope."
+      ],
+      "related_checks": [
+        "study-30",
+        "agent-docs",
         "navigation-metadata",
         "research-index"
       ]
@@ -3356,6 +3578,124 @@
       "scope": [
         "Read-only registry/schema, full selected-report coverage, exact app-owned report/bundle/section identities and projection freshness.",
         "No research calculations, scientific validation, local reviewed-material hashing, public staging, publication or release actions. The separate --check-reviewed-inputs audit requires its own explicit selection."
+      ]
+    },
+    {
+      "id": "study-29-phase2-review",
+      "owner": "study-29",
+      "kind": "command",
+      "description": "Explicit private Phase 2 source-review provenance and consistency audit",
+      "cwd": ".",
+      "argv": [
+        "{python}",
+        "studies/29_verniman_level_reconstruction/phase2/check_review.py"
+      ],
+      "env": {},
+      "prerequisites": [
+        {
+          "kind": "directory",
+          "path": "work/29_verniman_level_reconstruction/phase2_20261030T222323Z",
+          "description": "Retained private Phase 2 stage; unavailable in an ordinary source-only clone."
+        },
+        {
+          "kind": "file",
+          "path": "work/29_verniman_level_reconstruction/phase2_20261030T222323Z/protocol-freeze.json",
+          "description": "Exact frozen Phase 2 protocol/input pins."
+        },
+        {
+          "kind": "file",
+          "path": "work/29_verniman_level_reconstruction/phase2_20261030T222323Z/neutral-baselines.json",
+          "description": "Three authorized neutral baseline captures and their before-target chronology."
+        },
+        {
+          "kind": "file",
+          "path": "work/29_verniman_level_reconstruction/phase2_20261030T222323Z/source-selection-manifest.json",
+          "description": "Narrow three-date source selection record; no unrestricted target-table discovery."
+        },
+        {
+          "kind": "file",
+          "path": "work/29_verniman_level_reconstruction/phase1_20261030/artifact-hashes.json",
+          "description": "Retained Phase 1 byte inventory, used only for preservation comparisons."
+        },
+        {
+          "kind": "note",
+          "description": "Requires the declared private original capture/source bytes and retained Phase 1 artifacts. Selection is explicit only; no default, studies or tooling profile includes this audit."
+        }
+      ],
+      "scope": [
+        "Read-only integrity and consistency of frozen pins, neutral-before-target chronology, three-date source scope/hashes, level references/precision, all 19 descriptive baseline distances and Phase 1 artifact preservation.",
+        "Private-source access is explicit and bounded to declared paths; no unrestricted target tables, browser/network access, numerical research, Pine changes, algorithm implementation, automated selection, publication or sealing.",
+        "This audit does not establish independent OCR, historical availability, native Pine compilation, scientific validity or profitability."
+      ]
+    },
+    {
+      "id": "study-29",
+      "owner": "study-29",
+      "kind": "unittest",
+      "description": "Study 29 independent synthetic candidate, selection, target ordering and matching checks",
+      "cwd": ".",
+      "runtime": "locked-python",
+      "unittest": {
+        "start_dir": "studies/29_verniman_level_reconstruction/tests",
+        "pattern": "test*.py",
+        "optimize": false
+      },
+      "env": {},
+      "prerequisites": [
+        {
+          "kind": "executable",
+          "name": "uv",
+          "description": "Existing scripts/uv resolution: ignored .tools/uv/bin/uv or uv on PATH; no bootstrap."
+        },
+        {
+          "kind": "directory",
+          "path": ".venv",
+          "description": "Existing locked Python environment; --no-sync never installs dependencies."
+        }
+      ],
+      "scope": [
+        "Independent synthetic arithmetic/session fixtures for identity rollover, profile reset, warm-up, completed-bar snapshot timing, N1/E1 regions/edges, explicit composites, P1/P2 anchors, P0/B0/B1 pivots, D0/D1 ordered targets and family/window-qualified matching; these execute Python specification models, not Pine.",
+        "No retained market-data reads, protected dated targets, research entry points, publication, sealing or deployment. A translated model or source check does not prove TradingView compilation or browser replay behavior."
+      ]
+    },
+    {
+      "id": "study-30",
+      "owner": "study-30",
+      "kind": "unittest",
+      "description": "Study 30 synthetic source/input contracts, numerical events/outcomes, reporting and evidence guards",
+      "cwd": ".",
+      "runtime": "locked-python",
+      "unittest": {
+        "start_dir": "studies/30_verniman_pivot_statistics_es/tests",
+        "pattern": "test*.py",
+        "optimize": false
+      },
+      "env": {},
+      "prerequisites": [
+        {
+          "kind": "executable",
+          "name": "uv",
+          "description": "Existing scripts/uv resolution; no bootstrap or synchronization."
+        },
+        {
+          "kind": "directory",
+          "path": ".venv",
+          "description": "Prepared locked Python environment; no dependency installation."
+        },
+        {
+          "kind": "node-major",
+          "major": 24,
+          "description": "Node24 for the saved-figure presentation fixture; no numerical calculations in Node."
+        },
+        {
+          "kind": "directory",
+          "path": "apps/narada/node_modules",
+          "description": "Existing independently installed Narada Sharp dependency for static figure rendering; no npm install in the check."
+        }
+      ],
+      "scope": [
+        "Synthetic source-shape/date/contract/availability accounting, repository-only input requirements, event/confirmation/horizon/retest/denominator statistics and evidence/export guards.",
+        "No retained market-data reads, source-audit execution, research runs, acquisition, publication, sealing or deployment."
       ]
     }
   ]

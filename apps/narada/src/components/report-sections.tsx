@@ -8,8 +8,9 @@ import { initialSavedTable } from "@/lib/table-filters";
 import { PatternDefinitions, PatternPanel } from "./pattern-panel";
 import { SectionLink } from "./section-link";
 
-export function ReportSections({ sections, reportId, references, patterns, patternDefinitionsProvided = false, explainedPatternIds = [] }: { sections: ReportSection[]; reportId: string; references?: SourceReference[]; patterns?: ReportPattern[]; patternDefinitionsProvided?: boolean; explainedPatternIds?: string[] }) {
+export function ReportSections({ sections, reportId, references, patterns, patternDefinitionsProvided = false, explainedPatternIds = [], headingLevel = 2 }: { sections: ReportSection[]; reportId: string; references?: SourceReference[]; patterns?: ReportPattern[]; patternDefinitionsProvided?: boolean; explainedPatternIds?: string[]; headingLevel?: 2 | 3 }) {
   const explainedPatterns = new Set(explainedPatternIds);
+  const Heading = headingLevel === 3 ? "h3" : "h2";
   return <>
     {patterns?.length && !patternDefinitionsProvided ? <PatternDefinitions patterns={patterns} reportId={reportId} /> : null}
     {sections.map((section, index) => {
@@ -20,7 +21,7 @@ export function ReportSections({ sections, reportId, references, patterns, patte
     <section key={section.id} id={`section-${section.id}`} className={`report-section section-${section.kind}`} aria-labelledby={`heading-${section.id}`}>
       <div className="section-heading">
         <span className="section-number" aria-hidden="true">{String(index + 1).padStart(2, "0")}</span>
-        <h2 id={`heading-${section.id}`}>{section.title}</h2>
+        <Heading id={`heading-${section.id}`}>{section.title}</Heading>
         <SectionLink sectionId={section.id} />
       </div>
       {pattern ? <PatternPanel pattern={pattern} instanceId={`pattern-section-${section.id}`} focus={section.patternFocus} symbolReportId={reportId} compact={compact} /> : null}
@@ -52,6 +53,9 @@ function SectionContent({ section, reportId }: { section: ReportSection; reportI
       return section.rowFilters?.length ? <FilteredReportTable initialSection={initialSavedTable(section)} reportId={reportId} totalSavedRows={section.rows.length} /> : <ReportTable section={section} />;
     case "figure":
       return (
+        <>
+        {section.description ? <p className="insight-description">{section.description}</p> : null}
+        {section.finding ? <p className="insight-finding"><strong>Findings summary</strong><span>{section.finding}</span></p> : null}
         <figure className="report-figure">
           <a href={`/publications/${reportId}/${section.path}`} aria-label={`View full-size figure: ${section.title}`}>
           <Image
@@ -66,6 +70,7 @@ function SectionContent({ section, reportId }: { section: ReportSection; reportI
           </a>
           <figcaption>{section.caption ? <span>{section.caption}</span> : null}<a className="figure-size-link" href={`/publications/${reportId}/${section.path}`}>View full-size figure</a></figcaption>
         </figure>
+        </>
       );
   }
 }

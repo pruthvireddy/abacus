@@ -1,0 +1,129 @@
+{
+  "schema_version": "abacus.study30.statistics/v1",
+  "study_id": "30_verniman_pivot_statistics_es",
+  "requested_start": "2020-01-01",
+  "requested_cutoff": "2026-10-30",
+  "actual_start": "2020-01-03",
+  "actual_end": "2026-09-18",
+  "eligible_days": 875,
+  "price_events": 4059,
+  "ema_events": 1886,
+  "primary_horizon": "30m",
+  "primary": [
+    {
+      "period_kind": "overall",
+      "period": "all",
+      "panel": "all_crosses",
+      "direction": "all",
+      "section": "all",
+      "condition": "all",
+      "condition_value": "all",
+      "condition_timing": "unconditional",
+      "days": 695,
+      "sparse": false,
+      "earliest_session": "2020-01-03",
+      "latest_session": "2026-09-18",
+      "requested_cutoff": "2026-10-30",
+      "event_type": "price_cross",
+      "horizon": "30m",
+      "events": 4059,
+      "denominator": 3830,
+      "unknown": 229,
+      "valid_days": 686,
+      "mean_points": 0.03727154046997448,
+      "median_points": 0.0,
+      "p25_points": -5.75,
+      "p75_points": 6.0,
+      "p90_points": 13.25,
+      "positive_count": 1898,
+      "zero_count": 55,
+      "negative_count": 1877,
+      "positive_rate": 0.4955613577023499,
+      "mean_ci95_low": -0.2154043383270909,
+      "mean_ci95_high": 0.30286581932307927,
+      "positive_ci95_low": 0.4834167429398104,
+      "positive_ci95_high": 0.5098947571747826,
+      "mean_favorable_points": 8.824412532637076,
+      "mean_adverse_points": 8.479569190600522,
+      "mean_favorable_bps": 18.883889161847097,
+      "mean_adverse_bps": 18.297603521944673,
+      "mean_bps": -0.10507165064159399,
+      "mean_elapsed_minutes": 30.0,
+      "favorable_reach_5_count": 2231,
+      "favorable_reach_5_denominator": 3830,
+      "favorable_reach_5_rate": 0.5825065274151436,
+      "favorable_reach_10_count": 1191,
+      "favorable_reach_10_denominator": 3830,
+      "favorable_reach_10_rate": 0.3109660574412533,
+      "favorable_reach_20_count": 388,
+      "favorable_reach_20_denominator": 3830,
+      "favorable_reach_20_rate": 0.10130548302872062,
+      "adverse_reach_5_count": 2188,
+      "adverse_reach_5_denominator": 3830,
+      "adverse_reach_5_rate": 0.5712793733681462,
+      "adverse_reach_10_count": 1138,
+      "adverse_reach_10_denominator": 3830,
+      "adverse_reach_10_rate": 0.29712793733681464,
+      "adverse_reach_20_count": 353,
+      "adverse_reach_20_denominator": 3830,
+      "adverse_reach_20_rate": 0.09216710182767623
+    }
+  ],
+  "qualifications": [
+    "Repository-retained ES data only; requested coverage ends 2026-10-30, while retained market data ends 2026-09-18. Missing dates/contracts and retrospective full-day eligibility limit generalization.",
+    "Historical pivot available_at remains unverified. Nominal 09:25 timing does not establish a historically executable pre-open signal.",
+    "Returned-without-EMA and eventual confirmation labels are known later. Already-aligned EMA6 is distinct from an actual new line crossing.",
+    "Signed displacement and excursions describe price paths. No entries, fills, costs or net profitability are tested. Broad slices are exploratory."
+  ],
+  "bootstrap": {
+    "replicates": 2000,
+    "block_observed_sessions": 5,
+    "seed": 20261031,
+    "method": "non_circular_moving_blocks",
+    "intervals": "95% descriptive; overall daily means and overall 30m outcome means/positive shares only; undefined for <=5 total sessions or <2 contributing days"
+  },
+  "table_rows": {
+    "daily_summary": 7770,
+    "outcome_summary": 10227,
+    "episode_summary": 1754,
+    "retest_summary": 598,
+    "opening_summary": 2776,
+    "snapshot_numeric_summary": 1540,
+    "section_transitions": 22,
+    "coverage_summary": 1
+  },
+  "source_tables": {
+    "daily_summary": {
+      "artifact": "tables/daily_summary.csv",
+      "sha256": "208d706683c079032b8d509b66440a4d5ff551fab183a1993b0869fc729370e4"
+    },
+    "outcome_summary": {
+      "artifact": "tables/outcome_summary.csv",
+      "sha256": "37de86fcfc99b508afa7689cab1b40f282263bcaf413d5e51a08440e71c88b6e"
+    },
+    "episode_summary": {
+      "artifact": "tables/episode_summary.csv",
+      "sha256": "f6f8eed70848fb1a7d8ed4d4f4f93b138cca47296c4e4614162f32a4e53386b4"
+    },
+    "retest_summary": {
+      "artifact": "tables/retest_summary.csv",
+      "sha256": "4d522b727de37efcadc681d09861eb3b25e28e0f2ebcf8ad56a160164c3523dc"
+    },
+    "opening_summary": {
+      "artifact": "tables/opening_summary.csv",
+      "sha256": "a4bd219770f2863de0713f61f46156937ba1c4124653963b72fd122de9742579"
+    },
+    "snapshot_numeric_summary": {
+      "artifact": "tables/snapshot_numeric_summary.csv",
+      "sha256": "568ed0f2afc03606c7bb3d9f79b613b8f8144dbfd7718d9d084bd41a2b2d6658"
+    },
+    "section_transitions": {
+      "artifact": "tables/section_transitions.csv",
+      "sha256": "94dee749160bd1a2efb4827d5fbb9122d3c5df5bbca2761864169a2d4189ceb6"
+    },
+    "coverage_summary": {
+      "artifact": "tables/coverage_summary.csv",
+      "sha256": "fea2e80293d2276c6bc9cf8bd9b6d158565181d162f1084e11c99d260a40b616"
+    }
+  }
+}

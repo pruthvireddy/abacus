@@ -1,0 +1,787 @@
+{
+  "schema": "abacus.study29.phase2.sources/v1",
+  "study_id": "29_verniman_level_reconstruction",
+  "authorized_target_dates": [
+    "2026-10-01",
+    "2026-10-02",
+    "2026-10-05"
+  ],
+  "manifest_created_at": "2026-10-30T22:32:42.580666+00:00",
+  "release": {
+    "dataset_id": "verniman_daily_levels__13.0.0",
+    "version": "13.0.0",
+    "manifest_path": "catalog/datasets/verniman_daily_levels__13.0.0.json",
+    "manifest_sha256": "39a12cd01b131729908a6b7743a710eaefe73f86e7df9ecb66787787b88277bf",
+    "available_at_policy": "historical_availability_unverified; all available_at null"
+  },
+  "private_stage": "work/29_verniman_level_reconstruction/phase2_20261030T222323Z",
+  "selection_manifest": {
+    "path": "work/29_verniman_level_reconstruction/phase2_20261030T222323Z/source-selection-manifest.json",
+    "sha256": "98d7d6e63f94adf6de6f8bfef1c6f5e622bec0b198f89cafa16fc88e36c673c8"
+  },
+  "capture_metadata": {
+    "path": "data/raw/blogspot/verniman/html/20261020T234336Z_history_e1a4e32d/crawl_manifest.json",
+    "sha256": "19518a65d52dd68f2351efd20a2c3efa3401b4f6fbbaa1504419a88c7832e0e7",
+    "selection": "Only posts whose session_date equals an authorized date were materialized into source metadata; no unrestricted post records printed."
+  },
+  "source_selection_policy": "One canonical retained plan per authorized day; both exact-entry embedded charts retained as pre-open-claimed sources; latest selected dated trade recap and technical map from exact intake r001. MOC metadata separate. Weekly/other instruments/other closing context excluded from target review. No source absence is inferred from this bounded inventory.",
+  "user_recollections": "No rows for these three sessions in consolidated observations or observation_levels.",
+  "cases": [
+    {
+      "session_date": "2026-10-01",
+      "daily_plan_source": "B-20261001",
+      "preopen_claimed_image_sources": [
+        "B-20261001-I01",
+        "B-20261001-I02"
+      ],
+      "closing_chart_sources": [
+        "X-2105752127028990422",
+        "X-2105752800323924362"
+      ],
+      "intraday_commentary_sources": [
+        "X-2105747156774838681",
+        "X-2105747457200341298",
+        "X-2105747832078823615"
+      ],
+      "excluded_source_metadata": [
+        {
+          "source_id": "X-2105763269742915616",
+          "role": "weekly_context",
+          "stated_chart_date": "2026-09-28",
+          "selection": "not inspected for Phase 2; outside selected primary chart/commentary scope"
+        },
+        {
+          "source_id": "X-2105757382127309101",
+          "role": "closing_selection_context",
+          "stated_chart_date": null,
+          "selection": "not inspected for Phase 2; outside selected primary chart/commentary scope"
+        },
+        {
+          "source_id": "X-2105757884738908461",
+          "role": "closing_selection_context",
+          "stated_chart_date": null,
+          "selection": "not inspected for Phase 2; outside selected primary chart/commentary scope"
+        },
+        {
+          "source_id": "X-2105758036568822017",
+          "role": "closing_selection_context",
+          "stated_chart_date": null,
+          "selection": "not inspected for Phase 2; outside selected primary chart/commentary scope"
+        },
+        {
+          "source_id": "X-2105762808721744219",
+          "role": "closing_selection_context",
+          "stated_chart_date": null,
+          "selection": "not inspected for Phase 2; outside selected primary chart/commentary scope"
+        },
+        {
+          "source_id": "X-2105763339150491777",
+          "role": "closing_selection_context",
+          "stated_chart_date": null,
+          "selection": "not inspected for Phase 2; outside selected primary chart/commentary scope"
+        }
+      ],
+      "suitability": "Daily plan and two filename-preopen-claimed charts retained; original historical availability unresolved. Closing technical map and dated trade recap retained; technical-map instrument/session header absent according to prior visual review.",
+      "intake_observation": {
+        "observation_id": "2026-10-01__r001",
+        "revision": 1,
+        "path": "data/inbox/x/verniman_eod/20261028_backfill_2026/observations/2026-10-01__r001.json",
+        "sha256": "0db1cb803be2566821ab66232b4526d9547620eb19539bf4d2d478b7a896a9d2",
+        "reviewed_at": "2026-10-28T11:05:10.891864+00:00",
+        "status": "reviewed_partial"
+      }
+    },
+    {
+      "session_date": "2026-10-02",
+      "daily_plan_source": "B-20261002",
+      "preopen_claimed_image_sources": [
+        "B-20261002-I01",
+        "B-20261002-I02"
+      ],
+      "closing_chart_sources": [
+        "X-2106113108016021595",
+        "X-2106113331052585421"
+      ],
+      "intraday_commentary_sources": [
+        "X-2106109520133157216"
+      ],
+      "excluded_source_metadata": [
+        {
+          "source_id": "X-2106115148578423240",
+          "role": "secondary_instrument_close_chart",
+          "stated_chart_date": "2026-10-02",
+          "selection": "not inspected for Phase 2; outside selected primary chart/commentary scope"
+        }
+      ],
+      "suitability": "Daily plan and two filename-preopen-claimed charts retained; original historical availability unresolved. Closing technical map and dated trade recap retained; technical-map instrument/session header absent according to prior visual review.",
+      "intake_observation": {
+        "observation_id": "2026-10-02__r001",
+        "revision": 1,
+        "path": "data/inbox/x/verniman_eod/20261028_backfill_2026/observations/2026-10-02__r001.json",
+        "sha256": "8dc07d3b1e86e40e829a05753a77259bf0f8d83d5a0f5b4cec364689b60995a3",
+        "reviewed_at": "2026-10-28T09:04:32.872701+00:00",
+        "status": "reviewed_partial"
+      }
+    },
+    {
+      "session_date": "2026-10-05",
+      "daily_plan_source": "B-20261005",
+      "preopen_claimed_image_sources": [
+        "B-20261005-I01",
+        "B-20261005-I02"
+      ],
+      "closing_chart_sources": [
+        "X-2107205857691971880",
+        "X-2107206362547839375"
+      ],
+      "intraday_commentary_sources": [
+        "X-2107196748552892868",
+        "X-2107197162434027565",
+        "X-2107197833732637054",
+        "X-2107198123617685836"
+      ],
+      "excluded_source_metadata": [],
+      "suitability": "Daily plan and two filename-preopen-claimed charts retained; original historical availability unresolved. Closing technical map and dated trade recap retained; technical-map instrument/session header absent according to prior visual review.",
+      "intake_observation": {
+        "observation_id": "2026-10-05__r001",
+        "revision": 1,
+        "path": "data/inbox/x/verniman_eod/20261028_backfill_2026/observations/2026-10-05__r001.json",
+        "sha256": "1168c596488108b8dbba2020c25cbf6fc929d116eaeaa1e854ffb5e784e83082",
+        "reviewed_at": "2026-10-28T09:03:00.313260+00:00",
+        "status": "reviewed_partial"
+      }
+    }
+  ],
+  "sources": [
+    {
+      "source_id": "B-20261001",
+      "kind": "retained_daily_plan",
+      "session_date": "2026-10-01",
+      "source_url": "https://verniman.blogspot.com/2009/10/october-kick-off.html",
+      "source_post_id": "803155405017104379",
+      "outlook_id": "1ca8ac99c5c4b89ebf5df829f0d4c842b6d5b67565b733156fdaf63c740ee567",
+      "source_revision_id": "1ca8ac99c5c4b89ebf5df829f0d4c842b6d5b67565b733156fdaf63c740ee567",
+      "content_sha256": "2a0b2810b6c50d7697a300905dc8a8f07f7ef2ca3c041037c652fecc406d3cb6",
+      "contract_raw": "ESZ26",
+      "contract_identity": "ESZ26 explicitly retained in daily plan; no equivalence with X /ES inferred",
+      "extraction_dataset": "verniman_daily_levels__2.0.0",
+      "extraction_version": "verniman_history_ab_v2",
+      "source_claimed_published_at": "2009-10-01 13:20:00+00:00",
+      "source_claimed_updated_at": "2026-10-01 13:22:45.507000+00:00",
+      "source_claimed_updated_new_york": "2026-10-01T09:22:45.507000-04:00",
+      "captured_at": "2026-10-20 23:43:41.726459+00:00",
+      "available_at": null,
+      "historical_availability_status": "historical_availability_unverified",
+      "preopen_timing_class": "unresolved",
+      "timing_basis": "Reused 2009 publication metadata and later 2026 update/capture do not certify historical pre-open content availability. Earlier update clock alone is insufficient.",
+      "bytes": [
+        {
+          "path": "data/raw/blogspot/verniman/html/20261020T234336Z_history_e1a4e32d/post-0014.html",
+          "sha256": "68445cbbe816227717a755256ea3ccc197bc19a74e7c0bd46a0bdce87cc920fa",
+          "size_bytes": 45149
+        },
+        {
+          "path": "data/raw/blogspot/verniman/html/20261020T234336Z_history_e1a4e32d/post-0014.atom",
+          "sha256": "d279e075e924538255291abd5cc1c6bccfc11b06aa06d57e0bd960f96bcaf3b8",
+          "size_bytes": 6695
+        }
+      ],
+      "inspection_method": "Phase 2 exact-session canonical extraction and metadata review; original post bytes hash checked. Full third-party prose retained privately only."
+    },
+    {
+      "source_id": "B-20261001-I01",
+      "parent_source_id": "B-20261001",
+      "kind": "retained_blog_chart",
+      "session_date": "2026-10-01",
+      "source_url": "https://verniman.blogspot.com/2009/10/october-kick-off.html",
+      "image_source_url": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhGakxu4simHCI7CvBaVNpikjxY9_7QBH_JSmaNaR0bdSh-GUtaW-tkwtMvA0b5sCXZel8ARRZmwOehR8nIscFwd-jC1UIIgPxv-6grS8vw_tmLKyek0mstzxEEnpf29k6Ni30YQZKXHJQk-kMq7bFQFqKMYdntmfXB820L8InP1NmDPwLpZMri69XdVfEy/s934/Captura%20de%20pantalla%202026-10-01%20091945.png",
+      "path": "data/raw/blogspot/verniman/html/20261020T234336Z_history_e1a4e32d/images/post-0014-01.png",
+      "sha256": "70b0d06f1eaf7cd7e80597c2943706184f25c32cc15e2eca2e72301157a28aa9",
+      "size_bytes": 54510,
+      "captured_at": "2026-10-20T23:43:42.167530+00:00",
+      "source_time_claim": "Remote filename clock only; timezone is not printed. Before09:25 if interpreted in NewYork, but neither timezone nor historical publication availability is authenticated.",
+      "available_at": null,
+      "preopen_timing_class": "unresolved",
+      "inspection_method": "Phase 2 retained pixels visually reviewed with local image viewer by root and source-review agent. This is inspection of retained bytes, not a fresh source-site capture.",
+      "phase2_retained_pixel_review": {
+        "status": "reviewed",
+        "recorded_at": "2026-10-30T22:37:55.787307+00:00",
+        "scope": "Exact authorized-session blog image only; surrounding links/galleries not opened."
+      },
+      "claimed_chart_clock": "2026-10-01 09:19:45",
+      "claimed_chart_timezone": null
+    },
+    {
+      "source_id": "B-20261001-I02",
+      "parent_source_id": "B-20261001",
+      "kind": "retained_blog_chart",
+      "session_date": "2026-10-01",
+      "source_url": "https://verniman.blogspot.com/2009/10/october-kick-off.html",
+      "image_source_url": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEglvCYRJHlVAEp6GEghKfLZ9u5A2DD2Huih5i0fjSMmA6M12nCmN9Ny35EIpzaPMcWzZwIrBdLWDW_2xSf7yTdfaEPuT42dmFLEX8kNOmvLl_z9FOcphdHT7w0mXZIU1y0LIjfCd5jb3metaPWK-UdEip6M4DtQLsNv4fqq3UQGVJ2RMBc4mS1ZTnB3wIp_/s936/Captura%20de%20pantalla%202026-10-01%20092010.png",
+      "path": "data/raw/blogspot/verniman/html/20261020T234336Z_history_e1a4e32d/images/post-0014-02.png",
+      "sha256": "480956432a7c2e50bf852f8d253febec4c58526312998cfc1197a54272e7a5d9",
+      "size_bytes": 42141,
+      "captured_at": "2026-10-20T23:43:42.778216+00:00",
+      "source_time_claim": "Remote filename clock only; timezone is not printed. Before09:25 if interpreted in NewYork, but neither timezone nor historical publication availability is authenticated.",
+      "available_at": null,
+      "preopen_timing_class": "unresolved",
+      "inspection_method": "Phase 2 retained pixels visually reviewed with local image viewer by root and source-review agent. This is inspection of retained bytes, not a fresh source-site capture.",
+      "phase2_retained_pixel_review": {
+        "status": "reviewed",
+        "recorded_at": "2026-10-30T22:37:55.787307+00:00",
+        "scope": "Exact authorized-session blog image only; surrounding links/galleries not opened."
+      },
+      "claimed_chart_clock": "2026-10-01 09:20:10",
+      "claimed_chart_timezone": null
+    },
+    {
+      "source_id": "X-2105752127028990422",
+      "kind": "full_session_trade_chart",
+      "session_date": "2026-10-01",
+      "source_url": "https://x.com/kofitrading/status/2105752127028990422",
+      "post_id": "2105752127028990422",
+      "source_posted_at": "2026-10-01T20:10:04.000Z",
+      "source_posted_new_york": "2026-10-01T16:10:04-04:00",
+      "captured_at": "2026-10-28T11:02:59.690197+00:00",
+      "observation_id": "2026-10-01__r001",
+      "observation_revision": 1,
+      "evidence_capture": "browser_screenshot",
+      "chart_session_date_raw": "2026-10-01",
+      "instrument_raw": "/ES",
+      "actual_contract": null,
+      "chart_timeframe_raw": "3m",
+      "available_at": null,
+      "historical_availability_status": "historical_availability_unverified",
+      "timing_class": "supported later/intraday",
+      "preopen_timing_class": "unresolved",
+      "timing_basis": "Retained rendered post timestamp is after16:00 New York for this selected closing role. It supports later presence only; closing labels are not assumed available at09:25.",
+      "phase2_inspection_method": "Phase 2 retained dated trade-chart pixels visually reviewed by root and independently by the source-review agent during final map audit. Named structural references only; no execution or fill inference. Any fresh rendered X inspection is separately recorded in the access log.",
+      "bytes": {
+        "path": "data/inbox/x/verniman_eod/20261028_backfill_2026/screenshots/2026-10-01_2105752127028990422.jpg",
+        "sha256": "e6b11ee724396dc4a1b187665ceb6b3a18b15386926db3f62081431999270b1f",
+        "size_bytes": 82545
+      },
+      "phase2_retained_pixel_review": {
+        "status": "reviewed",
+        "recorded_at": "2026-10-30T22:37:55.787307+00:00",
+        "scope": "Authorized-session dated recap and named references; no execution verification.",
+        "final_independent_map_audit_recorded_at": "2026-10-30T22:50:01.221719+00:00"
+      }
+    },
+    {
+      "source_id": "X-2105752800323924362",
+      "kind": "closing_technical_map",
+      "session_date": "2026-10-01",
+      "source_url": "https://x.com/kofitrading/status/2105752800323924362",
+      "post_id": "2105752800323924362",
+      "source_posted_at": "2026-10-01T20:12:45.000Z",
+      "source_posted_new_york": "2026-10-01T16:12:45-04:00",
+      "captured_at": "2026-10-28T11:02:55.783992+00:00",
+      "observation_id": "2026-10-01__r001",
+      "observation_revision": 1,
+      "evidence_capture": "browser_screenshot",
+      "chart_session_date_raw": null,
+      "instrument_raw": null,
+      "actual_contract": null,
+      "chart_timeframe_raw": null,
+      "available_at": null,
+      "historical_availability_status": "historical_availability_unverified",
+      "timing_class": "supported later/intraday",
+      "preopen_timing_class": "unresolved",
+      "timing_basis": "Retained rendered post timestamp is after16:00 New York for this selected closing role. It supports later presence only; closing labels are not assumed available at09:25.",
+      "phase2_inspection_method": "Phase 2 retained chart pixels visually reviewed by root and source-review agent. Any fresh rendered X inspection is separately recorded in the Phase 2 access log.",
+      "bytes": {
+        "path": "data/inbox/x/verniman_eod/20261028_backfill_2026/screenshots/2026-10-01_2105752800323924362.jpg",
+        "sha256": "37bdb07f6d8fd610efb7908003186b77532901b2693c3dcd8a2490eecdb57571",
+        "size_bytes": 53859
+      },
+      "phase2_retained_pixel_review": {
+        "status": "reviewed",
+        "recorded_at": "2026-10-30T22:37:55.787307+00:00",
+        "scope": "Central technical chart from exact authorized-session source only."
+      }
+    },
+    {
+      "source_id": "X-2105747156774838681",
+      "kind": "moc_commentary",
+      "session_date": "2026-10-01",
+      "source_url": "https://x.com/kofitrading/status/2105747156774838681",
+      "post_id": "2105747156774838681",
+      "source_posted_at": "2026-10-01T19:50:19.000Z",
+      "source_posted_new_york": "2026-10-01T15:50:19-04:00",
+      "captured_at": "2026-10-28T11:02:13.778Z",
+      "observation_id": "2026-10-01__r001",
+      "observation_revision": 1,
+      "evidence_capture": "browser_dom_text",
+      "chart_session_date_raw": null,
+      "instrument_raw": null,
+      "actual_contract": null,
+      "chart_timeframe_raw": null,
+      "available_at": null,
+      "historical_availability_status": "historical_availability_unverified",
+      "timing_class": "supported later/intraday",
+      "preopen_timing_class": "unresolved",
+      "timing_basis": "Retained rendered post timestamp is after09:25 and during the closing intraday window (about15:50\u201315:55 New York). It supports later/intraday presence only, not pre-open availability; no after-close claim is made.",
+      "phase2_inspection_method": "Retained observation metadata/transcription review; no fresh browser or image inspection by this selector."
+    },
+    {
+      "source_id": "X-2105747457200341298",
+      "kind": "moc_commentary",
+      "session_date": "2026-10-01",
+      "source_url": "https://x.com/kofitrading/status/2105747457200341298",
+      "post_id": "2105747457200341298",
+      "source_posted_at": "2026-10-01T19:51:31.000Z",
+      "source_posted_new_york": "2026-10-01T15:51:31-04:00",
+      "captured_at": "2026-10-28T11:02:13.778Z",
+      "observation_id": "2026-10-01__r001",
+      "observation_revision": 1,
+      "evidence_capture": "browser_dom_text",
+      "chart_session_date_raw": null,
+      "instrument_raw": null,
+      "actual_contract": null,
+      "chart_timeframe_raw": null,
+      "available_at": null,
+      "historical_availability_status": "historical_availability_unverified",
+      "timing_class": "supported later/intraday",
+      "preopen_timing_class": "unresolved",
+      "timing_basis": "Retained rendered post timestamp is after09:25 and during the closing intraday window (about15:50\u201315:55 New York). It supports later/intraday presence only, not pre-open availability; no after-close claim is made.",
+      "phase2_inspection_method": "Retained observation metadata/transcription review; no fresh browser or image inspection by this selector."
+    },
+    {
+      "source_id": "X-2105747832078823615",
+      "kind": "moc_commentary",
+      "session_date": "2026-10-01",
+      "source_url": "https://x.com/kofitrading/status/2105747832078823615",
+      "post_id": "2105747832078823615",
+      "source_posted_at": "2026-10-01T19:53:00.000Z",
+      "source_posted_new_york": "2026-10-01T15:53:00-04:00",
+      "captured_at": "2026-10-28T11:02:13.778Z",
+      "observation_id": "2026-10-01__r001",
+      "observation_revision": 1,
+      "evidence_capture": "browser_dom_text",
+      "chart_session_date_raw": null,
+      "instrument_raw": null,
+      "actual_contract": null,
+      "chart_timeframe_raw": null,
+      "available_at": null,
+      "historical_availability_status": "historical_availability_unverified",
+      "timing_class": "supported later/intraday",
+      "preopen_timing_class": "unresolved",
+      "timing_basis": "Retained rendered post timestamp is after09:25 and during the closing intraday window (about15:50\u201315:55 New York). It supports later/intraday presence only, not pre-open availability; no after-close claim is made.",
+      "phase2_inspection_method": "Retained observation metadata/transcription review; no fresh browser or image inspection by this selector."
+    },
+    {
+      "source_id": "B-20261002",
+      "kind": "retained_daily_plan",
+      "session_date": "2026-10-02",
+      "source_url": "https://verniman.blogspot.com/2009/10/jobs-report.html",
+      "source_post_id": "2570733381260392228",
+      "outlook_id": "522c1fe84bca1bbf8cdf8543d0481f17049b5b2c3e5067652db1c57a98778566",
+      "source_revision_id": "522c1fe84bca1bbf8cdf8543d0481f17049b5b2c3e5067652db1c57a98778566",
+      "content_sha256": "a25d86d243516f6bf3c11a2f658f8190cf4a80b7e07c2dde26c3b75df5417113",
+      "contract_raw": "ESZ26",
+      "contract_identity": "ESZ26 explicitly retained in daily plan; no equivalence with X /ES inferred",
+      "extraction_dataset": "verniman_daily_levels__2.0.0",
+      "extraction_version": "verniman_history_ab_v2",
+      "source_claimed_published_at": "2009-10-02 13:07:00+00:00",
+      "source_claimed_updated_at": "2026-10-02 15:30:48.874000+00:00",
+      "source_claimed_updated_new_york": "2026-10-02T11:30:48.874000-04:00",
+      "captured_at": "2026-10-20 23:43:40.225158+00:00",
+      "available_at": null,
+      "historical_availability_status": "historical_availability_unverified",
+      "preopen_timing_class": "unresolved",
+      "timing_basis": "Reused 2009 publication metadata and later 2026 update/capture do not certify historical pre-open content availability. Earlier update clock alone is insufficient.",
+      "bytes": [
+        {
+          "path": "data/raw/blogspot/verniman/html/20261020T234336Z_history_e1a4e32d/post-0013.html",
+          "sha256": "cf3a8a2e9f92fcd8dab9582fc959dd1e1ec757c8eca3dae800176877d93695c9",
+          "size_bytes": 45429
+        },
+        {
+          "path": "data/raw/blogspot/verniman/html/20261020T234336Z_history_e1a4e32d/post-0013.atom",
+          "sha256": "50d67392b6845d26345cf4ab99383efd8692c57333185c4343a4a47215427201",
+          "size_bytes": 7022
+        }
+      ],
+      "inspection_method": "Phase 2 exact-session canonical extraction and metadata review; original post bytes hash checked. Full third-party prose retained privately only."
+    },
+    {
+      "source_id": "B-20261002-I01",
+      "parent_source_id": "B-20261002",
+      "kind": "retained_blog_chart",
+      "session_date": "2026-10-02",
+      "source_url": "https://verniman.blogspot.com/2009/10/jobs-report.html",
+      "image_source_url": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhyfggmQ9IkHT9eSHHMWPaDDA_08OV1FFri6T2k4pJdzmI0DdBRKIQUA5ZJejjYsE5Oaa2vPGZCmeDzlera9wzlyaSE80mBmWcjTuEaeezRpyD22R9izAsP8ofiL7aZl7-Y89-gy5Kq6KPb_JkT6IctUFBPreNn-67i0BcQnhIy6YPLcJuOtRv95pYgib6C/s938/Captura%20de%20pantalla%202026-10-02%20091201.png",
+      "path": "data/raw/blogspot/verniman/html/20261020T234336Z_history_e1a4e32d/images/post-0013-01.png",
+      "sha256": "c52cb2174ed1a2bb0a93b7c0cf6bee54a9d5b28f980fedaac8006b17c305f323",
+      "size_bytes": 56044,
+      "captured_at": "2026-10-20T23:43:40.692919+00:00",
+      "source_time_claim": "Remote filename clock only; timezone is not printed. Before09:25 if interpreted in NewYork, but neither timezone nor historical publication availability is authenticated.",
+      "available_at": null,
+      "preopen_timing_class": "unresolved",
+      "inspection_method": "Phase 2 retained pixels visually reviewed with local image viewer by root and source-review agent. This is inspection of retained bytes, not a fresh source-site capture.",
+      "phase2_retained_pixel_review": {
+        "status": "reviewed",
+        "recorded_at": "2026-10-30T22:37:55.787307+00:00",
+        "scope": "Exact authorized-session blog image only; surrounding links/galleries not opened."
+      },
+      "claimed_chart_clock": "2026-10-02 09:12:01",
+      "claimed_chart_timezone": null
+    },
+    {
+      "source_id": "B-20261002-I02",
+      "parent_source_id": "B-20261002",
+      "kind": "retained_blog_chart",
+      "session_date": "2026-10-02",
+      "source_url": "https://verniman.blogspot.com/2009/10/jobs-report.html",
+      "image_source_url": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjAQDZIMiqrHZhHIYUcpBBSHFlCk7cyZixkdaX9bpzbnbjXcTIyicrpSqkGamKbjS7kIfrDY_dvA_TTt-SW7-bydhH0ppK1ofgeQBDjUY7Sowu8CQMvBRv8Q0HRQBjITRbGXi6Pe1LmfEv_HHWiHgaXaUtCcAHU92tlJHB96EeR8nroehUuQvA0DD9Gjy3c/s927/Captura%20de%20pantalla%202026-10-02%20091223.png",
+      "path": "data/raw/blogspot/verniman/html/20261020T234336Z_history_e1a4e32d/images/post-0013-02.png",
+      "sha256": "a8707d35cfecce7c50d03de9f71d4e2281a70b40dba63ccac9faaf3dcaa78ecf",
+      "size_bytes": 41081,
+      "captured_at": "2026-10-20T23:43:41.212159+00:00",
+      "source_time_claim": "Remote filename clock only; timezone is not printed. Before09:25 if interpreted in NewYork, but neither timezone nor historical publication availability is authenticated.",
+      "available_at": null,
+      "preopen_timing_class": "unresolved",
+      "inspection_method": "Phase 2 retained pixels visually reviewed with local image viewer by root and source-review agent. This is inspection of retained bytes, not a fresh source-site capture.",
+      "phase2_retained_pixel_review": {
+        "status": "reviewed",
+        "recorded_at": "2026-10-30T22:37:55.787307+00:00",
+        "scope": "Exact authorized-session blog image only; surrounding links/galleries not opened."
+      },
+      "claimed_chart_clock": "2026-10-02 09:12:23",
+      "claimed_chart_timezone": null
+    },
+    {
+      "source_id": "X-2106113108016021595",
+      "kind": "full_session_trade_chart",
+      "session_date": "2026-10-02",
+      "source_url": "https://x.com/kofitrading/status/2106113108016021595",
+      "post_id": "2106113108016021595",
+      "source_posted_at": "2026-10-02T20:04:29.000Z",
+      "source_posted_new_york": "2026-10-02T16:04:29-04:00",
+      "captured_at": "2026-10-28T09:02:55.525234+00:00",
+      "observation_id": "2026-10-02__r001",
+      "observation_revision": 1,
+      "evidence_capture": "browser_screenshot",
+      "chart_session_date_raw": "2026-10-02",
+      "instrument_raw": "/ES",
+      "actual_contract": null,
+      "chart_timeframe_raw": "3m",
+      "available_at": null,
+      "historical_availability_status": "historical_availability_unverified",
+      "timing_class": "supported later/intraday",
+      "preopen_timing_class": "unresolved",
+      "timing_basis": "Retained rendered post timestamp is after16:00 New York for this selected closing role. It supports later presence only; closing labels are not assumed available at09:25.",
+      "phase2_inspection_method": "Phase 2 retained dated trade-chart pixels visually reviewed by root and independently by the source-review agent during final map audit. Named structural references only; no execution or fill inference. Any fresh rendered X inspection is separately recorded in the access log.",
+      "bytes": {
+        "path": "data/inbox/x/verniman_eod/20261028_backfill_2026/screenshots/2026-10-02_2106113108016021595.jpg",
+        "sha256": "c9aa836a92db8d1460847a283592cb3956d62d1e99633e5272cdb18f43990c72",
+        "size_bytes": 81390
+      },
+      "phase2_retained_pixel_review": {
+        "status": "reviewed",
+        "recorded_at": "2026-10-30T22:37:55.787307+00:00",
+        "scope": "Authorized-session dated recap and named references; no execution verification.",
+        "final_independent_map_audit_recorded_at": "2026-10-30T22:50:01.221782+00:00"
+      }
+    },
+    {
+      "source_id": "X-2106113331052585421",
+      "kind": "closing_technical_map",
+      "session_date": "2026-10-02",
+      "source_url": "https://x.com/kofitrading/status/2106113331052585421",
+      "post_id": "2106113331052585421",
+      "source_posted_at": "2026-10-02T20:05:22.000Z",
+      "source_posted_new_york": "2026-10-02T16:05:22-04:00",
+      "captured_at": "2026-10-28T09:02:50.841070+00:00",
+      "observation_id": "2026-10-02__r001",
+      "observation_revision": 1,
+      "evidence_capture": "browser_screenshot",
+      "chart_session_date_raw": null,
+      "instrument_raw": null,
+      "actual_contract": null,
+      "chart_timeframe_raw": null,
+      "available_at": null,
+      "historical_availability_status": "historical_availability_unverified",
+      "timing_class": "supported later/intraday",
+      "preopen_timing_class": "unresolved",
+      "timing_basis": "Retained rendered post timestamp is after16:00 New York for this selected closing role. It supports later presence only; closing labels are not assumed available at09:25.",
+      "phase2_inspection_method": "Phase 2 retained chart pixels visually reviewed by root and source-review agent. Any fresh rendered X inspection is separately recorded in the Phase 2 access log.",
+      "bytes": {
+        "path": "data/inbox/x/verniman_eod/20261028_backfill_2026/screenshots/2026-10-02_2106113331052585421.jpg",
+        "sha256": "4e2ecbd2cb189ea3ecc9b0e6bbbc29fcfdc31a5a72292429f0ff0dbc156c0885",
+        "size_bytes": 59101
+      },
+      "phase2_retained_pixel_review": {
+        "status": "reviewed",
+        "recorded_at": "2026-10-30T22:37:55.787307+00:00",
+        "scope": "Central technical chart from exact authorized-session source only."
+      }
+    },
+    {
+      "source_id": "X-2106109520133157216",
+      "kind": "moc_commentary",
+      "session_date": "2026-10-02",
+      "source_url": "https://x.com/kofitrading/status/2106109520133157216",
+      "post_id": "2106109520133157216",
+      "source_posted_at": "2026-10-02T19:50:13.000Z",
+      "source_posted_new_york": "2026-10-02T15:50:13-04:00",
+      "captured_at": "2026-10-28T09:02:18.831Z",
+      "observation_id": "2026-10-02__r001",
+      "observation_revision": 1,
+      "evidence_capture": "browser_dom_text",
+      "chart_session_date_raw": null,
+      "instrument_raw": null,
+      "actual_contract": null,
+      "chart_timeframe_raw": null,
+      "available_at": null,
+      "historical_availability_status": "historical_availability_unverified",
+      "timing_class": "supported later/intraday",
+      "preopen_timing_class": "unresolved",
+      "timing_basis": "Retained rendered post timestamp is after09:25 and during the closing intraday window (about15:50\u201315:55 New York). It supports later/intraday presence only, not pre-open availability; no after-close claim is made.",
+      "phase2_inspection_method": "Retained observation metadata/transcription review; no fresh browser or image inspection by this selector."
+    },
+    {
+      "source_id": "B-20261005",
+      "kind": "retained_daily_plan",
+      "session_date": "2026-10-05",
+      "source_url": "https://verniman.blogspot.com/2009/10/ism-services.html",
+      "source_post_id": "2228029667859059490",
+      "outlook_id": "7dac3ca52453df3e2e822ab187eb2d6ac2e41dc6ba169369cf9f584a6c9530f1",
+      "source_revision_id": "7dac3ca52453df3e2e822ab187eb2d6ac2e41dc6ba169369cf9f584a6c9530f1",
+      "content_sha256": "cad092afc28fd61504aec942efe214d98a6f9083ea04df16b1a4a7c6adc3d29f",
+      "contract_raw": "ESZ26",
+      "contract_identity": "ESZ26 explicitly retained in daily plan; no equivalence with X /ES inferred",
+      "extraction_dataset": "verniman_daily_levels__2.0.0",
+      "extraction_version": "verniman_history_ab_v2",
+      "source_claimed_published_at": "2009-10-05 12:56:00+00:00",
+      "source_claimed_updated_at": "2026-10-05 12:58:47.016000+00:00",
+      "source_claimed_updated_new_york": "2026-10-05T08:58:47.016000-04:00",
+      "captured_at": "2026-10-20 23:43:38.606251+00:00",
+      "available_at": null,
+      "historical_availability_status": "historical_availability_unverified",
+      "preopen_timing_class": "unresolved",
+      "timing_basis": "Reused 2009 publication metadata and later 2026 update/capture do not certify historical pre-open content availability. Earlier update clock alone is insufficient.",
+      "bytes": [
+        {
+          "path": "data/raw/blogspot/verniman/html/20261020T234336Z_history_e1a4e32d/post-0012.html",
+          "sha256": "aa353f0ab8d0ac54fa7a3faed40230d2a51eb40195676947ee48e8b9cdf5bbbd",
+          "size_bytes": 45138
+        },
+        {
+          "path": "data/raw/blogspot/verniman/html/20261020T234336Z_history_e1a4e32d/post-0012.atom",
+          "sha256": "b49086f0bf4f5a73fe4324656359c9f72df73e52807969a2fb97f9ee4e5679ce",
+          "size_bytes": 6682
+        }
+      ],
+      "inspection_method": "Phase 2 exact-session canonical extraction and metadata review; original post bytes hash checked. Full third-party prose retained privately only."
+    },
+    {
+      "source_id": "B-20261005-I01",
+      "parent_source_id": "B-20261005",
+      "kind": "retained_blog_chart",
+      "session_date": "2026-10-05",
+      "source_url": "https://verniman.blogspot.com/2009/10/ism-services.html",
+      "image_source_url": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgWf7CmSfGahzPSJCgrpdV2Yzz84cviUYdTLGmhzcH9lWgJHatfYy8xMyD2iLo153UoIdxie3OFckcOe9JfpC4lZRsJUx_jEutNVn7N-kh3Q6Wp8zKquJ3rcfJR1fCQ3_P-9x624V3yUy0OgoC9LGMSvsAAfYliP2odLu61RwMEaOn8VG-A_DbfnVclLeYE/s936/Captura%20de%20pantalla%202026-10-05%20085550.png",
+      "path": "data/raw/blogspot/verniman/html/20261020T234336Z_history_e1a4e32d/images/post-0012-01.png",
+      "sha256": "477cace3fea8f2dcf17720845b7b54b0388749a0d85f73f0eb85640be1353ec2",
+      "size_bytes": 55154,
+      "captured_at": "2026-10-20T23:43:39.156472+00:00",
+      "source_time_claim": "Remote filename clock only; timezone is not printed. Before09:25 if interpreted in NewYork, but neither timezone nor historical publication availability is authenticated.",
+      "available_at": null,
+      "preopen_timing_class": "unresolved",
+      "inspection_method": "Phase 2 retained pixels visually reviewed with local image viewer by root and source-review agent. This is inspection of retained bytes, not a fresh source-site capture.",
+      "phase2_retained_pixel_review": {
+        "status": "reviewed",
+        "recorded_at": "2026-10-30T22:37:55.787307+00:00",
+        "scope": "Exact authorized-session blog image only; surrounding links/galleries not opened."
+      },
+      "claimed_chart_clock": "2026-10-05 08:55:50",
+      "claimed_chart_timezone": null
+    },
+    {
+      "source_id": "B-20261005-I02",
+      "parent_source_id": "B-20261005",
+      "kind": "retained_blog_chart",
+      "session_date": "2026-10-05",
+      "source_url": "https://verniman.blogspot.com/2009/10/ism-services.html",
+      "image_source_url": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhdgM5KMrX3HY8S6muHkg9xE1sXhWKEOk1R9D1RDiJqm4VJlvVPJYWVlO8Sbt5fmarLV3pT04jdIhuLXdraioEfJ6Z6yhCYJ4Z7Rnn6UGlPqqw62giuwGBKKfTQdZl68yRToqk04oUbkE0ilRCNtkV6FuNHCKVsrUG6sPVZHqw6XrCxwEmjC347aieU4AGH/s935/Captura%20de%20pantalla%202026-10-05%20085609.png",
+      "path": "data/raw/blogspot/verniman/html/20261020T234336Z_history_e1a4e32d/images/post-0012-02.png",
+      "sha256": "88ba6d26fb5dcdcaac348f75fc567c6d64b855e7a2a22c41e1b43e8666d3bbf0",
+      "size_bytes": 41217,
+      "captured_at": "2026-10-20T23:43:39.727404+00:00",
+      "source_time_claim": "Remote filename clock only; timezone is not printed. Before09:25 if interpreted in NewYork, but neither timezone nor historical publication availability is authenticated.",
+      "available_at": null,
+      "preopen_timing_class": "unresolved",
+      "inspection_method": "Phase 2 retained pixels visually reviewed with local image viewer by root and source-review agent. This is inspection of retained bytes, not a fresh source-site capture.",
+      "phase2_retained_pixel_review": {
+        "status": "reviewed",
+        "recorded_at": "2026-10-30T22:37:55.787307+00:00",
+        "scope": "Exact authorized-session blog image only; surrounding links/galleries not opened."
+      },
+      "claimed_chart_clock": "2026-10-05 08:56:09",
+      "claimed_chart_timezone": null
+    },
+    {
+      "source_id": "X-2107205857691971880",
+      "kind": "full_session_trade_chart",
+      "session_date": "2026-10-05",
+      "source_url": "https://x.com/kofitrading/status/2107205857691971880",
+      "post_id": "2107205857691971880",
+      "source_posted_at": "2026-10-05T20:26:41.000Z",
+      "source_posted_new_york": "2026-10-05T16:26:41-04:00",
+      "captured_at": "2026-10-28T09:01:54.420930+00:00",
+      "observation_id": "2026-10-05__r001",
+      "observation_revision": 1,
+      "evidence_capture": "browser_screenshot",
+      "chart_session_date_raw": "2026-10-05",
+      "instrument_raw": "/ES",
+      "actual_contract": null,
+      "chart_timeframe_raw": "3m",
+      "available_at": null,
+      "historical_availability_status": "historical_availability_unverified",
+      "timing_class": "supported later/intraday",
+      "preopen_timing_class": "unresolved",
+      "timing_basis": "Retained rendered post timestamp is after16:00 New York for this selected closing role. It supports later presence only; closing labels are not assumed available at09:25.",
+      "phase2_inspection_method": "Phase 2 retained dated trade-chart pixels visually reviewed by root and independently by the source-review agent during final map audit. Named structural references only; no execution or fill inference. Any fresh rendered X inspection is separately recorded in the access log.",
+      "bytes": {
+        "path": "data/inbox/x/verniman_eod/20261028_backfill_2026/screenshots/2026-10-05_2107205857691971880.jpg",
+        "sha256": "919855378700f752b2c4506e1519993aa8a3d571861843d2026350568a1ba09d",
+        "size_bytes": 84582
+      },
+      "phase2_retained_pixel_review": {
+        "status": "reviewed",
+        "recorded_at": "2026-10-30T22:37:55.787307+00:00",
+        "scope": "Authorized-session dated recap and named references; no execution verification.",
+        "final_independent_map_audit_recorded_at": "2026-10-30T22:50:01.221783+00:00"
+      }
+    },
+    {
+      "source_id": "X-2107206362547839375",
+      "kind": "closing_technical_map",
+      "session_date": "2026-10-05",
+      "source_url": "https://x.com/kofitrading/status/2107206362547839375",
+      "post_id": "2107206362547839375",
+      "source_posted_at": "2026-10-05T20:28:41.000Z",
+      "source_posted_new_york": "2026-10-05T16:28:41-04:00",
+      "captured_at": "2026-10-28T09:01:53.606049+00:00",
+      "observation_id": "2026-10-05__r001",
+      "observation_revision": 1,
+      "evidence_capture": "browser_screenshot",
+      "chart_session_date_raw": null,
+      "instrument_raw": null,
+      "actual_contract": null,
+      "chart_timeframe_raw": null,
+      "available_at": null,
+      "historical_availability_status": "historical_availability_unverified",
+      "timing_class": "supported later/intraday",
+      "preopen_timing_class": "unresolved",
+      "timing_basis": "Retained rendered post timestamp is after16:00 New York for this selected closing role. It supports later presence only; closing labels are not assumed available at09:25.",
+      "phase2_inspection_method": "Phase 2 retained chart pixels visually reviewed by root and source-review agent. Any fresh rendered X inspection is separately recorded in the Phase 2 access log.",
+      "bytes": {
+        "path": "data/inbox/x/verniman_eod/20261028_backfill_2026/screenshots/2026-10-05_2107206362547839375.jpg",
+        "sha256": "f9f5868f668427d239193cde9abffe8a80e96516382879bd7a125cd5e1b9c13f",
+        "size_bytes": 62233
+      },
+      "phase2_retained_pixel_review": {
+        "status": "reviewed",
+        "recorded_at": "2026-10-30T22:37:55.787307+00:00",
+        "scope": "Central technical chart from exact authorized-session source only."
+      }
+    },
+    {
+      "source_id": "X-2107196748552892868",
+      "kind": "moc_commentary",
+      "session_date": "2026-10-05",
+      "source_url": "https://x.com/kofitrading/status/2107196748552892868",
+      "post_id": "2107196748552892868",
+      "source_posted_at": "2026-10-05T19:50:29.000Z",
+      "source_posted_new_york": "2026-10-05T15:50:29-04:00",
+      "captured_at": "2026-10-28T09:01:34.879Z",
+      "observation_id": "2026-10-05__r001",
+      "observation_revision": 1,
+      "evidence_capture": "browser_dom_text",
+      "chart_session_date_raw": null,
+      "instrument_raw": null,
+      "actual_contract": null,
+      "chart_timeframe_raw": null,
+      "available_at": null,
+      "historical_availability_status": "historical_availability_unverified",
+      "timing_class": "supported later/intraday",
+      "preopen_timing_class": "unresolved",
+      "timing_basis": "Retained rendered post timestamp is after09:25 and during the closing intraday window (about15:50\u201315:55 New York). It supports later/intraday presence only, not pre-open availability; no after-close claim is made.",
+      "phase2_inspection_method": "Retained observation metadata/transcription review; no fresh browser or image inspection by this selector."
+    },
+    {
+      "source_id": "X-2107197162434027565",
+      "kind": "moc_commentary",
+      "session_date": "2026-10-05",
+      "source_url": "https://x.com/kofitrading/status/2107197162434027565",
+      "post_id": "2107197162434027565",
+      "source_posted_at": "2026-10-05T19:52:08.000Z",
+      "source_posted_new_york": "2026-10-05T15:52:08-04:00",
+      "captured_at": "2026-10-28T09:01:34.879Z",
+      "observation_id": "2026-10-05__r001",
+      "observation_revision": 1,
+      "evidence_capture": "browser_dom_text",
+      "chart_session_date_raw": null,
+      "instrument_raw": null,
+      "actual_contract": null,
+      "chart_timeframe_raw": null,
+      "available_at": null,
+      "historical_availability_status": "historical_availability_unverified",
+      "timing_class": "supported later/intraday",
+      "preopen_timing_class": "unresolved",
+      "timing_basis": "Retained rendered post timestamp is after09:25 and during the closing intraday window (about15:50\u201315:55 New York). It supports later/intraday presence only, not pre-open availability; no after-close claim is made.",
+      "phase2_inspection_method": "Retained observation metadata/transcription review; no fresh browser or image inspection by this selector."
+    },
+    {
+      "source_id": "X-2107197833732637054",
+      "kind": "moc_commentary",
+      "session_date": "2026-10-05",
+      "source_url": "https://x.com/kofitrading/status/2107197833732637054",
+      "post_id": "2107197833732637054",
+      "source_posted_at": "2026-10-05T19:54:48.000Z",
+      "source_posted_new_york": "2026-10-05T15:54:48-04:00",
+      "captured_at": "2026-10-28T09:01:34.879Z",
+      "observation_id": "2026-10-05__r001",
+      "observation_revision": 1,
+      "evidence_capture": "browser_dom_text",
+      "chart_session_date_raw": null,
+      "instrument_raw": null,
+      "actual_contract": null,
+      "chart_timeframe_raw": null,
+      "available_at": null,
+      "historical_availability_status": "historical_availability_unverified",
+      "timing_class": "supported later/intraday",
+      "preopen_timing_class": "unresolved",
+      "timing_basis": "Retained rendered post timestamp is after09:25 and during the closing intraday window (about15:50\u201315:55 New York). It supports later/intraday presence only, not pre-open availability; no after-close claim is made.",
+      "phase2_inspection_method": "Retained observation metadata/transcription review; no fresh browser or image inspection by this selector."
+    },
+    {
+      "source_id": "X-2107198123617685836",
+      "kind": "moc_commentary",
+      "session_date": "2026-10-05",
+      "source_url": "https://x.com/kofitrading/status/2107198123617685836",
+      "post_id": "2107198123617685836",
+      "source_posted_at": "2026-10-05T19:55:57.000Z",
+      "source_posted_new_york": "2026-10-05T15:55:57-04:00",
+      "captured_at": "2026-10-28T09:01:34.879Z",
+      "observation_id": "2026-10-05__r001",
+      "observation_revision": 1,
+      "evidence_capture": "browser_dom_text",
+      "chart_session_date_raw": null,
+      "instrument_raw": null,
+      "actual_contract": null,
+      "chart_timeframe_raw": null,
+      "available_at": null,
+      "historical_availability_status": "historical_availability_unverified",
+      "timing_class": "supported later/intraday",
+      "preopen_timing_class": "unresolved",
+      "timing_basis": "Retained rendered post timestamp is after09:25 and during the closing intraday window (about15:50\u201315:55 New York). It supports later/intraday presence only, not pre-open availability; no after-close claim is made.",
+      "phase2_inspection_method": "Retained observation metadata/transcription review; no fresh browser or image inspection by this selector."
+    }
+  ],
+  "integrity_status": "21 exact original source/capture paths byte-checked; release loader additionally checked immutable release files. Integrity is not historical availability or scientific validity.",
+  "phase2_exposure_note": "No outside-date target answers encountered in the six authorized blog maps and three authorized X technical charts reviewed by the source-review agent. October 1 weekly-context X source whose stated chart date is September28 was excluded; its pixels and source commentary were not read."
+}

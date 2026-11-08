@@ -1,0 +1,9 @@
+/opt/homebrew/opt/python@3.11/bin/python3.11 studies/27_verniman_method_knowledge/capture_daily_maps.py --stage work/27_verniman_method_knowledge/20261031T054828Z_daily_maps_2017 --start 2017-01-01 --end 2017-12-31 --seed https://verniman.blogspot.com/2017/12/goodbye-2017.html --retained-manifest data/raw/blogspot/verniman/html/20261021T033311Z_history_bccc6daf/collection_manifest.final.json
+python3 studies/27_verniman_method_knowledge/build_daily_maps.py --stage work/27_verniman_method_knowledge/20261031T054828Z_daily_maps_2017
+python3 studies/27_verniman_method_knowledge/build_daily_maps.py --stage work/27_verniman_method_knowledge/20261031T054828Z_daily_maps_2017 --check
+python3 work/27_verniman_method_knowledge/20261031T054828Z_daily_maps_2017/provenance/audit_capture.py
+python3 work/27_verniman_method_knowledge/20261031T054828Z_daily_maps_2017/provenance/audit_previous_years.py
+python3 work/27_verniman_method_knowledge/20261031T054828Z_daily_maps_2017/provenance/builder-2017-fixture.py
+python3 work/27_verniman_method_knowledge/20261031T054828Z_daily_maps_2017/provenance/scope-exclusion-2017-fixture.py
+/opt/homebrew/opt/python@3.11/bin/python3.11 studies/27_verniman_method_knowledge/seal_daily_maps.py --stage work/27_verniman_method_knowledge/20261031T054828Z_daily_maps_2017 --prepare
+/opt/homebrew/opt/python@3.11/bin/python3.11 studies/27_verniman_method_knowledge/seal_daily_maps.py --stage work/27_verniman_method_knowledge/20261031T054828Z_daily_maps_2017 --seal

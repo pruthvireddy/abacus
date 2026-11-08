@@ -1,0 +1,8 @@
+/opt/homebrew/opt/python@3.11/bin/python3.11 studies/27_verniman_method_knowledge/capture_daily_maps.py --stage work/27_verniman_method_knowledge/20261031T051744Z_daily_maps_2021 --start 2021-01-01 --end 2021-12-31 --seed https://verniman.blogspot.com/2004/12/good-bye-2021.html --retained-manifest data/raw/blogspot/verniman/html/20261021T020716Z_history_fda74d29/collection_manifest.reviewed.json --date-override-manifest studies/27_verniman_method_knowledge/daily-map-2021-date-overrides.json
+python3 studies/27_verniman_method_knowledge/build_daily_maps.py --stage work/27_verniman_method_knowledge/20261031T051744Z_daily_maps_2021
+python3 studies/27_verniman_method_knowledge/build_daily_maps.py --stage work/27_verniman_method_knowledge/20261031T051744Z_daily_maps_2021 --check
+python3 work/27_verniman_method_knowledge/20261031T051744Z_daily_maps_2021/provenance/audit_capture.py
+python3 work/27_verniman_method_knowledge/20261031T051744Z_daily_maps_2021/provenance/audit_previous_years.py
+python3 work/27_verniman_method_knowledge/20261031T051744Z_daily_maps_2021/provenance/builder-2021-fixture.py
+/opt/homebrew/opt/python@3.11/bin/python3.11 studies/27_verniman_method_knowledge/seal_daily_maps.py --stage work/27_verniman_method_knowledge/20261031T051744Z_daily_maps_2021 --prepare
+/opt/homebrew/opt/python@3.11/bin/python3.11 studies/27_verniman_method_knowledge/seal_daily_maps.py --stage work/27_verniman_method_knowledge/20261031T051744Z_daily_maps_2021 --seal

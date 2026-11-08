@@ -1,0 +1,862 @@
+//@version=6
+indicator("Autopivot Levels - Daily", overlay=true, max_lines_count=220, max_labels_count=220, max_boxes_count=100)
+
+// Experimental N1/E1 + contextual pivot control; not Verniman's recovered method.
+// Candle volume is allocated uniformly over inclusive touched bins (Phase 1).
+// No external timeframe request, RTH open, later anchor, or post-cutoff profile.
+const string TZ = "America/New_York"
+const int MAX_BINS = 6000
+const int FIVE_MIN = 300000
+int rowTicks = input.int(16, "Profile row width (minimum ticks)", minval=1, maxval=1000, group="Frozen profile settings")
+float vaPct = input.float(70, "Value area %", minval=1, maxval=100, group="Frozen profile settings")
+int keepDays = input.int(30, "Historical daily lines", minval=1, maxval=100, group="Display")
+int endHour = input.int(16, "Line endpoint hour (New York)", minval=10, maxval=23, group="Display")
+int endMinute = input.int(0, "Line endpoint minute", minval=0, maxval=59, group="Display")
+bool strictMode = input.bool(false, "Strict mode: suppress fallback lines", group="Display")
+bool showUncertainty = input.bool(false, "Selected HVE uncertainty shading", group="Display")
+bool showAcceptance = input.bool(true, "Post-cutoff acceptance status", group="Display")
+bool showAlternate = input.bool(true, "Show alternate / fallback level", group="Display")
+bool showTable = input.bool(false, "Show diagnostic table", group="Display")
+bool showRanked = input.bool(true, "Show ranked candidates in Data Window", group="Data Window", tooltip="Other distinct references, frozen at 09:25. The existing alternate comes first; remaining prices are ordered by distance from the cutoff close. This is an engineering order, not learned confidence.")
+int rankedCount = input.int(5, "Ranked candidates to show", minval=1, maxval=8, group="Data Window")
+bool showRankDetails = input.bool(false, "Show candidate source details", group="Data Window", tooltip="Source codes: 1 = prior RTH YVAL; 2 = prior RTH YPOC; 3 = prior RTH YVAH; 4 = overnight POC; 5 = overnight lower E1; 6 = overnight upper E1. Parent key identifies the N1 representative row. Source flags preserve confluence: YVAL 1, YPOC 2, YVAH 4, ONPOC 8, lower E1 16, upper E1 32 (add when shared). Full names are in the pivot label tooltip and optional diagnostic table.")
+float rowSize = syminfo.mintick * rowTicks
+float tolerance = math.max(2 * syminfo.mintick, rowSize / 2)
+
+f_stamp(int base, int dayOffset, int h, int m) =>
+    timestamp(TZ, year(base, TZ), month(base, TZ), dayofmonth(base, TZ) + dayOffset, h, m)
+f_date(int stamp) =>
+    na(stamp) ? "na" : str.format_time(stamp, "yyyy-MM-dd", TZ)
+f_time(int stamp) =>
+    na(stamp) ? "na" : str.format_time(stamp, "yyyy-MM-dd HH:mm", TZ)
+f_price(float v) =>
+    na(v) ? "na" : str.tostring(v, format.mintick)
+
+// Exact Phase 1 allocation, POC and value-area conventions.
+type Profile
+    array<float> bins
+    int minKey = na
+    float total = 0
+    float vah = na
+    float poc = na
+    float val = na
+    bool overflow = false
+    bool volumeOk = true
+
+method clear(Profile p) =>
+    array.clear(p.bins)
+    p.minKey := na
+    p.total := 0
+    p.vah := na
+    p.poc := na
+    p.val := na
+    p.overflow := false
+    p.volumeOk := true
+
+method add(Profile p, float vol, float ph, float pl) =>
+    if na(vol) or vol < 0 or na(ph) or na(pl) or ph < pl
+        p.volumeOk := false
+    if not p.overflow and p.volumeOk
+        int lk = int(math.floor(pl / rowSize))
+        int hk = int(math.floor(ph / rowSize))
+        int oldN = array.size(p.bins)
+        int newMin = na(p.minKey) ? lk : math.min(lk, p.minKey)
+        int oldMax = oldN > 0 ? p.minKey + oldN - 1 : hk
+        int newMax = math.max(hk, oldMax)
+        if newMax - newMin + 1 > MAX_BINS
+            p.overflow := true
+        else
+            if oldN == 0
+                p.minKey := lk
+                for k = lk to hk
+                    array.push(p.bins, 0)
+            else
+                if lk < p.minKey
+                    for k = lk to p.minKey - 1
+                        array.unshift(p.bins, 0)
+                    p.minKey := lk
+                if hk > oldMax
+                    for k = oldMax + 1 to hk
+                        array.push(p.bins, 0)
+            float share = vol / (hk - lk + 1)
+            for k = lk to hk
+                int idx = k - p.minKey
+                array.set(p.bins, idx, array.get(p.bins, idx) + share)
+            p.total += vol
+    p.total
+
+method levels(Profile p) =>
+    p.vah := na
+    p.poc := na
+    p.val := na
+    int n = array.size(p.bins)
+    if n > 0 and p.total > 0 and p.volumeOk and not p.overflow
+        int mode = 0
+        float largest = array.get(p.bins, 0)
+        if n > 1
+            for i = 1 to n - 1
+                if array.get(p.bins, i) > largest
+                    largest := array.get(p.bins, i)
+                    mode := i
+        int lo = mode
+        int hi = mode
+        float covered = largest
+        while covered < p.total * vaPct / 100 and (lo > 0 or hi < n - 1)
+            float below = lo > 0 ? array.get(p.bins, lo - 1) : -1
+            float above = hi < n - 1 ? array.get(p.bins, hi + 1) : -1
+            if above >= below
+                hi += 1
+                covered += array.get(p.bins, hi)
+            else
+                lo -= 1
+                covered += array.get(p.bins, lo)
+        p.vah := (p.minKey + hi) * rowSize
+        p.poc := (p.minKey + mode) * rowSize
+        p.val := (p.minKey + lo) * rowSize
+
+type Period
+    Profile vp
+    int id = na
+    int last = na
+    int count = 0
+    bool coverage = false
+
+method reset(Period p, int id, int start) =>
+    p.vp.clear()
+    p.id := id
+    p.last := na
+    p.count := 0
+    p.coverage := time == start
+
+method ingest(Period p) =>
+    if time_close - time != FIVE_MIN or (not na(p.last) and time != p.last)
+        p.coverage := false
+    p.last := time_close
+    p.count += 1
+    p.vp.add(volume, high, low)
+
+f_ready(Period p, int terminal, int expected) =>
+    p.coverage and p.last == terminal and p.count == expected and p.vp.total > 0 and p.vp.volumeOk and not p.vp.overflow
+f_periodProblem(Period p, int terminal, int expected) =>
+    na(p.id) ? "insufficient history" : p.vp.overflow ? "profile exceeds 6000 rows" : not p.vp.volumeOk ? "missing/invalid volume or price" : p.vp.total <= 0 ? "zero profile volume" : p.last != terminal ? "missing terminal bar" : not p.coverage or p.count != expected ? "partial/noncontiguous session (short sessions unsupported)" : "ready"
+
+// Full uncapped plateau ledger; price order remains stable. Status identifies
+// threshold rejection, retained parent, separation rejection, or cap omission.
+type Node
+    int rep
+    int plateauEnd
+    int lo
+    int hi
+    float peak
+    float prominence
+    float mass
+    string status
+    bool overlap = false
+    bool lowerOk = false
+    bool upperOk = false
+    float lowerContrast = na
+    float upperContrast = na
+    string lowerWhy = "not evaluated"
+    string upperWhy = "not evaluated"
+    float normalizedPeak = na
+    float normalizedProminence = na
+    float normalizedMass = na
+
+type Trough
+    int lo
+    int hi
+    float mass
+    int leftParent
+    int rightParent
+
+// O(rows) one-sided minima to first STRICTLY higher row, using monotone stacks.
+// Equal-height remote peaks are passed through, not mistaken for a stop.
+f_sideMin(array<float> masses, bool reverse) =>
+    int n = array.size(masses)
+    array<float> result = array.new_float(n, 0)
+    array<float> heights = array.new_float()
+    array<float> blockMins = array.new_float()
+    if n > 0
+        for step = 0 to n - 1
+            int idx = reverse ? n - 1 - step : step
+            float h = array.get(masses, idx)
+            float bottom = h
+            while array.size(heights) > 0
+                if array.last(heights) > h
+                    break
+                bottom := math.min(bottom, array.pop(blockMins))
+                array.pop(heights)
+            array.set(result, idx, bottom)
+            array.push(heights, h)
+            array.push(blockMins, bottom)
+    result
+
+// Range-minimum tree keeps region growth bounded even for many broad shoulders.
+f_rangeMin(array<float> tree, int base, int first, int last) =>
+    int lo = base + first
+    int hi = base + last
+    float answer = 1e100
+    while lo <= hi
+        if lo % 2 == 1
+            answer := math.min(answer, array.get(tree, lo))
+            lo += 1
+        if hi % 2 == 0
+            answer := math.min(answer, array.get(tree, hi))
+            hi -= 1
+        lo := int(math.floor(lo / 2))
+        hi := int(math.floor(hi / 2))
+    answer
+
+f_nodes(Profile p) =>
+    array<Node> ledger = array.new<Node>()
+    array<int> kept = array.new_int()
+    array<Trough> troughs = array.new<Trough>()
+    int n = array.size(p.bins)
+    int omitted = 0
+    int rejected = 0
+    int edgeRejected = 0
+    if n > 0 and p.total > 0
+        array<float> masses = array.new_float(n, 0)
+        for j = 0 to n - 1
+            // Raw-mass comparisons are scale invariant and avoid additional
+            // division rounding at exact qualification thresholds. Normalized
+            // row mass remains bins[j]/total; node ledger stores both forms.
+            array.set(masses, j, array.get(p.bins, j))
+        array<float> leftMin = f_sideMin(masses, false)
+        array<float> rightMin = f_sideMin(masses, true)
+        float maximum = array.max(masses)
+        int treeBase = 1
+        while treeBase < n
+            treeBase *= 2
+        array<float> rangeTree = array.new_float(treeBase * 2, 1e100)
+        array<float> massPrefix = array.new_float(n + 1, 0)
+        for j = 0 to n - 1
+            array.set(rangeTree, treeBase + j, array.get(masses, j))
+            array.set(massPrefix, j + 1, array.get(massPrefix, j) + array.get(masses, j))
+        int treeIndex = treeBase - 1
+        while treeIndex >= 1
+            array.set(rangeTree, treeIndex, math.min(array.get(rangeTree, treeIndex * 2), array.get(rangeTree, treeIndex * 2 + 1)))
+            treeIndex -= 1
+        int i = 0
+        while i < n
+            int finish = i
+            float height = array.get(masses, i)
+            while finish + 1 < n
+                if array.get(masses, finish + 1) != height
+                    break
+                finish += 1
+            bool interiorPeak = i > 0 and finish < n - 1
+            if interiorPeak
+                interiorPeak := height > array.get(masses, i - 1) and height > array.get(masses, finish + 1)
+            if interiorPeak
+                float saddle = math.max(array.get(leftMin, i), array.get(rightMin, finish))
+                float prominence = height - saddle
+                bool qualified = height >= 0.20 * maximum and prominence >= 0.10 * maximum
+                int lo = i
+                int hi = finish
+                float boundary = saddle + 0.5 * prominence
+                if qualified
+                    int leftLo = 0
+                    int leftHi = i
+                    while leftLo < leftHi
+                        int middle = int(math.floor((leftLo + leftHi) / 2))
+                        if f_rangeMin(rangeTree, treeBase, middle, i) >= boundary
+                            leftHi := middle
+                        else
+                            leftLo := middle + 1
+                    lo := leftLo
+                    int rightLo = finish
+                    int rightHi = n - 1
+                    while rightLo < rightHi
+                        int middle = int(math.ceil((rightLo + rightHi) / 2))
+                        if f_rangeMin(rangeTree, treeBase, finish, middle) >= boundary
+                            rightLo := middle
+                        else
+                            rightHi := middle - 1
+                    hi := rightLo
+                float nodeMass = array.get(massPrefix, hi + 1) - array.get(massPrefix, lo)
+                string why = height < 0.20 * maximum ? "rejected: height" : prominence < 0.10 * maximum ? "rejected: prominence" : "qualified"
+                Node recorded = Node.new(i, finish, lo, hi, height, prominence, nodeMass, why)
+                recorded.normalizedPeak := height / p.total
+                recorded.normalizedProminence := prominence / p.total
+                recorded.normalizedMass := nodeMass / p.total
+                array.push(ledger, recorded)
+                if not qualified
+                    rejected += 1
+            i := finish + 1
+        // Flag every overlap in the uncapped qualified ledger (never merge).
+        // Difference counts work even when later taller peaks grow around
+        // several earlier regions; representative order need not sort bounds.
+        int m = array.size(ledger)
+        if m > 0
+            array<int> coverChanges = array.new_int(n + 1, 0)
+            for k = 0 to m - 1
+                Node current = array.get(ledger, k)
+                if current.status == "qualified"
+                    array.set(coverChanges, current.lo, array.get(coverChanges, current.lo) + 1)
+                    array.set(coverChanges, current.hi + 1, array.get(coverChanges, current.hi + 1) - 1)
+            array<int> overlapPrefix = array.new_int(n + 1, 0)
+            int coveredBy = 0
+            for row = 0 to n - 1
+                coveredBy += array.get(coverChanges, row)
+                array.set(overlapPrefix, row + 1, array.get(overlapPrefix, row) + (coveredBy > 1 ? 1 : 0))
+            for k = 0 to m - 1
+                Node current = array.get(ledger, k)
+                if current.status == "qualified"
+                    current.overlap := array.get(overlapPrefix, current.hi + 1) - array.get(overlapPrefix, current.lo) > 0
+            // Bounded selection sort: only eight retained parents, O(8*peaks).
+            // All omissions remain in the original ledger; cap is never a pivot.
+            for rank = 0 to 7
+                int best = -1
+                for k = 0 to m - 1
+                    Node candidate = array.get(ledger, k)
+                    if candidate.status == "qualified"
+                        bool better = best == -1
+                        if not better
+                            Node old = array.get(ledger, best)
+                            better := candidate.peak > old.peak or (candidate.peak == old.peak and (candidate.prominence > old.prominence or (candidate.prominence == old.prominence and candidate.rep < old.rep)))
+                        if better
+                            best := k
+                if best != -1
+                    Node candidate = array.get(ledger, best)
+                    bool separated = true
+                    if array.size(kept) > 0
+                        for oldIndex in kept
+                            Node old = array.get(ledger, oldIndex)
+                            if math.abs(candidate.rep - old.rep) < 2
+                                separated := false
+                    if separated
+                        candidate.status := "retained"
+                        array.push(kept, best)
+                    else
+                        candidate.status := "rejected: separation"
+                        rejected += 1
+            for k = 0 to m - 1
+                Node candidate = array.get(ledger, k)
+                if candidate.status == "qualified"
+                    candidate.status := "omitted: eight-region cap"
+                    omitted += 1
+                if candidate.status == "retained"
+                    bool widthOk = candidate.hi - candidate.lo + 1 >= 2
+                    candidate.lowerWhy := not widthOk ? "parent narrower than two rows" : candidate.lo == 0 ? "domain-truncated" : "border contrast below 0.10"
+                    candidate.upperWhy := not widthOk ? "parent narrower than two rows" : candidate.hi == n - 1 ? "domain-truncated" : "border contrast below 0.10"
+                    if widthOk and candidate.lo > 0
+                        candidate.lowerContrast := (array.get(masses, candidate.lo) - array.get(masses, candidate.lo - 1)) / candidate.peak
+                        candidate.lowerOk := candidate.lowerContrast >= 0.10
+                        if candidate.lowerOk
+                            candidate.lowerWhy := "qualified"
+                    if widthOk and candidate.hi < n - 1
+                        candidate.upperContrast := (array.get(masses, candidate.hi) - array.get(masses, candidate.hi + 1)) / candidate.peak
+                        candidate.upperOk := candidate.upperContrast >= 0.10
+                        if candidate.upperOk
+                            candidate.upperWhy := "qualified"
+                    edgeRejected += (candidate.lowerOk ? 0 : 1) + (candidate.upperOk ? 0 : 1)
+            // LVNs between adjacent disjoint retained regions, price order.
+            int prior = -1
+            for k = 0 to m - 1
+                Node current = array.get(ledger, k)
+                if current.status == "retained"
+                    if prior >= 0
+                        Node lower = array.get(ledger, prior)
+                        if lower.hi + 1 < current.lo
+                            int troughRow = lower.hi + 1
+                            float troughMass = array.get(masses, troughRow)
+                            for row = lower.hi + 1 to current.lo - 1
+                                if array.get(masses, row) < troughMass
+                                    troughRow := row
+                                    troughMass := array.get(masses, row)
+                            int troughEnd = troughRow
+                            while troughEnd + 1 < current.lo
+                                if array.get(masses, troughEnd + 1) != troughMass
+                                    break
+                                troughEnd += 1
+                            if troughMass <= 0.25 * math.min(lower.peak, current.peak) and array.size(troughs) < 7
+                                array.push(troughs, Trough.new(troughRow, troughEnd, troughMass, prior, k))
+                    prior := k
+    [ledger, kept, troughs, omitted, rejected, edgeRejected]
+
+f_regionId(Node n, Profile p, int tradeDate) =>
+    "ON " + f_date(tradeDate) + " N1@" + str.tostring(p.minKey + n.rep)
+f_lower(Node n, Profile p) =>
+    (p.minKey + n.lo) * rowSize
+f_upper(Node n, Profile p) =>
+    (p.minKey + n.hi + 1) * rowSize
+
+// One distinct prior-value fallback reference. This does not re-rank N1 edges
+// or change the primary selector. Both prices freeze at the same cutoff.
+f_alternate(float primary, string primaryReason, float yvah, float ypoc, float yval, float price) =>
+    float alternate = na
+    string reference = "na"
+    if not na(primary) and not na(yvah) and not na(ypoc) and not na(yval) and not na(price)
+        array<float> choices = array.new_float()
+        array<string> identities = array.new_string()
+        if primaryReason == "Hold higher auction"
+            choices := array.from(yvah, ypoc, yval)
+            identities := array.from("YVAH", "YPOC", "YVAL")
+        else if primaryReason == "Balanced fallback — no unique directional divider"
+            bool lowerFirst = math.abs(price - yval) <= math.abs(price - yvah)
+            choices := lowerFirst ? array.from(yval, yvah) : array.from(yvah, yval)
+            identities := lowerFirst ? array.from("YVAL", "YVAH") : array.from("YVAH", "YVAL")
+        else if primary == yval
+            choices := array.from(ypoc, yvah)
+            identities := array.from("YPOC", "YVAH")
+        else if primary == yvah
+            choices := array.from(ypoc, yval)
+            identities := array.from("YPOC", "YVAL")
+        if array.size(choices) > 0
+            for index = 0 to array.size(choices) - 1
+                float candidate = array.get(choices, index)
+                if candidate != primary
+                    alternate := candidate
+                    reference := array.get(identities, index)
+                    break
+    [alternate, reference]
+
+// Ranked references are separate from the selected pivot and drawn alternate.
+// Codes identify source families, not a confidence or trading signal.
+type Potential
+    float price
+    int family
+    int parentKey
+    float prominence
+    int priority
+    int sourceMask
+    string identities
+
+f_potential(float price, int family, int parentKey, float prominence, float alternate, string identity) =>
+    Potential.new(price, family, parentKey, prominence, not na(alternate) and price == alternate ? 0 : 1, int(math.pow(2, family - 1)), identity)
+
+f_potentialBetter(Potential a, Potential b, float cutoffPrice) =>
+    float da = math.abs(a.price - cutoffPrice)
+    float db = math.abs(b.price - cutoffPrice)
+    bool better = a.priority < b.priority
+    if a.priority == b.priority
+        better := da < db
+        if da == db
+            better := a.family < b.family
+            if a.family == b.family
+                better := a.prominence > b.prominence
+                if a.prominence == b.prominence
+                    better := a.price < b.price or (a.price == b.price and nz(a.parentKey, -1) < nz(b.parentKey, -1))
+    better
+
+f_ranked(float primary, float alternate, float yval, float ypoc, float yvah, float onpoc, float cutoffPrice, Profile profile, array<Node> nodes, array<int> kept, int tradeDay, int priorDay) =>
+    array<Potential> pool = array.new<Potential>()
+    array<Potential> distinct = array.new<Potential>()
+    if not na(primary) and not na(yval) and not na(ypoc) and not na(yvah) and not na(onpoc) and not na(cutoffPrice)
+        string rthId = "RTH " + f_date(priorDay)
+        array.push(pool, f_potential(yval, 1, na, 0, alternate, rthId + " YVAL"))
+        array.push(pool, f_potential(ypoc, 2, na, 0, alternate, rthId + " YPOC"))
+        array.push(pool, f_potential(yvah, 3, na, 0, alternate, rthId + " YVAH"))
+        array.push(pool, f_potential(onpoc, 4, na, 0, alternate, "ON " + f_date(tradeDay) + " POC"))
+        for index in kept
+            Node node = array.get(nodes, index)
+            if not node.overlap
+                int parentKey = profile.minKey + node.rep
+                string parentId = f_regionId(node, profile, tradeDay)
+                if node.lowerOk
+                    array.push(pool, f_potential(f_lower(node, profile), 5, parentKey, node.prominence, alternate, parentId + " lower E1"))
+                if node.upperOk
+                    array.push(pool, f_potential(f_upper(node, profile), 6, parentKey, node.prominence, alternate, parentId + " upper E1"))
+        int count = array.size(pool)
+        if count > 1
+            for i = 0 to count - 2
+                for j = i + 1 to count - 1
+                    if f_potentialBetter(array.get(pool, j), array.get(pool, i), cutoffPrice)
+                        Potential swapValue = array.get(pool, i)
+                        array.set(pool, i, array.get(pool, j))
+                        array.set(pool, j, swapValue)
+        for candidate in pool
+            if candidate.price != primary
+                int duplicate = -1
+                int n = array.size(distinct)
+                if n > 0
+                    for i = 0 to n - 1
+                        if array.get(distinct, i).price == candidate.price
+                            duplicate := i
+                            break
+                if duplicate == -1
+                    array.push(distinct, candidate)
+                else
+                    Potential existing = array.get(distinct, duplicate)
+                    int bit = int(math.pow(2, candidate.family - 1))
+                    if int(math.floor(existing.sourceMask / bit)) % 2 == 0
+                        existing.sourceMask += bit
+                    if not str.contains("|" + existing.identities + "|", "|" + candidate.identities + "|")
+                        existing.identities += "|" + candidate.identities
+    distinct
+
+f_potentialField(array<Potential> candidates, int index, int field) =>
+    float result = na
+    if index < array.size(candidates)
+        Potential candidate = array.get(candidates, index)
+        result := field == 0 ? candidate.price : field == 1 ? candidate.family : field == 2 ? candidate.parentKey : candidate.sourceMask
+    result
+
+f_potentialSummary(array<Potential> candidates, int limit) =>
+    string summary = ""
+    int count = math.min(array.size(candidates), limit)
+    if count > 0
+        for i = 0 to count - 1
+            Potential candidate = array.get(candidates, i)
+            summary += (i > 0 ? "\n" : "") + "#" + str.tostring(i + 1) + " " + f_price(candidate.price) + " — " + str.replace_all(candidate.identities, "|", "; ")
+    summary == "" ? "No other distinct eligible references" : summary
+
+var Period rth = Period.new(Profile.new(array.new_float()))
+var Period overnight = Period.new(Profile.new(array.new_float()))
+var int currentId = na
+var int priorRthDate = na
+var float priorVah = na
+var float priorPoc = na
+var float priorVal = na
+var string priorProblem = "insufficient previous RTH history"
+var int priorRthCount = 0
+var bool attempted = false
+var float frozenVah = na
+var float frozenPoc = na
+var float frozenVal = na
+var float frozenOnPoc = na
+var float frozenP = na
+var float pivot = na
+var float alternatePivot = na
+var string alternateReference = "na"
+var string alternateOrigin = "na"
+var array<Potential> frozenPotentials = array.new<Potential>()
+var string potentialSummary = "waiting for cutoff"
+var int potentialOverlapCount = 0
+var float frozenB = na
+var int frozenRthDate = na
+var int frozenLast = na
+var int frozenLastOpen = na
+var int frozenCutoff = na
+var string reason = "waiting for 09:25 confirmed terminal bar"
+var string origin = "na"
+var string fallback = "na"
+var bool isFallback = false
+var string status = "waiting"
+var string mode = "na"
+var string confluence = "na"
+var string edgeSummary = "not evaluated"
+var string frozenCoverage = "na"
+var float selectedUncertaintyLow = na
+var float selectedUncertaintyHigh = na
+var array<Node> frozenNodes = array.new<Node>()
+var array<int> frozenKept = array.new_int()
+var array<Trough> frozenLvns = array.new<Trough>()
+var int omittedCount = 0
+var int rejectedCount = 0
+var int rejectedEdges = 0
+var int aboveCount = 0
+var int belowCount = 0
+var array<line> dailyLines = array.new_line()
+var array<label> dailyLabels = array.new_label()
+var array<box> dailyBoxes = array.new_box()
+var array<line> alternateLines = array.new_line()
+var array<label> alternateLabels = array.new_label()
+
+int sessionStart = f_stamp(time, hour(time, TZ) < 18 ? -1 : 0, 18, 0)
+int tradeDate = f_stamp(sessionStart, 1, 0, 0)
+int rthStart = f_stamp(tradeDate, 0, 9, 30)
+int rthEnd = f_stamp(tradeDate, 0, 16, 0)
+int cutoff = f_stamp(tradeDate, 0, 9, 25)
+int sessionEnd = f_stamp(tradeDate, 0, 17, 0)
+int dow = dayofweek(tradeDate, TZ)
+bool weekday = dow >= dayofweek.monday and dow <= dayofweek.friday
+bool supported = chart.is_standard and timeframe.isminutes and timeframe.multiplier == 5 and syminfo.type == "futures"
+bool inFull = weekday and time >= sessionStart and time_close <= sessionEnd
+bool inRth = inFull and time >= rthStart and time_close <= rthEnd
+bool inOn = inFull and time >= sessionStart and time_close <= cutoff
+
+if supported and barstate.isconfirmed and inFull
+    if na(currentId) or tradeDate != currentId
+        // Finalize the latest actually observed RTH, including its invalid state.
+        // Never skip a partial observed session to substitute an older good one.
+        if not na(rth.id)
+            int terminal = f_stamp(rth.id, 0, 16, 0)
+            rth.vp.levels()
+            bool readyRth = f_ready(rth, terminal, 78)
+            priorVah := readyRth ? rth.vp.vah : na
+            priorPoc := readyRth ? rth.vp.poc : na
+            priorVal := readyRth ? rth.vp.val : na
+            priorProblem := f_periodProblem(rth, terminal, 78)
+            priorRthDate := rth.id
+            priorRthCount := rth.count
+        currentId := tradeDate
+        overnight.reset(tradeDate, sessionStart)
+        rth := Period.new(Profile.new(array.new_float()))
+        attempted := false
+        frozenVah := na
+        frozenPoc := na
+        frozenVal := na
+        frozenOnPoc := na
+        frozenP := na
+        pivot := na
+        alternatePivot := na
+        alternateReference := "na"
+        alternateOrigin := "na"
+        frozenPotentials := array.new<Potential>()
+        potentialSummary := "waiting for cutoff"
+        potentialOverlapCount := 0
+        frozenB := na
+        frozenRthDate := na
+        frozenLast := na
+        frozenLastOpen := na
+        frozenCutoff := na
+        reason := "waiting for 09:25 confirmed terminal bar"
+        origin := "na"
+        fallback := "na"
+        isFallback := false
+        status := "waiting"
+        mode := "na"
+        confluence := "na"
+        edgeSummary := "not evaluated"
+        frozenCoverage := "na"
+        selectedUncertaintyLow := na
+        selectedUncertaintyHigh := na
+        frozenNodes := array.new<Node>()
+        frozenKept := array.new_int()
+        frozenLvns := array.new<Trough>()
+        omittedCount := 0
+        rejectedCount := 0
+        rejectedEdges := 0
+        aboveCount := 0
+        belowCount := 0
+    if inRth
+        if na(rth.id)
+            rth.reset(tradeDate, rthStart)
+        rth.ingest()
+    if inOn and not attempted
+        overnight.ingest()
+    // On a missing exact terminal bar, the next confirmed bar records unavailable.
+    if not attempted and time_close >= cutoff
+        attempted := true
+        frozenCutoff := cutoff
+        frozenLast := overnight.last
+        frozenLastOpen := not na(overnight.last) ? overnight.last - FIVE_MIN : na
+        frozenRthDate := priorRthDate
+        frozenB := tolerance
+        mode := barstate.isrealtime ? "observed confirmation (live/Replay indistinguishable)" : "historical reconstruction"
+        frozenVah := priorVah
+        frozenPoc := priorPoc
+        frozenVal := priorVal
+        bool exactTerminal = time_close == cutoff and time == cutoff - FIVE_MIN
+        bool readyOn = exactTerminal and f_ready(overnight, cutoff, 185)
+        overnight.vp.levels()
+        frozenOnPoc := readyOn ? overnight.vp.poc : na
+        frozenP := exactTerminal ? close : na
+        frozenCoverage := "RTH " + str.tostring(priorRthCount) + "/78; ON " + str.tostring(overnight.count) + "/185"
+        bool allReady = readyOn and not na(priorVah) and not na(priorPoc) and not na(priorVal) and not na(frozenP)
+        status := allReady ? "ready" : "unavailable"
+        if not allReady
+            reason := not exactTerminal ? "missing 09:25 terminal bar" : na(frozenP) ? "missing terminal close P" : not readyOn ? "ON: " + f_periodProblem(overnight, cutoff, 185) : "RTH: " + priorProblem
+        else
+            [nodes, kept, lvns, omitted, rejected, edgeReject] = f_nodes(overnight.vp)
+            frozenNodes := nodes
+            frozenKept := kept
+            frozenLvns := lvns
+            omittedCount := omitted
+            rejectedCount := rejected
+            rejectedEdges := edgeReject
+            int edgeCount = 0
+            int overlapCount = 0
+            for index in kept
+                Node node = array.get(nodes, index)
+                edgeCount += (node.lowerOk ? 1 : 0) + (node.upperOk ? 1 : 0)
+                overlapCount += node.overlap ? 1 : 0
+            edgeSummary := str.tostring(array.size(kept)) + " N1; " + str.tostring(edgeCount) + " E1; " + str.tostring(array.size(lvns)) + " LVN; omitted " + str.tostring(omitted) + "; rejected peaks/edges " + str.tostring(rejected) + "/" + str.tostring(edgeReject) + "; overlaps " + str.tostring(overlapCount)
+            origin := "RTH " + f_date(priorRthDate)
+            fallback := "none"
+            if frozenP < frozenVal - frozenB
+                pivot := frozenVal
+                reason := "Prior-value reclaim boundary"
+                origin += " YVAL"
+            else if frozenP > frozenVah + frozenB
+                int eligible = 0
+                int chosen = -1
+                bool containingOverlap = false
+                bool incomplete = omitted > 0
+                for index in kept
+                    Node node = array.get(nodes, index)
+                    bool contains = frozenP >= f_lower(node, overnight.vp) and frozenP <= f_upper(node, overnight.vp)
+                    if contains
+                        containingOverlap := containingOverlap or node.overlap
+                        incomplete := incomplete or not node.lowerOk
+                        if node.lowerOk and f_lower(node, overnight.vp) > frozenVah + frozenB
+                            eligible += 1
+                            chosen := index
+                if eligible == 1 and not containingOverlap and not incomplete
+                    Node selected = array.get(nodes, chosen)
+                    pivot := f_lower(selected, overnight.vp)
+                    reason := "Hold higher auction"
+                    origin := f_regionId(selected, overnight.vp, tradeDate) + " lower E1"
+                    selectedUncertaintyLow := pivot - rowSize / 2
+                    selectedUncertaintyHigh := pivot + rowSize / 2
+                else
+                    pivot := frozenVah
+                    reason := "Prior-value boundary fallback"
+                    origin += " YVAH"
+                    isFallback := true
+                    fallback := eligible > 1 or containingOverlap ? "ambiguous: competing/overlapping regions" : incomplete ? "incomplete: capped or missing E1 evidence" : "absent: no qualifying containing region/lower edge"
+            else if frozenOnPoc < frozenPoc - frozenB
+                pivot := frozenVal
+                reason := "Overnight value shifted lower"
+                origin += " YVAL"
+            else if frozenOnPoc > frozenPoc + frozenB
+                pivot := frozenVah
+                reason := "Overnight value shifted higher"
+                origin += " YVAH"
+            else
+                pivot := frozenPoc
+                reason := "Balanced fallback — no unique directional divider"
+                origin += " YPOC"
+                isFallback := true
+                fallback := "balanced: no unique directional divider"
+            [alternative, alternativeReference] = f_alternate(pivot, reason, frozenVah, frozenPoc, frozenVal, frozenP)
+            alternatePivot := alternative
+            alternateReference := alternativeReference
+            alternateOrigin := na(alternatePivot) ? "no distinct prior-value reference" : "RTH " + f_date(frozenRthDate) + " " + alternateReference
+            // Independently generated E1 confluence retains each price/identity.
+            // It never snaps, averages or changes the selected value reference.
+            confluence := "none"
+            if na(selectedUncertaintyLow)
+                string nearby = ""
+                for index in kept
+                    Node node = array.get(nodes, index)
+                    if node.lowerOk and math.abs(f_lower(node, overnight.vp) - pivot) <= rowSize
+                        nearby += (str.length(nearby) > 0 ? "; " : "") + f_regionId(node, overnight.vp, tradeDate) + " lower=" + f_price(f_lower(node, overnight.vp))
+                    if node.upperOk and math.abs(f_upper(node, overnight.vp) - pivot) <= rowSize
+                        nearby += (str.length(nearby) > 0 ? "; " : "") + f_regionId(node, overnight.vp, tradeDate) + " upper=" + f_price(f_upper(node, overnight.vp))
+                if str.length(nearby) > 0
+                    confluence := "reference=" + f_price(pivot) + "; " + nearby
+            frozenPotentials := f_ranked(pivot, alternatePivot, frozenVal, frozenPoc, frozenVah, frozenOnPoc, frozenP, overnight.vp, frozenNodes, frozenKept, tradeDate, frozenRthDate)
+            potentialSummary := f_potentialSummary(frozenPotentials, rankedCount)
+            potentialOverlapCount := overlapCount
+            int endpoint = f_stamp(tradeDate, 0, endHour, endMinute)
+            line ln = na
+            label lb = na
+            box shade = na
+            line alternateLine = na
+            label alternateLabel = na
+            if not strictMode or not isFallback
+                color col = color.purple
+                ln := line.new(cutoff, pivot, endpoint, pivot, xloc=xloc.bar_time, color=col, style=isFallback ? line.style_dashed : line.style_solid, width=1)
+                lb := label.new(endpoint, pivot, "Pivot " + f_price(pivot), xloc=xloc.bar_time, yloc=yloc.price, style=label.style_none, textcolor=col, size=size.small, tooltip=f_date(tradeDate) + " • " + reason + "\n" + origin + "\nFallback: " + fallback + "\nFrozen at 09:25 America/New_York\n\nOther potentials (engineering order):\n" + potentialSummary)
+                if showUncertainty and not na(selectedUncertaintyLow)
+                    shade := box.new(cutoff, selectedUncertaintyHigh, endpoint, selectedUncertaintyLow, xloc=xloc.bar_time, border_color=color.new(col, 80), bgcolor=color.new(col, 90))
+            if showAlternate and not strictMode and not na(alternatePivot)
+                alternateLine := line.new(cutoff, alternatePivot, endpoint, alternatePivot, xloc=xloc.bar_time, color=color.black, style=line.style_dotted, width=1)
+                alternateLabel := label.new(endpoint, alternatePivot, "Alt " + alternateReference + " " + f_price(alternatePivot), xloc=xloc.bar_time, yloc=yloc.price, style=label.style_none, textcolor=color.black, size=size.small, tooltip="Alternate prior-value fallback\n" + alternateOrigin + "\nFrozen at 09:25 America/New_York")
+            // Keep both drawings together as one eligible-day retention group.
+            array.push(dailyLines, ln)
+            array.push(dailyLabels, lb)
+            array.push(dailyBoxes, shade)
+            array.push(alternateLines, alternateLine)
+            array.push(alternateLabels, alternateLabel)
+            while array.size(dailyLines) > keepDays
+                line.delete(array.shift(dailyLines))
+                label.delete(array.shift(dailyLabels))
+                line.delete(array.shift(alternateLines))
+                label.delete(array.shift(alternateLabels))
+                box oldBox = array.shift(dailyBoxes)
+                if not na(oldBox)
+                    box.delete(oldBox)
+    // These are the only post-cutoff mutable selection-adjacent fields.
+    // A bar that OPENED before the cutoff cannot count toward acceptance.
+    if showAcceptance and status == "ready" and time >= cutoff and not na(pivot)
+        aboveCount := close > pivot + frozenB ? aboveCount + 1 : 0
+        belowCount := close < pivot - frozenB ? belowCount + 1 : 0
+
+var table diagnostic = table.new(position.top_left, 2, 19, border_width=1)
+f_cell(int row, string key, string value, color col) =>
+    table.cell(diagnostic, 0, row, key, text_color=color.silver, bgcolor=color.new(color.black, 10), text_size=size.small)
+    string caption = str.length(value) > 95 ? str.substring(value, 0, 92) + "…" : value
+    table.cell(diagnostic, 1, row, caption, text_color=col, bgcolor=color.new(color.black, 10), text_size=size.small, tooltip=value)
+if barstate.islast
+    table.clear(diagnostic, 0, 0, 1, 18)
+    if showTable
+        if not supported or na(currentId) or currentId != tradeDate
+            f_cell(0, "Autopivot Levels - Daily", "Experimental N1/E1 • candle-volume estimate", color.aqua)
+            f_cell(1, "Chart / status", syminfo.prefix + ":" + syminfo.ticker + " / " + timeframe.period + "m / " + (not supported ? "UNSUPPORTED: standard five-minute futures candles + extended-session data required" : "waiting"), color.orange)
+            f_cell(2, "Trading date / zone", f_date(tradeDate) + " / America/New_York", color.white)
+            f_cell(3, "Cutoff / last included", f_time(cutoff) + " / na", color.white)
+            f_cell(8, "Pivot", "na", color.white)
+            f_cell(9, "Reason", not supported ? "incompatible chart type/timeframe/instrument" : "waiting for first eligible confirmed bar; no prior-day substitute", color.yellow)
+        else
+            color stateColor = status == "ready" ? color.lime : status == "waiting" ? color.yellow : color.orange
+            string effectiveStatus = not supported ? "UNSUPPORTED: standard five-minute futures candles + extended-session data required" : status
+            f_cell(0, "Autopivot Levels - Daily", "Experimental N1/E1 • candle-volume estimate", color.aqua)
+            f_cell(1, "Chart / status", syminfo.prefix + ":" + syminfo.ticker + " / " + timeframe.period + "m / " + effectiveStatus, supported ? stateColor : color.orange)
+            f_cell(2, "Trading date / zone", f_date(tradeDate) + " / America/New_York", color.white)
+            f_cell(3, "Cutoff / last included", f_time(frozenCutoff) + " / " + f_time(frozenLastOpen) + "–" + f_time(frozenLast), color.white)
+            f_cell(4, "Mode / coverage", mode + " / " + frozenCoverage, color.white)
+            f_cell(5, "Previous actual RTH", f_date(frozenRthDate), color.white)
+            f_cell(6, "YVAH / YPOC / YVAL", f_price(frozenVah) + " / " + f_price(frozenPoc) + " / " + f_price(frozenVal), color.white)
+            f_cell(7, "ONPOC / P / b", f_price(frozenOnPoc) + " / " + f_price(frozenP) + " / " + f_price(frozenB), color.white)
+            f_cell(8, "Pivot", f_price(pivot) + (strictMode and isFallback ? " (line suppressed)" : ""), isFallback ? color.silver : color.aqua)
+            f_cell(17, "Alternate / fallback", na(alternatePivot) ? "na — no distinct reference" : alternateReference + " " + f_price(alternatePivot) + " / " + alternateOrigin, color.white)
+            f_cell(18, "Ranked potentials", potentialSummary, color.white)
+            f_cell(9, "Reason", reason, stateColor)
+            f_cell(10, "Origin / parent", origin, color.white)
+            f_cell(11, "Fallback", fallback, isFallback ? color.orange : color.white)
+            f_cell(12, "HVE confluence", confluence, color.white)
+            f_cell(13, "N1/E1 ledger", edgeSummary, color.white)
+            f_cell(14, "Edge uncertainty", na(selectedUncertaintyLow) ? "na" : "[" + f_price(selectedUncertaintyLow) + ", " + f_price(selectedUncertaintyHigh) + "]", color.white)
+            f_cell(15, "Acceptance (separate)", not showAcceptance ? "off" : status != "ready" ? "unavailable" : aboveCount >= 2 ? "bullish acceptance" : belowCount >= 2 ? "bearish acceptance" : "unresolved", color.white)
+            f_cell(16, "Settings / reconstruction", str.tostring(rowTicks) + " ticks; zero grid; VA " + str.tostring(vaPct) + "%; N1/E1 fixed; reload depends on identical data/settings/history", color.silver)
+    
+// A hidden diagnostic table does not hide an incompatible-chart warning.
+var label unsupportedWarning = na
+if barstate.islast
+    if not na(unsupportedWarning)
+        label.delete(unsupportedWarning)
+        unsupportedWarning := na
+    if not supported and not showTable
+        unsupportedWarning := label.new(time, high, "Unsupported chart\nUse standard five-minute futures candles with extended-session data", xloc=xloc.bar_time, style=label.style_label_down, color=color.orange, textcolor=color.black, size=size.small)
+
+// Every plot is a per-bar historical series; earlier days retain their own
+// frozen values when inspected with the Data Window crosshair.
+bool rankReady = supported and currentId == tradeDate and status == "ready"
+plot(supported and currentId == tradeDate ? pivot : na, "Frozen pivot (diagnostic only)", display=display.data_window)
+plot(supported and currentId == tradeDate ? alternatePivot : na, "Frozen alternate / fallback", display=display.data_window)
+plot(rankReady ? f_potentialField(frozenPotentials, 0, 0) : na, "Potential #1 price", display=showRanked and rankedCount >= 1 ? display.data_window : display.none, editable=false)
+plot(rankReady ? f_potentialField(frozenPotentials, 1, 0) : na, "Potential #2 price", display=showRanked and rankedCount >= 2 ? display.data_window : display.none, editable=false)
+plot(rankReady ? f_potentialField(frozenPotentials, 2, 0) : na, "Potential #3 price", display=showRanked and rankedCount >= 3 ? display.data_window : display.none, editable=false)
+plot(rankReady ? f_potentialField(frozenPotentials, 3, 0) : na, "Potential #4 price", display=showRanked and rankedCount >= 4 ? display.data_window : display.none, editable=false)
+plot(rankReady ? f_potentialField(frozenPotentials, 4, 0) : na, "Potential #5 price", display=showRanked and rankedCount >= 5 ? display.data_window : display.none, editable=false)
+plot(rankReady ? f_potentialField(frozenPotentials, 5, 0) : na, "Potential #6 price", display=showRanked and rankedCount >= 6 ? display.data_window : display.none, editable=false)
+plot(rankReady ? f_potentialField(frozenPotentials, 6, 0) : na, "Potential #7 price", display=showRanked and rankedCount >= 7 ? display.data_window : display.none, editable=false)
+plot(rankReady ? f_potentialField(frozenPotentials, 7, 0) : na, "Potential #8 price", display=showRanked and rankedCount >= 8 ? display.data_window : display.none, editable=false)
+plot(rankReady ? array.size(frozenPotentials) : na, "Other potential levels (total)", display=showRanked ? display.data_window : display.none, precision=0, editable=false)
+plot(rankReady ? math.max(0, array.size(frozenPotentials) - rankedCount) : na, "Additional potentials not shown", display=showRanked ? display.data_window : display.none, precision=0, editable=false)
+plot(rankReady ? omittedCount : na, "N1 regions omitted by cap", display=showRanked ? display.data_window : display.none, precision=0, editable=false)
+plot(rankReady ? potentialOverlapCount : na, "Overlapping N1 parents excluded", display=showRanked ? display.data_window : display.none, precision=0, editable=false)
+plot(supported and currentId == tradeDate ? frozenVah : na, "Frozen YVAH", display=display.data_window)
+plot(supported and currentId == tradeDate ? frozenPoc : na, "Frozen YPOC", display=display.data_window)
+plot(supported and currentId == tradeDate ? frozenVal : na, "Frozen YVAL", display=display.data_window)
+plot(supported and currentId == tradeDate ? frozenOnPoc : na, "Frozen ONPOC", display=display.data_window)
+plot(supported and currentId == tradeDate ? frozenP : na, "Frozen 09:25 close P", display=display.data_window)
+plot(supported and currentId == tradeDate ? frozenB : na, "Frozen tolerance b", display=display.data_window)
+plot(rankReady ? f_potentialField(frozenPotentials, 0, 1) : na, "Potential #1 source code", display=showRanked and showRankDetails and rankedCount >= 1 ? display.data_window : display.none, precision=0, editable=false)
+plot(rankReady ? f_potentialField(frozenPotentials, 0, 2) : na, "Potential #1 N1 parent key", display=showRanked and showRankDetails and rankedCount >= 1 ? display.data_window : display.none, precision=0, editable=false)
+plot(rankReady ? f_potentialField(frozenPotentials, 0, 3) : na, "Potential #1 source flags", display=showRanked and showRankDetails and rankedCount >= 1 ? display.data_window : display.none, precision=0, editable=false)
+plot(rankReady ? f_potentialField(frozenPotentials, 1, 1) : na, "Potential #2 source code", display=showRanked and showRankDetails and rankedCount >= 2 ? display.data_window : display.none, precision=0, editable=false)
+plot(rankReady ? f_potentialField(frozenPotentials, 1, 2) : na, "Potential #2 N1 parent key", display=showRanked and showRankDetails and rankedCount >= 2 ? display.data_window : display.none, precision=0, editable=false)
+plot(rankReady ? f_potentialField(frozenPotentials, 1, 3) : na, "Potential #2 source flags", display=showRanked and showRankDetails and rankedCount >= 2 ? display.data_window : display.none, precision=0, editable=false)
+plot(rankReady ? f_potentialField(frozenPotentials, 2, 1) : na, "Potential #3 source code", display=showRanked and showRankDetails and rankedCount >= 3 ? display.data_window : display.none, precision=0, editable=false)
+plot(rankReady ? f_potentialField(frozenPotentials, 2, 2) : na, "Potential #3 N1 parent key", display=showRanked and showRankDetails and rankedCount >= 3 ? display.data_window : display.none, precision=0, editable=false)
+plot(rankReady ? f_potentialField(frozenPotentials, 2, 3) : na, "Potential #3 source flags", display=showRanked and showRankDetails and rankedCount >= 3 ? display.data_window : display.none, precision=0, editable=false)
+plot(rankReady ? f_potentialField(frozenPotentials, 3, 1) : na, "Potential #4 source code", display=showRanked and showRankDetails and rankedCount >= 4 ? display.data_window : display.none, precision=0, editable=false)
+plot(rankReady ? f_potentialField(frozenPotentials, 3, 2) : na, "Potential #4 N1 parent key", display=showRanked and showRankDetails and rankedCount >= 4 ? display.data_window : display.none, precision=0, editable=false)
+plot(rankReady ? f_potentialField(frozenPotentials, 3, 3) : na, "Potential #4 source flags", display=showRanked and showRankDetails and rankedCount >= 4 ? display.data_window : display.none, precision=0, editable=false)
+plot(rankReady ? f_potentialField(frozenPotentials, 4, 1) : na, "Potential #5 source code", display=showRanked and showRankDetails and rankedCount >= 5 ? display.data_window : display.none, precision=0, editable=false)
+plot(rankReady ? f_potentialField(frozenPotentials, 4, 2) : na, "Potential #5 N1 parent key", display=showRanked and showRankDetails and rankedCount >= 5 ? display.data_window : display.none, precision=0, editable=false)
+plot(rankReady ? f_potentialField(frozenPotentials, 4, 3) : na, "Potential #5 source flags", display=showRanked and showRankDetails and rankedCount >= 5 ? display.data_window : display.none, precision=0, editable=false)
+plot(rankReady ? f_potentialField(frozenPotentials, 5, 1) : na, "Potential #6 source code", display=showRanked and showRankDetails and rankedCount >= 6 ? display.data_window : display.none, precision=0, editable=false)
+plot(rankReady ? f_potentialField(frozenPotentials, 5, 2) : na, "Potential #6 N1 parent key", display=showRanked and showRankDetails and rankedCount >= 6 ? display.data_window : display.none, precision=0, editable=false)
+plot(rankReady ? f_potentialField(frozenPotentials, 5, 3) : na, "Potential #6 source flags", display=showRanked and showRankDetails and rankedCount >= 6 ? display.data_window : display.none, precision=0, editable=false)
+plot(rankReady ? f_potentialField(frozenPotentials, 6, 1) : na, "Potential #7 source code", display=showRanked and showRankDetails and rankedCount >= 7 ? display.data_window : display.none, precision=0, editable=false)
+plot(rankReady ? f_potentialField(frozenPotentials, 6, 2) : na, "Potential #7 N1 parent key", display=showRanked and showRankDetails and rankedCount >= 7 ? display.data_window : display.none, precision=0, editable=false)
+plot(rankReady ? f_potentialField(frozenPotentials, 6, 3) : na, "Potential #7 source flags", display=showRanked and showRankDetails and rankedCount >= 7 ? display.data_window : display.none, precision=0, editable=false)
+plot(rankReady ? f_potentialField(frozenPotentials, 7, 1) : na, "Potential #8 source code", display=showRanked and showRankDetails and rankedCount >= 8 ? display.data_window : display.none, precision=0, editable=false)
+plot(rankReady ? f_potentialField(frozenPotentials, 7, 2) : na, "Potential #8 N1 parent key", display=showRanked and showRankDetails and rankedCount >= 8 ? display.data_window : display.none, precision=0, editable=false)
+plot(rankReady ? f_potentialField(frozenPotentials, 7, 3) : na, "Potential #8 source flags", display=showRanked and showRankDetails and rankedCount >= 8 ? display.data_window : display.none, precision=0, editable=false)

@@ -25,8 +25,8 @@ before changing the publication boundary.
   changing featured/related selections changes navigation, not research metadata
   or immutable `/reports/<id>/` content. The catalog schema is app-owned.
   Optional `publicationTabs` select distinct parallel reports from the featured
-  source run, with the featured publication first. Use the shared study shell and Explore directory, with ordinary links to
-  immutable saved report routes. Keep analytical
+  source run, with the featured publication first. Use the shared study shell and
+  Results view, with tab-styled links to immutable saved report routes. Keep analytical
   groupings and chart meanings in the supplied reports, not the app.
   Optional `analyses` group parallel chart publications by an authored analysis
   label, with a single source run per group. It replaces top-level
@@ -59,15 +59,35 @@ before changing the publication boundary.
   sections. Its bounded prose abridges saved conclusions; exact metric/table-cell
   selectors pin a selected publication, source run, content hash and section.
   Resolve and validate these against staged app-owned bundles at build time.
-  Preserve saved scalar meanings, formats and qualifications. All study destinations link to full reports instead of embedding their bodies
-  or client table controls. Entries without authored overviews use their existing
-  summary/evidence fallback in the same shell. Preserve every selected report.
-- The shared `scripts/lib/study-routes.mjs` owns Overview, Findings, Explore,
+  Preserve saved scalar meanings, formats and qualifications. Overview, Findings,
+  Method & scope and Evidence retain bounded briefs and exact source links.
+  Results renders only the active saved report, including its existing table
+  controls, in the shared shell; never mount hidden report bodies. Entries without
+  authored overviews use their existing summary/evidence fallback in the same
+  shell. Preserve every selected report.
+- The shared `scripts/lib/study-routes.mjs` owns Overview, Findings, Results,
   Method & scope and Evidence route projections. Keep export checks, preview
   smoke and reusable release allowlists aligned; never edit frozen release routes.
-  Native route links use `aria-current="page"`, not tab-widget behavior. Retain
+  Results retains the legacy `/explore/` path and opens the featured report
+  directly. Contextual `/reports/<id>/` pages retain the same study shell with
+  Results current. Phase, analysis and chart tabs switch the active saved report
+  without an intermediate directory or duplicate report back-links. Native route
+  links use `aria-current="page"`, not tab-widget behavior. Keep related/earlier
+  publications reachable through Evidence instead of duplicating their complete
+  directory on every Results view. An active earlier publication shows only
+  compact Featured result and current earlier-result tabs. Retain
   legacy study fragments with explicit static links to saved report sections.
   Run preview smoke with `--all-routes` for the complete catalog-derived inventory.
+  A catalog entry can explicitly select `readingMode: "single-page"` with flat
+  `publicationTabs`. Its study root opens one Results workspace with the selected
+  primary reports as inner theme tabs. Render only the active theme's insights;
+  never mount inactive report bodies. Native theme links retain history, refresh,
+  and no-JavaScript access. Keep one source/scope disclosure and omit repeated
+  report menus and back-links. The other study URLs open the featured theme;
+  primary report URLs select their exact theme inside Results. Historical related
+  report URLs retain their exact saved bodies.
+  Preserve unique section/heading anchors and bounded table loading. Shared route
+  helpers own the single Results destination; other studies keep all five tabs.
   Evidence directories expose only already selected downloads/references and
   preserve each report’s population, units, scope and source run. Compact entries
   link to exact immutable report hash records; full reports retain all saved pins.
@@ -99,6 +119,13 @@ before changing the publication boundary.
   [evidence limits](../../docs/narada.md#selected-summary-downloads). Only declared
   assets cross the boundary. Source-cell provenance is checked by the export
   author; Narada validates selected content and hashes without reading research.
+- Report 1.1 can opt into `presentation: "research-paper"`: one reading column,
+  inline insight contents, editorial headings and native question-theme links.
+  The notebook author/exporter supplies selected description, finding, typed
+  table cells and raster bytes; omit code/private outputs before publication.
+  Narada does not import notebook HTML or execute Python. Existing reports omit
+  this marker and retain their reader layout. Preserve paragraph breaks and
+  exact selected values; source/execution identity stays in Publication record.
 - Keep numeric formats and units explicit. Do not infer percentages, trading
   conclusions, or evidence status from labels or filenames.
 - Examples stay outside the public output until explicitly published. Tests and

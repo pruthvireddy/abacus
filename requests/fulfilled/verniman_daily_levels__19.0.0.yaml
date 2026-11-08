@@ -1,0 +1,66 @@
+request:
+  id: verniman_daily_levels__19.0.0
+  requester: workspace user
+  requested_on: '2026-10-30'
+  purpose: apply the user's explicit color legend to the five supplied chart images
+inputs:
+  predecessor: catalog/datasets/verniman_daily_levels__18.0.0.json
+  prior_inputs: retain every exact predecessor historical and reviewed-update pin
+  image_dates: ['2026-10-06', '2026-10-21', '2026-10-22', '2026-10-23', '2026-10-26']
+  user_legend:
+    light_blue: pivot
+    green: bullish target
+    red: bearish target
+  legend_provenance: exact user statement and hash-pinned scoped color-role document
+output:
+  dataset: verniman_daily_levels
+  version: 19.0.0
+  destination: data/curated/external_levels/source=verniman/version=19.0.0/
+  manifest: catalog/datasets/verniman_daily_levels__19.0.0.json
+  schema: catalog/schemas/verniman_daily_levels__19.0.0.json
+  quality_report: reports/quality/verniman_daily_levels__19.0.0.md
+  replaced_active_image_interpretations: 5
+  reclassified_priced_annotations: 17
+  classified_unpriced_annotations: 17
+  total_annotations: {pivots: 5, bullish_targets: 17, bearish_targets: 12}
+  printed_prices: {pivots: 2, bullish_targets: 10, bearish_targets: 5}
+  canonical_outlook_and_level_changes: 0
+classification:
+  evidence_basis: user_supplied_image
+  interpretation_basis: user_supplied_color_legend
+  field_mapping:
+    light_blue: {side: neutral, role: trigger, display_role: pivot}
+    green: {side: bullish, role: target, display_role: bullish_target}
+    red: {side: bearish, role: target, display_role: bearish_target}
+  price_policy: preserve every explicit printed price; unprinted prices remain null
+  label_policy: preserve exact source labels and annotation text, including magnet/filled/Half Gap qualifiers
+  target_order: >-
+    Nearest pivot first by vertical chart position, green bottom-to-top and red
+    top-to-bottom, including unpriced slots. This is a saved display ordering,
+    not an independently verified execution or original author sequence.
+  exclusions: unlabeled dots, quote boxes and unrelated indicator lines
+preservation:
+  releases: all versions 1.0.0 through 18.0.0 remain byte-identical
+  current_records: canonical source records and all recollections stay unchanged
+  image_revisions: >-
+    Each classified parent explicitly supersedes only the same original image
+    observation. Retain the prior parent and numeric rows in embedded snapshots
+    and the pinned prior release. Select one active interpretation per image.
+  raw_source: same exact image paths, hashes, session dates, contract/product and numeric annotations
+  missing_prices: no axis interpolation and no borrowing recollection prices
+timing:
+  available_at: null
+  image_clock: retain original displayed bar date/time text and unknown timezone
+  contract: null
+  qualification: role clarification does not establish a captured blog plan or historical availability
+validation:
+  source: independent color-to-role audit of all 34 labeled annotations
+  synthetic: supersession invariants, legend pins, evidence/role guards and older-release compatibility
+  release: manifest input/output hashes, current row selection and exact prior snapshots
+  preservation: old release artifact hashes and unchanged non-image records
+  repository: default workspace gate, documentation, metadata and navigation checks
+  scope: no numerical study, price estimation, backtest or publication outside local dataset storage
+retention:
+  raw: immutable user clarification and legend record; existing image bytes unchanged
+  staging: independent classification review and new preparation source
+  release: unique immutable master with explicit interpretation lineage

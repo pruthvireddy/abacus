@@ -1,0 +1,10 @@
+/opt/homebrew/opt/python@3.11/bin/python3.11 studies/27_verniman_method_knowledge/capture_daily_maps.py --stage work/27_verniman_method_knowledge/20261031T034949Z_daily_maps_2024_r2 --start 2024-01-01 --end 2024-12-31 --seed https://verniman.blogspot.com/2007/12/good-bye-2024.html --retained-manifest data/raw/blogspot/verniman/html/20261021T003531Z_history_2b60d46b/collection_manifest.reviewed.json
+python3 studies/27_verniman_method_knowledge/build_daily_maps.py --stage work/27_verniman_method_knowledge/20261031T034949Z_daily_maps_2024_r2
+python3 studies/27_verniman_method_knowledge/build_daily_maps.py --stage work/27_verniman_method_knowledge/20261031T034949Z_daily_maps_2024_r2 --check
+python3 work/27_verniman_method_knowledge/20261031T034949Z_daily_maps_2024_r2/provenance/audit_capture.py
+python3 work/27_verniman_method_knowledge/20261031T034949Z_daily_maps_2024_r2/provenance/audit_previous_years.py
+python3 work/27_verniman_method_knowledge/20261031T034949Z_daily_maps_2024_r2/provenance/test_malformed_image.py
+python3 /private/tmp/abacus-daily-map-builder-2024-fixtures.py
+python3 /private/tmp/abacus-daily-map-maintenance-fixtures.py
+/opt/homebrew/opt/python@3.11/bin/python3.11 studies/27_verniman_method_knowledge/seal_daily_maps.py --stage work/27_verniman_method_knowledge/20261031T034949Z_daily_maps_2024_r2 --prepare
+/opt/homebrew/opt/python@3.11/bin/python3.11 studies/27_verniman_method_knowledge/seal_daily_maps.py --stage work/27_verniman_method_knowledge/20261031T034949Z_daily_maps_2024_r2 --seal

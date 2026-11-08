@@ -3,7 +3,7 @@
 export const STUDY_DESTINATIONS = Object.freeze([
   { key: 'overview', path: '', label: 'Overview' },
   { key: 'findings', path: 'findings', label: 'Findings' },
-  { key: 'explore', path: 'explore', label: 'Explore' },
+  { key: 'explore', path: 'explore', label: 'Results' },
   { key: 'methods', path: 'methods', label: 'Method & scope' },
   { key: 'evidence', path: 'evidence', label: 'Evidence' },
 ].map(destination => Object.freeze(destination)));
@@ -13,6 +13,24 @@ export function studyDestinationHref(slug, key = 'overview') {
   const destination = STUDY_DESTINATIONS.find(candidate => candidate.key === key);
   if (!destination) throw new Error('Unknown study destination.');
   return `/studies/${slug}/${destination.path ? `${destination.path}/` : ''}`;
+}
+// A reading mode changes the visible experience, while compatibility routes stay
+// in the static inventory so existing saved links remain usable.
+export const isSinglePageStudy = study => study.readingMode === 'single-page';
+export const studyCanonicalHref = study => studyDestinationHref(study.slug);
+export const studyNavigationDestinations = study => isSinglePageStudy(study)
+  ? [{ key: 'explore', path: '', label: 'Results' }] : STUDY_DESTINATIONS;
+export function studyNavigationHref(study, key = 'overview') {
+  // Validate even a compatibility destination before collapsing it to Results.
+  const href = studyDestinationHref(study.slug, key);
+  return isSinglePageStudy(study) ? studyCanonicalHref(study) : href;
+}
+export function studyThemeHref(study, publicationId) {
+  if (!safeSlug(publicationId) || !study.publicationTabs?.some(tab => tab.publicationId === publicationId)) {
+    throw new Error('A study theme route requires a selected flat publication.');
+  }
+  const canonical = studyCanonicalHref(study);
+  return publicationId === study.featuredPublicationId ? canonical : `/reports/${publicationId}/`;
 }
 export const studyPageRoutes = (catalog, { legacyStudyRoutes = false } = {}) => catalog.studies.flatMap(study =>
   (legacyStudyRoutes ? STUDY_DESTINATIONS.slice(0, 1) : STUDY_DESTINATIONS).map(destination => studyDestinationHref(study.slug, destination.key)));
@@ -41,4 +59,15 @@ export function legacyStudyAnchors(publication) {
     ...(report.notes?.length ? [link('publication-notes', 'Notes')] : []),
     ...(report.patterns ?? []).filter(pattern => usedPatterns.has(pattern.id)).map(pattern => link(`pattern-key-${pattern.id}`, `${pattern.title}: pattern key`)),
   ];
+}
+
+// New notebook editions keep the selected earlier destinations as explicit
+// compatibility links. Featured content wins duplicate fragment identities.
+export function legacyStudyAnchorSelection(featured, selected = []) {
+  const seen = new Set();
+  return [featured, ...selected].flatMap(publication => legacyStudyAnchors(publication)).filter(anchor => {
+    if (seen.has(anchor.id)) return false;
+    seen.add(anchor.id);
+    return true;
+  });
 }

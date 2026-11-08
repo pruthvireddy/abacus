@@ -1,0 +1,86 @@
+{
+  "schemaVersion": "1.1",
+  "presentation": "research-paper",
+  "id": "verniman-es-opening-context-20261108-notebook-v2",
+  "title": "Opening context",
+  "summary": "Where does the session begin relative to the pivot, and how far apart are the reference levels?",
+  "publishedAt": "2026-11-08T04:13:17Z",
+  "source": {
+    "producer": "sahadeva",
+    "runId": "20261108T040901Z_notebook_themes_v2"
+  },
+  "sections": [
+    {
+      "id": "opening-configuration",
+      "title": "How does the opening configuration relate to crossing activity?",
+      "description": "Compare the day's EMA6–pivot crossing count across price opening above both pivot and VWAP, below both, between the lines, or on an equal boundary. Opening states use the actual 09:30 snapshot.\n\nAll eligible sessions remain in the count, including days without crossings. These are conditional descriptions; source availability and full-day eligibility are retrospective.",
+      "finding": "Mean daily EMA6–pivot counts were 1.99 on 362 above-both days, 2.18 on 209 below-both days, and 2.35 on 293 between-line days. Crossing activity varied with the opening configuration; this does not establish a predictive advantage. The equal-boundary group contains only 11 days and is sparse.",
+      "kind": "figure",
+      "path": "figures/opening-configuration.png",
+      "alt": "Mean EMA6–pivot crossings by price opening configuration, with eligible-day counts.",
+      "caption": "The equal-boundary group is below the 30-day support threshold. Configurations use price, pivot and VWAP at 09:30."
+    },
+    {
+      "id": "opening-separation",
+      "title": "How far apart are pivot and VWAP at the opening?",
+      "description": "Measure the absolute separation of the daily pivot and contemporaneous Globex VWAP at 09:30, once in ES points and once in basis points of the pivot. The two columns are averages of daily measurements, not conversions of an aggregate mean.\n\nThe table retains the observed spread of separation without treating it as a selected entry threshold.",
+      "finding": "Across 875 sessions, mean opening separation was 9.48 ES points and 19.80 basis points. The point median was 6.61, below its mean, showing an asymmetric retained distribution. Separation is context, not evidence that a wider gap creates a tradable opportunity.",
+      "kind": "table",
+      "columns": [
+        {
+          "key": "measure",
+          "label": "Measurement"
+        },
+        {
+          "key": "unit",
+          "label": "Unit"
+        },
+        {
+          "key": "sessions",
+          "label": "Sessions",
+          "precision": 0,
+          "format": "number"
+        },
+        {
+          "key": "mean",
+          "label": "Mean",
+          "precision": 2,
+          "format": "number"
+        },
+        {
+          "key": "median",
+          "label": "Median",
+          "precision": 2,
+          "format": "number"
+        }
+      ],
+      "rows": [
+        {
+          "mean": 9.478937696435455,
+          "measure": "Absolute separation",
+          "median": 6.608852999895589,
+          "sessions": 875,
+          "unit": "ES points"
+        },
+        {
+          "mean": 19.79990555357869,
+          "measure": "Relative separation",
+          "median": 13.181839473856485,
+          "sessions": 875,
+          "unit": "Basis points"
+        }
+      ],
+      "notes": [
+        "One 09:30 measurement per eligible day; absolute pivot–VWAP separation. No opening price translation or cross-contract adjustment."
+      ]
+    }
+  ],
+  "notes": [
+    "Pivot-matched ES regular trading hours, 09:30–16:00 America/New_York: 875 eligible sessions from January 3, 2020 through September 18, 2026. Requested coverage extends through October 30, 2026.",
+    "Historical pivot availability remains unverified. Source/contract and full-day quality eligibility are retrospective.",
+    "These insights reproduce selected descriptive point estimates from retained event, day and section records. No source events or bootstrap confidence intervals are reconstructed in this edition; uncertainty intervals remain in the earlier ranked reports.",
+    "Multiple events within a day are dependent. Conditional and calendar comparisons are exploratory; neither crossing activity nor price-path summaries establish executable profitability.",
+    "Price and actual EMA6 crossings are different events; an already-aligned EMA6 is a separate state. Fixed-horizon outcomes require complete windows and omit earlier signal-bar extremes.",
+    "No trade fills, execution costs or net profitability are modeled. Separate VWAP-only RTH/Globex populations remain companion evidence and are not pooled with the pivot-matched sample."
+  ]
+}

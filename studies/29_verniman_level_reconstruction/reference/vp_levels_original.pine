@@ -1,0 +1,342 @@
+//@version=6
+indicator("VP Levels", overlay=true, max_lines_count=500, max_labels_count=500)
+
+// ─────────────────────────────────────────────────────────────────────────────
+// INPUTS
+// ─────────────────────────────────────────────────────────────────────────────
+grp_pd = "Previous Day Levels"
+pdh_pdl_on = input.bool(true, "PDH/PDL", inline="pd", group=grp_pd)
+pd_col     = input.color(color.blue, "", inline="pd", group=grp_pd)
+pd_width   = input.int(1, "Width", inline="pd", group=grp_pd, minval=1)
+anchor_time = input.session("1800-1801", "Line Anchor Start", group=grp_pd, tooltip="Lines will start drawing from the beginning of this time period each day")
+
+grp_vp = "Volume Profile Levels"
+vp_on_inp  = input.bool(true, "Enable", inline="vp1", group=grp_vp)
+vp_va_pct  = input.float(70.0, "VA%", inline="vp1", group=grp_vp)
+vp_row_tck = input.int(16, "Row(ticks)", inline="vp1", group=grp_vp, minval=1)
+
+vp_bar_offset = input.int(40, "Line Offset (Bars)", group=grp_vp, minval=0, maxval=500, tooltip="How many bars ahead of the current bar to extend the lines")
+
+// Current Week
+grp_cw   = "Current Week"
+cw_on    = input.bool(true, "Enable", inline="cw1", group=grp_cw)
+cw_vah_c = input.color(#d121c2, "VAH", inline="cw1", group=grp_cw)
+cw_poc_c = input.color(#000000, "POC", inline="cw1", group=grp_cw)
+cw_val_c = input.color(#d121c2, "VAL", inline="cw1", group=grp_cw)
+
+// Previous Week
+grp_pw   = "Previous Week"
+pw_on    = input.bool(true, "Enable", inline="pw1", group=grp_pw)
+pw_vah_c = input.color(color.blue, "PW: VAH", inline="pw1", group=grp_pw)
+pw_poc_c = input.color(#000000, "PW: POC", inline="pw1", group=grp_pw)
+pw_val_c = input.color(color.blue, "PW: VAL", inline="pw1", group=grp_pw)
+
+// Previous Day RTH
+grp_pd_rth = "Previous Day RTH"
+pd_rth_sess  = input.session("0930-1600", "Duration", group=grp_pd_rth)
+rth_on    = input.bool(true, "Enable", inline="rth1", group=grp_pd_rth)
+rth_vah_c = input.color(color.green, "RTH: VAH", inline="rth1", group=grp_pd_rth)
+rth_poc_c = input.color(color.black, "RTH: POC", inline="rth1", group=grp_pd_rth)
+rth_val_c = input.color(color.green, "RTH: VAL", inline="rth1", group=grp_pd_rth)
+
+// Developing RTH
+grp_dev_rth = "Developing RTH"
+dev_rth_sess  = input.session("0930-1600", "Duration", group=grp_dev_rth)
+dev_rth_on    = input.bool(true, "Enable", inline="dev1", group=grp_dev_rth)
+dev_rth_vah_c = input.color(color.red, "RTH: VAH", inline="dev1", group=grp_dev_rth)
+dev_rth_poc_c = input.color(color.black, "RTH: POC", inline="dev1", group=grp_dev_rth)
+dev_rth_val_c = input.color(color.red, "RTH: VAL", inline="dev1", group=grp_dev_rth)
+
+// Overnight
+grp_on   = "Overnight"
+on_sess  = input.session("1800-0930", "Duration", group=grp_on)
+on_on    = input.bool(true, "Enable", inline="on1", group=grp_on)
+on_vah_c = input.color(color.orange, "ON: VAH", inline="on1", group=grp_on)
+on_poc_c = input.color(color.black, "ON: POC", inline="on1", group=grp_on)
+on_val_c = input.color(color.orange, "ON: VAL", inline="on1", group=grp_on)
+
+// ─────────────────────────────────────────────────────────────────────────────
+// SESSIONS AND TIME
+// ─────────────────────────────────────────────────────────────────────────────
+SESSION_TZ = "America/New_York"
+fut_sess = "1800-1700"
+
+in_sess(sess) => timeframe.isintraday and not na(time(timeframe.period, sess, SESSION_TZ))
+
+pd_rth_in = in_sess(pd_rth_sess)
+dev_rth_in = in_sess(dev_rth_sess)
+on_in = in_sess(on_sess)
+fut_in = in_sess(fut_sess)
+
+anchor_in = in_sess(anchor_time)
+isNewAnchor = anchor_in and not anchor_in[1]
+
+// Store a timestamp instead of a bar index so replay cannot exhaust a
+// historical time buffer when the anchor becomes many bars old.
+var int anchor_time_start = na
+if isNewAnchor
+    anchor_time_start := time
+
+// Logic to show dev RTH profile until 18:00
+var bool show_dev_rth = false
+if dev_rth_in and not dev_rth_in[1]
+    show_dev_rth := true
+if isNewAnchor
+    show_dev_rth := false
+
+// ─────────────────────────────────────────────────────────────────────────────
+// VP HELPERS
+// ─────────────────────────────────────────────────────────────────────────────
+type VPData
+    float[] bins
+    int minKey
+    int maxKey
+    float totVol
+    float vah
+    float poc
+    float val
+    float prev_vah
+    float prev_poc
+    float prev_val
+
+method init(VPData vp) =>
+    if na(vp.bins)
+        vp.bins := array.new_float()
+    else
+        array.clear(vp.bins)
+    vp.minKey := na
+    vp.maxKey := na
+    vp.totVol := 0.0
+
+method update_levels(VPData vp, float rowSize, float vaPct) =>
+    int n = array.size(vp.bins)
+    if n > 0 and vp.totVol > 0 and not na(vp.minKey)
+        float maxV = array.get(vp.bins, 0)
+        int pocIdx = 0
+        if n > 1
+            for i = 1 to n - 1
+                float v = array.get(vp.bins, i)
+                if v > maxV
+                    maxV := v
+                    pocIdx := i
+        vp.poc := (vp.minKey + pocIdx) * rowSize
+        float target = vp.totVol * (vaPct / 100.0)
+        float cum = maxV
+        int lo = pocIdx
+        int hi = pocIdx
+        while cum < target and (lo > 0 or hi < n - 1)
+            float vBelow = lo > 0 ? array.get(vp.bins, lo - 1) : -1.0
+            float vAbove = hi < n - 1 ? array.get(vp.bins, hi + 1) : -1.0
+            if vAbove >= vBelow
+                if hi < n - 1
+                    hi += 1
+                    cum += array.get(vp.bins, hi)
+            else
+                if lo > 0
+                    lo -= 1
+                    cum += array.get(vp.bins, lo)
+        vp.val := (vp.minKey + lo) * rowSize
+        vp.vah := (vp.minKey + hi) * rowSize
+
+method add_vol(VPData vp, float vBar, float pHigh, float pLow, float rowSize) =>
+    int lowKey = int(math.floor(pLow / rowSize))
+    int highKey = int(math.floor(pHigh / rowSize))
+    if lowKey > highKey
+        int tmp = lowKey
+        lowKey := highKey
+        highKey := tmp
+    if na(vp.minKey)
+        vp.minKey := lowKey
+        vp.maxKey := highKey
+        int diff = vp.maxKey - vp.minKey
+        for _ = 0 to diff
+            array.push(vp.bins, 0.0)
+    else
+        if lowKey < vp.minKey
+            int diff = vp.minKey - lowKey
+            for _ = 1 to diff
+                array.unshift(vp.bins, 0.0)
+            vp.minKey := lowKey
+        if highKey > vp.maxKey
+            int diff = highKey - vp.maxKey
+            for _ = 1 to diff
+                array.push(vp.bins, 0.0)
+            vp.maxKey := highKey
+    int span = highKey - lowKey + 1
+    float perBinVol = span > 0 ? vBar / span : 0.0
+    for k = lowKey to highKey
+        int idx = k - vp.minKey
+        if idx >= 0 and idx < array.size(vp.bins)
+            array.set(vp.bins, idx, array.get(vp.bins, idx) + perBinVol)
+    vp.totVol += vBar
+
+// ─────────────────────────────────────────────────────────────────────────────
+// STATE & UPDATES
+// ─────────────────────────────────────────────────────────────────────────────
+var VPData vp_week = VPData.new()
+var VPData vp_pd_rth = VPData.new()
+var VPData vp_dev_rth = VPData.new()
+var VPData on_vp = VPData.new()
+
+if barstate.isfirst
+    vp_week.init()
+    vp_pd_rth.init()
+    vp_dev_rth.init()
+    on_vp.init()
+
+float rowSize = syminfo.mintick * vp_row_tck
+
+isNewWeek = ta.change(time("W")) != 0
+if isNewWeek
+    vp_week.prev_vah := vp_week.vah
+    vp_week.prev_poc := vp_week.poc
+    vp_week.prev_val := vp_week.val
+    vp_week.init()
+
+isNewPDRTH = pd_rth_in and not pd_rth_in[1]
+if isNewPDRTH
+    vp_pd_rth.prev_vah := vp_pd_rth.vah
+    vp_pd_rth.prev_poc := vp_pd_rth.poc
+    vp_pd_rth.prev_val := vp_pd_rth.val
+    vp_pd_rth.init()
+
+isNewDevRTH = dev_rth_in and not dev_rth_in[1]
+if isNewDevRTH
+    vp_dev_rth.prev_vah := vp_dev_rth.vah
+    vp_dev_rth.prev_poc := vp_dev_rth.poc
+    vp_dev_rth.prev_val := vp_dev_rth.val
+    vp_dev_rth.init()
+
+isNewON = on_in and not on_in[1]
+if isNewON
+    on_vp.prev_vah := on_vp.vah
+    on_vp.prev_poc := on_vp.poc
+    on_vp.prev_val := on_vp.val
+    on_vp.init()
+
+float vBar = na(volume) ? 0.0 : volume
+if vp_on_inp
+    vp_week.add_vol(vBar, high, low, rowSize)
+    vp_week.update_levels(rowSize, vp_va_pct)
+
+    if pd_rth_in
+        vp_pd_rth.add_vol(vBar, high, low, rowSize)
+        vp_pd_rth.update_levels(rowSize, vp_va_pct)
+
+    if dev_rth_in
+        vp_dev_rth.add_vol(vBar, high, low, rowSize)
+        vp_dev_rth.update_levels(rowSize, vp_va_pct)
+
+    if on_in
+        on_vp.add_vol(vBar, high, low, rowSize)
+        on_vp.update_levels(rowSize, vp_va_pct)
+
+// PDH / PDL
+var float pdh_c = na
+var float pdl_c = na
+var float pdh_p = na
+var float pdl_p = na
+
+isNewFut = fut_in and not fut_in[1]
+if isNewFut
+    pdh_p := pdh_c
+    pdl_p := pdl_c
+    pdh_c := high
+    pdl_c := low
+
+if fut_in
+    pdh_c := math.max(nz(pdh_c, high), high)
+    pdl_c := math.min(nz(pdl_c, low), low)
+
+// ─────────────────────────────────────────────────────────────────────────────
+// DRAWING
+// ─────────────────────────────────────────────────────────────────────────────
+f_draw_vp_level(_show, _price, _x1, _x2, _col, _text, _yOff, _line_in, _lab_in, _style=line.style_solid) =>
+    line  _ln = _line_in
+    label _lb = _lab_in
+    if not _show or na(_price) or na(_x1) or na(_x2)
+        if not na(_ln)
+            line.delete(_ln)
+        if not na(_lb)
+            label.delete(_lb)
+        [line(na), label(na)]
+    else
+        if na(_ln)
+            _ln := line.new(_x1, _price, _x2, _price, xloc=xloc.bar_time, color=_col, width=pd_width, style=_style)
+        else
+            line.set_xy1(_ln, _x1, _price)
+            line.set_xy2(_ln, _x2, _price)
+            line.set_color(_ln, _col)
+            line.set_width(_ln, pd_width)
+            line.set_style(_ln, _style)
+        if na(_lb)
+            _lb := label.new(_x2, _price, _text, xloc=xloc.bar_time, yloc=yloc.price, style=label.style_none, textcolor=_col, size=size.small)
+        else
+            label.set_xy(_lb, _x2, _price)
+            label.set_text(_lb, _text)
+            label.set_textcolor(_lb, _col)
+        [_ln, _lb]
+
+var line[] lines = array.new_line(23, na)
+var label[] labels = array.new_label(23, na)
+
+if barstate.islast
+    int x1 = na(anchor_time_start) ? time : anchor_time_start
+    int x2 = time("", bars_back=-vp_bar_offset)
+
+    // PDH/PDL
+    [l0, b0] = f_draw_vp_level(pdh_pdl_on, pdh_p, x1, x2, pd_col, "PDH", 0, lines.get(0), labels.get(0))
+    [l1, b1] = f_draw_vp_level(pdh_pdl_on, pdl_p, x1, x2, pd_col, "PDL", 0, lines.get(1), labels.get(1))
+    lines.set(0, l0), labels.set(0, b0)
+    lines.set(1, l1), labels.set(1, b1)
+
+    // Current Week
+    [l2, b2] = f_draw_vp_level(vp_on_inp and cw_on, vp_week.vah, x1, x2, cw_vah_c, "CW VAH", 0, lines.get(2), labels.get(2))
+    [l3, b3] = f_draw_vp_level(vp_on_inp and cw_on, vp_week.poc, x1, x2, cw_poc_c, "CW POC", 0, lines.get(3), labels.get(3))
+    [l4, b4] = f_draw_vp_level(vp_on_inp and cw_on, vp_week.val, x1, x2, cw_val_c, "CW VAL", 0, lines.get(4), labels.get(4))
+    lines.set(2, l2), labels.set(2, b2)
+    lines.set(3, l3), labels.set(3, b3)
+    lines.set(4, l4), labels.set(4, b4)
+
+    // Previous Week
+    [l5, b5] = f_draw_vp_level(vp_on_inp and pw_on, vp_week.prev_vah, x1, x2, pw_vah_c, "PW VAH", 0, lines.get(5), labels.get(5))
+    [l6, b6] = f_draw_vp_level(vp_on_inp and pw_on, vp_week.prev_poc, x1, x2, pw_poc_c, "PW POC", 0, lines.get(6), labels.get(6))
+    [l7, b7] = f_draw_vp_level(vp_on_inp and pw_on, vp_week.prev_val, x1, x2, pw_val_c, "PW VAL", 0, lines.get(7), labels.get(7))
+    lines.set(5, l5), labels.set(5, b5)
+    lines.set(6, l6), labels.set(6, b6)
+    lines.set(7, l7), labels.set(7, b7)
+
+    // Prev Day RTH
+    float draw_rth_vah = pd_rth_in ? vp_pd_rth.prev_vah : vp_pd_rth.vah
+    float draw_rth_poc = pd_rth_in ? vp_pd_rth.prev_poc : vp_pd_rth.poc
+    float draw_rth_val = pd_rth_in ? vp_pd_rth.prev_val : vp_pd_rth.val
+
+    [l8, b8] = f_draw_vp_level(vp_on_inp and rth_on, draw_rth_vah, x1, x2, rth_vah_c, "PD RTH VAH", 0, lines.get(8), labels.get(8))
+    [l9, b9] = f_draw_vp_level(vp_on_inp and rth_on, draw_rth_poc, x1, x2, rth_poc_c, "PD RTH POC", 0, lines.get(9), labels.get(9))
+    [l10, b10] = f_draw_vp_level(vp_on_inp and rth_on, draw_rth_val, x1, x2, rth_val_c, "PD RTH VAL", 0, lines.get(10), labels.get(10))
+    lines.set(8, l8), labels.set(8, b8)
+    lines.set(9, l9), labels.set(9, b9)
+    lines.set(10, l10), labels.set(10, b10)
+
+    // ON Session
+    string on_style = on_in ? line.style_dashed : line.style_solid
+    float on_vah = on_vp.vah
+    float on_poc = on_vp.poc
+    float on_val = on_vp.val
+    [l11, b11] = f_draw_vp_level(vp_on_inp and on_on, on_vah, x1, x2, on_vah_c, "ON VAH", 0, lines.get(11), labels.get(11), on_style)
+    [l12, b12] = f_draw_vp_level(vp_on_inp and on_on, on_poc, x1, x2, on_poc_c, "ON POC", 0, lines.get(12), labels.get(12), on_style)
+    [l13, b13] = f_draw_vp_level(vp_on_inp and on_on, on_val, x1, x2, on_val_c, "ON VAL", 0, lines.get(13), labels.get(13), on_style)
+    lines.set(11, l11), labels.set(11, b11)
+    lines.set(12, l12), labels.set(12, b12)
+    lines.set(13, l13), labels.set(13, b13)
+
+    // Developing RTH Session
+    string dev_rth_style = dev_rth_in ? line.style_dashed : line.style_solid
+    bool show_dev = vp_on_inp and dev_rth_on and show_dev_rth
+
+    [l14, b14] = f_draw_vp_level(show_dev, vp_dev_rth.vah, x1, x2, dev_rth_vah_c, "Dev RTH VAH", 0, lines.get(14), labels.get(14), dev_rth_style)
+    [l15, b15] = f_draw_vp_level(show_dev, vp_dev_rth.poc, x1, x2, dev_rth_poc_c, "Dev RTH POC", 0, lines.get(15), labels.get(15), dev_rth_style)
+    [l16, b16] = f_draw_vp_level(show_dev, vp_dev_rth.val, x1, x2, dev_rth_val_c, "Dev RTH VAL", 0, lines.get(16), labels.get(16), dev_rth_style)
+    lines.set(14, l14), labels.set(14, b14)
+    lines.set(15, l15), labels.set(15, b15)
+    lines.set(16, l16), labels.set(16, b16)

@@ -1,0 +1,189 @@
+{
+  "provenance": {
+    "assets": [],
+    "sourceSha256": "b899e765c22599309205d21079c95603bc0793bb0ffdc64d4175e0185d2f5de9"
+  },
+  "report": {
+    "id": "verniman-es-breaks-confirmation-20261108-notebook-v2",
+    "notes": [
+      "Pivot-matched ES regular trading hours, 09:30–16:00 America/New_York: 875 eligible sessions from January 3, 2020 through September 18, 2026. Requested coverage extends through October 30, 2026.",
+      "Historical pivot availability remains unverified. Source/contract and full-day quality eligibility are retrospective.",
+      "These insights reproduce selected descriptive point estimates from retained event, day and section records. No source events or bootstrap confidence intervals are reconstructed in this edition; uncertainty intervals remain in the earlier ranked reports.",
+      "Multiple events within a day are dependent. Conditional and calendar comparisons are exploratory; neither crossing activity nor price-path summaries establish executable profitability.",
+      "Price and actual EMA6 crossings are different events; an already-aligned EMA6 is a separate state. Fixed-horizon outcomes require complete windows and omit earlier signal-bar extremes.",
+      "No trade fills, execution costs or net profitability are modeled. Separate VWAP-only RTH/Globex populations remain companion evidence and are not pooled with the pivot-matched sample."
+    ],
+    "presentation": "research-paper",
+    "publishedAt": "2026-11-08T04:13:17Z",
+    "schemaVersion": "1.1",
+    "sections": [
+      {
+        "columns": [
+          {
+            "key": "outcome",
+            "label": "Observed outcome"
+          },
+          {
+            "format": "number",
+            "key": "episodes",
+            "label": "Episodes",
+            "precision": 0
+          },
+          {
+            "format": "percent",
+            "key": "resolved_share",
+            "label": "Share of resolved episodes",
+            "precision": 1
+          },
+          {
+            "format": "number",
+            "key": "distinct_days",
+            "label": "Distinct days",
+            "precision": 0
+          }
+        ],
+        "description": "Follow price breaks through Vern's pivot that begin with EMA6 opposite, equal with a remembered side, or not yet initialized. Does an actual EMA6 crossing occur before price returns through the pivot?\n\nThe percentage uses resolved episodes only. An episode with neither confirmation nor return remains censored. A confirmed episode can have its later return censored without losing its earlier confirmation.",
+        "finding": "Of 2,445 resolved price breaks across 666 days, 1,075 (44.0%) returned through the pivot before EMA6 confirmation. Another 33 episodes remained unresolved and are excluded from that percentage. Almost half of these resolved, initially unconfirmed breaks returned first. This classification becomes known after the break and is not an entry-time signal.",
+        "id": "pivot-confirmation",
+        "kind": "table",
+        "notes": [
+          "Resolved denominator: 2,445 episodes; unresolved observations have no resolved-outcome percentage. Distinct-day counts overlap across rows.",
+          "Confirmation status is distinct from censoring of a later return."
+        ],
+        "rows": [
+          {
+            "distinct_days": 577,
+            "episodes": 1370,
+            "outcome": "EMA6 confirmed before return",
+            "resolved_share": 0.560327198364008
+          },
+          {
+            "distinct_days": 494,
+            "episodes": 1075,
+            "outcome": "Price returned before confirmation",
+            "resolved_share": 0.439672801635992
+          },
+          {
+            "distinct_days": 33,
+            "episodes": 33,
+            "outcome": "Unresolved at observation end",
+            "resolved_share": null
+          }
+        ],
+        "title": "How often does a price break return before EMA6 confirms it?"
+      },
+      {
+        "columns": [
+          {
+            "format": "number",
+            "key": "episodes",
+            "label": "Returned episodes",
+            "precision": 0
+          },
+          {
+            "format": "number",
+            "key": "days",
+            "label": "Distinct days",
+            "precision": 0
+          },
+          {
+            "format": "number",
+            "key": "mean",
+            "label": "Mean points",
+            "precision": 2
+          },
+          {
+            "format": "number",
+            "key": "median",
+            "label": "Median points",
+            "precision": 2
+          }
+        ],
+        "description": "Measure maximum directional penetration beyond the pivot during initially unconfirmed price episodes that return before an actual EMA6 confirmation. The population is selected by the subsequently observed return.\n\nDepth is measured in unadjusted ES points; it is not an assumed loss, stop distance or execution price.",
+        "finding": "The 1,075 returned unconfirmed breaks across 494 days had mean penetration of 3.13 ES points, with median 2.50. The mean exceeds the median in this retained conditional sample. Returned breaks can travel beyond the pivot before reversing; their eventual return is later information.",
+        "id": "returned-break-depth",
+        "kind": "table",
+        "notes": [
+          "Conditional on return before confirmation. Unconfirmed unresolved episodes are not treated as returned breaks."
+        ],
+        "rows": [
+          {
+            "days": 494,
+            "episodes": 1075,
+            "mean": 3.131627906976757,
+            "median": 2.5
+          }
+        ],
+        "title": "How deep are breaks that return without EMA6 confirmation?"
+      },
+      {
+        "columns": [
+          {
+            "key": "measurement",
+            "label": "Measurement"
+          },
+          {
+            "key": "unit",
+            "label": "Unit"
+          },
+          {
+            "format": "number",
+            "key": "episodes",
+            "label": "Episodes",
+            "precision": 0
+          },
+          {
+            "format": "number",
+            "key": "days",
+            "label": "Distinct days",
+            "precision": 0
+          },
+          {
+            "format": "number",
+            "key": "mean",
+            "label": "Mean",
+            "precision": 2
+          },
+          {
+            "format": "number",
+            "key": "median",
+            "label": "Median",
+            "precision": 2
+          }
+        ],
+        "description": "Among price episodes with a later actual EMA6 crossing, measure elapsed time from the initial price break and directional price movement to confirmation. Same-close confirmations and already-aligned EMA6 states are distinct.\n\nThese measurements condition on eventual confirmation. They do not describe a filter available at the earlier price break.",
+        "finding": "Across 1,370 delayed confirmations on 577 days, the mean lag was 5.07 minutes and mean directional price movement before confirmation was 3.35 ES points. Waiting for confirmation changes the observation time and price reference; it cannot be retrospectively applied as though known at the original break.",
+        "id": "delayed-confirmation",
+        "kind": "table",
+        "notes": [
+          "Delayed confirmations only. The new EMA6 crossing must occur while the original price episode remains active."
+        ],
+        "rows": [
+          {
+            "days": 577,
+            "episodes": 1370,
+            "mean": 5.073722627737227,
+            "measurement": "Confirmation lag",
+            "median": 3,
+            "unit": "Minutes"
+          },
+          {
+            "days": 577,
+            "episodes": 1370,
+            "mean": 3.354927007299271,
+            "measurement": "Movement before confirmation",
+            "median": 2.25,
+            "unit": "ES points"
+          }
+        ],
+        "title": "How much time and movement precede delayed EMA6 confirmation?"
+      }
+    ],
+    "source": {
+      "producer": "sahadeva",
+      "runId": "20261108T040901Z_notebook_themes_v2"
+    },
+    "summary": "Does an initially unconfirmed price break return or receive EMA6 confirmation, and what happens before that resolution?",
+    "title": "Breaks & confirmation"
+  }
+}

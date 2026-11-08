@@ -6,7 +6,8 @@ import { readStudyCatalog, studyHref, publicationGroups, studyPublicationReferen
 import { assertPagePayloadSize } from './lib/static-page-budget.mjs';
 import { verifyStaticPublicationJson } from './lib/static-json-delivery.mjs';
 import { overviewHref, overviewSources } from './lib/study-overviews.mjs';
-import { STUDY_DESTINATIONS, studyDestinationHref, studyPageRoutes, pageRouteFile, legacyStudyAnchors } from './lib/study-routes.mjs';
+import { STUDY_DESTINATIONS, studyDestinationHref, studyPageRoutes, pageRouteFile, legacyStudyAnchorSelection, isSinglePageStudy, studyNavigationDestinations, studyNavigationHref } from './lib/study-routes.mjs';
+import { assertPublicationNavigation, assertReaderContext, assertSinglePageReader } from './lib/static-reader-verification.mjs';
 
 const root = resolve(import.meta.dirname, '../out');
 const publicRoot = join(root, 'publications');
@@ -30,6 +31,31 @@ for (const path of catalog.readingPaths ?? []) {
   }
 }
 const noEagerReportJson = html => assert(!/<(?:script|link)\b[^>]*(?:src|href)="[^"]*\/publications\/[^"]*\/report\.json/.test(html), 'Core pages must not preload or execute report JSON.');
+const linkTo = (html, href) => [...html.matchAll(/<a\b[^>]*>/g)].map(match => match[0]).find(tag => tag.includes(`href="${href}"`));
+function verifyStudyNavigation(html, study, current, route) {
+  const nav = /<nav\b[^>]*aria-label="Study destinations"[^>]*>[\s\S]*?<\/nav>/.exec(html)?.[0];
+  assert(nav, `Missing persistent study navigation on ${route}`);
+  assert.equal((nav.match(/aria-current="page"/g) ?? []).length, 1, `One current study destination required on ${route}`);
+  const targets = studyNavigationDestinations(study);
+  assert.equal((nav.match(/<a\b/g) ?? []).length, targets.length, `Wrong study destination count on ${route}`);
+  for (const target of targets) {
+    const href = studyNavigationHref(study, target.key);
+    const link = linkTo(nav, href);
+    assert(link, `Missing study destination link ${href} on ${route}`);
+    assert.equal(link.includes('aria-current="page"'), isSinglePageStudy(study) || target.key === current, `Incorrect current study destination on ${route}`);
+  }
+}
+function verifyActiveResult(html, report, route) {
+  assert.equal((html.match(/data-publication-id="/g) ?? []).length, 1, `Results must mount exactly one saved report on ${route}`);
+  assert(html.includes(`data-publication-id="${report.id}"`), `Wrong selected result on ${route}`);
+  assert.equal((html.match(/class="report-section /g) ?? []).length, report.sections.length, `Results must render only the active report's sections on ${route}`);
+  let previousSection = -1;
+  for (const section of report.sections) {
+    const at = html.indexOf(`id="section-${section.id}"`);
+    assert(at > previousSection, `Saved result section order/identity changed on ${route}: ${section.id}`);
+    previousSection = at;
+  }
+}
 noEagerReportJson(homepage);
 const reportPages = new Map();
 const reportHtml = async id => {
@@ -46,17 +72,18 @@ for (const study of catalog.studies) {
     const html = await readFile(file, 'utf8');
     noEagerReportJson(html);
     pages.set(destination.key, html);
-    const nav = /<nav\b[^>]*aria-label="Study destinations"[^>]*>[\s\S]*?<\/nav>/.exec(html)?.[0];
-    assert(nav, `Missing study destination navigation on ${route}`);
-    assert.equal((nav.match(/aria-current="page"/g) ?? []).length, 1, `One current study destination required on ${route}`);
-    for (const target of STUDY_DESTINATIONS) {
-      const href = studyDestinationHref(study.slug, target.key);
-      const link = [...nav.matchAll(/<a\b[^>]*>/g)].map(match => match[0]).find(tag => tag.includes(`href="${href}"`));
-      assert(link, `Missing study destination link ${href}`);
-      assert.equal(link.includes('aria-current="page"'), target.key === destination.key, `Incorrect current study destination on ${route}`);
+    verifyStudyNavigation(html, study, destination.key, route);
+    if (isSinglePageStudy(study)) {
+      assertSinglePageReader(html, study, bundles, route);
+    } else if (destination.key === 'explore') {
+      const featured = bundles.find(bundle => bundle.report.id === study.featuredPublicationId);
+      verifyActiveResult(html, featured.report, route);
+      const group = publicationGroups(study).find(group => group.some(tab => tab.publicationId === featured.report.id));
+      if (group) assertPublicationNavigation(html, featured.report, group, route);
+    } else {
+      assert(!html.includes('class="report-section '), `Inactive study destinations must not mount report bodies: ${route}`);
+      assert(!html.includes('class="table-filter-controls"'), `Inactive study destinations must not initialize report-table controls: ${route}`);
     }
-    assert(!html.includes('class="report-section '), `Study destination must link to full report bodies: ${route}`);
-    assert(!html.includes('class="table-filter-controls"'), `Study destination must not initialize report-table controls: ${route}`);
   }
   const html = [...pages.values()].join('\n');
   if (study.overview) {
@@ -68,25 +95,33 @@ for (const study of catalog.studies) {
     }
   }
   const featured = bundles.find(bundle => bundle.report.id === study.featuredPublicationId);
-  for (const anchor of legacyStudyAnchors(featured)) {
+  const selectedIds = new Set(studyPublicationReferences(study).map(p => p.publicationId));
+  const selected = featured.report.presentation === 'research-paper'
+    ? studyPublicationReferences(study).map(reference => bundles.find(bundle => bundle.report.id === reference.publicationId)) : [];
+  for (const anchor of legacyStudyAnchorSelection(featured, selected)) {
     assert(pages.get('overview').includes(`id="${anchor.id}"`), `Missing legacy study fragment ${study.slug}/#${anchor.id}`);
-    assert(pages.get('overview').includes(`href="${anchor.href}"`), `Missing visible compatibility link ${anchor.href}`);
-    const targetHtml = await reportHtml(featured.report.id);
+    if (!isSinglePageStudy(study) || !study.publicationTabs.some(tab => anchor.href.startsWith(`/reports/${tab.publicationId}/#`))) {
+      assert(pages.get('overview').includes(`href="${anchor.href}"`), `Missing visible compatibility link ${anchor.href}`);
+    }
+    const targetId = anchor.href.split('/')[2];
+    assert(selectedIds.has(targetId), `Legacy compatibility target is not selected: ${anchor.href}`);
+    const targetHtml = await reportHtml(targetId);
     assert(targetHtml.includes(`id="${anchor.href.split('#')[1]}"`), `Missing legacy compatibility target ${anchor.href}`);
   }
-  const selectedIds = new Set(studyPublicationReferences(study).map(p => p.publicationId));
   for (const id of selectedIds) {
-    assert(html.includes(`href="/reports/${id}/"`), `Study destinations missing selected publication ${id}`);
+    if (!isSinglePageStudy(study)) assert(html.includes(`href="/reports/${id}/"`), `Study destinations missing selected publication ${id}`);
     assert((await stat(join(root, 'reports', id, 'index.html'))).isFile(), `Missing selected publication page ${id}`);
   }
   for (const group of publicationGroups(study)) {
     for (const tab of group) {
       const publicationHtml = await reportHtml(tab.publicationId);
-      assert(publicationHtml.includes('aria-label="Study chart navigation"'), `Missing publication navigation for ${tab.publicationId}`);
-      assert(publicationHtml.includes(`href="/reports/${tab.publicationId}/" aria-current="page"`), `Missing current tab for ${tab.publicationId}`);
-      for (const sibling of group) {
-        assert(publicationHtml.includes(`href="/reports/${sibling.publicationId}/"`), `Missing sibling tab ${sibling.publicationId}`);
+      const report = bundles.find(bundle => bundle.report.id === tab.publicationId)?.report;
+      assert(report, `Missing selected publication ${tab.publicationId}`);
+      if (isSinglePageStudy(study)) {
+        assertSinglePageReader(publicationHtml, study, bundles, `/reports/${tab.publicationId}/`, tab.publicationId);
+        continue;
       }
+      assertPublicationNavigation(publicationHtml, report, group, `/reports/${tab.publicationId}/`);
       const context = findPublicationStudy(catalog, tab.publicationId);
       const analyses = context?.family?.analyses ?? study.analyses;
       if (analyses?.length) {
@@ -103,7 +138,7 @@ for (const study of catalog.studies) {
           const target = familyPublicationSelection(family, context.analysis.id, tab.label).tab;
           assert(phaseHtml.includes(`href="/reports/${target.publicationId}/"`), `Missing phase selection ${family.id}`);
           if (family.id === context.family.id) {
-            assert(phaseHtml.includes(`href="/reports/${target.publicationId}/" aria-current="page"`), `Missing current phase ${family.id}`);
+            assert(linkTo(phaseHtml, `/reports/${target.publicationId}/`)?.includes('aria-current="page"'), `Missing current phase ${family.id}`);
           }
         }
       }
@@ -115,6 +150,8 @@ for (const report of index.reports) {
 }
 for (const { report } of bundles) {
   const html = await reportHtml(report.id);
+  const context = findPublicationStudy(catalog, report.id);
+  const consolidated = context && isSinglePageStudy(context.study) && !context.relation;
   let previousSection = -1;
   for (const section of report.sections) {
     const at = html.indexOf(`id="section-${section.id}"`);
@@ -122,11 +159,12 @@ for (const { report } of bundles) {
     assert(html.includes(`href="#section-${section.id}"`), `Missing direct section link: ${report.id}/${section.id}`);
     previousSection = at;
   }
-  assert(html.includes('class="contents-mobile"') && html.includes('class="print-publication-identity"'), `Missing mobile or print reader context: ${report.id}`);
-  const context = findPublicationStudy(catalog, report.id);
+  if (consolidated) assertSinglePageReader(html, context.study, bundles, `/reports/${report.id}/`, report.id);
+  else assertReaderContext(html, report);
+  noEagerReportJson(html);
   if (context) {
-    assert(html.includes(`href="${studyDestinationHref(context.study.slug)}"`), `Report missing its study overview: ${report.id}`);
-    assert(html.includes(`href="${studyDestinationHref(context.study.slug, 'explore')}"`), `Report missing its study Explore route: ${report.id}`);
+    verifyStudyNavigation(html, context.study, 'explore', `/reports/${report.id}/`);
+    if (!consolidated) verifyActiveResult(html, report, `/reports/${report.id}/`);
   }
   for (const download of report.downloads ?? []) {
     assert(html.includes(`href="/publications/${report.id}/${download.path}"`), `Missing download link for ${report.id}/${download.path}`);

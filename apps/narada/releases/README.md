@@ -166,7 +166,38 @@ from anonymous production verification. Consult the current
 
 ## Accepted production release
 
-Current release `20261027T003702Z_cc56f115` is live at
+Current release `20261031T193451Z_d0c9c013` is live at
+[abacus-narada.vercel.app](https://abacus-narada.vercel.app), production READY.
+Its prepared app matches all 625 corresponding files in source commit
+[`7098b4bdc68e919b7b2e8daf77d6651a08446c43`](https://github.com/pruthvireddy/abacus/commit/7098b4bdc68e919b7b2e8daf77d6651a08446c43).
+Preparation captured dirty source over `2f890fb2e263fd3acd2a28082909d5c98c5d5166`;
+the retained snapshot hash records that distinction. The checked staged production
+artifact was promoted without rebuilding. See the
+[public release receipt](20261031T193451Z_d0c9c013/public-receipt.json).
+
+The collection now has 25 studies, 105 reports, 163 raster figures and 247 selected
+CSVs. Study 30 adds 20 ranked descriptive measures in Pivot statistics and Globex
+VWAP statistics from frozen run `20261031_ranked_v2`, with all six Original baseline
+reports retained separately. Eligible populations remain distinct: 875 pivot-matched
+RTH, 1,308 VWAP-only RTH and 1,292 full-Globex sessions, January 3, 2020–September 18,
+2026. Requested dates remain January 1, 2020–October 30, 2026. Historical pivot
+availability and native chart parity remain unverified; retrospective/exploratory
+and no-profitability qualifications remain visible.
+
+Node 24 verify, 250 tests without skips, lint, static build, compact JSON equivalence
+and the private source audit passed. Protected preview, staged production and
+anonymous production each matched all 2,718 exact static files, 247 CSV byte/header
+checks and five hard 404s. Desktop/mobile preview and public production browser
+checks passed with no application console warnings or errors. The native preview
+CSV download matched the selected 26,094-byte asset exactly. Native print/PDF,
+browser-wide JavaScript-disabled mode and assistive-technology testing were not
+repeated. Full audits, deployment records and recovery snapshots remain local,
+with off-device recovery unverified. The previous release below is the explicit
+verified rollback reference.
+
+## Previous research-priority production release
+
+Previous release `20261027T003702Z_cc56f115` was live at
 [abacus-narada.vercel.app](https://abacus-narada.vercel.app), production READY,
 after [source PR #3](https://github.com/pruthvireddy/abacus/pull/3) merged as
 `63b05dfa818e0bdaf271e4c195fd03f154747a12`. The prepared source commit was

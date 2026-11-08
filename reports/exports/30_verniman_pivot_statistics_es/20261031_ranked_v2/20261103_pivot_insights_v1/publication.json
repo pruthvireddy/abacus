@@ -1,0 +1,1135 @@
+{
+  "schemaVersion": "1.1",
+  "id": "verniman-es-pivot-insights-20261103-v1",
+  "title": "Vern Pivot Cross Statistics — ES",
+  "summary": "Saved ES crossing results presented one question at a time, with a brief description, findings summary and chart or table. Actual eligible dates are January 3, 2020–September 18, 2026. Population, outcome horizon and missing support remain explicit. These descriptive observations do not establish profitability.",
+  "publishedAt": "2026-11-03T06:00:10Z",
+  "source": {
+    "producer": "sahadeva",
+    "runId": "20261031_ranked_v2"
+  },
+  "sections": [
+    {
+      "id": "scope",
+      "kind": "text",
+      "title": "Pivot statistics",
+      "body": "Pivot-matched RTH comparisons preserve the baseline source, exact quoted delivery contract and full-day quality rules. VWAP comparisons use this same cohort.\n\nRequested dates: 2020-01-01–2026-10-30. Actual valid coverage is recorded beside each saved measure. VWAP uses cumulative one-minute HLC3 × volume from 18:00 New York; EMA6 uses completed three-minute closes and the cloud uses completed five-minute closes.\n\nRanked questions appear below in the requested order. Priority forward views use actual EMA6 crossings; original price-cross outcomes remain in the accessible baseline and full private evidence. Whole-sample views preserve all horizons; conditional and calendar forward views emphasize 30 minutes. Public calendars select frequency, movement, recross and first timing measures, with all years and the latest 12 available months; every ranked measure retains full annual/monthly evidence privately.\n\nThe Actual valid date coverage column describes observations contributing to each measure. The Eligible cohort period coverage download separately records the eligible session count and actual window bounds, including sessions with zero crossings. Those cohort windows can extend beyond the valid-event coverage of a measure; empty periods have zero sessions and blank bounds.\n\nEach findings summary describes an explicitly named saved baseline. Compact tables show its selected supporting rows. The earlier Ranked statistics reports retain the full saved views and filters. The companion notebook presents these same questions, prose, saved defaults and chart bytes."
+    },
+    {
+      "id": "s01",
+      "kind": "figure",
+      "title": "How often does EMA6 cross Globex VWAP on pivot-matched days?",
+      "path": "figures/pivot-statistics-s01.png",
+      "alt": "Saved crossing frequency estimates, with measure units, valid denominator, distinct supporting days and actual coverage.",
+      "caption": "A bounded illustration of saved summary cells. Populations remain separate. Complete measures, horizons and missing/censored support are retained in the corresponding saved tables; no trading profitability is inferred. Full supporting tables remain in the earlier Ranked statistics reports; the downloads below contain selected saved statistics and period bounds.",
+      "description": "Count actual completed three-minute EMA6–VWAP transitions during regular trading hours (RTH). Keep every eligible session, including sessions with no cross; this is the pivot-matched population.",
+      "finding": "Across 875 pivot-matched RTH sessions, EMA6 crossed VWAP 2,450 times: a saved mean of 2.80 crossings per session and median of 2.00. The chart shows selected saved frequency views; these are descriptive counts."
+    },
+    {
+      "id": "s02",
+      "kind": "table",
+      "title": "How often does EMA6 cross the daily pivot?",
+      "columns": [
+        {
+          "key": "measure",
+          "label": "Saved measure and context"
+        },
+        {
+          "key": "value",
+          "label": "Mean",
+          "format": "number",
+          "precision": 3
+        },
+        {
+          "key": "numerator",
+          "label": "Count / sum",
+          "format": "number",
+          "precision": 3
+        },
+        {
+          "key": "median",
+          "label": "Median",
+          "format": "number",
+          "precision": 3
+        },
+        {
+          "key": "denominator",
+          "label": "Observations",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "days",
+          "label": "Days",
+          "format": "number",
+          "precision": 0
+        }
+      ],
+      "rows": [
+        {
+          "measure": "Pivot-matched RTH · overall: all · Crosses [crossings/session] · EMA6–pivot",
+          "value": 2.1554285714285712,
+          "denominator": 875,
+          "days": 875,
+          "median": 1,
+          "numerator": 1886
+        }
+      ],
+      "notes": [
+        "These are the saved baseline rows cited in the findings summary. Each measure retains its own denominator and distinct-day count; repeated events on a day are dependent.",
+        "Mean and Share are separate saved fields. Not available is distinct from observed zero. Censoring and missingness can overlap; cells with fewer than 30 distinct days are sparse.",
+        "Units appear in the measure label. Full saved comparisons and filters remain in the earlier Ranked statistics reports; selected statistics and period bounds can also be downloaded below.",
+        "All selected rows record zero for: unavailable observations, censored observations."
+      ],
+      "description": "Measure actual EMA6 line transitions through the fixed daily pivot. An EMA already on one side at the opening is an initial state, and touching or equalling the pivot alone is not a new cross.",
+      "finding": "The 875 eligible sessions contained 1,886 EMA6–pivot crossings. The saved mean was 2.16 crossings per session and the median was 1.00; zero-cross days remain in the denominator."
+    },
+    {
+      "id": "s03",
+      "kind": "table",
+      "title": "How common are days without an EMA crossing?",
+      "columns": [
+        {
+          "key": "measure",
+          "label": "Saved measure and context"
+        },
+        {
+          "key": "share",
+          "label": "Share",
+          "format": "percent",
+          "precision": 1
+        },
+        {
+          "key": "denominator",
+          "label": "Observations",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "days",
+          "label": "Days",
+          "format": "number",
+          "precision": 0
+        }
+      ],
+      "rows": [
+        {
+          "measure": "Pivot-matched RTH · overall: all · Count bucket [fraction] · EMA6–pivot · cross count=0",
+          "share": 0.26857142857142857,
+          "denominator": 875,
+          "days": 875
+        },
+        {
+          "measure": "Pivot-matched RTH · overall: all · Count bucket [fraction] · EMA6–VWAP · cross count=0",
+          "share": 0.2102857142857143,
+          "denominator": 875,
+          "days": 875
+        }
+      ],
+      "notes": [
+        "These are the saved baseline rows cited in the findings summary. Each measure retains its own denominator and distinct-day count; repeated events on a day are dependent.",
+        "Mean and Share are separate saved fields. Not available is distinct from observed zero. Censoring and missingness can overlap; cells with fewer than 30 distinct days are sparse.",
+        "Units appear in the measure label. Full saved comparisons and filters remain in the earlier Ranked statistics reports; selected statistics and period bounds can also be downloaded below.",
+        "All selected rows record zero for: unavailable observations, censored observations."
+      ],
+      "description": "Compare the saved zero, one, two, three-to-four and five-plus crossing categories. Daily counts concern actual EMA6 crossings; a zero count is an observed outcome rather than missing evidence.",
+      "finding": "Within the same 875 pivot-matched RTH sessions, 26.9% had no EMA6–pivot cross and 21.0% had no EMA6–VWAP cross. The earlier Ranked statistics reports retain all count categories and their exact session denominators."
+    },
+    {
+      "id": "s04",
+      "kind": "table",
+      "title": "What is the crossing rate per observed hour?",
+      "columns": [
+        {
+          "key": "measure",
+          "label": "Saved measure and context"
+        },
+        {
+          "key": "value",
+          "label": "Mean",
+          "format": "number",
+          "precision": 3
+        },
+        {
+          "key": "denominator",
+          "label": "Observations",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "days",
+          "label": "Days",
+          "format": "number",
+          "precision": 0
+        }
+      ],
+      "rows": [
+        {
+          "measure": "Pivot-matched RTH · overall: all · Crosses per hour [crossings/hour] · EMA6–pivot",
+          "value": 0.33160439560439564,
+          "denominator": 875,
+          "days": 875
+        },
+        {
+          "measure": "Pivot-matched RTH · overall: all · Crosses per hour [crossings/hour] · EMA6–VWAP",
+          "value": 0.43076923076923074,
+          "denominator": 875,
+          "days": 875
+        }
+      ],
+      "notes": [
+        "These are the saved baseline rows cited in the findings summary. Each measure retains its own denominator and distinct-day count; repeated events on a day are dependent.",
+        "Mean and Share are separate saved fields. Not available is distinct from observed zero. Censoring and missingness can overlap; cells with fewer than 30 distinct days are sparse.",
+        "Units appear in the measure label. Full saved comparisons and filters remain in the earlier Ranked statistics reports; selected statistics and period bounds can also be downloaded below.",
+        "All selected rows record zero for: unavailable observations, censored observations."
+      ],
+      "description": "Use each day’s observed native three-minute exposure to express EMA6 crossing frequency per hour. Section lengths differ, so an hourly rate answers a different question from a raw section count.",
+      "finding": "Across 875 pivot-matched RTH sessions, the saved mean daily rate was 0.33 EMA6–pivot crossings per observed hour and 0.43 EMA6–VWAP crossings per observed hour. No observed exposure would be unavailable rather than a zero rate."
+    },
+    {
+      "id": "s05",
+      "kind": "table",
+      "title": "How do price and EMA6 crossing counts differ?",
+      "columns": [
+        {
+          "key": "measure",
+          "label": "Saved measure and context"
+        },
+        {
+          "key": "value",
+          "label": "Mean",
+          "format": "number",
+          "precision": 3
+        },
+        {
+          "key": "denominator",
+          "label": "Observations",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "days",
+          "label": "Days",
+          "format": "number",
+          "precision": 0
+        }
+      ],
+      "rows": [
+        {
+          "measure": "Pivot-matched RTH · overall: all · Crosses [crossings/session] · Price–pivot",
+          "value": 4.638857142857143,
+          "denominator": 875,
+          "days": 875
+        },
+        {
+          "measure": "Pivot-matched RTH · overall: all · Crosses [crossings/session] · EMA6–pivot",
+          "value": 2.1554285714285712,
+          "denominator": 875,
+          "days": 875
+        }
+      ],
+      "notes": [
+        "These are the saved baseline rows cited in the findings summary. Each measure retains its own denominator and distinct-day count; repeated events on a day are dependent.",
+        "Mean and Share are separate saved fields. Not available is distinct from observed zero. Censoring and missingness can overlap; cells with fewer than 30 distinct days are sparse.",
+        "Units appear in the measure label. Full saved comparisons and filters remain in the earlier Ranked statistics reports; selected statistics and period bounds can also be downloaded below.",
+        "All selected rows record zero for: unavailable observations, censored observations."
+      ],
+      "description": "Compare completed three-minute price-close transitions and actual EMA6 transitions through the pivot on the same eligible sessions. The saved additional-price-cross measure is a within-session difference.",
+      "finding": "For the same 875 pivot-matched RTH sessions, price averaged 4.64 pivot crossings per session and EMA6 averaged 2.16. These are recurrence counts; they do not measure the profitability of taking either event."
+    },
+    {
+      "id": "s06",
+      "kind": "table",
+      "title": "How often does a price break return before EMA confirmation?",
+      "columns": [
+        {
+          "key": "measure",
+          "label": "Saved measure and context"
+        },
+        {
+          "key": "share",
+          "label": "Share",
+          "format": "percent",
+          "precision": 1
+        },
+        {
+          "key": "numerator",
+          "label": "Count / sum",
+          "format": "number",
+          "precision": 3
+        },
+        {
+          "key": "denominator",
+          "label": "Observations",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "days",
+          "label": "Days",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "unknown",
+          "label": "Unavailable",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "censored",
+          "label": "Censored",
+          "format": "number",
+          "precision": 0
+        }
+      ],
+      "rows": [
+        {
+          "measure": "Pivot-matched RTH · overall: all · Returned before confirmation [fraction] · Price–pivot",
+          "share": 0.4396728016359918,
+          "denominator": 2445,
+          "days": 666,
+          "unknown": 33,
+          "censored": 33,
+          "numerator": 1075
+        }
+      ],
+      "notes": [
+        "These are the saved baseline rows cited in the findings summary. Each measure retains its own denominator and distinct-day count; repeated events on a day are dependent.",
+        "Mean and Share are separate saved fields. Not available is distinct from observed zero. Censoring and missingness can overlap; cells with fewer than 30 distinct days are sparse.",
+        "Units appear in the measure label. Full saved comparisons and filters remain in the earlier Ranked statistics reports; selected statistics and period bounds can also be downloaded below."
+      ],
+      "description": "Start with price breaks whose EMA6 was initially unconfirmed, and follow them until an actual EMA confirmation or a return through the pivot. Initially aligned cases are separate, and unresolved episodes are censored.",
+      "finding": "A return preceded EMA confirmation in 1,075 of 2,445 resolved episodes (44.0%), supported by 666 distinct days. Another 33 episodes were censored. The return label becomes known later than the original price break."
+    },
+    {
+      "id": "s07",
+      "kind": "table",
+      "title": "How deep are breaks that return without EMA confirmation?",
+      "columns": [
+        {
+          "key": "measure",
+          "label": "Saved measure and context"
+        },
+        {
+          "key": "value",
+          "label": "Mean",
+          "format": "number",
+          "precision": 3
+        },
+        {
+          "key": "median",
+          "label": "Median",
+          "format": "number",
+          "precision": 3
+        },
+        {
+          "key": "denominator",
+          "label": "Observations",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "days",
+          "label": "Days",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "unknown",
+          "label": "Unavailable",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "censored",
+          "label": "Censored",
+          "format": "number",
+          "precision": 0
+        }
+      ],
+      "rows": [
+        {
+          "measure": "Pivot-matched RTH · overall: all · Returned unconfirmed depth [points] · Price–pivot",
+          "value": 3.1316279069767567,
+          "denominator": 1075,
+          "days": 494,
+          "unknown": 1403,
+          "censored": 33,
+          "median": 2.5
+        }
+      ],
+      "notes": [
+        "These are the saved baseline rows cited in the findings summary. Each measure retains its own denominator and distinct-day count; repeated events on a day are dependent.",
+        "Mean and Share are separate saved fields. Not available is distinct from observed zero. Censoring and missingness can overlap; cells with fewer than 30 distinct days are sparse.",
+        "Units appear in the measure label. Full saved comparisons and filters remain in the earlier Ranked statistics reports; selected statistics and period bounds can also be downloaded below."
+      ],
+      "description": "Describe the directional penetration beyond the pivot for initially unconfirmed price breaks that returned before a new EMA6 cross. Membership is a later path outcome; it is not an entry-time filter.",
+      "finding": "The 1,075 returned unconfirmed breaks, spanning 494 distinct days, had mean penetration of 3.13 ES points and median penetration of 2.50 points. This conditional depth describes the observed returned episodes."
+    },
+    {
+      "id": "s08",
+      "kind": "table",
+      "title": "How much time and movement precede delayed EMA confirmation?",
+      "columns": [
+        {
+          "key": "measure",
+          "label": "Saved measure and context"
+        },
+        {
+          "key": "value",
+          "label": "Mean",
+          "format": "number",
+          "precision": 3
+        },
+        {
+          "key": "denominator",
+          "label": "Observations",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "days",
+          "label": "Days",
+          "format": "number",
+          "precision": 0
+        }
+      ],
+      "rows": [
+        {
+          "measure": "Pivot-matched RTH · overall: all · Confirmation delay [minutes] · Price–pivot · confirmation kind=delayed",
+          "value": 5.073722627737227,
+          "denominator": 1370,
+          "days": 577
+        },
+        {
+          "measure": "Pivot-matched RTH · overall: all · Movement before confirmation [points] · Price–pivot · confirmation kind=delayed",
+          "value": 3.354927007299271,
+          "denominator": 1370,
+          "days": 577
+        }
+      ],
+      "notes": [
+        "These are the saved baseline rows cited in the findings summary. Each measure retains its own denominator and distinct-day count; repeated events on a day are dependent.",
+        "Mean and Share are separate saved fields. Not available is distinct from observed zero. Censoring and missingness can overlap; cells with fewer than 30 distinct days are sparse.",
+        "Units appear in the measure label. Full saved comparisons and filters remain in the earlier Ranked statistics reports; selected statistics and period bounds can also be downloaded below.",
+        "All selected rows record zero for: unavailable observations, censored observations."
+      ],
+      "description": "Measure the lag from an initially unconfirmed price break to the subsequent actual EMA6–pivot crossing, while that price episode remains active. Forward outcomes after confirmation start at the confirmation close.",
+      "finding": "Among 1,370 delayed confirmations on 577 distinct days, mean delay was 5.07 minutes and mean directional movement before confirmation was 3.35 ES points. These figures concern episodes that eventually confirmed, not every initial price break."
+    },
+    {
+      "id": "s09",
+      "kind": "table",
+      "title": "What happens 30 minutes after an EMA6–pivot crossing?",
+      "columns": [
+        {
+          "key": "measure",
+          "label": "Saved measure and context"
+        },
+        {
+          "key": "value",
+          "label": "Mean",
+          "format": "number",
+          "precision": 3
+        },
+        {
+          "key": "share",
+          "label": "Share",
+          "format": "percent",
+          "precision": 1
+        },
+        {
+          "key": "denominator",
+          "label": "Observations",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "days",
+          "label": "Days",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "unknown",
+          "label": "Unavailable",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "censored",
+          "label": "Censored",
+          "format": "number",
+          "precision": 0
+        }
+      ],
+      "rows": [
+        {
+          "measure": "Pivot-matched RTH · overall: all · Displacement [points] · EMA6–pivot · 30m",
+          "value": -0.04008379888268131,
+          "share": null,
+          "denominator": 1790,
+          "days": 636,
+          "unknown": 96,
+          "censored": 96
+        },
+        {
+          "measure": "Pivot-matched RTH · overall: all · Positive movement [fraction] · EMA6–pivot · 30m",
+          "value": null,
+          "share": 0.4877094972067039,
+          "denominator": 1790,
+          "days": 636,
+          "unknown": 96,
+          "censored": 96
+        }
+      ],
+      "notes": [
+        "These are the saved baseline rows cited in the findings summary. Each measure retains its own denominator and distinct-day count; repeated events on a day are dependent.",
+        "Mean and Share are separate saved fields. Not available is distinct from observed zero. Censoring and missingness can overlap; cells with fewer than 30 distinct days are sparse.",
+        "Units appear in the measure label. Full saved comparisons and filters remain in the earlier Ranked statistics reports; selected statistics and period bounds can also be downloaded below."
+      ],
+      "description": "Measure price displacement in the direction of the actual EMA6–pivot cross, from its observable close to a complete 30-minute endpoint within RTH. Earlier signal-bar extremes and incomplete late-session paths are excluded.",
+      "finding": "Across 1,790 complete 30-minute outcomes on 636 distinct days, mean directional displacement was -0.04 ES points and 48.8% ended strictly positive. A further 96 candidate outcomes were unavailable; these are price-path statistics."
+    },
+    {
+      "id": "s10",
+      "kind": "table",
+      "title": "How far does price travel in either direction after the crossing?",
+      "columns": [
+        {
+          "key": "measure",
+          "label": "Saved measure and context"
+        },
+        {
+          "key": "value",
+          "label": "Mean",
+          "format": "number",
+          "precision": 3
+        },
+        {
+          "key": "share",
+          "label": "Share",
+          "format": "percent",
+          "precision": 1
+        },
+        {
+          "key": "denominator",
+          "label": "Observations",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "days",
+          "label": "Days",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "unknown",
+          "label": "Unavailable",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "censored",
+          "label": "Censored",
+          "format": "number",
+          "precision": 0
+        }
+      ],
+      "rows": [
+        {
+          "measure": "Pivot-matched RTH · overall: all · Favorable excursion [points] · EMA6–pivot · 30m",
+          "value": 9.039525139664805,
+          "share": null,
+          "denominator": 1790,
+          "days": 636,
+          "unknown": 96,
+          "censored": 96
+        },
+        {
+          "measure": "Pivot-matched RTH · overall: all · Adverse excursion [points] · EMA6–pivot · 30m",
+          "value": 8.647765363128492,
+          "share": null,
+          "denominator": 1790,
+          "days": 636,
+          "unknown": 96,
+          "censored": 96
+        },
+        {
+          "measure": "Pivot-matched RTH · overall: all · Favorable reach 10 [fraction] · EMA6–pivot · 30m",
+          "value": null,
+          "share": 0.3078212290502793,
+          "denominator": 1790,
+          "days": 636,
+          "unknown": 96,
+          "censored": 96
+        }
+      ],
+      "notes": [
+        "These are the saved baseline rows cited in the findings summary. Each measure retains its own denominator and distinct-day count; repeated events on a day are dependent.",
+        "Mean and Share are separate saved fields. Not available is distinct from observed zero. Censoring and missingness can overlap; cells with fewer than 30 distinct days are sparse.",
+        "Units appear in the measure label. Full saved comparisons and filters remain in the earlier Ranked statistics reports; selected statistics and period bounds can also be downloaded below."
+      ],
+      "description": "Measure favorable and adverse excursions over complete 30-minute paths after actual EMA6–pivot crossings, plus fixed point-reach frequencies. Both sides can be reached on one path; no fill or intraminute ordering is inferred.",
+      "finding": "For 1,790 complete paths on 636 distinct days, mean favorable excursion was 9.04 ES points and mean adverse excursion was 8.65 points. The saved share reaching 10 favorable points was 30.8%."
+    },
+    {
+      "id": "s11",
+      "kind": "table",
+      "title": "How often does EMA6 avoid recrossing the pivot for 30 minutes?",
+      "columns": [
+        {
+          "key": "measure",
+          "label": "Saved measure and context"
+        },
+        {
+          "key": "share",
+          "label": "Share",
+          "format": "percent",
+          "precision": 1
+        },
+        {
+          "key": "numerator",
+          "label": "Count / sum",
+          "format": "number",
+          "precision": 3
+        },
+        {
+          "key": "denominator",
+          "label": "Observations",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "days",
+          "label": "Days",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "unknown",
+          "label": "Unavailable",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "censored",
+          "label": "Censored",
+          "format": "number",
+          "precision": 0
+        }
+      ],
+      "rows": [
+        {
+          "measure": "Pivot-matched RTH · overall: all · No recross [fraction] · EMA6–pivot · 30m",
+          "share": 0.6201117318435754,
+          "denominator": 1790,
+          "days": 636,
+          "unknown": 96,
+          "censored": 96,
+          "numerator": 1110
+        }
+      ],
+      "notes": [
+        "These are the saved baseline rows cited in the findings summary. Each measure retains its own denominator and distinct-day count; repeated events on a day are dependent.",
+        "Mean and Share are separate saved fields. Not available is distinct from observed zero. Censoring and missingness can overlap; cells with fewer than 30 distinct days are sparse.",
+        "Units appear in the measure label. Full saved comparisons and filters remain in the earlier Ranked statistics reports; selected statistics and period bounds can also be downloaded below."
+      ],
+      "description": "Look for the next reverse EMA6–pivot cross within a complete 30-minute RTH window. This is an EMA line recross, separate from price returning through the pivot. Late or missing windows remain censored.",
+      "finding": "No reverse EMA6 cross occurred in 1,110 of 1,790 complete 30-minute windows (62.0%), supported by 636 distinct days. Another 96 windows were censored; absence of a recross does not imply a profitable price move."
+    },
+    {
+      "id": "s12",
+      "kind": "figure",
+      "title": "When does the first EMA6–pivot crossing occur?",
+      "path": "figures/pivot-statistics-s12.png",
+      "alt": "Saved first-cross timing estimates, with measure units, valid denominator, distinct supporting days and actual coverage.",
+      "caption": "First 12 chronological 30-minute bins after 09:30 New York, for EMA6–pivot crossings in pivot_matched_rth. The denominator remains all eligible days, including no-cross days. Later bins and the explicit no_cross category remain in the saved table; this selected figure is not the complete timing distribution. No profitability claim. Full supporting tables remain in the earlier Ranked statistics reports; the downloads below contain selected saved statistics and period bounds.",
+      "description": "Time the first actual EMA6–pivot crossing from the 09:30 RTH opening. Conditional timing excludes days without a cross, while the timing-bin shares and the explicit no-cross category retain all eligible days.",
+      "finding": "On the 640 days with an EMA6–pivot cross, the first cross occurred a mean 57.04 minutes after 09:30, with median 24.00 minutes. There were 235 no-cross days. The chart shows the first chronological timing bins, not the entire distribution."
+    },
+    {
+      "id": "s13",
+      "kind": "table",
+      "title": "Does followthrough differ between first and later crossings?",
+      "columns": [
+        {
+          "key": "measure",
+          "label": "Saved measure and context"
+        },
+        {
+          "key": "value",
+          "label": "Mean",
+          "format": "number",
+          "precision": 3
+        },
+        {
+          "key": "denominator",
+          "label": "Observations",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "days",
+          "label": "Days",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "unknown",
+          "label": "Unavailable",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "censored",
+          "label": "Censored",
+          "format": "number",
+          "precision": 0
+        }
+      ],
+      "rows": [
+        {
+          "measure": "Pivot-matched RTH · overall: all · Displacement [points] · EMA6–pivot · 30m · crossing ordinal=1",
+          "value": -0.1800314465408805,
+          "denominator": 636,
+          "days": 636,
+          "unknown": 4,
+          "censored": 4
+        },
+        {
+          "measure": "Pivot-matched RTH · overall: all · Displacement [points] · EMA6–pivot · 30m · crossing ordinal=2",
+          "value": 0.6891408114558494,
+          "denominator": 419,
+          "days": 419,
+          "unknown": 14,
+          "censored": 14
+        },
+        {
+          "measure": "Pivot-matched RTH · overall: all · Displacement [points] · EMA6–pivot · 30m · crossing ordinal=3+",
+          "value": -0.33469387755102104,
+          "denominator": 735,
+          "days": 284,
+          "unknown": 78,
+          "censored": 78
+        }
+      ],
+      "notes": [
+        "These are the saved baseline rows cited in the findings summary. Each measure retains its own denominator and distinct-day count; repeated events on a day are dependent.",
+        "Mean and Share are separate saved fields. Not available is distinct from observed zero. Censoring and missingness can overlap; cells with fewer than 30 distinct days are sparse.",
+        "Units appear in the measure label. Full saved comparisons and filters remain in the earlier Ranked statistics reports; selected statistics and period bounds can also be downloaded below."
+      ],
+      "description": "Separate each day’s first, second and third-or-later actual EMA6–pivot crossings, then measure complete 30-minute directional displacement. Repeated events on one day are dependent; the ordinal groups are exploratory comparisons.",
+      "finding": "Saved mean 30-minute displacement was -0.18 ES points after the first crossing (636 outcomes), 0.69 points after the second (419 outcomes), and -0.33 points after third-or-later crossings. Full support and censoring remain in the table."
+    },
+    {
+      "id": "s14",
+      "kind": "table",
+      "title": "Does EMA6 reach VWAP before reversing through the pivot?",
+      "columns": [
+        {
+          "key": "measure",
+          "label": "Saved measure and context"
+        },
+        {
+          "key": "share",
+          "label": "Share",
+          "format": "percent",
+          "precision": 1
+        },
+        {
+          "key": "numerator",
+          "label": "Count / sum",
+          "format": "number",
+          "precision": 3
+        },
+        {
+          "key": "denominator",
+          "label": "Observations",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "days",
+          "label": "Days",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "unknown",
+          "label": "Unavailable",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "censored",
+          "label": "Censored",
+          "format": "number",
+          "precision": 0
+        }
+      ],
+      "rows": [
+        {
+          "measure": "Pivot-matched RTH · overall: all · Second before recross [fraction] · EMA6–pivot · 30m · first reference=pivot",
+          "share": 0.5134751773049645,
+          "denominator": 705,
+          "days": 429,
+          "unknown": 1181,
+          "censored": 20,
+          "numerator": 362
+        }
+      ],
+      "notes": [
+        "These are the saved baseline rows cited in the findings summary. Each measure retains its own denominator and distinct-day count; repeated events on a day are dependent.",
+        "Mean and Share are separate saved fields. Not available is distinct from observed zero. Censoring and missingness can overlap; cells with fewer than 30 distinct days are sparse.",
+        "Units appear in the measure label. Full saved comparisons and filters remain in the earlier Ranked statistics reports; selected statistics and period bounds can also be downloaded below."
+      ],
+      "description": "After an actual EMA6–pivot cross, follow strictly at-risk sequences for a same-direction VWAP crossing before a reverse pivot crossing, within 30 minutes. Simultaneous crosses, already-beyond states and censored sequences remain separate.",
+      "finding": "EMA6 crossed VWAP before recrossing the pivot in 362 of 705 resolved or fully observed at-risk sequences (51.3%), supported by 429 distinct days. Another 20 sequences were censored; excluded starting configurations are retained in the earlier Ranked statistics reports."
+    },
+    {
+      "id": "s15",
+      "kind": "table",
+      "title": "How does the opening configuration relate to later crossings?",
+      "columns": [
+        {
+          "key": "measure",
+          "label": "Saved measure and context"
+        },
+        {
+          "key": "value",
+          "label": "Mean",
+          "format": "number",
+          "precision": 3
+        },
+        {
+          "key": "denominator",
+          "label": "Observations",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "days",
+          "label": "Days",
+          "format": "number",
+          "precision": 0
+        }
+      ],
+      "rows": [
+        {
+          "measure": "Pivot-matched RTH · overall: all · Crosses [crossings/session] · EMA6–pivot · opening configuration=above both",
+          "value": 1.9861878453038675,
+          "denominator": 362,
+          "days": 362
+        },
+        {
+          "measure": "Pivot-matched RTH · overall: all · Crosses [crossings/session] · EMA6–pivot · opening configuration=below both",
+          "value": 2.1770334928229667,
+          "denominator": 209,
+          "days": 209
+        },
+        {
+          "measure": "Pivot-matched RTH · overall: all · Crosses [crossings/session] · EMA6–pivot · opening configuration=between",
+          "value": 2.3515358361774745,
+          "denominator": 293,
+          "days": 293
+        }
+      ],
+      "notes": [
+        "These are the saved baseline rows cited in the findings summary. Each measure retains its own denominator and distinct-day count; repeated events on a day are dependent.",
+        "Mean and Share are separate saved fields. Not available is distinct from observed zero. Censoring and missingness can overlap; cells with fewer than 30 distinct days are sparse.",
+        "Units appear in the measure label. Full saved comparisons and filters remain in the earlier Ranked statistics reports; selected statistics and period bounds can also be downloaded below.",
+        "All selected rows record zero for: unavailable observations, censored observations."
+      ],
+      "description": "Group days by whether the actual 09:30 opening price is above both pivot and VWAP, below both, between them or on a boundary. These opening states are distinct from future session outcomes.",
+      "finding": "Mean daily EMA6–pivot crossing counts were 1.99 on 362 above-both days, 2.18 on 209 below-both days, and 2.35 on between-line days. These saved conditional counts do not establish a predictive advantage."
+    },
+    {
+      "id": "s16",
+      "kind": "table",
+      "title": "What does cloud support or opposition look like after a pivot cross?",
+      "columns": [
+        {
+          "key": "measure",
+          "label": "Saved measure and context"
+        },
+        {
+          "key": "value",
+          "label": "Mean",
+          "format": "number",
+          "precision": 3
+        },
+        {
+          "key": "denominator",
+          "label": "Observations",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "days",
+          "label": "Days",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "unknown",
+          "label": "Unavailable",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "censored",
+          "label": "Censored",
+          "format": "number",
+          "precision": 0
+        }
+      ],
+      "rows": [
+        {
+          "measure": "Pivot-matched RTH · overall: all · Displacement [points] · EMA6–pivot · 30m · cloud support=support",
+          "value": -0.3096899224806187,
+          "denominator": 645,
+          "days": 446,
+          "unknown": 38,
+          "censored": 38
+        },
+        {
+          "measure": "Pivot-matched RTH · overall: all · Displacement [points] · EMA6–pivot · 30m · cloud support=opposition",
+          "value": 0.573791348600509,
+          "denominator": 393,
+          "days": 286,
+          "unknown": 26,
+          "censored": 26
+        }
+      ],
+      "notes": [
+        "These are the saved baseline rows cited in the findings summary. Each measure retains its own denominator and distinct-day count; repeated events on a day are dependent.",
+        "Mean and Share are separate saved fields. Not available is distinct from observed zero. Censoring and missingness can overlap; cells with fewer than 30 distinct days are sparse.",
+        "Units appear in the measure label. Full saved comparisons and filters remain in the earlier Ranked statistics reports; selected statistics and period bounds can also be downloaded below."
+      ],
+      "description": "Classify the five-minute EMA20/50 cloud using its ordering and both 15-minute slopes at the actual crossing. Supporting, opposing, mixed/flat and unknown states remain distinct; outcomes use complete 30-minute RTH paths.",
+      "finding": "Mean 30-minute directional displacement after EMA6–pivot crossings was -0.31 ES points with cloud support (645 outcomes) and 0.57 points with cloud opposition (393 outcomes). These exploratory slices are not independent confirmation of an edge."
+    },
+    {
+      "id": "s17",
+      "kind": "table",
+      "title": "How far apart are pivot and VWAP at the opening?",
+      "columns": [
+        {
+          "key": "measure",
+          "label": "Saved measure and context"
+        },
+        {
+          "key": "value",
+          "label": "Mean",
+          "format": "number",
+          "precision": 3
+        },
+        {
+          "key": "denominator",
+          "label": "Observations",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "days",
+          "label": "Days",
+          "format": "number",
+          "precision": 0
+        }
+      ],
+      "rows": [
+        {
+          "measure": "Pivot-matched RTH · overall: all · Opening separation points [points] · EMA6–pivot",
+          "value": 9.478937696435455,
+          "denominator": 875,
+          "days": 875
+        },
+        {
+          "measure": "Pivot-matched RTH · overall: all · Opening separation bps [basis points] · EMA6–pivot",
+          "value": 19.79990555357869,
+          "denominator": 875,
+          "days": 875
+        }
+      ],
+      "notes": [
+        "These are the saved baseline rows cited in the findings summary. Each measure retains its own denominator and distinct-day count; repeated events on a day are dependent.",
+        "Mean and Share are separate saved fields. Not available is distinct from observed zero. Censoring and missingness can overlap; cells with fewer than 30 distinct days are sparse.",
+        "Units appear in the measure label. Full saved comparisons and filters remain in the earlier Ranked statistics reports; selected statistics and period bounds can also be downloaded below.",
+        "All selected rows record zero for: unavailable observations, censored observations."
+      ],
+      "description": "Measure the absolute pivot–VWAP distance at 09:30 in ES points and basis points, then retain the protocol’s fixed separation bands for later crossing and outcome views. The bands were not fitted to the saved outcomes.",
+      "finding": "Across 875 pivot-matched days, mean opening separation was 9.48 ES points and 19.80 basis points. These are separately saved averages of daily measures; the earlier Ranked statistics reports retain crossing and outcome slices by the fixed opening bands."
+    },
+    {
+      "id": "s18",
+      "kind": "table",
+      "title": "How often does price retest the pivot after an EMA6 crossing?",
+      "columns": [
+        {
+          "key": "measure",
+          "label": "Saved measure and context"
+        },
+        {
+          "key": "share",
+          "label": "Share",
+          "format": "percent",
+          "precision": 1
+        },
+        {
+          "key": "numerator",
+          "label": "Count / sum",
+          "format": "number",
+          "precision": 3
+        },
+        {
+          "key": "denominator",
+          "label": "Observations",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "days",
+          "label": "Days",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "unknown",
+          "label": "Unavailable",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "censored",
+          "label": "Censored",
+          "format": "number",
+          "precision": 0
+        }
+      ],
+      "rows": [
+        {
+          "measure": "Pivot-matched RTH · overall: all · Pivot retest [fraction] · EMA6–pivot · 30m",
+          "share": 0.6335195530726258,
+          "denominator": 1790,
+          "days": 636,
+          "unknown": 96,
+          "censored": 96,
+          "numerator": 1134
+        }
+      ],
+      "notes": [
+        "These are the saved baseline rows cited in the findings summary. Each measure retains its own denominator and distinct-day count; repeated events on a day are dependent.",
+        "Mean and Share are separate saved fields. Not available is distinct from observed zero. Censoring and missingness can overlap; cells with fewer than 30 distinct days are sparse.",
+        "Units appear in the measure label. Full saved comparisons and filters remain in the earlier Ranked statistics reports; selected statistics and period bounds can also be downloaded below."
+      ],
+      "description": "After an actual EMA6–pivot crossing, identify the first subsequent completed three-minute bar containing the fixed pivot within 30 minutes. Incidence requires the full window; observed touch-bar hold, failure and equality are separate outcomes.",
+      "finding": "A pivot retest occurred in 1,134 of 1,790 complete 30-minute windows (63.4%), supported by 636 distinct days. Another 96 incidence windows were censored. This bar-based touch definition does not infer intrabar execution."
+    },
+    {
+      "id": "s19",
+      "kind": "figure",
+      "title": "Which section-end states persist into the next section?",
+      "path": "figures/pivot-statistics-s19.png",
+      "alt": "Saved section persistence estimates, with measure units, valid denominator, distinct supporting days and actual coverage.",
+      "caption": "A bounded illustration of saved summary cells. Populations remain separate. Complete measures, horizons and missing/censored support are retained in the corresponding saved tables; no trading profitability is inferred. Full supporting tables remain in the earlier Ranked statistics reports; the downloads below contain selected saved statistics and period bounds.",
+      "description": "Compare saved cloud ordering and price-side states at section endpoints. Opening range ends at 10:30, AM ends at 12:30 and PM ends at 16:00 New York. These are endpoint-to-endpoint descriptions, not opening-time predictors.",
+      "finding": "In the pivot-matched population, bullish cloud ordering persisted from the opening-range endpoint to the AM endpoint on 75.4% of 468 eligible bullish-source days; bearish ordering persisted on 68.6% of 407 bearish-source days. The chart includes selected saved transition states."
+    },
+    {
+      "id": "s20",
+      "kind": "figure",
+      "title": "How do recent crossings compare with earlier history?",
+      "path": "figures/pivot-statistics-s20.png",
+      "alt": "Saved recent and earlier history estimates, with measure units, valid denominator, distinct supporting days and actual coverage.",
+      "caption": "A bounded illustration of saved summary cells. Populations remain separate. Complete measures, horizons and missing/censored support are retained in the corresponding saved tables; no trading profitability is inferred. Full supporting tables remain in the earlier Ranked statistics reports; the downloads below contain selected saved statistics and period bounds.",
+      "description": "Compare trailing 20, 60 and 120 eligible observed sessions against their separate preceding histories, with each recent window excluded from its comparator. The requested cutoff is October 30, 2026, but actual retained evidence ends September 18.",
+      "finding": "EMA6–VWAP crossings averaged 3.25 per RTH session over the last 20 eligible pivot-matched sessions, versus 2.79 over the disjoint preceding 855 sessions. The 20-session cell is sparse under the study’s 30-day rule; dates and longer windows remain explicit."
+    },
+    {
+      "id": "limits",
+      "kind": "text",
+      "title": "Evidence qualifications",
+      "body": "Repository-retained ES data only; requested coverage ends 2026-10-30, while retained market data ends 2026-09-18. Missing dates/contracts and retrospective full-day eligibility limit generalization.\n\nHistorical pivot available_at remains unverified. Nominal 09:25 timing does not establish a historically executable pre-open signal.\n\nReturned-without-EMA and eventual confirmation labels are known later. Already-aligned EMA6 is distinct from an actual new line crossing.\n\nSigned displacement and excursions describe price paths. No entries, fills, costs or net profitability are tested. Broad slices are exploratory.\n\nThis extends an already observed completed study and is not an untouched holdout. EMA–VWAP crossings use the moving difference, carry strict side through equality, clear unknown comparisons and exclude anchor initialization. EMA recrosses are separate from price reversals. Pivot retests remain fixed-pivot only. Five-observed-session moving-block intervals use 2,000 replicates, seed 20261031; within-day events remain together. Broad conditional slices are exploratory."
+    }
+  ],
+  "notes": [
+    "Repository-retained ES data only; requested coverage ends 2026-10-30, while retained market data ends 2026-09-18. Missing dates/contracts and retrospective full-day eligibility limit generalization.",
+    "Historical pivot available_at remains unverified. Nominal 09:25 timing does not establish a historically executable pre-open signal.",
+    "Returned-without-EMA and eventual confirmation labels are known later. Already-aligned EMA6 is distinct from an actual new line crossing.",
+    "Signed displacement and excursions describe price paths. No entries, fills, costs or net profitability are tested. Broad slices are exploratory."
+  ],
+  "downloads": [
+    {
+      "id": "summary",
+      "path": "downloads/pivot-statistics.csv",
+      "label": "Pivot statistics · selected overall saved summaries",
+      "description": "Saved overall baseline rows with original numeric values and denominator fields. Calendar and conditional detail remain in the source evidence.",
+      "population": "Pivot-matched RTH comparisons preserve the baseline source, exact quoted delivery contract and full-day quality rules. VWAP comparisons use this same cohort.",
+      "units": "Each row declares units. Fraction means a ratio, e.g. 0.42 = 42%; points are unadjusted ES points; time is minutes. Blank is unavailable.",
+      "scope": "Selected descriptive summary evidence only. Populations, periods and event panels overlap and cannot be pooled. No raw market/event ledger or net P&L.",
+      "mediaType": "text/csv",
+      "sha256": "f620d324c1a7308202320afa311a0585fd2b6229a8f17096d949730a12218168",
+      "rowCount": 128,
+      "columns": [
+        "statistic_id",
+        "cohort",
+        "reference",
+        "series",
+        "session_mode",
+        "section",
+        "direction",
+        "panel",
+        "horizon",
+        "condition",
+        "condition_value",
+        "metric",
+        "unit",
+        "estimate",
+        "median",
+        "numerator",
+        "denominator",
+        "days",
+        "unknown",
+        "censored",
+        "earliest_session",
+        "latest_session",
+        "ci95_low",
+        "ci95_high"
+      ],
+      "source": {
+        "runId": "20261031_ranked_v2",
+        "artifact": "tables/publication-pivot-statistics.csv",
+        "sha256": "f620d324c1a7308202320afa311a0585fd2b6229a8f17096d949730a12218168"
+      }
+    },
+    {
+      "id": "period-coverage",
+      "path": "downloads/period-coverage.csv",
+      "label": "Eligible cohort period coverage",
+      "description": "Exact saved eligible-session counts and actual date bounds for every overall, annual, calendar-month and recent/preceding window. Includes zero-event days and empty periods. This differs from each metric's valid-contributing-date coverage.",
+      "population": "pivot_matched_rth; separately retained eligible-date rosters, with no event-based selection.",
+      "units": "eligible_sessions is a count of observed eligible sessions. Bounds are ISO New York session dates. Empty periods have zero sessions and blank bounds; requested_cutoff is the requested calendar end.",
+      "scope": "Coverage metadata only. Recent 20/60/120 windows use eligible observed sessions and their preceding comparisons exclude the corresponding recent window. Cohorts are never pooled.",
+      "mediaType": "text/csv",
+      "sha256": "3ee794768c003f40549b92eb1a2b14b1d1e44db32dc32ee518791ae2a782fff8",
+      "rowCount": 96,
+      "columns": [
+        "cohort",
+        "period_kind",
+        "period",
+        "eligible_sessions",
+        "window_start",
+        "window_end",
+        "requested_cutoff"
+      ],
+      "source": {
+        "runId": "20261031_ranked_v2",
+        "artifact": "tables/publication-pivot-statistics-period-coverage.csv",
+        "sha256": "3ee794768c003f40549b92eb1a2b14b1d1e44db32dc32ee518791ae2a782fff8"
+      }
+    }
+  ]
+}

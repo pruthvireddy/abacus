@@ -1,0 +1,437 @@
+{
+  "schema": "abacus.study29.phase6.freeze/v1",
+  "protocol_version": "6.0.0",
+  "frozen_at": "2026-10-31T04:16:33.414049+00:00",
+  "stage": "work/29_verniman_level_reconstruction/phase6a_20261031T035851Z",
+  "status": "prepared_prospective_observations_pending",
+  "phase5_final_manifest": {
+    "path": "studies/29_verniman_level_reconstruction/phase5/final-freeze.json",
+    "sha256": "2f481bc94e87b1d67b6f9d3f3eb4d1055074783b906cf4b43edc75811e677ac3"
+  },
+  "validated_configuration": null,
+  "primary_engineering_configuration": "P0-D1",
+  "candidate_control": "3.0.0",
+  "candidate_implementation": "3.0.2",
+  "selector_control": "4.0.0",
+  "selector_implementation": "4.0.1",
+  "scheduled_dates": [
+    "2026-11-02",
+    "2026-11-03",
+    "2026-11-04",
+    "2026-11-05",
+    "2026-11-06",
+    "2026-11-09",
+    "2026-11-10",
+    "2026-11-11",
+    "2026-11-12",
+    "2026-11-13",
+    "2026-11-16",
+    "2026-11-17",
+    "2026-11-18",
+    "2026-11-19",
+    "2026-11-20",
+    "2026-11-23",
+    "2026-11-24",
+    "2026-11-25",
+    "2026-12-07",
+    "2026-12-08"
+  ],
+  "configurations": [
+    "P0-D1",
+    "P0-D0",
+    "B0-D0",
+    "B0-D1",
+    "B1-D0",
+    "B1-D1"
+  ],
+  "market_configuration": {
+    "symbol": "CME_MINI:ESZ2026",
+    "contract": "ESZ2026",
+    "feed": "CME GLOBEX",
+    "adjustment": "individual_contract_unadjusted",
+    "minutes": 5,
+    "session": "ETH",
+    "timezone": "America/New_York",
+    "tick_size": 0.25,
+    "row_ticks": 16,
+    "value_area_percent": 70,
+    "grid_origin": 0,
+    "cutoff_hour": 9,
+    "cutoff_minute": 25,
+    "manual_anchors": []
+  },
+  "cutoff_local": "09:25",
+  "capture_deadline_local": "09:30",
+  "period_end_at": "2026-12-08T16:00:00-05:00",
+  "calendar_validation": {
+    "status": "passed",
+    "scheduled_sessions": 20,
+    "first": "2026-11-02",
+    "last": "2026-12-08",
+    "known_weekday_exclusions": 7,
+    "timezone": "America/New_York",
+    "required_windows_per_session": 8,
+    "future_market_observations_verified": false,
+    "scope": "Nominal calendar and fixed-contract support only; actual daily input coverage is still required."
+  },
+  "files": [
+    {
+      "role": "studies:29_verniman_level_reconstruction:phase6:README.md",
+      "path": "studies/29_verniman_level_reconstruction/phase6/README.md",
+      "sha256": "94c1c7e190b3bd38a6ecb28f46ad71cb35e56e8ae606575887070b840a4b6d6a",
+      "snapshot_path": "work/29_verniman_level_reconstruction/phase6a_20261031T035851Z/protocol-files/studies/29_verniman_level_reconstruction/phase6/README.md"
+    },
+    {
+      "role": "studies:29_verniman_level_reconstruction:phase6:artifact-manifest.json",
+      "path": "studies/29_verniman_level_reconstruction/phase6/artifact-manifest.json",
+      "sha256": "9ce3137db1310031803a461da31e40627855243840ad5a5c4d8d662f9f766637",
+      "snapshot_path": "work/29_verniman_level_reconstruction/phase6a_20261031T035851Z/protocol-files/studies/29_verniman_level_reconstruction/phase6/artifact-manifest.json"
+    },
+    {
+      "role": "calendar",
+      "path": "studies/29_verniman_level_reconstruction/phase6/calendar.json",
+      "sha256": "bd9b5395ca19eff04b9a79fb96b7e26073e03b19cbbd05320aa66d9cdf689176",
+      "snapshot_path": "work/29_verniman_level_reconstruction/phase6a_20261031T035851Z/protocol-files/studies/29_verniman_level_reconstruction/phase6/calendar.json"
+    },
+    {
+      "role": "studies:29_verniman_level_reconstruction:phase6:calendar.md",
+      "path": "studies/29_verniman_level_reconstruction/phase6/calendar.md",
+      "sha256": "4ae83eaba6b2938f5cc639a3a8e90c35799101d2408fc66e7ad59db2e96b58ff",
+      "snapshot_path": "work/29_verniman_level_reconstruction/phase6a_20261031T035851Z/protocol-files/studies/29_verniman_level_reconstruction/phase6/calendar.md"
+    },
+    {
+      "role": "studies:29_verniman_level_reconstruction:phase6:calendar_control.py",
+      "path": "studies/29_verniman_level_reconstruction/phase6/calendar_control.py",
+      "sha256": "751ab6ecdcc5258503aea9c1aa4f3b693fe9a8d722882a9b36317ac27159e3a7",
+      "snapshot_path": "work/29_verniman_level_reconstruction/phase6a_20261031T035851Z/protocol-files/studies/29_verniman_level_reconstruction/phase6/calendar_control.py"
+    },
+    {
+      "role": "studies:29_verniman_level_reconstruction:phase6:capture.py",
+      "path": "studies/29_verniman_level_reconstruction/phase6/capture.py",
+      "sha256": "e3af897e4ea5f21ff4db4bfd9c40c29edac33bd228416b3b91fc6672918f19a9",
+      "snapshot_path": "work/29_verniman_level_reconstruction/phase6a_20261031T035851Z/protocol-files/studies/29_verniman_level_reconstruction/phase6/capture.py"
+    },
+    {
+      "role": "studies:29_verniman_level_reconstruction:phase6:daily-capture.md",
+      "path": "studies/29_verniman_level_reconstruction/phase6/daily-capture.md",
+      "sha256": "c01d89b460509d39d373dc69f3178822da3ea8bf29269e3877bcfcca84206a21",
+      "snapshot_path": "work/29_verniman_level_reconstruction/phase6a_20261031T035851Z/protocol-files/studies/29_verniman_level_reconstruction/phase6/daily-capture.md"
+    },
+    {
+      "role": "studies:29_verniman_level_reconstruction:phase6:eligibility-audit.md",
+      "path": "studies/29_verniman_level_reconstruction/phase6/eligibility-audit.md",
+      "sha256": "4898890b4428222f6ca4b56b907837ca67f5e71c3a175da39bd8422eed565e96",
+      "snapshot_path": "work/29_verniman_level_reconstruction/phase6a_20261031T035851Z/protocol-files/studies/29_verniman_level_reconstruction/phase6/eligibility-audit.md"
+    },
+    {
+      "role": "studies:29_verniman_level_reconstruction:phase6:input-manifest.json",
+      "path": "studies/29_verniman_level_reconstruction/phase6/input-manifest.json",
+      "sha256": "f88a77043e52591feb86770e671c2045323f61096c59b56506c7c58a3ab7df33",
+      "snapshot_path": "work/29_verniman_level_reconstruction/phase6a_20261031T035851Z/protocol-files/studies/29_verniman_level_reconstruction/phase6/input-manifest.json"
+    },
+    {
+      "role": "studies:29_verniman_level_reconstruction:phase6:phase6b-prompt.md",
+      "path": "studies/29_verniman_level_reconstruction/phase6/phase6b-prompt.md",
+      "sha256": "3b2ddc576b6bcaba371f49a1cbffb1c14500f5a51c86569ba9934e52527dc86f",
+      "snapshot_path": "work/29_verniman_level_reconstruction/phase6a_20261031T035851Z/protocol-files/studies/29_verniman_level_reconstruction/phase6/phase6b-prompt.md"
+    },
+    {
+      "role": "studies:29_verniman_level_reconstruction:phase6:phase6c-prompt.md",
+      "path": "studies/29_verniman_level_reconstruction/phase6/phase6c-prompt.md",
+      "sha256": "95f46c6601b5588e36074ebedcedef041e93b95195ec32dd6435a1d169321359",
+      "snapshot_path": "work/29_verniman_level_reconstruction/phase6a_20261031T035851Z/protocol-files/studies/29_verniman_level_reconstruction/phase6/phase6c-prompt.md"
+    },
+    {
+      "role": "studies:29_verniman_level_reconstruction:phase6:protocol.md",
+      "path": "studies/29_verniman_level_reconstruction/phase6/protocol.md",
+      "sha256": "967af3ab5bc3661b25a3041e9f46a9c0134b3976016b4872119bae9385533244",
+      "snapshot_path": "work/29_verniman_level_reconstruction/phase6a_20261031T035851Z/protocol-files/studies/29_verniman_level_reconstruction/phase6/protocol.md"
+    },
+    {
+      "role": "studies:29_verniman_level_reconstruction:phase6:reveal_gate.py",
+      "path": "studies/29_verniman_level_reconstruction/phase6/reveal_gate.py",
+      "sha256": "a168c369b0d517ea496adcd2b827c65ce81fd473e3d37741e4cb2d9e064c667d",
+      "snapshot_path": "work/29_verniman_level_reconstruction/phase6a_20261031T035851Z/protocol-files/studies/29_verniman_level_reconstruction/phase6/reveal_gate.py"
+    },
+    {
+      "role": "studies:29_verniman_level_reconstruction:phase6:scheduled-session-ledger.json",
+      "path": "studies/29_verniman_level_reconstruction/phase6/scheduled-session-ledger.json",
+      "sha256": "640f62937985f985dd64ad0f59df925ce2f0aeb85d05ced5a44059b45933ac40",
+      "snapshot_path": "work/29_verniman_level_reconstruction/phase6a_20261031T035851Z/protocol-files/studies/29_verniman_level_reconstruction/phase6/scheduled-session-ledger.json"
+    },
+    {
+      "role": "studies:29_verniman_level_reconstruction:phase6:score_saved.py",
+      "path": "studies/29_verniman_level_reconstruction/phase6/score_saved.py",
+      "sha256": "a54b5ef8491e20847bf2ddc9556185ff360d2a001ad177a304fc9e879a9a69c2",
+      "snapshot_path": "work/29_verniman_level_reconstruction/phase6a_20261031T035851Z/protocol-files/studies/29_verniman_level_reconstruction/phase6/score_saved.py"
+    },
+    {
+      "role": "studies:29_verniman_level_reconstruction:phase6:settings.json",
+      "path": "studies/29_verniman_level_reconstruction/phase6/settings.json",
+      "sha256": "75b61ce2703e9c75bf79a409927f07bdd3698be40b249adecc8c1deb630c103b",
+      "snapshot_path": "work/29_verniman_level_reconstruction/phase6a_20261031T035851Z/protocol-files/studies/29_verniman_level_reconstruction/phase6/settings.json"
+    },
+    {
+      "role": "studies:29_verniman_level_reconstruction:phase6:source-collection.md",
+      "path": "studies/29_verniman_level_reconstruction/phase6/source-collection.md",
+      "sha256": "8553a386bec93d6323168b7524b31d910267fb072cc3312a1f759a6083e12228",
+      "snapshot_path": "work/29_verniman_level_reconstruction/phase6a_20261031T035851Z/protocol-files/studies/29_verniman_level_reconstruction/phase6/source-collection.md"
+    },
+    {
+      "role": "studies:29_verniman_level_reconstruction:phase6:templates:access-log.json",
+      "path": "studies/29_verniman_level_reconstruction/phase6/templates/access-log.json",
+      "sha256": "7b1bd867838fd5e42aa1a4615e57f0adc634e0ce65c54dab6cc581572ebc02f1",
+      "snapshot_path": "work/29_verniman_level_reconstruction/phase6a_20261031T035851Z/protocol-files/studies/29_verniman_level_reconstruction/phase6/templates/access-log.json"
+    },
+    {
+      "role": "studies:29_verniman_level_reconstruction:phase6:templates:capture-request.json",
+      "path": "studies/29_verniman_level_reconstruction/phase6/templates/capture-request.json",
+      "sha256": "99e792c4400e5502ecd40eeadc750341d357e2ddcca1bb22f24d8163b49b5a38",
+      "snapshot_path": "work/29_verniman_level_reconstruction/phase6a_20261031T035851Z/protocol-files/studies/29_verniman_level_reconstruction/phase6/templates/capture-request.json"
+    },
+    {
+      "role": "studies:29_verniman_level_reconstruction:phase6:templates:saved-scoring-inputs.json",
+      "path": "studies/29_verniman_level_reconstruction/phase6/templates/saved-scoring-inputs.json",
+      "sha256": "3c76be1011bb16a84922be4dbe45b2462737433e270e1d2664e1d130a8461537",
+      "snapshot_path": "work/29_verniman_level_reconstruction/phase6a_20261031T035851Z/protocol-files/studies/29_verniman_level_reconstruction/phase6/templates/saved-scoring-inputs.json"
+    },
+    {
+      "role": "studies:29_verniman_level_reconstruction:phase6:templates:source-role-ledger.json",
+      "path": "studies/29_verniman_level_reconstruction/phase6/templates/source-role-ledger.json",
+      "sha256": "ed47928c14c8b470d3bb9e6c593068ced485c667b136631f0f4543c10ca1ef54",
+      "snapshot_path": "work/29_verniman_level_reconstruction/phase6a_20261031T035851Z/protocol-files/studies/29_verniman_level_reconstruction/phase6/templates/source-role-ledger.json"
+    },
+    {
+      "role": "studies:29_verniman_level_reconstruction:phase6:templates:status-request.json",
+      "path": "studies/29_verniman_level_reconstruction/phase6/templates/status-request.json",
+      "sha256": "68cff4efdbc41c4d41a61f68157e197b24adf3491fca8abb12c8a56b719e685f",
+      "snapshot_path": "work/29_verniman_level_reconstruction/phase6a_20261031T035851Z/protocol-files/studies/29_verniman_level_reconstruction/phase6/templates/status-request.json"
+    },
+    {
+      "role": "studies:29_verniman_level_reconstruction:tests:test_phase6_calendar.py",
+      "path": "studies/29_verniman_level_reconstruction/tests/test_phase6_calendar.py",
+      "sha256": "944a3cb3bed369830ea5f24b66854e18c75d02b8f61932db91228cb42e480814",
+      "snapshot_path": "work/29_verniman_level_reconstruction/phase6a_20261031T035851Z/protocol-files/studies/29_verniman_level_reconstruction/tests/test_phase6_calendar.py"
+    },
+    {
+      "role": "studies:29_verniman_level_reconstruction:tests:test_phase6_capture.py",
+      "path": "studies/29_verniman_level_reconstruction/tests/test_phase6_capture.py",
+      "sha256": "0b9ac7afe7b8b8fae5fcca2921a7cd1919a77adc131b58204f69d8a6a0935fe8",
+      "snapshot_path": "work/29_verniman_level_reconstruction/phase6a_20261031T035851Z/protocol-files/studies/29_verniman_level_reconstruction/tests/test_phase6_capture.py"
+    },
+    {
+      "role": "studies:29_verniman_level_reconstruction:tests:test_phase6_gate_scoring.py",
+      "path": "studies/29_verniman_level_reconstruction/tests/test_phase6_gate_scoring.py",
+      "sha256": "2e730773f464fa6b841c30f4bf95ddce3287f1ef8b4015fed788c535a17413bf",
+      "snapshot_path": "work/29_verniman_level_reconstruction/phase6a_20261031T035851Z/protocol-files/studies/29_verniman_level_reconstruction/tests/test_phase6_gate_scoring.py"
+    },
+    {
+      "role": "studies:29_verniman_level_reconstruction:tests:test_phase6_preparation_contract.py",
+      "path": "studies/29_verniman_level_reconstruction/tests/test_phase6_preparation_contract.py",
+      "sha256": "dd94ccd99c66a12c05b0292d68f5d53622eeab92ae71f8abb274b4c96fff3e57",
+      "snapshot_path": "work/29_verniman_level_reconstruction/phase6a_20261031T035851Z/protocol-files/studies/29_verniman_level_reconstruction/tests/test_phase6_preparation_contract.py"
+    }
+  ],
+  "producer_files": [
+    {
+      "role": "phase5_runner",
+      "path": "studies/29_verniman_level_reconstruction/phase5/run_development.py",
+      "sha256": "6878d29604e6ba0a6ba8776e43624dd4745acc54d2e4bf6426c2a15b78a84b67",
+      "snapshot_path": "work/29_verniman_level_reconstruction/phase6a_20261031T035851Z/producer-files/studies/29_verniman_level_reconstruction/phase5/run_development.py"
+    },
+    {
+      "role": "phase4_model",
+      "path": "studies/29_verniman_level_reconstruction/src/phase4_model.py",
+      "sha256": "bec68316b9028cff8d43e6e9fbcef86c4e46a5be792b9df325d42753a85547c5",
+      "snapshot_path": "work/29_verniman_level_reconstruction/phase6a_20261031T035851Z/producer-files/studies/29_verniman_level_reconstruction/src/phase4_model.py"
+    },
+    {
+      "role": "phase3_model",
+      "path": "studies/29_verniman_level_reconstruction/src/phase3_model.py",
+      "sha256": "e54ba9950618e99dc1fe57ac5fab19cf43e990099b98df8b25f506bd8c92f48b",
+      "snapshot_path": "work/29_verniman_level_reconstruction/phase6a_20261031T035851Z/producer-files/studies/29_verniman_level_reconstruction/src/phase3_model.py"
+    },
+    {
+      "role": "reference_model",
+      "path": "studies/29_verniman_level_reconstruction/src/reference_model.py",
+      "sha256": "712016db99bc62b35c787b9269825529221636545d903d814993284fbd769bbd",
+      "snapshot_path": "work/29_verniman_level_reconstruction/phase6a_20261031T035851Z/producer-files/studies/29_verniman_level_reconstruction/src/reference_model.py"
+    },
+    {
+      "role": "matcher",
+      "path": "studies/29_verniman_level_reconstruction/phase3/matching.py",
+      "sha256": "b595fbca570df868888dd58c8fe341ee341b69770d902319ba25ac8fd1fd90a6",
+      "snapshot_path": "work/29_verniman_level_reconstruction/phase6a_20261031T035851Z/producer-files/studies/29_verniman_level_reconstruction/phase3/matching.py"
+    },
+    {
+      "role": "candidate_pine",
+      "path": "studies/29_verniman_level_reconstruction/indicator/verniman_levels_phase3_3_0_2.pine",
+      "sha256": "034c3731f2ada4620aac9a80ca20261d0a06376bee044fa30e95529ad9e1954c",
+      "snapshot_path": "work/29_verniman_level_reconstruction/phase6a_20261031T035851Z/producer-files/studies/29_verniman_level_reconstruction/indicator/verniman_levels_phase3_3_0_2.pine"
+    },
+    {
+      "role": "selector_pine",
+      "path": "studies/29_verniman_level_reconstruction/indicator/verniman_levels_phase4.pine",
+      "sha256": "1145834bfb240029f07342e52f98d805771ca4f2a39a646c19e80d3846794924",
+      "snapshot_path": "work/29_verniman_level_reconstruction/phase6a_20261031T035851Z/producer-files/studies/29_verniman_level_reconstruction/indicator/verniman_levels_phase4.pine"
+    },
+    {
+      "role": "phase3_settings",
+      "path": "studies/29_verniman_level_reconstruction/phase3/settings.json",
+      "sha256": "c0297d86f2a6dce33b6888a174c31d6390477dd0e12d78a46832173e0f17653a",
+      "snapshot_path": "work/29_verniman_level_reconstruction/phase6a_20261031T035851Z/producer-files/studies/29_verniman_level_reconstruction/phase3/settings.json"
+    },
+    {
+      "role": "phase4_settings",
+      "path": "studies/29_verniman_level_reconstruction/phase4/settings.json",
+      "sha256": "5a1cc36f7c0a2b16ee82ab9eccd285c9a897d933d2b0ad1e02a2c026e5bb5f1a",
+      "snapshot_path": "work/29_verniman_level_reconstruction/phase6a_20261031T035851Z/producer-files/studies/29_verniman_level_reconstruction/phase4/settings.json"
+    },
+    {
+      "role": "autopivot_pine",
+      "path": "work/29_verniman_level_reconstruction/phase4_20261031T010249Z/autopivot-current-reconciliation/studies/29_verniman_level_reconstruction/indicator/verniman_pivot_levels.pine",
+      "sha256": "228ce4f4cc938cfb967eed4b20df8db0711755fb2fd8d4ae2cc9be8632dd3145",
+      "snapshot_path": "work/29_verniman_level_reconstruction/phase6a_20261031T035851Z/producer-files/work/29_verniman_level_reconstruction/phase4_20261031T010249Z/autopivot-current-reconciliation/studies/29_verniman_level_reconstruction/indicator/verniman_pivot_levels.pine"
+    },
+    {
+      "role": "autopivot_model",
+      "path": "work/29_verniman_level_reconstruction/phase4_20261031T010249Z/autopivot-current-reconciliation/studies/29_verniman_level_reconstruction/src/pivot_model.py",
+      "sha256": "1fc67f44ea3dc6bc374a3bfcf526bfea419af8316f7eaf82cc179d01c3e466f4",
+      "snapshot_path": "work/29_verniman_level_reconstruction/phase6a_20261031T035851Z/producer-files/work/29_verniman_level_reconstruction/phase4_20261031T010249Z/autopivot-current-reconciliation/studies/29_verniman_level_reconstruction/src/pivot_model.py"
+    },
+    {
+      "role": "phase5_protocol",
+      "path": "studies/29_verniman_level_reconstruction/phase5/protocol.md",
+      "sha256": "c30567fa538d0eaf1409f1a34ac2915afa05499323126b4a0f2a9a8cfae37fdd",
+      "snapshot_path": "work/29_verniman_level_reconstruction/phase6a_20261031T035851Z/producer-files/studies/29_verniman_level_reconstruction/phase5/protocol.md"
+    },
+    {
+      "role": "phase5_settings",
+      "path": "studies/29_verniman_level_reconstruction/phase5/settings.json",
+      "sha256": "3bd61c513e23296e53eeebaf9408e2bfeeb6e79e6627349625e86fbbb42d3d11",
+      "snapshot_path": "work/29_verniman_level_reconstruction/phase6a_20261031T035851Z/producer-files/studies/29_verniman_level_reconstruction/phase5/settings.json"
+    },
+    {
+      "role": "phase5_inputs",
+      "path": "studies/29_verniman_level_reconstruction/phase5/input-declaration.json",
+      "sha256": "814ff4d55fa901c5601d1dbb6e9c287087387cd1330fe76670d2665acda86c8b",
+      "snapshot_path": "work/29_verniman_level_reconstruction/phase6a_20261031T035851Z/producer-files/studies/29_verniman_level_reconstruction/phase5/input-declaration.json"
+    },
+    {
+      "role": "phase5_decision_rule",
+      "path": "studies/29_verniman_level_reconstruction/phase5/decision-rule.md",
+      "sha256": "198e73d1f55df4c6af129696533efc821b844e9b19deee6b346c39b687e56440",
+      "snapshot_path": "work/29_verniman_level_reconstruction/phase6a_20261031T035851Z/producer-files/studies/29_verniman_level_reconstruction/phase5/decision-rule.md"
+    },
+    {
+      "role": "environment_lock",
+      "path": "uv.lock",
+      "sha256": "b2c02f82320599b00cb3277479c660a9c56c37c6476bc423215c9cbb7ab0c645",
+      "snapshot_path": "work/29_verniman_level_reconstruction/phase6a_20261031T035851Z/producer-files/uv.lock"
+    },
+    {
+      "role": "saved_hydrator",
+      "path": "studies/29_verniman_level_reconstruction/phase4/analyze_saved_training.py",
+      "sha256": "00ea8e9a8b516b3a000481d9dc8f66222acf9b797beabc0a5dce246803b0d77f",
+      "snapshot_path": "work/29_verniman_level_reconstruction/phase6a_20261031T035851Z/producer-files/studies/29_verniman_level_reconstruction/phase4/analyze_saved_training.py"
+    },
+    {
+      "role": "source_comparison",
+      "path": "studies/29_verniman_level_reconstruction/phase4/run_training.py",
+      "sha256": "9c93687619d01d064b398cdc124d2336d232cd6a855fddd76e04cfd40efa124d",
+      "snapshot_path": "work/29_verniman_level_reconstruction/phase6a_20261031T035851Z/producer-files/studies/29_verniman_level_reconstruction/phase4/run_training.py"
+    },
+    {
+      "role": "source_roles",
+      "path": "studies/29_verniman_level_reconstruction/phase4/source_roles.py",
+      "sha256": "e1f4b7c0b1795ac37a86deac05a1ae5f4e7000e17d87022ef1ea88548d9a8c31",
+      "snapshot_path": "work/29_verniman_level_reconstruction/phase6a_20261031T035851Z/producer-files/studies/29_verniman_level_reconstruction/phase4/source_roles.py"
+    },
+    {
+      "role": "window_adapter",
+      "path": "studies/29_verniman_level_reconstruction/phase5/window_identity.py",
+      "sha256": "ba5d73e8fd0b0c917a1ba12ed564a1723b0892f63f9c7729551502a9f8172693",
+      "snapshot_path": "work/29_verniman_level_reconstruction/phase6a_20261031T035851Z/producer-files/studies/29_verniman_level_reconstruction/phase5/window_identity.py"
+    },
+    {
+      "role": "capture_runner",
+      "path": "studies/29_verniman_level_reconstruction/phase6/capture.py",
+      "sha256": "e3af897e4ea5f21ff4db4bfd9c40c29edac33bd228416b3b91fc6672918f19a9",
+      "snapshot_path": "work/29_verniman_level_reconstruction/phase6a_20261031T035851Z/producer-files/studies/29_verniman_level_reconstruction/phase6/capture.py"
+    },
+    {
+      "role": "calendar_control",
+      "path": "studies/29_verniman_level_reconstruction/phase6/calendar_control.py",
+      "sha256": "751ab6ecdcc5258503aea9c1aa4f3b693fe9a8d722882a9b36317ac27159e3a7",
+      "snapshot_path": "work/29_verniman_level_reconstruction/phase6a_20261031T035851Z/producer-files/studies/29_verniman_level_reconstruction/phase6/calendar_control.py"
+    },
+    {
+      "role": "reveal_gate",
+      "path": "studies/29_verniman_level_reconstruction/phase6/reveal_gate.py",
+      "sha256": "a168c369b0d517ea496adcd2b827c65ce81fd473e3d37741e4cb2d9e064c667d",
+      "snapshot_path": "work/29_verniman_level_reconstruction/phase6a_20261031T035851Z/producer-files/studies/29_verniman_level_reconstruction/phase6/reveal_gate.py"
+    },
+    {
+      "role": "saved_scorer",
+      "path": "studies/29_verniman_level_reconstruction/phase6/score_saved.py",
+      "sha256": "a54b5ef8491e20847bf2ddc9556185ff360d2a001ad177a304fc9e879a9a69c2",
+      "snapshot_path": "work/29_verniman_level_reconstruction/phase6a_20261031T035851Z/producer-files/studies/29_verniman_level_reconstruction/phase6/score_saved.py"
+    }
+  ],
+  "claims": {
+    "observable_map_agreement": "prospective estimation/falsification only",
+    "source_method_fidelity": "not_estimable_if_construction_window_timing_or_essential_conditions_unavailable",
+    "validated_method_acceptance": false,
+    "configuration_switch": false
+  },
+  "minimum_usable_distinct_dates": {
+    "pivot": 15,
+    "bullish": 15,
+    "bearish": 15,
+    "common_full_map": 15
+  },
+  "acceptance_threshold": null,
+  "timestamp_evidence": "Local clocks/browser evidence/operator attestations; hashes do not independently certify existence time or enforce blinding",
+  "sample_policy": "All20 scheduled sessions retained; explicit terminal statuses required after actual deadlines; no replacements/extensions",
+  "reveal_policy": "Only after final scheduled16:00NY and full receipts/fresh actor audit; incomplete/exposed batch descriptive only; early predictor answers disallow formal estimation",
+  "source_policy": "earliest independently captured preopen full plan; unresolvedties/conflicts separate; no nearestrevisionchoice",
+  "original_exposed_hidden_period_is_pristine": false,
+  "preparation_exposure_audit": {
+    "path": "work/29_verniman_level_reconstruction/phase6a_20261031T035851Z/exposure-audit.json",
+    "sha256": "92824edeff4992c29c4690e460e90f9a53c1d039e3fb353558b7309ed79f8c7c"
+  },
+  "preparation_market_access": {
+    "path": "work/29_verniman_level_reconstruction/phase6a_20261031T035851Z/market-access-check.json",
+    "sha256": "a7f1fee09d1d8af72da06879ff1112b2e735d719460c50af8233d140c020b4a7"
+  },
+  "pre_freeze_verification": {
+    "path": "work/29_verniman_level_reconstruction/phase6a_20261031T035851Z/pre-freeze-checks.json",
+    "sha256": "265e9ecf4d65f5b51c894c43644a87285153661cb059959c354e2b3f59b9fc2d"
+  },
+  "environment": {
+    "path": "work/29_verniman_level_reconstruction/phase6a_20261031T035851Z/environment-preparation.json",
+    "sha256": "77daaeacc784af99eaf21d83f472b2e50e06287b7c2104215a7e3f782dbbf405"
+  },
+  "calendar_sources": {
+    "path": "work/29_verniman_level_reconstruction/phase6a_20261031T035851Z/calendar-evidence/source-manifest.json",
+    "sha256": "5ed9959a6dedb9d70270aa8396ef4aba1202de2de46f64042fb001b06b11b522"
+  },
+  "prior_study_preservation": {
+    "files_checked": 143,
+    "receipt": {
+      "path": "work/29_verniman_level_reconstruction/phase6a_20261031T035851Z/prior-study-preservation-pins.json",
+      "sha256": "f9427537356686be97a2afd7e3f82b667848229b206602099e1d25ae26d79425"
+    }
+  },
+  "freeze_builder": {
+    "path": "work/29_verniman_level_reconstruction/phase6a_20261031T035851Z/freeze-phase6a.py",
+    "sha256": "ebad48da171132869343e2b47fcb83d4056b7b47d991618826bd0bcde4ec1b6e"
+  },
+  "future_observations_captured": 0,
+  "future_native_checks": 0,
+  "source_answers_accessed_in_preparation": false,
+  "final_reveal_executed": false,
+  "automations_or_notifications_created": false,
+  "publication_deployment_profitability_or_dataset_rebuild": false,
+  "mutable_after_freeze": "New immutable daily evidence/access/ledger revisions only; verification.md is subsequent preparation evidence and is excluded from the protocol hash cycle. No frozen producer/scoring/protocol file may be changed."
+}

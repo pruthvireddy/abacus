@@ -1,0 +1,49 @@
+{
+  "schema_version": "daily-map-source-date-exceptions-1",
+  "start_date": "2022-01-01",
+  "end_date": "2022-12-31",
+  "source_reviews": [
+    {
+      "path": "data/raw/blogspot/verniman/html/20261021T012001Z_history_49cd90e5/chronology_review.json",
+      "sha256": "a7b08ce91d8dfa79fffc5691960d24bdfd6ccc4ddfb9b45e3c98672af79f8683",
+      "bytes": 3999
+    },
+    {
+      "path": "data/raw/blogspot/verniman/html/20261021T012001Z_history_49cd90e5/collection_review.json",
+      "sha256": "c89631add12b737f65c9785d2df17db6e8904158f06379a28cac997b92999232",
+      "bytes": 10160
+    }
+  ],
+  "overrides": [
+    {
+      "url": "https://verniman.blogspot.com/2004/12/good-bye-2021.html",
+      "session_date": "2021-12-31",
+      "expected_body_month_day": [
+        12,
+        31
+      ],
+      "body_text_sha256": "f1521fa55eabc649bc3d56edf8c1adbaadeec25f0f87896b8adc8a2c771eb4e5",
+      "reason": "Pinned chronology review: the body explicitly names the final trading session of 2021. This is the lower boundary after the May 16, 2022 navigation gap.",
+      "evidence": {
+        "path": "data/raw/blogspot/verniman/html/20261021T012001Z_history_49cd90e5/post-0160.html",
+        "sha256": "7f20b4a60e6172f77fa4b1eaeb7e5d5059876bb0546529841113114e7f557c4d",
+        "bytes": 43826
+      }
+    },
+    {
+      "url": "https://verniman.blogspot.com/2004/10/near-aths.html",
+      "session_date": null,
+      "expected_body_month_day": [
+        10,
+        18
+      ],
+      "body_text_sha256": "dd9c860a6c6b4c2e9fa57f15f6ff91125d38e96b25c3f3b548a23d6795fb2722",
+      "reason": "Pinned chronology review classifies this ESZ21 article as stale 2021 content inside the 2022 navigation. Retain it separately without asserting a 2022 map date.",
+      "evidence": {
+        "path": "data/raw/blogspot/verniman/html/20261021T012001Z_history_49cd90e5/post-0053.html",
+        "sha256": "29ef8e386aa57dce0d3375d0629037b1ae0b51bc5a730263807cf374f1a999ed",
+        "bytes": 43787
+      }
+    }
+  ]
+}

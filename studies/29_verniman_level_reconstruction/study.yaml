@@ -1,0 +1,51 @@
+study_id: 29_verniman_level_reconstruction
+protocol_version: 1.0.0
+phase: 1
+content_kind: indicator_implementation
+indicator_name: Verniman Levels
+pine_version: 6
+derivative: indicator/verniman_levels.pine
+baseline: reference/vp_levels_original.pine
+timezone: America/New_York
+supported_chart_type: standard_time_based
+supported_timeframes_minutes: [1, 5]
+supported_market_scope: ES_MES_NQ_MNQ_full_electronic_session
+futures_session: '1800-1700'
+rth_session: '0930-1600'
+overnight_session: '1800-0930'
+week_start: Sunday_1800_New_York
+previous_week_rollover: next_Sunday_1800_not_Friday_completion
+completed_daily_source_policy: expected_prior_weekday_Friday_for_Monday
+off_session_bar_policy: ignore
+overnight_terminal_boundary: exact_requested_through_time_or_0930_completion
+snapshot_cutoff_default: '09:25'
+snapshot_cutoff_must_precede: '09:30'
+snapshot_input_policy: confirmed_bars_with_time_close_at_or_before_cutoff
+snapshot_boundary_policy: exact_aligned_cutoff_required
+profile_method: uniform_volume_across_inclusive_touched_price_bins
+row_ticks_default: 16
+value_area_percent_default: 70
+parameter_status: inherited_provisional_not_recovered_Verniman_settings
+poc_tie: lowest_price_bin
+value_area_adjacent_tie: upper_bin_first
+level_coordinate: bin_base
+max_profile_bins: 6000
+frozen_candidate_fields: 19
+live_candidate_display_default: false
+developing_RTH_display_default: true
+candidate_table_expanded_default: false
+prior_close: last_retained_completed_RTH_bar_close_not_settlement
+browser_replay_allowed_dates: ['2026-10-01', '2026-10-02', '2026-10-05']
+later_split_planned:
+  training: ['2026-10-01', '2026-10-14']
+  development: ['2026-10-15', '2026-10-20']
+  hidden_test: ['2026-10-21', '2026-10-27']
+later_evaluation_status: planned_unexecuted_subject_to_source_suitability
+target_answer_source_access: excluded_in_phase1
+extensions_planned_unimplemented:
+  - HVN_LVN_segmentation
+  - candidate_HVE_detection
+  - composite_balance_references
+  - PBT_hypotheses_and_anchors
+  - LIS_pivot_selection
+  - ordered_bullish_bearish_targets

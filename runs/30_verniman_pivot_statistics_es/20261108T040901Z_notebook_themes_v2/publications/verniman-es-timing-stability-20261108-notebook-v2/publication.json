@@ -1,0 +1,208 @@
+{
+  "schemaVersion": "1.1",
+  "presentation": "research-paper",
+  "id": "verniman-es-timing-stability-20261108-notebook-v2",
+  "title": "Timing & stability",
+  "summary": "When do crossings occur, which section states persist, and how stable are descriptive averages over time?",
+  "publishedAt": "2026-11-08T04:13:17Z",
+  "source": {
+    "producer": "sahadeva",
+    "runId": "20261108T040901Z_notebook_themes_v2"
+  },
+  "sections": [
+    {
+      "id": "pivot-session-rate",
+      "title": "When during RTH are EMA6–pivot crossings most frequent?",
+      "description": "Compare the opening range (09:30–10:30), New York AM (10:30–12:30) and New York PM (12:30–16:00). These windows have unequal lengths, so normalize actual crossings by valid observed hours within each day and section, then average those daily rates.\n\nEach section retains all eligible sessions, including zero-cross sessions. Section membership follows bar-open time; a cross becomes known at bar close.",
+      "finding": "The mean daily rate was 0.87 crossings per hour in the opening range, compared with 0.32 in New York AM and 0.19 in New York PM. After accounting for exposure, crossings were most frequent near the RTH open. This describes crossing activity, not trade quality.",
+      "kind": "figure",
+      "path": "figures/pivot-session-rate.png",
+      "alt": "Mean daily EMA6–pivot rates are 0.87 per hour in the opening range, 0.32 in New York AM and 0.19 in New York PM.",
+      "caption": "Daily section rates are averaged; zero-cross sessions remain included. Window lengths are one, two and three-and-a-half hours."
+    },
+    {
+      "id": "first-cross-timing",
+      "title": "When does the first EMA6–pivot crossing occur?",
+      "description": "Locate each eligible session's first actual EMA6–pivot crossing by its completed-bar time. Show every half-hour bin chronologically and retain no-cross sessions as a separate category.\n\nThe timing mean conditions on days with a crossing; histogram shares use all eligible days. The final 15:30–16:00 bin includes the session-closing endpoint.",
+      "finding": "On 640 days with a crossing, the first cross occurred a mean 57.0 minutes after 09:30, with median 24 minutes. Another 235 sessions had no crossing. The full chronological distribution makes late first events and no-event days visible instead of conditioning them away.",
+      "kind": "figure",
+      "path": "figures/first-cross-timing.png",
+      "alt": "Chronological half-hour distribution of first actual EMA6–pivot crossing times, with no-cross sessions separate.",
+      "caption": "The final half-hour bin includes 16:00. Timing means use crossed days; these bars use all eligible sessions."
+    },
+    {
+      "id": "section-persistence",
+      "title": "Which cloud states persist from the opening range into later sections?",
+      "description": "Compare cloud ordering at the opening-range endpoint with New York AM and PM endpoints. Each probability conditions on the observed opening-range source state and an observed destination.\n\nThese are endpoint-to-endpoint descriptions, not states known at the opening or causal forecasts of the next section.",
+      "finding": "Bullish ordering persisted from the opening-range endpoint to the AM endpoint on 75.4% of 468 bullish-source days; bearish ordering persisted on 68.6% of 407 bearish-source days. The PM comparison uses its own destination endpoint. Persistence describes how observed section states relate and cannot be used as opening-time information.",
+      "kind": "table",
+      "columns": [
+        {
+          "key": "source",
+          "label": "Opening-range state"
+        },
+        {
+          "key": "destination",
+          "label": "Compared with"
+        },
+        {
+          "key": "days",
+          "label": "Observed source days",
+          "precision": 0,
+          "format": "number"
+        },
+        {
+          "key": "persistent",
+          "label": "Persistent days",
+          "precision": 0,
+          "format": "number"
+        },
+        {
+          "key": "share",
+          "label": "Persistence share",
+          "precision": 1,
+          "format": "percent"
+        },
+        {
+          "key": "unknown",
+          "label": "Unavailable",
+          "precision": 0,
+          "format": "number"
+        }
+      ],
+      "rows": [
+        {
+          "days": 468,
+          "destination": "AM endpoint",
+          "persistent": 353,
+          "share": 0.754273504273504,
+          "source": "bullish",
+          "unknown": 0
+        },
+        {
+          "days": 407,
+          "destination": "AM endpoint",
+          "persistent": 279,
+          "share": 0.685503685503686,
+          "source": "bearish",
+          "unknown": 0
+        },
+        {
+          "days": 468,
+          "destination": "PM endpoint",
+          "persistent": 302,
+          "share": 0.645299145299145,
+          "source": "bullish",
+          "unknown": 0
+        },
+        {
+          "days": 407,
+          "destination": "PM endpoint",
+          "persistent": 214,
+          "share": 0.525798525798526,
+          "source": "bearish",
+          "unknown": 0
+        }
+      ],
+      "notes": [
+        "Cloud state at the 10:30 opening-range endpoint is compared with the 12:30 AM and 16:00 PM endpoints. Each row uses its own observed source-state denominator."
+      ]
+    },
+    {
+      "id": "recent-history",
+      "title": "How does recent crossing activity compare with earlier history?",
+      "description": "For EMA6–VWAP crossings on pivot-matched RTH days, compare the latest 20, 60 and 120 eligible observed sessions with the disjoint preceding history for each window.\n\nThe requested cutoff remains October 30, 2026, but available eligible evidence ends September 18. These are observed-session windows, not fixed calendar intervals; the 20-session estimate is sparse under the study's 30-day rule.",
+      "finding": "EMA6–VWAP crossings averaged 3.25 per session over the last 20 eligible sessions, compared with 2.79 over the disjoint preceding 855. The recent window ended 2026-09-18. The longer windows show how sensitive the comparison is to the chosen observed-session horizon; these exploratory estimates do not establish a new market regime.",
+      "kind": "table",
+      "columns": [
+        {
+          "key": "window",
+          "label": "Observed-session window"
+        },
+        {
+          "key": "recent_n",
+          "label": "Recent sessions",
+          "precision": 0,
+          "format": "number"
+        },
+        {
+          "key": "recent_mean",
+          "label": "Recent mean",
+          "precision": 2,
+          "format": "number"
+        },
+        {
+          "key": "earlier_n",
+          "label": "Earlier sessions",
+          "precision": 0,
+          "format": "number"
+        },
+        {
+          "key": "earlier_mean",
+          "label": "Earlier mean",
+          "precision": 2,
+          "format": "number"
+        },
+        {
+          "key": "start",
+          "label": "Recent start"
+        },
+        {
+          "key": "end",
+          "label": "Recent end"
+        }
+      ],
+      "rows": [
+        {
+          "earlier_mean": 2.789473684210526,
+          "earlier_n": 855,
+          "end": "2026-09-18",
+          "recent_mean": 3.25,
+          "recent_n": 20,
+          "start": "2026-08-05",
+          "window": "Last 20"
+        },
+        {
+          "earlier_mean": 2.795092024539877,
+          "earlier_n": 815,
+          "end": "2026-09-18",
+          "recent_mean": 2.866666666666667,
+          "recent_n": 60,
+          "start": "2026-05-18",
+          "window": "Last 60"
+        },
+        {
+          "earlier_mean": 2.813245033112583,
+          "earlier_n": 755,
+          "end": "2026-09-18",
+          "recent_mean": 2.716666666666667,
+          "recent_n": 120,
+          "start": "2026-01-23",
+          "window": "Last 120"
+        }
+      ],
+      "notes": [
+        "Means are EMA6–VWAP crossings per pivot-matched RTH session. Earlier history excludes the corresponding recent window.",
+        "The latest usable date is September 18, 2026. The 20-session row is below the 30-day support threshold."
+      ]
+    },
+    {
+      "id": "pivot-frequency-trend",
+      "title": "How does EMA6–pivot crossing frequency vary by year?",
+      "description": "Calculate mean actual EMA6–pivot crossings per eligible RTH session in each year, including zero-cross days. The connected points show descriptive annual averages, not a fitted regression.\n\nCoverage differs across years: the 2022 sample begins May 18 and 2026 ends September 18. Each point is labeled with its eligible-session count; the line alone is not a significance test or evidence of a monotonic trend.",
+      "finding": "Annual means ranged from 1.91 to 2.50 EMA6–pivot crossings per eligible session. The highest observed mean was in 2020; the lowest was in 2026. Frequency fluctuated across the retained years. Different source coverage and eligible-session counts limit direct year-to-year comparisons; the line does not establish a persistent trend.",
+      "kind": "figure",
+      "path": "figures/pivot-frequency-trend.png",
+      "alt": "Annual EMA6–pivot crossing means range from 1.91 to 2.50 per eligible session during 2020–2026, with session counts labeled.",
+      "caption": "*2022 starts May 18; 2026 ends September 18. Connected annual point estimates have different eligible coverage; no fitted trend or new confidence intervals."
+    }
+  ],
+  "notes": [
+    "Pivot-matched ES regular trading hours, 09:30–16:00 America/New_York: 875 eligible sessions from January 3, 2020 through September 18, 2026. Requested coverage extends through October 30, 2026.",
+    "Historical pivot availability remains unverified. Source/contract and full-day quality eligibility are retrospective.",
+    "These insights reproduce selected descriptive point estimates from retained event, day and section records. No source events or bootstrap confidence intervals are reconstructed in this edition; uncertainty intervals remain in the earlier ranked reports.",
+    "Multiple events within a day are dependent. Conditional and calendar comparisons are exploratory; neither crossing activity nor price-path summaries establish executable profitability.",
+    "Price and actual EMA6 crossings are different events; an already-aligned EMA6 is a separate state. Fixed-horizon outcomes require complete windows and omit earlier signal-bar extremes.",
+    "No trade fills, execution costs or net profitability are modeled. Separate VWAP-only RTH/Globex populations remain companion evidence and are not pooled with the pivot-matched sample."
+  ]
+}

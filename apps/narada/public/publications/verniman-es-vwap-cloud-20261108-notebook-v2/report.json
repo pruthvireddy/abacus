@@ -1,0 +1,170 @@
+{
+  "provenance": {
+    "assets": [],
+    "sourceSha256": "30662cf23bbf5acdaf8e39e9e76135075179e71c9dbe37ab2bcceb90ed325642"
+  },
+  "report": {
+    "id": "verniman-es-vwap-cloud-20261108-notebook-v2",
+    "notes": [
+      "Pivot-matched ES regular trading hours, 09:30–16:00 America/New_York: 875 eligible sessions from January 3, 2020 through September 18, 2026. Requested coverage extends through October 30, 2026.",
+      "Historical pivot availability remains unverified. Source/contract and full-day quality eligibility are retrospective.",
+      "These insights reproduce selected descriptive point estimates from retained event, day and section records. No source events or bootstrap confidence intervals are reconstructed in this edition; uncertainty intervals remain in the earlier ranked reports.",
+      "Multiple events within a day are dependent. Conditional and calendar comparisons are exploratory; neither crossing activity nor price-path summaries establish executable profitability.",
+      "Price and actual EMA6 crossings are different events; an already-aligned EMA6 is a separate state. Fixed-horizon outcomes require complete windows and omit earlier signal-bar extremes.",
+      "No trade fills, execution costs or net profitability are modeled. Separate VWAP-only RTH/Globex populations remain companion evidence and are not pooled with the pivot-matched sample."
+    ],
+    "presentation": "research-paper",
+    "publishedAt": "2026-11-08T04:13:17Z",
+    "schemaVersion": "1.1",
+    "sections": [
+      {
+        "columns": [
+          {
+            "key": "outcome",
+            "label": "Sequence disposition"
+          },
+          {
+            "format": "number",
+            "key": "sequences",
+            "label": "Sequences",
+            "precision": 0
+          },
+          {
+            "format": "percent",
+            "key": "share",
+            "label": "Share of at-risk resolved sequences",
+            "precision": 1
+          }
+        ],
+        "description": "After an actual EMA6–pivot crossing, observe the next 30 minutes for a strict EMA6 crossing through VWAP before a reverse pivot crossing. The at-risk denominator contains resolved or fully observed sequences starting strictly before the other line.\n\nSimultaneous crossings, already-beyond-VWAP starts and incomplete windows remain separate. A tie at a completed close has no inferred intrabar order.",
+        "finding": "EMA6 reached VWAP before recrossing the pivot in 362 of 705 resolved or fully observed at-risk sequences (51.3%), supported by 429 days. Another 20 sequences were censored. Excluded starting configurations remain visible below, so their large count is not silently absorbed into the conditional probability.",
+        "id": "pivot-to-vwap",
+        "kind": "table",
+        "notes": [
+          "Only reach-before-recross, recross-first and neither-within-complete-window outcomes enter the conditional denominator. Other dispositions are shown with no conditional percentage.",
+          "Origins are pivot crosses; this table does not combine VWAP-origin paths."
+        ],
+        "rows": [
+          {
+            "outcome": "Already beyond VWAP at start",
+            "sequences": 1013,
+            "share": null
+          },
+          {
+            "outcome": "Censored: no complete endpoint",
+            "sequences": 20,
+            "share": null
+          },
+          {
+            "outcome": "Neither within complete 30 minutes",
+            "sequences": 86,
+            "share": 0.121985815602837
+          },
+          {
+            "outcome": "Pivot recross occurred first",
+            "sequences": 257,
+            "share": 0.364539007092199
+          },
+          {
+            "outcome": "VWAP crossed before pivot recross",
+            "sequences": 362,
+            "share": 0.513475177304964
+          },
+          {
+            "outcome": "Simultaneous reference crossings",
+            "sequences": 148,
+            "share": null
+          }
+        ],
+        "title": "Does EMA6 reach VWAP before reversing through the pivot?"
+      },
+      {
+        "columns": [
+          {
+            "key": "state",
+            "label": "Cloud state"
+          },
+          {
+            "format": "number",
+            "key": "outcomes",
+            "label": "Complete paths",
+            "precision": 0
+          },
+          {
+            "format": "number",
+            "key": "days",
+            "label": "Distinct days",
+            "precision": 0
+          },
+          {
+            "format": "number",
+            "key": "unknown",
+            "label": "Unavailable",
+            "precision": 0
+          },
+          {
+            "format": "number",
+            "key": "mean",
+            "label": "Mean ES points",
+            "precision": 2
+          },
+          {
+            "format": "number",
+            "key": "median",
+            "label": "Median ES points",
+            "precision": 2
+          },
+          {
+            "format": "percent",
+            "key": "positive",
+            "label": "Strictly positive",
+            "precision": 1
+          }
+        ],
+        "description": "Compare complete 30-minute EMA6–pivot paths by contemporaneous cloud support, opposition or mixed state. Support requires directional EMA20/50 ordering and both native five-minute 15-minute slopes in the crossing direction; opposition requires the opposite configuration.\n\nStates are recorded at the event close. Conditional outcome groups are exploratory and share days with each other.",
+        "finding": "Mean 30-minute directional displacement was -0.31 ES points with cloud support (645 paths), compared with 0.57 points with opposition (393 paths). Mixed states averaged -0.13 points. The observed ordering does not support assuming that the support label automatically improves this outcome; it is an exploratory conditional comparison.",
+        "id": "cloud-context",
+        "kind": "table",
+        "notes": [
+          "Cloud state is contemporaneous with the EMA6 cross. Distinct-day support overlaps across states; events within a day are dependent."
+        ],
+        "rows": [
+          {
+            "days": 446,
+            "mean": -0.309689922480619,
+            "median": -0.5,
+            "outcomes": 645,
+            "positive": 0.477519379844961,
+            "state": "support",
+            "unknown": 38
+          },
+          {
+            "days": 286,
+            "mean": 0.573791348600509,
+            "median": 0.25,
+            "outcomes": 393,
+            "positive": 0.506361323155216,
+            "state": "opposition",
+            "unknown": 26
+          },
+          {
+            "days": 367,
+            "mean": -0.12965425531915,
+            "median": 0,
+            "outcomes": 752,
+            "positive": 0.486702127659574,
+            "state": "mixed",
+            "unknown": 32
+          }
+        ],
+        "title": "How do cloud states relate to movement after a pivot cross?"
+      }
+    ],
+    "source": {
+      "producer": "sahadeva",
+      "runId": "20261108T040901Z_notebook_themes_v2"
+    },
+    "summary": "How do the other reference line and contemporaneous cloud states relate to pivot-cross paths?",
+    "title": "VWAP & cloud"
+  }
+}

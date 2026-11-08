@@ -1,0 +1,81 @@
+request:
+  id: verniman_x_eod_observations__1.0.0
+  requester: workspace user
+  requested_on: '2026-10-28'
+  purpose: >-
+    Build a private, source-linked manual record of Verniman's end-of-day X
+    chart trade annotations, closing technical notes and MOC observations for
+    later research. Work backward from the latest completed day toward the
+    beginning of 2026 without changing the existing daily market levels.
+  status: collecting_private_intake
+source:
+  account_handle: kofitrading
+  display_name: verniman
+  profile_url: https://x.com/kofitrading
+  access: user's existing authorized account access through ChatGPT's in-app browser
+  collection_method: manual visual review of rendered posts and chart images only
+  allowed_browser: ChatGPT in-app browser only
+  automated_scraping: false
+  direct_http_or_api: false
+  other_browsers: false
+  downloads: avoid; do not require individual unattended download authorizations
+scope:
+  start_date: '2026-01-01'
+  initial_end_date: '2026-10-27'
+  inclusive: true
+  timezone: America/New_York
+  direction: latest completed day backward
+  selection: >-
+    The latest readable full-session chart retaining the day's trade annotations,
+    the latest closing technical map when different, and nearby closing/MOC
+    commentary. Retain source timestamps separately from stated session dates.
+  objects:
+    - visible entry/exit/buy/sell/flat annotations and their raw labels
+    - closing technical imbalance direction and other readable labels
+    - MOC side, amount, unit and observation timestamp
+    - visible closing data and source-reported metrics with explicit qualifications
+  exclusions:
+    - inferred real executions, missing fills, invented prices or exact timestamps
+    - calculated P&L, profitability claims, backtests and strategy advice
+    - alterations to existing daily levels, releases, catalog records or consumers
+output:
+  intended_dataset_id: verniman_x_eod_observations__1.0.0
+  intake: data/inbox/x/verniman_eod/20261028_backfill_2026/
+  observation_source: append-only per-session revision JSON documents
+  tables: [sessions, sources, markers, closing_notes, issues, coverage]
+  formats: JSON observations and standard-library-generated CSV inspection tables
+  schema_contract: data/inbox/x/verniman_eod/20261028_backfill_2026/README.md
+  projection_tool: data/inbox/x/verniman_eod/20261028_backfill_2026/manage.py
+  release_publication: not_requested
+  website_publication: not_requested
+timing_and_semantics:
+  available_at: null
+  historical_availability_status: historical_availability_unverified
+  capture_time: actual browser observation time, separate from source claims
+  execution_verified: false
+  numeric_fields: decimal strings or null; retain raw text and axis intervals
+  trade_roles: >-
+    Literal markers first. Infer entry/exit/reversal only with an explicit
+    interpretation basis; Buy may close a short and Sell may close a long.
+    Keep unpaired, clipped or unreadable markers and unknown quantities explicit.
+  imbalances: >-
+    Keep technical/profile imbalance labels separate from monetary MOC order
+    imbalance and from traded contract volume. Retain multiple timestamped updates.
+coverage:
+  calendar: complete inclusive calendar ledger derived only from saved observations
+  unreviewed_dates: never classified as historical absence, non-trading or zero trades
+  partial_review: keep explicit scope and unresolved issues
+  absent_source: record what was searched; do not assert that no historical post existed
+  access_failures: retain concrete blocker and resumable checkpoint
+retention:
+  current_intake: private ignored Abacus data tree; requires separate backup
+  screenshots: optional source locators/checksums; no claim of preserved pixels when absent
+  no_source_capture: explicitly qualify records as visual transcriptions
+  download_scratch: work/verniman-x-eod-downloads/20261028_backfill_2026/
+  scratch_policy: disposable only; never clean retained observations or historical evidence
+  corrections: append a complete higher revision with supersedes lineage
+validation:
+  offline: syntax, IDs, revision lineage, URL identity, references, decimal/null rules, units and calendar coverage
+  visual: inspect each source chart before recording values; keep uncertainty and clipping explicit
+  preservation: no writes to existing daily-level data or pre-existing changed files
+  scientific_scope: source observation only; no execution, completeness or profitability certification

@@ -1,0 +1,11 @@
+# Daily Map 2023-11-15
+
+Wednesday · Captured
+
+[Read retained text and images](../../../../../../../../work/27_verniman_method_knowledge/20261031T043818Z_daily_maps_2023/archive/2023/11/15/index.html)
+
+## PPI data
+
+[Original post](https://verniman.blogspot.com/2006/11/ppi-data.html) · [Compressed source HTML](../../../../../../../../work/27_verniman_method_knowledge/20261031T043818Z_daily_maps_2023/archive/2023/11/15/p0031-5e98f47d8f/source.html.gz) · [Compressed article record](../../../../../../../../work/27_verniman_method_knowledge/20261031T043818Z_daily_maps_2023/archive/2023/11/15/p0031-5e98f47d8f/article.json.gz)
+
+Capture: live; 2026-10-31T04:39:23.206478+00:00.

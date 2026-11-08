@@ -1,0 +1,21 @@
+Diagnostic independent summary reconstruction of saved v1 evidence; current checker, not original frozen checker.
+Loaded 379091 saved summary rows in 3.279s
+Traceback (most recent call last):
+  File "<stdin>", line 16, in <module>
+  File "/Users/pruthvi/Documents/projects/abacus/studies/30_verniman_pivot_statistics_es/verify_ranked.py", line 514, in verify_summaries
+    independent.equal(summary[field],value,f"summary/{summary['statistic_id']}/{summary['metric']}/{field}")
+  File "/Users/pruthvi/Documents/projects/abacus/studies/30_verniman_pivot_statistics_es/verify_saved.py", line 62, in equal
+    require(numeric(actual) and math.isclose(float(actual), float(expected), rel_tol=1e-11, abs_tol=1e-8), f"{label}: numerical mismatch")
+  File "/Users/pruthvi/Documents/projects/abacus/studies/30_verniman_pivot_statistics_es/verify_saved.py", line 39, in require
+    raise ValueError(message)
+ValueError: summary/S13/displacement/censored: numerical mismatch
+FAILED after 25.759s
+Traceback (most recent call last):
+  File "<stdin>", line 16, in <module>
+  File "/Users/pruthvi/Documents/projects/abacus/studies/30_verniman_pivot_statistics_es/verify_ranked.py", line 514, in verify_summaries
+    independent.equal(summary[field],value,f"summary/{summary['statistic_id']}/{summary['metric']}/{field}")
+  File "/Users/pruthvi/Documents/projects/abacus/studies/30_verniman_pivot_statistics_es/verify_saved.py", line 62, in equal
+    require(numeric(actual) and math.isclose(float(actual), float(expected), rel_tol=1e-11, abs_tol=1e-8), f"{label}: numerical mismatch")
+  File "/Users/pruthvi/Documents/projects/abacus/studies/30_verniman_pivot_statistics_es/verify_saved.py", line 39, in require
+    raise ValueError(message)
+ValueError: summary/S13/displacement/censored: numerical mismatch

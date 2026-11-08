@@ -1,0 +1,86 @@
+{
+  "schema_version": "abacus.study30.notebook-web-transfer/v2",
+  "study_id": "30_verniman_pivot_statistics_es",
+  "source_run_id": "20261108T040901Z_notebook_themes_v2",
+  "upstream_source_run_id": "20261031_ranked_v2",
+  "publication_id": "verniman-es-opening-context-20261108-notebook-v2",
+  "theme_id": "opening-context",
+  "authoring_signature": "67172e089c28ccaa50ade5a66b37af31f24934953f49760ea48d9a084e173ab5",
+  "executed_notebook_sha256": "9312ae26b5885882ec31760ae64f12d39ccc62ef391096a7689a218aae815824",
+  "execution_receipt_sha256": "d842ceb2b36707240a8b6c515b80b01d9083556922bf9eb7e403cf5bf69dc2eb",
+  "analysis_verification_sha256": "1775e291dca02dce96e78ab3948f26e05887dd4b34e0e250173a16bd20acc42d",
+  "retained_stage": "runs/30_verniman_pivot_statistics_es/20261108T040901Z_notebook_themes_v2",
+  "insights": [
+    {
+      "insight_id": "opening-configuration",
+      "theme_id": "opening-context",
+      "cells": {
+        "heading": [
+          "opening-configuration-heading"
+        ],
+        "description": [
+          "opening-configuration-description"
+        ],
+        "analysis": [
+          "opening-configuration-analysis"
+        ],
+        "findings": [
+          "opening-configuration-findings"
+        ],
+        "evidence": [
+          "opening-configuration-evidence"
+        ]
+      },
+      "source": {
+        "cohort": "pivot_matched_rth",
+        "measure_id": "S15"
+      },
+      "text": {
+        "title": "How does the opening configuration relate to crossing activity?",
+        "description": "Compare the day's EMA6–pivot crossing count across price opening above both pivot and VWAP, below both, between the lines, or on an equal boundary. Opening states use the actual 09:30 snapshot.\n\nAll eligible sessions remain in the count, including days without crossings. These are conditional descriptions; source availability and full-day eligibility are retrospective.",
+        "finding": "Mean daily EMA6–pivot counts were 1.99 on 362 above-both days, 2.18 on 209 below-both days, and 2.35 on 293 between-line days. Crossing activity varied with the opening configuration; this does not establish a predictive advantage. The equal-boundary group contains only 11 days and is sparse."
+      },
+      "text_operation": "Remove heading/strong/code Markdown delimiters and the renderer-owned Findings summary label; preserve wording and paragraphs.",
+      "source_findings_sha256": "6ed62fca932c2e12d19bd313e5ed435af418309f80632f205b1e74ad8d15b24e",
+      "figure": {
+        "path": "figures/opening-configuration.png",
+        "sha256": "d38e04c62f681c7111327c0f9d0bad75f8b4a5cc2a70e0ec149d096dabe6e1ec",
+        "operation": "Exact executed PNG bytes; no redraw or image modification."
+      }
+    },
+    {
+      "insight_id": "opening-separation",
+      "theme_id": "opening-context",
+      "cells": {
+        "heading": [
+          "opening-separation-heading"
+        ],
+        "description": [
+          "opening-separation-description"
+        ],
+        "analysis": [
+          "opening-separation-analysis"
+        ],
+        "findings": [
+          "opening-separation-findings"
+        ],
+        "evidence": [
+          "opening-separation-evidence"
+        ]
+      },
+      "source": {
+        "cohort": "pivot_matched_rth",
+        "measure_id": "S17"
+      },
+      "text": {
+        "title": "How far apart are pivot and VWAP at the opening?",
+        "description": "Measure the absolute separation of the daily pivot and contemporaneous Globex VWAP at 09:30, once in ES points and once in basis points of the pivot. The two columns are averages of daily measurements, not conversions of an aggregate mean.\n\nThe table retains the observed spread of separation without treating it as a selected entry threshold.",
+        "finding": "Across 875 sessions, mean opening separation was 9.48 ES points and 19.80 basis points. The point median was 6.61, below its mean, showing an asymmetric retained distribution. Separation is context, not evidence that a wider gap creates a tradable opportunity."
+      },
+      "text_operation": "Remove heading/strong/code Markdown delimiters and the renderer-owned Findings summary label; preserve wording and paragraphs.",
+      "source_findings_sha256": "8e429ea99933e677d88506bc0fd1fbc0d23434598ebfad4bec8a247bed1d65c7",
+      "structured_table_sha256": "c30702db6e750f66a784d48a38f86079610decc4c596a33ad36b4e7f1382fa89"
+    }
+  ],
+  "public_selection": "Only selected narrative, structured scalar tables and exact PNG outputs. Code and private cell output are omitted."
+}
