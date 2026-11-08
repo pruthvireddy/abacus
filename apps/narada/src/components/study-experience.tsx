@@ -26,8 +26,12 @@ export async function StudyExperiencePage({ study, destination, activePublicatio
     const earlier = bundles.filter(bundle => !primaryIds.has(bundle.report.id));
     const active = primary.find(bundle => bundle.report.id === (activePublicationId ?? featured.report.id));
     if (!active) throw new Error("Selected study theme is not a primary publication.");
+    const readerThemes = primary.map(({ report }) => ({ report: {
+      id: report.id, summary: report.summary, sections: report.sections,
+      references: report.references, notes: report.notes,
+    } }));
     return <StudyShell study={study} current="explore">
-      <StudyResultsPaper study={study} publications={primary} earlierPublications={earlier} activePublicationId={active.report.id} />
+      <StudyResultsPaper study={study} publications={readerThemes} activePublicationId={active.report.id} />
       <LegacyStudyLinks featured={earlier[0] ?? active} selected={[...primary, ...earlier]} targetsOnly excludeIds={active.report.sections.flatMap(section => [`section-${section.id}`, `heading-${section.id}`])} />
       <aside className="legacy-study-links legacy-study-targets-only" aria-label="Earlier theme link compatibility">{primary.filter(bundle => bundle.report.id !== active.report.id).map(bundle => <p className="legacy-study-target" id={`theme-${bundle.report.id}`} key={bundle.report.id}>This theme is available in Results. <a href={studyThemeHref(study, bundle.report.id)}>Open {study.publicationTabs?.find(tab => tab.publicationId === bundle.report.id)?.label}</a></p>)}</aside>
     </StudyShell>;

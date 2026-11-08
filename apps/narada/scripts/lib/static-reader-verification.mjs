@@ -44,7 +44,14 @@ export function assertSinglePageReader(html, study, publications, route = studyC
   }
   assert.equal((html.match(/class="report-section /g) ?? []).length, report.sections.length, `Results must render only the active theme's insights on ${route}`);
   assert(!/aria-label="(?:Study question themes|Study chart navigation|Related study results|Insights in this theme)"/.test(html), `Results repeats report navigation on ${route}`);
-  assert(html.includes('id="publication-record"'), `Missing Results source record on ${route}`);
+  assert(html.includes('id="study-scope"'), `Missing Results scope and interpretation on ${route}`);
+  assert(!/Notebook publication records|Earlier &amp; companion evidence|class="single-page-source\b|class="single-page-archive\b/.test(html), `Results must omit publication record directories on ${route}`);
+  assert(!/href="\/publications\/[^"\s]+\/report\.json"/.test(html), `Results must omit technical publication-data links on ${route}`);
+  for (const bundle of publications) {
+    if (bundle.provenance?.sourceSha256) {
+      assert(!html.includes(bundle.provenance.sourceSha256), `Results must omit publication content hashes on ${route}`);
+    }
+  }
   const ids = [...html.matchAll(/\sid="([^"]+)"/g)].map(match => match[1]);
   assert.equal(new Set(ids).size, ids.length, `Duplicate DOM identities in Results on ${route}`);
 }

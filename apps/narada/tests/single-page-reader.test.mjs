@@ -48,7 +48,7 @@ test('six native theme tabs select only their own saved insights in Results', ()
   let totalTables = 0;
   let totalFigures = 0;
   for (const [index, { report }] of publications.entries()) {
-    const html = render(StudyResultsPaper, { study, publications, earlierPublications, activePublicationId: report.id });
+    const html = render(StudyResultsPaper, { study, publications, activePublicationId: report.id });
     assert.doesNotThrow(() => assertSinglePageReader(html, study, publications, studyThemeHref(study, report.id), report.id));
     const nav = html.match(/<nav class="single-page-contents"[\s\S]*?<\/nav>/)?.[0];
     assert(nav);
@@ -67,7 +67,7 @@ test('six native theme tabs select only their own saved insights in Results', ()
     assert.equal((html.match(/<img /g) ?? []).length, expectedFigures);
     totalTables += expectedTables;
     totalFigures += expectedFigures;
-    assert.equal((html.match(/id="publication-record"/g) ?? []).length, 1);
+    assert.equal((html.match(/id="study-scope"/g) ?? []).length, 1);
     assert.match(html, /id="research-priority"/);
     assert(!html.includes('<pre'));
     assert(!html.includes('Insights in this theme'));
@@ -106,28 +106,34 @@ test('the featured theme is the default selection and unknown themes fail explic
   assert.throws(() => render(StudyResultsPaper, { study, publications, activePublicationId: 'unselected-theme' }), /Selected study theme is not in this study/);
 });
 
-test('scope and source records retain exact primary and companion evidence inside closed disclosures', () => {
-  const html = render(StudyResultsPaper, { study, publications, earlierPublications });
-  assert.match(html, /<details class="single-page-sources" id="publication-record">/);
-  assert.match(html, /<summary>Scope, methods &amp; source records<\/summary>/);
+test('scope notes remain while notebook publication and archive records are absent', () => {
+  const html = render(StudyResultsPaper, { study, publications });
+  assert.match(html, /<details class="single-page-scope" id="study-scope">/);
+  assert.match(html, /<summary>Scope &amp; interpretation<\/summary>/);
   assert(!html.includes('<details open'));
   const lastInsight = Math.max(...publications[0].report.sections.map(section => html.indexOf(`id="section-${section.id}"`)));
-  assert(html.indexOf('id="publication-record"') > lastInsight);
+  assert(html.indexOf('id="study-scope"') > lastInsight);
   const uniqueNotes = new Set(publications.flatMap(({ report }) => report.notes ?? []));
-  const notesBody = html.slice(html.indexOf('<h2>Scope &amp; interpretation</h2>'), html.indexOf('<h2>Notebook publication records</h2>'));
+  const notesBody = html.slice(html.indexOf('<ul class="scope-notes">'), html.indexOf('</ul>', html.indexOf('<ul class="scope-notes">')));
   for (const note of uniqueNotes) assert(notesBody.includes(escapeText(note)));
   assert.equal((notesBody.match(/<li>/g) ?? []).length, uniqueNotes.size);
+  for (const text of ['Notebook publication records', 'Saved publication data', 'Content SHA-256', 'Selected asset identities', 'Earlier &amp; companion evidence', 'Source run', 'id="publication-record"', 'class="print-publication-identity"']) assert(!html.includes(text), `Unexpected reader audit record: ${text}`);
   for (const { report, provenance } of [...publications, ...earlierPublications]) {
-    assert(html.includes(`id="saved-${report.id}"`));
-    assert(html.includes(provenance.sourceSha256));
-    assert(html.includes(`/publications/${report.id}/report.json`));
-    assert(html.includes(report.source.runId));
-    for (const download of report.downloads ?? []) {
-      assert(html.includes(`/publications/${report.id}/${download.path}`));
-      assert(html.includes(download.sha256));
-      assert(html.includes(download.source.sha256));
-    }
+    assert(!html.includes(`id="saved-${report.id}"`));
+    assert(!html.includes(provenance.sourceSha256));
+    assert(!html.includes(`/publications/${report.id}/report.json`));
+    assert(!html.includes(report.source.runId));
+    for (const download of report.downloads ?? []) assert(!html.includes(`/publications/${report.id}/${download.path}`));
   }
+});
+
+test('the reader renders from selected narrative and evidence without requiring audit metadata', () => {
+  const renderingFields = publications.map(({ report }) => ({ report: Object.fromEntries(['id', 'summary', 'sections', 'references', 'notes'].filter(key => report[key] !== undefined).map(key => [key, report[key]])) }));
+  const html = render(StudyResultsPaper, { study, publications: renderingFields });
+  assert.equal((html.match(/class="report-section /g) ?? []).length, 2);
+  assert.match(html, /id="study-scope"/);
+  assert(!html.includes('SHA-256'));
+  assert(!html.includes('Notebook publication records'));
 });
 
 test('a missing explicitly selected theme fails instead of silently removing insights', () => {

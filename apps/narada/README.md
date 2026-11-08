@@ -308,7 +308,9 @@ By default, catalog entries use five statically generated destinations:
 An explicit `readingMode: "single-page"` selects one Results workspace at the study
 root, using bounded flat `publicationTabs` as inner theme tabs. Study 30
 uses this mode for all 21 notebook insights: one active theme at a time, no separate
-Overview/Findings/Methods/Evidence menus, and compact scope/source disclosures.
+Overview/Findings/Methods/Evidence menus, and compact scope/interpretation notes.
+Technical notebook-publication directories, hashes and raw-data links are omitted
+from the study reader. Audit evidence remains in the repository and saved bundles.
 The root and other study destinations open the featured theme. Primary report
 URLs open their selected theme in the same workspace, with native links retaining
 browser history, refresh and no-JavaScript access. Inactive bodies are not mounted.

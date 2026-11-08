@@ -23,9 +23,10 @@ or the [local preview](http://127.0.0.1:4173/studies/verniman-pivot-statistics-e
 while its server runs. Results contains **Opening context**, **Crossing
 activity**, **Breaks & confirmation**, **After the cross**, **VWAP & cloud** and
 **Timing & stability** as switchable theme tabs. Only the active theme's insights
-are shown. Compact scope/source disclosures retain
-the separate VWAP-only companions, ranked reports and six original baseline views
-with their original source runs. The notebook and published evidence are unchanged.
+are shown. Compact scope/interpretation notes remain on the page. Technical
+notebook publication records are omitted from the reader; the separate VWAP-only
+companions, ranked reports and six original baseline views remain in the research
+archive with their original source runs. The notebook and published evidence are unchanged.
 The [implementation matrix](implementation-matrix.md) and
 [verification record](verification.md) describe evidence coverage and limits.
 

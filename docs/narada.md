@@ -356,8 +356,10 @@ report back-links.
 An entry can instead opt into catalog `readingMode: "single-page"` with flat
 `publicationTabs`. Its study root opens the featured theme in one Results
 workspace. Six native theme tabs switch the selected saved report; only its
-insights are rendered. Scope, methods and exact source records share a compact
-disclosure below the insights. Other study destination URLs open the featured
+insights are rendered. Scope, methods and interpretation notes share a compact
+disclosure below the insights. Technical notebook publication-record directories
+are omitted from this reader; exact audit evidence remains in the saved bundles
+and repository. Other study destination URLs open the featured
 theme; current primary report URLs open their selected theme in this same reader.
 Native links preserve ordinary browser history, refresh and no-JavaScript access.
 Historical related report

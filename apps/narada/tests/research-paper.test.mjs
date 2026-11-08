@@ -215,12 +215,19 @@ test('Results compatibility destinations pass the active theme without mounting 
       '@/lib/publications': { getPublication: async id => { calls.push(id); return bundles.get(id) ?? null; } },
       '@/lib/studies': { getStudyCatalog: async () => ({ studies: [], readingPaths: [] }) },
       './study-shell': { StudyShell: ({ children }) => React.createElement(React.Fragment, null, children) },
-      './study-results-paper': { StudyResultsPaper: ({ publications, earlierPublications, activePublicationId }) => React.createElement('div', { 'data-primary': publications.map(bundle => bundle.report.id).join(','), 'data-earlier': earlierPublications.map(bundle => bundle.report.id).join(','), 'data-active': activePublicationId }, publications.find(bundle => bundle.report.id === activePublicationId).report.sections[0].title) },
+      './study-results-paper': { StudyResultsPaper: ({ publications, activePublicationId, ...props }) => {
+        assert(!Object.hasOwn(props, 'earlierPublications'));
+        for (const theme of publications) {
+          assert(!Object.hasOwn(theme, 'provenance'));
+          assert(!Object.hasOwn(theme.report, 'source'));
+          assert(!Object.hasOwn(theme.report, 'publishedAt'));
+        }
+        return React.createElement('div', { 'data-primary': publications.map(bundle => bundle.report.id).join(','), 'data-active': activePublicationId }, publications.find(bundle => bundle.report.id === activePublicationId).report.sections[0].title);
+      } },
     }, new Map());
     const html = renderToStaticMarkup(await StudyExperiencePage({ study: selected, destination, activePublicationId }));
     assert.deepEqual(calls, ['selected-theme', 'sibling', 'previous']);
     assert.match(html, /data-primary="selected-theme,sibling"/);
-    assert.match(html, /data-earlier="previous"/);
     assert(html.includes(`data-active="${activePublicationId ?? 'selected-theme'}"`));
     assert.match(html, /id="section-legacy-question"/);
     assert(!html.includes('HISTORICAL_BODY'));

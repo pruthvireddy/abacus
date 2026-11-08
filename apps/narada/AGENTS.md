@@ -82,8 +82,11 @@ before changing the publication boundary.
   `publicationTabs`. Its study root opens one Results workspace with the selected
   primary reports as inner theme tabs. Render only the active theme's insights;
   never mount inactive report bodies. Native theme links retain history, refresh,
-  and no-JavaScript access. Keep one source/scope disclosure and omit repeated
-  report menus and back-links. The other study URLs open the featured theme;
+  and no-JavaScript access. Keep one scope/interpretation disclosure and omit
+  notebook publication-record directories, technical hashes/raw-JSON links,
+  repeated report menus and back-links. Audit records remain in the saved
+  bundles and repository; this presentation choice does not erase those records.
+  The other study URLs open the featured theme;
   primary report URLs select their exact theme inside Results. Historical related
   report URLs retain their exact saved bodies.
   Preserve unique section/heading anchors and bounded table loading. Shared route
@@ -125,7 +128,8 @@ before changing the publication boundary.
   table cells and raster bytes; omit code/private outputs before publication.
   Narada does not import notebook HTML or execute Python. Existing reports omit
   this marker and retain their reader layout. Preserve paragraph breaks and
-  exact selected values; source/execution identity stays in Publication record.
+  exact selected values; source/execution identity stays in saved publication
+  evidence and repository records. Readers need not display that technical metadata.
 - Keep numeric formats and units explicit. Do not infer percentages, trading
   conclusions, or evidence status from labels or filenames.
 - Examples stay outside the public output until explicitly published. Tests and

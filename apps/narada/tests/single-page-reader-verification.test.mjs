@@ -16,7 +16,7 @@ function markup(id = 'opening') {
   return `<article data-study-reading-mode="single-page" data-active-publication-id="${id}">
 <nav aria-label="Study themes"><a href="/studies/single-study/"${active('opening')}>Opening context</a><a href="/reports/crossing/"${active('crossing')}>Crossing activity</a></nav>
 <section id="theme-${id}" data-publication-id="${id}">${selected.sections.map(section => `<section class="report-section table" id="section-${section.id}"><a href="#section-${section.id}">${section.title}</a></section>`).join('')}</section>
-<details id="publication-record"><summary>Scope and sources</summary></details></article>`;
+<details id="study-scope"><summary>Scope and interpretation</summary></details></article>`;
 }
 
 test('the Results guard requires the selected theme body with native choices and one current choice', () => {
@@ -32,13 +32,23 @@ test('the Results guard requires the selected theme body with native choices and
     [html => html.replace('href="#section-position"', 'href="#elsewhere"'), /insight permalink/],
     [html => html.replace('id="theme-opening"', 'id="theme-missing"'), /Missing active theme body/],
     [html => html + '<p id="theme-opening">Duplicate</p>', /Duplicate DOM/],
-    [html => html.replace('id="publication-record"', ''), /source record/],
+    [html => html.replace('id="study-scope"', ''), /scope and interpretation/],
+    [html => html + '<h2>Notebook publication records</h2>', /omit publication record directories/],
+    [html => html + '<details class="single-page-source"><summary>Technical record</summary></details>', /omit publication record directories/],
+    [html => html + '<a href="/publications/opening/report.json">Publication data</a>', /omit technical publication-data links/],
     [html => html + '<nav aria-label="Related study results"></nav>', /repeats report navigation/],
     [html => html + '<section class="report-section table"></section>', /only the active theme's insights/],
     [html => html.replace('aria-current="page"', ''), /One current theme/],
     [html => html.replace('aria-current="page"', '').replace('href="/reports/crossing/"', 'href="/reports/crossing/" aria-current="page"'), /Incorrect current theme/],
     [html => html.replace('href="/reports/crossing/"', 'role="tab" href="/reports/crossing/"'), /native route links/],
   ]) assert.throws(() => assertSinglePageReader(alter(markup()), study, reports), expected);
+});
+
+test('the Results guard rejects leaked source hashes in static or serialized markup', () => {
+  const sha = 'a'.repeat(64);
+  const bundles = reports.map(report => ({ report, provenance: { sourceSha256: sha } }));
+  assert.doesNotThrow(() => assertSinglePageReader(markup(), study, bundles));
+  assert.throws(() => assertSinglePageReader(markup() + `<script>"${sha}"</script>`, study, bundles), /omit publication content hashes/);
 });
 
 test('the Results guard rejects inactive hidden bodies and incorrect route selections', () => {
