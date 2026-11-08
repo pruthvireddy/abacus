@@ -1,5 +1,9 @@
 # Daily Map
 
+Readers and source context under `work/` are retained locally outside Git. The
+workspace-relative locators below require the matching retained stages; a source
+checkout contains the linked date indexes and provenance, not those offline readers.
+
 Browse annual snapshots newest first. Each reader has year/month/day folders,
 complete retained article text and images where recovered, original source links, compressed
 source records and newer/older controls for every calendar day.
@@ -8,22 +12,22 @@ Current navigation covers 5,782 calendar records across sixteen annual snapshots
 
 | Year and scope | Dated maps | Days with maps | Images | Browse |
 |---|---:|---:|---:|---|
-| 2026, January 1 through October 30 | 201 | 198 | 417, including undated commentaries | [Reader](../../../../work/27_verniman_method_knowledge/20261031T030640Z_daily_maps_2026/archive/index.html) · [Date index](../../../../runs/27_verniman_method_knowledge/20261031T030640Z_daily_maps_2026/knowledge-base/daily-map/README.md) |
-| 2025, January 1 through December 31 | 246 | 242 | 492 references, 489 unique files | [Reader](../../../../work/27_verniman_method_knowledge/20261031T032348Z_daily_maps_2025/archive/index.html) · [Date index](../../../../runs/27_verniman_method_knowledge/20261031T032348Z_daily_maps_2025/knowledge-base/daily-map/README.md) |
-| 2024, January 1 through December 31 | 251 | 247 | 502 references, 501 unique files | [Reader](../../../../work/27_verniman_method_knowledge/20261031T034949Z_daily_maps_2024_r2/archive/index.html) · [Date index](../../../../runs/27_verniman_method_knowledge/20261031T034949Z_daily_maps_2024_r2/knowledge-base/daily-map/README.md) |
-| 2023, January 1 through December 31 | 248 | 245 | 496 references | [Reader](../../../../work/27_verniman_method_knowledge/20261031T043818Z_daily_maps_2023/archive/index.html) · [Date index](../../../../runs/27_verniman_method_knowledge/20261031T043818Z_daily_maps_2023/knowledge-base/daily-map/README.md) |
-| 2022, January 1 through December 31 | 158 | 157 | 316 daily-plan images, plus two separate context images | [Reader](../../../../work/27_verniman_method_knowledge/20261031T044414Z_daily_maps_2022/archive/index.html) · [Date index](../../../../runs/27_verniman_method_knowledge/20261031T044414Z_daily_maps_2022/knowledge-base/daily-map/README.md) |
-| 2021, January 1 through December 31 | 250 | 246 | 502 references, including one undated article | [Reader](../../../../work/27_verniman_method_knowledge/20261031T051744Z_daily_maps_2021/archive/index.html) · [Date index](../../../../runs/27_verniman_method_knowledge/20261031T051744Z_daily_maps_2021/knowledge-base/daily-map/README.md) |
-| 2020, January 1 through December 31 | 251 | 248 | 502 references, 502 unique files, including one qualified inline image | [Reader](../../../../work/27_verniman_method_knowledge/20261031T052904Z_daily_maps_2020_r3/archive/index.html) · [Date index](../../../../runs/27_verniman_method_knowledge/20261031T052904Z_daily_maps_2020_r3/knowledge-base/daily-map/README.md) |
-| 2019, January 1 through December 31 | 248 | 246 | 496 references, 495 unique files | [Reader](../../../../work/27_verniman_method_knowledge/20261031T053752Z_daily_maps_2019/archive/index.html) · [Date index](../../../../runs/27_verniman_method_knowledge/20261031T053752Z_daily_maps_2019/knowledge-base/daily-map/README.md) |
-| 2018, January 1 through December 31 | 249 | 245 | 496 references, 496 unique files | [Reader](../../../../work/27_verniman_method_knowledge/20261031T054252Z_daily_maps_2018/archive/index.html) · [Date index](../../../../runs/27_verniman_method_knowledge/20261031T054252Z_daily_maps_2018/knowledge-base/daily-map/README.md) |
-| 2017, January 1 through December 31; partial source trail | 28 | 28 | 80 references, including twelve undated daily plans | [Reader](../../../../work/27_verniman_method_knowledge/20261031T054828Z_daily_maps_2017/archive/index.html) · [Date index](../../../../runs/27_verniman_method_knowledge/20261031T054828Z_daily_maps_2017/knowledge-base/daily-map/README.md) |
-| 2016, January 1 through December 31; observed archive recovery | 160 | 160 | 560 current-source fallback images; historical bytes unverified | [Reader](../../../../work/27_verniman_method_knowledge/20261031T141551Z_daily_maps_2016_r2/archive/index.html) · [Date index](../../../../runs/27_verniman_method_knowledge/20261031T141551Z_daily_maps_2016_r2/knowledge-base/daily-map/README.md) |
-| 2015, January 1 through December 31; observed archive recovery | 65 | 65 | 246 current-source fallback images, including fourteen undated plans; historical bytes unverified | [Reader](../../../../work/27_verniman_method_knowledge/20261031T143306Z_daily_maps_2015/archive/index.html) · [Date index](../../../../runs/27_verniman_method_knowledge/20261031T143306Z_daily_maps_2015/knowledge-base/daily-map/README.md) |
-| 2014, January 1 through December 31; observed archive recovery | 35 | 35 | 111 current-source fallback images, including two undated plans; historical bytes unverified | [Reader](../../../../work/27_verniman_method_knowledge/20261031T151152Z_daily_maps_2014/archive/index.html) · [Date index](../../../../runs/27_verniman_method_knowledge/20261031T151152Z_daily_maps_2014/knowledge-base/daily-map/README.md) |
-| 2013, January 1 through December 31; reviewed empty source recovery | 0 | 0 | No selected daily images; raw context retained separately | [Reader](../../../../work/27_verniman_method_knowledge/20261031T152738Z_daily_maps_2013/archive/index.html) · [Date index](../../../../runs/27_verniman_method_knowledge/20261031T152738Z_daily_maps_2013/knowledge-base/daily-map/README.md) |
-| 2012, January 1 through December 31; reviewed empty source recovery | 0 | 0 | No selected daily images; raw context and failed source retained separately | [Reader](../../../../work/27_verniman_method_knowledge/20261031T154135Z_daily_maps_2012/archive/index.html) · [Date index](../../../../runs/27_verniman_method_knowledge/20261031T154135Z_daily_maps_2012/knowledge-base/daily-map/README.md) |
-| 2011, January 1 through December 31; reviewed empty source recovery | 0 | 0 | No selected daily images; raw context retained separately | [Reader](../../../../work/27_verniman_method_knowledge/20261031T155759Z_daily_maps_2011/archive/index.html) · [Date index](../../../../runs/27_verniman_method_knowledge/20261031T155759Z_daily_maps_2011/knowledge-base/daily-map/README.md) |
+| 2026, January 1 through October 30 | 201 | 198 | 417, including undated commentaries | Reader (`work/27_verniman_method_knowledge/20261031T030640Z_daily_maps_2026/archive/index.html`; local only) · [Date index](../../../../runs/27_verniman_method_knowledge/20261031T030640Z_daily_maps_2026/knowledge-base/daily-map/README.md) |
+| 2025, January 1 through December 31 | 246 | 242 | 492 references, 489 unique files | Reader (`work/27_verniman_method_knowledge/20261031T032348Z_daily_maps_2025/archive/index.html`; local only) · [Date index](../../../../runs/27_verniman_method_knowledge/20261031T032348Z_daily_maps_2025/knowledge-base/daily-map/README.md) |
+| 2024, January 1 through December 31 | 251 | 247 | 502 references, 501 unique files | Reader (`work/27_verniman_method_knowledge/20261031T034949Z_daily_maps_2024_r2/archive/index.html`; local only) · [Date index](../../../../runs/27_verniman_method_knowledge/20261031T034949Z_daily_maps_2024_r2/knowledge-base/daily-map/README.md) |
+| 2023, January 1 through December 31 | 248 | 245 | 496 references | Reader (`work/27_verniman_method_knowledge/20261031T043818Z_daily_maps_2023/archive/index.html`; local only) · [Date index](../../../../runs/27_verniman_method_knowledge/20261031T043818Z_daily_maps_2023/knowledge-base/daily-map/README.md) |
+| 2022, January 1 through December 31 | 158 | 157 | 316 daily-plan images, plus two separate context images | Reader (`work/27_verniman_method_knowledge/20261031T044414Z_daily_maps_2022/archive/index.html`; local only) · [Date index](../../../../runs/27_verniman_method_knowledge/20261031T044414Z_daily_maps_2022/knowledge-base/daily-map/README.md) |
+| 2021, January 1 through December 31 | 250 | 246 | 502 references, including one undated article | Reader (`work/27_verniman_method_knowledge/20261031T051744Z_daily_maps_2021/archive/index.html`; local only) · [Date index](../../../../runs/27_verniman_method_knowledge/20261031T051744Z_daily_maps_2021/knowledge-base/daily-map/README.md) |
+| 2020, January 1 through December 31 | 251 | 248 | 502 references, 502 unique files, including one qualified inline image | Reader (`work/27_verniman_method_knowledge/20261031T052904Z_daily_maps_2020_r3/archive/index.html`; local only) · [Date index](../../../../runs/27_verniman_method_knowledge/20261031T052904Z_daily_maps_2020_r3/knowledge-base/daily-map/README.md) |
+| 2019, January 1 through December 31 | 248 | 246 | 496 references, 495 unique files | Reader (`work/27_verniman_method_knowledge/20261031T053752Z_daily_maps_2019/archive/index.html`; local only) · [Date index](../../../../runs/27_verniman_method_knowledge/20261031T053752Z_daily_maps_2019/knowledge-base/daily-map/README.md) |
+| 2018, January 1 through December 31 | 249 | 245 | 496 references, 496 unique files | Reader (`work/27_verniman_method_knowledge/20261031T054252Z_daily_maps_2018/archive/index.html`; local only) · [Date index](../../../../runs/27_verniman_method_knowledge/20261031T054252Z_daily_maps_2018/knowledge-base/daily-map/README.md) |
+| 2017, January 1 through December 31; partial source trail | 28 | 28 | 80 references, including twelve undated daily plans | Reader (`work/27_verniman_method_knowledge/20261031T054828Z_daily_maps_2017/archive/index.html`; local only) · [Date index](../../../../runs/27_verniman_method_knowledge/20261031T054828Z_daily_maps_2017/knowledge-base/daily-map/README.md) |
+| 2016, January 1 through December 31; observed archive recovery | 160 | 160 | 560 current-source fallback images; historical bytes unverified | Reader (`work/27_verniman_method_knowledge/20261031T141551Z_daily_maps_2016_r2/archive/index.html`; local only) · [Date index](../../../../runs/27_verniman_method_knowledge/20261031T141551Z_daily_maps_2016_r2/knowledge-base/daily-map/README.md) |
+| 2015, January 1 through December 31; observed archive recovery | 65 | 65 | 246 current-source fallback images, including fourteen undated plans; historical bytes unverified | Reader (`work/27_verniman_method_knowledge/20261031T143306Z_daily_maps_2015/archive/index.html`; local only) · [Date index](../../../../runs/27_verniman_method_knowledge/20261031T143306Z_daily_maps_2015/knowledge-base/daily-map/README.md) |
+| 2014, January 1 through December 31; observed archive recovery | 35 | 35 | 111 current-source fallback images, including two undated plans; historical bytes unverified | Reader (`work/27_verniman_method_knowledge/20261031T151152Z_daily_maps_2014/archive/index.html`; local only) · [Date index](../../../../runs/27_verniman_method_knowledge/20261031T151152Z_daily_maps_2014/knowledge-base/daily-map/README.md) |
+| 2013, January 1 through December 31; reviewed empty source recovery | 0 | 0 | No selected daily images; raw context retained separately | Reader (`work/27_verniman_method_knowledge/20261031T152738Z_daily_maps_2013/archive/index.html`; local only) · [Date index](../../../../runs/27_verniman_method_knowledge/20261031T152738Z_daily_maps_2013/knowledge-base/daily-map/README.md) |
+| 2012, January 1 through December 31; reviewed empty source recovery | 0 | 0 | No selected daily images; raw context and failed source retained separately | Reader (`work/27_verniman_method_knowledge/20261031T154135Z_daily_maps_2012/archive/index.html`; local only) · [Date index](../../../../runs/27_verniman_method_knowledge/20261031T154135Z_daily_maps_2012/knowledge-base/daily-map/README.md) |
+| 2011, January 1 through December 31; reviewed empty source recovery | 0 | 0 | No selected daily images; raw context retained separately | Reader (`work/27_verniman_method_knowledge/20261031T155759Z_daily_maps_2011/archive/index.html`; local only) · [Date index](../../../../runs/27_verniman_method_knowledge/20261031T155759Z_daily_maps_2011/knowledge-base/daily-map/README.md) |
 
 ## 2026 snapshot
 
@@ -32,7 +36,7 @@ and 86 weekend gaps. Three duplicate date pairs remain separate. October 20
 uses an earlier retained capture because its live page is unavailable. Two
 September 10 images use explicitly labeled 400-pixel inline renditions after
 their full-size links returned HTTP 400. Two undated March commentaries remain
-[separate source records](../../../../work/27_verniman_method_knowledge/20261031T030640Z_daily_maps_2026/archive/undated/index.html).
+separate source records (`work/27_verniman_method_knowledge/20261031T030640Z_daily_maps_2026/archive/undated/index.html`; local only).
 
 [2026 gap log](../../../../runs/27_verniman_method_knowledge/20261031T030640Z_daily_maps_2026/knowledge-base/daily-map/gap-log.md) ·
 [2026 archive report](../../../../runs/27_verniman_method_knowledge/20261031T030640Z_daily_maps_2026/report.md)
@@ -92,7 +96,7 @@ existed. December 31 is an explicit weekend gap.
 
 June 1 contains two contemporary maps, retained separately. A stale ESZ21
 Near ATHs article encountered in the October sequence is retained as
-[separate source context](../../../../work/27_verniman_method_knowledge/20261031T044414Z_daily_maps_2022/archive/undated/index.html),
+separate source context (`work/27_verniman_method_knowledge/20261031T044414Z_daily_maps_2022/archive/undated/index.html`; local only),
 with its two images, without assigning it a 2022 map date. The genuine October 18
 map remains in the dated archive.
 
@@ -111,7 +115,7 @@ separate: March 29, May 14, September 28 and November 8. Source dates are not
 silently corrected from update metadata or titles.
 
 Jackson Hole II states the malformed date `Outlook 08/276`. Its complete text
-and two images are retained as [undated source material](../../../../work/27_verniman_method_knowledge/20261031T051744Z_daily_maps_2021/archive/undated/index.html);
+and two images are retained as undated source material (`work/27_verniman_method_knowledge/20261031T051744Z_daily_maps_2021/archive/undated/index.html`; local only);
 no August 27 map date is inferred.
 
 Near ATHs is included once at its independently reviewed October 18, 2021 date,
@@ -199,7 +203,7 @@ There are no duplicate stated dates.
 
 Twelve additional daily-plan bodies say only `Outlook:` without month/day.
 Their complete text and twenty-four images remain under
-[undated daily plans](../../../../work/27_verniman_method_knowledge/20261031T054828Z_daily_maps_2017/archive/undated/index.html).
+undated daily plans (`work/27_verniman_method_knowledge/20261031T054828Z_daily_maps_2017/archive/undated/index.html`; local only).
 No November dates are inferred from URLs, image filenames or neighboring posts.
 All forty daily-plan articles retain eighty images as eighty unique files:
 fifty-six belong to dated maps and twenty-four to undated plans.
@@ -258,7 +262,7 @@ additional dated maps. Completed 2017–2026 archives remain unchanged.
 The 6.8 MiB reader records all 365 calendar dates. It preserves 79 reviewed daily records:
 65 dated maps across March 26–December 31, plus fourteen Opening Print posts
 whose actual sources omit a supported session date. Their full text and images
-remain in [undated daily plans](../../../../work/27_verniman_method_knowledge/20261031T143306Z_daily_maps_2015/archive/undated/index.html).
+remain in undated daily plans (`work/27_verniman_method_knowledge/20261031T143306Z_daily_maps_2015/archive/undated/index.html`; local only).
 All 196 weekday and 104 weekend gaps remain explicit; no selected duplicate dates
 are counted. Missing dates are not filled from URL paths, chart names or adjacent
 posts.
@@ -294,7 +298,7 @@ unchanged.
 The 3.6 MiB reader records all 365 calendar dates. It preserves 37 reviewed daily records:
 35 dated plans across June 3–November 25, plus two Opening Print posts without a
 supported exact date. Their full text and images remain in
-[undated daily plans](../../../../work/27_verniman_method_knowledge/20261031T151152Z_daily_maps_2014/archive/undated/index.html).
+undated daily plans (`work/27_verniman_method_knowledge/20261031T151152Z_daily_maps_2014/archive/undated/index.html`; local only).
 All 226 weekday and 104 weekend gaps remain explicit; no selected duplicate dates
 are counted. Source dates are not filled from URL paths, chart names or neighbors.
 

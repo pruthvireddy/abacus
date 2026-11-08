@@ -6,12 +6,15 @@ cutoff. Implementation revisions below correct native compilation and contract
 metadata. They do not fit thresholds or select a different construction to match
 source labels. Original sources and earlier failure records remain unchanged.
 
+Snapshot paths under `work/` are local retained evidence, outside a Git source
+checkout. Restore the exact pinned file before comparing its bytes.
+
 | Source | Implementation identity | SHA-256 |
 |---|---|---|
 | [Original Phase 3](../indicator/verniman_levels_phase3.pine) | 3.0.0 | `9cf9f9a56311496ea7414758d1dd51e6e9a7af5739cffa4438c35190b1f64504` |
 | [Native compiler correction](../indicator/verniman_levels_phase3_3_0_1.pine) | 3.0.1 | `40b28d3a581edc1246582f9d2c4c7b127f24423885ba16d20c1cfb65f8b294cd` |
 | [Contract-metadata correction](../indicator/verniman_levels_phase3_3_0_2.pine) | 3.0.2 | `034c3731f2ada4620aac9a80ca20261d0a06376bee044fa30e95529ad9e1954c` |
-| [Phase 4 implementation 4.0.0 snapshot](../../../work/29_verniman_level_reconstruction/phase4_20261031T010249Z/phase4-implementation-4.0.0-before-display-fix.pine) | Selection control 4.0.0, candidate implementation 3.0.2 | `0b86c709b646dda0318dd6428dbbf5b9a31b3dd7f11fed3f2c176f84461fa4b0` |
+| Phase 4 implementation 4.0.0 snapshot (`work/29_verniman_level_reconstruction/phase4_20261031T010249Z/phase4-implementation-4.0.0-before-display-fix.pine`; local only) | Selection control 4.0.0, candidate implementation 3.0.2 | `0b86c709b646dda0318dd6428dbbf5b9a31b3dd7f11fed3f2c176f84461fa4b0` |
 | [Current Phase 4 selector](../indicator/verniman_levels_phase4.pine) | Implementation 4.0.1, selection control 4.0.0, candidate implementation 3.0.2 | `1145834bfb240029f07342e52f98d805771ca4f2a39a646c19e80d3846794924` |
 
 Exact native compile, private-save and Replay scope belongs in the

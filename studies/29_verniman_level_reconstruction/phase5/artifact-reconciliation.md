@@ -13,6 +13,10 @@ open a browser, or read the mutable general data guide.
 Every proposed identity matches the [Phase 4 handoff](../phase4/phase5-handoff.md).
 No expected hash was silently updated.
 
+Paths under `work/` locate local retained snapshots and receipts outside Git.
+A source checkout preserves their identities; comparing bytes requires restoring
+the matching retained files.
+
 | Item | Version or role | SHA-256 |
 |---|---|---|
 | [Candidate Pine](../indicator/verniman_levels_phase3_3_0_2.pine) | Candidate implementation 3.0.2; mathematics/control 3.0.0 | `034c3731f2ada4620aac9a80ca20261d0a06376bee044fa30e95529ad9e1954c` |
@@ -21,8 +25,8 @@ No expected hash was silently updated.
 | [Candidate settings](../phase3/settings.json) | Original control 3.0.0 | `c0297d86f2a6dce33b6888a174c31d6390477dd0e12d78a46832173e0f17653a` |
 | [Selector settings](../phase4/settings.json) | Original selection control 4.0.0 | `5a1cc36f7c0a2b16ee82ab9eccd285c9a897d933d2b0ad1e02a2c026e5bb5f1a` |
 | [Matcher](../phase3/matching.py) | Unchanged family/window and one-to-one contract | `b595fbca570df868888dd58c8fe341ee341b69770d902319ba25ac8fd1fd90a6` |
-| [Retained Autopivot source](../../../work/29_verniman_level_reconstruction/phase4_20261031T010249Z/autopivot-current-reconciliation/studies/29_verniman_level_reconstruction/indicator/verniman_pivot_levels.pine) | Immutable Phase 4 capture; private revision 5 readback | `228ce4f4cc938cfb967eed4b20df8db0711755fb2fd8d4ae2cc9be8632dd3145` |
-| [Retained Autopivot model](../../../work/29_verniman_level_reconstruction/phase4_20261031T010249Z/autopivot-current-reconciliation/studies/29_verniman_level_reconstruction/src/pivot_model.py) | Corresponding immutable comparator model | `1fc67f44ea3dc6bc374a3bfcf526bfea419af8316f7eaf82cc179d01c3e466f4` |
+| Retained Autopivot source (`work/29_verniman_level_reconstruction/phase4_20261031T010249Z/autopivot-current-reconciliation/studies/29_verniman_level_reconstruction/indicator/verniman_pivot_levels.pine`; local only) | Immutable Phase 4 capture; private revision 5 readback | `228ce4f4cc938cfb967eed4b20df8db0711755fb2fd8d4ae2cc9be8632dd3145` |
+| Retained Autopivot model (`work/29_verniman_level_reconstruction/phase4_20261031T010249Z/autopivot-current-reconciliation/studies/29_verniman_level_reconstruction/src/pivot_model.py`; local only) | Corresponding immutable comparator model | `1fc67f44ea3dc6bc374a3bfcf526bfea419af8316f7eaf82cc179d01c3e466f4` |
 
 At the entry audit, all **38** files in the final Phase 4 source snapshot matched
 their recorded hashes in both retained and then-current locations. Both phases' four frozen protocol
@@ -32,7 +36,7 @@ reporting runner (`9c936876…`) and source-role helper (`e1f4b7c0…`). The pri
 stored selector revision 1 readback normalizes to the exact selector hash above
 after **CRLF-to-LF only**; the retained candidate readback is already byte-equal.
 The machine-readable audit retains full dependency hashes and checks:
-[artifact-reconciliation-checks.json](../../../work/29_verniman_level_reconstruction/phase5_20261031T023320Z/artifact-reconciliation-checks.json).
+artifact-reconciliation-checks.json (`work/29_verniman_level_reconstruction/phase5_20261031T023320Z/artifact-reconciliation-checks.json`; local only).
 
 The mutable workspace Autopivot has the separately recorded source hash
 `422aad307f2eb02a84a25083c1289759c794de745a914508ab228153c4bb64b9`.

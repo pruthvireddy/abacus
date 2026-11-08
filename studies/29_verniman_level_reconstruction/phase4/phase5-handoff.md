@@ -11,6 +11,9 @@ Phase 5/6, open development answers, or establish source-method fidelity.
 
 ## Exact proposed versions
 
+Comparator paths under `work/` locate separately retained capture snapshots;
+they are not included in a Git source checkout. The hashes below pin those bytes.
+
 The candidate mathematics remains **control 3.0.0**, with native implementation
 **3.0.2**. The selector implementation is **4.0.1**, with unchanged selection
 control/protocol **4.0.0**. The proposed development
@@ -24,8 +27,8 @@ from the ten training sessions selects a winner or changes that default.
 | [Independent local model](../src/phase4_model.py) | `bec68316b9028cff8d43e6e9fbcef86c4e46a5be792b9df325d42753a85547c5` |
 | [Phase 4 settings](settings.json) | `5a1cc36f7c0a2b16ee82ab9eccd285c9a897d933d2b0ad1e02a2c026e5bb5f1a` |
 | [Original candidate settings](../phase3/settings.json) | Unchanged control 3.0.0; `c0297d86f2a6dce33b6888a174c31d6390477dd0e12d78a46832173e0f17653a` |
-| [Retained Autopivot comparator at capture](../../../work/29_verniman_level_reconstruction/phase4_20261031T010249Z/autopivot-current-reconciliation/studies/29_verniman_level_reconstruction/indicator/verniman_pivot_levels.pine) | Private **Autopivot Levels - Daily**, revision 5 readback; immutable capture identity `228ce4f4cc938cfb967eed4b20df8db0711755fb2fd8d4ae2cc9be8632dd3145` |
-| [Retained Autopivot model at capture](../../../work/29_verniman_level_reconstruction/phase4_20261031T010249Z/autopivot-current-reconciliation/studies/29_verniman_level_reconstruction/src/pivot_model.py) | `1fc67f44ea3dc6bc374a3bfcf526bfea419af8316f7eaf82cc179d01c3e466f4` |
+| Retained Autopivot comparator at capture (`work/29_verniman_level_reconstruction/phase4_20261031T010249Z/autopivot-current-reconciliation/studies/29_verniman_level_reconstruction/indicator/verniman_pivot_levels.pine`; local only) | Private **Autopivot Levels - Daily**, revision 5 readback; immutable capture identity `228ce4f4cc938cfb967eed4b20df8db0711755fb2fd8d4ae2cc9be8632dd3145` |
+| Retained Autopivot model at capture (`work/29_verniman_level_reconstruction/phase4_20261031T010249Z/autopivot-current-reconciliation/studies/29_verniman_level_reconstruction/src/pivot_model.py`; local only) | `1fc67f44ea3dc6bc374a3bfcf526bfea419af8316f7eaf82cc179d01c3e466f4` |
 
 The original 3.0.0 and 3.0.1 sources, Phase 3 failure records, partial local
 reconstructions and earlier execution bytes remain retained. The

@@ -37,6 +37,10 @@ separate records; the selected frozen run and its receipts identify actual check
 
 ## Insight notebook and Narada presentation
 
+The current authored notebook is versioned with this study. Historical editable
+copies and QA receipts under `work/` are retained locally outside Git; their
+workspace-relative locators require restoration in a source-only checkout.
+
 The editable [V2 notebook](vern-pivot-cross-statistics.ipynb) has 119 ordinary
 cells, including 68 visible Python cells, grouped into six themes. Its 21 insights
 cover all 20 primary ranked pivot question families plus the reviewed annual
@@ -102,7 +106,7 @@ The completed V1 review execution remains under
 The earlier November 3 presentation uses the existing `20261031_ranked_v2` results:
 one question heading, brief description, findings summary, then a saved chart or
 compact supporting table. It contains 20 pivot insights and 12 VWAP insights.
-The editable [Jupyter notebook](../../work/30_verniman_pivot_statistics_es/notebook/vern-pivot-cross-statistics.ipynb)
+The editable Jupyter notebook (`work/30_verniman_pivot_statistics_es/notebook/vern-pivot-cross-statistics.ipynb`; local only)
 has one short setup cell, then normal Markdown/evidence cell pairs for each
 insight. Saved data, a small display helper and eight original raster figures
 sit beside it. Its outputs are already present; running cells redisplays the

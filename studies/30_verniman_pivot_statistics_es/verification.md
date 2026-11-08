@@ -1,5 +1,10 @@
 # Verification record
 
+Receipts and editable copies under `work/` are local retained artifacts outside
+Git. The workspace-relative locators below identify them without implying they
+are shipped in a source-only checkout; restore the matching retained files to
+inspect them. Completed run and presentation records remain linked separately.
+
 ## Theme tabs inside Results
 
 Results remains the only study destination. Its six native theme tabs now switch
@@ -8,7 +13,7 @@ the selected saved report, mounting only that theme's insights (2, 4, 3, 5, 2 an
 unchanged across the six selections. Shared scope/source disclosures retain the
 six primary and 12 earlier/companion publication records.
 
-The [theme-tab verification record](../../work/narada/theme_tabs_20261108/verification.json)
+The theme-tab verification record (`work/narada/theme_tabs_20261108/verification.json`; local only)
 records 280 passing app tests with no skips, verification, lint, TypeScript,
 build/static checks and the full 500-request preview check. Browser review
 confirmed all six completed tab transitions, refresh, Back/Forward, keyboard
@@ -27,7 +32,7 @@ report-switching menus and repeated library links are removed. Older study URLs
 and the six primary report URLs retain compatibility with the same reader;
 historical report URLs retain their saved bodies.
 
-The [local UI verification record](../../work/narada/single_results_20261108/verification.json)
+The local UI verification record (`work/narada/single_results_20261108/verification.json`; local only)
 records 278 passing Narada tests with no skips, app verification, lint, TypeScript,
 build/static verification and full preview checks (241 pages, 244 files, six real
 404s and 500 requests). Browser review covered desktop/mobile reading, native
@@ -113,7 +118,7 @@ exposure-adjusted RTH-section bar chart. Its 20 ordinary cells include 12 Python
 cells; each insight has separate heading, description, analysis, findings and
 evidence cells. There is no embedded source payload or website-report loader.
 
-The executed review snapshot and [review receipt](../../work/30_verniman_pivot_statistics_es/20261108T032043Z_notebook_v1_f7b7/review-verification.json)
+The executed review snapshot and review receipt (`work/30_verniman_pivot_statistics_es/20261108T032043Z_notebook_v1_f7b7/review-verification.json`; local only)
 are retained under `work/30_verniman_pivot_statistics_es/20261108T032043Z_notebook_v1_f7b7/`.
 The UTC stage date is November 8; local authoring/review occurred November 7.
 The snapshot was run in a fresh IPython kernel using the workspace's locked
@@ -157,7 +162,7 @@ The subsequent `20261103_readable_notebook_v3` revision corrects notebook
 packaging for Cursor. The prior single-file notebook placed 1,434,326 characters
 of embedded evidence in its setup cell. V3 uses a 1,029-character visible setup,
 32 separate Markdown/evidence cell pairs, and adjacent saved JSON, display
-helper and original image files. The [editable working notebook](../../work/30_verniman_pivot_statistics_es/notebook/vern-pivot-cross-statistics.ipynb)
+helper and original image files. The editable working notebook (`work/30_verniman_pivot_statistics_es/notebook/vern-pivot-cross-statistics.ipynb`; local only)
 is separate from the completed revision. Five focused synthetic tests passed,
 including isolated folder replay, output parity, scalar/image fidelity and
 explicit workspace-folder discovery. All 33 real notebook code cells replayed
@@ -193,7 +198,7 @@ remain unchanged. No research calculations or hosted deployment were performed.
 - Documentation, index freshness, research-priority projection and whitespace
   checks passed. The projection check does not assess scientific validity.
 
-The local [presentation QA record](../../work/30_verniman_pivot_statistics_es/20261103T061428Z_insight_presentation_qa/verification.json)
+The local presentation QA record (`work/30_verniman_pivot_statistics_es/20261103T061428Z_insight_presentation_qa/verification.json`; local only)
 retains commands, scope, artifact identity and diagnostic attempts; build/test
 logs sit beside it. The initial build found an older report 73 bytes above its
 existing page budget. Shorter shared table-help wording cleared that limit
