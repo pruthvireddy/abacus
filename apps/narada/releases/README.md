@@ -166,13 +166,48 @@ from anonymous production verification. Consult the current
 
 ## Accepted production release
 
-Current release `20261108T055141Z_bdb3e0ae` is live at
+Current release `20261108T181530Z_64aae81b` is live at
+[abacus-narada.vercel.app](https://abacus-narada.vercel.app), production READY.
+It removes the notebook publication-record directory, visible technical identifiers,
+hashes and raw publication-JSON links from the Research paper Results reader.
+The six theme tabs, 21 insights, 14 tables and seven charts are retained, together
+with all six scope/interpretation notes. The audit trail stays in repository and
+release evidence. No raw asset or historical report is unpublished by this change.
+
+All 670 prepared application files exactly match source commit
+[`29a2ca585f484ecd08597a1ea0e2cf6b0c6eb003`](https://github.com/pruthvireddy/abacus/commit/29a2ca585f484ecd08597a1ea0e2cf6b0c6eb003).
+Its [GitHub checks](https://github.com/pruthvireddy/abacus/actions/runs/42509306571)
+passed. Local verify, 282 tests without failures/skips, lint, build and source
+audit passed; the audit covered 115 publications and 3,543 source-file hashes.
+All 69 pinned notebook/publication files and all 258 sealed notebook-run artifacts
+remain unchanged.
+
+Protected preview, staged production and anonymous public production each matched
+all 2,850 prepared files, 255 CSV byte/header checks and five hard 404s. Actual
+preview and public browser review at 1280×900 and 390×844 verified all six theme
+selections and their saved insight counts, one active body, absence of analysis
+code and the technical record directory/raw JSON links, and retained scope notes.
+Keyboard ArrowRight moved the table by 40 pixels; the mobile document remained
+390 pixels wide. Representative retained report layouts were also checked.
+No application console warnings/errors were observed. Native CSV download,
+print/PDF and assistive-technology checks were not repeated for this cleanup.
+
+The exact verified staged production deployment was promoted without rebuilding.
+See the [public release receipt](20261108T181530Z_64aae81b/public-receipt.json).
+The previous accepted theme-reader release below is the explicit rollback
+reference. Hosting verification does not rerun the research or establish
+scientific validity; the previously documented local data prerequisites remain
+separate from these passing release checks.
+
+## Previous notebook-theme production release
+
+Previous release `20261108T055141Z_bdb3e0ae` was live at
 [abacus-narada.vercel.app](https://abacus-narada.vercel.app), production READY.
 The [Vern Pivot Cross Statistics Results](https://abacus-narada.vercel.app/studies/verniman-pivot-statistics-es/)
-uses the Research paper design with Results as its sole study destination and
-six switchable themes. Only the active theme's insights are rendered. The
-notebook remains the source of truth for all 21 insights, 14 tables and seven
-charts; analysis code is hidden. Shared source disclosures retain the six current
+used the Research paper design with Results as its sole study destination and
+six switchable themes. Only the active theme's insights were rendered. The
+notebook remained the source of truth for all 21 insights, 14 tables and seven
+charts; analysis code was hidden. Shared source disclosures retained the six current
 and 12 earlier/companion publication records.
 
 All 670 prepared application files exactly match pushed source commit

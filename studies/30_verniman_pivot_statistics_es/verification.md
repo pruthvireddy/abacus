@@ -5,10 +5,44 @@ Git. The workspace-relative locators below identify them without implying they
 are shipped in a source-only checkout; restore the matching retained files to
 inspect them. Completed run and presentation records remain linked separately.
 
-## Production publication — November 8, 2026
+## Publication-record cleanup — production publication
 
 The [live study](https://abacus-narada.vercel.app/studies/verniman-pivot-statistics-es/)
-is published through release `20261108T055141Z_bdb3e0ae`. Its
+uses release `20261108T181530Z_64aae81b`. Its
+[public receipt](../../apps/narada/releases/20261108T181530Z_64aae81b/public-receipt.json)
+records the exact source/artifact identities and release checks. This release
+removes the website's notebook publication
+records, visible technical identifiers/hashes and raw publication-JSON links.
+It retains all six theme tabs, 21 insights, 14 tables, seven charts and six shared
+scope/interpretation notes. The notebook, research record and source audit remain
+the evidence trail; no raw asset or historical report is unpublished.
+
+All 670 prepared application files match source commit
+[`29a2ca585f484ecd08597a1ea0e2cf6b0c6eb003`](https://github.com/pruthvireddy/abacus/commit/29a2ca585f484ecd08597a1ea0e2cf6b0c6eb003),
+whose [GitHub checks](https://github.com/pruthvireddy/abacus/actions/runs/42509306571)
+passed. Verify, 282 app tests without skips, lint, build and the source audit
+(115 publications; 3,543 source-file hashes) passed. All 69 pinned
+notebook/publication files and all 258 sealed notebook-run artifacts retain their
+exact identities.
+
+Protected preview, staged production and anonymous public production each matched
+2,850 exact files, 255 CSV byte/header checks and five hard 404s. Preview and public
+browser review at 1280×900 and 390×844 checked all six selections and their insight
+counts (2, 4, 3, 5, 2 and 5), one active body, no analysis code, no technical-record
+directory or raw JSON links, and all six scope notes. Mobile layout stayed within
+390 pixels, and ArrowRight moved a table by 40 pixels. Representative retained
+report layouts were checked after rendering settled, with no application console
+warnings/errors. Native CSV download, print/PDF and assistive-technology checks
+were not repeated.
+
+The verified staged deployment was promoted without rebuilding. The earlier
+notebook-theme release below is the explicit rollback reference. These presentation
+and hosting checks preserve the saved evidence; they do not rerun the research or
+establish scientific validity or profitability.
+
+## Earlier notebook-theme production publication — November 8, 2026
+
+The study was published through release `20261108T055141Z_bdb3e0ae`. Its
 [public receipt](../../apps/narada/releases/20261108T055141Z_bdb3e0ae/public-receipt.json)
 records the exact source/artifact identities and aggregate checks. All 670
 prepared application files match the pushed source. GitHub's source-only checks
