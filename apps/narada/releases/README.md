@@ -166,7 +166,41 @@ from anonymous production verification. Consult the current
 
 ## Accepted production release
 
-Current release `20261031T193451Z_d0c9c013` is live at
+Current release `20261108T055141Z_bdb3e0ae` is live at
+[abacus-narada.vercel.app](https://abacus-narada.vercel.app), production READY.
+The [Vern Pivot Cross Statistics Results](https://abacus-narada.vercel.app/studies/verniman-pivot-statistics-es/)
+uses the Research paper design with Results as its sole study destination and
+six switchable themes. Only the active theme's insights are rendered. The
+notebook remains the source of truth for all 21 insights, 14 tables and seven
+charts; analysis code is hidden. Shared source disclosures retain the six current
+and 12 earlier/companion publication records.
+
+All 670 prepared application files exactly match pushed source commit
+[`13014a13d097d9c7ed6e20010af7421e321f8ccc`](https://github.com/pruthvireddy/abacus/commit/13014a13d097d9c7ed6e20010af7421e321f8ccc),
+whose GitHub checks passed. Preparation used `2d59b8079885df84623f31c0965fda6f01ff3523`;
+the later commit fixes source-only documentation links without changing prepared
+application bytes. The exact verified staged production deployment was promoted
+without rebuilding. See the [public release receipt](20261108T055141Z_bdb3e0ae/public-receipt.json).
+
+The collection contains 25 studies, 115 publications, 186 rasters and 255 selected
+CSVs. Verify, 280 tests without failures/skips, lint, static build, compact JSON
+equivalence and the source audit (115 publications; 3,543 source-file hashes)
+passed. Protected preview, staged production and anonymous public production each
+matched all 2,850 prepared files, CSV byte/header checks and five hard 404s.
+Desktop/mobile browser review verified all six theme selections, saved evidence,
+keyboard table scrolling, source disclosures and representative retained reports.
+The native preview CSV download matched its 26,094-byte saved asset. No application
+console warnings/errors were observed.
+
+The broader local compatibility gate retains its two existing Bhishma input
+prerequisite errors; other default checks passed when selected separately. Native
+print/PDF and assistive-technology checks were not repeated. Detailed audit and
+recovery snapshots remain local, with off-device recovery unverified. The previous
+accepted production below is the explicit rollback reference.
+
+## Previous ranked-statistics production release
+
+Previous release `20261031T193451Z_d0c9c013` was live at
 [abacus-narada.vercel.app](https://abacus-narada.vercel.app), production READY.
 Its prepared app matches all 625 corresponding files in source commit
 [`7098b4bdc68e919b7b2e8daf77d6651a08446c43`](https://github.com/pruthvireddy/abacus/commit/7098b4bdc68e919b7b2e8daf77d6651a08446c43).

@@ -5,6 +5,24 @@ Git. The workspace-relative locators below identify them without implying they
 are shipped in a source-only checkout; restore the matching retained files to
 inspect them. Completed run and presentation records remain linked separately.
 
+## Production publication — November 8, 2026
+
+The [live study](https://abacus-narada.vercel.app/studies/verniman-pivot-statistics-es/)
+is published through release `20261108T055141Z_bdb3e0ae`. Its
+[public receipt](../../apps/narada/releases/20261108T055141Z_bdb3e0ae/public-receipt.json)
+records the exact source/artifact identities and aggregate checks. All 670
+prepared application files match the pushed source. GitHub's source-only checks
+passed after local-only evidence links were made explicit as retained locators.
+No sealed evidence or notebook/publication bytes changed during hosting.
+
+Protected preview, staged production and anonymous public production each matched
+2,850 exact files, 255 CSV header checks and five hard 404s. Browser checks covered
+the six theme tabs, one active body, desktop/mobile layout, keyboard scrolling,
+source disclosures and representative retained reports, with no application
+console warnings/errors. A native preview CSV download matched its saved bytes.
+The existing default-gate data prerequisites remain unresolved; hosting checks do
+not establish scientific validity or profitability.
+
 ## Theme tabs inside Results
 
 Results remains the only study destination. Its six native theme tabs now switch

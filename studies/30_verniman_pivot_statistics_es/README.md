@@ -18,8 +18,9 @@ the requested calendar still ends October 30. Cohorts, zero-cross days, missing
 support and actual period bounds remain explicit. Historical pivot availability
 is unverified; fills, costs and profitability are untested.
 
-Open [Narada Results](http://127.0.0.1:4173/studies/verniman-pivot-statistics-es/)
-while the local preview runs. Results contains **Opening context**, **Crossing
+Open the [live Narada Results](https://abacus-narada.vercel.app/studies/verniman-pivot-statistics-es/)
+or the [local preview](http://127.0.0.1:4173/studies/verniman-pivot-statistics-es/)
+while its server runs. Results contains **Opening context**, **Crossing
 activity**, **Breaks & confirmation**, **After the cross**, **VWAP & cloud** and
 **Timing & stability** as switchable theme tabs. Only the active theme's insights
 are shown. Compact scope/source disclosures retain
