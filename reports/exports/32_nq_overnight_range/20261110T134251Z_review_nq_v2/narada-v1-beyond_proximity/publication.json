@@ -1,0 +1,281 @@
+{
+  "schemaVersion": "1.1",
+  "presentation": "research-paper",
+  "id": "nq-overnight-beyond-proximity-v1",
+  "title": "Beyond proximity",
+  "summary": "Compare distances with placebo paths and test whether volatility adds predictive information on later dates.",
+  "publishedAt": "2026-11-10T22:06:28Z",
+  "source": {
+    "producer": "sahadeva",
+    "runId": "20261110T134251Z_review_nq_v2"
+  },
+  "sections": [
+    {
+      "id": "placebo",
+      "title": "Do actual boundaries outperform comparable paths at the same distances?",
+      "description": "Replay both distances on prior regular-session paths, matched by opening side, VXN band and era. Use up to 20 dates within two calendar years and require at least five. Each study session receives equal weight.",
+      "finding": "In the modern era, the near boundary was reached on 78.6% of matched dates versus 78.5% on donor paths at the same distances (n=1,477). Prior-path matching can still leave differences in session conditions.",
+      "kind": "table",
+      "columns": [
+        {
+          "key": "era",
+          "label": "Era"
+        },
+        {
+          "key": "n",
+          "label": "N",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "actual_near",
+          "label": "Actual Near",
+          "format": "percent",
+          "precision": 1
+        },
+        {
+          "key": "placebo_near",
+          "label": "Placebo Near",
+          "format": "percent",
+          "precision": 1
+        },
+        {
+          "key": "actual_first",
+          "label": "Actual First",
+          "format": "percent",
+          "precision": 1
+        },
+        {
+          "key": "placebo_first",
+          "label": "Placebo First",
+          "format": "percent",
+          "precision": 1
+        }
+      ],
+      "rows": [
+        {
+          "era": "2015–2019",
+          "n": 271,
+          "actual_near": 0.7749077490774908,
+          "placebo_near": 0.7845555974495917,
+          "actual_first": 0.7158671586715867,
+          "placebo_first": 0.7261393515838982
+        },
+        {
+          "era": "2020 onward",
+          "n": 1477,
+          "actual_near": 0.7860528097494922,
+          "placebo_near": 0.7848889730208496,
+          "actual_first": 0.7312119160460393,
+          "placebo_first": 0.7268127989528735
+        }
+      ]
+    },
+    {
+      "id": "distance-matched",
+      "title": "At similar distances, what changes in high VXN?",
+      "description": "Compare high and low VXN in the modern era. Use the same near-target distance distribution for both groups. Weight only distance bands with at least 25 sessions in each group. This exploratory comparison adjusts for near distance. The held-out models also account for far distance.",
+      "finding": "With the same near-distance mix, confirmed near-first was 73.1% in low VXN and 79.0% in high VXN. Both-side reaches were 24.8% and 26.8%. This covers 3 shared distance bands (465 low-VXN sessions and 354 high-VXN sessions).",
+      "kind": "table",
+      "columns": [
+        {
+          "key": "outcome",
+          "label": "Outcome"
+        },
+        {
+          "key": "low_vxn",
+          "label": "Low Vxn",
+          "format": "percent",
+          "precision": 1
+        },
+        {
+          "key": "high_vxn",
+          "label": "High Vxn",
+          "format": "percent",
+          "precision": 1
+        },
+        {
+          "key": "high_minus_low",
+          "label": "High Minus Low",
+          "format": "number",
+          "precision": 4
+        },
+        {
+          "key": "low_n",
+          "label": "Low N",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "high_n",
+          "label": "High N",
+          "format": "number",
+          "precision": 0
+        }
+      ],
+      "rows": [
+        {
+          "outcome": "near_first_confirmed",
+          "low_vxn": 0.731416069899681,
+          "high_vxn": 0.7895380525091391,
+          "high_minus_low": 0.05812198260945811,
+          "low_n": 465,
+          "high_n": 354
+        },
+        {
+          "outcome": "both",
+          "low_vxn": 0.24766924611598773,
+          "high_vxn": 0.26812317625876947,
+          "high_minus_low": 0.02045393014278174,
+          "low_n": 465,
+          "high_n": 354
+        }
+      ]
+    },
+    {
+      "id": "holdout-models",
+      "title": "Does VXN or VIX improve probability estimates on later dates?",
+      "description": "Compare distance-only and volatility-augmented models on identical dates from 2025 onward. Lower Brier loss is better. For near-first, omit unresolved ordering; neither remains a negative.",
+      "finding": "Neither volatility index showed a clear improvement in held-out Brier loss. The paired intervals for the index models include zero or are above zero. The conclusion applies to these fixed models and the available later-period sample.",
+      "kind": "table",
+      "columns": [
+        {
+          "key": "outcome",
+          "label": "Outcome"
+        },
+        {
+          "key": "model",
+          "label": "Model"
+        },
+        {
+          "key": "training_n",
+          "label": "Training N",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "holdout_n",
+          "label": "Holdout N",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "brier",
+          "label": "Brier",
+          "format": "number",
+          "precision": 4
+        },
+        {
+          "key": "delta",
+          "label": "Delta",
+          "format": "number",
+          "precision": 4
+        },
+        {
+          "key": "delta_low",
+          "label": "Delta Low",
+          "format": "number",
+          "precision": 4
+        },
+        {
+          "key": "delta_high",
+          "label": "Delta High",
+          "format": "number",
+          "precision": 4
+        },
+        {
+          "key": "mean_predicted",
+          "label": "Mean Predicted",
+          "format": "percent",
+          "precision": 1
+        },
+        {
+          "key": "observed_rate",
+          "label": "Observed Rate",
+          "format": "percent",
+          "precision": 1
+        }
+      ],
+      "rows": [
+        {
+          "outcome": "near_first",
+          "model": "Distances",
+          "training_n": 1114,
+          "holdout_n": 400,
+          "brier": 0.1876154592598245,
+          "delta": 0.0,
+          "delta_low": 0.0,
+          "delta_high": 0.0,
+          "mean_predicted": 0.6948556261706662,
+          "observed_rate": 0.705
+        },
+        {
+          "outcome": "near_first",
+          "model": "Distances + VXN",
+          "training_n": 1114,
+          "holdout_n": 400,
+          "brier": 0.18848726436810653,
+          "delta": 0.0008718051082820568,
+          "delta_low": -0.0032991484407888594,
+          "delta_high": 0.0056171467904195865,
+          "mean_predicted": 0.6558544077902638,
+          "observed_rate": 0.705
+        },
+        {
+          "outcome": "near_first",
+          "model": "Distances + VIX",
+          "training_n": 1114,
+          "holdout_n": 400,
+          "brier": 0.18667502366480548,
+          "delta": -0.0009404355950190036,
+          "delta_low": -0.004171615585147172,
+          "delta_high": 0.002703694442446958,
+          "mean_predicted": 0.6657212976959453,
+          "observed_rate": 0.705
+        },
+        {
+          "outcome": "both",
+          "model": "Distances",
+          "training_n": 1114,
+          "holdout_n": 400,
+          "brier": 0.15865867631930908,
+          "delta": 0.0,
+          "delta_low": 0.0,
+          "delta_high": 0.0,
+          "mean_predicted": 0.17591880600178963,
+          "observed_rate": 0.2125
+        },
+        {
+          "outcome": "both",
+          "model": "Distances + VXN",
+          "training_n": 1114,
+          "holdout_n": 400,
+          "brier": 0.16102447112265608,
+          "delta": 0.002365794803347002,
+          "delta_low": -4.030488437155951e-05,
+          "delta_high": 0.004841223991660072,
+          "mean_predicted": 0.14843199932043136,
+          "observed_rate": 0.2125
+        },
+        {
+          "outcome": "both",
+          "model": "Distances + VIX",
+          "training_n": 1114,
+          "holdout_n": 400,
+          "brier": 0.16063722763132077,
+          "delta": 0.0019785513120117153,
+          "delta_low": -0.00010327747778419858,
+          "delta_high": 0.004186935506703039,
+          "mean_predicted": 0.15276074670206236,
+          "observed_rate": 0.2125
+        }
+      ]
+    }
+  ],
+  "notes": [
+    "One unadjusted NQ contract per session. New York overnight hours are 18:00–09:30 and regular hours are 09:30–16:00.",
+    "The study covers January 2015 through September 18, 2026. 2018–2019 supply 295 of 307 earlier-era sessions.",
+    "Reel benchmark: Instagram reel Dfai3hHvMDn by @rithvikrishna64. Its exact sample and event definitions are unavailable.",
+    "Reaches use one-minute OHLC. The study describes price behavior and does not estimate trade execution or returns."
+  ]
+}

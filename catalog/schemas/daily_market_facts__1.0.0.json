@@ -1,0 +1,1106 @@
+{
+  "dataset_id": "daily_market_facts__1.0.0",
+  "version": "1.0.0",
+  "primary_key": [
+    "release_id",
+    "asset",
+    "session_date"
+  ],
+  "columns": [
+    {
+      "name": "release_id",
+      "type": "string",
+      "nullable": true
+    },
+    {
+      "name": "definition_version",
+      "type": "string",
+      "nullable": true
+    },
+    {
+      "name": "asset",
+      "type": "string",
+      "nullable": true
+    },
+    {
+      "name": "session_date",
+      "type": "date32[day]",
+      "nullable": true
+    },
+    {
+      "name": "series_id",
+      "type": "string",
+      "nullable": true
+    },
+    {
+      "name": "source_contract_id",
+      "type": "uint32",
+      "nullable": true
+    },
+    {
+      "name": "source_contract_symbol",
+      "type": "string",
+      "nullable": true
+    },
+    {
+      "name": "roll_id",
+      "type": "int16",
+      "nullable": true
+    },
+    {
+      "name": "is_roll_session",
+      "type": "bool",
+      "nullable": true
+    },
+    {
+      "name": "prior_session_date",
+      "type": "date32[day]",
+      "nullable": true
+    },
+    {
+      "name": "prior_contract_id",
+      "type": "uint32",
+      "nullable": true
+    },
+    {
+      "name": "prior_contract_symbol",
+      "type": "string",
+      "nullable": true
+    },
+    {
+      "name": "calendar_id",
+      "type": "string",
+      "nullable": true
+    },
+    {
+      "name": "calendar_status",
+      "type": "string",
+      "nullable": true
+    },
+    {
+      "name": "calendar_reasons",
+      "type": "list<element: string>",
+      "nullable": true
+    },
+    {
+      "name": "globex_open",
+      "type": "decimal128(20, 9)",
+      "nullable": true
+    },
+    {
+      "name": "globex_high",
+      "type": "decimal128(20, 9)",
+      "nullable": true
+    },
+    {
+      "name": "globex_low",
+      "type": "decimal128(20, 9)",
+      "nullable": true
+    },
+    {
+      "name": "globex_close",
+      "type": "decimal128(20, 9)",
+      "nullable": true
+    },
+    {
+      "name": "globex_volume",
+      "type": "uint64",
+      "nullable": true
+    },
+    {
+      "name": "globex_range_points",
+      "type": "decimal128(20, 9)",
+      "nullable": true
+    },
+    {
+      "name": "globex_net_change_points",
+      "type": "decimal128(20, 9)",
+      "nullable": true
+    },
+    {
+      "name": "globex_return_fraction",
+      "type": "double",
+      "nullable": true
+    },
+    {
+      "name": "globex_expected_minutes",
+      "type": "int16",
+      "nullable": true
+    },
+    {
+      "name": "globex_observed_rows",
+      "type": "int16",
+      "nullable": true
+    },
+    {
+      "name": "globex_unique_minutes",
+      "type": "int16",
+      "nullable": true
+    },
+    {
+      "name": "globex_missing_minutes",
+      "type": "int16",
+      "nullable": true
+    },
+    {
+      "name": "globex_duplicate_rows",
+      "type": "int16",
+      "nullable": true
+    },
+    {
+      "name": "globex_off_grid_rows",
+      "type": "int16",
+      "nullable": true
+    },
+    {
+      "name": "globex_invalid_rows",
+      "type": "int16",
+      "nullable": true
+    },
+    {
+      "name": "globex_contract_mismatch_rows",
+      "type": "int16",
+      "nullable": true
+    },
+    {
+      "name": "globex_start",
+      "type": "timestamp[us, tz=UTC]",
+      "nullable": true
+    },
+    {
+      "name": "globex_end",
+      "type": "timestamp[us, tz=UTC]",
+      "nullable": true
+    },
+    {
+      "name": "globex_open_available_at",
+      "type": "timestamp[us, tz=UTC]",
+      "nullable": true
+    },
+    {
+      "name": "globex_aggregate_available_at",
+      "type": "timestamp[us, tz=UTC]",
+      "nullable": true
+    },
+    {
+      "name": "globex_open_ready",
+      "type": "bool",
+      "nullable": true
+    },
+    {
+      "name": "globex_aggregate_ready",
+      "type": "bool",
+      "nullable": true
+    },
+    {
+      "name": "globex_status",
+      "type": "string",
+      "nullable": true
+    },
+    {
+      "name": "globex_open_status",
+      "type": "string",
+      "nullable": true
+    },
+    {
+      "name": "globex_return_status",
+      "type": "string",
+      "nullable": true
+    },
+    {
+      "name": "overnight_open",
+      "type": "decimal128(20, 9)",
+      "nullable": true
+    },
+    {
+      "name": "overnight_high",
+      "type": "decimal128(20, 9)",
+      "nullable": true
+    },
+    {
+      "name": "overnight_low",
+      "type": "decimal128(20, 9)",
+      "nullable": true
+    },
+    {
+      "name": "overnight_close",
+      "type": "decimal128(20, 9)",
+      "nullable": true
+    },
+    {
+      "name": "overnight_volume",
+      "type": "uint64",
+      "nullable": true
+    },
+    {
+      "name": "overnight_range_points",
+      "type": "decimal128(20, 9)",
+      "nullable": true
+    },
+    {
+      "name": "overnight_net_change_points",
+      "type": "decimal128(20, 9)",
+      "nullable": true
+    },
+    {
+      "name": "overnight_return_fraction",
+      "type": "double",
+      "nullable": true
+    },
+    {
+      "name": "overnight_expected_minutes",
+      "type": "int16",
+      "nullable": true
+    },
+    {
+      "name": "overnight_observed_rows",
+      "type": "int16",
+      "nullable": true
+    },
+    {
+      "name": "overnight_unique_minutes",
+      "type": "int16",
+      "nullable": true
+    },
+    {
+      "name": "overnight_missing_minutes",
+      "type": "int16",
+      "nullable": true
+    },
+    {
+      "name": "overnight_duplicate_rows",
+      "type": "int16",
+      "nullable": true
+    },
+    {
+      "name": "overnight_off_grid_rows",
+      "type": "int16",
+      "nullable": true
+    },
+    {
+      "name": "overnight_invalid_rows",
+      "type": "int16",
+      "nullable": true
+    },
+    {
+      "name": "overnight_contract_mismatch_rows",
+      "type": "int16",
+      "nullable": true
+    },
+    {
+      "name": "overnight_start",
+      "type": "timestamp[us, tz=UTC]",
+      "nullable": true
+    },
+    {
+      "name": "overnight_end",
+      "type": "timestamp[us, tz=UTC]",
+      "nullable": true
+    },
+    {
+      "name": "overnight_open_available_at",
+      "type": "timestamp[us, tz=UTC]",
+      "nullable": true
+    },
+    {
+      "name": "overnight_aggregate_available_at",
+      "type": "timestamp[us, tz=UTC]",
+      "nullable": true
+    },
+    {
+      "name": "overnight_open_ready",
+      "type": "bool",
+      "nullable": true
+    },
+    {
+      "name": "overnight_aggregate_ready",
+      "type": "bool",
+      "nullable": true
+    },
+    {
+      "name": "overnight_status",
+      "type": "string",
+      "nullable": true
+    },
+    {
+      "name": "overnight_open_status",
+      "type": "string",
+      "nullable": true
+    },
+    {
+      "name": "overnight_return_status",
+      "type": "string",
+      "nullable": true
+    },
+    {
+      "name": "rth_open",
+      "type": "decimal128(20, 9)",
+      "nullable": true
+    },
+    {
+      "name": "rth_high",
+      "type": "decimal128(20, 9)",
+      "nullable": true
+    },
+    {
+      "name": "rth_low",
+      "type": "decimal128(20, 9)",
+      "nullable": true
+    },
+    {
+      "name": "rth_close",
+      "type": "decimal128(20, 9)",
+      "nullable": true
+    },
+    {
+      "name": "rth_volume",
+      "type": "uint64",
+      "nullable": true
+    },
+    {
+      "name": "rth_range_points",
+      "type": "decimal128(20, 9)",
+      "nullable": true
+    },
+    {
+      "name": "rth_net_change_points",
+      "type": "decimal128(20, 9)",
+      "nullable": true
+    },
+    {
+      "name": "rth_return_fraction",
+      "type": "double",
+      "nullable": true
+    },
+    {
+      "name": "rth_expected_minutes",
+      "type": "int16",
+      "nullable": true
+    },
+    {
+      "name": "rth_observed_rows",
+      "type": "int16",
+      "nullable": true
+    },
+    {
+      "name": "rth_unique_minutes",
+      "type": "int16",
+      "nullable": true
+    },
+    {
+      "name": "rth_missing_minutes",
+      "type": "int16",
+      "nullable": true
+    },
+    {
+      "name": "rth_duplicate_rows",
+      "type": "int16",
+      "nullable": true
+    },
+    {
+      "name": "rth_off_grid_rows",
+      "type": "int16",
+      "nullable": true
+    },
+    {
+      "name": "rth_invalid_rows",
+      "type": "int16",
+      "nullable": true
+    },
+    {
+      "name": "rth_contract_mismatch_rows",
+      "type": "int16",
+      "nullable": true
+    },
+    {
+      "name": "rth_start",
+      "type": "timestamp[us, tz=UTC]",
+      "nullable": true
+    },
+    {
+      "name": "rth_end",
+      "type": "timestamp[us, tz=UTC]",
+      "nullable": true
+    },
+    {
+      "name": "rth_open_available_at",
+      "type": "timestamp[us, tz=UTC]",
+      "nullable": true
+    },
+    {
+      "name": "rth_aggregate_available_at",
+      "type": "timestamp[us, tz=UTC]",
+      "nullable": true
+    },
+    {
+      "name": "rth_open_ready",
+      "type": "bool",
+      "nullable": true
+    },
+    {
+      "name": "rth_aggregate_ready",
+      "type": "bool",
+      "nullable": true
+    },
+    {
+      "name": "rth_status",
+      "type": "string",
+      "nullable": true
+    },
+    {
+      "name": "rth_open_status",
+      "type": "string",
+      "nullable": true
+    },
+    {
+      "name": "rth_return_status",
+      "type": "string",
+      "nullable": true
+    },
+    {
+      "name": "or15_open",
+      "type": "decimal128(20, 9)",
+      "nullable": true
+    },
+    {
+      "name": "or15_high",
+      "type": "decimal128(20, 9)",
+      "nullable": true
+    },
+    {
+      "name": "or15_low",
+      "type": "decimal128(20, 9)",
+      "nullable": true
+    },
+    {
+      "name": "or15_close",
+      "type": "decimal128(20, 9)",
+      "nullable": true
+    },
+    {
+      "name": "or15_volume",
+      "type": "uint64",
+      "nullable": true
+    },
+    {
+      "name": "or15_range_points",
+      "type": "decimal128(20, 9)",
+      "nullable": true
+    },
+    {
+      "name": "or15_net_change_points",
+      "type": "decimal128(20, 9)",
+      "nullable": true
+    },
+    {
+      "name": "or15_return_fraction",
+      "type": "double",
+      "nullable": true
+    },
+    {
+      "name": "or15_expected_minutes",
+      "type": "int16",
+      "nullable": true
+    },
+    {
+      "name": "or15_observed_rows",
+      "type": "int16",
+      "nullable": true
+    },
+    {
+      "name": "or15_unique_minutes",
+      "type": "int16",
+      "nullable": true
+    },
+    {
+      "name": "or15_missing_minutes",
+      "type": "int16",
+      "nullable": true
+    },
+    {
+      "name": "or15_duplicate_rows",
+      "type": "int16",
+      "nullable": true
+    },
+    {
+      "name": "or15_off_grid_rows",
+      "type": "int16",
+      "nullable": true
+    },
+    {
+      "name": "or15_invalid_rows",
+      "type": "int16",
+      "nullable": true
+    },
+    {
+      "name": "or15_contract_mismatch_rows",
+      "type": "int16",
+      "nullable": true
+    },
+    {
+      "name": "or15_start",
+      "type": "timestamp[us, tz=UTC]",
+      "nullable": true
+    },
+    {
+      "name": "or15_end",
+      "type": "timestamp[us, tz=UTC]",
+      "nullable": true
+    },
+    {
+      "name": "or15_open_available_at",
+      "type": "timestamp[us, tz=UTC]",
+      "nullable": true
+    },
+    {
+      "name": "or15_aggregate_available_at",
+      "type": "timestamp[us, tz=UTC]",
+      "nullable": true
+    },
+    {
+      "name": "or15_open_ready",
+      "type": "bool",
+      "nullable": true
+    },
+    {
+      "name": "or15_aggregate_ready",
+      "type": "bool",
+      "nullable": true
+    },
+    {
+      "name": "or15_status",
+      "type": "string",
+      "nullable": true
+    },
+    {
+      "name": "or15_open_status",
+      "type": "string",
+      "nullable": true
+    },
+    {
+      "name": "or15_return_status",
+      "type": "string",
+      "nullable": true
+    },
+    {
+      "name": "first60_open",
+      "type": "decimal128(20, 9)",
+      "nullable": true
+    },
+    {
+      "name": "first60_high",
+      "type": "decimal128(20, 9)",
+      "nullable": true
+    },
+    {
+      "name": "first60_low",
+      "type": "decimal128(20, 9)",
+      "nullable": true
+    },
+    {
+      "name": "first60_close",
+      "type": "decimal128(20, 9)",
+      "nullable": true
+    },
+    {
+      "name": "first60_volume",
+      "type": "uint64",
+      "nullable": true
+    },
+    {
+      "name": "first60_range_points",
+      "type": "decimal128(20, 9)",
+      "nullable": true
+    },
+    {
+      "name": "first60_net_change_points",
+      "type": "decimal128(20, 9)",
+      "nullable": true
+    },
+    {
+      "name": "first60_return_fraction",
+      "type": "double",
+      "nullable": true
+    },
+    {
+      "name": "first60_expected_minutes",
+      "type": "int16",
+      "nullable": true
+    },
+    {
+      "name": "first60_observed_rows",
+      "type": "int16",
+      "nullable": true
+    },
+    {
+      "name": "first60_unique_minutes",
+      "type": "int16",
+      "nullable": true
+    },
+    {
+      "name": "first60_missing_minutes",
+      "type": "int16",
+      "nullable": true
+    },
+    {
+      "name": "first60_duplicate_rows",
+      "type": "int16",
+      "nullable": true
+    },
+    {
+      "name": "first60_off_grid_rows",
+      "type": "int16",
+      "nullable": true
+    },
+    {
+      "name": "first60_invalid_rows",
+      "type": "int16",
+      "nullable": true
+    },
+    {
+      "name": "first60_contract_mismatch_rows",
+      "type": "int16",
+      "nullable": true
+    },
+    {
+      "name": "first60_start",
+      "type": "timestamp[us, tz=UTC]",
+      "nullable": true
+    },
+    {
+      "name": "first60_end",
+      "type": "timestamp[us, tz=UTC]",
+      "nullable": true
+    },
+    {
+      "name": "first60_open_available_at",
+      "type": "timestamp[us, tz=UTC]",
+      "nullable": true
+    },
+    {
+      "name": "first60_aggregate_available_at",
+      "type": "timestamp[us, tz=UTC]",
+      "nullable": true
+    },
+    {
+      "name": "first60_open_ready",
+      "type": "bool",
+      "nullable": true
+    },
+    {
+      "name": "first60_aggregate_ready",
+      "type": "bool",
+      "nullable": true
+    },
+    {
+      "name": "first60_status",
+      "type": "string",
+      "nullable": true
+    },
+    {
+      "name": "first60_open_status",
+      "type": "string",
+      "nullable": true
+    },
+    {
+      "name": "first60_return_status",
+      "type": "string",
+      "nullable": true
+    },
+    {
+      "name": "last60_open",
+      "type": "decimal128(20, 9)",
+      "nullable": true
+    },
+    {
+      "name": "last60_high",
+      "type": "decimal128(20, 9)",
+      "nullable": true
+    },
+    {
+      "name": "last60_low",
+      "type": "decimal128(20, 9)",
+      "nullable": true
+    },
+    {
+      "name": "last60_close",
+      "type": "decimal128(20, 9)",
+      "nullable": true
+    },
+    {
+      "name": "last60_volume",
+      "type": "uint64",
+      "nullable": true
+    },
+    {
+      "name": "last60_range_points",
+      "type": "decimal128(20, 9)",
+      "nullable": true
+    },
+    {
+      "name": "last60_net_change_points",
+      "type": "decimal128(20, 9)",
+      "nullable": true
+    },
+    {
+      "name": "last60_return_fraction",
+      "type": "double",
+      "nullable": true
+    },
+    {
+      "name": "last60_expected_minutes",
+      "type": "int16",
+      "nullable": true
+    },
+    {
+      "name": "last60_observed_rows",
+      "type": "int16",
+      "nullable": true
+    },
+    {
+      "name": "last60_unique_minutes",
+      "type": "int16",
+      "nullable": true
+    },
+    {
+      "name": "last60_missing_minutes",
+      "type": "int16",
+      "nullable": true
+    },
+    {
+      "name": "last60_duplicate_rows",
+      "type": "int16",
+      "nullable": true
+    },
+    {
+      "name": "last60_off_grid_rows",
+      "type": "int16",
+      "nullable": true
+    },
+    {
+      "name": "last60_invalid_rows",
+      "type": "int16",
+      "nullable": true
+    },
+    {
+      "name": "last60_contract_mismatch_rows",
+      "type": "int16",
+      "nullable": true
+    },
+    {
+      "name": "last60_start",
+      "type": "timestamp[us, tz=UTC]",
+      "nullable": true
+    },
+    {
+      "name": "last60_end",
+      "type": "timestamp[us, tz=UTC]",
+      "nullable": true
+    },
+    {
+      "name": "last60_open_available_at",
+      "type": "timestamp[us, tz=UTC]",
+      "nullable": true
+    },
+    {
+      "name": "last60_aggregate_available_at",
+      "type": "timestamp[us, tz=UTC]",
+      "nullable": true
+    },
+    {
+      "name": "last60_open_ready",
+      "type": "bool",
+      "nullable": true
+    },
+    {
+      "name": "last60_aggregate_ready",
+      "type": "bool",
+      "nullable": true
+    },
+    {
+      "name": "last60_status",
+      "type": "string",
+      "nullable": true
+    },
+    {
+      "name": "last60_open_status",
+      "type": "string",
+      "nullable": true
+    },
+    {
+      "name": "last60_return_status",
+      "type": "string",
+      "nullable": true
+    },
+    {
+      "name": "globex_to_rth_end_status",
+      "type": "string",
+      "nullable": true
+    },
+    {
+      "name": "globex_to_rth_end_missing_minutes",
+      "type": "int16",
+      "nullable": true
+    },
+    {
+      "name": "globex_vwap_at_rth_open",
+      "type": "double",
+      "nullable": true
+    },
+    {
+      "name": "globex_vwap_at_rth_open_status",
+      "type": "string",
+      "nullable": true
+    },
+    {
+      "name": "globex_vwap_at_rth_open_available_at",
+      "type": "timestamp[us, tz=UTC]",
+      "nullable": true
+    },
+    {
+      "name": "globex_vwap_at_rth_close",
+      "type": "double",
+      "nullable": true
+    },
+    {
+      "name": "globex_vwap_at_rth_close_status",
+      "type": "string",
+      "nullable": true
+    },
+    {
+      "name": "globex_vwap_at_rth_close_available_at",
+      "type": "timestamp[us, tz=UTC]",
+      "nullable": true
+    },
+    {
+      "name": "globex_vwap_at_globex_close",
+      "type": "double",
+      "nullable": true
+    },
+    {
+      "name": "globex_vwap_at_globex_close_status",
+      "type": "string",
+      "nullable": true
+    },
+    {
+      "name": "globex_vwap_at_globex_close_available_at",
+      "type": "timestamp[us, tz=UTC]",
+      "nullable": true
+    },
+    {
+      "name": "rth_vwap",
+      "type": "double",
+      "nullable": true
+    },
+    {
+      "name": "rth_vwap_status",
+      "type": "string",
+      "nullable": true
+    },
+    {
+      "name": "rth_vwap_available_at",
+      "type": "timestamp[us, tz=UTC]",
+      "nullable": true
+    },
+    {
+      "name": "rth_close_minus_globex_vwap_points",
+      "type": "double",
+      "nullable": true
+    },
+    {
+      "name": "rth_close_minus_globex_vwap_points_status",
+      "type": "string",
+      "nullable": true
+    },
+    {
+      "name": "rth_close_minus_globex_vwap_points_available_at",
+      "type": "timestamp[us, tz=UTC]",
+      "nullable": true
+    },
+    {
+      "name": "rth_close_minus_rth_vwap_points",
+      "type": "double",
+      "nullable": true
+    },
+    {
+      "name": "rth_close_minus_rth_vwap_points_status",
+      "type": "string",
+      "nullable": true
+    },
+    {
+      "name": "rth_close_minus_rth_vwap_points_available_at",
+      "type": "timestamp[us, tz=UTC]",
+      "nullable": true
+    },
+    {
+      "name": "globex_close_minus_globex_vwap_points",
+      "type": "double",
+      "nullable": true
+    },
+    {
+      "name": "globex_close_minus_globex_vwap_points_status",
+      "type": "string",
+      "nullable": true
+    },
+    {
+      "name": "globex_close_minus_globex_vwap_points_available_at",
+      "type": "timestamp[us, tz=UTC]",
+      "nullable": true
+    },
+    {
+      "name": "first60_volume_share",
+      "type": "double",
+      "nullable": true
+    },
+    {
+      "name": "first60_volume_share_status",
+      "type": "string",
+      "nullable": true
+    },
+    {
+      "name": "first60_volume_share_available_at",
+      "type": "timestamp[us, tz=UTC]",
+      "nullable": true
+    },
+    {
+      "name": "last60_volume_share",
+      "type": "double",
+      "nullable": true
+    },
+    {
+      "name": "last60_volume_share_status",
+      "type": "string",
+      "nullable": true
+    },
+    {
+      "name": "last60_volume_share_available_at",
+      "type": "timestamp[us, tz=UTC]",
+      "nullable": true
+    },
+    {
+      "name": "first60_to_last60_volume_ratio",
+      "type": "double",
+      "nullable": true
+    },
+    {
+      "name": "first60_to_last60_volume_ratio_status",
+      "type": "string",
+      "nullable": true
+    },
+    {
+      "name": "first60_to_last60_volume_ratio_available_at",
+      "type": "timestamp[us, tz=UTC]",
+      "nullable": true
+    },
+    {
+      "name": "prior_rth_close",
+      "type": "decimal128(20, 9)",
+      "nullable": true
+    },
+    {
+      "name": "prior_rth_close_status",
+      "type": "string",
+      "nullable": true
+    },
+    {
+      "name": "prior_rth_close_available_at",
+      "type": "timestamp[us, tz=UTC]",
+      "nullable": true
+    },
+    {
+      "name": "rth_gap_points",
+      "type": "decimal128(20, 9)",
+      "nullable": true
+    },
+    {
+      "name": "rth_gap_points_status",
+      "type": "string",
+      "nullable": true
+    },
+    {
+      "name": "rth_gap_fraction",
+      "type": "double",
+      "nullable": true
+    },
+    {
+      "name": "rth_gap_fraction_status",
+      "type": "string",
+      "nullable": true
+    },
+    {
+      "name": "rth_gap_available_at",
+      "type": "timestamp[us, tz=UTC]",
+      "nullable": true
+    },
+    {
+      "name": "vol_index_symbol",
+      "type": "string",
+      "nullable": true
+    },
+    {
+      "name": "vol_index_source_symbol",
+      "type": "string",
+      "nullable": true
+    },
+    {
+      "name": "vol_index_close_preopen",
+      "type": "double",
+      "nullable": true
+    },
+    {
+      "name": "vol_index_source_day",
+      "type": "date32[day]",
+      "nullable": true
+    },
+    {
+      "name": "vol_index_source_available_at",
+      "type": "timestamp[us, tz=UTC]",
+      "nullable": true
+    },
+    {
+      "name": "vol_index_age_hours",
+      "type": "double",
+      "nullable": true
+    },
+    {
+      "name": "vol_index_available_at",
+      "type": "timestamp[us, tz=UTC]",
+      "nullable": true
+    },
+    {
+      "name": "vol_index_status",
+      "type": "string",
+      "nullable": true
+    }
+  ],
+  "metadata": {
+    "dataset_id": "daily_market_facts__1.0.0",
+    "definition_version": "1.0.0",
+    "price_basis": "unadjusted selected contract",
+    "session_timezone": "America/New_York",
+    "availability": "logical completed-bar timing; quality counts are retrospective"
+  },
+  "timing": {
+    "window_open": "<window>_open_available_at",
+    "window_aggregates": "<window>_aggregate_available_at",
+    "prior_close": "prior_rth_close_available_at",
+    "gap": "rth_gap_available_at",
+    "volatility_context": "vol_index_available_at",
+    "vwap_and_volume_comparisons": "<field>_available_at"
+  },
+  "quality": "Coverage counts describe retrospective window inspection. Status fields qualify nulls.",
+  "window_prefixes": [
+    "globex",
+    "overnight",
+    "rth",
+    "or15",
+    "first60",
+    "last60"
+  ],
+  "units": {
+    "price_points": "decimal128(20,9)",
+    "volume": "contracts",
+    "returns_and_ratios": "fraction",
+    "vwap_and_distance": "price points"
+  }
+}

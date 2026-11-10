@@ -1,0 +1,160 @@
+{
+  "dataset_id": "nq_opening_range_facts__1.0.0",
+  "primary_key": [
+    "asset",
+    "session_date"
+  ],
+  "fields": [
+    {
+      "name": "asset",
+      "type": "string"
+    },
+    {
+      "name": "session_date",
+      "type": "date32[day]"
+    },
+    {
+      "name": "contract_id",
+      "type": "uint64"
+    },
+    {
+      "name": "contract_symbol",
+      "type": "string"
+    },
+    {
+      "name": "roll_id",
+      "type": "int16"
+    },
+    {
+      "name": "calendar_status",
+      "type": "string"
+    },
+    {
+      "name": "calendar_reasons",
+      "type": "string"
+    },
+    {
+      "name": "historical_window_qualification",
+      "type": "bool"
+    },
+    {
+      "name": "overnight_status",
+      "type": "string"
+    },
+    {
+      "name": "rth_status",
+      "type": "string"
+    },
+    {
+      "name": "rth_open_status",
+      "type": "string"
+    },
+    {
+      "name": "overnight_missing_minutes",
+      "type": "uint16"
+    },
+    {
+      "name": "rth_missing_minutes",
+      "type": "uint16"
+    },
+    {
+      "name": "overnight_available_at",
+      "type": "timestamp[us, tz=UTC]"
+    },
+    {
+      "name": "open_geometry_available_at",
+      "type": "timestamp[us, tz=UTC]"
+    },
+    {
+      "name": "overnight_high",
+      "type": "decimal128(20, 9)"
+    },
+    {
+      "name": "overnight_low",
+      "type": "decimal128(20, 9)"
+    },
+    {
+      "name": "overnight_width",
+      "type": "decimal128(20, 9)"
+    },
+    {
+      "name": "overnight_midpoint",
+      "type": "decimal128(21, 10)"
+    },
+    {
+      "name": "rth_open",
+      "type": "decimal128(20, 9)"
+    },
+    {
+      "name": "distance_to_high",
+      "type": "decimal128(20, 9)"
+    },
+    {
+      "name": "distance_to_low",
+      "type": "decimal128(20, 9)"
+    },
+    {
+      "name": "normalized_open",
+      "type": "double"
+    },
+    {
+      "name": "vxn_close_preopen",
+      "type": "double"
+    },
+    {
+      "name": "vxn_source_day",
+      "type": "date32[day]"
+    },
+    {
+      "name": "vxn_source_symbol",
+      "type": "string"
+    },
+    {
+      "name": "vxn_source_available_at",
+      "type": "timestamp[us, tz=UTC]"
+    },
+    {
+      "name": "vxn_age_hours",
+      "type": "double"
+    },
+    {
+      "name": "vxn_available_at",
+      "type": "timestamp[us, tz=UTC]"
+    },
+    {
+      "name": "vxn_status",
+      "type": "string"
+    },
+    {
+      "name": "vix_close_preopen",
+      "type": "double"
+    },
+    {
+      "name": "vix_source_day",
+      "type": "date32[day]"
+    },
+    {
+      "name": "vix_source_symbol",
+      "type": "string"
+    },
+    {
+      "name": "vix_source_available_at",
+      "type": "timestamp[us, tz=UTC]"
+    },
+    {
+      "name": "vix_age_hours",
+      "type": "double"
+    },
+    {
+      "name": "vix_available_at",
+      "type": "timestamp[us, tz=UTC]"
+    },
+    {
+      "name": "vix_status",
+      "type": "string"
+    }
+  ],
+  "price_units": "NQ points",
+  "range_availability": "09:30 ET",
+  "opening_geometry_availability": "09:31 ET"
+}

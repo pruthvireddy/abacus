@@ -157,10 +157,12 @@ test('the actual catalog index remains bounded and excludes raw report sections 
   const text = JSON.stringify(index);
   for (const privateField of ['sourceRunId', 'sourceSha256', 'release-sources', 'publicationTabs', 'rowFilters', 'resolvedOverview']) assert(!text.includes(privateField));
   assert.deepEqual(index.filter(entry => entry.evidenceType === null).map(entry => entry.slug).sort(),
-    ['trader-assistant-manual', 'es-opening-pivot-cloud', 'verniman-pivot-statistics-es'].sort());
-  const newStudy = index.find(entry => entry.slug === 'verniman-pivot-statistics-es');
-  assert.equal(newStudy.priorityState, 'not_assessed');
-  assert.equal(newStudy.priorityScore, null);
+    ['trader-assistant-manual', 'es-opening-pivot-cloud', 'verniman-pivot-statistics-es', 'nq-overnight-range-cash-open'].sort());
+  for (const slug of ['verniman-pivot-statistics-es', 'nq-overnight-range-cash-open']) {
+    const study = index.find(entry => entry.slug === slug);
+    assert.equal(study.priorityState, 'not_assessed');
+    assert.equal(study.priorityScore, null);
+  }
 });
 
 test('priority values use an exact allowlist while score/state filters combine with search and authored filters', () => {

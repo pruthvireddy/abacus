@@ -216,6 +216,12 @@ and verifies their transfer before publishing. Narada itself reads no notebook,
 imports no notebook HTML and performs no analysis. Reports without the optional
 presentation marker keep their existing layout and navigation labels.
 
+Use the [notebook-study template and guide](../../templates/notebook-study/README.md)
+for newly authored reports and requested conversions. It standardizes separate
+notebook insight cells, Results-only question-theme tabs, verified saved-output
+export and migration of historical evidence. The existing renderer is reusable;
+Study 30's execution/export commands remain study-specific reference code.
+
 Version 1.1 supports optional illustrative candle `patterns`, selected explicitly
 with report `patternOverviewId` or section `patternId`. A section's `patternFocus`
 caption identifies the part its saved table measures. Pattern producers supply

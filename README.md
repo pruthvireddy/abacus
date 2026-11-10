@@ -152,6 +152,13 @@ Study 30's [six-theme notebook](studies/30_verniman_pivot_statistics_es/vern-piv
 contains its analysis code and saved outputs; its [guide](studies/30_verniman_pivot_statistics_es/README.md)
 records retained-input prerequisites and verification commands.
 
+For future studies and requested conversions of older reports, start with the
+[notebook-study template and guide](templates/notebook-study/README.md) and its
+[starter notebook](templates/notebook-study/study-report.ipynb). This is the
+default Research paper layout: Results with question-theme tabs, each insight
+showing a heading, brief description, findings summary and chart/table. Analysis
+stays in the notebook; the website shows verified selected output with code hidden.
+
 ## Repository map
 
 | Path | Contents |

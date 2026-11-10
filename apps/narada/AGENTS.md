@@ -6,6 +6,14 @@ before changing the publication boundary.
 
 - Bhishma owns data and features. Sahadeva owns analysis, report content, units,
   and conclusions. Narada validates and presents explicitly selected content.
+- New study reports and requested conversions follow the
+  [notebook-study guide](../../templates/notebook-study/README.md): report 1.1
+  `presentation: "research-paper"`, catalog `readingMode: "single-page"` and flat
+  question-theme `publicationTabs`. Results is the only outer destination; render
+  heading, description, findings and chart/table without code or technical
+  notebook publication-record directories. Keep essential scope and citations.
+  Study-local execution/export prepares verified notebook output; the site does
+  not read the notebook. Preserve existing report routes and immutable bundles.
 - Keep this app independent of the Python environment. A build must not import
   research modules, run analysis, or require ignored local input directories.
 - Publish only through the strict report contract and publisher. Do not expose

@@ -1,0 +1,30 @@
+request:
+  id: nq_opening_range_facts__1.0.0
+  requested_on: '2026-11-10'
+  study: studies/32_nq_overnight_range
+  purpose: Versioned companion for NQ overnight range and cash-open geometry in Daily Facts.
+inputs:
+  minute_release: volume_lead_unadjusted_v1
+  daily_context: tradingview_daily_context__1.0.0
+  parity_reference: daily_market_facts__1.0.0
+  acquisition: repository_only
+  date_range: ['2015-01-01', '2026-09-19']
+aggregation:
+  timezone: America/New_York
+  overnight: ['D-1 18:00', 'D 09:30']
+  rth: ['D 09:30', 'D 16:00']
+  interval: half_open_by_minute_start
+  historical_scope: Independently qualify these two fixed windows. Preserve the published full-Globex calendar and Daily Facts v1.
+  quality: Require the exact minute grid, valid OHLCV and the scheduled contract. Apply existing pinned holiday exclusions.
+features:
+  fields: [overnight_high, overnight_low, overnight_width, overnight_midpoint, rth_open, normalized_open, distance_to_high, distance_to_low, vxn, vix]
+  distance_signs: Overnight high minus open, and open minus overnight low.
+  availability: Overnight geometry and preopen context at 09:30, opening-price-derived geometry at 09:31.
+  context: Latest completed observation by 09:30, with source date, timestamp, age and status. Values over seven days old are stale.
+  research_labels: []
+delivery:
+  dataset_id: nq_opening_range_facts__1.0.0
+  format: versioned_parquet
+  key: [asset, session_date]
+  serving: Separate Postgres companion keyed by version and session date, joinable to Daily Facts.
+  verification: Independent historical coverage reconciliation, all-row Daily Facts overlap parity, and typed Postgres readback when the existing local database is available.

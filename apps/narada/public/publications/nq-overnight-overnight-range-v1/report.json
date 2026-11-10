@@ -1,0 +1,202 @@
+{
+  "provenance": {
+    "assets": [
+      {
+        "path": "figures/opening-geometry.png",
+        "sha256": "c260c380d6280ca221059075a3d26896538bc74227bfec256a9594ae63a00284"
+      }
+    ],
+    "sourceSha256": "5877101e85bdfcfc46b24474150931f9246cc9dedf36595860247a1df345a62e"
+  },
+  "report": {
+    "id": "nq-overnight-overnight-range-v1",
+    "notes": [
+      "One unadjusted NQ contract per session. New York overnight hours are 18:00–09:30 and regular hours are 09:30–16:00.",
+      "The study covers January 2015 through September 18, 2026. 2018–2019 supply 295 of 307 earlier-era sessions.",
+      "Reel benchmark: Instagram reel Dfai3hHvMDn by @rithvikrishna64. Its exact sample and event definitions are unavailable.",
+      "Reaches use one-minute OHLC. The study describes price behavior and does not estimate trade execution or returns."
+    ],
+    "presentation": "research-paper",
+    "publishedAt": "2026-11-10T22:06:28Z",
+    "schemaVersion": "1.1",
+    "sections": [
+      {
+        "columns": [
+          {
+            "format": "number",
+            "key": "year",
+            "label": "Year",
+            "precision": 0
+          },
+          {
+            "format": "number",
+            "key": "roster",
+            "label": "Roster",
+            "precision": 0
+          },
+          {
+            "format": "number",
+            "key": "eligible",
+            "label": "Eligible",
+            "precision": 0
+          },
+          {
+            "format": "number",
+            "key": "overnight_complete",
+            "label": "Overnight Complete",
+            "precision": 0
+          },
+          {
+            "format": "number",
+            "key": "rth_complete",
+            "label": "Rth Complete",
+            "precision": 0
+          },
+          {
+            "format": "number",
+            "key": "both_complete",
+            "label": "Both Complete",
+            "precision": 0
+          },
+          {
+            "format": "number",
+            "key": "inside_primary",
+            "label": "Inside Primary",
+            "precision": 0
+          }
+        ],
+        "description": "Inventory calendar eligibility, overnight and regular-hour completeness, and the final inside-range cohort. A valid open can exist even when a later RTH minute is missing.",
+        "finding": "The primary sample contains 1,827 inside-range sessions (307 in 2015–2019 and 1,520 from 2020 onward). The strict early-era cohort has 12 sessions from 2015–2017. The support by year matters when comparing eras.",
+        "id": "coverage",
+        "kind": "table",
+        "rows": [
+          {
+            "both_complete": 1,
+            "eligible": 250,
+            "inside_primary": 1,
+            "overnight_complete": 1,
+            "roster": 261,
+            "rth_complete": 250,
+            "year": 2015
+          },
+          {
+            "both_complete": 6,
+            "eligible": 251,
+            "inside_primary": 6,
+            "overnight_complete": 6,
+            "roster": 261,
+            "rth_complete": 251,
+            "year": 2016
+          },
+          {
+            "both_complete": 5,
+            "eligible": 249,
+            "inside_primary": 5,
+            "overnight_complete": 5,
+            "roster": 260,
+            "rth_complete": 249,
+            "year": 2017
+          },
+          {
+            "both_complete": 117,
+            "eligible": 248,
+            "inside_primary": 116,
+            "overnight_complete": 117,
+            "roster": 261,
+            "rth_complete": 248,
+            "year": 2018
+          },
+          {
+            "both_complete": 179,
+            "eligible": 249,
+            "inside_primary": 179,
+            "overnight_complete": 179,
+            "roster": 261,
+            "rth_complete": 249,
+            "year": 2019
+          },
+          {
+            "both_complete": 227,
+            "eligible": 251,
+            "inside_primary": 227,
+            "overnight_complete": 227,
+            "roster": 262,
+            "rth_complete": 247,
+            "year": 2020
+          },
+          {
+            "both_complete": 225,
+            "eligible": 251,
+            "inside_primary": 225,
+            "overnight_complete": 225,
+            "roster": 261,
+            "rth_complete": 251,
+            "year": 2021
+          },
+          {
+            "both_complete": 237,
+            "eligible": 250,
+            "inside_primary": 237,
+            "overnight_complete": 237,
+            "roster": 260,
+            "rth_complete": 250,
+            "year": 2022
+          },
+          {
+            "both_complete": 217,
+            "eligible": 248,
+            "inside_primary": 216,
+            "overnight_complete": 217,
+            "roster": 260,
+            "rth_complete": 248,
+            "year": 2023
+          },
+          {
+            "both_complete": 214,
+            "eligible": 249,
+            "inside_primary": 214,
+            "overnight_complete": 214,
+            "roster": 262,
+            "rth_complete": 249,
+            "year": 2024
+          },
+          {
+            "both_complete": 228,
+            "eligible": 247,
+            "inside_primary": 228,
+            "overnight_complete": 228,
+            "roster": 261,
+            "rth_complete": 247,
+            "year": 2025
+          },
+          {
+            "both_complete": 173,
+            "eligible": 179,
+            "inside_primary": 173,
+            "overnight_complete": 173,
+            "roster": 187,
+            "rth_complete": 179,
+            "year": 2026
+          }
+        ],
+        "title": "Which NQ sessions can answer the question?"
+      },
+      {
+        "alt": "Distribution of overnight width by era and distribution of normalized cash-open location.",
+        "caption": "Distribution of overnight width by era and distribution of normalized cash-open location.",
+        "description": "Use complete overnight windows for width and available opening geometry for the location distribution. Points are NQ price points.",
+        "finding": "Median width was 67.2 NQ points in 2015–2019 and 160.2 points from 2020 onward. Of the two-window sessions, 1 opened outside and 1 opened exactly at a boundary.",
+        "id": "opening-geometry",
+        "kind": "figure",
+        "path": "figures/opening-geometry.png",
+        "title": "How wide is the range, and where does NQ open?"
+      }
+    ],
+    "source": {
+      "producer": "sahadeva",
+      "runId": "20261110T134251Z_review_nq_v2"
+    },
+    "summary": "Start with the coverage, width and location of the cash open.",
+    "title": "The overnight range"
+  }
+}

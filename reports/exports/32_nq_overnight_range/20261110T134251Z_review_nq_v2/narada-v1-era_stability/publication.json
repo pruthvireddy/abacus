@@ -1,0 +1,173 @@
+{
+  "schemaVersion": "1.1",
+  "presentation": "research-paper",
+  "id": "nq-overnight-era-stability-v1",
+  "title": "Era & yearly stability",
+  "summary": "Compare the pooled eras with recent year-by-year results and a common September cutoff.",
+  "publishedAt": "2026-11-10T22:06:28Z",
+  "source": {
+    "producer": "sahadeva",
+    "runId": "20261110T134251Z_review_nq_v2"
+  },
+  "sections": [
+    {
+      "id": "annual-stability",
+      "title": "Did the results survive a change in era or year?",
+      "description": "Compare 2015–2019, 2018–2019 as a coverage sensitivity, and 2020 onward. The recent annual panel covers 2023–2026. The common-cutoff table uses only January through September 18 each year.",
+      "finding": "The near side went first on 72.2% in 2015–2019 (n=306) and 73.3% from 2020 onward (n=1,514). 2018–2019 contributed 295/307 of the earlier inside-range sessions. 2026 ends September 18. The saved common-cutoff table applies that date to every recent year.",
+      "kind": "figure",
+      "path": "figures/annual-stability.png",
+      "caption": "Boundary reach and first-touch rates by era and recent year, with Wilson intervals.",
+      "alt": "Boundary reach and first-touch rates by era and recent year, with Wilson intervals."
+    },
+    {
+      "id": "annual-width",
+      "title": "How did overnight width and pre-open volatility change across recent years?",
+      "description": "Compare the annual median range, the median relative to the prior 60 eligible windows, and the pre-open volatility backdrop. The year-to-date columns use the same September 18 cutoff for each year.",
+      "finding": "Through September 18 in each year, median overnight width was 124.8 points in 2023 and 324.5 points in 2026. The trailing-width ratio and volatility medians help put the raw point change in context.",
+      "kind": "table",
+      "columns": [
+        {
+          "key": "year",
+          "label": "Year",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "n",
+          "label": "N",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "median_points",
+          "label": "Median Points",
+          "format": "number",
+          "precision": 2,
+          "unit": "points"
+        },
+        {
+          "key": "p25_points",
+          "label": "P25 Points",
+          "format": "number",
+          "precision": 2,
+          "unit": "points"
+        },
+        {
+          "key": "p75_points",
+          "label": "P75 Points",
+          "format": "number",
+          "precision": 2,
+          "unit": "points"
+        },
+        {
+          "key": "relative_n",
+          "label": "Relative N",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "relative_median",
+          "label": "Relative Median",
+          "format": "number",
+          "precision": 4
+        },
+        {
+          "key": "vxn_median",
+          "label": "Vxn Median",
+          "format": "number",
+          "precision": 4
+        },
+        {
+          "key": "vix_median",
+          "label": "Vix Median",
+          "format": "number",
+          "precision": 4
+        },
+        {
+          "key": "cutoff_n",
+          "label": "Cutoff N",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "cutoff_median_points",
+          "label": "Cutoff Median Points",
+          "format": "number",
+          "precision": 2,
+          "unit": "points"
+        }
+      ],
+      "rows": [
+        {
+          "year": 2023,
+          "n": 217,
+          "median_points": 120.5,
+          "p25_points": 85.0,
+          "p75_points": 160.75,
+          "relative_n": 217,
+          "relative_median": 0.9524528301886792,
+          "vxn_median": 21.36,
+          "vix_median": 17.02,
+          "cutoff_n": 149,
+          "cutoff_median_points": 124.75
+        },
+        {
+          "year": 2024,
+          "n": 214,
+          "median_points": 145.75,
+          "p25_points": 116.625,
+          "p75_points": 192.9375,
+          "relative_n": 214,
+          "relative_median": 1.0719479673788335,
+          "vxn_median": 18.54,
+          "vix_median": 14.665,
+          "cutoff_n": 150,
+          "cutoff_median_points": 144.5
+        },
+        {
+          "year": 2025,
+          "n": 228,
+          "median_points": 203.75,
+          "p25_points": 143.75,
+          "p75_points": 306.0,
+          "relative_n": 228,
+          "relative_median": 1.0195438581599414,
+          "vxn_median": 20.725,
+          "vix_median": 17.29,
+          "cutoff_n": 161,
+          "cutoff_median_points": 206.0
+        },
+        {
+          "year": 2026,
+          "n": 173,
+          "median_points": 324.5,
+          "p25_points": 233.0,
+          "p75_points": 431.25,
+          "relative_n": 173,
+          "relative_median": 1.0784623486045286,
+          "vxn_median": 23.95,
+          "vix_median": 17.43,
+          "cutoff_n": 173,
+          "cutoff_median_points": 324.5
+        }
+      ]
+    },
+    {
+      "id": "era-regimes",
+      "title": "Do width and VXN tell the same story in each era?",
+      "description": "Use the same fixed point and VXN bands in both eras. These cells contain different mixes of opening distances, so compare them with the held-out distance-adjusted analysis.",
+      "finding": "2 of 9 cells in the earlier era and 9 of 9 in the modern era have at least 25 sessions. Rates in cells below that threshold are visually muted to counts. The saved distance table groups by near-target distance, and the scenario table groups by relative opening location.",
+      "kind": "figure",
+      "path": "figures/era-regimes.png",
+      "caption": "Range-width and VXN matrices split by era, with small cells shown as counts only.",
+      "alt": "Range-width and VXN matrices split by era, with small cells shown as counts only."
+    }
+  ],
+  "notes": [
+    "One unadjusted NQ contract per session. New York overnight hours are 18:00–09:30 and regular hours are 09:30–16:00.",
+    "The study covers January 2015 through September 18, 2026. 2018–2019 supply 295 of 307 earlier-era sessions.",
+    "Reel benchmark: Instagram reel Dfai3hHvMDn by @rithvikrishna64. Its exact sample and event definitions are unavailable.",
+    "Reaches use one-minute OHLC. The study describes price behavior and does not estimate trade execution or returns."
+  ]
+}

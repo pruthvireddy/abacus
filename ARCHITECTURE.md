@@ -75,6 +75,15 @@ when reuse is needed; study parameters and strategy rules remain local. There is
 no universal `src/shared/` directory. Root scripts invoke owned code and orchestrate
 checks; numerical implementations do not accumulate in `scripts/`.
 
+Newly authored reports follow the
+[notebook-study template](templates/notebook-study/README.md). Their study-local
+`.ipynb` owns insight-specific analysis, narrative, generated findings and
+chart/table output in ordinary cells. Input/execution/export infrastructure can
+remain in local helpers; shared methods retain their package ownership. Narada
+consumes verified selected saved outputs, never the notebook runtime. Historical
+engines and sealed evidence retain their locations; moving calculations into a
+notebook requires an explicitly scoped, verified reconstruction run.
+
 Package tests stay beside their package; study-specific numerical tests stay with
 the study; publication/UI tests stay under `apps/narada/tests/`. Synthetic fixtures
 belong with the tests that consume them. Large input data and retained event tables

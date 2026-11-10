@@ -1,0 +1,69 @@
+{
+  "provenance": {
+    "assets": [
+      {
+        "path": "figures/reel-comparison.png",
+        "sha256": "5c4b920100e321b3869c89d24a25fc12d96c21b6cc00f3ad9ea816473fdb1854"
+      },
+      {
+        "path": "figures/width-outcomes.png",
+        "sha256": "e5a82ac46c569d4aaeef74164c9b88d03d0f874aab770db4d43f03236887e261"
+      },
+      {
+        "path": "figures/width-vxn.png",
+        "sha256": "a6fb8ae0b47330d505338b463adac3a9ac67298da98b6d0d6bb2dfbb20b0a926"
+      }
+    ],
+    "sourceSha256": "04b5282864fe1f47b4b659068ba4cba3b59f7a60659a9d53cd6930899bbe50dd"
+  },
+  "report": {
+    "id": "nq-overnight-touch-rates-v1",
+    "notes": [
+      "One unadjusted NQ contract per session. New York overnight hours are 18:00–09:30 and regular hours are 09:30–16:00.",
+      "The study covers January 2015 through September 18, 2026. 2018–2019 supply 295 of 307 earlier-era sessions.",
+      "Reel benchmark: Instagram reel Dfai3hHvMDn by @rithvikrishna64. Its exact sample and event definitions are unavailable.",
+      "Reaches use one-minute OHLC. The study describes price behavior and does not estimate trade execution or returns."
+    ],
+    "presentation": "research-paper",
+    "publishedAt": "2026-11-10T22:06:28Z",
+    "schemaVersion": "1.1",
+    "sections": [
+      {
+        "alt": "Overnight boundary reach rates by opening half, with Wilson intervals and reel benchmarks.",
+        "caption": "Overnight boundary reach rates by opening half, with Wilson intervals and reel benchmarks.",
+        "description": "A level is reached when a regular-hour minute trades at or beyond it. Each group contains sessions strictly inside the overnight range, with midpoint ties shown separately.",
+        "finding": "NQ reached the overnight high on 80.4% of upper-half opens (830/1032) and the overnight low on 76.1% of lower-half opens (600/788). The reel reported 80.8% and 75.7%, respectively. Its sample and exact event definitions are unknown.",
+        "id": "reel-comparison",
+        "kind": "figure",
+        "path": "figures/reel-comparison.png",
+        "title": "How often does NQ reach the overnight high or low?"
+      },
+      {
+        "alt": "Near-only, far-only, both and neither outcomes across overnight width bands.",
+        "caption": "Near-only, far-only, both and neither outcomes across overnight width bands.",
+        "description": "Show mutually exclusive near-only, far-only, both and neither outcomes by width. Equal-distance opens are separated from the near-versus-far view.",
+        "finding": "Both boundaries were reached on 32.6% of narrow sessions and 17.4% of wide sessions. The chart keeps both-side movement and directional-only movement separate.",
+        "id": "width-outcomes",
+        "kind": "figure",
+        "path": "figures/width-outcomes.png",
+        "title": "Do narrow ranges make both sides easier to reach?"
+      },
+      {
+        "alt": "Near-first and both-side reach rates by overnight width and VXN, with session counts.",
+        "caption": "Near-first and both-side reach rates by overnight width and VXN, with session counts.",
+        "description": "Separate near-first from both-side reaches. Near-first chart rates keep same-minute cases in the full denominator as unresolved rather than awarding either side. Sparse cells show counts.",
+        "finding": "Narrow/high VXN had 42.4% both-side reaches (n=66). Wide/low VXN had 12.2% both-side reaches (n=123). The two panels distinguish which side was first from whether both sides were eventually reached.",
+        "id": "width-vxn",
+        "kind": "figure",
+        "path": "figures/width-vxn.png",
+        "title": "What happens when range width and volatility disagree?"
+      }
+    ],
+    "source": {
+      "producer": "sahadeva",
+      "runId": "20261110T134251Z_review_nq_v2"
+    },
+    "summary": "Compare the reel’s conditional rates, then inspect how far and near outcomes vary with width and volatility.",
+    "title": "Touch rates"
+  }
+}

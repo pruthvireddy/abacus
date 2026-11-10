@@ -31,8 +31,8 @@ Start with the workspace [agent map](../../AGENTS.md), the current
   Preserve builder compatibility imports and include executed helper sources
   in future provenance. Session bounds, regimes, and expected-minute policies
   remain with their existing consumers.
-- Consumer loading belongs in `feature_loader.py`, `continuous_loader.py`, and
-  the thin `vp_hvn_loader.py`. Keep canonical loader imports independent of
+- Consumer loading belongs in `feature_loader.py`, `continuous_loader.py`,
+  `daily_facts_loader.py` and the thin `vp_hvn_loader.py`. Keep canonical loader imports independent of
   builders and native activation; retain `vp_hvn_release.load_release` as a
   compatibility path. The builder import retains its runtime dependencies.
   The GC/VWAP/continuous optional manifest path and expected hash must be supplied

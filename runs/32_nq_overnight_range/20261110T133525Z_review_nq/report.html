@@ -1,0 +1,529 @@
+<!doctype html>
+<html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width">
+<title>NQ Overnight Range at the Cash Open</title>
+<style>body{font:17px/1.55 system-ui;color:#20262c;margin:2rem auto;padding:0 1rem;max-width:62rem}
+h1,h2,h3{line-height:1.15}h2{margin-top:3rem;border-bottom:1px solid #ddd;padding-bottom:.4rem}
+h3{margin-top:2rem}img{max-width:100%;height:auto}.table{overflow:auto}td,th{padding:.25rem .6rem}
+.finding{border-left:3px solid #36668f;padding:.15rem .8rem}a{color:#285d83}</style>
+<main>
+<h1>NQ Overnight Range at the Cash Open</h1>
+<p>How do the overnight range in points, the opening location and pre-open volatility relate to which boundary NQ reaches? We start with the <a href="https://www.instagram.com/reel/Dfai3hHvMDn/">reel’s two headline rates</a>, then separate eventual touches, first-touch order and the intraday path.</p>
+<p>One unadjusted, selected NQ contract per session. Times are New York local. Overnight is 18:00 to 09:30 and regular hours are 09:30 to 16:00, both excluding the end minute. Missing windows, equal-distance opens and unresolved minute order stay visible. Rates describe the retained sample. First-touch order is observed to one minute, and the notebook estimates neither fills nor profitability.</p>
+<h2>The overnight range</h2>
+<p>Start with the coverage, width and location of the cash open.</p>
+<h3>Which NQ sessions can answer the question?</h3>
+<p>Inventory calendar eligibility, overnight and regular-hour completeness, and the final inside-range cohort. A valid open can exist even when a later RTH minute is missing.</p>
+<p class="finding">The primary sample contains <strong>1,827 inside-range sessions</strong> (307 in 2015–2019 and 1,520 from 2020 onward). The strict early-era cohort has 12 sessions from 2015–2017. The support by year matters when comparing eras.</p>
+<div class="table"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>year</th>
+      <th>roster</th>
+      <th>eligible</th>
+      <th>overnight_complete</th>
+      <th>rth_complete</th>
+      <th>both_complete</th>
+      <th>inside_primary</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>2015</td>
+      <td>261</td>
+      <td>250</td>
+      <td>1</td>
+      <td>250</td>
+      <td>1</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2016</td>
+      <td>261</td>
+      <td>251</td>
+      <td>6</td>
+      <td>251</td>
+      <td>6</td>
+      <td>6</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2017</td>
+      <td>260</td>
+      <td>249</td>
+      <td>5</td>
+      <td>249</td>
+      <td>5</td>
+      <td>5</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>2018</td>
+      <td>261</td>
+      <td>248</td>
+      <td>117</td>
+      <td>248</td>
+      <td>117</td>
+      <td>116</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>2019</td>
+      <td>261</td>
+      <td>249</td>
+      <td>179</td>
+      <td>249</td>
+      <td>179</td>
+      <td>179</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>2020</td>
+      <td>262</td>
+      <td>251</td>
+      <td>227</td>
+      <td>247</td>
+      <td>227</td>
+      <td>227</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>2021</td>
+      <td>261</td>
+      <td>251</td>
+      <td>225</td>
+      <td>251</td>
+      <td>225</td>
+      <td>225</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>2022</td>
+      <td>260</td>
+      <td>250</td>
+      <td>237</td>
+      <td>250</td>
+      <td>237</td>
+      <td>237</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>2023</td>
+      <td>260</td>
+      <td>248</td>
+      <td>217</td>
+      <td>248</td>
+      <td>217</td>
+      <td>216</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>2024</td>
+      <td>262</td>
+      <td>249</td>
+      <td>214</td>
+      <td>249</td>
+      <td>214</td>
+      <td>214</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>2025</td>
+      <td>261</td>
+      <td>247</td>
+      <td>228</td>
+      <td>247</td>
+      <td>228</td>
+      <td>228</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>2026</td>
+      <td>187</td>
+      <td>179</td>
+      <td>173</td>
+      <td>179</td>
+      <td>173</td>
+      <td>173</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+<h3>How wide is the range, and where does NQ open?</h3>
+<p>Use complete overnight windows for width and available opening geometry for the location distribution. Points are NQ price points.</p>
+<p class="finding">Median width was <strong>67.2 NQ points</strong> in 2015–2019 and <strong>160.2 points</strong> from 2020 onward. Of the two-window sessions, 1 opened outside and 1 opened exactly at a boundary.</p>
+<img src="figures/opening-geometry.png" alt="Opening geometry">
+<h2>Range size &amp; volatility</h2>
+<p>Separate the observed overnight range from the broader volatility backdrop.</p>
+<h3>How wide is the overnight range under low, middle and high volatility?</h3>
+<p>Compare pre-open VXN and VIX on identical dates. Fixed regime thresholds come from qualified modern development sessions through 2024.</p>
+<p class="finding">Median overnight width was <strong>105.0 points in low VXN</strong> and <strong>189.1 in high VXN</strong>. On the same 1,829 dates, the corresponding VIX medians were 113.4 and 189.6 points. Frozen cutoffs are 120/170 NQ points, 21/29 VXN and 17/23 VIX.</p>
+<img src="figures/regime-width.png" alt="Regime width">
+<h3>How much movement follows a narrow or wide overnight range?</h3>
+<p>Compare the median first-hour and regular-session range in NQ points. Relative width is the current width divided by the median of the preceding 60 complete eligible overnight windows.</p>
+<p class="finding">Narrow/high-VXN sessions moved a median <strong>196.5 points</strong> during RTH (n=66). Wide/low-VXN sessions moved <strong>246.2 points</strong> (n=123). Read small groups as descriptive. The width-relative-to-history line separates recent price scale from how unusual the overnight move was at the time.</p>
+<img src="figures/daytime-range.png" alt="Daytime range">
+<h2>Touch rates</h2>
+<p>Compare the reel’s conditional rates, then inspect how far and near outcomes vary with width and volatility.</p>
+<h3>How often does NQ reach the overnight high or low?</h3>
+<p>A level is reached when a regular-hour minute trades at or beyond it. Each group contains sessions strictly inside the overnight range, with midpoint ties shown separately.</p>
+<p class="finding">NQ reached the overnight high on <strong>80.4% of upper-half opens</strong> (830/1032) and the overnight low on <strong>76.1% of lower-half opens</strong> (600/788). The reel reported 80.8% and 75.7%, respectively. Its sample and exact event definitions are unknown.</p>
+<img src="figures/reel-comparison.png" alt="Reel comparison">
+<h3>Do narrow ranges make both sides easier to reach?</h3>
+<p>Show mutually exclusive near-only, far-only, both and neither outcomes by width. Equal-distance opens are separated from the near-versus-far view.</p>
+<p class="finding">Both boundaries were reached on <strong>32.6% of narrow sessions</strong> and <strong>17.4% of wide sessions</strong>. The chart keeps both-side movement and directional-only movement separate.</p>
+<img src="figures/width-outcomes.png" alt="Width outcomes">
+<h3>What happens when range width and volatility disagree?</h3>
+<p>Separate near-first from both-side reaches. Near-first chart rates keep same-minute cases in the full denominator as unresolved rather than awarding either side. Sparse cells show counts.</p>
+<p class="finding">Narrow/high VXN had <strong>42.4% both-side reaches (n=66)</strong>. Wide/low VXN had <strong>12.2% both-side reaches (n=123)</strong>. The two panels distinguish which side was first from whether both sides were eventually reached.</p>
+<img src="figures/width-vxn.png" alt="Width vxn">
+<h2>First touch &amp; path</h2>
+<p>Separate timing, first-touch order and the path before the near target.</p>
+<h3>Which boundary goes first, and how fast?</h3>
+<p>Keep same-minute order unresolved. Timing curves use all unique-near eligible sessions, with misses remaining in the denominator through the full horizon.</p>
+<p class="finding">The near side went first on <strong>73.1%</strong> of sessions and the far side on <strong>22.3%</strong>. 0 sessions had unresolved order. By the first hour, the near side had been reached on 65.7% of all 1,820 sessions.</p>
+<img src="figures/first-timing.png" alt="First timing">
+<h3>How far does price move away from the near side?</h3>
+<p>Use the opening price as the reference. For hits, show a lower and upper bound because we cannot tell how much of the touch bar’s adverse extreme occurred before the touch.</p>
+<p class="finding">On near-side hits, median adverse excursion was bounded by <strong>14.5–16.5 NQ points</strong>. Sessions that missed the near side had a median full-session adverse excursion of <strong>182.0 points</strong> (n=390).</p>
+<img src="figures/excursion.png" alt="Excursion">
+<h3>What remains after the opening minute?</h3>
+<p>Start the fresh-touch clock with the 09:31 minute. Remove sessions only when the specific boundary being measured was already reached in the opening minute.</p>
+<p class="finding">The nearer level was reached in the opening minute on <strong>337 sessions</strong>. Of the 1,483 still untouched at 09:31, <strong>73.7%</strong> reached it later.</p>
+<div class="table"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>target</th>
+      <th>eligible_at_open</th>
+      <th>opening_minute_touches</th>
+      <th>untouched_at_0931</th>
+      <th>fresh_hits</th>
+      <th>fresh_rate</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>near</td>
+      <td>1820</td>
+      <td>337</td>
+      <td>1483</td>
+      <td>1093</td>
+      <td>0.7370</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>far</td>
+      <td>1820</td>
+      <td>0</td>
+      <td>1820</td>
+      <td>762</td>
+      <td>0.4187</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+<h2>Beyond proximity</h2>
+<p>Compare distances with placebo paths and test whether volatility adds predictive information on later dates.</p>
+<h3>Do actual boundaries outperform comparable paths at the same distances?</h3>
+<p>Replay both distances on prior regular-session paths, matched by opening side, VXN band and era. Use up to 20 dates within two calendar years and require at least five. Each study session receives equal weight.</p>
+<p class="finding">In the modern era, the near boundary was reached on <strong>78.6%</strong> of matched dates versus <strong>78.5%</strong> on donor paths at the same distances (n=1,477). Prior-path matching can still leave differences in session conditions.</p>
+<div class="table"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>era</th>
+      <th>n</th>
+      <th>actual_near</th>
+      <th>placebo_near</th>
+      <th>actual_first</th>
+      <th>placebo_first</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>2015–2019</td>
+      <td>271</td>
+      <td>0.7749</td>
+      <td>0.7846</td>
+      <td>0.7159</td>
+      <td>0.7261</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2020 onward</td>
+      <td>1477</td>
+      <td>0.7861</td>
+      <td>0.7849</td>
+      <td>0.7312</td>
+      <td>0.7268</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+<h3>Does VXN or VIX improve probability estimates on later dates?</h3>
+<p>Compare distance-only and volatility-augmented models on identical dates from 2025 onward. Lower Brier loss is better. For near-first, omit unresolved ordering; neither remains a negative.</p>
+<p class="finding"><strong>Neither volatility index showed a clear improvement in held-out Brier loss.</strong> The paired intervals for the index models include zero or are above zero. The conclusion applies to these fixed models and the available later-period sample.</p>
+<div class="table"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>outcome</th>
+      <th>model</th>
+      <th>training_n</th>
+      <th>holdout_n</th>
+      <th>brier</th>
+      <th>delta</th>
+      <th>delta_low</th>
+      <th>delta_high</th>
+      <th>mean_predicted</th>
+      <th>observed_rate</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>near_first</td>
+      <td>Distances</td>
+      <td>1114</td>
+      <td>400</td>
+      <td>0.1876</td>
+      <td>0.0000</td>
+      <td>0.0000</td>
+      <td>0.0000</td>
+      <td>0.6949</td>
+      <td>0.7050</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>near_first</td>
+      <td>Distances + VXN</td>
+      <td>1114</td>
+      <td>400</td>
+      <td>0.1885</td>
+      <td>0.0009</td>
+      <td>-0.0033</td>
+      <td>0.0056</td>
+      <td>0.6559</td>
+      <td>0.7050</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>near_first</td>
+      <td>Distances + VIX</td>
+      <td>1114</td>
+      <td>400</td>
+      <td>0.1867</td>
+      <td>-0.0009</td>
+      <td>-0.0042</td>
+      <td>0.0027</td>
+      <td>0.6657</td>
+      <td>0.7050</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>both</td>
+      <td>Distances</td>
+      <td>1114</td>
+      <td>400</td>
+      <td>0.1587</td>
+      <td>0.0000</td>
+      <td>0.0000</td>
+      <td>0.0000</td>
+      <td>0.1759</td>
+      <td>0.2125</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>both</td>
+      <td>Distances + VXN</td>
+      <td>1114</td>
+      <td>400</td>
+      <td>0.1610</td>
+      <td>0.0024</td>
+      <td>-0.0000</td>
+      <td>0.0048</td>
+      <td>0.1484</td>
+      <td>0.2125</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>both</td>
+      <td>Distances + VIX</td>
+      <td>1114</td>
+      <td>400</td>
+      <td>0.1606</td>
+      <td>0.0020</td>
+      <td>-0.0001</td>
+      <td>0.0042</td>
+      <td>0.1528</td>
+      <td>0.2125</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+<h2>Era &amp; yearly stability</h2>
+<p>Compare the pooled eras with recent year-by-year results and a common September cutoff.</p>
+<h3>Did the results survive a change in era or year?</h3>
+<p>Compare 2015–2019, 2018–2019 as a coverage sensitivity, and 2020 onward. The recent annual panel covers 2023–2026. The common-cutoff table uses only January through September 18 each year.</p>
+<p class="finding">The near side went first on <strong>72.2%</strong> in 2015–2019 (n=306) and <strong>73.3%</strong> from 2020 onward (n=1,514). 2018–2019 contributed 295/307 of the earlier inside-range sessions. 2026 ends September 18. The saved common-cutoff table applies that date to every recent year.</p>
+<img src="figures/annual-stability.png" alt="Annual stability">
+<h3>How did overnight width and pre-open volatility change across recent years?</h3>
+<p>Compare the annual median range, the median relative to the prior 60 eligible windows, and the pre-open volatility backdrop. The year-to-date columns use the same September 18 cutoff for each year.</p>
+<p class="finding">Through September 18 in each year, median overnight width was <strong>124.8 points in 2023</strong> and <strong>324.5 points in 2026</strong>. The trailing-width ratio and volatility medians help put the raw point change in context.</p>
+<div class="table"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>year</th>
+      <th>n</th>
+      <th>median_points</th>
+      <th>p25_points</th>
+      <th>p75_points</th>
+      <th>relative_n</th>
+      <th>relative_median</th>
+      <th>vxn_median</th>
+      <th>vix_median</th>
+      <th>cutoff_n</th>
+      <th>cutoff_median_points</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>2023</td>
+      <td>217</td>
+      <td>120.50</td>
+      <td>85.000</td>
+      <td>160.7500</td>
+      <td>217</td>
+      <td>0.9525</td>
+      <td>21.360</td>
+      <td>17.020</td>
+      <td>149</td>
+      <td>124.75</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2024</td>
+      <td>214</td>
+      <td>145.75</td>
+      <td>116.625</td>
+      <td>192.9375</td>
+      <td>214</td>
+      <td>1.0719</td>
+      <td>18.540</td>
+      <td>14.665</td>
+      <td>150</td>
+      <td>144.50</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2025</td>
+      <td>228</td>
+      <td>203.75</td>
+      <td>143.750</td>
+      <td>306.0000</td>
+      <td>228</td>
+      <td>1.0195</td>
+      <td>20.725</td>
+      <td>17.290</td>
+      <td>161</td>
+      <td>206.00</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>2026</td>
+      <td>173</td>
+      <td>324.50</td>
+      <td>233.000</td>
+      <td>431.2500</td>
+      <td>173</td>
+      <td>1.0785</td>
+      <td>23.950</td>
+      <td>17.430</td>
+      <td>173</td>
+      <td>324.50</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+<h3>Do width and VXN tell the same story in each era?</h3>
+<p>Use the same fixed point and VXN bands in both eras. These cells contain different mixes of opening distances, so compare them with the held-out distance-adjusted analysis.</p>
+<p class="finding"><strong>2 of 9 cells</strong> in the earlier era and <strong>9 of 9</strong> in the modern era have at least 25 sessions. Rates in cells below that threshold are visually muted to counts. The saved distance table groups by near-target distance, and the scenario table groups by relative opening location.</p>
+<img src="figures/era-regimes.png" alt="Era regimes">
+<p><a href="nq-overnight-range-cash-open.ipynb">Executed notebook</a> · <a href="tables/coverage.csv">Coverage table</a> · <a href="tables/era-year-rates.csv">Era and yearly rates</a></p></main>

@@ -61,14 +61,17 @@ test('four/five require explicit gate evidence; five additionally requires indep
   p.highPriorityEvidence.independentCorroboration = structuredClone(p.supporting[0]); assert.doesNotThrow(() => validateStudyCatalog(c, index.reports));
 });
 
-test('app-owned resolution preserves historical assessments and leaves the new study explicitly unassessed', async () => {
+test('app-owned resolution preserves historical assessments and leaves new studies explicitly unassessed', async () => {
   const c = await readStudyCatalog(index.reports);
-  const newStudy = c.studies.find(s => s.studyId === '30_verniman_pivot_statistics_es');
-  assert(newStudy);
-  assert.equal(newStudy.researchPriority, undefined, 'A new saved study does not invent an editorial assessment.');
-  assert.equal(newStudy.resolvedResearchPriority, undefined, 'An absent authored assessment remains absent after resolution.');
-  const historical = c.studies.filter(s => s.studyId !== newStudy.studyId);
-  assert.equal(historical.length, c.studies.length - 1);
+  const unassessed = ['30_verniman_pivot_statistics_es', '32_nq_overnight_range'];
+  for (const id of unassessed) {
+    const study = c.studies.find(s => s.studyId === id);
+    assert(study);
+    assert.equal(study.researchPriority, undefined, 'A new saved study does not invent an editorial assessment.');
+    assert.equal(study.resolvedResearchPriority, undefined, 'An absent authored assessment remains absent after resolution.');
+  }
+  const historical = c.studies.filter(s => !unassessed.includes(s.studyId));
+  assert.equal(historical.length, c.studies.length - unassessed.length);
   assert(historical.every(s => s.researchPriority && s.resolvedResearchPriority));
   assert(historical.every(s => ['assessed', 'not_assessed', 'needs_review', 'not_applicable'].includes(s.resolvedResearchPriority.effectiveState)));
   assert(c.studies[0].resolvedResearchPriority.supporting[0].href.includes('#section-'));

@@ -45,7 +45,7 @@ const catalog = JSON.parse(readFileSync(new URL('../content/studies.json', impor
 const render = (Component, props) => renderToStaticMarkup(React.createElement(Component, props));
 const escaped = text => renderToStaticMarkup(React.createElement(React.Fragment, null, text));
 const renderCard = study => render(StudyCard, { study, number: 1 });
-const localSlugs = ['trader-assistant-manual', 'es-opening-pivot-cloud', 'verniman-pivot-statistics-es'];
+const localSlugs = ['trader-assistant-manual', 'es-opening-pivot-cloud', 'verniman-pivot-statistics-es', 'nq-overnight-range-cash-open'];
 
 function overviewStudy() {
   const source = { publicationId: 'saved-primary', sourceRunId: 'frozen-run', sourceSha256: 'a'.repeat(64), sectionId: 'decision' };
@@ -67,7 +67,7 @@ function overviewStudy() {
   };
 }
 
-test('22 authored overviews and three fallback selections retain complete study presentation', () => {
+test('22 authored overviews and four fallback selections retain complete study presentation', () => {
   assert.equal(catalog.studies.filter(study => study.overview).length, 22);
   assert.deepEqual(catalog.studies.filter(study => !study.overview).map(study => study.slug).sort(), [...localSlugs].sort());
   for (const slug of localSlugs) {

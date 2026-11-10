@@ -1,6 +1,11 @@
 # Web study report authoring template
 
-Template version: `web-study-report-1.1` · Supported Narada source contracts: `1.0` / `1.1`.
+Template version: `web-study-report-1.2` · Supported Narada source contracts: `1.0` / `1.1`.
+For newly authored reports and requested conversions, start with the
+[notebook-study template](notebook-study/README.md). Its notebook-owned insight
+blocks and Results/theme layout are the default. This worksheet supplements that
+guide with evidence, field-mapping and source-transfer rules; its six reading
+stages describe coverage rather than six mandatory website sections or tabs.
 Use this for selected presentations of saved evidence. The
 [publication plan](../docs/narada-publication-plan.md) owns the study inventory,
 source-selection decisions, and pilot assignments. This document owns the reading
@@ -106,12 +111,15 @@ template version; selected source-artifact references; checks; publication date.
 For an external source, include creator/title, URL, access date, and relevant
 timestamps. Explain which dates describe execution, source events, and publication.>`
 
-The built-in Publication record displays producer, run ID, canonical report hash,
+In the classic reader, the built-in Publication record displays producer, run ID, canonical report hash,
 and selected asset hashes, plus links to the generated JSON and assets. Version 1.1
 references/downloads also carry explicitly authored saved-source hashes. The complete
 analytical provenance and presentation manifest remain local. Record those in
 the export manifest and authoring source map; include useful identifiers in plain
-text on the page. A filesystem path is a traceability identifier, not a working
+text on the classic page when useful. The notebook-study Results reader omits
+technical publication-record directories; keep their full audit trail in saved
+bundles/manifests and retain essential scope and useful evidence citations in the
+reader. A filesystem path is a traceability identifier, not a working
 public download link. Omit machine-specific absolute paths from public prose.
 
 Optional top-level `notes` hold short qualifications. Do not rely on collapsed
@@ -286,7 +294,7 @@ than resolving them with new calculations.
   remain attached to the values they qualify.
 - [ ] Every selected item has a checked source mapping; public prose has no stale
   filesystem hyperlinks or machine-specific paths.
-- [ ] Publication source ≤96 KiB; generated bundle ≤128 KiB; selected images ≤2 MiB
+- [ ] Ordinary publication source ≤96 KiB; generated bundle ≤192 KiB; selected images ≤2 MiB
   each and ≤8 MiB total. Table/section/string limits above are satisfied. Measure
   final bytes; source artifact sizes do not establish output compliance.
 - [ ] Selected CSVs meet the separate budgets, declare provenance, and pass exact

@@ -598,12 +598,33 @@ class ActualRegistryTests(unittest.TestCase):
                          ["agent-docs", "bhishma", "sahadeva", "legacy-01", "legacy-02", "vwap-doctor"])
         for record, study in ((default[3], "01_reversal_follow_through"), (default[4], "02_followthrough_candle_adverse")):
             self.assertEqual(record["env"], {"PYTHONPATH": "{root}/legacy/sahadeva/analysis/" + study + "/src"})
-        self.assertEqual(len(registry_module.select_checks(registry, profiles=["studies"])), 22)
-        self.assertEqual(sum(owner["kind"] == "study" for owner in registry["owners"].values()), 30)
-        self.assertEqual(len(registry_module.maintained_guides(registry)), 162)
+        self.assertEqual(len(registry_module.select_checks(registry, profiles=["studies"])), 23)
+        self.assertEqual(sum(owner["kind"] == "study" for owner in registry["owners"].values()), 32)
+        self.assertEqual(len(registry_module.maintained_guides(registry)), 168)
+        self.assertIn("docs/daily-facts-v1-design.md", registry_module.maintained_guides(registry))
+        self.assertIn("docs/daily-facts-v1-design.md", registry["owners"]["bhishma"]["read_first"])
         self.assertIn("docs/evidence-contract.md", registry_module.maintained_guides(registry))
+        self.assertIn("templates/notebook-study/README.md", registry_module.maintained_guides(registry))
+        self.assertIn("templates/notebook-study/README.md", registry["owners"]["narada"]["read_first"])
         self.assertEqual(registry_module.coverage_errors(REPOSITORY, registry), [])
         self.assertEqual(registry_module.owner_for_context(registry, "18_fibonacci_memory")["id"], "study-18")
+
+    def test_daily_facts_owner_keeps_release_and_notebook_execution_out_of_checks(self):
+        registry = registry_module.load_registry(REPOSITORY)
+        study = registry_module.owner_for_context(registry, "31_daily_facts_volume_pilot")
+        self.assertIn("studies/31_daily_facts_volume_pilot/plan.md", study["guides"])
+        check, = registry_module.select_checks(registry, checks=["bhishma-daily-facts"], use_default=False)
+        self.assertEqual((check["owner"], check["unittest"]["pattern"]), ("bhishma", "test_daily_facts.py"))
+        self.assertIn(check["id"], study["related_checks"])
+        self.assertNotIn(check["id"], [item["id"] for item in registry_module.select_checks(registry)])
+
+    def test_nq_opening_range_has_an_isolated_numerical_suite(self):
+        registry = registry_module.load_registry(REPOSITORY)
+        owner = registry_module.owner_for_context(registry, "32_nq_overnight_range")
+        check, = registry_module.select_checks(registry, checks=["study-32"], use_default=False)
+        self.assertEqual(check["unittest"]["start_dir"], owner["path"] + "/tests")
+        self.assertEqual(check["runtime"], "locked-python")
+        self.assertNotIn(check["id"], [item["id"] for item in registry_module.select_checks(registry)])
 
     def test_study30_inventory_context_and_synthetic_gate_preserve_default(self):
         registry = registry_module.load_registry(REPOSITORY)
