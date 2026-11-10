@@ -1,0 +1,403 @@
+{
+  "contract": "abacus.evidence/v1",
+  "bundle_kind": "research",
+  "study_id": "32_nq_overnight_range",
+  "run_id": "20261110T133525Z_review_nq",
+  "inventory_scope": "declared_artifacts",
+  "results": {
+    "kind": "quantitative",
+    "state": "computed",
+    "artifacts": [
+      "tables/reel-touch-rates.csv",
+      "tables/first-touch-order.csv",
+      "tables/era-year-rates.csv",
+      "tables/annual-common-cutoff.csv",
+      "tables/holdout-model-scores.csv"
+    ]
+  },
+  "provenance": {
+    "settings": "config.json",
+    "input_lock": "sources/inputs.lock.json",
+    "exclusions": "tables/exclusions.csv",
+    "commands": "commands.json",
+    "checks": "checks.json",
+    "environment_lock": "sources/uv.lock",
+    "code": {
+      "revision": "838f7af1d1a831aaa3b890e51bc77b3b70044bef",
+      "dirty": true,
+      "status": "git-status.txt",
+      "source_snapshot": {
+        "paths": [
+          "sources/nq-overnight-range-cash-open.ipynb",
+          "sources/run.py",
+          "sources/support.py",
+          "sources/plan.md",
+          "sources/settings.toml",
+          "sources/inputs.lock.json",
+          "sources/notes.md",
+          "sources/uv.lock",
+          "sources/test_opening_range.py",
+          "sources/abacus_bhishma/__init__.py",
+          "sources/abacus_bhishma/calendar.py",
+          "sources/abacus_bhishma/continuous_loader.py",
+          "sources/abacus_bhishma/daily_context.py",
+          "sources/abacus_bhishma/daily_facts.py",
+          "sources/abacus_bhishma/daily_facts_loader.py",
+          "sources/abacus_bhishma/manifest_selection.py",
+          "sources/abacus_bhishma/nq_opening_range.py",
+          "sources/abacus_bhishma/paths.py",
+          "sources/abacus_bhishma/provenance.py",
+          "sources/abacus_bhishma/publication_safety.py"
+        ],
+        "scope": "Declared study notebook, execution and Bhishma sources"
+      }
+    }
+  },
+  "artifacts": [
+    {
+      "path": "checks.json",
+      "bytes": 125,
+      "sha256": "f5e286847458b0c2c12b57bbf390483161229537770fc621067b5d3b7022d40b"
+    },
+    {
+      "path": "commands.json",
+      "bytes": 288,
+      "sha256": "3fbc641efd1b984d77bfdf3cf01eda5ef280dd5c2072aaf8881185cc7e448ae7"
+    },
+    {
+      "path": "config.json",
+      "bytes": 548,
+      "sha256": "68514cc198ed29c216d4b2b3856d6505040cccc9f58cd2a8537722be0e0faee7"
+    },
+    {
+      "path": "figures/annual-stability.png",
+      "bytes": 30302,
+      "sha256": "794dead3606e8e8ea7d8c49ec730a39581862884c1508a05993803a4785f62fe"
+    },
+    {
+      "path": "figures/daytime-range.png",
+      "bytes": 94832,
+      "sha256": "2c512576772411740cdd522b96ba9ca4e5f9e1c24180b9e0ead69b594b1139e4"
+    },
+    {
+      "path": "figures/era-regimes.png",
+      "bytes": 104266,
+      "sha256": "f1b96ca11397c3002c0faa9aebd047c4de72105e540b52bae8858f65c261d731"
+    },
+    {
+      "path": "figures/excursion.png",
+      "bytes": 22950,
+      "sha256": "b6ee1baf585dd9dbc408551933c94375fabbfe27b7b0bcafbb8d6a68ac2032f0"
+    },
+    {
+      "path": "figures/first-timing.png",
+      "bytes": 49392,
+      "sha256": "a5c68c4d7365b3378aa19f31fb2da5b18fe82077e49acba2125c1420d29d163c"
+    },
+    {
+      "path": "figures/opening-geometry.png",
+      "bytes": 41167,
+      "sha256": "c260c380d6280ca221059075a3d26896538bc74227bfec256a9594ae63a00284"
+    },
+    {
+      "path": "figures/reel-comparison.png",
+      "bytes": 23365,
+      "sha256": "8c898d6928fbac6b368cc10141b6474fbcaa089505b145d469581a877c2358f3"
+    },
+    {
+      "path": "figures/regime-width.png",
+      "bytes": 25251,
+      "sha256": "36f1741b6617108a0a2270a6f46b86ecb612c20e95143b382c69e4303ba9b400"
+    },
+    {
+      "path": "figures/width-outcomes.png",
+      "bytes": 20247,
+      "sha256": "e5a82ac46c569d4aaeef74164c9b88d03d0f874aab770db4d43f03236887e261"
+    },
+    {
+      "path": "figures/width-vxn.png",
+      "bytes": 65215,
+      "sha256": "a6fb8ae0b47330d505338b463adac3a9ac67298da98b6d0d6bb2dfbb20b0a926"
+    },
+    {
+      "path": "git-status.txt",
+      "bytes": 3077,
+      "sha256": "7b4fb032bf429ede46f3b6b1736241b4989fc20b2cd860ef1329138405d1b8a1"
+    },
+    {
+      "path": "notebook-checks.json",
+      "bytes": 120,
+      "sha256": "005501ee72131bff6e57e9d35441c74a752df9171a622effd4092d21a99a00af"
+    },
+    {
+      "path": "nq-overnight-range-cash-open.ipynb",
+      "bytes": 742696,
+      "sha256": "ba715f0fa7947eb36c2868015d9db1d97c25c81777bc2eae2af7f7a3740acea0"
+    },
+    {
+      "path": "regime-cutoffs.json",
+      "bytes": 112,
+      "sha256": "9c084c266eb3fe17881c228ba6b0141488c5200e52492a37ae83cc1521cc14b4"
+    },
+    {
+      "path": "report.html",
+      "bytes": 18851,
+      "sha256": "1d8559c6eb0c04963e937e7ef50c0ad7a5fc1cee66b009c71482412ee65f2d24"
+    },
+    {
+      "path": "report.md",
+      "bytes": 8584,
+      "sha256": "15a21cc6257e5a940f0ff611aa878991919d6a1822afa96d3f807f71089bbdad"
+    },
+    {
+      "path": "sources/abacus_bhishma/__init__.py",
+      "bytes": 95,
+      "sha256": "bc9422e95edef049d00a7e97b0d3a8fd8ff6019e33cd0860051d0aaa6dd34f3c"
+    },
+    {
+      "path": "sources/abacus_bhishma/calendar.py",
+      "bytes": 3437,
+      "sha256": "94c89dfc03e36ad57819c4337da1f4b02a27dd18f49c92ae5a143582624da314"
+    },
+    {
+      "path": "sources/abacus_bhishma/continuous_loader.py",
+      "bytes": 3349,
+      "sha256": "810ca34425a3f620850e8e576130065fb0824adabb21a5aff2019c2467cbec6c"
+    },
+    {
+      "path": "sources/abacus_bhishma/daily_context.py",
+      "bytes": 19563,
+      "sha256": "17d96d5013f50170bfe89c2dc82843690fba2d4bab43d5cc8fde7f6c0f03424f"
+    },
+    {
+      "path": "sources/abacus_bhishma/daily_facts.py",
+      "bytes": 15176,
+      "sha256": "429685a2a4970354e96cdf91f92fba0478a4576e30decb477fd6d7b8f67087f3"
+    },
+    {
+      "path": "sources/abacus_bhishma/daily_facts_loader.py",
+      "bytes": 2297,
+      "sha256": "f8877b94c2534bcae9be23b7e6759425bd19057fc89aa55f0cc8c497b4a4ac9c"
+    },
+    {
+      "path": "sources/abacus_bhishma/manifest_selection.py",
+      "bytes": 6532,
+      "sha256": "bdbf8c2c65759c1e2b2cb82f74b04c7aa18920dbc638af525446d9d3ec5c550d"
+    },
+    {
+      "path": "sources/abacus_bhishma/nq_opening_range.py",
+      "bytes": 14807,
+      "sha256": "393587afd074aaaad63f049ce159c6d929969675312b1325fda8a370fe8df2bb"
+    },
+    {
+      "path": "sources/abacus_bhishma/paths.py",
+      "bytes": 3554,
+      "sha256": "f3125bcff0953fcfc9845119c9ff9b3f006b2d1df77c3899e0d49609e93aac18"
+    },
+    {
+      "path": "sources/abacus_bhishma/provenance.py",
+      "bytes": 4818,
+      "sha256": "34e75937186557e92d3e26feac8a4c576158e44f98ba4b67e3803a65517350d9"
+    },
+    {
+      "path": "sources/abacus_bhishma/publication_safety.py",
+      "bytes": 3007,
+      "sha256": "5177b296e9df2f7062885be0e719fc4d63a72a0aa9ec6601e55c9a02c3532d24"
+    },
+    {
+      "path": "sources/inputs.lock.json",
+      "bytes": 593,
+      "sha256": "aec0baec3a94203284b43d358f2f4c414a8cc4c881fd8bbd7114e8082275956d"
+    },
+    {
+      "path": "sources/notes.md",
+      "bytes": 498,
+      "sha256": "dd60c73ff4cd263e221e993f24c4d1be5ef910b8a21f5e3d8e7704cd54a4428a"
+    },
+    {
+      "path": "sources/nq-overnight-range-cash-open.ipynb",
+      "bytes": 66970,
+      "sha256": "1999c8ea93c11d6d7f62ab89240831b2348128e881469adf03c05a3bdd998f1f"
+    },
+    {
+      "path": "sources/plan.md",
+      "bytes": 6140,
+      "sha256": "62c15bbf41613cfe2fa91294e409abd7f597f49a2d4be7825b27016552656f5a"
+    },
+    {
+      "path": "sources/run.py",
+      "bytes": 14793,
+      "sha256": "8065dd88cafb6e9774048d2ed9fee8f5586ebe620a3b9d4fb42c53fc8756dc41"
+    },
+    {
+      "path": "sources/settings.toml",
+      "bytes": 395,
+      "sha256": "f57d4c07ae19374785aae2ce48918e852d8e06ba8479559dc4ab6dcbf9eebe66"
+    },
+    {
+      "path": "sources/sources.json",
+      "bytes": 4201,
+      "sha256": "7bd38cbf74cb105dbe9bde068ffbf5aca5e4514a1f012e9596323b5b7bd59da1"
+    },
+    {
+      "path": "sources/support.py",
+      "bytes": 5551,
+      "sha256": "a41ef075fc7baa5168e9b49c4100863e4a15b9fb983f83c0f6c5cbd5bf432761"
+    },
+    {
+      "path": "sources/test_opening_range.py",
+      "bytes": 1376,
+      "sha256": "4315f3827c1f126f614591f766b9301ba7799f24b0b6886fa28ffef10475078a"
+    },
+    {
+      "path": "sources/uv.lock",
+      "bytes": 635218,
+      "sha256": "0628373e9c01e04312864af9dcc934f4853e83ea153c30e6a76b556c16a63ee6"
+    },
+    {
+      "path": "tables/adverse-excursion.csv",
+      "bytes": 107895,
+      "sha256": "91d265a5f5d7fa38d011877a2c47b2043058aacdc807a4f8b6cf2f6484f47f27"
+    },
+    {
+      "path": "tables/annual-common-cutoff.csv",
+      "bytes": 1946,
+      "sha256": "89f7319d8a2e480ce2d48eeafd72b4c146a9e8f5c36f970666019cd3cca4b5aa"
+    },
+    {
+      "path": "tables/annual-width-and-volatility.csv",
+      "bytes": 422,
+      "sha256": "becc425b7b75863ff421d18329e79fbd438496a486f223877a00ecce4d216a9c"
+    },
+    {
+      "path": "tables/coverage.csv",
+      "bytes": 412,
+      "sha256": "3bf2963fce4e519355b2ec2daa3c35cbac6676464837e04fc894f17ae376e5d3"
+    },
+    {
+      "path": "tables/daytime-movement.csv",
+      "bytes": 312,
+      "sha256": "1b525564c0795e0b2626f5fb8295f724bc59433dddcf12f8660f0559cb72c68c"
+    },
+    {
+      "path": "tables/distance-vxn-outcomes.csv",
+      "bytes": 3006,
+      "sha256": "0621504b20977be7484caa6cfb3824bcd1971ccdbb44f22c3a1f8a499194a02d"
+    },
+    {
+      "path": "tables/era-width-vxn.csv",
+      "bytes": 3494,
+      "sha256": "5f8320e7ade1aee7711ba0b40f76858dea202c1772ec3cd0e1a589c5208dfec5"
+    },
+    {
+      "path": "tables/era-year-rates.csv",
+      "bytes": 3635,
+      "sha256": "2def530274d4e52352626ea44b7cc6d6138ab45742b5a254a9529699dd76b18e"
+    },
+    {
+      "path": "tables/era-year-width.csv",
+      "bytes": 301,
+      "sha256": "0fc27b4b51b353560d4677221ddae749cd362ddcf6e45253caea3bdcb81d3c7c"
+    },
+    {
+      "path": "tables/exclusions.csv",
+      "bytes": 306794,
+      "sha256": "70d40b7d974f270dcb2597be58613a9d4e510553ecba6ec550319e7ab6ab2f91"
+    },
+    {
+      "path": "tables/first-touch-order.csv",
+      "bytes": 51,
+      "sha256": "00331a1b71416968b0d0dddec7f40437eb5b17b930c2823d14a0606cd9e1b3b3"
+    },
+    {
+      "path": "tables/fresh-touches.csv",
+      "bytes": 169,
+      "sha256": "42f6fe8d114c2165d48d62b3b30d91c6dd67e8c9ff08dd87305efb69973f776b"
+    },
+    {
+      "path": "tables/half-touch-stability.csv",
+      "bytes": 2594,
+      "sha256": "737a549c0e7f2eb4737ad93ad1507fce99a5b20a2151aab74698b58a1381e512"
+    },
+    {
+      "path": "tables/holdout-calibration.csv",
+      "bytes": 1588,
+      "sha256": "51c871d7f7d2a920c3abc9f8be68e00e65b953b54308523f83cde3752608967e"
+    },
+    {
+      "path": "tables/holdout-model-scores.csv",
+      "bytes": 847,
+      "sha256": "d543c6786dc9e2d07dc0fe3e2fb4c82a504158deedefc5d2f7eaf588e1b4897b"
+    },
+    {
+      "path": "tables/holdout-predictions.csv",
+      "bytes": 135296,
+      "sha256": "563100b5f3c57f7b32d84c7b9a4c856dbaeaa9d2b11fec58f4029c813906a131"
+    },
+    {
+      "path": "tables/opening-locations.csv",
+      "bytes": 216,
+      "sha256": "061fcb8bbdcd796d6f2f77b67c1b8605894f5db806b9f5d01c5509892846320b"
+    },
+    {
+      "path": "tables/placebo-comparison.csv",
+      "bytes": 243,
+      "sha256": "c51ecb7fc72d26a799da415b364238d92b852593e9b2c63a639d663c27ab8c2a"
+    },
+    {
+      "path": "tables/placebo-sessions.csv",
+      "bytes": 82436,
+      "sha256": "8c51474d1dd4e9e0543561c6ad4a1e246a3a2de4c67053ac67ffae8b25572633"
+    },
+    {
+      "path": "tables/reel-touch-rates.csv",
+      "bytes": 554,
+      "sha256": "a3de254aab68c0bb4d63a71e12ec34c32634957f3fc6cb22c8667690d69688d0"
+    },
+    {
+      "path": "tables/relative-width-by-year.csv",
+      "bytes": 394,
+      "sha256": "6a4b67c9e5240666f86a26d3a26208296a9d5ed0e3ccd81974471a0a04c15d6c"
+    },
+    {
+      "path": "tables/session-outcomes.csv",
+      "bytes": 215371,
+      "sha256": "3f9e9a292a40fb20300b6a0e42741f4dfdba790d8481c742da895a45c6b498f4"
+    },
+    {
+      "path": "tables/touch-outcomes-by-width.csv",
+      "bytes": 106,
+      "sha256": "7ba0c4c4ef720a9f1b027b5b194142e6b7c96b6e8bad5e969a3c5977d24c88f4"
+    },
+    {
+      "path": "tables/touch-timing.csv",
+      "bytes": 16255,
+      "sha256": "6e7b23fe70dda2292ba393172e768521260db63eb508c7b1e255a36a2c4ebbf6"
+    },
+    {
+      "path": "tables/width-by-era.csv",
+      "bytes": 97,
+      "sha256": "7df07f57769305b1a8676aa1c737e1aba35a55692996db73aa0bc0650222ef49"
+    },
+    {
+      "path": "tables/width-by-volatility.csv",
+      "bytes": 243,
+      "sha256": "1c82cceba933d51de242aaf159e8d7a31690db0023f26d98cd40530df612ca31"
+    },
+    {
+      "path": "tables/width-vxn-outcomes.csv",
+      "bytes": 1648,
+      "sha256": "8f02d95117a6e4bfb178165e6f2b76fa64f075dd2a80f9f7bb7076a311321ca5"
+    },
+    {
+      "path": "tables/width-vxn-scenarios-by-opening.csv",
+      "bytes": 2130,
+      "sha256": "5c2310936115971794de9b1fcc857001319c46f192693e3c4af4a35abd6d241c"
+    },
+    {
+      "path": "verification.json",
+      "bytes": 888,
+      "sha256": "0fe5e7600f8ccf12229200e46354eb320ac747531a772437d58d3c3f693a34c5"
+    }
+  ]
+}

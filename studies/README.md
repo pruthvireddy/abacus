@@ -51,11 +51,25 @@ three settings, with independently verified saved statistics and separate web ta
 
 Use the [study template](../templates/study.md). Record the proposal in `plan.md`, freeze an executed versioned protocol before examining outcomes, and keep machine-readable settings in `study.yaml`, input identities in `inputs.lock.json`, and decisions in `notes.md`. Add executable study code only when implementation is authorized. Regenerate the [research library](../reports/index.html) with `python scripts/build-research-index.py`.
 
+For new study reports and requested conversions, use the
+[notebook-study template and guide](../templates/notebook-study/README.md).
+Keep actual analysis, generated findings and evidence in ordinary notebook cells,
+grouped by research-question themes. Each public insight has a heading,
+description, findings summary and chart/table. Narada renders verified saved
+notebook content in the Research paper Results reader with theme tabs and code
+hidden. Review the notebook before its web projection. Existing saved-evidence
+presentation and new analytical reconstruction have different run/revision rules;
+the guide defines both without overwriting historical artifacts.
+
 ## Study-specific implementation
 
-Use `run.py` as a thin entry point, `src/` for local definitions and calculations,
-and `tests/` for that study's checks. Keep strategy rules and parameters with the
-protocol. Shared methods with demonstrated reuse belong in
+Use `run.py` as a thin entry point and `tests/` for that study's checks.
+Notebook-authored studies keep insight-specific calculations and findings in
+their ordinary notebook cells. Use `src/` for input/execution/export support,
+local helpers and retained historical engines; a wrapper notebook is not a
+replacement for visible analysis. Existing non-notebook engines retain their
+local calculations until an explicitly scoped reconstruction. Keep strategy
+rules and parameters with the protocol. Shared methods with demonstrated reuse belong in
 `packages/sahadeva/src/abacus_sahadeva/`, with tests in the package.
 
 Document the exact run and test commands in the study README. Use the workspace

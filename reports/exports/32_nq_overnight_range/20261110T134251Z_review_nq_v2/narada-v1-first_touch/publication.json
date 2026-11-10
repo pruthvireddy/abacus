@@ -1,0 +1,101 @@
+{
+  "schemaVersion": "1.1",
+  "presentation": "research-paper",
+  "id": "nq-overnight-first-touch-v1",
+  "title": "First touch & path",
+  "summary": "Separate timing, first-touch order and the path before the near target.",
+  "publishedAt": "2026-11-10T22:06:28Z",
+  "source": {
+    "producer": "sahadeva",
+    "runId": "20261110T134251Z_review_nq_v2"
+  },
+  "sections": [
+    {
+      "id": "first-timing",
+      "title": "Which boundary goes first, and how fast?",
+      "description": "Keep same-minute order unresolved. Timing curves use all unique-near eligible sessions, with misses remaining in the denominator through the full horizon.",
+      "finding": "The near side went first on 73.1% of sessions and the far side on 22.3%. 0 sessions had unresolved order. By the first hour, the near side had been reached on 65.7% of all 1,820 sessions.",
+      "kind": "figure",
+      "path": "figures/first-timing.png",
+      "caption": "First-boundary ordering and cumulative probability of reaching the near and far boundary.",
+      "alt": "First-boundary ordering and cumulative probability of reaching the near and far boundary."
+    },
+    {
+      "id": "excursion",
+      "title": "How far does price move away from the near side?",
+      "description": "Use the opening price as the reference. For hits, show a lower and upper bound because we cannot tell how much of the touch bar’s adverse extreme occurred before the touch.",
+      "finding": "On near-side hits, median adverse excursion was bounded by 14.5–16.5 NQ points. Sessions that missed the near side had a median full-session adverse excursion of 182.0 points (n=390).",
+      "kind": "figure",
+      "path": "figures/excursion.png",
+      "caption": "Adverse movement bounds before a near-side hit and full-session adverse movement on misses.",
+      "alt": "Adverse movement bounds before a near-side hit and full-session adverse movement on misses."
+    },
+    {
+      "id": "fresh-touches",
+      "title": "What remains after the opening minute?",
+      "description": "Start the fresh-touch clock with the 09:31 minute. Remove sessions only when the specific boundary being measured was already reached in the opening minute.",
+      "finding": "The nearer level was reached in the opening minute on 337 sessions. Of the 1,483 still untouched at 09:31, 73.7% reached it later.",
+      "kind": "table",
+      "columns": [
+        {
+          "key": "target",
+          "label": "Target"
+        },
+        {
+          "key": "eligible_at_open",
+          "label": "Eligible At Open",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "opening_minute_touches",
+          "label": "Opening Minute Touches",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "untouched_at_0931",
+          "label": "Untouched At 0931",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "fresh_hits",
+          "label": "Fresh Hits",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "fresh_rate",
+          "label": "Fresh Rate",
+          "format": "percent",
+          "precision": 1
+        }
+      ],
+      "rows": [
+        {
+          "target": "near",
+          "eligible_at_open": 1820,
+          "opening_minute_touches": 337,
+          "untouched_at_0931": 1483,
+          "fresh_hits": 1093,
+          "fresh_rate": 0.7370195549561699
+        },
+        {
+          "target": "far",
+          "eligible_at_open": 1820,
+          "opening_minute_touches": 0,
+          "untouched_at_0931": 1820,
+          "fresh_hits": 762,
+          "fresh_rate": 0.4186813186813187
+        }
+      ]
+    }
+  ],
+  "notes": [
+    "One unadjusted NQ contract per session. New York overnight hours are 18:00–09:30 and regular hours are 09:30–16:00.",
+    "The study covers January 2015 through September 18, 2026. 2018–2019 supply 295 of 307 earlier-era sessions.",
+    "Reel benchmark: Instagram reel Dfai3hHvMDn by @rithvikrishna64. Its exact sample and event definitions are unavailable.",
+    "Reaches use one-minute OHLC. The study describes price behavior and does not estimate trade execution or returns."
+  ]
+}

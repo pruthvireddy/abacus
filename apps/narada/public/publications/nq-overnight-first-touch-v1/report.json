@@ -1,0 +1,116 @@
+{
+  "provenance": {
+    "assets": [
+      {
+        "path": "figures/excursion.png",
+        "sha256": "b6ee1baf585dd9dbc408551933c94375fabbfe27b7b0bcafbb8d6a68ac2032f0"
+      },
+      {
+        "path": "figures/first-timing.png",
+        "sha256": "a5c68c4d7365b3378aa19f31fb2da5b18fe82077e49acba2125c1420d29d163c"
+      }
+    ],
+    "sourceSha256": "377f46f8a9fc4824cf2cd399bf7e9a0a10aefcd7e3e4b58c85b58d3d6111d48e"
+  },
+  "report": {
+    "id": "nq-overnight-first-touch-v1",
+    "notes": [
+      "One unadjusted NQ contract per session. New York overnight hours are 18:00–09:30 and regular hours are 09:30–16:00.",
+      "The study covers January 2015 through September 18, 2026. 2018–2019 supply 295 of 307 earlier-era sessions.",
+      "Reel benchmark: Instagram reel Dfai3hHvMDn by @rithvikrishna64. Its exact sample and event definitions are unavailable.",
+      "Reaches use one-minute OHLC. The study describes price behavior and does not estimate trade execution or returns."
+    ],
+    "presentation": "research-paper",
+    "publishedAt": "2026-11-10T22:06:28Z",
+    "schemaVersion": "1.1",
+    "sections": [
+      {
+        "alt": "First-boundary ordering and cumulative probability of reaching the near and far boundary.",
+        "caption": "First-boundary ordering and cumulative probability of reaching the near and far boundary.",
+        "description": "Keep same-minute order unresolved. Timing curves use all unique-near eligible sessions, with misses remaining in the denominator through the full horizon.",
+        "finding": "The near side went first on 73.1% of sessions and the far side on 22.3%. 0 sessions had unresolved order. By the first hour, the near side had been reached on 65.7% of all 1,820 sessions.",
+        "id": "first-timing",
+        "kind": "figure",
+        "path": "figures/first-timing.png",
+        "title": "Which boundary goes first, and how fast?"
+      },
+      {
+        "alt": "Adverse movement bounds before a near-side hit and full-session adverse movement on misses.",
+        "caption": "Adverse movement bounds before a near-side hit and full-session adverse movement on misses.",
+        "description": "Use the opening price as the reference. For hits, show a lower and upper bound because we cannot tell how much of the touch bar’s adverse extreme occurred before the touch.",
+        "finding": "On near-side hits, median adverse excursion was bounded by 14.5–16.5 NQ points. Sessions that missed the near side had a median full-session adverse excursion of 182.0 points (n=390).",
+        "id": "excursion",
+        "kind": "figure",
+        "path": "figures/excursion.png",
+        "title": "How far does price move away from the near side?"
+      },
+      {
+        "columns": [
+          {
+            "key": "target",
+            "label": "Target"
+          },
+          {
+            "format": "number",
+            "key": "eligible_at_open",
+            "label": "Eligible At Open",
+            "precision": 0
+          },
+          {
+            "format": "number",
+            "key": "opening_minute_touches",
+            "label": "Opening Minute Touches",
+            "precision": 0
+          },
+          {
+            "format": "number",
+            "key": "untouched_at_0931",
+            "label": "Untouched At 0931",
+            "precision": 0
+          },
+          {
+            "format": "number",
+            "key": "fresh_hits",
+            "label": "Fresh Hits",
+            "precision": 0
+          },
+          {
+            "format": "percent",
+            "key": "fresh_rate",
+            "label": "Fresh Rate",
+            "precision": 1
+          }
+        ],
+        "description": "Start the fresh-touch clock with the 09:31 minute. Remove sessions only when the specific boundary being measured was already reached in the opening minute.",
+        "finding": "The nearer level was reached in the opening minute on 337 sessions. Of the 1,483 still untouched at 09:31, 73.7% reached it later.",
+        "id": "fresh-touches",
+        "kind": "table",
+        "rows": [
+          {
+            "eligible_at_open": 1820,
+            "fresh_hits": 1093,
+            "fresh_rate": 0.7370195549561699,
+            "opening_minute_touches": 337,
+            "target": "near",
+            "untouched_at_0931": 1483
+          },
+          {
+            "eligible_at_open": 1820,
+            "fresh_hits": 762,
+            "fresh_rate": 0.4186813186813187,
+            "opening_minute_touches": 0,
+            "target": "far",
+            "untouched_at_0931": 1820
+          }
+        ],
+        "title": "What remains after the opening minute?"
+      }
+    ],
+    "source": {
+      "producer": "sahadeva",
+      "runId": "20261110T134251Z_review_nq_v2"
+    },
+    "summary": "Separate timing, first-touch order and the path before the near target.",
+    "title": "First touch & path"
+  }
+}

@@ -1,0 +1,55 @@
+{
+  "provenance": {
+    "assets": [
+      {
+        "path": "figures/daytime-range.png",
+        "sha256": "ddf756c2964bca7354f9c38ebdea3790b19137ce0f1aea5223de2dbc6cc5ae1e"
+      },
+      {
+        "path": "figures/regime-width.png",
+        "sha256": "36f1741b6617108a0a2270a6f46b86ecb612c20e95143b382c69e4303ba9b400"
+      }
+    ],
+    "sourceSha256": "a02b2d9f4885c755977538f5605bf00bc97d325cad4cc923d89bc26aa970c2a8"
+  },
+  "report": {
+    "id": "nq-overnight-range-volatility-v1",
+    "notes": [
+      "One unadjusted NQ contract per session. New York overnight hours are 18:00–09:30 and regular hours are 09:30–16:00.",
+      "The study covers January 2015 through September 18, 2026. 2018–2019 supply 295 of 307 earlier-era sessions.",
+      "Reel benchmark: Instagram reel Dfai3hHvMDn by @rithvikrishna64. Its exact sample and event definitions are unavailable.",
+      "Reaches use one-minute OHLC. The study describes price behavior and does not estimate trade execution or returns."
+    ],
+    "presentation": "research-paper",
+    "publishedAt": "2026-11-10T22:06:28Z",
+    "schemaVersion": "1.1",
+    "sections": [
+      {
+        "alt": "Overnight width in NQ points across pre-open VXN and VIX regimes on matched dates.",
+        "caption": "Overnight width in NQ points across pre-open VXN and VIX regimes on matched dates.",
+        "description": "Compare pre-open VXN and VIX on identical dates. Fixed regime thresholds come from qualified modern development sessions through 2024.",
+        "finding": "Median overnight width was 105.0 points in low VXN and 189.1 in high VXN. On the same 1,829 dates, the corresponding VIX medians were 113.4 and 189.6 points. Frozen cutoffs are 120/170 NQ points, 21/29 VXN and 17/23 VIX.",
+        "id": "regime-width",
+        "kind": "figure",
+        "path": "figures/regime-width.png",
+        "title": "How wide is the overnight range under low, middle and high volatility?"
+      },
+      {
+        "alt": "Median regular-session movement by width and VXN, plus annual raw and relative overnight width.",
+        "caption": "Median regular-session movement by width and VXN, plus annual raw and relative overnight width.",
+        "description": "Compare the median first-hour and regular-session range in NQ points. Relative width is the current width divided by the median of the preceding 60 complete eligible overnight windows.",
+        "finding": "Narrow/high-VXN sessions moved a median 196.5 points during RTH (n=66). Wide/low-VXN sessions moved 246.2 points (n=123). Read small groups as descriptive. The width-relative-to-history line separates recent price scale from how unusual the overnight move was at the time.",
+        "id": "daytime-range",
+        "kind": "figure",
+        "path": "figures/daytime-range.png",
+        "title": "How much movement follows a narrow or wide overnight range?"
+      }
+    ],
+    "source": {
+      "producer": "sahadeva",
+      "runId": "20261110T134251Z_review_nq_v2"
+    },
+    "summary": "Separate the observed overnight range from the broader volatility backdrop.",
+    "title": "Range size & volatility"
+  }
+}

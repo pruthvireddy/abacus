@@ -26,7 +26,15 @@ All displayed numbers and charts must derive from the saved metrics/tables. Rend
 
 See [report.md](report.md), [report.html](report.html), [strategy.md](strategy.md), and [study.md](study.md). The HTML template uses `{{name}}` placeholders: a future renderer for this template must escape text and sanitize any HTML inserted into content slots. This template has no renderer yet. Narada separately renders its [JSON report contract](../apps/narada/contracts/report.schema.json).
 
-For Narada content, use the [web study report authoring template](web-study-report.md).
+For new study reports and requested conversions, use the
+[notebook-study template and guide](notebook-study/README.md), including its
+[starter notebook](notebook-study/study-report.ipynb). It defines the default
+Research paper layout: Results with question-theme tabs, and one heading,
+description, findings summary and chart/table per insight. The notebook owns the
+analysis and narrative; Narada renders verified selected saved outputs with code
+hidden and technical audit records retained outside the reader.
+The [web study report worksheet](web-study-report.md) supplies additional evidence
+and field-mapping guidance for both this layout and retained classic reports.
 The [publication plan](../docs/narada-publication-plan.md) owns the study inventory,
 readiness decisions, and Phase 2 pilot handoff.
 

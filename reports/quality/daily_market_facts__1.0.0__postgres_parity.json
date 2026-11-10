@@ -1,0 +1,89 @@
+{
+  "release_id": "daily_market_facts__1.0.0",
+  "manifest_sha256": "ba5a1b8fb15d7e2ddb4de167122a2930f45868358f66549fb748037c95d60fb2",
+  "parquet_partitions": [
+    {
+      "path": "data/features/daily/feature_set=daily_market_facts/version=1.0.0/product=ES/part-000.parquet",
+      "bytes": 880436,
+      "sha256": "8adf94e828a700881b52e0d04db5f40ee26db4ad10716e9750956ef9e12d5144"
+    },
+    {
+      "path": "data/features/daily/feature_set=daily_market_facts/version=1.0.0/product=GC/part-000.parquet",
+      "bytes": 790115,
+      "sha256": "0f1fbbe079d281c7623ec5bcb59a45aa341c10fd42d7ac943723070ef747c50a"
+    },
+    {
+      "path": "data/features/daily/feature_set=daily_market_facts/version=1.0.0/product=NQ/part-000.parquet",
+      "bytes": 940470,
+      "sha256": "2fbf2933e51183449203d63b81325774f4e81e335a7f51bf82534e9fd7ef0f10"
+    }
+  ],
+  "postgres_version": "18.6 (Postgres.app)",
+  "database": "daily_facts",
+  "sessions": 4095,
+  "window_rows": 24570,
+  "columns": 213,
+  "field_comparisons": 872235,
+  "session_counts": {
+    "ES": 1365,
+    "GC": 1365,
+    "NQ": 1365
+  },
+  "window_counts": {
+    "ES": {
+      "globex": 1365,
+      "overnight": 1365,
+      "rth": 1365,
+      "or15": 1365,
+      "first60": 1365,
+      "last60": 1365
+    },
+    "NQ": {
+      "globex": 1365,
+      "overnight": 1365,
+      "rth": 1365,
+      "or15": 1365,
+      "first60": 1365,
+      "last60": 1365
+    },
+    "GC": {
+      "globex": 1365,
+      "overnight": 1365,
+      "rth": 1365,
+      "or15": 1365,
+      "first60": 1365,
+      "last60": 1365
+    }
+  },
+  "first_session": "2021-06-28",
+  "last_session": "2026-09-18",
+  "mismatches": 0,
+  "manifest_path": "catalog/datasets/daily_market_facts__1.0.0.json",
+  "runtime_archive_sha256": "9fc7d0dc08cf46dfd94bb32cbaaad81b41b37847a42d6dcb2f9fbd292813defb",
+  "replay_importer_sha256": "d230a773c85efe5aa176fc25b111040606317b6ce28f89522b1a257f443e65c6",
+  "runs": [
+    {
+      "action": "imported",
+      "verified_at_utc": "2026-11-09T03:34:13.157489+00:00",
+      "projection_storage_bytes": 11657216
+    },
+    {
+      "action": "verified_existing",
+      "verified_at_utc": "2026-11-09T03:35:12.939754+00:00",
+      "projection_storage_bytes": 11722752
+    },
+    {
+      "action": "verified_existing",
+      "verified_at_utc": "2026-11-09T03:37:13.049108+00:00",
+      "projection_storage_bytes": 10805248
+    }
+  ],
+  "rollback_probe": {
+    "asset": "ES",
+    "session_date": "2021-06-28",
+    "field": "first60_volume",
+    "staged_change": "coalesce(volume, 0) + 1",
+    "mismatch_detected": true,
+    "projection_schema_absent_after_failure": true
+  }
+}

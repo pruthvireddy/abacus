@@ -1,0 +1,188 @@
+{
+  "provenance": {
+    "assets": [
+      {
+        "path": "figures/annual-stability.png",
+        "sha256": "794dead3606e8e8ea7d8c49ec730a39581862884c1508a05993803a4785f62fe"
+      },
+      {
+        "path": "figures/era-regimes.png",
+        "sha256": "f1b96ca11397c3002c0faa9aebd047c4de72105e540b52bae8858f65c261d731"
+      }
+    ],
+    "sourceSha256": "0630839ccd07c69249c275c616881b85b9e78de1219fd38a3f15f34ddb9cd122"
+  },
+  "report": {
+    "id": "nq-overnight-era-stability-v1",
+    "notes": [
+      "One unadjusted NQ contract per session. New York overnight hours are 18:00–09:30 and regular hours are 09:30–16:00.",
+      "The study covers January 2015 through September 18, 2026. 2018–2019 supply 295 of 307 earlier-era sessions.",
+      "Reel benchmark: Instagram reel Dfai3hHvMDn by @rithvikrishna64. Its exact sample and event definitions are unavailable.",
+      "Reaches use one-minute OHLC. The study describes price behavior and does not estimate trade execution or returns."
+    ],
+    "presentation": "research-paper",
+    "publishedAt": "2026-11-10T22:06:28Z",
+    "schemaVersion": "1.1",
+    "sections": [
+      {
+        "alt": "Boundary reach and first-touch rates by era and recent year, with Wilson intervals.",
+        "caption": "Boundary reach and first-touch rates by era and recent year, with Wilson intervals.",
+        "description": "Compare 2015–2019, 2018–2019 as a coverage sensitivity, and 2020 onward. The recent annual panel covers 2023–2026. The common-cutoff table uses only January through September 18 each year.",
+        "finding": "The near side went first on 72.2% in 2015–2019 (n=306) and 73.3% from 2020 onward (n=1,514). 2018–2019 contributed 295/307 of the earlier inside-range sessions. 2026 ends September 18. The saved common-cutoff table applies that date to every recent year.",
+        "id": "annual-stability",
+        "kind": "figure",
+        "path": "figures/annual-stability.png",
+        "title": "Did the results survive a change in era or year?"
+      },
+      {
+        "columns": [
+          {
+            "format": "number",
+            "key": "year",
+            "label": "Year",
+            "precision": 0
+          },
+          {
+            "format": "number",
+            "key": "n",
+            "label": "N",
+            "precision": 0
+          },
+          {
+            "format": "number",
+            "key": "median_points",
+            "label": "Median Points",
+            "precision": 2,
+            "unit": "points"
+          },
+          {
+            "format": "number",
+            "key": "p25_points",
+            "label": "P25 Points",
+            "precision": 2,
+            "unit": "points"
+          },
+          {
+            "format": "number",
+            "key": "p75_points",
+            "label": "P75 Points",
+            "precision": 2,
+            "unit": "points"
+          },
+          {
+            "format": "number",
+            "key": "relative_n",
+            "label": "Relative N",
+            "precision": 0
+          },
+          {
+            "format": "number",
+            "key": "relative_median",
+            "label": "Relative Median",
+            "precision": 4
+          },
+          {
+            "format": "number",
+            "key": "vxn_median",
+            "label": "Vxn Median",
+            "precision": 4
+          },
+          {
+            "format": "number",
+            "key": "vix_median",
+            "label": "Vix Median",
+            "precision": 4
+          },
+          {
+            "format": "number",
+            "key": "cutoff_n",
+            "label": "Cutoff N",
+            "precision": 0
+          },
+          {
+            "format": "number",
+            "key": "cutoff_median_points",
+            "label": "Cutoff Median Points",
+            "precision": 2,
+            "unit": "points"
+          }
+        ],
+        "description": "Compare the annual median range, the median relative to the prior 60 eligible windows, and the pre-open volatility backdrop. The year-to-date columns use the same September 18 cutoff for each year.",
+        "finding": "Through September 18 in each year, median overnight width was 124.8 points in 2023 and 324.5 points in 2026. The trailing-width ratio and volatility medians help put the raw point change in context.",
+        "id": "annual-width",
+        "kind": "table",
+        "rows": [
+          {
+            "cutoff_median_points": 124.75,
+            "cutoff_n": 149,
+            "median_points": 120.5,
+            "n": 217,
+            "p25_points": 85,
+            "p75_points": 160.75,
+            "relative_median": 0.9524528301886792,
+            "relative_n": 217,
+            "vix_median": 17.02,
+            "vxn_median": 21.36,
+            "year": 2023
+          },
+          {
+            "cutoff_median_points": 144.5,
+            "cutoff_n": 150,
+            "median_points": 145.75,
+            "n": 214,
+            "p25_points": 116.625,
+            "p75_points": 192.9375,
+            "relative_median": 1.0719479673788335,
+            "relative_n": 214,
+            "vix_median": 14.665,
+            "vxn_median": 18.54,
+            "year": 2024
+          },
+          {
+            "cutoff_median_points": 206,
+            "cutoff_n": 161,
+            "median_points": 203.75,
+            "n": 228,
+            "p25_points": 143.75,
+            "p75_points": 306,
+            "relative_median": 1.0195438581599414,
+            "relative_n": 228,
+            "vix_median": 17.29,
+            "vxn_median": 20.725,
+            "year": 2025
+          },
+          {
+            "cutoff_median_points": 324.5,
+            "cutoff_n": 173,
+            "median_points": 324.5,
+            "n": 173,
+            "p25_points": 233,
+            "p75_points": 431.25,
+            "relative_median": 1.0784623486045286,
+            "relative_n": 173,
+            "vix_median": 17.43,
+            "vxn_median": 23.95,
+            "year": 2026
+          }
+        ],
+        "title": "How did overnight width and pre-open volatility change across recent years?"
+      },
+      {
+        "alt": "Range-width and VXN matrices split by era, with small cells shown as counts only.",
+        "caption": "Range-width and VXN matrices split by era, with small cells shown as counts only.",
+        "description": "Use the same fixed point and VXN bands in both eras. These cells contain different mixes of opening distances, so compare them with the held-out distance-adjusted analysis.",
+        "finding": "2 of 9 cells in the earlier era and 9 of 9 in the modern era have at least 25 sessions. Rates in cells below that threshold are visually muted to counts. The saved distance table groups by near-target distance, and the scenario table groups by relative opening location.",
+        "id": "era-regimes",
+        "kind": "figure",
+        "path": "figures/era-regimes.png",
+        "title": "Do width and VXN tell the same story in each era?"
+      }
+    ],
+    "source": {
+      "producer": "sahadeva",
+      "runId": "20261110T134251Z_review_nq_v2"
+    },
+    "summary": "Compare the pooled eras with recent year-by-year results and a common September cutoff.",
+    "title": "Era & yearly stability"
+  }
+}

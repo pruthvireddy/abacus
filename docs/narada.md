@@ -6,8 +6,10 @@ It has an independent Node 24/npm environment under `apps/narada/`; the Python
 workspace remains responsible for data and research.
 
 The [Phase 1 publication plan](narada-publication-plan.md) inventories all studies
-and hands off the two pilots. Use the [web report authoring template](../templates/web-study-report.md)
-for selected content. The [release operations guide](../apps/narada/releases/README.md)
+and hands off the two pilots. Use the [notebook-study template](../templates/notebook-study/README.md)
+for new reports and requested conversions, with the
+[web report worksheet](../templates/web-study-report.md) for additional evidence
+mapping. The [release operations guide](../apps/narada/releases/README.md)
 defines the static-output Vercel upload without a repository connection, local
 preparation gates, release identity, hosted checks and rollback.
 
@@ -160,6 +162,13 @@ Sahadeva notebook exporter must prepare the selected plain text, typed tables
 and raster assets, omit code/private outputs, and verify provenance and exact
 transfer before the ordinary publisher is invoked. Reports without this marker
 retain the classic reader. Historical immutable publications are not rewritten.
+
+New report authoring and requested conversions use the
+[notebook-study template and guide](../templates/notebook-study/README.md).
+It combines this presentation with the Results-only catalog mode and flat
+question-theme tabs, and defines notebook cell structure, verified export and
+safe historical migration. The notebook owns selected wording, analysis and
+evidence; the website owns the visual layout.
 
 An `external` reference requires `id`, `kind`, `label`, `title`, `creator` and
 `url`; optional `publishedOn`/`accessedOn` are valid calendar dates, and
@@ -355,7 +364,7 @@ Results view. This replaces the intermediate report directory and duplicate
 report back-links.
 An entry can instead opt into catalog `readingMode: "single-page"` with flat
 `publicationTabs`. Its study root opens the featured theme in one Results
-workspace. Six native theme tabs switch the selected saved report; only its
+workspace. Native theme tabs switch the selected saved report; only its
 insights are rendered. Scope, methods and interpretation notes share a compact
 disclosure below the insights. Technical notebook publication-record directories
 are omitted from this reader; exact audit evidence remains in the saved bundles

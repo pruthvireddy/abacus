@@ -8,6 +8,14 @@ Keep study-specific code and tests with that study; put reusable methods in
 Sahadeva's package. Use the study's declared checks and the [run lifecycle](../runs/README.md)
 for staged output and completed evidence.
 
+New report authoring and requested legacy conversions use the
+[notebook-study template](../templates/notebook-study/README.md): ordinary cells
+for each insight's heading, description, actual analysis, generated findings and
+chart/table, grouped into question themes. The notebook owns the selected content;
+Narada presents verified saved outputs with code hidden. Review the notebook
+before the website projection. Label presentation-only migrations accurately;
+reconstructed calculations or changed interpretation require a new verified run.
+
 For source maintenance, use the [task/source/test map](README.md#implementation-and-export-maintenance)
 to distinguish numerical ownership, presentation exporters, and sealing gates.
 Keep exporter tests in Sahadeva and orchestration/record guards under

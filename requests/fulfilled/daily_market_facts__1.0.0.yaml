@@ -1,0 +1,118 @@
+request:
+  id: daily_market_facts__1.0.0
+  requested_on: '2026-11-08'
+  requesting_repository:
+    name: abacus
+    contact_or_owner: Sahadeva study 31
+  study: studies/31_daily_facts_volume_pilot
+  design: docs/daily-facts-v1-design.md
+  purpose: Deliver reusable Daily Facts for a local notebook pilot.
+
+base_data:
+  dataset: volume_lead_unadjusted_v1
+  variant: unadjusted
+  manifest: catalog/datasets/volume_lead_unadjusted_v1.json
+  manifest_sha256: 00757f5fc8278e75744d7adfaddc688be588d619d82b1dc1811aa60f21b7e5d4
+  roll_schedule: data/curated/continuous/1m/roll=volume_lead_v1/roll_schedule.parquet
+  roll_schedule_sha256: 0149b99b75da1138454e5face6516184ace3fef819b324183448c678460621b0
+  products: [ES, NQ, GC]
+  source_timeframe: 1m
+  date_range:
+    start: '2021-06-28'
+    end: '2026-09-19'
+    end_is_exclusive: true
+  selected_contract: Published roll-schedule instrument ID, raw symbol and roll ID at the session open.
+
+acquisition:
+  policy: repository_only
+  external_requests_allowed: false
+
+aggregation:
+  timezone: America/New_York
+  timestamp_storage: UTC
+  calendar: catalog/calendars/cme_fixed_clock_session_v1.json
+  calendar_sha256: d5e9d7895f02c5c66a2231e3f79e6bfbc21cd7ce7aa2f42974cfa50492186bcf
+  roster: Every weekday in the pilot bounds, including calendar exclusions and absent inputs.
+  interval_semantics: '[start, end) using minute opens. D is the session date.'
+  windows:
+    globex: {ES_NQ: ['D-1 18:00', 'D 17:00'], GC: ['D-1 18:00', 'D 17:00']}
+    overnight: {ES_NQ: ['D-1 18:00', 'D 09:30'], GC: ['D-1 18:00', 'D 08:20']}
+    rth: {ES_NQ: ['D 09:30', 'D 16:00'], GC: ['D 08:20', 'D 13:30']}
+    or15: {ES_NQ: ['D 09:30', 'D 09:45'], GC: ['D 08:20', 'D 08:35']}
+    first60: {ES_NQ: ['D 09:30', 'D 10:30'], GC: ['D 08:20', 'D 09:20']}
+    last60: {ES_NQ: ['D 15:00', 'D 16:00'], GC: ['D 12:30', 'D 13:30']}
+  missing_minutes: do_not_fill
+  quality: |
+    Evaluate each window independently. Require its exact minute grid, valid OHLCV
+    and the mapped contract. Opening prices depend only on the exact first minute.
+    Retain expected, observed, unique, missing, duplicate, off-grid, invalid and
+    contract-mismatch counts, readiness, reasons and availability timestamps.
+    Flag calendar exclusions and retain their nominal boundaries and diagnostics.
+    Leave fact values null on excluded sessions.
+
+features:
+  base_columns: [open, high, low, close, volume, range_points, net_change_points, return_fraction]
+  definitions: |
+    For each window use first-minute open, maximum high, minimum low, terminal
+    minute close and summed contracts. Compute high minus low, close minus open,
+    and close divided by open minus one. Opening prices become available at the
+    end of the first minute. The other values become available at the window end.
+    Preserve exact price points as decimal128(20,9) and volumes as uint64.
+  opening_reference: |
+    Use the immediately preceding weekday as the reference roster entry. An
+    excluded weekday, absent or incomplete prior RTH, or the pilot boundary
+    makes the reference null. Never skip an intervening weekday. A scheduled
+    roll or a changed selected instrument makes the reference and gap null.
+    The reference becomes available at the current Globex start when the
+    current mapping is effective. Gap is RTH open minus prior RTH close, and
+    gap fraction divides that difference by prior close. Both use RTH open timing.
+  volume_comparisons: |
+    Divide first60 and last60 volume by full RTH volume for their shares.
+    Divide first60 volume by last60 volume for the ratio. All use RTH end timing.
+  vwap: |
+    One-minute HLC3 weighted by volume. Retain Globex VWAP at RTH start,
+    RTH end and Globex end, plus RTH-only VWAP at RTH end. Subtract the
+    appropriate VWAP from the RTH or Globex close for the three distances.
+    Each checkpoint requires its own complete prefix and positive total volume.
+  context:
+    dataset: tradingview_daily_context__1.0.0
+    manifest: catalog/datasets/tradingview_daily_context__1.0.0.json
+    manifest_sha256: b7395d6ec2a3263e6f17b2ed95d22ea235d543a01e5b7f850eff81604ba6ce8f
+    mapping: {ES: VIX, NQ: VXN, GC: GVZ}
+    cutoff: RTH start
+    max_age_elapsed_days: 7
+    selection: Latest completed source observation with available_at at or before cutoff.
+    retained_fields: [symbol, source_symbol, close, source_day, source_available_at, age_hours, status]
+  null_policy: Missing or invalid dependencies and zero denominators produce null with a reason.
+  timing_scope: Logical completed-bar availability on retained snapshots. Historical provider vintages are unverified.
+
+research_labels: []
+
+output:
+  dataset_id: daily_market_facts__1.0.0
+  definition_version: '1.0.0'
+  format: parquet
+  compression: zstd
+  layout: data/features/daily/feature_set=daily_market_facts/version=1.0.0/product=<asset>/part-000.parquet
+  primary_key: [release_id, asset, session_date]
+  loader: abacus_bhishma.daily_facts_loader.load_daily_facts
+  overwrite_existing_version: false
+
+validation:
+  audited_counts: reports/quality/daily-facts-v1-input-audit-20261108/coverage_by_window.csv
+  audited_counts_sha256: 4ff27dde34a59c25c11e0e56c7e518dbf2ca241bf0b09b57c3aab5abfb0a94c7
+  float_relative_tolerance: 1.0e-12
+  float_absolute_tolerance: 1.0e-9
+  acceptance: |
+    Run synthetic boundary, DST, null, contract and context checks, followed by
+    a small retained sample with an ordinary session, DST, roll and incomplete GC.
+    Reconcile the full release against audited counts for all six windows and the
+    Globex prefix through RTH close. Independently compare selected minute-source
+    sessions for prices, volumes, VWAP, ratios, gaps and availability. Verify
+    input and output hashes, the typed schema, roster and unique keys.
+
+delivery:
+  keep_inside_abacus_bhishma: true
+  copy_into_requesting_repository: false
+  return: [dataset_id, manifest, schema, quality_report, checksums, loader]
+  scope: Local release and a pinned notebook pilot. Postgres and API are subsequent phases.

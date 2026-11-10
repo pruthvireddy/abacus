@@ -474,6 +474,13 @@ Its manifest is `../catalog/datasets/tv_indicators__dridr_ohlcv_5m__v1.json`.
 Downstream DR/IDR features, labels, outcomes, statistics, and Pine payloads are
 intentionally outside this dataset.
 
+[Daily Facts 1.0.0](../catalog/datasets/daily_market_facts__1.0.0.json) stores
+one typed Parquet table per product at
+`features/daily/feature_set=daily_market_facts/version=1.0.0/product=<asset>/part-000.parquet`.
+The roster includes calendar exclusions and independent window readiness.
+Retain the adjacent `provenance/` with the Parquet files and pin the manifest
+when consuming the release. See the [quality record](../reports/quality/daily_market_facts__1.0.0.md).
+
 The `tradingview_daily_context` release preserves nine external one-day chart
 exports (ES, NQ, GC, SI, CL, XAUUSD, VIX, VXN, GVZ). Exact source CSVs live in
 `raw/tradingview/chart_exports/1d/20260924-8722875f919f/`; one confirmed-bar

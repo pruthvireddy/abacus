@@ -1,0 +1,64 @@
+{
+  "audit_checks": {
+    "independent_source_window_comparisons": 42,
+    "input_files_hashed": 68,
+    "selected_minute_partition_hashes_matched": 51,
+    "source_bytes_unchanged": true,
+    "synthetic_passes": 21
+  },
+  "checked_on": "2026-11-08",
+  "checks": [
+    {
+      "command": "python3 scripts/check-agent-docs.py",
+      "exit_code": 0,
+      "result": "164 maintained guides; zero errors"
+    },
+    {
+      "command": "python3 -m unittest discover -s scripts/tests -p test_check_registry.py",
+      "exit_code": 0,
+      "result": "37 tests passed"
+    },
+    {
+      "command": "./scripts/check-workspace --profile metadata",
+      "exit_code": 0,
+      "result": "30 studies, 10 strategy cards, 3 structured references; metadata only"
+    },
+    {
+      "command": "python3 scripts/build-research-index.py --check",
+      "exit_code": 0,
+      "result": "Research library is current"
+    },
+    {
+      "command": "git diff --check",
+      "exit_code": 0,
+      "result": "No whitespace errors"
+    },
+    {
+      "command": "Explicit documentation checker on plan and audit report",
+      "exit_code": 0,
+      "result": "Local links and heading anchors passed"
+    },
+    {
+      "command": "Audit artifact and local diagnostic SHA-256 verification",
+      "exit_code": 0,
+      "result": "14 initial snapshot artifacts and 3 local diagnostic locators matched"
+    },
+    {
+      "command": "UV_CACHE_DIR=/private/tmp/abacus-daily-facts-audit-uv-cache ./scripts/check-workspace",
+      "errors": [
+        "Missing data/raw/databento/GLBX.MDP3/symbology/continuous/volume-rank-0/2010-06-06_2026-09-20.json",
+        "Phase2Error: ES roll 1 has no point-in-time definition pair in ten-day search window"
+      ],
+      "exit_code": 1,
+      "log": "workspace-check.log",
+      "not_executed": [
+        "sahadeva",
+        "legacy-01",
+        "legacy-02",
+        "vwap-doctor"
+      ],
+      "result": "Documentation passed; Bhishma ran 1003 tests with 2 source-integration errors"
+    }
+  ],
+  "scope": "Documentation and saved input audit only; no production fact implementation, dataset publication or cloud provisioning."
+}

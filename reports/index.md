@@ -2,7 +2,7 @@
 
 Saved evidence, study plans, and current strategy interpretation in one place.
 
-30 studies · 65 saved runs · 10 strategy cards.
+32 studies · 68 saved runs · 10 strategy cards.
 
 **Historical results were imported without recalculation or a new review. Latest means natural run-ID ordering; no recommendation or reference selection is inferred.**
 
@@ -419,6 +419,31 @@ Notebook reproduction run 20261108T040901Z\_notebook\_themes\_v2: 68 code cells 
 - **20261031\_repo\_v2** — [Report](../runs/30_verniman_pivot_statistics_es/20261031_repo_v2/report.html) · [Markdown](../runs/30_verniman_pivot_statistics_es/20261031_repo_v2/report.md) · [Manifest](../runs/30_verniman_pivot_statistics_es/20261031_repo_v2/manifest.json) · [Metrics](../runs/30_verniman_pivot_statistics_es/20261031_repo_v2/metrics.json) · [Advice](../runs/30_verniman_pivot_statistics_es/20261031_repo_v2/advice.md)
 - **20261031\_ranked\_v2 · selected reference** — [Report](../runs/30_verniman_pivot_statistics_es/20261031_ranked_v2/report.html) · [Markdown](../runs/30_verniman_pivot_statistics_es/20261031_ranked_v2/report.md) · [Manifest](../runs/30_verniman_pivot_statistics_es/20261031_ranked_v2/manifest.json) · [Metrics](../runs/30_verniman_pivot_statistics_es/20261031_ranked_v2/metrics.json) · [Advice](../runs/30_verniman_pivot_statistics_es/20261031_ranked_v2/advice.md)
 
+## Daily Facts Volume Pilot
+
+`31_daily_facts_volume_pilot` · completed · ES, NQ, GC
+
+Local notebook comparison of the first and last RTH hour on the same ES, NQ and GC session, using the pinned Daily Facts 1.0.0 release.
+
+Ten notebook cells executed in a fresh kernel. Independent calculations reconcile the saved estimates, denominators and exclusions. Results are descriptive for the retained population.
+
+[Study overview](../studies/31_daily_facts_volume_pilot/README.md) · [Metadata](../studies/31_daily_facts_volume_pilot/study.json)
+
+- **20261108T234605Z\_daily\_facts\_v1 · latest by ID · selected reference** — [Report](../runs/31_daily_facts_volume_pilot/20261108T234605Z_daily_facts_v1/report.html) · [Markdown](../runs/31_daily_facts_volume_pilot/20261108T234605Z_daily_facts_v1/report.md) · [Manifest](../runs/31_daily_facts_volume_pilot/20261108T234605Z_daily_facts_v1/manifest.json) · [Metrics](../runs/31_daily_facts_volume_pilot/20261108T234605Z_daily_facts_v1/metrics.json) · [Advice](../runs/31_daily_facts_volume_pilot/20261108T234605Z_daily_facts_v1/advice.md)
+
+## NQ Overnight Range at the Cash Open
+
+`32_nq_overnight_range` · completed · NQ
+
+Measures overnight boundary reaches, timing, range width, and pre-open VXN and VIX associations on NQ, with two eras and a recent yearly breakdown.
+
+Executed six-theme notebook and verified local review report. The earlier era is concentrated in 2018–2019. Touches are measured on one-minute OHLC and the analysis does not estimate returns.
+
+[Study overview](../studies/32_nq_overnight_range/README.md) · [Metadata](../studies/32_nq_overnight_range/study.json)
+
+- **20261110T134251Z\_review\_nq\_v2 · latest by ID · selected reference** — [Report](../runs/32_nq_overnight_range/20261110T134251Z_review_nq_v2/report.html) · [Markdown](../runs/32_nq_overnight_range/20261110T134251Z_review_nq_v2/report.md) · [Manifest](../runs/32_nq_overnight_range/20261110T134251Z_review_nq_v2/manifest.json)
+- **20261110T133525Z\_review\_nq** — [Report](../runs/32_nq_overnight_range/20261110T133525Z_review_nq/report.html) · [Markdown](../runs/32_nq_overnight_range/20261110T133525Z_review_nq/report.md) · [Manifest](../runs/32_nq_overnight_range/20261110T133525Z_review_nq/manifest.json)
+
 ## Strategy cards
 
 Cards record the current evidence status of each enduring idea. Follow their run links before interpreting any finding. Structured references identify selected saved rows; the separate reference check verifies hashes and row matches. These initial references do not cover every claim in a card.
@@ -443,6 +468,8 @@ Cards record the current evidence status of each enduring idea. Follow their run
 
 - [GLBX-20260920-577W4VCSK7](../reports/quality/GLBX-20260920-577W4VCSK7.md)
 - [GLBX-20260920-QQQSGCKWES](../reports/quality/GLBX-20260920-QQQSGCKWES.md)
+- [daily\_market\_facts\_\_1.0.0](../reports/quality/daily_market_facts__1.0.0.md)
+- [daily\_market\_facts\_\_1.0.0\_\_postgres\_parity](../reports/quality/daily_market_facts__1.0.0__postgres_parity.md)
 - [es\_contract\_session\_indicators\_\_1.0.0](../reports/quality/es_contract_session_indicators__1.0.0.md)
 - [gc\_ema\_deviation\_bands\_\_1.0.0](../reports/quality/gc_ema_deviation_bands__1.0.0.md)
 - [nq\_causal\_vp\_hvn\_\_1.0.0](../reports/quality/nq_causal_vp_hvn__1.0.0.md)

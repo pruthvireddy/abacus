@@ -25,6 +25,18 @@ is the authoritative placement map; the preservation rules below apply to every 
 | Workspace verification harness | [Harness guide](README.md#workspace-check-harness), [registry](config/workspace-checks.json) | Explicit owner/check records in `config/`; standard-library orchestration and synthetic tests in `scripts/` | Focused harness tests, documentation and tooling profiles; preserve the default gate |
 | Reusable data request | [Request workflow](requests/README.md) | A new request under `requests/inbox/` | Request completeness and relevant publication checks at delivery |
 
+## Default study report layout
+
+For newly authored study reports and requested migrations, follow the
+[notebook-study template and guide](templates/notebook-study/README.md).
+Keep actual analysis in ordinary study-local notebook cells, grouped by question
+themes. Each insight presents a heading, brief description, findings summary and
+chart or table. Narada uses the Research paper reader with Results as the only
+outer destination and native theme tabs; publish selected saved output without
+code or technical notebook publication-record directories. Review the notebook
+before the web projection. Distinguish saved-evidence presentation from new
+analysis when migrating; preserve completed runs and publication identities.
+
 ## Preserve the research record
 
 - Published datasets are immutable. Pin dataset IDs, versions, and manifest hashes.

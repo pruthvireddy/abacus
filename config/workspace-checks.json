@@ -62,7 +62,7 @@
       ]
     },
     "studies": {
-      "description": "All 22 active local study test directories, isolated processes; studies 06/11 require retained inputs/evidence.",
+      "description": "All 23 active local study test directories, isolated processes; studies 06/11 require retained inputs/evidence.",
       "checks": [
         "study-05",
         "study-06",
@@ -85,7 +85,8 @@
         "study-26",
         "study-28",
         "study-29",
-        "study-30"
+        "study-30",
+        "study-32"
       ]
     },
     "guards": {
@@ -251,14 +252,16 @@
       "description": "Bhishma data, features, public loaders and immutable publication contracts",
       "guides": [
         "packages/bhishma/AGENTS.md",
-        "packages/bhishma/README.md"
+        "packages/bhishma/README.md",
+        "docs/daily-facts-v1-design.md"
       ],
       "read_first": [
         "packages/bhishma/AGENTS.md",
         "packages/bhishma/README.md",
         "data/README.md",
         "requests/README.md",
-        "config/paths.example.toml"
+        "config/paths.example.toml",
+        "docs/daily-facts-v1-design.md"
       ],
       "entry_points": [
         "packages/bhishma/src/abacus_bhishma",
@@ -268,6 +271,9 @@
         "packages/bhishma/src/abacus_bhishma/continuous_phase2.py",
         "packages/bhishma/src/abacus_bhishma/vp_hvn_release.py",
         "packages/bhishma/src/abacus_bhishma/daily_context.py",
+        "packages/bhishma/src/abacus_bhishma/daily_facts_release.py",
+        "packages/bhishma/src/abacus_bhishma/daily_facts_loader.py",
+        "requests/fulfilled/daily_market_facts__1.0.0.yaml",
         "packages/bhishma/src/abacus_bhishma/gc_ema_bands.py",
         "packages/bhishma/src/abacus_bhishma/derived_ohlcv_5m.py",
         "packages/bhishma/src/abacus_bhishma/session_anchored_vwap.py",
@@ -295,6 +301,7 @@
         "packages/bhishma/tests/test_runtime_prerequisites.py"
       ],
       "related_checks": [
+        "bhishma-daily-facts",
         "study-14-consumer-imports"
       ],
       "preservation": [
@@ -361,12 +368,14 @@
         "apps/narada/releases/README.md",
         "docs/narada.md",
         "docs/narada-publication-plan.md",
-        "templates/web-study-report.md"
+        "templates/web-study-report.md",
+        "templates/notebook-study/README.md"
       ],
       "read_first": [
         "apps/narada/AGENTS.md",
         "apps/narada/README.md",
-        "docs/narada.md"
+        "docs/narada.md",
+        "templates/notebook-study/README.md"
       ],
       "entry_points": [
         "apps/narada/scripts/verify.mjs",
@@ -1554,6 +1563,58 @@
         "navigation-metadata",
         "research-index"
       ]
+    },
+    "study-31": {
+      "kind": "study",
+      "path": "studies/31_daily_facts_volume_pilot",
+      "study_id": "31_daily_facts_volume_pilot",
+      "description": "Daily Facts local notebook handoff and descriptive paired RTH volume comparison",
+      "guides": [
+        "studies/31_daily_facts_volume_pilot/README.md",
+        "studies/31_daily_facts_volume_pilot/plan.md"
+      ],
+      "read_first": [
+        "studies/31_daily_facts_volume_pilot/README.md",
+        "studies/31_daily_facts_volume_pilot/plan.md",
+        "studies/31_daily_facts_volume_pilot/study.yaml",
+        "studies/31_daily_facts_volume_pilot/inputs.lock.json",
+        "studies/31_daily_facts_volume_pilot/notes.md",
+        "requests/fulfilled/daily_market_facts__1.0.0.yaml"
+      ],
+      "entry_points": [
+        "studies/31_daily_facts_volume_pilot/run.py",
+        "studies/31_daily_facts_volume_pilot/daily-facts-volume-pilot.ipynb"
+      ],
+      "preservation": [
+        "Pin the retained Daily Facts release and stage each notebook execution before sealing a unique run."
+      ],
+      "related_checks": ["bhishma-daily-facts", "agent-docs", "navigation-metadata", "research-index"],
+      "no_suite_reason": "The notebook runner executes the pinned study and reconciles its saved outputs before sealing. Bhishma owns the synthetic data-product suite."
+    },
+    "study-32": {
+      "kind": "study",
+      "path": "studies/32_nq_overnight_range",
+      "study_id": "32_nq_overnight_range",
+      "description": "NQ overnight range geometry, volatility, first touch and era stability",
+      "guides": [
+        "studies/32_nq_overnight_range/README.md",
+        "studies/32_nq_overnight_range/plan.md"
+      ],
+      "read_first": [
+        "studies/32_nq_overnight_range/README.md",
+        "studies/32_nq_overnight_range/plan.md",
+        "studies/32_nq_overnight_range/study.yaml",
+        "studies/32_nq_overnight_range/inputs.lock.json",
+        "studies/32_nq_overnight_range/notes.md"
+      ],
+      "entry_points": [
+        "studies/32_nq_overnight_range/run.py",
+        "studies/32_nq_overnight_range/nq-overnight-range-cash-open.ipynb"
+      ],
+      "preservation": [
+        "Preserve historical window qualifications and run sealed evidence from new staging directories."
+      ],
+      "related_checks": ["study-32", "bhishma-daily-facts", "agent-docs", "navigation-metadata", "research-index"]
     }
   },
   "checks": [
@@ -1630,6 +1691,25 @@
       "scope": [
         "Synthetic fixtures, actual native/Ruby tools and configured-publication integration; not a no-data suite."
       ]
+    },
+    {
+      "id": "bhishma-daily-facts",
+      "owner": "bhishma",
+      "kind": "unittest",
+      "description": "Daily Facts window timing, coverage, exact values, and pinned loader and publisher guards",
+      "cwd": ".",
+      "runtime": "locked-python",
+      "unittest": {
+        "start_dir": "packages/bhishma/tests",
+        "pattern": "test_daily_facts.py",
+        "optimize": false
+      },
+      "env": {},
+      "prerequisites": [
+        {"kind": "executable", "name": "uv", "description": "Existing uv resolution."},
+        {"kind": "directory", "path": ".venv", "description": "Prepared locked environment."}
+      ],
+      "scope": ["Synthetic source minutes and temporary Parquet fixtures. No retained-data scan or publication."]
     },
     {
       "id": "bhishma-feature-loaders",
@@ -3696,6 +3776,36 @@
       "scope": [
         "Synthetic source-shape/date/contract/availability accounting, repository-only input requirements, event/confirmation/horizon/retest/denominator statistics and evidence/export guards.",
         "No retained market-data reads, source-audit execution, research runs, acquisition, publication, sealing or deployment."
+      ]
+    },
+    {
+      "id": "study-32",
+      "owner": "study-32",
+      "kind": "unittest",
+      "description": "Synthetic NQ opening geometry and notebook numerical checks",
+      "cwd": ".",
+      "runtime": "locked-python",
+      "unittest": {
+        "start_dir": "studies/32_nq_overnight_range/tests",
+        "pattern": "test*.py",
+        "optimize": false
+      },
+      "env": {},
+      "prerequisites": [
+        {
+          "kind": "executable",
+          "name": "uv",
+          "description": "Existing scripts/uv resolution; no bootstrap or synchronization."
+        },
+        {
+          "kind": "directory",
+          "path": ".venv",
+          "description": "Prepared locked Python environment; no dependency installation."
+        }
+      ],
+      "scope": [
+        "Synthetic geometry, boundary-order, excursion, and probability-model fixtures.",
+        "No retained market-data reads, database writes or notebook execution."
       ]
     }
   ]

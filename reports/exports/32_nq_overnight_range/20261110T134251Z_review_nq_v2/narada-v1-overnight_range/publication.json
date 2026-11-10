@@ -1,0 +1,191 @@
+{
+  "schemaVersion": "1.1",
+  "presentation": "research-paper",
+  "id": "nq-overnight-overnight-range-v1",
+  "title": "The overnight range",
+  "summary": "Start with the coverage, width and location of the cash open.",
+  "publishedAt": "2026-11-10T22:06:28Z",
+  "source": {
+    "producer": "sahadeva",
+    "runId": "20261110T134251Z_review_nq_v2"
+  },
+  "sections": [
+    {
+      "id": "coverage",
+      "title": "Which NQ sessions can answer the question?",
+      "description": "Inventory calendar eligibility, overnight and regular-hour completeness, and the final inside-range cohort. A valid open can exist even when a later RTH minute is missing.",
+      "finding": "The primary sample contains 1,827 inside-range sessions (307 in 2015–2019 and 1,520 from 2020 onward). The strict early-era cohort has 12 sessions from 2015–2017. The support by year matters when comparing eras.",
+      "kind": "table",
+      "columns": [
+        {
+          "key": "year",
+          "label": "Year",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "roster",
+          "label": "Roster",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "eligible",
+          "label": "Eligible",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "overnight_complete",
+          "label": "Overnight Complete",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "rth_complete",
+          "label": "Rth Complete",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "both_complete",
+          "label": "Both Complete",
+          "format": "number",
+          "precision": 0
+        },
+        {
+          "key": "inside_primary",
+          "label": "Inside Primary",
+          "format": "number",
+          "precision": 0
+        }
+      ],
+      "rows": [
+        {
+          "year": 2015,
+          "roster": 261,
+          "eligible": 250,
+          "overnight_complete": 1,
+          "rth_complete": 250,
+          "both_complete": 1,
+          "inside_primary": 1
+        },
+        {
+          "year": 2016,
+          "roster": 261,
+          "eligible": 251,
+          "overnight_complete": 6,
+          "rth_complete": 251,
+          "both_complete": 6,
+          "inside_primary": 6
+        },
+        {
+          "year": 2017,
+          "roster": 260,
+          "eligible": 249,
+          "overnight_complete": 5,
+          "rth_complete": 249,
+          "both_complete": 5,
+          "inside_primary": 5
+        },
+        {
+          "year": 2018,
+          "roster": 261,
+          "eligible": 248,
+          "overnight_complete": 117,
+          "rth_complete": 248,
+          "both_complete": 117,
+          "inside_primary": 116
+        },
+        {
+          "year": 2019,
+          "roster": 261,
+          "eligible": 249,
+          "overnight_complete": 179,
+          "rth_complete": 249,
+          "both_complete": 179,
+          "inside_primary": 179
+        },
+        {
+          "year": 2020,
+          "roster": 262,
+          "eligible": 251,
+          "overnight_complete": 227,
+          "rth_complete": 247,
+          "both_complete": 227,
+          "inside_primary": 227
+        },
+        {
+          "year": 2021,
+          "roster": 261,
+          "eligible": 251,
+          "overnight_complete": 225,
+          "rth_complete": 251,
+          "both_complete": 225,
+          "inside_primary": 225
+        },
+        {
+          "year": 2022,
+          "roster": 260,
+          "eligible": 250,
+          "overnight_complete": 237,
+          "rth_complete": 250,
+          "both_complete": 237,
+          "inside_primary": 237
+        },
+        {
+          "year": 2023,
+          "roster": 260,
+          "eligible": 248,
+          "overnight_complete": 217,
+          "rth_complete": 248,
+          "both_complete": 217,
+          "inside_primary": 216
+        },
+        {
+          "year": 2024,
+          "roster": 262,
+          "eligible": 249,
+          "overnight_complete": 214,
+          "rth_complete": 249,
+          "both_complete": 214,
+          "inside_primary": 214
+        },
+        {
+          "year": 2025,
+          "roster": 261,
+          "eligible": 247,
+          "overnight_complete": 228,
+          "rth_complete": 247,
+          "both_complete": 228,
+          "inside_primary": 228
+        },
+        {
+          "year": 2026,
+          "roster": 187,
+          "eligible": 179,
+          "overnight_complete": 173,
+          "rth_complete": 179,
+          "both_complete": 173,
+          "inside_primary": 173
+        }
+      ]
+    },
+    {
+      "id": "opening-geometry",
+      "title": "How wide is the range, and where does NQ open?",
+      "description": "Use complete overnight windows for width and available opening geometry for the location distribution. Points are NQ price points.",
+      "finding": "Median width was 67.2 NQ points in 2015–2019 and 160.2 points from 2020 onward. Of the two-window sessions, 1 opened outside and 1 opened exactly at a boundary.",
+      "kind": "figure",
+      "path": "figures/opening-geometry.png",
+      "caption": "Distribution of overnight width by era and distribution of normalized cash-open location.",
+      "alt": "Distribution of overnight width by era and distribution of normalized cash-open location."
+    }
+  ],
+  "notes": [
+    "One unadjusted NQ contract per session. New York overnight hours are 18:00–09:30 and regular hours are 09:30–16:00.",
+    "The study covers January 2015 through September 18, 2026. 2018–2019 supply 295 of 307 earlier-era sessions.",
+    "Reel benchmark: Instagram reel Dfai3hHvMDn by @rithvikrishna64. Its exact sample and event definitions are unavailable.",
+    "Reaches use one-minute OHLC. The study describes price behavior and does not estimate trade execution or returns."
+  ]
+}

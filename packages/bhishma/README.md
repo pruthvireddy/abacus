@@ -442,6 +442,84 @@ saved builder-fingerprint comparison can fail after source maintenance; preserve
 the check and historical fingerprint and report the mismatch. A synthetic test
 pass does not certify a historical replay or revalidate a release's numbers.
 
+## Daily Facts local release
+
+Daily Facts 1.0.0 contains 4,095 ES, NQ and GC weekday rows with six independent
+session windows. The [fulfilled request](../../requests/fulfilled/daily_market_facts__1.0.0.yaml),
+[schema](../../catalog/schemas/daily_market_facts__1.0.0.json),
+[manifest](../../catalog/datasets/daily_market_facts__1.0.0.json) and
+[quality record](../../reports/quality/daily_market_facts__1.0.0.md) identify
+the exact delivery and its source checks. Coverage fields include retrospective
+counts. Each fact group has a separate logical availability timestamp.
+
+Use `abacus_bhishma.daily_facts_loader.load_daily_facts` with an explicit root,
+manifest path and SHA-256. It verifies selected Parquet bytes by default. Use
+`assets`, half-open session-date bounds and `columns` to project a subset.
+The [pilot notebook](../../studies/31_daily_facts_volume_pilot/README.md) uses
+this loader. Local availability checks use the per-field timestamps and do not
+assume historical provider vintages.
+
+The following verification rechecks released outputs, audited coverage and
+selected raw-window calculations without writing files.
+
+```sh
+./scripts/check-workspace --check bhishma-daily-facts
+./scripts/uv run --locked --no-sync python -B -m abacus_bhishma.daily_facts_release verify --manifest-sha256 ba5a1b8fb15d7e2ddb4de167122a2930f45868358f66549fb748037c95d60fb2
+```
+
+The release builder's `sample --stage <fresh-path>` action stages 30 sampled
+asset sessions under `work/daily-facts-v1/`. The `build` action reconciles the
+entire roster before promoting a new release and refuses existing destinations.
+Keep the Parquet files and retained producer/verification bytes together when
+backing up the release.
+
+### Daily Facts local Postgres
+
+The [parity report](../../reports/quality/daily_market_facts__1.0.0__postgres_parity.md)
+records the import and committed readback. Bhishma owns the projection. The
+portable release remains the input for reproducible research. Run the importer
+from the repository root with `psql` and an existing local database. It uses the
+configured publication root unless `--root` is supplied and prints the result
+as JSON. A matching release pin triggers a full readback without rewriting
+rows. A parity error rolls back a fresh import.
+
+The local pilot uses Postgres.app command-line binaries and a private Unix
+socket. Set these paths to query or verify the saved database.
+
+```sh
+pgwork="$PWD/work/daily-facts-v1/postgres"
+pgsock="$PWD/work/daily-facts-v1/pgsock"
+pgbin="$pgwork/runtime/18/bin"
+
+"$pgbin/psql" -X -h "$pgsock" -p 55434 -d daily_facts -c \
+  'SELECT asset, count(*) FROM daily_facts.daily_facts_v1 GROUP BY asset ORDER BY asset;'
+
+./scripts/uv run --locked --no-sync python -B -m abacus_bhishma.daily_facts_postgres \
+  --manifest-sha256 ba5a1b8fb15d7e2ddb4de167122a2930f45868358f66549fb748037c95d60fb2 \
+  --psql "$pgbin/psql" --socket-dir "$pgsock" --port 55434 --database daily_facts
+```
+
+If the pilot server is stopped, start its existing cluster with the same socket
+settings. Stop it with `"$pgbin/pg_ctl" -D "$pgwork/cluster" -w stop`.
+
+```sh
+install -d -m 700 "$pgsock"
+"$pgbin/pg_ctl" -D "$pgwork/cluster" -l "$pgwork/server.log" \
+  -o "-c listen_addresses='' -c unix_socket_directories='$pgsock' -c unix_socket_permissions=0700 -p 55434" -w start
+```
+
+### NQ opening range companion
+
+The [NQ opening range release](../../catalog/datasets/nq_opening_range_facts__1.0.0.json)
+supplies the midpoint, opening position, signed boundary distances, pre-open
+VXN and VIX, and window quality. The [fulfilled request](../../requests/fulfilled/nq_opening_range_facts__1.0.0.yaml)
+defines the earlier NQ window qualification separately from the existing
+Daily Facts full-session calendar. The [portable loader](src/abacus_bhishma/nq_opening_range.py)
+requires the manifest SHA-256. The local Postgres view
+`daily_facts.nq_opening_range_v1` joins to Daily Facts by asset and session date.
+The [readback receipt](../../reports/quality/nq_opening_range_facts__1.0.0__postgres_parity.json)
+records the committed projection and overlap count.
+
 ## Focused publication and consumer maintenance
 
 Use `./scripts/check-workspace --context bhishma` for concrete source/test paths.

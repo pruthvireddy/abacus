@@ -15,6 +15,13 @@ Read the relevant study's plan and pinned inputs before analytical work.
   under `studies/<study-id>/`, following the [study guide](../../studies/README.md).
   Keep signal rules, outcomes, parameters, and interpretation local; extract
   methods into this package when reuse warrants a shared interface.
+- Newly authored reports and requested conversions follow the
+  [notebook-study guide](../../templates/notebook-study/README.md). Keep actual
+  insight calculations, generated findings and visuals in ordinary study-local
+  notebook cells. Helpers own loading/execution/export infrastructure; do not
+  replace the analysis with a single rendering call. Keep saved-evidence
+  presentation distinct from new analytical reconstruction, and review the
+  notebook before the Narada projection.
 - Obtain data and features through Bhishma's loaders and explicit input locks.
   Request reusable feature changes through the [request workflow](../../requests/README.md).
   Respect feature availability and the study's observation/execution conventions.
